@@ -176,6 +176,17 @@ input[type=number] { -moz-appearance:textfield; }
 .pillar.live .st { color:var(--accent); }
 
 .note { font-size:13px; color:var(--muted); }
+.ver { text-align:center; font-family:var(--mono); font-size:11px;
+  color:var(--line-strong); letter-spacing:.06em; }
+/* Tap the thing you want to change. Underlined so it reads as editable
+   without adding a button or an icon anywhere. */
+.tapedit { background:none; border:none; padding:0; cursor:pointer;
+  font-family:inherit; font-weight:600; font-size:14px; color:var(--ink);
+  text-decoration:underline; text-decoration-style:dotted;
+  text-decoration-color:var(--line-strong); text-underline-offset:3px; }
+.tapedit.small { font-size:11px; font-weight:400; color:var(--muted); }
+.tapedit.small.met { color:var(--accent); font-weight:500; }
+.chart svg rect[data-day] { cursor:pointer; }
 .install { display:flex; align-items:flex-start; gap:10px; padding:12px 14px;
   border:1px solid var(--line); border-radius:12px; background:var(--soft);
   font-size:13px; color:var(--ink-2); }
@@ -202,6 +213,10 @@ input[type=number] { -moz-appearance:textfield; }
 <script>
 (() => {
   "use strict";
+
+  // Bump this when the file changes, so you can tell at a glance which
+  // version a phone is actually running after a deploy.
+  const APP_VERSION = "1.1";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -250,6 +265,10 @@ input[type=number] { -moz-appearance:textfield; }
     hover: null,
     adding: false,
     bulk: false,
+    editing: null,        // null | 'name' | 'goal'
+    entryDate: null,      // null means today
+    pickDate: false,
+    byDate: new Map(),    // date -> {value, logged}, for backdated entry
     msg: null,
   };
 
@@ -283,6 +302,32 @@ input[type=number] { -moz-appearance:textfield; }
       p_code: state.code, p_person: state.meId, p_days: days, p_today: todayISO(),
     });
     state.history = res.error ? [] : (res.days || []);
+    for (const d of state.history) state.byDate.set(d.date, d);
+  }
+
+  /* ---------- which day is being logged ----------------------------- */
+  const entryDay = () => state.entryDate || todayISO();
+
+  // Days outside the loaded chart window are read one at a time.
+  async function ensureDay(iso) {
+    if (state.byDate.has(iso) || !state.meId) return;
+    const res = await call("app_value", {
+      p_code: state.code, p_person: state.meId, p_date: iso,
+    });
+    if (!res.error) {
+      state.byDate.set(iso, { date: iso, value: Number(res.value), logged: !!res.logged });
+    }
+  }
+
+  // What is already recorded for the day on screen.
+  function dayRecord() {
+    const iso = entryDay();
+    if (iso === todayISO()) {
+      const m = me();
+      return { value: m ? Number(m.value) : 0, logged: m ? m.logged : false };
+    }
+    const d = state.byDate.get(iso);
+    return { value: d ? Number(d.value) : 0, logged: d ? d.logged : false };
   }
 
   /* ---------- chart ------------------------------------------------ */
@@ -325,12 +370,16 @@ input[type=number] { -moz-appearance:textfield; }
     pts.forEach((p, i) => {
       const x = i * slot + (slot - bw) / 2;
       if (p.value <= 0) {
-        bars += `<rect x="${x}" y="${y(0)-2}" width="${bw}" height="2" fill="var(--soft)"></rect>`;
+        // A taller invisible target, so an empty day is as easy to hit as a full one.
+        bars += `<rect x="${x}" y="${PT}" width="${bw}" height="${plot}" fill="transparent"
+                  data-day="${p.key}"></rect>` +
+                `<rect x="${x}" y="${y(0)-2}" width="${bw}" height="2" fill="var(--soft)"
+                  pointer-events="none"></rect>`;
         return;
       }
       const dim = state.hover !== null && state.hover !== i ? ' opacity="0.4"' : "";
       bars += `<rect x="${x}" y="${y(p.value)}" width="${bw}" height="${Math.max(y(0)-y(p.value),2)}"
-                rx="${Math.min(bw/2,1.4)}" fill="var(--series)"${dim}></rect>`;
+                rx="${Math.min(bw/2,1.4)}" fill="var(--series)" data-day="${p.key}"${dim}></rect>`;
     });
 
     const goalLine = goal && goal <= max
@@ -350,7 +399,8 @@ input[type=number] { -moz-appearance:textfield; }
     }
 
     const legend = goal && goal <= max
-      ? `<div class="legend"><i></i><span>your daily goal, ${num(goal)} ${esc(state.metric.unit)}</span></div>`
+      ? `<div class="legend"><i></i><button class="tapedit small" data-edit="goal"
+           >your daily goal, ${num(goal)} ${esc(state.metric.unit)}</button></div>`
       : `<div class="legend"><span>${state.range === "12w" ? "Totals per week, Monday to Sunday." : ""}</span></div>`;
 
     return `
@@ -421,33 +471,36 @@ input[type=number] { -moz-appearance:textfield; }
     const day = new Date().toLocaleDateString(undefined,
       { weekday:"short", month:"short", day:"numeric" });
 
+    // Deliberately plain text. Emoji can arrive as replacement characters
+    // on some WhatsApp clients, and a message the family reads every day
+    // is the wrong place to gamble on font and encoding support.
     const lines = [
-      `*${state.group.name}* · ${day}`,
-      `${done.length}/${state.people.length} logged · ${hit.length} hit their goal`,
-      "",
+      `*${state.group.name}* - ${day}`,
+      `${done.length}/${state.people.length} logged, ${hit.length} hit their goal`,
     ];
 
-    // Highest first here, unlike the app. A chat message is read once and
-    // skimmed; the roster in the app is where nobody gets ranked.
-    for (const p of [...done].sort((a, b) => Number(b.value) - Number(a.value))) {
-      const met = Number(p.value) >= Number(p.target);
-      const streak = p.streak > 1 ? `  (${p.streak}-day streak)` : "";
-      lines.push(`${met ? "✅" : "▫️"} ${p.name} — ${num(p.value)}${streak}`);
-    }
+    // Ranked here, unlike the app: a chat message is skimmed once, and the
+    // order is what makes it worth reading.
+    const sorted = [...done].sort((a, b) => Number(b.value) - Number(a.value));
+    const met = sorted.filter((p) => Number(p.value) >= Number(p.target));
+    const under = sorted.filter((p) => Number(p.value) < Number(p.target));
 
-    if (missing.length) {
-      lines.push("", `Still to log: ${missing.map((p) => p.name).join(", ")}`);
-    }
+    const row = (p) => `  ${p.name}  ${num(p.value)}` +
+      (p.streak > 1 ? `  (${p.streak}-day streak)` : "");
+
+    if (met.length)   lines.push("", "GOAL HIT", ...met.map(row));
+    if (under.length) lines.push("", "LOGGED",   ...under.map(row));
+    if (missing.length) lines.push("", "NOT YET", "  " + missing.map((p) => p.name).join(", "));
 
     lines.push("", `${location.origin}${location.pathname}?g=${state.code}`);
     return lines.join("\n");
   }
 
+
   /* ---------- views ------------------------------------------------ */
   function landing() {
     return `
       <header class="masthead">
-        <p class="eyebrow">Version 1 &middot; Exercise pillar</p>
         <h1>Family Health Dashboard</h1>
         <p class="sub">One number a day. Everyone sees how everyone is doing.
           No accounts, no passwords &mdash; a family shares one link.</p>
@@ -481,7 +534,9 @@ input[type=number] { -moz-appearance:textfield; }
       <p class="hint ${state.msg ? "bad" : ""}" id="msg">${esc(state.msg || "")}</p>
 
       <p class="note">Anyone holding a group&rsquo;s link can see and log for that
-        group. Share it the way you would share a house key.</p>`;
+        group. Share it the way you would share a house key.</p>
+
+      <p class="ver">v${APP_VERSION}</p>`;
   }
 
   function groupView() {
@@ -496,26 +551,36 @@ input[type=number] { -moz-appearance:textfield; }
         state.people.map((p) =>
           `<option value="${p.id}"${p.id === state.meId ? " selected" : ""}>${esc(p.name)}</option>`).join("");
 
+    const iso = entryDay();
+    const isToday = iso === todayISO();
+    const rec = dayRecord();
+    const dayTitle = isToday ? "Today"
+      : new Date(iso + "T00:00:00Z").toLocaleDateString(undefined,
+          { timeZone:"UTC", weekday:"long", month:"short", day:"numeric" });
+    const restHint = rec.logged
+      ? "Already recorded. You can correct it."
+      : isToday ? "Takes five seconds." : "Nothing recorded for that day yet.";
+
     const entry = m ? `
       <section class="card">
         <div class="section-head">
-          <h2>Today</h2>
-          <span class="eyebrow">${m.logged ? "logged" : "how many " + unit + "?"}</span>
+          <h2>${esc(dayTitle)}</h2>
+          <span class="eyebrow">${rec.logged ? "logged" : "how many " + unit + "?"}</span>
         </div>
         <div class="entry-row">
           <input id="steps" type="number" inputmode="numeric" placeholder="0"
-                 aria-label="${unit} today" value="${m.logged ? Number(m.value) : ""}">
-          <button class="btn" id="save">${m.logged ? "Update" : "Log"}</button>
+                 aria-label="${unit} for ${esc(dayTitle)}"
+                 value="${rec.logged ? rec.value : ""}">
+          <button class="btn" id="save">${rec.logged ? "Update" : "Log"}</button>
         </div>
-        <p class="hint ${state.msgKind || ""}" id="hint">${esc(state.msg ||
-          (m.logged ? "Already logged today. You can correct it." : "Takes five seconds."))}</p>
+        <p class="hint ${state.msgKind || ""}" id="hint">${esc(state.msg || restHint)}</p>
       </section>
 
       <section>
         <div class="section-head">
           <h2>Your trend</h2>
           <div class="range" role="group" aria-label="Time range">
-            ${["14","30","12w"].map((r) =>
+            ${["14","12w"].map((r) =>
               `<button type="button" data-range="${r}" aria-pressed="${state.range === r}">
                  ${r === "12w" ? "12 weeks" : r + " days"}</button>`).join("")}
           </div>
@@ -523,38 +588,6 @@ input[type=number] { -moz-appearance:textfield; }
         <div class="card">
           ${chartHTML()}
           ${statsHTML()}
-          <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--line);
-                      display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-            <span class="note">Daily goal</span>
-            <input id="goal" type="number" inputmode="numeric" value="${Number(m.target)}"
-                   aria-label="Your daily goal"
-                   style="width:110px;border:1px solid var(--line-strong);background:var(--surface);
-                          border-radius:9px;padding:8px 10px;font-family:var(--mono);font-weight:500">
-            <button class="btn-quiet" id="saveGoal">Save goal</button>
-            <span class="note" id="goalHint"></span>
-          </div>
-          <button class="linkbtn" id="remindBtn" style="margin-top:12px">
-            ${m.email ? "Daily reminder to " + esc(m.email) + " — change" : "Get a daily reminder by email"}
-          </button>
-          <div id="remindRow" hidden style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line)">
-            <p class="note">One email a day: your count, or a nudge if you have not
-              logged, plus how many of the family have. Leave it blank to switch off.</p>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:9px">
-              <input id="remindEmail" type="email" placeholder="you@example.com"
-                     value="${esc(m.email || "")}" style="flex:1;min-width:160px;
-                     border:1px solid var(--line-strong);background:var(--surface);
-                     border-radius:9px;padding:9px 11px;font-size:14px">
-              <select id="remindHour" style="border:1px solid var(--line-strong);
-                      background:var(--surface);border-radius:9px;padding:9px 11px;font-size:14px">
-                ${[7,12,17,19,20,21,22].map((h) => {
-                  const t = (h % 12 === 0 ? 12 : h % 12) + (h < 12 ? "am" : "pm");
-                  return `<option value="${h}"${h === m.digest_hour ? " selected" : ""}>${t}</option>`;
-                }).join("")}
-              </select>
-              <button class="btn-quiet" id="saveRemind">Save</button>
-            </div>
-            <p class="note" id="remindHint" style="margin-top:8px;min-height:16px"></p>
-          </div>
         </div>
       </section>` : `
       <div class="dashed"><p class="note">Pick your name above, or add it, and your
@@ -569,14 +602,18 @@ input[type=number] { -moz-appearance:textfield; }
           const pct = t > 0 ? Math.min(100, (v / t) * 100) : 0;
           const initials = p.name.trim().split(/\s+/).slice(0,2)
             .map((w) => (w[0] || "").toUpperCase()).join("");
+          const mine = p.id === state.meId;
           return `<div class="person">
             <span class="dot" aria-hidden="true"
               style="background:hsl(${p.hue} 42% 92%);color:hsl(${p.hue} 55% 26%);
                      background:color-mix(in oklab, hsl(${p.hue} 62% 48%) 16%, var(--surface));
                      color:color-mix(in oklab, hsl(${p.hue} 62% 48%) 78%, var(--ink))">${esc(initials)}</span>
             <div class="who">
-              <div class="name"><strong>${esc(p.name)}</strong>
-                ${p.id === state.meId ? "<em>you</em>" : ""}
+              <div class="name">
+                ${mine
+                  ? `<button class="tapedit" data-edit="name">${esc(p.name)}</button>`
+                  : `<strong>${esc(p.name)}</strong>`}
+                ${mine ? "<em>you</em>" : ""}
                 ${p.streak > 0 ? `<em>${p.streak}-day streak</em>` : ""}</div>
               <div class="bar"><i style="width:${p.logged ? Math.max(pct,3) : 0}%"></i></div>
             </div>
@@ -586,11 +623,8 @@ input[type=number] { -moz-appearance:textfield; }
           </div>`;
         }).join("")}</div>`;
 
-    const link = `${location.origin}${location.pathname}?g=${state.code}`;
-
     return `
       <header class="masthead">
-        <p class="eyebrow">Version 1 &middot; Exercise pillar</p>
         <h1>${esc(state.group.name)}</h1>
         <p class="sub">${new Date().toLocaleDateString(undefined,
           { weekday:"long", month:"long", day:"numeric" })}</p>
@@ -601,6 +635,19 @@ input[type=number] { -moz-appearance:textfield; }
         <select id="who" aria-label="Which family member are you"
           ${state.people.length === 0 ? "disabled" : ""}>${whoOptions}</select>
         <button class="linkbtn" id="addBtn">${state.adding ? "Never mind" : "Add someone"}</button>
+      </div>
+
+      <div class="addrow" id="editRow" ${state.editing ? "" : "hidden"}>
+        <input class="field" id="editVal" maxlength="40" autocomplete="off"
+               ${state.editing === "goal" ? 'type="number" inputmode="numeric"' : ""}
+               value="${state.editing === "goal" ? Math.round(Number(m ? m.target : 0))
+                                                 : esc(m ? m.name : "")}"
+               aria-label="${state.editing === "goal" ? "Your daily goal" : "Your name"}">
+        <button class="btn" id="editSave">Save</button>
+        <button class="btn-quiet" id="editCancel">Cancel</button>
+        <p class="hint" id="editHint" style="flex-basis:100%;margin-top:0">${
+          state.editing === "goal" ? `Your own daily target, in ${esc(unit)}.`
+                                   : "Changes how you appear to everyone."}</p>
       </div>
 
       <div class="addrow" id="addRow" ${state.adding ? "" : "hidden"}>
@@ -621,25 +668,24 @@ input[type=number] { -moz-appearance:textfield; }
             ? `${loggedCount}/${state.people.length} logged &middot; ${hitCount} hit goal` : ""}</span>
         </div>
         ${roster}
-        <p class="note" style="margin-top:10px">Progress is measured against each
-          person&rsquo;s own goal, not against each other.</p>
       </section>
 
       <section class="card">
         <h2>Run the daily check-in</h2>
-        <p class="note" style="margin-top:6px">For whoever keeps the WhatsApp poll
-          going. Post the standings, then fill in anyone who answered there
-          instead of here.</p>
+        <p class="note" style="margin-top:6px">Post the day's standings to the
+          family chat, and fill in anyone who sent you their number instead of
+          logging it themselves.</p>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
           <button class="btn" id="waShare">Post today to WhatsApp</button>
           <button class="btn-quiet" id="bulkBtn" style="padding:13px 18px">
-            ${state.bulk ? "Close" : "Enter the poll results"}</button>
+            ${state.bulk ? "Close" : "Enter for someone else"}</button>
         </div>
 
         <div id="bulkRow" ${state.bulk ? "" : "hidden"} style="margin-top:14px;
              padding-top:14px;border-top:1px solid var(--line)">
           <p class="note">Leave a box blank to leave that person alone. Blank is
-            not the same as zero &mdash; it means they did not report.</p>
+            not the same as zero &mdash; it means they did not report, so it will
+            not dent their average or break a streak.</p>
           <div style="margin-top:10px">
             ${state.people.map((p) => `
               <div style="display:flex;align-items:center;gap:10px;padding:7px 0;
@@ -659,29 +705,8 @@ input[type=number] { -moz-appearance:textfield; }
         </div>
       </section>
 
-      <section class="dashed">
-        <h2>Add the rest of them</h2>
-        <p class="note" style="margin-top:6px">Send this link. They open it, tap their
-          name, and type a number. No sign-up, nothing to install.</p>
-        <p class="code" style="margin-top:12px">${esc(state.code)}</p>
-        <button class="btn-quiet" id="copyLink" style="margin-top:10px">Copy the link</button>
-        <p class="note" id="copyHint" style="margin-top:8px;word-break:break-all">${esc(link)}</p>
-      </section>
-
-      <section class="card">
-        <h2>The five pillars</h2>
-        <p class="note" style="margin-top:6px">V1 tracks one. The database already
-          holds the rest, so turning the next one on adds a tab, not a rebuild.</p>
-        <div style="margin-top:12px">
-          ${[["01","Exercise","Live"],["02","Sleep","Next"],["03","Meditation","Planned"],
-             ["04","Diet","Planned"],["05","Deep work","Planned"]].map(([n2,nm,st],i) =>
-            `<div class="pillar ${i === 0 ? "live" : ""}"><span class="idx">${n2}</span>
-              <span class="nm">${nm}</span><span class="st">${st}</span></div>`).join("")}
-        </div>
-      </section>
-
-      <p class="note">No passwords here: anyone with this link can log as anyone.
-        That is fine for one family and not fine for the public app.</p>`;
+      <p class="ver">v${APP_VERSION}</p>
+`;
   }
 
   function notConfigured() {
@@ -708,6 +733,57 @@ input[type=number] { -moz-appearance:textfield; }
     }
     app.innerHTML = state.code && state.group ? groupView() : landing();
     wire();
+  }
+
+  // Only the chart redraws when the pointer moves across it. Nothing else
+  // on the page is touched, so a half-typed number survives.
+  function paintChart() {
+    const host = document.getElementById("chart");
+    if (!host) return;
+    host.outerHTML = chartHTML();
+    wireChart();
+  }
+
+  function wireChart() {
+    const host = document.getElementById("chart");
+    const svg = host && host.querySelector("svg");
+    if (!svg) return;
+    const n = points().length;
+
+    svg.addEventListener("pointermove", (e) => {
+      const r = svg.getBoundingClientRect();
+      const i = Math.min(n - 1, Math.max(0,
+        Math.floor(((e.clientX - r.left) / r.width) * n)));
+      if (i !== state.hover) { state.hover = i; paintChart(); }
+    });
+    svg.addEventListener("pointerleave", () => {
+      if (state.hover === null) return;
+      state.hover = null; paintChart();
+    });
+
+    // Tap a bar to log or correct that day. The gap you can see is the
+    // thing you tap, so there is no date picker to find.
+    svg.addEventListener("click", async (e) => {
+      const iso = e.target && e.target.dataset ? e.target.dataset.day : null;
+      if (!iso || state.range === "12w") return;
+      state.entryDate = iso === todayISO() ? null : iso;
+      state.msg = null;
+      await ensureDay(iso);
+      render();
+      document.getElementById("steps")?.focus();
+    });
+
+    // the goal lives on this chart's legend
+    const g = host.querySelector('[data-edit="goal"]');
+    if (g) g.addEventListener("click", () => openEditor("goal"));
+  }
+
+  function openEditor(kind) {
+    state.editing = kind;
+    state.adding = false;
+    render();
+    const f = document.getElementById("editVal");
+    if (f) { f.focus(); f.select(); }
   }
 
   function on(id, ev, fn) {
@@ -742,7 +818,7 @@ input[type=number] { -moz-appearance:textfield; }
       render();
     });
 
-    on("addBtn", "click", () => { state.adding = !state.adding; render();
+    on("addBtn", "click", () => { state.adding = !state.adding; state.editing = null; render();
       const el = document.getElementById("addName"); if (el) el.focus(); });
 
     on("addSave", "click", async (e) => {
@@ -767,41 +843,18 @@ input[type=number] { -moz-appearance:textfield; }
       e.target.disabled = true;
       const res = await call("app_log", {
         p_code: state.code, p_person: state.meId, p_value: Number(raw),
-        p_date: todayISO(),
+        p_date: entryDay(),
       });
+      state.byDate.delete(entryDay());   // force a re-read of that day
       state.msg = res.error || "Saved. Your family can see it.";
       state.msgKind = res.error ? "bad" : "ok";
+      // Filling a gap snaps back to today, so nobody is left sitting on a
+      // past date wondering how to get out. Tapping the last bar also works.
+      if (!res.error) state.entryDate = null;
       await refresh();
       setTimeout(() => { state.msg = null; state.msgKind = null; }, 100);
     });
     on("steps", "keydown", (e) => { if (e.key === "Enter") document.getElementById("save").click(); });
-
-    on("saveGoal", "click", async () => {
-      const t = Number((document.getElementById("goal").value || "").replace(/[^0-9]/g, ""));
-      const hint = document.getElementById("goalHint");
-      if (!t) { hint.textContent = "Enter a target above zero."; return; }
-      const res = await call("app_set_goal", {
-        p_code: state.code, p_person: state.meId, p_target: t,
-      });
-      if (res.error) { hint.textContent = res.error; return; }
-      await refresh();
-    });
-
-    on("remindBtn", "click", () => {
-      const row = document.getElementById("remindRow");
-      if (row) row.hidden = !row.hidden;
-    });
-    on("saveRemind", "click", async () => {
-      const hint = document.getElementById("remindHint");
-      const res = await call("app_set_reminder", {
-        p_code: state.code, p_person: state.meId,
-        p_email: document.getElementById("remindEmail").value,
-        p_hour: Number(document.getElementById("remindHour").value),
-      });
-      if (res.error) { hint.textContent = res.error; return; }
-      hint.textContent = "Saved.";
-      await refresh();
-    });
 
     document.querySelectorAll(".range button").forEach((b) => {
       b.addEventListener("click", async () => {
@@ -812,17 +865,7 @@ input[type=number] { -moz-appearance:textfield; }
       });
     });
 
-    const chart = document.querySelector("#chart svg");
-    if (chart) {
-      const n = points().length;
-      chart.addEventListener("pointermove", (e) => {
-        const r = chart.getBoundingClientRect();
-        const i = Math.min(n - 1, Math.max(0,
-          Math.floor(((e.clientX - r.left) / r.width) * n)));
-        if (i !== state.hover) { state.hover = i; render(); }
-      });
-      chart.addEventListener("pointerleave", () => { state.hover = null; render(); });
-    }
+    wireChart();
 
     on("installNo", "click", () => {
       try { localStorage.setItem("fhd.install", "no"); } catch {}
@@ -837,6 +880,62 @@ input[type=number] { -moz-appearance:textfield; }
     if (box && me() && !me().logged && state.hover === null) {
       try { box.focus({ preventScroll: false }); } catch {}
     }
+
+    on("renameSave", "click", async (e) => {
+      const name = (document.getElementById("renameName").value || "").trim();
+      const hint = document.getElementById("renameHint");
+      if (!name) { hint.textContent = "A name cannot be blank."; return; }
+      e.target.disabled = true;
+      const res = await call("app_rename_person", {
+        p_code: state.code, p_person: state.meId, p_name: name,
+      });
+      if (res.error) { hint.textContent = res.error; e.target.disabled = false; return; }
+      state.renaming = false;
+      await refresh();
+    });
+    on("renameName", "keydown", (e) => {
+      if (e.key === "Enter") document.getElementById("renameSave").click();
+      if (e.key === "Escape") { state.renaming = false; render(); }
+    });
+
+    on("dayBtn", "click", () => { state.pickDate = !state.pickDate; state.msg = null; render(); });
+
+    // Tap your own name or your own target in the roster.
+    document.querySelectorAll('[data-edit]:not(.legend [data-edit])').forEach((el) => {
+      el.addEventListener("click", () => openEditor(el.dataset.edit));
+    });
+
+    on("editCancel", "click", () => { state.editing = null; render(); });
+
+    on("editSave", "click", async (e) => {
+      const kind = state.editing;
+      const raw = (document.getElementById("editVal").value || "").trim();
+      const hint = document.getElementById("editHint");
+
+      if (kind === "goal") {
+        const t = Number(raw.replace(/[^0-9]/g, ""));
+        if (!t) { hint.textContent = "Enter a target above zero."; return; }
+        e.target.disabled = true;
+        const res = await call("app_set_goal", {
+          p_code: state.code, p_person: state.meId, p_target: t,
+        });
+        if (res.error) { hint.textContent = res.error; e.target.disabled = false; return; }
+      } else {
+        if (!raw) { hint.textContent = "A name cannot be blank."; return; }
+        e.target.disabled = true;
+        const res = await call("app_rename_person", {
+          p_code: state.code, p_person: state.meId, p_name: raw,
+        });
+        if (res.error) { hint.textContent = res.error; e.target.disabled = false; return; }
+      }
+      state.editing = null;
+      await refresh();
+    });
+
+    on("editVal", "keydown", (e) => {
+      if (e.key === "Enter") document.getElementById("editSave").click();
+      if (e.key === "Escape") { state.editing = null; render(); }
+    });
 
     on("bulkBtn", "click", () => { state.bulk = !state.bulk; render(); });
 
@@ -860,18 +959,7 @@ input[type=number] { -moz-appearance:textfield; }
       window.open("https://wa.me/?text=" + encodeURIComponent(dailyMessage()), "_blank");
     });
 
-    on("copyLink", "click", async () => {
-      const link = `${location.origin}${location.pathname}?g=${state.code}`;
-      const hint = document.getElementById("copyHint");
-      try {
-        await navigator.clipboard.writeText(link);
-        hint.textContent = "Link copied.";
-        setTimeout(() => (hint.textContent = link), 2200);
-      } catch {
-        hint.textContent = link;
-      }
-    });
-  }
+}
 
   /* ---------- boot -------------------------------------------------- */
   (async () => {
