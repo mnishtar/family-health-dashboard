@@ -35,6 +35,7 @@
   --ink:#16191b; --ink-2:#454d4a; --muted:#6b7370;
   --line:#e2e6e3; --line-strong:#cfd6d2;
   --accent:#075c48; --series:#0e8a6b; --soft:#d3ece4;
+  --train:#c2600f; --train-soft:#f6e3d2;
   --warn:#8a4a12; --warn-soft:#f6ecdf;
   --shadow:0 1px 2px rgba(9,26,21,.05), 0 8px 24px -16px rgba(9,26,21,.25);
   --display:"Newsreader",Georgia,serif;
@@ -48,6 +49,7 @@
     --ink:#f2f4f3; --ink-2:#c8d0cc; --muted:#97a19d;
     --line:#2a302e; --line-strong:#3a423f;
     --accent:#28a583; --series:#28a583; --soft:#1e3b34;
+    --train:#cf7a33; --train-soft:#3a2a1a;
     --warn:#e0a86a; --warn-soft:#2a2318;
     --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
     color-scheme: dark;
@@ -126,7 +128,7 @@ input[type=number] { -moz-appearance:textfield; }
   background:var(--soft); }
 
 .chart { position:relative; }
-.chart svg { display:block; width:100%; height:168px; touch-action:none; }
+.chart svg { display:block; width:100%; height:96px; touch-action:none; }
 .axis { display:flex; font-family:var(--mono); font-size:10px; color:var(--muted); margin-top:4px; }
 .axis span { text-align:center; overflow:hidden; }
 .ymax { position:absolute; left:0; top:0; font-family:var(--mono); font-size:10px;
@@ -176,6 +178,35 @@ input[type=number] { -moz-appearance:textfield; }
 .pillar.live .st { color:var(--accent); }
 
 .note { font-size:13px; color:var(--muted); }
+/* two boxes, Train left, Steps right */
+.two-up { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
+.two-up label { display:flex; flex-direction:column; gap:5px; }
+.two-up label > span { font-size:11px; font-weight:700; letter-spacing:.09em;
+  text-transform:uppercase; }
+.two-up input { width:100%; border:1px solid var(--line-strong); background:var(--surface);
+  border-radius:11px; padding:12px 13px; font-family:var(--mono); font-size:26px;
+  font-weight:500; letter-spacing:-.02em; text-align:right; }
+.two-up label > em { font-style:normal; font-size:11px; color:var(--muted); }
+.fld-train input:focus { border-color:var(--train); }
+.fld-steps input:focus { border-color:var(--series); }
+
+/* the date under the group name is a control */
+.datebtn { background:none; border:none; padding:0; text-align:left; cursor:pointer;
+  font-family:inherit; font-size:14px; color:var(--muted);
+  text-decoration:underline; text-decoration-style:dotted;
+  text-decoration-color:var(--line-strong); text-underline-offset:3px; }
+.datefld { margin-top:8px; border:1px solid var(--line-strong); background:var(--surface);
+  color:var(--ink); border-radius:9px; padding:8px 11px; font-family:var(--mono);
+  font-size:14px; }
+
+/* stacked mini charts */
+.mini + .mini { margin-top:16px; padding-top:14px; border-top:1px solid var(--line); }
+.mini-head { display:flex; align-items:baseline; justify-content:space-between; gap:10px; }
+.mini-name { font-size:11px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; }
+.mini-total { font-family:var(--mono); font-size:11px; color:var(--muted); }
+.mini .chart svg { height:96px; }
+.mini-foot { margin-top:4px; }
+
 .ver { text-align:center; font-family:var(--mono); font-size:11px;
   color:var(--line-strong); letter-spacing:.06em; }
 /* Tap the thing you want to change. Underlined so it reads as editable
@@ -216,7 +247,7 @@ input[type=number] { -moz-appearance:textfield; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "1.1";
+  const APP_VERSION = "1.2";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -253,6 +284,19 @@ input[type=number] { -moz-appearance:textfield; }
     return data || {};
   }
 
+  // Two metrics. Steps is the family shared score; Train is personal data
+  // with an optional target of its own. A third means adding a row here and
+  // enabling it in the database, not restructuring anything.
+  const M = {
+    steps: { key: "steps",     label: "Steps", unit: "steps",   color: "var(--series)", soft: "var(--soft)" },
+    train: { key: "train_min", label: "Train", unit: "minutes", color: "var(--train)",  soft: "var(--train-soft)" },
+  };
+
+  const mondayOf = (iso) => {
+    const d = new Date(iso + "T00:00:00Z");
+    return shiftISO(iso, -((d.getUTCDay() + 6) % 7));
+  };
+
   /* ---------- state ------------------------------------------------ */
   const state = {
     code: new URLSearchParams(location.search).get("g"),
@@ -260,15 +304,17 @@ input[type=number] { -moz-appearance:textfield; }
     metric: { key:"steps", unit:"steps", default_target:8000 },
     people: [],
     meId: null,
-    range: "14",
-    history: [],
+    range: "week",        // "week" (Mon-Sun) | "12w"
+    history: { steps: [], train: [] },
     hover: null,
     adding: false,
     bulk: false,
-    editing: null,        // null | 'name' | 'goal'
+    editing: null,        // null | 'name' | 'goal' | 'traingoal'
+    editPerson: null,
+    trainGoal: 0,
     entryDate: null,      // null means today
     pickDate: false,
-    byDate: new Map(),    // date -> {value, logged}, for backdated entry
+    byDate: new Map(),    // metric + date -> {value, logged}
     msg: null,
   };
 
@@ -284,154 +330,222 @@ input[type=number] { -moz-appearance:textfield; }
 
   /* ---------- data ------------------------------------------------- */
   async function refresh() {
-    const res = await call("app_state", { p_code: state.code, p_today: todayISO() });
+    const res = await call("app_state", {
+      p_code: state.code, p_today: todayISO(), p_alt: M.train.key });
     if (res.error) { state.fatal = res.error; render(); return; }
     state.group = res.group;
     state.metric = res.metric || state.metric;
-    state.people = res.people || [];
+    // Alphabetical in the picker and in the roster, so the two agree and a
+    // name is findable without reading the whole list.
+    state.people = (res.people || []).slice().sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
     if (!state.people.some((p) => p.id === state.meId)) state.meId = loadMe();
     if (!state.people.some((p) => p.id === state.meId)) state.meId = null;
+    const mine = me();
+    if (mine && mine.alt_target != null) state.trainGoal = Number(mine.alt_target) || 0;
     await loadHistory();
     render();
   }
 
+  // One window, both metrics. The week view is a real Monday-to-Sunday
+  // calendar week, so everyone is looking at the same seven columns.
+  function weekBounds() {
+    const start = mondayOf(entryDay());
+    return { start, end: shiftISO(start, 6) };
+  }
+
   async function loadHistory() {
-    if (!state.meId) { state.history = []; return; }
-    const days = state.range === "12w" ? 84 : Number(state.range);
-    const res = await call("app_history", {
-      p_code: state.code, p_person: state.meId, p_days: days, p_today: todayISO(),
-    });
-    state.history = res.error ? [] : (res.days || []);
-    for (const d of state.history) state.byDate.set(d.date, d);
+    if (!state.meId) { state.history = { steps: [], train: [] }; return; }
+    const week = state.range === "week";
+    const anchor = week ? weekBounds().end : todayISO();
+    const days = week ? 7 : 84;
+
+    const [a, b] = await Promise.all([
+      call("app_history", { p_code:state.code, p_person:state.meId,
+        p_days:days, p_metric:M.steps.key, p_today:anchor }),
+      call("app_history", { p_code:state.code, p_person:state.meId,
+        p_days:days, p_metric:M.train.key, p_today:anchor }),
+    ]);
+    state.history = {
+      steps: a.error ? [] : (a.days || []),
+      train: b.error ? [] : (b.days || []),
+    };
+    for (const k of ["steps","train"])
+      for (const d of state.history[k]) state.byDate.set(k + "|" + d.date, d);
   }
 
   /* ---------- which day is being logged ----------------------------- */
   const entryDay = () => state.entryDate || todayISO();
 
-  // Days outside the loaded chart window are read one at a time.
+  // Days outside the loaded window are read one at a time, per metric.
   async function ensureDay(iso) {
-    if (state.byDate.has(iso) || !state.meId) return;
-    const res = await call("app_value", {
-      p_code: state.code, p_person: state.meId, p_date: iso,
+    if (!state.meId) return;
+    const want = ["steps","train"].filter((k) => !state.byDate.has(k + "|" + iso));
+    if (!want.length) return;
+    const got = await Promise.all(want.map((k) => call("app_value", {
+      p_code: state.code, p_person: state.meId, p_date: iso, p_metric: M[k].key,
+    })));
+    want.forEach((k, i) => {
+      const r = got[i];
+      if (!r.error) state.byDate.set(k + "|" + iso,
+        { date: iso, value: Number(r.value), logged: !!r.logged });
     });
-    if (!res.error) {
-      state.byDate.set(iso, { date: iso, value: Number(res.value), logged: !!res.logged });
-    }
   }
 
-  // What is already recorded for the day on screen.
-  function dayRecord() {
+  // What is already recorded for the day on screen, for one metric.
+  function dayRecord(k) {
     const iso = entryDay();
     if (iso === todayISO()) {
       const m = me();
-      return { value: m ? Number(m.value) : 0, logged: m ? m.logged : false };
+      if (!m) return { value: 0, logged: false };
+      return k === "train"
+        ? { value: Number(m.alt_value || 0), logged: !!m.alt_logged }
+        : { value: Number(m.value || 0),     logged: !!m.logged };
     }
-    const d = state.byDate.get(iso);
+    const d = state.byDate.get(k + "|" + iso);
     return { value: d ? Number(d.value) : 0, logged: d ? d.logged : false };
   }
 
   /* ---------- chart ------------------------------------------------ */
-  function points() {
-    if (state.range !== "12w") {
-      return state.history.map((d) => ({
-        key:d.date, label:dayLabel(d.date), value:Number(d.value),
+  const DOW = ["M","T","W","T","F","S","S"];
+
+  function points(k) {
+    const rows = state.history[k] || [];
+    if (state.range === "week") {
+      return rows.map((d, i) => ({
+        key:d.date, label:DOW[i] || dayLabel(d.date), value:Number(d.value),
         logged:d.logged, full:longLabel(d.date),
       }));
     }
     const weeks = new Map();
-    for (const d of state.history) {
-      const dt = new Date(d.date + "T00:00:00Z");
-      const start = shiftISO(d.date, -((dt.getUTCDay() + 6) % 7));
+    for (const d of rows) {
+      const start = mondayOf(d.date);
       const b = weeks.get(start) || { total:0, logged:0 };
       b.total += Number(d.value);
       if (d.logged) b.logged++;
       weeks.set(start, b);
     }
-    return [...weeks.entries()].map(([k, b]) => ({
-      key:k, label:k.slice(5).replace("-", "/"), value:Math.round(b.total),
-      logged:b.logged > 0, full:"week of " + longLabel(k),
+    return [...weeks.entries()].map(([wk, b]) => ({
+      key:wk, label:wk.slice(5).replace("-", "/"), value:Math.round(b.total),
+      logged:b.logged > 0, full:"week of " + longLabel(wk),
     }));
   }
 
-  function chartHTML() {
-    const pts = points();
-    if (!pts.length) {
-      return `<p class="note" style="text-align:center;padding:34px 0">
-        Nothing logged yet. Your first number starts the chart.</p>`;
-    }
-    const goal = state.range === "12w" ? null : Number(me()?.target || 0);
-    const H = 168, PT = 14, PB = 6, plot = H - PT - PB;
+  // One mini chart per metric, stacked, sharing the same columns. Steps and
+  // minutes cannot honestly share a y-axis, so they each keep their own.
+  function miniChart(k) {
+    const met = M[k];
+    const pts = points(k);
+    if (!pts.length) return "";
+
+    const goal = k === "steps"
+      ? (state.range === "week" ? Number(me()?.target || 0) : 0)
+      : (state.range === "week" ? Number(state.trainGoal || 0) : 0);
+
+    const H = 96, PT = 10, PB = 4, plot = H - PT - PB;
     const peak = Math.max(...pts.map((p) => p.value), goal || 0, 1);
-    const max = peak * 1.12;
+    const max = peak * 1.15;
     const y = (v) => PT + plot - (v / max) * plot;
-    const n = pts.length, slot = 100 / n, bw = slot * 0.6;
+    const n = pts.length, slot = 100 / n, bw = slot * (state.range === "week" ? 0.52 : 0.6);
 
     let bars = "";
     pts.forEach((p, i) => {
       const x = i * slot + (slot - bw) / 2;
+      const hot = state.hover && state.hover.k === k && state.hover.i === i;
+      const dim = state.hover && state.hover.k === k && !hot ? ' opacity="0.4"' : "";
       if (p.value <= 0) {
-        // A taller invisible target, so an empty day is as easy to hit as a full one.
         bars += `<rect x="${x}" y="${PT}" width="${bw}" height="${plot}" fill="transparent"
-                  data-day="${p.key}"></rect>` +
-                `<rect x="${x}" y="${y(0)-2}" width="${bw}" height="2" fill="var(--soft)"
+                  data-day="${p.key}" data-metric="${k}"></rect>` +
+                `<rect x="${x}" y="${y(0)-2}" width="${bw}" height="2" fill="${met.soft}"
                   pointer-events="none"></rect>`;
         return;
       }
-      const dim = state.hover !== null && state.hover !== i ? ' opacity="0.4"' : "";
       bars += `<rect x="${x}" y="${y(p.value)}" width="${bw}" height="${Math.max(y(0)-y(p.value),2)}"
-                rx="${Math.min(bw/2,1.4)}" fill="var(--series)" data-day="${p.key}"${dim}></rect>`;
+                rx="${Math.min(bw/2,1.4)}" fill="${met.color}" data-day="${p.key}"
+                data-metric="${k}"${dim}></rect>`;
     });
 
     const goalLine = goal && goal <= max
-      ? `<line x1="0" x2="100" y1="${y(goal)}" y2="${y(goal)}" stroke="var(--series)"
+      ? `<line x1="0" x2="100" y1="${y(goal)}" y2="${y(goal)}" stroke="${met.color}"
            stroke-width="1" stroke-dasharray="3 3" opacity="0.8" vector-effect="non-scaling-stroke"></line>` : "";
 
-    const every = n <= 14 ? 1 : n <= 20 ? 2 : Math.ceil(n / 10);
+    const every = n <= 14 ? 1 : Math.ceil(n / 8);
     const axis = pts.map((p, i) =>
       `<span style="width:${slot}%">${i % every === 0 ? p.label : ""}</span>`).join("");
 
     let tip = "";
-    if (state.hover !== null && pts[state.hover]) {
-      const p = pts[state.hover];
-      const left = Math.min(86, Math.max(14, state.hover * slot + slot / 2));
+    if (state.hover && state.hover.k === k && pts[state.hover.i]) {
+      const p = pts[state.hover.i];
+      const left = Math.min(86, Math.max(14, state.hover.i * slot + slot / 2));
       tip = `<div class="tip" style="left:${left}%">${esc(p.full)}<br>
-        <b>${p.logged ? num(p.value) + " " + esc(state.metric.unit) : "not recorded"}</b></div>`;
+        <b>${p.logged ? num(p.value) + " " + esc(met.unit) : "not recorded"}</b></div>`;
     }
 
-    const legend = goal && goal <= max
-      ? `<div class="legend"><i></i><button class="tapedit small" data-edit="goal"
-           >your daily goal, ${num(goal)} ${esc(state.metric.unit)}</button></div>`
-      : `<div class="legend"><span>${state.range === "12w" ? "Totals per week, Monday to Sunday." : ""}</span></div>`;
+    const total = pts.reduce((t, p) => t + p.value, 0);
+    const totalWords = state.range === "week"
+      ? `${num(Math.round(total))} this week` : `${num(Math.round(total))} in 12 weeks`;
+
+    // The goal is edited by tapping the line it controls.
+    const goalTap = k === "steps"
+      ? `<button class="tapedit small" data-edit="goal">goal ${num(Number(me()?.target || 0))}</button>`
+      : `<button class="tapedit small" data-edit="traingoal">${
+           state.trainGoal ? "goal " + num(state.trainGoal) + " min" : "set a goal"}</button>`;
 
     return `
-      <div class="chart" id="chart">
-        <svg viewBox="0 0 100 ${H}" preserveAspectRatio="none" role="img"
-             aria-label="${esc(state.metric.unit)} over the selected period">
-          <line x1="0" x2="100" y1="${y(max/2)}" y2="${y(max/2)}" stroke="var(--line)"
-                stroke-width="1" vector-effect="non-scaling-stroke"></line>
-          <line x1="0" x2="100" y1="${y(0)}" y2="${y(0)}" stroke="var(--line-strong)"
-                stroke-width="1" vector-effect="non-scaling-stroke"></line>
-          ${bars}${goalLine}
-        </svg>
-        <div class="axis">${axis}</div>
-        <div class="ymax">${num(Math.round(max))}</div>
-        ${tip}${legend}
+      <div class="mini">
+        <div class="mini-head">
+          <span class="mini-name" style="color:${met.color}">${met.label}</span>
+          <span class="mini-total">${totalWords}</span>
+        </div>
+        <div class="chart" id="chart-${k}" data-chart="${k}">
+          <svg viewBox="0 0 100 ${H}" preserveAspectRatio="none" role="img"
+               aria-label="${met.label} for the period shown">
+            <line x1="0" x2="100" y1="${y(0)}" y2="${y(0)}" stroke="var(--line-strong)"
+                  stroke-width="1" vector-effect="non-scaling-stroke"></line>
+            ${bars}${goalLine}
+          </svg>
+          <div class="axis">${axis}</div>
+          ${tip}
+        </div>
+        ${state.range === "week" ? `<div class="mini-foot">${goalTap}</div>` : ""}
       </div>`;
   }
 
+  function editTarget() {
+    return state.people.find((x) => x.id === (state.editPerson || state.meId)) || null;
+  }
+  function editSeed() {
+    if (state.editing === "name")      return esc(editTarget() ? editTarget().name : "");
+    if (state.editing === "traingoal") return state.trainGoal || M.train.default || 40;
+    return Math.round(Number(me() ? me().target : 0));
+  }
+  function editHintText() {
+    if (state.editing === "name") {
+      const t = editTarget();
+      return t && t.id !== state.meId
+        ? `Renaming ${esc(t.name)}. Everyone sees the change.`
+        : "Changes how you appear to everyone.";
+    }
+    if (state.editing === "traingoal") return "Your own daily target, in minutes.";
+    return "Your own daily target, in steps.";
+  }
+
+  function chartsHTML() {
+    return miniChart("steps") + miniChart("train");
+  }
+
   function statsHTML() {
-    const pts = points();
+    const pts = points("steps");
     const logged = pts.filter((p) => p.logged);
     const avg = logged.length
       ? Math.round(logged.reduce((s, p) => s + p.value, 0) / logged.length) : 0;
     const best = pts.reduce((m, p) => Math.max(m, p.value), 0);
     const goal = Number(me()?.target || 0);
-    const hit = state.range === "12w" || !pts.length || !goal
+    const hit = (state.range !== "week" || !pts.length || !goal)
       ? null : Math.round((pts.filter((p) => p.value >= goal).length / pts.length) * 100);
-
     const cells = [
-      [num(avg), state.range === "12w" ? "Weekly average" : "Daily average"],
-      [num(best), state.range === "12w" ? "Best week" : "Best day"],
+      [num(avg), state.range === "week" ? "Daily average" : "Weekly average"],
+      [num(best), state.range === "week" ? "Best day" : "Best week"],
       hit === null ? [String(me()?.streak || 0), "Day streak"] : [hit + "%", "Goal hit"],
     ];
     return `<div class="stats">${cells.map(([v, l]) =>
@@ -464,37 +578,38 @@ input[type=number] { -moz-appearance:textfield; }
   // Written to be read in a chat, not on a dashboard: the standings first,
   // who is missing second, the link last. Asterisks are WhatsApp bold.
   function dailyMessage() {
-    const unit = state.metric.unit;
-    const done = state.people.filter((p) => p.logged);
-    const missing = state.people.filter((p) => !p.logged);
-    const hit = done.filter((p) => Number(p.value) >= Number(p.target));
+    const done = state.people.filter((p) => p.logged || p.alt_logged);
+    const missing = state.people.filter((p) => !p.logged && !p.alt_logged);
+    const hit = state.people.filter((p) => Number(p.value) >= Number(p.target));
     const day = new Date().toLocaleDateString(undefined,
       { weekday:"short", month:"short", day:"numeric" });
 
-    // Deliberately plain text. Emoji can arrive as replacement characters
-    // on some WhatsApp clients, and a message the family reads every day
-    // is the wrong place to gamble on font and encoding support.
     const lines = [
-      `*${state.group.name}* - ${day}`,
-      `${done.length}/${state.people.length} logged, ${hit.length} hit their goal`,
+      `*${state.group.name}* \u00b7 ${day}`,
+      `${done.length}/${state.people.length} logged \u00b7 ${hit.length} hit their goal`,
+      "",
     ];
 
-    // Ranked here, unlike the app: a chat message is skimmed once, and the
-    // order is what makes it worth reading.
+    // Ranked here, unlike the app: a chat message is skimmed once and the
+    // order is what makes it worth reading. Train is appended only for the
+    // people who did some, so ten relatives is not a wall of text.
     const sorted = [...done].sort((a, b) => Number(b.value) - Number(a.value));
-    const met = sorted.filter((p) => Number(p.value) >= Number(p.target));
-    const under = sorted.filter((p) => Number(p.value) < Number(p.target));
+    for (const p of sorted) {
+      const met = Number(p.value) >= Number(p.target);
+      const bits = [];
+      if (p.logged)     bits.push(num(p.value));
+      if (p.alt_logged) bits.push(num(p.alt_value) + "m train");
+      const streak = p.streak > 1 ? `  (${p.streak}-day streak)` : "";
+      lines.push(`${met ? "\u2705" : "\u25ab\ufe0f"} ${p.name} \u2014 ${bits.join(" \u00b7 ")}${streak}`);
+    }
 
-    const row = (p) => `  ${p.name}  ${num(p.value)}` +
-      (p.streak > 1 ? `  (${p.streak}-day streak)` : "");
-
-    if (met.length)   lines.push("", "GOAL HIT", ...met.map(row));
-    if (under.length) lines.push("", "LOGGED",   ...under.map(row));
-    if (missing.length) lines.push("", "NOT YET", "  " + missing.map((p) => p.name).join(", "));
-
+    if (missing.length) {
+      lines.push("", `Still to log: ${missing.map((p) => p.name).join(", ")}`);
+    }
     lines.push("", `${location.origin}${location.pathname}?g=${state.code}`);
     return lines.join("\n");
   }
+
 
 
   /* ---------- views ------------------------------------------------ */
@@ -553,40 +668,54 @@ input[type=number] { -moz-appearance:textfield; }
 
     const iso = entryDay();
     const isToday = iso === todayISO();
-    const rec = dayRecord();
+    const recSteps = dayRecord("steps");
+    const recTrain = dayRecord("train");
+    const anyLogged = recSteps.logged || recTrain.logged;
     const dayTitle = isToday ? "Today"
       : new Date(iso + "T00:00:00Z").toLocaleDateString(undefined,
           { timeZone:"UTC", weekday:"long", month:"short", day:"numeric" });
-    const restHint = rec.logged
+    const restHint = anyLogged
       ? "Already recorded. You can correct it."
-      : isToday ? "Takes five seconds." : "Nothing recorded for that day yet.";
+      : isToday ? "Fill in either, or both." : "Nothing recorded for that day yet.";
 
     const entry = m ? `
       <section class="card">
         <div class="section-head">
           <h2>${esc(dayTitle)}</h2>
-          <span class="eyebrow">${rec.logged ? "logged" : "how many " + unit + "?"}</span>
+          <span class="eyebrow">${anyLogged ? "logged" : "nothing yet"}</span>
         </div>
-        <div class="entry-row">
-          <input id="steps" type="number" inputmode="numeric" placeholder="0"
-                 aria-label="${unit} for ${esc(dayTitle)}"
-                 value="${rec.logged ? rec.value : ""}">
-          <button class="btn" id="save">${rec.logged ? "Update" : "Log"}</button>
+        <div class="two-up">
+          <label class="fld-train">
+            <span style="color:var(--train)">Train</span>
+            <input id="train" type="number" inputmode="numeric" placeholder="0"
+                   aria-label="Minutes trained on ${esc(dayTitle)}"
+                   value="${recTrain.logged ? recTrain.value : ""}">
+            <em>minutes</em>
+          </label>
+          <label class="fld-steps">
+            <span style="color:var(--series)">Steps</span>
+            <input id="steps" type="number" inputmode="numeric" placeholder="0"
+                   aria-label="Steps on ${esc(dayTitle)}"
+                   value="${recSteps.logged ? recSteps.value : ""}">
+            <em>steps</em>
+          </label>
         </div>
+        <button class="btn" id="save" style="width:100%;margin-top:10px">${
+          anyLogged ? "Update" : "Log"}</button>
         <p class="hint ${state.msgKind || ""}" id="hint">${esc(state.msg || restHint)}</p>
       </section>
 
       <section>
         <div class="section-head">
-          <h2>Your trend</h2>
+          <h2>${state.range === "week" ? "Your week" : "Your trend"}</h2>
           <div class="range" role="group" aria-label="Time range">
-            ${["14","12w"].map((r) =>
+            ${[["week","This week"],["12w","12 weeks"]].map(([r, lbl]) =>
               `<button type="button" data-range="${r}" aria-pressed="${state.range === r}">
-                 ${r === "12w" ? "12 weeks" : r + " days"}</button>`).join("")}
+                 ${lbl}</button>`).join("")}
           </div>
         </div>
         <div class="card">
-          ${chartHTML()}
+          ${chartsHTML()}
           ${statsHTML()}
         </div>
       </section>` : `
@@ -610,9 +739,8 @@ input[type=number] { -moz-appearance:textfield; }
                      color:color-mix(in oklab, hsl(${p.hue} 62% 48%) 78%, var(--ink))">${esc(initials)}</span>
             <div class="who">
               <div class="name">
-                ${mine
-                  ? `<button class="tapedit" data-edit="name">${esc(p.name)}</button>`
-                  : `<strong>${esc(p.name)}</strong>`}
+                <button class="tapedit" data-edit="name" data-person="${p.id}"
+                  >${esc(p.name)}</button>
                 ${mine ? "<em>you</em>" : ""}
                 ${p.streak > 0 ? `<em>${p.streak}-day streak</em>` : ""}</div>
               <div class="bar"><i style="width:${p.logged ? Math.max(pct,3) : 0}%"></i></div>
@@ -626,8 +754,11 @@ input[type=number] { -moz-appearance:textfield; }
     return `
       <header class="masthead">
         <h1>${esc(state.group.name)}</h1>
-        <p class="sub">${new Date().toLocaleDateString(undefined,
-          { weekday:"long", month:"long", day:"numeric" })}</p>
+        <button class="sub datebtn" id="dateBtn" aria-label="Pick which day to log">${
+          esc(dayTitle)}${isToday ? "" : "  &middot; logging a past day"}</button>
+        ${state.pickDate ? `<input type="date" id="dateInput" class="datefld"
+             value="${entryDay()}" min="${shiftISO(todayISO(), -365)}" max="${todayISO()}"
+             aria-label="Which day to log">` : ""}
       </header>
 
       <div class="whoami">
@@ -639,15 +770,12 @@ input[type=number] { -moz-appearance:textfield; }
 
       <div class="addrow" id="editRow" ${state.editing ? "" : "hidden"}>
         <input class="field" id="editVal" maxlength="40" autocomplete="off"
-               ${state.editing === "goal" ? 'type="number" inputmode="numeric"' : ""}
-               value="${state.editing === "goal" ? Math.round(Number(m ? m.target : 0))
-                                                 : esc(m ? m.name : "")}"
-               aria-label="${state.editing === "goal" ? "Your daily goal" : "Your name"}">
+               ${state.editing === "name" ? "" : 'type="number" inputmode="numeric"'}
+               value="${editSeed()}"
+               aria-label="${state.editing === "name" ? "Name" : "Daily goal"}">
         <button class="btn" id="editSave">Save</button>
         <button class="btn-quiet" id="editCancel">Cancel</button>
-        <p class="hint" id="editHint" style="flex-basis:100%;margin-top:0">${
-          state.editing === "goal" ? `Your own daily target, in ${esc(unit)}.`
-                                   : "Changes how you appear to everyone."}</p>
+        <p class="hint" id="editHint" style="flex-basis:100%;margin-top:0">${editHintText()}</p>
       </div>
 
       <div class="addrow" id="addRow" ${state.adding ? "" : "hidden"}>
@@ -737,35 +865,46 @@ input[type=number] { -moz-appearance:textfield; }
 
   // Only the chart redraws when the pointer moves across it. Nothing else
   // on the page is touched, so a half-typed number survives.
-  function paintChart() {
-    const host = document.getElementById("chart");
+  // Each mini chart repaints only itself. Nothing else on the page is
+  // touched, so a half-typed number survives a finger crossing the chart.
+  function paintChart(k) {
+    const host = document.getElementById("chart-" + k);
     if (!host) return;
-    host.outerHTML = chartHTML();
-    wireChart();
+    const holder = host.parentElement;
+    const frag = document.createElement("div");
+    frag.innerHTML = miniChart(k);
+    holder.replaceWith(frag.firstElementChild);
+    wireChart(k);
   }
 
-  function wireChart() {
-    const host = document.getElementById("chart");
+  function wireCharts() { wireChart("steps"); wireChart("train"); }
+
+  function wireChart(k) {
+    const host = document.getElementById("chart-" + k);
     const svg = host && host.querySelector("svg");
     if (!svg) return;
-    const n = points().length;
+    const n = points(k).length;
 
     svg.addEventListener("pointermove", (e) => {
       const r = svg.getBoundingClientRect();
       const i = Math.min(n - 1, Math.max(0,
         Math.floor(((e.clientX - r.left) / r.width) * n)));
-      if (i !== state.hover) { state.hover = i; paintChart(); }
+      if (!state.hover || state.hover.k !== k || state.hover.i !== i) {
+        const prev = state.hover;
+        state.hover = { k, i };
+        if (prev && prev.k !== k) paintChart(prev.k);
+        paintChart(k);
+      }
     });
     svg.addEventListener("pointerleave", () => {
-      if (state.hover === null) return;
-      state.hover = null; paintChart();
+      if (!state.hover || state.hover.k !== k) return;
+      state.hover = null; paintChart(k);
     });
 
-    // Tap a bar to log or correct that day. The gap you can see is the
-    // thing you tap, so there is no date picker to find.
+    // Tap a bar to log or correct that day.
     svg.addEventListener("click", async (e) => {
       const iso = e.target && e.target.dataset ? e.target.dataset.day : null;
-      if (!iso || state.range === "12w") return;
+      if (!iso || state.range !== "week") return;
       state.entryDate = iso === todayISO() ? null : iso;
       state.msg = null;
       await ensureDay(iso);
@@ -773,13 +912,13 @@ input[type=number] { -moz-appearance:textfield; }
       document.getElementById("steps")?.focus();
     });
 
-    // the goal lives on this chart's legend
-    const g = host.querySelector('[data-edit="goal"]');
-    if (g) g.addEventListener("click", () => openEditor("goal"));
+    const g = host.parentElement.querySelector("[data-edit]");
+    if (g) g.addEventListener("click", () => openEditor(g.dataset.edit));
   }
 
-  function openEditor(kind) {
+  function openEditor(kind, personId) {
     state.editing = kind;
+    state.editPerson = personId || state.meId;
     state.adding = false;
     render();
     const f = document.getElementById("editVal");
@@ -838,23 +977,30 @@ input[type=number] { -moz-appearance:textfield; }
     });
 
     on("save", "click", async (e) => {
-      const raw = (document.getElementById("steps").value || "").replace(/[^0-9]/g, "");
-      if (raw === "") { state.msg = "Enter a number."; state.msgKind = "bad"; render(); return; }
+      const rawS = (document.getElementById("steps").value || "").replace(/[^0-9]/g, "");
+      const rawT = (document.getElementById("train").value || "").replace(/[^0-9]/g, "");
+      if (rawS === "" && rawT === "") {
+        state.msg = "Enter a number in either box."; state.msgKind = "bad"; render(); return;
+      }
       e.target.disabled = true;
-      const res = await call("app_log", {
-        p_code: state.code, p_person: state.meId, p_value: Number(raw),
-        p_date: entryDay(),
-      });
-      state.byDate.delete(entryDay());   // force a re-read of that day
-      state.msg = res.error || "Saved. Your family can see it.";
-      state.msgKind = res.error ? "bad" : "ok";
-      // Filling a gap snaps back to today, so nobody is left sitting on a
-      // past date wondering how to get out. Tapping the last bar also works.
-      if (!res.error) state.entryDate = null;
+      const jobs = [];
+      if (rawS !== "") jobs.push(call("app_log", { p_code:state.code, p_person:state.meId,
+        p_value:Number(rawS), p_metric:M.steps.key, p_date:entryDay() }));
+      if (rawT !== "") jobs.push(call("app_log", { p_code:state.code, p_person:state.meId,
+        p_value:Number(rawT), p_metric:M.train.key, p_date:entryDay() }));
+      const out = await Promise.all(jobs);
+      const bad = out.find((r) => r.error);
+      state.msg = bad ? bad.error : "Saved. Your family can see it.";
+      state.msgKind = bad ? "bad" : "ok";
+      state.byDate.delete("steps|" + entryDay());
+      state.byDate.delete("train|" + entryDay());
+      if (!bad) state.entryDate = null;
       await refresh();
       setTimeout(() => { state.msg = null; state.msgKind = null; }, 100);
     });
-    on("steps", "keydown", (e) => { if (e.key === "Enter") document.getElementById("save").click(); });
+
+    for (const id of ["steps","train"])
+      on(id, "keydown", (e) => { if (e.key === "Enter") document.getElementById("save").click(); });
 
     document.querySelectorAll(".range button").forEach((b) => {
       b.addEventListener("click", async () => {
@@ -865,7 +1011,7 @@ input[type=number] { -moz-appearance:textfield; }
       });
     });
 
-    wireChart();
+    wireCharts();
 
     on("installNo", "click", () => {
       try { localStorage.setItem("fhd.install", "no"); } catch {}
@@ -902,7 +1048,7 @@ input[type=number] { -moz-appearance:textfield; }
 
     // Tap your own name or your own target in the roster.
     document.querySelectorAll('[data-edit]:not(.legend [data-edit])').forEach((el) => {
-      el.addEventListener("click", () => openEditor(el.dataset.edit));
+      el.addEventListener("click", () => openEditor(el.dataset.edit, el.dataset.person));
     });
 
     on("editCancel", "click", () => { state.editing = null; render(); });
@@ -912,7 +1058,16 @@ input[type=number] { -moz-appearance:textfield; }
       const raw = (document.getElementById("editVal").value || "").trim();
       const hint = document.getElementById("editHint");
 
-      if (kind === "goal") {
+      if (kind === "traingoal") {
+        const t = Number(raw.replace(/[^0-9]/g, ""));
+        if (!t) { hint.textContent = "Enter a number of minutes."; return; }
+        e.target.disabled = true;
+        const res = await call("app_set_goal", {
+          p_code: state.code, p_person: state.meId, p_target: t, p_metric: M.train.key,
+        });
+        if (res.error) { hint.textContent = res.error; e.target.disabled = false; return; }
+        state.trainGoal = t;
+      } else if (kind === "goal") {
         const t = Number(raw.replace(/[^0-9]/g, ""));
         if (!t) { hint.textContent = "Enter a target above zero."; return; }
         e.target.disabled = true;
@@ -924,7 +1079,7 @@ input[type=number] { -moz-appearance:textfield; }
         if (!raw) { hint.textContent = "A name cannot be blank."; return; }
         e.target.disabled = true;
         const res = await call("app_rename_person", {
-          p_code: state.code, p_person: state.meId, p_name: raw,
+          p_code: state.code, p_person: state.editPerson || state.meId, p_name: raw,
         });
         if (res.error) { hint.textContent = res.error; e.target.disabled = false; return; }
       }
@@ -935,6 +1090,19 @@ input[type=number] { -moz-appearance:textfield; }
     on("editVal", "keydown", (e) => {
       if (e.key === "Enter") document.getElementById("editSave").click();
       if (e.key === "Escape") { state.editing = null; render(); }
+    });
+
+    on("dateBtn", "click", () => { state.pickDate = !state.pickDate; state.msg = null; render(); });
+
+    on("dateInput", "change", async (e) => {
+      const iso = e.target.value;
+      if (!iso) return;
+      state.entryDate = iso === todayISO() ? null : iso;
+      state.pickDate = false;
+      state.msg = null;
+      await ensureDay(iso);
+      if (state.range === "week") await loadHistory();   // jump the chart to that week
+      render();
     });
 
     on("bulkBtn", "click", () => { state.bulk = !state.bulk; render(); });
