@@ -231,6 +231,86 @@ input[type=number] { -moz-appearance:textfield; }
 .center { display:grid; place-items:center; min-height:60vh; }
 .spinner { font-size:13px; color:var(--muted); }
 
+/* ---------------------------------------------------------------- */
+/* V1.3 — Lift. Orange throughout, matching the Train series on the  */
+/* chart, so "Train" and "Lift" read as one thing and not two.       */
+/* ---------------------------------------------------------------- */
+.topbar { display:flex; align-items:center; gap:8px; }
+.backlink { background:none; border:none; padding:6px 10px 6px 0; cursor:pointer;
+  color:var(--muted); font-size:14px; font-family:inherit; }
+.sync { margin-left:auto; font-size:10.5px; font-weight:600; letter-spacing:.07em;
+  text-transform:uppercase; color:var(--muted); }
+.sync.saving  { color:var(--train); }
+.sync.saved   { color:var(--accent); }
+.sync.offline { color:var(--warn); }
+
+.tiles { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.tile { text-align:left; background:var(--surface); border:1px solid var(--line);
+  border-radius:12px; padding:13px; cursor:pointer; font-family:inherit; color:inherit;
+  display:flex; flex-direction:column; gap:5px; min-height:100px; }
+.tile b { font-size:15px; font-weight:600; }
+.tile .ex { font-size:12px; color:var(--muted); line-height:1.35; display:-webkit-box;
+  -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+.tile .ago { margin-top:auto; font-size:11px; color:var(--muted); font-style:italic; }
+
+.hcard { background:var(--surface); border:1px solid var(--line); border-radius:14px;
+  padding:15px; box-shadow:var(--shadow); cursor:pointer; width:100%; text-align:left;
+  font-family:inherit; color:inherit; display:block; }
+.hcard + .hcard { margin-top:10px; }
+.hcard h3 { margin:0; font-size:16px; font-family:var(--display); font-weight:500; }
+.hcard .when { font-size:13px; color:var(--muted); margin-top:1px; }
+.hmeta { display:flex; gap:16px; margin:10px 0 2px; font-size:13px; color:var(--ink-2); }
+.hmeta b { font-family:var(--mono); font-weight:500; }
+.htab { width:100%; border-collapse:collapse; margin-top:8px; font-size:13px; }
+.htab th { text-align:left; font-size:10.5px; font-weight:700; letter-spacing:.07em;
+  text-transform:uppercase; color:var(--muted); padding:6px 0 3px; }
+.htab td { padding:3px 0; }
+.htab td:last-child, .htab th:last-child { text-align:right; font-family:var(--mono); }
+.htab td.nm { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:0; width:60%; }
+
+.timer { display:flex; align-items:baseline; gap:14px; font-family:var(--mono);
+  font-size:12.5px; color:var(--muted); margin-top:2px; }
+.timer b { font-size:26px; color:var(--ink); font-weight:500; letter-spacing:-.02em; }
+.exblock { background:var(--surface); border:1px solid var(--line); border-radius:14px;
+  padding:14px; box-shadow:var(--shadow); }
+.exblock + .exblock { margin-top:10px; }
+.exhead { display:flex; align-items:center; gap:8px; }
+.exhead b { flex:1; font-size:15px; font-weight:600; color:var(--train);
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.xbtn { background:none; border:none; color:var(--muted); cursor:pointer;
+  font-size:18px; line-height:1; padding:2px 5px; }
+.setgrid { display:grid; grid-template-columns:24px 1fr 1fr 44px; gap:8px;
+  align-items:center; margin-top:9px; }
+.setgrid .hd { font-size:10px; font-weight:700; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--muted); text-align:center; }
+.setgrid .hd.l { text-align:left; }
+.setgrid .ix { font-family:var(--mono); font-size:13px; color:var(--muted); text-align:center; }
+.setgrid input { width:100%; border:1px solid var(--line-strong); background:var(--surface);
+  border-radius:9px; padding:9px 6px; font-family:var(--mono); font-size:17px;
+  font-weight:500; text-align:center; }
+.setgrid input:focus { border-color:var(--train); }
+.setgrid input.on { border-color:transparent; background:var(--train-soft); }
+.tick { border:1px solid var(--line-strong); background:none; border-radius:9px;
+  height:39px; cursor:pointer; color:var(--muted); font-size:15px; }
+.tick[aria-pressed="true"] { background:var(--accent); border-color:var(--accent); color:#fff; }
+@media (prefers-color-scheme: dark) { .tick[aria-pressed="true"] { color:#08120f; } }
+.addset { width:100%; margin-top:9px; border:1px dashed var(--line-strong); background:none;
+  border-radius:9px; padding:9px; color:var(--muted); font-family:inherit; font-size:13px;
+  cursor:pointer; }
+.exadd { display:flex; gap:8px; margin-top:12px; }
+.exadd input { flex:1; min-width:0; }
+
+.labelin { flex:1; min-width:0; background:none; border:none; padding:0 0 3px;
+  font-family:var(--display); font-size:28px; font-weight:500; line-height:1.15;
+  letter-spacing:-0.01em; color:var(--train);
+  border-bottom:1px dotted var(--line-strong); }
+.labelin::placeholder { color:var(--line-strong); }
+
+.liftchip { background:none; border:1px solid var(--line); border-radius:999px;
+  padding:1px 8px; font-family:var(--mono); font-size:10.5px; color:var(--train);
+  cursor:pointer; white-space:nowrap; }
+.empty { text-align:center; padding:26px 16px; color:var(--muted); font-size:14px; }
+
 @media (prefers-reduced-motion: no-preference) { .bar > i { transition:width .35s ease; } }
 </style>
 </head>
@@ -247,7 +327,7 @@ input[type=number] { -moz-appearance:textfield; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "1.2";
+  const APP_VERSION = "1.3";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -316,6 +396,19 @@ input[type=number] { -moz-appearance:textfield; }
     pickDate: false,
     byDate: new Map(),    // metric + date -> {value, logged}
     msg: null,
+
+    // V1.3. The board is still the whole app for nine people out of ten;
+    // Lift is a place you go, not a thing on the board.
+    view: "board",        // board | lift | session | detail
+    lift: {
+      loaded: false,
+      labels: [], sessions: [], exercises: [],
+      detail: null,       // a session being read
+      from: "lift",       // where the reader came from, so Back goes back
+      active: null,       // the session being lifted right now
+      sync: "idle",       // idle | saving | saved | offline
+      msg: null,
+    },
   };
 
   if (state.code) state.code = state.code.toUpperCase();
@@ -599,8 +692,10 @@ input[type=number] { -moz-appearance:textfield; }
       const bits = [];
       if (p.logged)     bits.push(num(p.value));
       if (p.alt_logged) bits.push(num(p.alt_value) + "m train");
+      if (Number(p.lift_volume) > 0) bits.push(num(p.lift_volume) + " lb");
       const streak = p.streak > 1 ? `  (${p.streak}-day streak)` : "";
-      lines.push(`${met ? "\u2705" : "\u25ab\ufe0f"} ${p.name} \u2014 ${bits.join(" \u00b7 ")}${streak}`);
+      const pr = Number(p.lift_prs) > 0 ? "  \ud83c\udfc6" : "";
+      lines.push(`${met ? "\u2705" : "\u25ab\ufe0f"} ${p.name} \u2014 ${bits.join(" \u00b7 ")}${streak}${pr}`);
     }
 
     if (missing.length) {
@@ -611,6 +706,596 @@ input[type=number] { -moz-appearance:textfield; }
   }
 
 
+
+  /* =================================================================
+     V1.3 — LIFT
+
+     The session being lifted lives in localStorage, not in the database.
+     A gym is a concrete box with no signal, and a set that fails to save
+     is the thing that sends someone back to the app that never loses one.
+     So: every tap writes locally and synchronously, and the network is a
+     background reconciliation that is allowed to fail. `app_lift_save`
+     takes the whole session and is idempotent, so a retry is free.
+     ================================================================= */
+
+  const uuid = () => (crypto.randomUUID ? crypto.randomUUID()
+    : "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+        const r = Math.random() * 16 | 0;
+        return (c === "x" ? r : (r & 0x3 | 0x8)).toString(16); }));
+
+  const liftKey = () => `fhd.lift.${state.code}.${state.meId}`;
+  const exKey   = () => `fhd.ex.${state.code}.${state.meId}`;
+
+  function saveLocal() {
+    try {
+      if (state.lift.active) localStorage.setItem(liftKey(), JSON.stringify(state.lift.active));
+      else localStorage.removeItem(liftKey());
+    } catch {}
+  }
+  function loadLocal() {
+    try {
+      const raw = localStorage.getItem(liftKey());
+      state.lift.active = raw ? JSON.parse(raw) : null;
+    } catch { state.lift.active = null; }
+  }
+  function cacheExercises(list) {
+    state.lift.exercises = list || [];
+    try { localStorage.setItem(exKey(), JSON.stringify(state.lift.exercises)); } catch {}
+  }
+  function cachedExercises() {
+    try { return JSON.parse(localStorage.getItem(exKey()) || "[]"); } catch { return []; }
+  }
+
+  const A = () => state.lift.active;
+
+  function elapsedMs(a) { return Math.max(0, (a.endedAt || Date.now()) - a.startedAt); }
+  function clock(ms) {
+    const s = Math.floor(ms / 1000);
+    return `${pad(Math.floor(s / 3600))}:${pad(Math.floor(s / 60) % 60)}:${pad(s % 60)}`;
+  }
+  const durationMin = (a) => Math.max(1, Math.round(elapsedMs(a) / 60000));
+
+  function volumeOf(a) {
+    let v = 0;
+    for (const x of a.ex) for (const s of x.sets)
+      if (s.on) v += (Number(s.w) || 0) * (Number(s.r) || 0);
+    return v;
+  }
+  function doneSets(a) {
+    let n = 0;
+    for (const x of a.ex) for (const s of x.sets) if (s.on) n++;
+    return n;
+  }
+
+  // Only confirmed sets cross the wire. A half-filled row you never ticked
+  // is a thought, not a lift, and it should not end up in anyone's volume.
+  function setsPayload(a) {
+    const out = [];
+    a.ex.forEach((x, pos) => x.sets.forEach((s, i) => {
+      if (!s.on || !String(x.name || "").trim()) return;
+      out.push({ position: pos, set_index: i, exercise: x.name.trim(),
+                 weight: Number(s.w) || 0, reps: Number(s.r) || 0 });
+    }));
+    return out;
+  }
+
+  let syncTimer = null;
+  function queueSync() {
+    saveLocal();
+    clearTimeout(syncTimer);
+    syncTimer = setTimeout(() => syncLift(false), 2500);
+  }
+
+  async function syncLift(finish) {
+    const a = A();
+    if (!a || !state.meId) return {};
+    if (finish) { a.endedAt = a.endedAt || Date.now(); a.pendingFinish = true; }
+    saveLocal();
+
+    if (!navigator.onLine) { setSync("offline"); return { offline: true }; }
+    setSync("saving");
+
+    const res = await call("app_lift_save", {
+      p_code: state.code, p_person: state.meId, p_session: a.id,
+      p_label: a.label || "", p_date: a.date,
+      p_duration: durationMin(a), p_sets: setsPayload(a),
+      p_finished: !!(finish || a.pendingFinish),
+    });
+
+    if (res.error) { setSync("offline"); return res; }
+    setSync("saved");
+    return res;
+  }
+
+  function setSync(s) {
+    state.lift.sync = s;
+    const el = document.getElementById("syncChip");
+    if (el) { el.className = "sync " + s; el.textContent = syncWords(s); }
+  }
+  function syncWords(s) {
+    return s === "saving" ? "Saving" : s === "saved" ? "Saved"
+         : s === "offline" ? "Offline · will sync" : "";
+  }
+
+  // A finish that happened with no signal is still a finished workout. It
+  // sits in localStorage until the phone is back, then goes up by itself.
+  async function flushPending() {
+    loadLocal();
+    const a = A();
+    if (!a || !a.pendingFinish || !navigator.onLine || !state.meId) return;
+    const res = await syncLift(true);
+    if (!res.error && !res.offline) {
+      state.lift.active = null;
+      saveLocal();
+      state.lift.loaded = false;
+    }
+  }
+
+  async function loadLift() {
+    if (!state.meId) return;
+    state.lift.exercises = cachedExercises();
+    const res = await call("app_lift_home", {
+      p_code: state.code, p_person: state.meId, p_limit: 20 });
+    if (res.error) { state.lift.msg = res.error; return; }
+    state.lift.labels   = res.labels   || [];
+    state.lift.sessions = res.sessions || [];
+    if ((res.exercises || []).length) cacheExercises(res.exercises);
+    state.lift.loaded = true;
+  }
+
+  // Starting a labelled day pulls the last one and lays it out ready to
+  // tick off, weights and all. That is the whole reason there is no
+  // template table: the last session already is the template.
+  async function startSession(label) {
+    const a = { id: uuid(), label: label || "", date: todayISO(),
+                startedAt: Date.now(), endedAt: null, ex: [], pendingFinish: false };
+
+    if (label && navigator.onLine) {
+      const res = await call("app_lift_detail", {
+        p_code: state.code, p_person: state.meId, p_label: label });
+      const prev = res && res.session;
+      if (prev && prev.sets && prev.sets.length) {
+        const byPos = new Map();
+        for (const s of prev.sets) {
+          if (!byPos.has(s.position)) byPos.set(s.position, { name: s.exercise, sets: [] });
+          byPos.get(s.position).sets.push({ w: Number(s.weight) || 0, r: Number(s.reps) || 0, on: false });
+        }
+        a.ex = [...byPos.entries()].sort((x, y) => x[0] - y[0]).map(([, v]) => v);
+      }
+    }
+
+    state.lift.active = a;
+    saveLocal();
+    state.view = "session";
+    render();
+  }
+
+  function addExercise(name) {
+    const a = A(); if (!a) return;
+    const nm = String(name || "").trim();
+    if (!nm) return;
+    // Last time you did this movement, whatever day it was on.
+    const prev = lastSetsFor(nm);
+    a.ex.push({ name: nm, sets: prev.length ? prev : [{ w: 0, r: 0, on: false }] });
+    queueSync();
+  }
+
+  function lastSetsFor(name) {
+    const key = name.toLowerCase();
+    for (const s of state.lift.sessions) {
+      const hit = (s.exercises || []).find((e) => String(e.exercise).toLowerCase() === key);
+      if (hit) {
+        return Array.from({ length: Math.max(1, hit.sets) },
+          () => ({ w: Number(hit.top_weight) || 0, r: Number(hit.top_reps) || 0, on: false }));
+      }
+    }
+    return [];
+  }
+
+  /* ---------- lift views ------------------------------------------- */
+
+  function agoWords(iso) {
+    const d = Math.round((new Date(todayISO() + "T00:00:00Z") -
+                          new Date(iso + "T00:00:00Z")) / 86400000);
+    if (d <= 0) return "today";
+    if (d === 1) return "yesterday";
+    if (d < 7)  return d + " days ago";
+    if (d < 14) return "last week";
+    return Math.floor(d / 7) + " weeks ago";
+  }
+  const fullDate = (iso) => new Date(iso + "T00:00:00Z").toLocaleDateString(undefined,
+    { timeZone: "UTC", weekday: "long", month: "short", day: "numeric" });
+
+  function sessionCard(s, clickable) {
+    const rows = (s.exercises || []).map((e) => `
+      <tr><td class="nm">${e.sets} &times; ${esc(e.exercise)}</td>
+          <td>${num(e.top_weight)} lb &times; ${e.top_reps}</td></tr>`).join("");
+    return `
+      <${clickable ? "button" : "div"} class="hcard" ${clickable ? `data-open="${s.id}"` : ""}>
+        <h3>${esc(s.label || "Workout")}</h3>
+        <p class="when">${esc(fullDate(s.entry_date))}</p>
+        <div class="hmeta">
+          <span><b>${s.duration_min}m</b></span>
+          <span><b>${num(s.volume)}</b> lb</span>
+          <span${s.pr_count > 0 ? ' style="color:var(--train)"' : ""}><b>${s.pr_count}</b> PR${
+            s.pr_count === 1 ? "" : "s"}</span>
+        </div>
+        ${rows ? `<table class="htab"><thead><tr><th>Exercise</th><th>Best set</th></tr></thead>
+                  <tbody>${rows}</tbody></table>` : ""}
+      </${clickable ? "button" : "div"}>`;
+  }
+
+  function liftHome() {
+    const a = A();
+    const resume = a && !a.pendingFinish ? `
+      <div class="install" style="background:var(--train-soft)">
+        <p><b style="color:var(--train)">${esc(a.label || "Workout")} in progress</b> &mdash;
+           ${doneSets(a)} set${doneSets(a) === 1 ? "" : "s"} logged.</p>
+        <button class="btn-quiet" id="resume" style="flex:none">Resume</button>
+      </div>` : "";
+
+    const tiles = state.lift.labels.length ? `
+      <section>
+        <div class="section-head"><h2>Your workouts</h2>
+          <span class="eyebrow">tap to start</span></div>
+        <div class="tiles">${state.lift.labels.map((l) => `
+          <button class="tile" data-start="${esc(l.label)}">
+            <b>${esc(l.label)}</b>
+            <span class="ex">${esc(l.preview || "")}</span>
+            <span class="ago">${esc(agoWords(l.last_date))}</span>
+          </button>`).join("")}</div>
+      </section>` : "";
+
+    const history = state.lift.sessions.length
+      ? `<section>
+           <div class="section-head"><h2>History</h2>
+             <span class="eyebrow">${state.lift.sessions.length} logged</span></div>
+           ${state.lift.sessions.map((s) => sessionCard(s, true)).join("")}
+         </section>`
+      : `<div class="dashed"><p class="empty">Nothing logged yet.<br>
+           Start a workout and it appears here, with your best set for every
+           exercise.</p></div>`;
+
+    return `
+      <div class="topbar">
+        <button class="backlink" id="back">&larr; ${esc(state.group.name)}</button>
+        <span class="sync ${state.lift.sync}" id="syncChip">${syncWords(state.lift.sync)}</span>
+      </div>
+
+      <header class="masthead">
+        <h1 style="color:var(--train)">Lift</h1>
+        <p class="sub">Your log. The family sees the totals, not every set.</p>
+      </header>
+
+      ${resume}
+
+      <button class="btn" id="startEmpty" style="width:100%;background:var(--train)">
+        Start an empty workout</button>
+
+      ${tiles}
+      ${history}
+
+      <p class="ver">v${APP_VERSION}</p>`;
+  }
+
+  function sessionView() {
+    const a = A();
+    if (!a) { state.view = "lift"; return liftHome(); }
+
+    const blocks = a.ex.map((x, i) => exBlock(x, i)).join("") ||
+      `<div class="dashed"><p class="empty">No exercises yet.<br>
+         Add the first one below.</p></div>`;
+
+    const datalist = `<datalist id="exlist">${
+      state.lift.exercises.map((e) => `<option value="${esc(e)}"></option>`).join("")}</datalist>`;
+
+    return `
+      <div class="topbar">
+        <button class="backlink" id="back">&larr; Lift</button>
+        <span class="sync ${state.lift.sync}" id="syncChip">${syncWords(state.lift.sync)}</span>
+      </div>
+
+      <header class="masthead">
+        <div style="display:flex;align-items:center;gap:10px">
+          <h1 style="flex:1;min-width:0">
+            <input id="labelIn" class="labelin" value="${esc(a.label)}" maxlength="24"
+                   placeholder="Name this day" autocomplete="off"
+                   aria-label="What to call this workout"></h1>
+          <button class="btn" id="finish" style="padding:10px 18px">Finish</button>
+        </div>
+        <div class="timer">
+          <b id="elapsed">${clock(elapsedMs(a))}</b>
+          <span id="sessTotals">${num(volumeOf(a))} lb &middot; ${doneSets(a)} sets</span>
+        </div>
+      </header>
+
+      <div id="blocks">${blocks}</div>
+
+      <div class="exadd">
+        <input class="field" id="exName" list="exlist" placeholder="Add an exercise"
+               autocomplete="off" maxlength="60" aria-label="Exercise name">
+        <button class="btn" id="exAdd" style="background:var(--train)">Add</button>
+      </div>
+      ${datalist}
+
+      <p class="hint" id="liftHint">${esc(state.lift.msg || "")}</p>
+
+      <button class="linkbtn" id="scrap" style="color:var(--muted);text-align:left;
+        align-self:flex-start;font-size:12px">Discard this workout</button>
+
+      <p class="ver">v${APP_VERSION}</p>`;
+  }
+
+  function exBlock(x, i) {
+    const rows = x.sets.map((s, j) => `
+      <span class="ix">${j + 1}</span>
+      <input type="number" inputmode="decimal" data-ex="${i}" data-set="${j}" data-f="w"
+             class="${s.on ? "on" : ""}" value="${s.w || ""}" placeholder="0"
+             aria-label="Set ${j + 1} weight">
+      <input type="number" inputmode="numeric" data-ex="${i}" data-set="${j}" data-f="r"
+             class="${s.on ? "on" : ""}" value="${s.r || ""}" placeholder="0"
+             aria-label="Set ${j + 1} reps">
+      <button class="tick" data-tick="${i}:${j}" aria-pressed="${!!s.on}"
+              aria-label="Mark set ${j + 1} done">&#10003;</button>`).join("");
+
+    return `
+      <div class="exblock" id="ex-${i}">
+        <div class="exhead">
+          <b>${esc(x.name)}</b>
+          <button class="xbtn" data-delex="${i}" aria-label="Remove ${esc(x.name)}">&times;</button>
+        </div>
+        <div class="setgrid">
+          <span class="hd">#</span><span class="hd">lb</span>
+          <span class="hd">reps</span><span class="hd"></span>
+          ${rows}
+        </div>
+        <button class="addset" data-addset="${i}">+ Add set</button>
+      </div>`;
+  }
+
+  function detailView() {
+    const s = state.lift.detail;
+    if (!s) { state.view = "lift"; return liftHome(); }
+    const byPos = new Map();
+    for (const r of (s.sets || [])) {
+      if (!byPos.has(r.position)) byPos.set(r.position, { name: r.exercise, sets: [] });
+      byPos.get(r.position).sets.push(r);
+    }
+    const blocks = [...byPos.entries()].sort((a, b) => a[0] - b[0]).map(([, x]) => `
+      <div class="exblock">
+        <div class="exhead"><b>${esc(x.name)}</b></div>
+        <table class="htab"><tbody>${x.sets.map((r, i) => `
+          <tr><td class="nm">Set ${i + 1}</td>
+              <td>${num(r.weight)} lb &times; ${r.reps}</td></tr>`).join("")}</tbody></table>
+      </div>`).join("");
+
+    const mine = s.person_id === state.meId;
+
+    return `
+      <div class="topbar">
+        <button class="backlink" id="back">&larr; Back</button>
+      </div>
+
+      <header class="masthead">
+        <h1 style="color:var(--train)">${esc(s.label || "Workout")}</h1>
+        <p class="sub">${esc(s.person)} &middot; ${esc(fullDate(s.entry_date))}</p>
+        <div class="timer" style="margin-top:8px">
+          <span><b>${s.duration_min}m</b></span>
+          <span><b>${num(s.volume)}</b> lb</span>
+          <span${s.pr_count > 0 ? ' style="color:var(--train)"' : ""}>
+            <b>${s.pr_count}</b> PR${s.pr_count === 1 ? "" : "s"}</span>
+        </div>
+      </header>
+
+      ${blocks}
+
+      ${mine ? `<button class="linkbtn" id="delSession" style="color:var(--warn)">
+        Delete this workout</button>` : ""}
+
+      <p class="ver">v${APP_VERSION}</p>`;
+  }
+
+  /* ---------- lift painting ----------------------------------------
+     Repaint the smallest thing that changed. V1.2 taught this the hard
+     way: a full re-render while someone is typing throws the number away.
+     ------------------------------------------------------------------ */
+
+  let tick = null;
+  function startTicking() {
+    stopTicking();
+    tick = setInterval(() => {
+      const a = A(); const el = document.getElementById("elapsed");
+      if (!a || !el) return stopTicking();
+      el.textContent = clock(elapsedMs(a));
+    }, 1000);
+  }
+  function stopTicking() { if (tick) { clearInterval(tick); tick = null; } }
+
+  function paintTotals() {
+    const a = A(); const el = document.getElementById("sessTotals");
+    if (a && el) el.innerHTML = `${num(volumeOf(a))} lb &middot; ${doneSets(a)} sets`;
+  }
+
+  function paintEx(i) {
+    const a = A(); if (!a) return;
+    const host = document.getElementById("ex-" + i);
+    if (!host) return;
+    const frag = document.createElement("div");
+    frag.innerHTML = exBlock(a.ex[i], i);
+    host.replaceWith(frag.firstElementChild);
+    wireExBlock(i);
+    paintTotals();
+  }
+
+  function wireExBlock(i) {
+    const host = document.getElementById("ex-" + i);
+    if (!host) return;
+    const a = A();
+
+    host.querySelectorAll("input[data-ex]").forEach((el) => {
+      el.addEventListener("input", () => {
+        const s = a.ex[+el.dataset.ex].sets[+el.dataset.set];
+        s[el.dataset.f] = el.value === "" ? 0 : Number(el.value);
+        paintTotals();
+        queueSync();
+      });
+    });
+
+    host.querySelectorAll("[data-tick]").forEach((el) => {
+      el.addEventListener("click", () => {
+        const [xi, si] = el.dataset.tick.split(":").map(Number);
+        const s = a.ex[xi].sets[si];
+        s.on = !s.on;
+        el.setAttribute("aria-pressed", String(s.on));
+        host.querySelectorAll(`input[data-ex="${xi}"][data-set="${si}"]`)
+            .forEach((f) => f.classList.toggle("on", s.on));
+        paintTotals();
+        queueSync();
+      });
+    });
+
+    const add = host.querySelector("[data-addset]");
+    if (add) add.addEventListener("click", () => {
+      const sets = a.ex[i].sets;
+      const last = sets[sets.length - 1];
+      sets.push({ w: last ? last.w : 0, r: last ? last.r : 0, on: false });
+      queueSync();
+      paintEx(i);
+      const rows = document.querySelectorAll(`#ex-${i} input[data-f="w"]`);
+      const f = rows[rows.length - 1];
+      if (f) { f.focus(); f.select(); }
+    });
+
+    const del = host.querySelector("[data-delex]");
+    if (del) del.addEventListener("click", () => {
+      a.ex.splice(i, 1);
+      queueSync();
+      render();
+    });
+  }
+
+  function wireLift() {
+    on("back", "click", () => {
+      stopTicking();
+      // A session opened from the board belongs to the board. Sending
+      // someone who tapped a relative's volume chip into their own Lift
+      // history is a small thing that feels like being lost.
+      if (state.view === "detail") {
+        state.lift.detail = null;
+        state.view = state.lift.from === "board" ? "board" : "lift";
+      }
+      else if (state.view === "session") state.view = "lift";
+      else state.view = "board";
+      render();
+    });
+
+    if (state.view === "lift") {
+      on("startEmpty", "click", () => startSession(""));
+      on("resume", "click", () => { state.view = "session"; render(); });
+      document.querySelectorAll("[data-start]").forEach((el) =>
+        el.addEventListener("click", () => startSession(el.dataset.start)));
+      document.querySelectorAll("[data-open]").forEach((el) =>
+        el.addEventListener("click", () => openSession(el.dataset.open)));
+    }
+
+    if (state.view === "session") {
+      const a = A();
+      a.ex.forEach((_, i) => wireExBlock(i));
+      startTicking();
+
+      on("exAdd", "click", () => {
+        const f = document.getElementById("exName");
+        const nm = (f.value || "").trim();
+        if (!nm) { f.focus(); return; }
+        addExercise(nm);
+        f.value = "";
+        render();
+      });
+      on("exName", "keydown", (e) => {
+        if (e.key === "Enter") { e.preventDefault(); document.getElementById("exAdd").click(); }
+      });
+
+      // The name is just a field. No prompt, no modal, no editor state —
+      // a label you can only set at the start is a label you get wrong.
+      on("labelIn", "input", (e) => { a.label = e.target.value.slice(0, 24); queueSync(); });
+
+      on("finish", "click", async (e) => {
+        if (doneSets(a) === 0) {
+          state.lift.msg = "Tick at least one set before finishing.";
+          const h = document.getElementById("liftHint");
+          if (h) h.textContent = state.lift.msg;
+          return;
+        }
+        e.target.disabled = true;
+        stopTicking();
+        const res = await syncLift(true);
+
+        // A finish never fails. If the network is down, or the call errors
+        // for any other reason, the workout is already on the phone and
+        // marked finished — it goes up on the next load or reconnect. The
+        // one thing that must never happen is a finished session held
+        // hostage on a screen someone is trying to leave.
+        if (res.offline || res.error) {
+          state.lift.msg = "Saved on this phone. It will upload by itself.";
+          state.view = "lift";
+          state.lift.loaded = false;
+          render();
+          return;
+        }
+        const prs = Number(res.pr_count) || 0;
+        state.lift.active = null;
+        saveLocal();
+        state.lift.msg = prs ? `Logged. ${prs} personal record${prs === 1 ? "" : "s"}.` : null;
+        state.view = "lift";
+        await loadLift();
+        render();
+        refresh();                       // the board now owes you Train minutes
+      });
+
+      on("scrap", "click", () => {
+        if (!confirm("Throw this workout away? It is not saved anywhere else.")) return;
+        stopTicking();
+        state.lift.active = null;
+        saveLocal();
+        state.view = "lift";
+        render();
+      });
+    }
+
+    if (state.view === "detail") {
+      on("delSession", "click", async () => {
+        const s = state.lift.detail;
+        if (!confirm("Delete this workout? Your Train minutes for that day go back down.")) return;
+        const res = await call("app_lift_delete", {
+          p_code: state.code, p_person: state.meId, p_session: s.id });
+        if (res.error) { alert(res.error); return; }
+        state.lift.detail = null;
+        state.view = "lift";
+        await loadLift();
+        render();
+        refresh();
+      });
+    }
+  }
+
+  async function openSession(id) {
+    const res = await call("app_lift_detail", { p_code: state.code, p_session: id });
+    if (res.error || !res.session) return;
+    state.lift.detail = res.session;
+    state.lift.from = "lift";
+    state.view = "detail";
+    render();
+  }
+
+  async function openLift() {
+    if (!state.meId) return;
+    stopTicking();
+    loadLocal();
+    state.view = "lift";
+    render();                 // paint immediately; the list can arrive after
+    await loadLift();
+    render();
+  }
 
   /* ---------- views ------------------------------------------------ */
   function landing() {
@@ -690,7 +1375,8 @@ input[type=number] { -moz-appearance:textfield; }
             <input id="train" type="number" inputmode="numeric" placeholder="0"
                    aria-label="Minutes trained on ${esc(dayTitle)}"
                    value="${recTrain.logged ? recTrain.value : ""}">
-            <em>minutes</em>
+            <em>minutes &middot; <button class="linkbtn" id="liftOpen"
+              style="font-size:11px">log lifts</button></em>
           </label>
           <label class="fld-steps">
             <span style="color:var(--series)">Steps</span>
@@ -742,7 +1428,11 @@ input[type=number] { -moz-appearance:textfield; }
                 <button class="tapedit" data-edit="name" data-person="${p.id}"
                   >${esc(p.name)}</button>
                 ${mine ? "<em>you</em>" : ""}
-                ${p.streak > 0 ? `<em>${p.streak}-day streak</em>` : ""}</div>
+                ${p.streak > 0 ? `<em>${p.streak}-day streak</em>` : ""}
+                ${Number(p.lift_volume) > 0 ? `<button class="liftchip"
+                  data-lifter="${p.id}" aria-label="See ${esc(p.name)}'s workout">${
+                  num(p.lift_volume)} lb${Number(p.lift_prs) > 0
+                    ? " · " + p.lift_prs + " PR" : ""}</button>` : ""}</div>
               <div class="bar"><i style="width:${p.logged ? Math.max(pct,3) : 0}%"></i></div>
             </div>
             <div class="num"><b>${p.logged ? num(v) : "&mdash;"}</b>
@@ -859,7 +1549,13 @@ input[type=number] { -moz-appearance:textfield; }
         <p style="margin-top:16px"><a href="${location.pathname}">Start over</a></p>`;
       return;
     }
-    app.innerHTML = state.code && state.group ? groupView() : landing();
+    if (!(state.code && state.group)) { app.innerHTML = landing(); wire(); return; }
+
+    if (state.view === "lift")    { app.innerHTML = liftHome();    wireLift(); return; }
+    if (state.view === "session") { app.innerHTML = sessionView(); wireLift(); return; }
+    if (state.view === "detail")  { app.innerHTML = detailView();  wireLift(); return; }
+
+    app.innerHTML = groupView();
     wire();
   }
 
@@ -1121,6 +1817,22 @@ input[type=number] { -moz-appearance:textfield; }
       await refresh();
     });
 
+    on("liftOpen", "click", (e) => { e.preventDefault(); openLift(); });
+
+    // Tap someone's volume chip to read the session behind it. The board
+    // stays a scoreboard; the detail is one tap away for whoever wants it.
+    document.querySelectorAll("[data-lifter]").forEach((el) => {
+      el.addEventListener("click", async () => {
+        const res = await call("app_lift_detail", {
+          p_code: state.code, p_person: el.dataset.lifter });
+        if (res.error || !res.session) return;
+        state.lift.detail = res.session;
+        state.lift.from = "board";
+        state.view = "detail";
+        render();
+      });
+    });
+
     on("waShare", "click", () => {
       // WhatsApp's official click-to-chat link. No API, no cost, no bot:
       // it opens WhatsApp with the message written, and you pick the group.
@@ -1139,6 +1851,13 @@ input[type=number] { -moz-appearance:textfield; }
     if (state.code) {
       state.meId = loadMe();
       await refresh();
+      // A workout finished with no signal uploads itself the moment there
+      // is one — on this load, and again whenever the phone reconnects.
+      loadLocal();
+      flushPending().then(() => { if (state.view === "board") render(); });
+      window.addEventListener("online", () => {
+        flushPending().then(() => { if (state.view !== "session") render(); });
+      });
     } else {
       render();
     }
