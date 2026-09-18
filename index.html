@@ -309,6 +309,43 @@ input[type=number] { -moz-appearance:textfield; }
 .liftchip { background:none; border:1px solid var(--line); border-radius:999px;
   padding:1px 8px; font-family:var(--mono); font-size:10.5px; color:var(--train);
   cursor:pointer; white-space:nowrap; }
+.liftchip.cardio { color:var(--series); }
+
+/* V1.4 */
+.weeknav { display:flex; gap:6px; }
+.weeknav button { border:1px solid var(--line); background:none; border-radius:999px;
+  width:30px; height:26px; font-size:15px; line-height:1; color:var(--ink);
+  cursor:pointer; padding:0; }
+.weeknav button:disabled { opacity:.3; cursor:default; }
+
+.foldbtn { display:flex; align-items:center; gap:6px; background:none; border:none;
+  padding:0; cursor:pointer; font-family:inherit; color:inherit; }
+.foldbtn .caret { font-size:11px; color:var(--muted); width:11px; }
+
+.tilewrap { position:relative; }
+.tilewrap .tile { width:100%; }
+.tilemenu { position:absolute; top:6px; right:6px; background:none; border:none;
+  color:var(--muted); font-size:17px; line-height:1; padding:2px 7px; cursor:pointer; }
+.sheet { position:absolute; top:30px; right:6px; z-index:5; background:var(--surface);
+  border:1px solid var(--line-strong); border-radius:11px; box-shadow:var(--shadow);
+  overflow:hidden; min-width:132px; }
+.sheet button { display:block; width:100%; text-align:left; background:none;
+  border:none; border-top:1px solid var(--line); padding:10px 13px; font-size:13.5px;
+  font-family:inherit; color:var(--ink); cursor:pointer; }
+.sheet button:first-child { border-top:none; }
+
+.setgrid.one { grid-template-columns:24px 1fr 44px; }
+.kindpick { display:flex; align-items:center; gap:6px; margin-top:9px;
+  font-size:11px; color:var(--muted); }
+.kindpick button { border:1px solid var(--line); background:none; border-radius:999px;
+  padding:4px 11px; font-size:11.5px; font-weight:500; color:var(--muted);
+  cursor:pointer; font-family:inherit; }
+.kindpick button[aria-pressed="true"] { border-color:var(--train); color:var(--train);
+  background:var(--train-soft); }
+.hd.unit { border:none; background:none; padding:0; cursor:pointer; font:inherit;
+  font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--train); text-decoration:underline; text-decoration-style:dotted;
+  text-underline-offset:3px; }
 .empty { text-align:center; padding:26px 16px; color:var(--muted); font-size:14px; }
 
 @media (prefers-reduced-motion: no-preference) { .bar > i { transition:width .35s ease; } }
@@ -327,7 +364,7 @@ input[type=number] { -moz-appearance:textfield; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "1.3";
+  const APP_VERSION = "1.4";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -384,7 +421,6 @@ input[type=number] { -moz-appearance:textfield; }
     metric: { key:"steps", unit:"steps", default_target:8000 },
     people: [],
     meId: null,
-    range: "week",        // "week" (Mon-Sun) | "12w"
     history: { steps: [], train: [] },
     hover: null,
     adding: false,
@@ -400,14 +436,18 @@ input[type=number] { -moz-appearance:textfield; }
     // V1.3. The board is still the whole app for nine people out of ten;
     // Lift is a place you go, not a thing on the board.
     view: "board",        // board | lift | session | detail
+    mode: "lift",         // lift | cardio — which tab Lift screens are showing
+    weekAnchor: null,     // Monday of the week on the charts; null means this week
     lift: {
       loaded: false,
       labels: [], sessions: [], exercises: [],
       detail: null,       // a session being read
       from: "lift",       // where the reader came from, so Back goes back
-      active: null,       // the session being lifted right now
+      active: null,       // the session being logged right now
       sync: "idle",       // idle | saving | saved | offline
       msg: null,
+      menu: null,         // a tile's ... menu, by label
+      rename: null,       // a tile being renamed
     },
   };
 
@@ -420,6 +460,13 @@ input[type=number] { -moz-appearance:textfield; }
     try { localStorage.setItem(meKey(), id); } catch {}
   };
   const me = () => state.people.find((p) => p.id === state.meId) || null;
+
+  // The family board folds. Default open, because it is the reason the app
+  // exists; remembered per phone, because on your own phone you may already
+  // know what everyone did.
+  function boardOpen() {
+    try { return localStorage.getItem("fhd.board") !== "shut"; } catch { return true; }
+  }
 
   /* ---------- data ------------------------------------------------- */
   async function refresh() {
@@ -443,15 +490,25 @@ input[type=number] { -moz-appearance:textfield; }
   // One window, both metrics. The week view is a real Monday-to-Sunday
   // calendar week, so everyone is looking at the same seven columns.
   function weekBounds() {
-    const start = mondayOf(entryDay());
+    const start = state.weekAnchor || mondayOf(entryDay());
     return { start, end: shiftISO(start, 6) };
+  }
+  const thisMonday = () => mondayOf(todayISO());
+  function weekWords() {
+    const { start, end } = weekBounds();
+    if (start === thisMonday()) return "This week";
+    if (start === shiftISO(thisMonday(), -7)) return "Last week";
+    return longLabel(start) + " \u2013 " + longLabel(end);
   }
 
   async function loadHistory() {
     if (!state.meId) { state.history = { steps: [], train: [] }; return; }
-    const week = state.range === "week";
-    const anchor = week ? weekBounds().end : todayISO();
-    const days = week ? 7 : 84;
+    // V1.4 deleted the 12-week toggle. Two controls became one pair of
+    // arrows, and "what did I do three weeks ago" became answerable, which
+    // the aggregate never was: you could see a tall bar and not open it.
+    const week = true;
+    const anchor = weekBounds().end;
+    const days = 7;
 
     const [a, b] = await Promise.all([
       call("app_history", { p_code:state.code, p_person:state.meId,
@@ -504,7 +561,7 @@ input[type=number] { -moz-appearance:textfield; }
 
   function points(k) {
     const rows = state.history[k] || [];
-    if (state.range === "week") {
+    {
       return rows.map((d, i) => ({
         key:d.date, label:DOW[i] || dayLabel(d.date), value:Number(d.value),
         logged:d.logged, full:longLabel(d.date),
@@ -531,15 +588,14 @@ input[type=number] { -moz-appearance:textfield; }
     const pts = points(k);
     if (!pts.length) return "";
 
-    const goal = k === "steps"
-      ? (state.range === "week" ? Number(me()?.target || 0) : 0)
-      : (state.range === "week" ? Number(state.trainGoal || 0) : 0);
+    const goal = k === "steps" ? Number(me()?.target || 0)
+                               : Number(state.trainGoal || 0);
 
     const H = 96, PT = 10, PB = 4, plot = H - PT - PB;
     const peak = Math.max(...pts.map((p) => p.value), goal || 0, 1);
     const max = peak * 1.15;
     const y = (v) => PT + plot - (v / max) * plot;
-    const n = pts.length, slot = 100 / n, bw = slot * (state.range === "week" ? 0.52 : 0.6);
+    const n = pts.length, slot = 100 / n, bw = slot * 0.52;
 
     let bars = "";
     pts.forEach((p, i) => {
@@ -575,8 +631,8 @@ input[type=number] { -moz-appearance:textfield; }
     }
 
     const total = pts.reduce((t, p) => t + p.value, 0);
-    const totalWords = state.range === "week"
-      ? `${num(Math.round(total))} this week` : `${num(Math.round(total))} in 12 weeks`;
+    const totalWords = `${num(Math.round(total))} ${
+      k === "train" ? "minutes" : ""}`.trim();
 
     // The goal is edited by tapping the line it controls.
     const goalTap = k === "steps"
@@ -600,7 +656,7 @@ input[type=number] { -moz-appearance:textfield; }
           <div class="axis">${axis}</div>
           ${tip}
         </div>
-        ${state.range === "week" ? `<div class="mini-foot">${goalTap}</div>` : ""}
+        <div class="mini-foot">${goalTap}</div>
       </div>`;
   }
 
@@ -623,8 +679,10 @@ input[type=number] { -moz-appearance:textfield; }
     return "Your own daily target, in steps.";
   }
 
+  // Train first. It is the one he acts on, and the first thing on a screen
+  // is the thing the screen is about.
   function chartsHTML() {
-    return miniChart("steps") + miniChart("train");
+    return miniChart("train") + miniChart("steps");
   }
 
   function statsHTML() {
@@ -634,11 +692,11 @@ input[type=number] { -moz-appearance:textfield; }
       ? Math.round(logged.reduce((s, p) => s + p.value, 0) / logged.length) : 0;
     const best = pts.reduce((m, p) => Math.max(m, p.value), 0);
     const goal = Number(me()?.target || 0);
-    const hit = (state.range !== "week" || !pts.length || !goal)
+    const hit = (!pts.length || !goal)
       ? null : Math.round((pts.filter((p) => p.value >= goal).length / pts.length) * 100);
     const cells = [
-      [num(avg), state.range === "week" ? "Daily average" : "Weekly average"],
-      [num(best), state.range === "week" ? "Best day" : "Best week"],
+      [num(avg), "Daily average"],
+      [num(best), "Best day"],
       hit === null ? [String(me()?.streak || 0), "Day streak"] : [hit + "%", "Goal hit"],
     ];
     return `<div class="stats">${cells.map(([v, l]) =>
@@ -691,11 +749,12 @@ input[type=number] { -moz-appearance:textfield; }
       const met = Number(p.value) >= Number(p.target);
       const bits = [];
       if (p.logged)     bits.push(num(p.value));
-      if (p.alt_logged) bits.push(num(p.alt_value) + "m train");
-      if (Number(p.lift_volume) > 0) bits.push(num(p.lift_volume) + " lb");
+      // Steps and minutes only. Both are universal: no pounds, no
+      // kilometres, nothing a relative has to convert in their head
+      // before the line means anything to them.
+      if (p.alt_logged) bits.push(num(p.alt_value) + "m");
       const streak = p.streak > 1 ? `  (${p.streak}-day streak)` : "";
-      const pr = Number(p.lift_prs) > 0 ? "  \ud83c\udfc6" : "";
-      lines.push(`${met ? "\u2705" : "\u25ab\ufe0f"} ${p.name} \u2014 ${bits.join(" \u00b7 ")}${streak}${pr}`);
+      lines.push(`${met ? "\u2705" : "\u25ab\ufe0f"} ${p.name} \u2014 ${bits.join(" \u00b7 ")}${streak}`);
     }
 
     if (missing.length) {
@@ -723,8 +782,63 @@ input[type=number] { -moz-appearance:textfield; }
         const r = Math.random() * 16 | 0;
         return (c === "x" ? r : (r & 0x3 | 0x8)).toString(16); }));
 
-  const liftKey = () => `fhd.lift.${state.code}.${state.meId}`;
-  const exKey   = () => `fhd.ex.${state.code}.${state.meId}`;
+  /* ---------- units -------------------------------------------------
+     The database stores pounds and metres, always. What a phone shows is
+     a setting on that phone, so someone in Karachi enters kilos and metres
+     while you enter pounds and miles, and the stored numbers stay
+     comparable. Convert at the edges, never in the middle.
+     ------------------------------------------------------------------ */
+  const LB_PER_KG = 2.2046226218;
+  const M_PER_MI  = 1609.344;
+
+  const units = {
+    get w() { try { return localStorage.getItem("fhd.unit.w") || "lb"; } catch { return "lb"; } },
+    get d() { try { return localStorage.getItem("fhd.unit.d") || "mi"; } catch { return "mi"; } },
+    set w(v) { try { localStorage.setItem("fhd.unit.w", v); } catch {} },
+    set d(v) { try { localStorage.setItem("fhd.unit.d", v); } catch {} },
+  };
+
+  // stored (lb) -> shown ;  shown -> stored
+  const wOut = (lb) => units.w === "kg" ? Number(lb) / LB_PER_KG : Number(lb);
+  const wIn  = (v)  => units.w === "kg" ? Number(v) * LB_PER_KG  : Number(v);
+  const dOut = (m) => units.d === "km" ? Number(m) / 1000
+                    : units.d === "m"  ? Number(m)
+                    : Number(m) / M_PER_MI;
+  const dIn  = (v) => units.d === "km" ? Number(v) * 1000
+                    : units.d === "m"  ? Number(v)
+                    : Number(v) * M_PER_MI;
+
+  const wShow = (lb) => { const v = wOut(lb);
+    return units.w === "kg" ? (Math.round(v * 10) / 10) : Math.round(v); };
+  const dShow = (m) => { const v = dOut(m); return Math.round(v * 100) / 100; };
+
+  // Metres read better than 0.31 mi for a pool. Under 1000 m stays metric
+  // whatever the setting, because that is how swimmers actually talk.
+  function distWords(m) {
+    m = Number(m) || 0;
+    if (m <= 0) return "";
+    if (m < 1000) return Math.round(m) + " m";
+    return dShow(m) + " " + units.d;
+  }
+  const mmss = (sec) => {
+    sec = Math.max(0, Math.round(Number(sec) || 0));
+    const h = Math.floor(sec / 3600), m = Math.floor(sec / 60) % 60, x = sec % 60;
+    return h ? `${h}:${pad(m)}:${pad(x)}` : `${m}:${pad(x)}`;
+  };
+  const parseClock = (t) => {
+    const parts = String(t || "").split(":").map((n) => Number(n) || 0);
+    if (parts.length === 3) return parts[0]*3600 + parts[1]*60 + parts[2];
+    if (parts.length === 2) return parts[0]*60 + parts[1];
+    return parts[0] * 60;                       // a bare number means minutes
+  };
+
+  // Lift and Cardio each keep their own in-progress draft, so starting a
+  // swim does not throw away a half-logged leg day.
+  const liftKey = () => `fhd.lift.${state.code}.${state.meId}.${state.mode}`;
+  const exKey   = () => `fhd.ex.${state.code}.${state.meId}.${state.mode}`;
+  const MODE = () => (state.mode === "cardio"
+    ? { key:"cardio", title:"Cardio", verb:"activity", start:"Start an activity" }
+    : { key:"lift",   title:"Lift",   verb:"exercise", start:"Start an empty workout" });
 
   function saveLocal() {
     try {
@@ -755,11 +869,21 @@ input[type=number] { -moz-appearance:textfield; }
   }
   const durationMin = (a) => Math.max(1, Math.round(elapsedMs(a) / 60000));
 
-  function volumeOf(a) {
-    let v = 0;
-    for (const x of a.ex) for (const s of x.sets)
-      if (s.on) v += (Number(s.w) || 0) * (Number(s.r) || 0);
-    return v;
+  // V1.4 deleted volume. What a session is worth is what you did in it,
+  // not a number that rewards doing light things many times.
+  function distanceOf(a) {
+    let m = 0;
+    for (const x of a.ex) for (const s of x.sets) if (s.on) m += Number(s.d) || 0;
+    return m;
+  }
+  function totalsWords(a) {
+    const n = doneSets(a);
+    const d = distanceOf(a);
+    const bits = [];
+    if (d > 0) bits.push(distWords(d));
+    bits.push(n + (state.mode === "cardio" ? (n === 1 ? " entry" : " entries")
+                                           : (n === 1 ? " set"   : " sets")));
+    return bits.join(" \u00b7 ");
   }
   function doneSets(a) {
     let n = 0;
@@ -774,7 +898,9 @@ input[type=number] { -moz-appearance:textfield; }
     a.ex.forEach((x, pos) => x.sets.forEach((s, i) => {
       if (!s.on || !String(x.name || "").trim()) return;
       out.push({ position: pos, set_index: i, exercise: x.name.trim(),
-                 weight: Number(s.w) || 0, reps: Number(s.r) || 0 });
+                 kind: x.kind || "weight_reps",
+                 weight: Number(s.w) || 0, reps: Number(s.r) || 0,
+                 distance: Number(s.d) || 0, seconds: Number(s.t) || 0 });
     }));
     return out;
   }
@@ -799,7 +925,7 @@ input[type=number] { -moz-appearance:textfield; }
       p_code: state.code, p_person: state.meId, p_session: a.id,
       p_label: a.label || "", p_date: a.date,
       p_duration: durationMin(a), p_sets: setsPayload(a),
-      p_finished: !!(finish || a.pendingFinish),
+      p_finished: !!(finish || a.pendingFinish), p_mode: state.mode,
     });
 
     if (res.error) { setSync("offline"); return res; }
@@ -835,7 +961,7 @@ input[type=number] { -moz-appearance:textfield; }
     if (!state.meId) return;
     state.lift.exercises = cachedExercises();
     const res = await call("app_lift_home", {
-      p_code: state.code, p_person: state.meId, p_limit: 20 });
+      p_code: state.code, p_person: state.meId, p_limit: 20, p_mode: state.mode });
     if (res.error) { state.lift.msg = res.error; return; }
     state.lift.labels   = res.labels   || [];
     state.lift.sessions = res.sessions || [];
@@ -852,13 +978,16 @@ input[type=number] { -moz-appearance:textfield; }
 
     if (label && navigator.onLine) {
       const res = await call("app_lift_detail", {
-        p_code: state.code, p_person: state.meId, p_label: label });
+        p_code: state.code, p_person: state.meId, p_label: label, p_mode: state.mode });
       const prev = res && res.session;
       if (prev && prev.sets && prev.sets.length) {
         const byPos = new Map();
         for (const s of prev.sets) {
-          if (!byPos.has(s.position)) byPos.set(s.position, { name: s.exercise, sets: [] });
-          byPos.get(s.position).sets.push({ w: Number(s.weight) || 0, r: Number(s.reps) || 0, on: false });
+          if (!byPos.has(s.position))
+            byPos.set(s.position, { name: s.exercise, kind: s.kind || "weight_reps", sets: [] });
+          byPos.get(s.position).sets.push({
+            w: Number(s.weight) || 0, r: Number(s.reps) || 0,
+            d: Number(s.distance) || 0, t: Number(s.seconds) || 0, on: false });
         }
         a.ex = [...byPos.entries()].sort((x, y) => x[0] - y[0]).map(([, v]) => v);
       }
@@ -870,23 +999,47 @@ input[type=number] { -moz-appearance:textfield; }
     render();
   }
 
-  function addExercise(name) {
+  // A movement remembers what it is. "Pool Swim" comes back as metres and
+  // a clock, "Yoga" as a clock, "Leg Press" as weight and reps — because
+  // that is how you logged it last time, not because anything was set up.
+  function kindFor(name, fallback) {
+    const key = String(name).toLowerCase();
+    const known = (state.lift.exercises || []).find(
+      (e) => String(e.name || e).toLowerCase() === key);
+    if (known && known.kind) return known.kind;
+    for (const s of state.lift.sessions) {
+      const hit = (s.exercises || []).find((e) => String(e.exercise).toLowerCase() === key);
+      if (hit && hit.kind) return hit.kind;
+    }
+    // An explicit null means "only tell me if you already know", so a
+    // brand-new name can take whatever the toggle says instead of
+    // silently defaulting to weights.
+    if (fallback === null) return null;
+    return fallback || (state.mode === "cardio" ? "distance_time" : "weight_reps");
+  }
+
+  function addExercise(name, kind) {
     const a = A(); if (!a) return;
     const nm = String(name || "").trim();
     if (!nm) return;
-    // Last time you did this movement, whatever day it was on.
-    const prev = lastSetsFor(nm);
-    a.ex.push({ name: nm, sets: prev.length ? prev : [{ w: 0, r: 0, on: false }] });
+    const k = kind || kindFor(nm);
+    const prev = lastSetsFor(nm, k);
+    a.ex.push({ name: nm, kind: k,
+                sets: prev.length ? prev : [{ w:0, r:0, d:0, t:0, on:false }] });
     queueSync();
   }
 
-  function lastSetsFor(name) {
+  function lastSetsFor(name, kind) {
     const key = name.toLowerCase();
     for (const s of state.lift.sessions) {
       const hit = (s.exercises || []).find((e) => String(e.exercise).toLowerCase() === key);
       if (hit) {
-        return Array.from({ length: Math.max(1, hit.sets) },
-          () => ({ w: Number(hit.top_weight) || 0, r: Number(hit.top_reps) || 0, on: false }));
+        const n = Math.max(1, kind === "weight_reps" ? hit.sets : 1);
+        return Array.from({ length: n }, () => ({
+          w: Number(hit.top_weight) || 0, r: Number(hit.top_reps) || 0,
+          d: Number(hit.distance) || 0,
+          t: Math.round((Number(hit.seconds) || 0) / Math.max(1, hit.sets)),
+          on: false }));
       }
     }
     return [];
@@ -906,21 +1059,30 @@ input[type=number] { -moz-appearance:textfield; }
   const fullDate = (iso) => new Date(iso + "T00:00:00Z").toLocaleDateString(undefined,
     { timeZone: "UTC", weekday: "long", month: "short", day: "numeric" });
 
+  function bestSetWords(e) {
+    if (e.kind === "duration")      return mmss(e.seconds);
+    if (e.kind === "distance_time") return `${distWords(e.distance)} \u00b7 ${mmss(e.seconds)}`;
+    return `${wShow(e.top_weight)} ${units.w} \u00d7 ${e.top_reps}`;
+  }
+
   function sessionCard(s, clickable) {
     const rows = (s.exercises || []).map((e) => `
-      <tr><td class="nm">${e.sets} &times; ${esc(e.exercise)}</td>
-          <td>${num(e.top_weight)} lb &times; ${e.top_reps}</td></tr>`).join("");
+      <tr><td class="nm">${e.kind === "weight_reps" ? e.sets + " &times; " : ""}${
+            esc(e.exercise)}</td>
+          <td>${bestSetWords(e)}</td></tr>`).join("");
+    const meta = [`<span><b>${s.duration_min}m</b></span>`];
+    if (Number(s.distance) > 0) meta.push(`<span><b>${distWords(s.distance)}</b></span>`);
+    if (s.pr_count > 0)
+      meta.push(`<span style="color:var(--train)"><b>${s.pr_count}</b> PR${
+        s.pr_count === 1 ? "" : "s"}</span>`);
     return `
       <${clickable ? "button" : "div"} class="hcard" ${clickable ? `data-open="${s.id}"` : ""}>
         <h3>${esc(s.label || "Workout")}</h3>
         <p class="when">${esc(fullDate(s.entry_date))}</p>
-        <div class="hmeta">
-          <span><b>${s.duration_min}m</b></span>
-          <span><b>${num(s.volume)}</b> lb</span>
-          <span${s.pr_count > 0 ? ' style="color:var(--train)"' : ""}><b>${s.pr_count}</b> PR${
-            s.pr_count === 1 ? "" : "s"}</span>
-        </div>
-        ${rows ? `<table class="htab"><thead><tr><th>Exercise</th><th>Best set</th></tr></thead>
+        <div class="hmeta">${meta.join("")}</div>
+        ${rows ? `<table class="htab"><thead><tr><th>${
+                    state.mode === "cardio" ? "Activity" : "Exercise"}</th>
+                  <th>${state.mode === "cardio" ? "Result" : "Best set"}</th></tr></thead>
                   <tbody>${rows}</tbody></table>` : ""}
       </${clickable ? "button" : "div"}>`;
   }
@@ -930,20 +1092,39 @@ input[type=number] { -moz-appearance:textfield; }
     const resume = a && !a.pendingFinish ? `
       <div class="install" style="background:var(--train-soft)">
         <p><b style="color:var(--train)">${esc(a.label || "Workout")} in progress</b> &mdash;
-           ${doneSets(a)} set${doneSets(a) === 1 ? "" : "s"} logged.</p>
+           ${totalsWords(a)} logged.</p>
         <button class="btn-quiet" id="resume" style="flex:none">Resume</button>
       </div>` : "";
 
     const tiles = state.lift.labels.length ? `
       <section>
-        <div class="section-head"><h2>Your workouts</h2>
+        <div class="section-head"><h2>${state.mode === "cardio"
+            ? "Your activities" : "Your workouts"}</h2>
           <span class="eyebrow">tap to start</span></div>
         <div class="tiles">${state.lift.labels.map((l) => `
-          <button class="tile" data-start="${esc(l.label)}">
-            <b>${esc(l.label)}</b>
-            <span class="ex">${esc(l.preview || "")}</span>
-            <span class="ago">${esc(agoWords(l.last_date))}</span>
-          </button>`).join("")}</div>
+          <div class="tilewrap">
+            <button class="tile" data-start="${esc(l.label)}">
+              <b>${esc(l.label)}</b>
+              <span class="ex">${esc(l.preview || "")}</span>
+              <span class="ago">${esc(agoWords(l.last_date))}</span>
+            </button>
+            <button class="tilemenu" data-menu="${esc(l.label)}"
+              aria-label="Options for ${esc(l.label)}">&hellip;</button>
+            ${state.lift.menu === l.label ? `
+              <div class="sheet">
+                <button data-rename="${esc(l.label)}">Rename</button>
+                <button data-drop="${esc(l.label)}">Remove tile</button>
+              </div>` : ""}
+          </div>`).join("")}</div>
+        ${state.lift.rename !== null ? `
+          <div class="addrow" style="margin-top:12px">
+            <input class="field" id="renameVal" maxlength="24" autocomplete="off"
+                   value="${esc(state.lift.rename)}" aria-label="New name">
+            <button class="btn" id="renameGo" style="background:var(--train)">Save</button>
+            <button class="btn-quiet" id="renameNo">Cancel</button>
+            <p class="hint" style="flex-basis:100%;margin-top:0">Renames it on every
+              session you logged under that name. The workouts themselves are untouched.</p>
+          </div>` : ""}
       </section>` : "";
 
     const history = state.lift.sessions.length
@@ -953,8 +1134,21 @@ input[type=number] { -moz-appearance:textfield; }
            ${state.lift.sessions.map((s) => sessionCard(s, true)).join("")}
          </section>`
       : `<div class="dashed"><p class="empty">Nothing logged yet.<br>
-           Start a workout and it appears here, with your best set for every
-           exercise.</p></div>`;
+           ${state.mode === "cardio"
+             ? "Log a swim, row or ride and it appears here."
+             : "Start a workout and it appears here, with your best set for every exercise."}
+         </p></div>`;
+
+    const M = MODE();
+    const unitPick = state.mode === "cardio"
+      ? `<div class="range" role="group" aria-label="Distance unit">${
+          ["mi","km","m"].map((u) =>
+            `<button type="button" data-dunit="${u}" aria-pressed="${units.d === u}">${u}</button>`
+          ).join("")}</div>`
+      : `<div class="range" role="group" aria-label="Weight unit">${
+          ["lb","kg"].map((u) =>
+            `<button type="button" data-wunit="${u}" aria-pressed="${units.w === u}">${u}</button>`
+          ).join("")}</div>`;
 
     return `
       <div class="topbar">
@@ -963,14 +1157,19 @@ input[type=number] { -moz-appearance:textfield; }
       </div>
 
       <header class="masthead">
-        <h1 style="color:var(--train)">Lift</h1>
-        <p class="sub">Your log. The family sees the totals, not every set.</p>
+        <div style="display:flex;align-items:center;gap:12px">
+          <h1 style="flex:1;color:var(--train)">${M.title}</h1>
+          ${unitPick}
+        </div>
+        <p class="sub">${state.mode === "cardio"
+          ? "Swims, rows, rides. The family sees the distance."
+          : "Your log. The family sees that you lifted, not every set."}</p>
       </header>
 
       ${resume}
 
       <button class="btn" id="startEmpty" style="width:100%;background:var(--train)">
-        Start an empty workout</button>
+        ${M.start}</button>
 
       ${tiles}
       ${history}
@@ -987,11 +1186,12 @@ input[type=number] { -moz-appearance:textfield; }
          Add the first one below.</p></div>`;
 
     const datalist = `<datalist id="exlist">${
-      state.lift.exercises.map((e) => `<option value="${esc(e)}"></option>`).join("")}</datalist>`;
+      state.lift.exercises.map((e) =>
+        `<option value="${esc(e.name || e)}"></option>`).join("")}</datalist>`;
 
     return `
       <div class="topbar">
-        <button class="backlink" id="back">&larr; Lift</button>
+        <button class="backlink" id="back">&larr; ${MODE().title}</button>
         <span class="sync ${state.lift.sync}" id="syncChip">${syncWords(state.lift.sync)}</span>
       </div>
 
@@ -1005,38 +1205,72 @@ input[type=number] { -moz-appearance:textfield; }
         </div>
         <div class="timer">
           <b id="elapsed">${clock(elapsedMs(a))}</b>
-          <span id="sessTotals">${num(volumeOf(a))} lb &middot; ${doneSets(a)} sets</span>
+          <span id="sessTotals">${totalsWords(a)}</span>
         </div>
       </header>
 
       <div id="blocks">${blocks}</div>
 
       <div class="exadd">
-        <input class="field" id="exName" list="exlist" placeholder="Add an exercise"
-               autocomplete="off" maxlength="60" aria-label="Exercise name">
+        <input class="field" id="exName" list="exlist" placeholder="Add ${
+          state.mode === "cardio" ? "an activity" : "an exercise"}"
+               autocomplete="off" maxlength="60" aria-label="${
+          state.mode === "cardio" ? "Activity" : "Exercise"} name">
         <button class="btn" id="exAdd" style="background:var(--train)">Add</button>
       </div>
+      ${state.mode === "cardio" ? "" : `
+      <div class="kindpick" role="group" aria-label="What this exercise records">
+        ${[["weight_reps","weights"],["duration","time"]].map(([k, lbl]) =>
+          `<button type="button" data-kind="${k}" aria-pressed="${
+            (state.newKind || "weight_reps") === k}">${lbl}</button>`).join("")}
+        <span>&mdash; remembered next time</span>
+      </div>`}
       ${datalist}
 
       <p class="hint" id="liftHint">${esc(state.lift.msg || "")}</p>
 
       <button class="linkbtn" id="scrap" style="color:var(--muted);text-align:left;
-        align-self:flex-start;font-size:12px">Discard this workout</button>
+        align-self:flex-start;font-size:12px">Discard this ${
+        state.mode === "cardio" ? "activity" : "workout"}</button>
 
       <p class="ver">v${APP_VERSION}</p>`;
   }
 
+  // One row shape per kind. This is the whole reason Cardio needed no
+  // second app: the exercise decides the columns, exactly as Strong does.
+  const COLS = {
+    weight_reps:   () => [units.w, "reps"],
+    duration:      () => ["time"],
+    distance_time: () => [units.d, "time"],
+  };
+
   function exBlock(x, i) {
-    const rows = x.sets.map((s, j) => `
-      <span class="ix">${j + 1}</span>
-      <input type="number" inputmode="decimal" data-ex="${i}" data-set="${j}" data-f="w"
-             class="${s.on ? "on" : ""}" value="${s.w || ""}" placeholder="0"
-             aria-label="Set ${j + 1} weight">
-      <input type="number" inputmode="numeric" data-ex="${i}" data-set="${j}" data-f="r"
-             class="${s.on ? "on" : ""}" value="${s.r || ""}" placeholder="0"
-             aria-label="Set ${j + 1} reps">
+    const kind = x.kind || "weight_reps";
+    const cols = COLS[kind]();
+    const cls  = kind === "weight_reps" ? "" : cols.length === 1 ? " one" : "";
+
+    const field = (s, j, f, ph, label) => {
+      const val = f === "w" ? (s.w ? wShow(s.w) : "")
+                : f === "r" ? (s.r || "")
+                : f === "d" ? (s.d ? dShow(s.d) : "")
+                : (s.t ? mmss(s.t) : "");
+      const numeric = f === "r";
+      return `<input type="${f === "t" ? "text" : "number"}"
+             inputmode="${f === "t" ? "numeric" : numeric ? "numeric" : "decimal"}"
+             data-ex="${i}" data-set="${j}" data-f="${f}"
+             class="${s.on ? "on" : ""}" value="${val}" placeholder="${ph}"
+             aria-label="Set ${j + 1} ${label}">`;
+    };
+
+    const rows = x.sets.map((s, j) => {
+      const cells =
+        kind === "weight_reps"   ? field(s,j,"w","0",units.w) + field(s,j,"r","0","reps")
+      : kind === "duration"      ? field(s,j,"t","0:00","time")
+      :                            field(s,j,"d","0",units.d) + field(s,j,"t","0:00","time");
+      return `<span class="ix">${j + 1}</span>${cells}
       <button class="tick" data-tick="${i}:${j}" aria-pressed="${!!s.on}"
-              aria-label="Mark set ${j + 1} done">&#10003;</button>`).join("");
+              aria-label="Mark ${j + 1} done">&#10003;</button>`;
+    }).join("");
 
     return `
       <div class="exblock" id="ex-${i}">
@@ -1044,12 +1278,17 @@ input[type=number] { -moz-appearance:textfield; }
           <b>${esc(x.name)}</b>
           <button class="xbtn" data-delex="${i}" aria-label="Remove ${esc(x.name)}">&times;</button>
         </div>
-        <div class="setgrid">
-          <span class="hd">#</span><span class="hd">lb</span>
-          <span class="hd">reps</span><span class="hd"></span>
+        <div class="setgrid${cls}">
+          <span class="hd">#</span>${cols.map((c) =>
+            (c === units.w || c === units.d)
+              ? `<button class="hd unit" data-cycle="${c === units.w ? "w" : "d"}"
+                   aria-label="Change unit">${esc(c)}</button>`
+              : `<span class="hd">${esc(c)}</span>`).join("")}
+          <span class="hd"></span>
           ${rows}
         </div>
-        <button class="addset" data-addset="${i}">+ Add set</button>
+        <button class="addset" data-addset="${i}">+ Add ${
+          kind === "weight_reps" ? "set" : "entry"}</button>
       </div>`;
   }
 
@@ -1061,12 +1300,16 @@ input[type=number] { -moz-appearance:textfield; }
       if (!byPos.has(r.position)) byPos.set(r.position, { name: r.exercise, sets: [] });
       byPos.get(r.position).sets.push(r);
     }
+    const cell = (r) =>
+        r.kind === "duration"      ? mmss(r.seconds)
+      : r.kind === "distance_time" ? `${distWords(r.distance)} \u00b7 ${mmss(r.seconds)}`
+      :                              `${wShow(r.weight)} ${units.w} \u00d7 ${r.reps}`;
     const blocks = [...byPos.entries()].sort((a, b) => a[0] - b[0]).map(([, x]) => `
       <div class="exblock">
         <div class="exhead"><b>${esc(x.name)}</b></div>
         <table class="htab"><tbody>${x.sets.map((r, i) => `
-          <tr><td class="nm">Set ${i + 1}</td>
-              <td>${num(r.weight)} lb &times; ${r.reps}</td></tr>`).join("")}</tbody></table>
+          <tr><td class="nm">${x.sets.length > 1 ? "Set " + (i + 1) : "\u2014"}</td>
+              <td>${cell(r)}</td></tr>`).join("")}</tbody></table>
       </div>`).join("");
 
     const mine = s.person_id === state.meId;
@@ -1081,9 +1324,9 @@ input[type=number] { -moz-appearance:textfield; }
         <p class="sub">${esc(s.person)} &middot; ${esc(fullDate(s.entry_date))}</p>
         <div class="timer" style="margin-top:8px">
           <span><b>${s.duration_min}m</b></span>
-          <span><b>${num(s.volume)}</b> lb</span>
-          <span${s.pr_count > 0 ? ' style="color:var(--train)"' : ""}>
-            <b>${s.pr_count}</b> PR${s.pr_count === 1 ? "" : "s"}</span>
+          ${Number(s.distance) > 0 ? `<span><b>${distWords(s.distance)}</b></span>` : ""}
+          ${s.pr_count > 0 ? `<span style="color:var(--train)">
+            <b>${s.pr_count}</b> PR${s.pr_count === 1 ? "" : "s"}</span>` : ""}
         </div>
       </header>
 
@@ -1113,7 +1356,7 @@ input[type=number] { -moz-appearance:textfield; }
 
   function paintTotals() {
     const a = A(); const el = document.getElementById("sessTotals");
-    if (a && el) el.innerHTML = `${num(volumeOf(a))} lb &middot; ${doneSets(a)} sets`;
+    if (a && el) el.innerHTML = totalsWords(a);
   }
 
   function paintEx(i) {
@@ -1135,7 +1378,13 @@ input[type=number] { -moz-appearance:textfield; }
     host.querySelectorAll("input[data-ex]").forEach((el) => {
       el.addEventListener("input", () => {
         const s = a.ex[+el.dataset.ex].sets[+el.dataset.set];
-        s[el.dataset.f] = el.value === "" ? 0 : Number(el.value);
+        const f = el.dataset.f, v = el.value;
+        // Typed in whatever unit the phone is showing; stored in pounds
+        // and metres. The conversion lives here and nowhere else.
+        if (f === "t")      s.t = parseClock(v);
+        else if (f === "d") s.d = v === "" ? 0 : dIn(Number(v));
+        else if (f === "w") s.w = v === "" ? 0 : wIn(Number(v));
+        else                s.r = v === "" ? 0 : Number(v);
         paintTotals();
         queueSync();
       });
@@ -1157,12 +1406,13 @@ input[type=number] { -moz-appearance:textfield; }
     const add = host.querySelector("[data-addset]");
     if (add) add.addEventListener("click", () => {
       const sets = a.ex[i].sets;
-      const last = sets[sets.length - 1];
-      sets.push({ w: last ? last.w : 0, r: last ? last.r : 0, on: false });
+      const last = sets[sets.length - 1] || {};
+      sets.push({ w: last.w || 0, r: last.r || 0, d: last.d || 0, t: last.t || 0, on: false });
       queueSync();
       paintEx(i);
-      const rows = document.querySelectorAll(`#ex-${i} input[data-f="w"]`);
-      const f = rows[rows.length - 1];
+      const rows = document.querySelectorAll(`#ex-${i} .setgrid input`);
+      const kindCols = (a.ex[i].kind === "weight_reps") ? 2 : (a.ex[i].kind === "duration" ? 1 : 2);
+      const f = rows[rows.length - kindCols];
       if (f) { f.focus(); f.select(); }
     });
 
@@ -1196,6 +1446,41 @@ input[type=number] { -moz-appearance:textfield; }
         el.addEventListener("click", () => startSession(el.dataset.start)));
       document.querySelectorAll("[data-open]").forEach((el) =>
         el.addEventListener("click", () => openSession(el.dataset.open)));
+
+      document.querySelectorAll("[data-wunit]").forEach((el) =>
+        el.addEventListener("click", () => { units.w = el.dataset.wunit; render(); }));
+      document.querySelectorAll("[data-dunit]").forEach((el) =>
+        el.addEventListener("click", () => { units.d = el.dataset.dunit; render(); }));
+
+      document.querySelectorAll("[data-menu]").forEach((el) =>
+        el.addEventListener("click", () => {
+          state.lift.menu = state.lift.menu === el.dataset.menu ? null : el.dataset.menu;
+          state.lift.rename = null;
+          render();
+        }));
+      document.querySelectorAll("[data-rename]").forEach((el) =>
+        el.addEventListener("click", () => {
+          state.lift.rename = el.dataset.rename;
+          state.lift.renameFrom = el.dataset.rename;
+          state.lift.menu = null;
+          render();
+          const f = document.getElementById("renameVal");
+          if (f) { f.focus(); f.select(); }
+        }));
+      on("renameNo", "click", () => { state.lift.rename = null; render(); });
+      on("renameGo", "click", () => saveLabel(
+        (document.getElementById("renameVal").value || "").trim()));
+      on("renameVal", "keydown", (e) => {
+        if (e.key === "Enter") document.getElementById("renameGo").click();
+        if (e.key === "Escape") { state.lift.rename = null; render(); }
+      });
+      document.querySelectorAll("[data-drop]").forEach((el) =>
+        el.addEventListener("click", async () => {
+          if (!confirm(`Remove the "${el.dataset.drop}" tile? The workouts you logged
+under it stay in your history, they just stop being a tile.`)) return;
+          state.lift.renameFrom = el.dataset.drop;
+          await saveLabel("");
+        }));
     }
 
     if (state.view === "session") {
@@ -1203,11 +1488,32 @@ input[type=number] { -moz-appearance:textfield; }
       a.ex.forEach((_, i) => wireExBlock(i));
       startTicking();
 
+      // Tapping the unit in a column header cycles it. Putting the switch
+      // on the header means you can go metric mid-swim without leaving
+      // the session to find a setting.
+      document.querySelectorAll("[data-cycle]").forEach((el) =>
+        el.addEventListener("click", () => {
+          if (el.dataset.cycle === "w") units.w = units.w === "lb" ? "kg" : "lb";
+          else units.d = units.d === "mi" ? "km" : units.d === "km" ? "m" : "mi";
+          render();
+        }));
+
+      document.querySelectorAll("[data-kind]").forEach((el) =>
+        el.addEventListener("click", () => {
+          state.newKind = el.dataset.kind;
+          document.querySelectorAll("[data-kind]").forEach((b) =>
+            b.setAttribute("aria-pressed", String(b.dataset.kind === state.newKind)));
+        }));
+
       on("exAdd", "click", () => {
         const f = document.getElementById("exName");
         const nm = (f.value || "").trim();
         if (!nm) { f.focus(); return; }
-        addExercise(nm);
+        // A name you have used before keeps its own kind; a new one takes
+        // whatever the toggle says, and remembers it from then on.
+        const known = kindFor(nm, null);
+        addExercise(nm, known || state.newKind ||
+          (state.mode === "cardio" ? "distance_time" : "weight_reps"));
         f.value = "";
         render();
       });
@@ -1253,7 +1559,8 @@ input[type=number] { -moz-appearance:textfield; }
       });
 
       on("scrap", "click", () => {
-        if (!confirm("Throw this workout away? It is not saved anywhere else.")) return;
+        if (!confirm(`Throw this ${state.mode === "cardio" ? "activity" : "workout"
+          } away? It is not saved anywhere else.`)) return;
         stopTicking();
         state.lift.active = null;
         saveLocal();
@@ -1278,6 +1585,18 @@ input[type=number] { -moz-appearance:textfield; }
     }
   }
 
+  async function saveLabel(next) {
+    const from = state.lift.renameFrom;
+    if (!from) return;
+    const res = await call("app_lift_label", {
+      p_code: state.code, p_person: state.meId,
+      p_old: from, p_new: next, p_mode: state.mode });
+    if (res.error) { alert(res.error); return; }
+    state.lift.rename = null; state.lift.menu = null; state.lift.renameFrom = null;
+    await loadLift();
+    render();
+  }
+
   async function openSession(id) {
     const res = await call("app_lift_detail", { p_code: state.code, p_session: id });
     if (res.error || !res.session) return;
@@ -1287,9 +1606,13 @@ input[type=number] { -moz-appearance:textfield; }
     render();
   }
 
-  async function openLift() {
+  async function openLift(mode) {
     if (!state.meId) return;
     stopTicking();
+    state.mode = mode === "cardio" ? "cardio" : "lift";
+    state.lift.loaded = false;
+    state.lift.labels = []; state.lift.sessions = [];
+    state.lift.menu = null; state.lift.rename = null;
     loadLocal();
     state.view = "lift";
     render();                 // paint immediately; the list can arrive after
@@ -1383,7 +1706,8 @@ input[type=number] { -moz-appearance:textfield; }
             <input id="steps" type="number" inputmode="numeric" placeholder="0"
                    aria-label="Steps on ${esc(dayTitle)}"
                    value="${recSteps.logged ? recSteps.value : ""}">
-            <em>steps</em>
+            <em>steps &middot; <button class="linkbtn" id="cardioOpen"
+              style="font-size:11px">log cardio</button></em>
           </label>
         </div>
         <button class="btn" id="save" style="width:100%;margin-top:10px">${
@@ -1393,11 +1717,11 @@ input[type=number] { -moz-appearance:textfield; }
 
       <section>
         <div class="section-head">
-          <h2>${state.range === "week" ? "Your week" : "Your trend"}</h2>
-          <div class="range" role="group" aria-label="Time range">
-            ${[["week","This week"],["12w","12 weeks"]].map(([r, lbl]) =>
-              `<button type="button" data-range="${r}" aria-pressed="${state.range === r}">
-                 ${lbl}</button>`).join("")}
+          <h2>${esc(weekWords())}</h2>
+          <div class="weeknav" role="group" aria-label="Which week">
+            <button type="button" id="wPrev" aria-label="Previous week">&lsaquo;</button>
+            <button type="button" id="wNext" aria-label="Next week"
+              ${weekBounds().start === thisMonday() ? "disabled" : ""}>&rsaquo;</button>
           </div>
         </div>
         <div class="card">
@@ -1429,10 +1753,12 @@ input[type=number] { -moz-appearance:textfield; }
                   >${esc(p.name)}</button>
                 ${mine ? "<em>you</em>" : ""}
                 ${p.streak > 0 ? `<em>${p.streak}-day streak</em>` : ""}
-                ${Number(p.lift_volume) > 0 ? `<button class="liftchip"
-                  data-lifter="${p.id}" aria-label="See ${esc(p.name)}'s workout">${
-                  num(p.lift_volume)} lb${Number(p.lift_prs) > 0
-                    ? " · " + p.lift_prs + " PR" : ""}</button>` : ""}</div>
+                ${p.lifted ? `<button class="liftchip" data-see="${p.id}" data-m="lift"
+                  aria-label="See ${esc(p.name)}'s workout">\u{1F3CB}</button>` : ""}
+                ${Number(p.cardio_distance) > 0 ? `<button class="liftchip cardio"
+                  data-see="${p.id}" data-m="cardio"
+                  aria-label="See ${esc(p.name)}'s cardio">${
+                  esc(distWords(p.cardio_distance))}</button>` : ""}</div>
               <div class="bar"><i style="width:${p.logged ? Math.max(pct,3) : 0}%"></i></div>
             </div>
             <div class="num"><b>${p.logged ? num(v) : "&mdash;"}</b>
@@ -1481,11 +1807,13 @@ input[type=number] { -moz-appearance:textfield; }
 
       <section>
         <div class="section-head">
-          <h2>The family today</h2>
+          <button class="foldbtn" id="foldBoard" aria-expanded="${boardOpen()}">
+            <span class="caret">${boardOpen() ? "▾" : "▸"}</span>
+            <h2>The family today</h2></button>
           <span class="eyebrow">${state.people.length
             ? `${loggedCount}/${state.people.length} logged &middot; ${hitCount} hit goal` : ""}</span>
         </div>
-        ${roster}
+        ${boardOpen() ? roster : ""}
       </section>
 
       <section class="card">
@@ -1597,10 +1925,34 @@ input[type=number] { -moz-appearance:textfield; }
       state.hover = null; paintChart(k);
     });
 
-    // Tap a bar to log or correct that day.
+    // Two bars, two verbs. Tapping a Steps bar backlogs that day, which
+    // is what you can still type. Tapping a Train bar opens the workout
+    // behind it, because nobody types train minutes any more — and if
+    // there is no workout, it offers to log one for that day.
     svg.addEventListener("click", async (e) => {
       const iso = e.target && e.target.dataset ? e.target.dataset.day : null;
-      if (!iso || state.range !== "week") return;
+      if (!iso) return;
+
+      if (k === "train") {
+        const got = await call("app_lift_detail", {
+          p_code: state.code, p_person: state.meId, p_date: iso });
+        const sess = got && got.session;
+        if (sess) {
+          state.lift.detail = sess;
+          state.lift.from = "board";
+          state.mode = sess.mode === "cardio" ? "cardio" : "lift";
+          state.view = "detail";
+          render();
+        } else {
+          state.entryDate = iso === todayISO() ? null : iso;
+          state.msg = "Nothing logged that day. Open Lift or Cardio to add it.";
+          state.msgKind = null;
+          await ensureDay(iso);
+          render();
+        }
+        return;
+      }
+
       state.entryDate = iso === todayISO() ? null : iso;
       state.msg = null;
       await ensureDay(iso);
@@ -1698,13 +2050,19 @@ input[type=number] { -moz-appearance:textfield; }
     for (const id of ["steps","train"])
       on(id, "keydown", (e) => { if (e.key === "Enter") document.getElementById("save").click(); });
 
-    document.querySelectorAll(".range button").forEach((b) => {
-      b.addEventListener("click", async () => {
-        state.range = b.dataset.range;
-        state.hover = null;
-        await loadHistory();
-        render();
-      });
+    const stepWeek = async (n) => {
+      state.weekAnchor = shiftISO(weekBounds().start, n * 7);
+      if (state.weekAnchor === thisMonday()) state.weekAnchor = null;
+      state.hover = null;
+      await loadHistory();
+      render();
+    };
+    on("wPrev", "click", () => stepWeek(-1));
+    on("wNext", "click", () => stepWeek(1));
+
+    on("foldBoard", "click", () => {
+      try { localStorage.setItem("fhd.board", boardOpen() ? "shut" : "open"); } catch {}
+      render();
     });
 
     wireCharts();
@@ -1797,7 +2155,8 @@ input[type=number] { -moz-appearance:textfield; }
       state.pickDate = false;
       state.msg = null;
       await ensureDay(iso);
-      if (state.range === "week") await loadHistory();   // jump the chart to that week
+      state.weekAnchor = mondayOf(iso) === thisMonday() ? null : mondayOf(iso);
+      await loadHistory();                    // jump the charts to that week
       render();
     });
 
@@ -1817,15 +2176,18 @@ input[type=number] { -moz-appearance:textfield; }
       await refresh();
     });
 
-    on("liftOpen", "click", (e) => { e.preventDefault(); openLift(); });
+    on("liftOpen",   "click", (e) => { e.preventDefault(); openLift("lift"); });
+    on("cardioOpen", "click", (e) => { e.preventDefault(); openLift("cardio"); });
 
     // Tap someone's volume chip to read the session behind it. The board
     // stays a scoreboard; the detail is one tap away for whoever wants it.
-    document.querySelectorAll("[data-lifter]").forEach((el) => {
+    document.querySelectorAll("[data-see]").forEach((el) => {
       el.addEventListener("click", async () => {
+        const m = el.dataset.m;
         const res = await call("app_lift_detail", {
-          p_code: state.code, p_person: el.dataset.lifter });
+          p_code: state.code, p_person: el.dataset.see, p_mode: m });
         if (res.error || !res.session) return;
+        state.mode = m;
         state.lift.detail = res.session;
         state.lift.from = "board";
         state.view = "detail";
