@@ -36,6 +36,7 @@
   --line:#e2e6e3; --line-strong:#cfd6d2;
   --accent:#075c48; --series:#0e8a6b; --soft:#d3ece4;
   --train:#c2600f; --train-soft:#f6e3d2;
+  --swim:#1f6f9b;  --swim-soft:#d9e9f3;
   --warn:#8a4a12; --warn-soft:#f6ecdf;
   --shadow:0 1px 2px rgba(9,26,21,.05), 0 8px 24px -16px rgba(9,26,21,.25);
   --display:"Newsreader",Georgia,serif;
@@ -50,6 +51,7 @@
     --line:#2a302e; --line-strong:#3a423f;
     --accent:#28a583; --series:#28a583; --soft:#1e3b34;
     --train:#cf7a33; --train-soft:#3a2a1a;
+    --swim:#59a6cf;  --swim-soft:#16303e;
     --warn:#e0a86a; --warn-soft:#2a2318;
     --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
     color-scheme: dark;
@@ -110,10 +112,6 @@ select, input, button { font-family:inherit; font-size:inherit; color:inherit; }
   background:var(--surface); box-shadow:var(--shadow); margin-top:-16px; }
 .addrow input { flex:1; min-width:150px; }
 
-.entry-row { display:flex; gap:10px; margin-top:12px; }
-.entry-row input { flex:1; min-width:0; border:1px solid var(--line-strong);
-  background:var(--surface); border-radius:11px; padding:14px 16px;
-  font-family:var(--mono); font-size:30px; font-weight:500; letter-spacing:-.02em; }
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
 input[type=number] { -moz-appearance:textfield; }
@@ -131,15 +129,6 @@ input[type=number] { -moz-appearance:textfield; }
 .chart svg { display:block; width:100%; height:96px; touch-action:none; }
 .axis { display:flex; font-family:var(--mono); font-size:10px; color:var(--muted); margin-top:4px; }
 .axis span { text-align:center; overflow:hidden; }
-.ymax { position:absolute; left:0; top:0; font-family:var(--mono); font-size:10px;
-  color:var(--muted); pointer-events:none; }
-.tip { position:absolute; top:-2px; transform:translateX(-50%); background:var(--surface);
-  border:1px solid var(--line-strong); border-radius:9px; padding:5px 9px;
-  font-size:12px; white-space:nowrap; pointer-events:none; box-shadow:var(--shadow); z-index:3; }
-.tip b { font-family:var(--mono); font-weight:500; }
-.legend { display:flex; align-items:center; gap:7px; margin-top:9px;
-  font-size:12px; color:var(--muted); }
-.legend i { display:block; width:22px; height:0; border-top:1px dashed var(--series); flex:none; }
 
 .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:14px; }
 .stat { border-top:1px solid var(--line); padding-top:9px; }
@@ -159,45 +148,60 @@ input[type=number] { -moz-appearance:textfield; }
 .person .name strong { font-weight:600; font-size:14px; overflow:hidden;
   text-overflow:ellipsis; white-space:nowrap; }
 .person .name em { font-style:normal; font-size:11px; color:var(--muted); }
-.bar { height:5px; border-radius:99px; background:var(--surface-2); margin-top:7px; overflow:hidden; }
-.bar > i { display:block; height:100%; border-radius:99px; background:var(--series); }
+.person .sub2 { display:flex; gap:6px; margin-top:4px; min-height:17px;
+  overflow:hidden; }
+.person.did .dot { box-shadow:0 0 0 2px var(--soft); }
 .person .num { text-align:right; flex:none; }
 .person .num b { display:block; font-family:var(--mono); font-weight:500;
   font-size:15px; font-variant-numeric:tabular-nums; }
 .person .num span { font-size:11px; color:var(--muted); white-space:nowrap; }
 .person .num span.met { color:var(--accent); font-weight:500; }
 
-.pillar { display:flex; align-items:center; gap:12px; padding:10px 0;
-  border-top:1px solid var(--line); }
-.pillar:first-child { border-top:none; }
-.pillar .idx { font-family:var(--mono); font-size:11px; color:var(--muted); width:18px; flex:none; }
-.pillar .nm { flex:1; font-size:14px; }
-.pillar .st { font-size:11px; font-weight:600; letter-spacing:.06em;
-  text-transform:uppercase; color:var(--muted); }
-.pillar.live .nm { font-weight:600; }
-.pillar.live .st { color:var(--accent); }
 
 .note { font-size:13px; color:var(--muted); }
-/* two boxes, Train left, Steps right */
-.two-up { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
-.two-up label { display:flex; flex-direction:column; gap:5px; }
-.two-up label > span { font-size:11px; font-weight:700; letter-spacing:.09em;
-  text-transform:uppercase; }
-.two-up input { width:100%; border:1px solid var(--line-strong); background:var(--surface);
-  border-radius:11px; padding:12px 13px; font-family:var(--mono); font-size:26px;
-  font-weight:500; letter-spacing:-.02em; text-align:right; }
-.two-up label > em { font-style:normal; font-size:11px; color:var(--muted); }
-.fld-train input:focus { border-color:var(--train); }
-.fld-steps input:focus { border-color:var(--series); }
+/* V1.5 — one number, not two boxes competing for the same attention */
+.bignum { width:100%; margin-top:12px; border:1px solid var(--line-strong);
+  background:var(--surface); border-radius:12px; padding:14px 16px;
+  font-family:var(--mono); font-size:34px; font-weight:500; letter-spacing:-.03em;
+  text-align:right; color:var(--ink); }
+.bignum:focus { border-color:var(--series); }
+.stepline { display:flex; align-items:center; gap:9px; padding:11px 14px;
+  border:1px solid var(--line); border-radius:12px; background:var(--surface); }
+.stepline > span { font-size:13px; color:var(--muted); flex:none; }
+.stepline input { flex:1; min-width:0; border:none; background:none; text-align:right;
+  font-family:var(--mono); font-size:19px; font-weight:500; color:var(--ink);
+  padding:0; }
+.stepline > em { font-style:normal; font-size:11px; color:var(--muted); flex:none; }
+
+/* the five pillars */
+.marks { display:grid; grid-template-columns:repeat(5,1fr); gap:4px; margin-top:14px; }
+.mark { display:flex; flex-direction:column; align-items:center; gap:7px;
+  background:none; border:none; padding:6px 2px; font-family:inherit; color:inherit; }
+button.mark { cursor:pointer; }
+.pip { width:13px; height:13px; border-radius:50%; border:1.5px solid var(--line-strong);
+  background:none; }
+.pip.on { background:var(--series); border-color:var(--series); }
+.pip.off { border:none; width:13px; height:1.5px; border-radius:2px;
+  background:var(--line-strong); margin:5.75px 0; }
+.mlabel { font-size:9.5px; font-weight:600; letter-spacing:.04em; line-height:1.25;
+  text-transform:uppercase; color:var(--muted); text-align:center;
+  /* two lines reserved for every pillar, so "Great Work" wrapping does not
+     leave the row looking like a mistake */
+  min-height:2.5em; }
+button.mark .mlabel { color:var(--ink-2); }
+.mcap { margin-top:10px; text-align:center; font-size:11.5px; }
+
+/* the segment that drives both the chart and the log under it */
+.segrow { display:flex; align-items:center; gap:10px; }
+.seg { display:flex; flex:1; border:1px solid var(--line); border-radius:999px;
+  padding:3px; background:var(--surface); }
+.seg button { flex:1; border:none; background:none; border-radius:999px;
+  padding:7px 4px; font-family:inherit; font-size:13px; font-weight:500;
+  color:var(--muted); cursor:pointer; }
+.seg button[aria-pressed="true"] { background:var(--surface-2); color:var(--ink);
+  font-weight:600; }
 
 /* the date under the group name is a control */
-.datebtn { background:none; border:none; padding:0; text-align:left; cursor:pointer;
-  font-family:inherit; font-size:14px; color:var(--muted);
-  text-decoration:underline; text-decoration-style:dotted;
-  text-decoration-color:var(--line-strong); text-underline-offset:3px; }
-.datefld { margin-top:8px; border:1px solid var(--line-strong); background:var(--surface);
-  color:var(--ink); border-radius:9px; padding:8px 11px; font-family:var(--mono);
-  font-size:14px; }
 
 /* stacked mini charts */
 .mini + .mini { margin-top:16px; padding-top:14px; border-top:1px solid var(--line); }
@@ -225,7 +229,6 @@ input[type=number] { -moz-appearance:textfield; }
 .install b { color:var(--accent); }
 .install button { background:none; border:none; color:var(--muted); cursor:pointer;
   font-size:18px; line-height:1; padding:0 2px; flex:none; }
-.code { font-family:var(--mono); font-size:26px; font-weight:600; letter-spacing:.2em; }
 .banner { border:1px solid var(--line-strong); background:var(--warn-soft);
   border-radius:12px; padding:13px 15px; font-size:13.5px; color:var(--ink-2); }
 .center { display:grid; place-items:center; min-height:60vh; }
@@ -348,7 +351,6 @@ input[type=number] { -moz-appearance:textfield; }
   text-underline-offset:3px; }
 .empty { text-align:center; padding:26px 16px; color:var(--muted); font-size:14px; }
 
-@media (prefers-reduced-motion: no-preference) { .bar > i { transition:width .35s ease; } }
 </style>
 </head>
 <body>
@@ -364,7 +366,7 @@ input[type=number] { -moz-appearance:textfield; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "1.4";
+  const APP_VERSION = "1.5";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -401,13 +403,27 @@ input[type=number] { -moz-appearance:textfield; }
     return data || {};
   }
 
-  // Two metrics. Steps is the family shared score; Train is personal data
-  // with an optional target of its own. A third means adding a row here and
-  // enabling it in the database, not restructuring anything.
+  // Exercise is ONE pillar with three numbers in it. Train is lifting and
+  // yoga; Cardio is walking, running, swimming, the machines. V1.4 summed
+  // them and that was wrong — they are different things, and keeping them
+  // apart is what lets each have its own target and its own chart.
   const M = {
-    steps: { key: "steps",     label: "Steps", unit: "steps",   color: "var(--series)", soft: "var(--soft)" },
-    train: { key: "train_min", label: "Train", unit: "minutes", color: "var(--train)",  soft: "var(--train-soft)" },
+    steps:  { key:"steps",      label:"Steps",  unit:"steps",   color:"var(--series)", soft:"var(--soft)" },
+    train:  { key:"train_min",  label:"Train",  unit:"minutes", color:"var(--train)",  soft:"var(--train-soft)" },
+    cardio: { key:"cardio_min", label:"Cardio", unit:"minutes", color:"var(--swim)",   soft:"var(--swim-soft)" },
   };
+
+  // The five pillars, in the order they will always appear. Four are dark
+  // and unclickable until they are measured; showing them anyway is the
+  // honest version of a roadmap, and it stops the board from being
+  // redesigned when each one arrives.
+  const PILLARS = [
+    { key:"exercise",   label:"Exercise",   live:true  },
+    { key:"sleep",      label:"Sleep",      live:false },
+    { key:"meditation", label:"Meditate",   live:false },
+    { key:"diet",       label:"Diet",       live:false },
+    { key:"focus",      label:"Great Work", live:false },
+  ];
 
   const mondayOf = (iso) => {
     const d = new Date(iso + "T00:00:00Z");
@@ -421,22 +437,19 @@ input[type=number] { -moz-appearance:textfield; }
     metric: { key:"steps", unit:"steps", default_target:8000 },
     people: [],
     meId: null,
-    history: { steps: [], train: [] },
-    hover: null,
+    history: { steps: [], train: [], cardio: [] },
     adding: false,
-    bulk: false,
-    editing: null,        // null | 'name' | 'goal' | 'traingoal'
+    editing: null,        // null | 'name' | 'goal'
     editPerson: null,
-    trainGoal: 0,
+    editMetric: "steps",
     entryDate: null,      // null means today
-    pickDate: false,
-    byDate: new Map(),    // metric + date -> {value, logged}
     msg: null,
 
     // V1.3. The board is still the whole app for nine people out of ten;
     // Lift is a place you go, not a thing on the board.
-    view: "board",        // board | lift | session | detail
-    mode: "lift",         // lift | cardio — which tab Lift screens are showing
+    view: "board",        // board | exercise | session | detail
+    seg:  "steps",        // steps | train | cardio — the Exercise segment
+    mode: "lift",         // lift | cardio — which log the segment is showing
     weekAnchor: null,     // Monday of the week on the charts; null means this week
     lift: {
       loaded: false,
@@ -470,22 +483,23 @@ input[type=number] { -moz-appearance:textfield; }
 
   /* ---------- data ------------------------------------------------- */
   async function refresh() {
-    const res = await call("app_state", {
-      p_code: state.code, p_today: todayISO(), p_alt: M.train.key });
+    const res = await call("app_state", { p_code: state.code, p_today: todayISO() });
     if (res.error) { state.fatal = res.error; render(); return; }
     state.group = res.group;
-    state.metric = res.metric || state.metric;
-    // Alphabetical in the picker and in the roster, so the two agree and a
-    // name is findable without reading the whole list.
+    // Alphabetical, so a name is findable without reading the whole list.
     state.people = (res.people || []).slice().sort((a, b) =>
       a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
     if (!state.people.some((p) => p.id === state.meId)) state.meId = loadMe();
     if (!state.people.some((p) => p.id === state.meId)) state.meId = null;
-    const mine = me();
-    if (mine && mine.alt_target != null) state.trainGoal = Number(mine.alt_target) || 0;
     await loadHistory();
     render();
   }
+
+  // Today's numbers for one person, by short metric name.
+  const val = (p, k) => Number(
+    k === "steps" ? p.steps : k === "train" ? p.train_min : p.cardio_min) || 0;
+  const target = (p, k) => k === "steps" ? Number(p.steps_target) || 0
+                         : k === "train" ? Number(p.train_target) || 0 : 0;
 
   // One window, both metrics. The week view is a real Monday-to-Sunday
   // calendar week, so everyone is looking at the same seven columns.
@@ -502,57 +516,28 @@ input[type=number] { -moz-appearance:textfield; }
   }
 
   async function loadHistory() {
-    if (!state.meId) { state.history = { steps: [], train: [] }; return; }
-    // V1.4 deleted the 12-week toggle. Two controls became one pair of
-    // arrows, and "what did I do three weeks ago" became answerable, which
-    // the aggregate never was: you could see a tall bar and not open it.
-    const week = true;
+    if (!state.meId) { state.history = { steps: [], train: [], cardio: [] }; return; }
     const anchor = weekBounds().end;
-    const days = 7;
-
-    const [a, b] = await Promise.all([
-      call("app_history", { p_code:state.code, p_person:state.meId,
-        p_days:days, p_metric:M.steps.key, p_today:anchor }),
-      call("app_history", { p_code:state.code, p_person:state.meId,
-        p_days:days, p_metric:M.train.key, p_today:anchor }),
-    ]);
-    state.history = {
-      steps: a.error ? [] : (a.days || []),
-      train: b.error ? [] : (b.days || []),
-    };
-    for (const k of ["steps","train"])
-      for (const d of state.history[k]) state.byDate.set(k + "|" + d.date, d);
+    const keys = ["steps","train","cardio"];
+    const got = await Promise.all(keys.map((k) => call("app_history", {
+      p_code:state.code, p_person:state.meId,
+      p_days:7, p_metric:M[k].key, p_today:anchor })));
+    keys.forEach((k, i) => { state.history[k] = got[i].error ? [] : (got[i].days || []); });
   }
 
   /* ---------- which day is being logged ----------------------------- */
   const entryDay = () => state.entryDate || todayISO();
 
-  // Days outside the loaded window are read one at a time, per metric.
-  async function ensureDay(iso) {
-    if (!state.meId) return;
-    const want = ["steps","train"].filter((k) => !state.byDate.has(k + "|" + iso));
-    if (!want.length) return;
-    const got = await Promise.all(want.map((k) => call("app_value", {
-      p_code: state.code, p_person: state.meId, p_date: iso, p_metric: M[k].key,
-    })));
-    want.forEach((k, i) => {
-      const r = got[i];
-      if (!r.error) state.byDate.set(k + "|" + iso,
-        { date: iso, value: Number(r.value), logged: !!r.logged });
-    });
-  }
 
-  // What is already recorded for the day on screen, for one metric.
+  // What is already recorded for the day on screen. The week is already
+  // loaded for the chart, so there is nothing to fetch — which is what let
+  // `app_value`, `ensureDay` and the whole byDate cache be deleted.
   function dayRecord(k) {
     const iso = entryDay();
-    if (iso === todayISO()) {
-      const m = me();
-      if (!m) return { value: 0, logged: false };
-      return k === "train"
-        ? { value: Number(m.alt_value || 0), logged: !!m.alt_logged }
-        : { value: Number(m.value || 0),     logged: !!m.logged };
-    }
-    const d = state.byDate.get(k + "|" + iso);
+    const m = me();
+    if (iso === todayISO() && m)
+      return { value: val(m, k), logged: k === "steps" ? !!m.steps_logged : val(m, k) > 0 };
+    const d = (state.history[k] || []).find((x) => x.date === iso);
     return { value: d ? Number(d.value) : 0, logged: d ? d.logged : false };
   }
 
@@ -560,24 +545,9 @@ input[type=number] { -moz-appearance:textfield; }
   const DOW = ["M","T","W","T","F","S","S"];
 
   function points(k) {
-    const rows = state.history[k] || [];
-    {
-      return rows.map((d, i) => ({
-        key:d.date, label:DOW[i] || dayLabel(d.date), value:Number(d.value),
-        logged:d.logged, full:longLabel(d.date),
-      }));
-    }
-    const weeks = new Map();
-    for (const d of rows) {
-      const start = mondayOf(d.date);
-      const b = weeks.get(start) || { total:0, logged:0 };
-      b.total += Number(d.value);
-      if (d.logged) b.logged++;
-      weeks.set(start, b);
-    }
-    return [...weeks.entries()].map(([wk, b]) => ({
-      key:wk, label:wk.slice(5).replace("-", "/"), value:Math.round(b.total),
-      logged:b.logged > 0, full:"week of " + longLabel(wk),
+    return (state.history[k] || []).map((d, i) => ({
+      key:d.date, label:DOW[i] || dayLabel(d.date), value:Number(d.value),
+      logged:d.logged, full:longLabel(d.date),
     }));
   }
 
@@ -588,8 +558,7 @@ input[type=number] { -moz-appearance:textfield; }
     const pts = points(k);
     if (!pts.length) return "";
 
-    const goal = k === "steps" ? Number(me()?.target || 0)
-                               : Number(state.trainGoal || 0);
+    const goal = target(me() || {}, k);
 
     const H = 96, PT = 10, PB = 4, plot = H - PT - PB;
     const peak = Math.max(...pts.map((p) => p.value), goal || 0, 1);
@@ -600,8 +569,6 @@ input[type=number] { -moz-appearance:textfield; }
     let bars = "";
     pts.forEach((p, i) => {
       const x = i * slot + (slot - bw) / 2;
-      const hot = state.hover && state.hover.k === k && state.hover.i === i;
-      const dim = state.hover && state.hover.k === k && !hot ? ' opacity="0.4"' : "";
       if (p.value <= 0) {
         bars += `<rect x="${x}" y="${PT}" width="${bw}" height="${plot}" fill="transparent"
                   data-day="${p.key}" data-metric="${k}"></rect>` +
@@ -611,7 +578,7 @@ input[type=number] { -moz-appearance:textfield; }
       }
       bars += `<rect x="${x}" y="${y(p.value)}" width="${bw}" height="${Math.max(y(0)-y(p.value),2)}"
                 rx="${Math.min(bw/2,1.4)}" fill="${met.color}" data-day="${p.key}"
-                data-metric="${k}"${dim}></rect>`;
+                data-metric="${k}"></rect>`;
     });
 
     const goalLine = goal && goal <= max
@@ -622,23 +589,14 @@ input[type=number] { -moz-appearance:textfield; }
     const axis = pts.map((p, i) =>
       `<span style="width:${slot}%">${i % every === 0 ? p.label : ""}</span>`).join("");
 
-    let tip = "";
-    if (state.hover && state.hover.k === k && pts[state.hover.i]) {
-      const p = pts[state.hover.i];
-      const left = Math.min(86, Math.max(14, state.hover.i * slot + slot / 2));
-      tip = `<div class="tip" style="left:${left}%">${esc(p.full)}<br>
-        <b>${p.logged ? num(p.value) + " " + esc(met.unit) : "not recorded"}</b></div>`;
-    }
-
     const total = pts.reduce((t, p) => t + p.value, 0);
-    const totalWords = `${num(Math.round(total))} ${
-      k === "train" ? "minutes" : ""}`.trim();
+    const totalWords = k === "steps"
+      ? `${num(Math.round(total))} steps` : `${num(Math.round(total))} minutes`;
 
     // The goal is edited by tapping the line it controls.
-    const goalTap = k === "steps"
-      ? `<button class="tapedit small" data-edit="goal">goal ${num(Number(me()?.target || 0))}</button>`
-      : `<button class="tapedit small" data-edit="traingoal">${
-           state.trainGoal ? "goal " + num(state.trainGoal) + " min" : "set a goal"}</button>`;
+    const goalTap = k === "cardio" ? ""
+      : `<button class="tapedit small" data-edit="goal" data-metric="${k}">${
+           goal ? "goal " + num(goal) + (k === "steps" ? "" : " min") : "set a goal"}</button>`;
 
     return `
       <div class="mini">
@@ -654,7 +612,6 @@ input[type=number] { -moz-appearance:textfield; }
             ${bars}${goalLine}
           </svg>
           <div class="axis">${axis}</div>
-          ${tip}
         </div>
         <div class="mini-foot">${goalTap}</div>
       </div>`;
@@ -664,9 +621,9 @@ input[type=number] { -moz-appearance:textfield; }
     return state.people.find((x) => x.id === (state.editPerson || state.meId)) || null;
   }
   function editSeed() {
-    if (state.editing === "name")      return esc(editTarget() ? editTarget().name : "");
-    if (state.editing === "traingoal") return state.trainGoal || M.train.default || 40;
-    return Math.round(Number(me() ? me().target : 0));
+    if (state.editing === "name") return esc(editTarget() ? editTarget().name : "");
+    return Math.round(target(me() || {}, state.editMetric)) ||
+           (state.editMetric === "steps" ? 8000 : 40);
   }
   function editHintText() {
     if (state.editing === "name") {
@@ -675,29 +632,31 @@ input[type=number] { -moz-appearance:textfield; }
         ? `Renaming ${esc(t.name)}. Everyone sees the change.`
         : "Changes how you appear to everyone.";
     }
-    if (state.editing === "traingoal") return "Your own daily target, in minutes.";
-    return "Your own daily target, in steps.";
+    return state.editMetric === "steps"
+      ? "Your own daily target, in steps."
+      : "Your own daily target, in minutes.";
   }
 
   // Train first. It is the one he acts on, and the first thing on a screen
   // is the thing the screen is about.
-  function chartsHTML() {
-    return miniChart("train") + miniChart("steps");
-  }
+  // One chart. Which one is the segment's business, not the chart's.
+  function chartsHTML() { return miniChart(state.seg); }
 
   function statsHTML() {
-    const pts = points("steps");
+    const k = state.seg;
+    const pts = points(k);
     const logged = pts.filter((p) => p.logged);
     const avg = logged.length
       ? Math.round(logged.reduce((s, p) => s + p.value, 0) / logged.length) : 0;
     const best = pts.reduce((m, p) => Math.max(m, p.value), 0);
-    const goal = Number(me()?.target || 0);
+    const goal = target(me() || {}, k);
     const hit = (!pts.length || !goal)
       ? null : Math.round((pts.filter((p) => p.value >= goal).length / pts.length) * 100);
+    const days = pts.filter((p) => p.value > 0).length;
     const cells = [
       [num(avg), "Daily average"],
       [num(best), "Best day"],
-      hit === null ? [String(me()?.streak || 0), "Day streak"] : [hit + "%", "Goal hit"],
+      hit === null ? [String(days), "Days logged"] : [hit + "%", "Goal hit"],
     ];
     return `<div class="stats">${cells.map(([v, l]) =>
       `<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("")}</div>`;
@@ -729,30 +688,33 @@ input[type=number] { -moz-appearance:textfield; }
   // Written to be read in a chat, not on a dashboard: the standings first,
   // who is missing second, the link last. Asterisks are WhatsApp bold.
   function dailyMessage() {
-    const done = state.people.filter((p) => p.logged || p.alt_logged);
-    const missing = state.people.filter((p) => !p.logged && !p.alt_logged);
-    const hit = state.people.filter((p) => Number(p.value) >= Number(p.target));
+    const anyLog = (p) => val(p,"steps") > 0 || val(p,"train") > 0 || val(p,"cardio") > 0;
+    const done = state.people.filter(anyLog);
+    const missing = state.people.filter((p) => !anyLog(p));
+    const hit = state.people.filter((p) => p.done);
     const day = new Date().toLocaleDateString(undefined,
       { weekday:"short", month:"short", day:"numeric" });
 
     const lines = [
       `*${state.group.name}* \u00b7 ${day}`,
-      `${done.length}/${state.people.length} logged \u00b7 ${hit.length} hit their goal`,
+      `${done.length}/${state.people.length} logged \u00b7 ${hit.length} moved`,
       "",
     ];
 
     // Ranked here, unlike the app: a chat message is skimmed once and the
     // order is what makes it worth reading. Train is appended only for the
     // people who did some, so ten relatives is not a wall of text.
-    const sorted = [...done].sort((a, b) => Number(b.value) - Number(a.value));
+    const sorted = [...done].sort((a, b) => val(b,"steps") - val(a,"steps"));
     for (const p of sorted) {
-      const met = Number(p.value) >= Number(p.target);
+      const met = !!p.done;
+      // Steps and minutes only \u2014 no pounds, no kilometres, nothing a
+      // relative has to convert in their head before the line means
+      // something. Train and Cardio are named because they are different
+      // things and the family should see which one you did.
       const bits = [];
-      if (p.logged)     bits.push(num(p.value));
-      // Steps and minutes only. Both are universal: no pounds, no
-      // kilometres, nothing a relative has to convert in their head
-      // before the line means anything to them.
-      if (p.alt_logged) bits.push(num(p.alt_value) + "m");
+      if (val(p, "steps") > 0)  bits.push(num(val(p, "steps")));
+      if (val(p, "train") > 0)  bits.push(num(val(p, "train")) + "m train");
+      if (val(p, "cardio") > 0) bits.push(num(val(p, "cardio")) + "m cardio");
       const streak = p.streak > 1 ? `  (${p.streak}-day streak)` : "";
       lines.push(`${met ? "\u2705" : "\u25ab\ufe0f"} ${p.name} \u2014 ${bits.join(" \u00b7 ")}${streak}`);
     }
@@ -1087,16 +1049,20 @@ input[type=number] { -moz-appearance:textfield; }
       </${clickable ? "button" : "div"}>`;
   }
 
-  function liftHome() {
+  function resumeBanner() {
     const a = A();
-    const resume = a && !a.pendingFinish ? `
+    if (!a || a.pendingFinish) return "";
+    return `
       <div class="install" style="background:var(--train-soft)">
         <p><b style="color:var(--train)">${esc(a.label || "Workout")} in progress</b> &mdash;
            ${totalsWords(a)} logged.</p>
         <button class="btn-quiet" id="resume" style="flex:none">Resume</button>
-      </div>` : "";
+      </div>`;
+  }
 
-    const tiles = state.lift.labels.length ? `
+  function liftTiles() {
+    if (!state.lift.labels.length) return "";
+    return `
       <section>
         <div class="section-head"><h2>${state.mode === "cardio"
             ? "Your activities" : "Your workouts"}</h2>
@@ -1125,61 +1091,26 @@ input[type=number] { -moz-appearance:textfield; }
             <p class="hint" style="flex-basis:100%;margin-top:0">Renames it on every
               session you logged under that name. The workouts themselves are untouched.</p>
           </div>` : ""}
-      </section>` : "";
+      </section>`;
+  }
 
-    const history = state.lift.sessions.length
-      ? `<section>
-           <div class="section-head"><h2>History</h2>
-             <span class="eyebrow">${state.lift.sessions.length} logged</span></div>
-           ${state.lift.sessions.map((s) => sessionCard(s, true)).join("")}
-         </section>`
-      : `<div class="dashed"><p class="empty">Nothing logged yet.<br>
-           ${state.mode === "cardio"
-             ? "Log a swim, row or ride and it appears here."
-             : "Start a workout and it appears here, with your best set for every exercise."}
-         </p></div>`;
-
-    const M = MODE();
-    const unitPick = state.mode === "cardio"
-      ? `<div class="range" role="group" aria-label="Distance unit">${
-          ["mi","km","m"].map((u) =>
-            `<button type="button" data-dunit="${u}" aria-pressed="${units.d === u}">${u}</button>`
-          ).join("")}</div>`
-      : `<div class="range" role="group" aria-label="Weight unit">${
-          ["lb","kg"].map((u) =>
-            `<button type="button" data-wunit="${u}" aria-pressed="${units.w === u}">${u}</button>`
-          ).join("")}</div>`;
-
-    return `
-      <div class="topbar">
-        <button class="backlink" id="back">&larr; ${esc(state.group.name)}</button>
-        <span class="sync ${state.lift.sync}" id="syncChip">${syncWords(state.lift.sync)}</span>
-      </div>
-
-      <header class="masthead">
-        <div style="display:flex;align-items:center;gap:12px">
-          <h1 style="flex:1;color:var(--train)">${M.title}</h1>
-          ${unitPick}
-        </div>
-        <p class="sub">${state.mode === "cardio"
-          ? "Swims, rows, rides. The family sees the distance."
-          : "Your log. The family sees that you lifted, not every set."}</p>
-      </header>
-
-      ${resume}
-
-      <button class="btn" id="startEmpty" style="width:100%;background:var(--train)">
-        ${M.start}</button>
-
-      ${tiles}
-      ${history}
-
-      <p class="ver">v${APP_VERSION}</p>`;
+  function liftHistory() {
+    if (!state.lift.sessions.length)
+      return `<div class="dashed"><p class="empty">Nothing logged yet.<br>
+        ${state.mode === "cardio"
+          ? "Log a swim, row or ride and it appears here."
+          : "Start a workout and it appears here, with your best set for every exercise."}
+        </p></div>`;
+    return `<section>
+        <div class="section-head"><h2>History</h2>
+          <span class="eyebrow">${state.lift.sessions.length} logged</span></div>
+        ${state.lift.sessions.map((s) => sessionCard(s, true)).join("")}
+      </section>`;
   }
 
   function sessionView() {
     const a = A();
-    if (!a) { state.view = "lift"; return liftHome(); }
+    if (!a) { state.view = "exercise"; return exerciseView(); }
 
     const blocks = a.ex.map((x, i) => exBlock(x, i)).join("") ||
       `<div class="dashed"><p class="empty">No exercises yet.<br>
@@ -1191,7 +1122,7 @@ input[type=number] { -moz-appearance:textfield; }
 
     return `
       <div class="topbar">
-        <button class="backlink" id="back">&larr; ${MODE().title}</button>
+        <button class="backlink" id="back">&larr; Exercise</button>
         <span class="sync ${state.lift.sync}" id="syncChip">${syncWords(state.lift.sync)}</span>
       </div>
 
@@ -1294,7 +1225,7 @@ input[type=number] { -moz-appearance:textfield; }
 
   function detailView() {
     const s = state.lift.detail;
-    if (!s) { state.view = "lift"; return liftHome(); }
+    if (!s) { state.view = "exercise"; return exerciseView(); }
     const byPos = new Map();
     for (const r of (s.sets || [])) {
       if (!byPos.has(r.position)) byPos.set(r.position, { name: r.exercise, sets: [] });
@@ -1432,14 +1363,14 @@ input[type=number] { -moz-appearance:textfield; }
       // history is a small thing that feels like being lost.
       if (state.view === "detail") {
         state.lift.detail = null;
-        state.view = state.lift.from === "board" ? "board" : "lift";
+        state.view = state.lift.from === "board" ? "board" : "exercise";
       }
-      else if (state.view === "session") state.view = "lift";
+      else if (state.view === "session") state.view = "exercise";
       else state.view = "board";
       render();
     });
 
-    if (state.view === "lift") {
+    if (state.view === "exercise") {
       on("startEmpty", "click", () => startSession(""));
       on("resume", "click", () => { state.view = "session"; render(); });
       document.querySelectorAll("[data-start]").forEach((el) =>
@@ -1585,6 +1516,61 @@ under it stay in your history, they just stop being a tile.`)) return;
     }
   }
 
+  // Exercise carries both halves: the steps entry and week charts that used
+  // to be on the board, and the log that used to be its own screen.
+  function wireExercise() {
+    wireLift();
+    wireChart(state.seg);
+
+    document.querySelectorAll("[data-seg]").forEach((el) =>
+      el.addEventListener("click", async () => {
+        const k = el.dataset.seg;
+        if (k === state.seg) return;
+        state.seg  = k;
+        state.mode = k === "cardio" ? "cardio" : "lift";
+        state.lift.menu = null; state.lift.rename = null;
+        render();
+        if (k !== "steps") { await loadLift(); render(); }
+      }));
+
+
+    const stepWeek = async (n) => {
+      state.weekAnchor = shiftISO(weekBounds().start, n * 7);
+      if (state.weekAnchor === thisMonday()) state.weekAnchor = null;
+      await loadHistory();
+      render();
+    };
+    on("wPrev", "click", () => stepWeek(-1));
+    on("wNext", "click", () => stepWeek(1));
+
+    on("save", "click", saveSteps);
+    on("steps", "keydown", (e) => {
+      if (e.key === "Enter") document.getElementById("save").click(); });
+
+    document.querySelectorAll('[data-edit="goal"]').forEach((el) =>
+      el.addEventListener("click", () => {
+        state.editMetric = el.dataset.metric || "steps";
+        openEditor("goal");
+      }));
+
+    wireEditor();
+  }
+
+  async function saveSteps(e) {
+    const raw = (document.getElementById("steps").value || "").replace(/[^0-9]/g, "");
+    if (raw === "") {
+      state.msg = "Enter a number."; state.msgKind = "bad"; render(); return;
+    }
+    e.target.disabled = true;
+    const res = await call("app_log", { p_code:state.code, p_person:state.meId,
+      p_value:Number(raw), p_metric:M.steps.key, p_date:entryDay() });
+    state.msg = res.error ? res.error : "Saved. Your family can see it.";
+    state.msgKind = res.error ? "bad" : "ok";
+    if (!res.error) state.entryDate = null;
+    await refresh();
+    setTimeout(() => { state.msg = null; state.msgKind = null; }, 100);
+  }
+
   async function saveLabel(next) {
     const from = state.lift.renameFrom;
     if (!from) return;
@@ -1601,23 +1587,23 @@ under it stay in your history, they just stop being a tile.`)) return;
     const res = await call("app_lift_detail", { p_code: state.code, p_session: id });
     if (res.error || !res.session) return;
     state.lift.detail = res.session;
-    state.lift.from = "lift";
+    state.lift.from = "exercise";
     state.view = "detail";
     render();
   }
 
-  async function openLift(mode) {
+  async function openExercise(seg) {
     if (!state.meId) return;
     stopTicking();
-    state.mode = mode === "cardio" ? "cardio" : "lift";
+    state.seg  = seg || "steps";
+    state.mode = state.seg === "cardio" ? "cardio" : "lift";
     state.lift.loaded = false;
     state.lift.labels = []; state.lift.sessions = [];
     state.lift.menu = null; state.lift.rename = null;
     loadLocal();
-    state.view = "lift";
+    state.view = "exercise";
     render();                 // paint immediately; the list can arrive after
-    await loadLift();
-    render();
+    if (state.seg !== "steps") { await loadLift(); render(); }
   }
 
   /* ---------- views ------------------------------------------------ */
@@ -1662,11 +1648,49 @@ under it stay in your history, they just stop being a tile.`)) return;
       <p class="ver">v${APP_VERSION}</p>`;
   }
 
-  function groupView() {
+  /* ---------- the board: a glance, not a dashboard -------------------
+     V1.5 moved the entry box, the charts, the stats and the week arrows
+     into Exercise. What is left is who you are, what the five pillars say
+     about your day, the family, and one button. Everything else is one
+     tap in, which is the only shape that still reads when there are five
+     pillars instead of one.
+     ------------------------------------------------------------------ */
+
+  function markRow(p, clickable) {
+    return `<div class="marks">${PILLARS.map((pl) => {
+      const lit  = pl.live && !!p.done;
+      const cls  = !pl.live ? "pip off" : lit ? "pip on" : "pip";
+      const tag  = clickable && pl.live ? "button" : "span";
+      const attr = clickable && pl.live ? ` data-pillar="${pl.key}"` : "";
+      return `<${tag} class="mark"${attr}${pl.live ? "" : ' aria-hidden="true"'}>
+        <span class="${cls}"></span><span class="mlabel">${esc(pl.label)}</span>
+      </${tag}>`;
+    }).join("")}</div>`;
+  }
+
+  // One editor, two screens: names are edited on the board, goals on
+  // Exercise. Rendering it in only one place is how tapping a goal used to
+  // open nothing at all.
+  function editRowHTML() {
+    if (!state.editing) return "";
+    return `
+      <div class="addrow" id="editRow">
+        <input class="field" id="editVal" maxlength="40" autocomplete="off"
+               ${state.editing === "name" ? "" : 'type="number" inputmode="numeric"'}
+               value="${editSeed()}"
+               aria-label="${state.editing === "name" ? "Name" : "Daily goal"}">
+        <button class="btn" id="editSave">Save</button>
+        <button class="btn-quiet" id="editCancel">Cancel</button>
+        <p class="hint" id="editHint" style="flex-basis:100%;margin-top:0">${editHintText()}</p>
+      </div>`;
+  }
+
+  function boardView() {
     const m = me();
-    const unit = esc(state.metric.unit);
-    const loggedCount = state.people.filter((p) => p.logged).length;
-    const hitCount = state.people.filter((p) => Number(p.value) >= Number(p.target)).length;
+    const livePillars = PILLARS.filter((x) => x.live).length;
+    const logged = state.people.filter((p) =>
+      val(p,"steps") > 0 || val(p,"train") > 0 || val(p,"cardio") > 0).length;
+    const moved  = state.people.filter((p) => p.done).length;
 
     const whoOptions = state.people.length === 0
       ? `<option value="">nobody yet</option>`
@@ -1674,46 +1698,179 @@ under it stay in your history, they just stop being a tile.`)) return;
         state.people.map((p) =>
           `<option value="${p.id}"${p.id === state.meId ? " selected" : ""}>${esc(p.name)}</option>`).join("");
 
+    const mine = m ? `
+      <section class="card mine">
+        <div class="section-head">
+          <h2>${esc(m.name)}</h2>
+          <span class="eyebrow">${m.streak > 0 ? m.streak + "-day streak" : "today"}</span>
+        </div>
+        ${markRow(m, true)}
+        <p class="note mcap">${livePillars} of ${PILLARS.length} pillars measured</p>
+      </section>` : `
+      <div class="dashed"><p class="note">Pick your name above, or add it,
+        and your day appears here.</p></div>`;
+
+    const roster = state.people.length === 0
+      ? `<div class="dashed"><p class="note">Nobody has been added yet.
+           Add the first name above.</p></div>`
+      : `<div class="roster">${state.people.map((p) => {
+          const v = val(p, "steps"), t = target(p, "steps");
+          const initials = p.name.trim().split(/\s+/).slice(0,2)
+            .map((w) => (w[0] || "").toUpperCase()).join("");
+          const isMe = p.id === state.meId;
+          return `<div class="person${p.done ? " did" : ""}">
+            <span class="dot" aria-hidden="true"
+              style="background:color-mix(in oklab, hsl(${p.hue} 62% 48%) 16%, var(--surface));
+                     color:color-mix(in oklab, hsl(${p.hue} 62% 48%) 78%, var(--ink))"
+              >${esc(initials)}</span>
+            <div class="who">
+              <div class="name">
+                <button class="tapedit" data-edit="name" data-person="${p.id}"
+                  >${esc(p.name)}</button>
+                ${isMe ? "<em>you</em>" : ""}
+                ${p.streak > 1 ? `<em>${p.streak}d</em>` : ""}
+              </div>
+              <div class="sub2">${[
+                  p.lifted ? `<button class="liftchip" data-see="${p.id}" data-m="lift"
+                     aria-label="See ${esc(p.name)}'s workout">${val(p,"train")}m train</button>` : "",
+                  Number(p.cardio_distance) > 0 || val(p,"cardio") > 0
+                    ? `<button class="liftchip cardio" data-see="${p.id}" data-m="cardio"
+                     aria-label="See ${esc(p.name)}'s cardio">${val(p,"cardio")}m${
+                       Number(p.cardio_distance) > 0 ? " \u00b7 " + esc(distWords(p.cardio_distance)) : ""
+                     }</button>` : "",
+                ].filter(Boolean).join(" ") || "&nbsp;"}</div>
+            </div>
+            <div class="num"><b>${v > 0 ? num(v) : "&mdash;"}</b>
+              <span class="${p.done ? "met" : ""}">${
+                p.done ? "\u2713 moved" : v > 0 ? "of " + num(t) : "nothing yet"}</span></div>
+          </div>`;
+        }).join("")}</div>`;
+
+    return `
+      <header class="masthead">
+        <h1>${esc(state.group.name)}</h1>
+        <p class="sub">${esc(new Date().toLocaleDateString(undefined,
+          { weekday:"long", month:"long", day:"numeric" }))}</p>
+      </header>
+
+      <div class="whoami">
+        <span class="label">I am</span>
+        <select id="who" aria-label="Which family member are you"
+          ${state.people.length === 0 ? "disabled" : ""}>${whoOptions}</select>
+        <button class="linkbtn" id="addBtn">${state.adding ? "Never mind" : "Add someone"}</button>
+      </div>
+
+      ${editRowHTML()}
+
+      <div class="addrow" id="addRow" ${state.adding ? "" : "hidden"}>
+        <input class="field" id="addName" placeholder="Their name" maxlength="40"
+               autocomplete="off" aria-label="Name of the person to add">
+        <button class="btn" id="addSave">Add</button>
+        <p class="hint" id="addHint" style="flex-basis:100%;margin-top:0"></p>
+      </div>
+
+      ${installHint()}
+      ${mine}
+
+      <section>
+        <div class="section-head">
+          <button class="foldbtn" id="foldBoard" aria-expanded="${boardOpen()}">
+            <span class="caret">${boardOpen() ? "\u25be" : "\u25b8"}</span>
+            <h2>The family today</h2></button>
+          <span class="eyebrow">${state.people.length
+            ? `${logged}/${state.people.length} logged \u00b7 ${moved} moved` : ""}</span>
+        </div>
+        ${boardOpen() ? roster : ""}
+      </section>
+
+      <button class="btn" id="waShare" style="width:100%">Post today to WhatsApp</button>
+
+      <p class="ver">v${APP_VERSION}</p>`;
+  }
+
+  /* ---------- Exercise: one pillar, three numbers ---------------------
+     This screen absorbed both logger homes. A single segment picks which
+     number you are looking at AND which log sits underneath it, so
+     starting a workout is still three taps and there is no tab bar to
+     outgrow when the other four pillars arrive.
+     ------------------------------------------------------------------ */
+
+  function exerciseView() {
+    const m = me();
     const iso = entryDay();
     const isToday = iso === todayISO();
-    const recSteps = dayRecord("steps");
-    const recTrain = dayRecord("train");
-    const anyLogged = recSteps.logged || recTrain.logged;
+    const rec = dayRecord("steps");
     const dayTitle = isToday ? "Today"
       : new Date(iso + "T00:00:00Z").toLocaleDateString(undefined,
           { timeZone:"UTC", weekday:"long", month:"short", day:"numeric" });
-    const restHint = anyLogged
-      ? "Already recorded. You can correct it."
-      : isToday ? "Fill in either, or both." : "Nothing recorded for that day yet.";
 
-    const entry = m ? `
+    const segs = [["steps","Steps"],["train","Train"],["cardio","Cardio"]];
+
+    const logSection = state.seg === "steps" ? "" : `
+      <button class="btn" id="startEmpty" style="width:100%;background:var(--train)">
+        ${state.mode === "cardio" ? "Start an activity" : "Start an empty workout"}</button>
+      ${liftTiles()}
+      ${liftHistory()}`;
+
+    return `
+      <div class="topbar">
+        <button class="backlink" id="back">&larr; ${esc(state.group.name)}</button>
+        <span class="sync ${state.lift.sync}" id="syncChip">${syncWords(state.lift.sync)}</span>
+      </div>
+
+      <header class="masthead">
+        <h1>Exercise</h1>
+        <p class="sub">Steps, training, cardio. One pillar of five.</p>
+      </header>
+
+      ${resumeBanner()}
+
+      ${state.seg === "steps" ? `
       <section class="card">
         <div class="section-head">
           <h2>${esc(dayTitle)}</h2>
-          <span class="eyebrow">${anyLogged ? "logged" : "nothing yet"}</span>
+          <span class="eyebrow">steps</span>
         </div>
-        <div class="two-up">
-          <label class="fld-train">
-            <span style="color:var(--train)">Train</span>
-            <input id="train" type="number" inputmode="numeric" placeholder="0"
-                   aria-label="Minutes trained on ${esc(dayTitle)}"
-                   value="${recTrain.logged ? recTrain.value : ""}">
-            <em>minutes &middot; <button class="linkbtn" id="liftOpen"
-              style="font-size:11px">log lifts</button></em>
-          </label>
-          <label class="fld-steps">
-            <span style="color:var(--series)">Steps</span>
-            <input id="steps" type="number" inputmode="numeric" placeholder="0"
-                   aria-label="Steps on ${esc(dayTitle)}"
-                   value="${recSteps.logged ? recSteps.value : ""}">
-            <em>steps &middot; <button class="linkbtn" id="cardioOpen"
-              style="font-size:11px">log cardio</button></em>
-          </label>
-        </div>
+        <input class="bignum" id="steps" type="number" inputmode="numeric" placeholder="0"
+               aria-label="Steps on ${esc(dayTitle)}"
+               value="${rec.logged ? rec.value : ""}">
         <button class="btn" id="save" style="width:100%;margin-top:10px">${
-          anyLogged ? "Update" : "Log"}</button>
-        <p class="hint ${state.msgKind || ""}" id="hint">${esc(state.msg || restHint)}</p>
-      </section>
+          rec.logged ? "Update" : "Log"}</button>
+        <p class="hint ${state.msgKind || ""}" id="hint">${esc(state.msg ||
+          (rec.logged ? "Already recorded. You can correct it."
+                      : "Train and cardio minutes are written by what you log below."))}</p>
+      </section>` : `
+      <!-- Steps is the keystone, so it stays reachable from every segment.
+           It just stops shouting when you came here to look at something
+           else: one line instead of a card. -->
+      <div class="stepline">
+        <span>${esc(dayTitle)}</span>
+        <input id="steps" type="number" inputmode="numeric" placeholder="0"
+               aria-label="Steps on ${esc(dayTitle)}"
+               value="${rec.logged ? rec.value : ""}">
+        <em>steps</em>
+        <button class="btn-quiet" id="save">${rec.logged ? "Update" : "Log"}</button>
+      </div>
+      ${state.msg ? `<p class="hint ${state.msgKind || ""}" id="hint"
+        style="margin-top:-18px">${esc(state.msg)}</p>` : ""}`}
+
+      <div class="segrow">
+        <div class="seg" role="group" aria-label="Which number">
+          ${segs.map(([k, lbl]) =>
+            `<button type="button" data-seg="${k}" aria-pressed="${state.seg === k}">${lbl}</button>`
+          ).join("")}
+        </div>
+        ${state.seg === "train" ? `<div class="range" role="group" aria-label="Weight unit">${
+            ["lb","kg"].map((u) =>
+              `<button type="button" data-wunit="${u}" aria-pressed="${units.w === u}">${u}</button>`
+            ).join("")}</div>`
+        : state.seg === "cardio" ? `<div class="range" role="group" aria-label="Distance unit">${
+            ["mi","km","m"].map((u) =>
+              `<button type="button" data-dunit="${u}" aria-pressed="${units.d === u}">${u}</button>`
+            ).join("")}</div>` : ""}
+      </div>
+
+      ${editRowHTML()}
 
       <section>
         <div class="section-head">
@@ -1728,131 +1885,11 @@ under it stay in your history, they just stop being a tile.`)) return;
           ${chartsHTML()}
           ${statsHTML()}
         </div>
-      </section>` : `
-      <div class="dashed"><p class="note">Pick your name above, or add it, and your
-        own entry box and chart appear here.</p></div>`;
-
-    const roster = state.people.length === 0
-      ? `<div class="dashed"><p class="note">Nobody has been added yet.
-           Add the first name above.</p></div>`
-      : `<div class="roster">${state.people.map((p) => {
-          const v = Number(p.value), t = Number(p.target);
-          const met = p.logged && v >= t;
-          const pct = t > 0 ? Math.min(100, (v / t) * 100) : 0;
-          const initials = p.name.trim().split(/\s+/).slice(0,2)
-            .map((w) => (w[0] || "").toUpperCase()).join("");
-          const mine = p.id === state.meId;
-          return `<div class="person">
-            <span class="dot" aria-hidden="true"
-              style="background:hsl(${p.hue} 42% 92%);color:hsl(${p.hue} 55% 26%);
-                     background:color-mix(in oklab, hsl(${p.hue} 62% 48%) 16%, var(--surface));
-                     color:color-mix(in oklab, hsl(${p.hue} 62% 48%) 78%, var(--ink))">${esc(initials)}</span>
-            <div class="who">
-              <div class="name">
-                <button class="tapedit" data-edit="name" data-person="${p.id}"
-                  >${esc(p.name)}</button>
-                ${mine ? "<em>you</em>" : ""}
-                ${p.streak > 0 ? `<em>${p.streak}-day streak</em>` : ""}
-                ${p.lifted ? `<button class="liftchip" data-see="${p.id}" data-m="lift"
-                  aria-label="See ${esc(p.name)}'s workout">\u{1F3CB}</button>` : ""}
-                ${Number(p.cardio_distance) > 0 ? `<button class="liftchip cardio"
-                  data-see="${p.id}" data-m="cardio"
-                  aria-label="See ${esc(p.name)}'s cardio">${
-                  esc(distWords(p.cardio_distance))}</button>` : ""}</div>
-              <div class="bar"><i style="width:${p.logged ? Math.max(pct,3) : 0}%"></i></div>
-            </div>
-            <div class="num"><b>${p.logged ? num(v) : "&mdash;"}</b>
-              <span class="${met ? "met" : ""}">${met ? "✓ goal"
-                : p.logged ? "of " + num(t) : "not logged"}</span></div>
-          </div>`;
-        }).join("")}</div>`;
-
-    return `
-      <header class="masthead">
-        <h1>${esc(state.group.name)}</h1>
-        <button class="sub datebtn" id="dateBtn" aria-label="Pick which day to log">${
-          esc(dayTitle)}${isToday ? "" : "  &middot; logging a past day"}</button>
-        ${state.pickDate ? `<input type="date" id="dateInput" class="datefld"
-             value="${entryDay()}" min="${shiftISO(todayISO(), -365)}" max="${todayISO()}"
-             aria-label="Which day to log">` : ""}
-      </header>
-
-      <div class="whoami">
-        <span class="label">I am</span>
-        <select id="who" aria-label="Which family member are you"
-          ${state.people.length === 0 ? "disabled" : ""}>${whoOptions}</select>
-        <button class="linkbtn" id="addBtn">${state.adding ? "Never mind" : "Add someone"}</button>
-      </div>
-
-      <div class="addrow" id="editRow" ${state.editing ? "" : "hidden"}>
-        <input class="field" id="editVal" maxlength="40" autocomplete="off"
-               ${state.editing === "name" ? "" : 'type="number" inputmode="numeric"'}
-               value="${editSeed()}"
-               aria-label="${state.editing === "name" ? "Name" : "Daily goal"}">
-        <button class="btn" id="editSave">Save</button>
-        <button class="btn-quiet" id="editCancel">Cancel</button>
-        <p class="hint" id="editHint" style="flex-basis:100%;margin-top:0">${editHintText()}</p>
-      </div>
-
-      <div class="addrow" id="addRow" ${state.adding ? "" : "hidden"}>
-        <input class="field" id="addName" placeholder="Their name" maxlength="40"
-               autocomplete="off" aria-label="Name of the person to add">
-        <button class="btn" id="addSave">Add</button>
-        <p class="hint" id="addHint" style="flex-basis:100%;margin-top:0"></p>
-      </div>
-
-      ${installHint()}
-
-      ${entry}
-
-      <section>
-        <div class="section-head">
-          <button class="foldbtn" id="foldBoard" aria-expanded="${boardOpen()}">
-            <span class="caret">${boardOpen() ? "▾" : "▸"}</span>
-            <h2>The family today</h2></button>
-          <span class="eyebrow">${state.people.length
-            ? `${loggedCount}/${state.people.length} logged &middot; ${hitCount} hit goal` : ""}</span>
-        </div>
-        ${boardOpen() ? roster : ""}
       </section>
 
-      <section class="card">
-        <h2>Run the daily check-in</h2>
-        <p class="note" style="margin-top:6px">Post the day's standings to the
-          family chat, and fill in anyone who sent you their number instead of
-          logging it themselves.</p>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
-          <button class="btn" id="waShare">Post today to WhatsApp</button>
-          <button class="btn-quiet" id="bulkBtn" style="padding:13px 18px">
-            ${state.bulk ? "Close" : "Enter for someone else"}</button>
-        </div>
+      ${logSection}
 
-        <div id="bulkRow" ${state.bulk ? "" : "hidden"} style="margin-top:14px;
-             padding-top:14px;border-top:1px solid var(--line)">
-          <p class="note">Leave a box blank to leave that person alone. Blank is
-            not the same as zero &mdash; it means they did not report, so it will
-            not dent their average or break a streak.</p>
-          <div style="margin-top:10px">
-            ${state.people.map((p) => `
-              <div style="display:flex;align-items:center;gap:10px;padding:7px 0;
-                          border-top:1px solid var(--line)">
-                <span style="flex:1;font-size:14px;font-weight:500">${esc(p.name)}</span>
-                <input type="number" inputmode="numeric" data-bulk="${p.id}"
-                       placeholder="&mdash;" value="${p.logged ? Number(p.value) : ""}"
-                       aria-label="${esc(p.name)} steps today"
-                       style="width:104px;border:1px solid var(--line-strong);
-                              background:var(--surface);border-radius:9px;padding:8px 10px;
-                              font-family:var(--mono);font-weight:500;text-align:right">
-              </div>`).join("")}
-          </div>
-          <button class="btn" id="bulkSave" style="width:100%;margin-top:12px">
-            Save everyone</button>
-          <p class="note" id="bulkHint" style="margin-top:8px;min-height:17px"></p>
-        </div>
-      </section>
-
-      <p class="ver">v${APP_VERSION}</p>
-`;
+      <p class="ver">v${APP_VERSION}</p>`;
   }
 
   function notConfigured() {
@@ -1879,51 +1916,20 @@ under it stay in your history, they just stop being a tile.`)) return;
     }
     if (!(state.code && state.group)) { app.innerHTML = landing(); wire(); return; }
 
-    if (state.view === "lift")    { app.innerHTML = liftHome();    wireLift(); return; }
-    if (state.view === "session") { app.innerHTML = sessionView(); wireLift(); return; }
-    if (state.view === "detail")  { app.innerHTML = detailView();  wireLift(); return; }
+    if (state.view === "exercise") { app.innerHTML = exerciseView(); wireExercise(); return; }
+    if (state.view === "session")  { app.innerHTML = sessionView();  wireLift();     return; }
+    if (state.view === "detail")   { app.innerHTML = detailView();   wireLift();     return; }
 
-    app.innerHTML = groupView();
+    app.innerHTML = boardView();
     wire();
   }
 
-  // Only the chart redraws when the pointer moves across it. Nothing else
-  // on the page is touched, so a half-typed number survives.
-  // Each mini chart repaints only itself. Nothing else on the page is
-  // touched, so a half-typed number survives a finger crossing the chart.
-  function paintChart(k) {
-    const host = document.getElementById("chart-" + k);
-    if (!host) return;
-    const holder = host.parentElement;
-    const frag = document.createElement("div");
-    frag.innerHTML = miniChart(k);
-    holder.replaceWith(frag.firstElementChild);
-    wireChart(k);
-  }
-
-  function wireCharts() { wireChart("steps"); wireChart("train"); }
 
   function wireChart(k) {
     const host = document.getElementById("chart-" + k);
     const svg = host && host.querySelector("svg");
     if (!svg) return;
     const n = points(k).length;
-
-    svg.addEventListener("pointermove", (e) => {
-      const r = svg.getBoundingClientRect();
-      const i = Math.min(n - 1, Math.max(0,
-        Math.floor(((e.clientX - r.left) / r.width) * n)));
-      if (!state.hover || state.hover.k !== k || state.hover.i !== i) {
-        const prev = state.hover;
-        state.hover = { k, i };
-        if (prev && prev.k !== k) paintChart(prev.k);
-        paintChart(k);
-      }
-    });
-    svg.addEventListener("pointerleave", () => {
-      if (!state.hover || state.hover.k !== k) return;
-      state.hover = null; paintChart(k);
-    });
 
     // Two bars, two verbs. Tapping a Steps bar backlogs that day, which
     // is what you can still type. Tapping a Train bar opens the workout
@@ -1933,29 +1939,29 @@ under it stay in your history, they just stop being a tile.`)) return;
       const iso = e.target && e.target.dataset ? e.target.dataset.day : null;
       if (!iso) return;
 
-      if (k === "train") {
+      if (k !== "steps") {
         const got = await call("app_lift_detail", {
-          p_code: state.code, p_person: state.meId, p_date: iso });
+          p_code: state.code, p_person: state.meId, p_date: iso,
+          p_mode: k === "cardio" ? "cardio" : "lift" });
         const sess = got && got.session;
         if (sess) {
           state.lift.detail = sess;
-          state.lift.from = "board";
-          state.mode = sess.mode === "cardio" ? "cardio" : "lift";
+          state.lift.from = "exercise";
           state.view = "detail";
           render();
         } else {
-          state.entryDate = iso === todayISO() ? null : iso;
-          state.msg = "Nothing logged that day. Open Lift or Cardio to add it.";
+          state.msg = "Nothing logged that day.";
           state.msgKind = null;
-          await ensureDay(iso);
           render();
         }
         return;
       }
 
+      // A Steps bar is the only way left to log a past day, now that the
+      // date picker is gone. The week is already loaded, so there is
+      // nothing to fetch.
       state.entryDate = iso === todayISO() ? null : iso;
       state.msg = null;
-      await ensureDay(iso);
       render();
       document.getElementById("steps")?.focus();
     });
@@ -2000,7 +2006,7 @@ under it stay in your history, they just stop being a tile.`)) return;
     /* group */
     on("who", "change", async (e) => {
       saveMe(e.target.value);
-      state.hover = null; state.msg = null;
+      state.msg = null;
       await loadHistory();
       render();
     });
@@ -2024,48 +2030,13 @@ under it stay in your history, they just stop being a tile.`)) return;
       if (e.key === "Escape") { state.adding = false; render(); }
     });
 
-    on("save", "click", async (e) => {
-      const rawS = (document.getElementById("steps").value || "").replace(/[^0-9]/g, "");
-      const rawT = (document.getElementById("train").value || "").replace(/[^0-9]/g, "");
-      if (rawS === "" && rawT === "") {
-        state.msg = "Enter a number in either box."; state.msgKind = "bad"; render(); return;
-      }
-      e.target.disabled = true;
-      const jobs = [];
-      if (rawS !== "") jobs.push(call("app_log", { p_code:state.code, p_person:state.meId,
-        p_value:Number(rawS), p_metric:M.steps.key, p_date:entryDay() }));
-      if (rawT !== "") jobs.push(call("app_log", { p_code:state.code, p_person:state.meId,
-        p_value:Number(rawT), p_metric:M.train.key, p_date:entryDay() }));
-      const out = await Promise.all(jobs);
-      const bad = out.find((r) => r.error);
-      state.msg = bad ? bad.error : "Saved. Your family can see it.";
-      state.msgKind = bad ? "bad" : "ok";
-      state.byDate.delete("steps|" + entryDay());
-      state.byDate.delete("train|" + entryDay());
-      if (!bad) state.entryDate = null;
-      await refresh();
-      setTimeout(() => { state.msg = null; state.msgKind = null; }, 100);
-    });
 
-    for (const id of ["steps","train"])
-      on(id, "keydown", (e) => { if (e.key === "Enter") document.getElementById("save").click(); });
-
-    const stepWeek = async (n) => {
-      state.weekAnchor = shiftISO(weekBounds().start, n * 7);
-      if (state.weekAnchor === thisMonday()) state.weekAnchor = null;
-      state.hover = null;
-      await loadHistory();
-      render();
-    };
-    on("wPrev", "click", () => stepWeek(-1));
-    on("wNext", "click", () => stepWeek(1));
 
     on("foldBoard", "click", () => {
       try { localStorage.setItem("fhd.board", boardOpen() ? "shut" : "open"); } catch {}
       render();
     });
 
-    wireCharts();
 
     on("installNo", "click", () => {
       try { localStorage.setItem("fhd.install", "no"); } catch {}
@@ -2073,38 +2044,18 @@ under it stay in your history, they just stop being a tile.`)) return;
       if (el) el.remove();
     });
 
-    // Land with the cursor already in the number box on an unlogged day.
-    // iOS will not raise the keyboard without a tap, but the box is focused
-    // and scrolled to, so the tap target is unmissable.
-    const box = document.getElementById("steps");
-    if (box && me() && !me().logged && state.hover === null) {
-      try { box.focus({ preventScroll: false }); } catch {}
-    }
 
-    on("renameSave", "click", async (e) => {
-      const name = (document.getElementById("renameName").value || "").trim();
-      const hint = document.getElementById("renameHint");
-      if (!name) { hint.textContent = "A name cannot be blank."; return; }
-      e.target.disabled = true;
-      const res = await call("app_rename_person", {
-        p_code: state.code, p_person: state.meId, p_name: name,
-      });
-      if (res.error) { hint.textContent = res.error; e.target.disabled = false; return; }
-      state.renaming = false;
-      await refresh();
-    });
-    on("renameName", "keydown", (e) => {
-      if (e.key === "Enter") document.getElementById("renameSave").click();
-      if (e.key === "Escape") { state.renaming = false; render(); }
+
+
+    document.querySelectorAll('[data-edit="name"]').forEach((el) => {
+      el.addEventListener("click", () => openEditor("name", el.dataset.person));
     });
 
-    on("dayBtn", "click", () => { state.pickDate = !state.pickDate; state.msg = null; render(); });
+    wireEditor();
+    wireBoardActions();
+  }
 
-    // Tap your own name or your own target in the roster.
-    document.querySelectorAll('[data-edit]:not(.legend [data-edit])').forEach((el) => {
-      el.addEventListener("click", () => openEditor(el.dataset.edit, el.dataset.person));
-    });
-
+  function wireEditor() {
     on("editCancel", "click", () => { state.editing = null; render(); });
 
     on("editSave", "click", async (e) => {
@@ -2112,21 +2063,13 @@ under it stay in your history, they just stop being a tile.`)) return;
       const raw = (document.getElementById("editVal").value || "").trim();
       const hint = document.getElementById("editHint");
 
-      if (kind === "traingoal") {
-        const t = Number(raw.replace(/[^0-9]/g, ""));
-        if (!t) { hint.textContent = "Enter a number of minutes."; return; }
-        e.target.disabled = true;
-        const res = await call("app_set_goal", {
-          p_code: state.code, p_person: state.meId, p_target: t, p_metric: M.train.key,
-        });
-        if (res.error) { hint.textContent = res.error; e.target.disabled = false; return; }
-        state.trainGoal = t;
-      } else if (kind === "goal") {
+      if (kind === "goal") {
         const t = Number(raw.replace(/[^0-9]/g, ""));
         if (!t) { hint.textContent = "Enter a target above zero."; return; }
         e.target.disabled = true;
         const res = await call("app_set_goal", {
           p_code: state.code, p_person: state.meId, p_target: t,
+          p_metric: M[state.editMetric].key,
         });
         if (res.error) { hint.textContent = res.error; e.target.disabled = false; return; }
       } else {
@@ -2145,39 +2088,17 @@ under it stay in your history, they just stop being a tile.`)) return;
       if (e.key === "Enter") document.getElementById("editSave").click();
       if (e.key === "Escape") { state.editing = null; render(); }
     });
+  }
 
-    on("dateBtn", "click", () => { state.pickDate = !state.pickDate; state.msg = null; render(); });
-
-    on("dateInput", "change", async (e) => {
-      const iso = e.target.value;
-      if (!iso) return;
-      state.entryDate = iso === todayISO() ? null : iso;
-      state.pickDate = false;
-      state.msg = null;
-      await ensureDay(iso);
-      state.weekAnchor = mondayOf(iso) === thisMonday() ? null : mondayOf(iso);
-      await loadHistory();                    // jump the charts to that week
-      render();
-    });
-
-    on("bulkBtn", "click", () => { state.bulk = !state.bulk; render(); });
-
-    on("bulkSave", "click", async (e) => {
-      const rows = [...document.querySelectorAll("[data-bulk]")]
-        .map((el) => ({ id: el.dataset.bulk, value: el.value.replace(/[^0-9]/g, "") }))
-        .filter((r) => r.value !== "");
-      const hint = document.getElementById("bulkHint");
-      if (!rows.length) { hint.textContent = "Nothing filled in yet."; return; }
-      e.target.disabled = true;
-      const res = await call("app_log_many", {
-        p_code: state.code, p_entries: rows, p_date: todayISO() });
-      if (res.error) { hint.textContent = res.error; e.target.disabled = false; return; }
-      state.bulk = false;
-      await refresh();
-    });
-
-    on("liftOpen",   "click", (e) => { e.preventDefault(); openLift("lift"); });
-    on("cardioOpen", "click", (e) => { e.preventDefault(); openLift("cardio"); });
+  // Board-only: the pillar marks, the tap-through chips, the one button.
+  function wireBoardActions() {
+    // The marks ARE the navigation. Tapping a live pillar goes straight
+    // into it, which is why there is no tab bar and no Log screen: pillars
+    // two to five arrive as taps, not as furniture.
+    document.querySelectorAll("[data-pillar]").forEach((el) =>
+      el.addEventListener("click", () => {
+        if (el.dataset.pillar === "exercise") openExercise("steps");
+      }));
 
     // Tap someone's volume chip to read the session behind it. The board
     // stays a scoreboard; the detail is one tap away for whoever wants it.
@@ -2200,8 +2121,7 @@ under it stay in your history, they just stop being a tile.`)) return;
       // it opens WhatsApp with the message written, and you pick the group.
       window.open("https://wa.me/?text=" + encodeURIComponent(dailyMessage()), "_blank");
     });
-
-}
+  }
 
   /* ---------- boot -------------------------------------------------- */
   (async () => {
