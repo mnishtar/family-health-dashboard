@@ -184,6 +184,60 @@ input[type=number] { -moz-appearance:textfield; }
 .weekrow button { border:none; background:none; font-family:inherit; font-size:17px;
   line-height:1; color:var(--ink-2); padding:2px 8px; cursor:pointer; border-radius:8px; }
 .weekrow button:disabled { color:var(--line-strong); cursor:default; }
+
+/* V1.7b — the log box is its own card, and carries its own date. */
+.daynav { display:flex; align-items:center; justify-content:center; gap:6px; }
+.daynav button { border:none; background:none; font-family:inherit; font-size:19px;
+  line-height:1; color:var(--ink-2); padding:4px 12px; cursor:pointer; border-radius:9px; }
+.daynav button:disabled { color:var(--line-strong); cursor:default; }
+.daynav > span { min-width:132px; text-align:center; font-size:12.5px; font-weight:500;
+  color:var(--ink-2); }
+.logrow { display:flex; align-items:center; gap:9px; margin-top:14px; }
+.logrow input { flex:1; min-width:0; border:1px solid var(--line-strong); background:var(--surface);
+  border-radius:11px; padding:11px 14px; text-align:right;
+  font-family:var(--mono); font-size:20px; font-weight:500; color:var(--ink); }
+.logrow input:focus { outline:none; border-color:var(--series); }
+.logrow > em { font-style:normal; font-size:11px; color:var(--muted); flex:none; }
+
+/* the graph, restored to a size you can actually read */
+.bigchart .chart svg { height:118px; }
+.bigchart .axis { margin-top:6px; font-size:11px; }
+.rangetog { display:flex; border:1px solid var(--line); border-radius:999px; padding:2px;
+  background:var(--surface); }
+.rangetog button { border:none; background:none; font-family:inherit; font-size:11px;
+  font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--muted);
+  padding:4px 11px; border-radius:999px; cursor:pointer; }
+.rangetog button[aria-pressed="true"] { background:var(--soft); color:var(--accent); }
+
+/* thirty-five days as dots: the execution score, drawn */
+.grid { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:9px;
+  margin:6px auto 0; max-width:266px; }
+.gcell { aspect-ratio:1; border-radius:50%; border:1.5px solid var(--line); background:none;
+  padding:0; cursor:pointer; }
+.grid + .dshint, .gdow + .grid + .dshint { text-align:center; }
+.gcell.part { border-color:currentColor; }
+.gcell.full { border-color:currentColor; background:currentColor; }
+.gcell.none  { border-style:dashed; }
+.gcell.sel  { box-shadow:0 0 0 2px var(--surface), 0 0 0 4px var(--ink-2); }
+.gcell:disabled { opacity:.25; cursor:default; }
+.gdow { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:9px;
+  margin:4px auto 0; max-width:266px;
+  font-size:9.5px; font-weight:600; letter-spacing:.04em; text-transform:uppercase;
+  color:var(--muted); text-align:center; }
+
+/* editing what a workout is made of */
+.tmpl { margin-top:12px; padding:13px; border:1px solid var(--line); border-radius:12px;
+  background:var(--surface-2); }
+.tmpl h3 { margin:0 0 9px; font-family:var(--display); font-weight:500; font-size:15px; }
+.tmplrow { display:flex; align-items:center; gap:8px; padding:7px 0;
+  border-bottom:1px solid var(--line); }
+.tmplrow:last-of-type { border-bottom:none; }
+.tmplrow .nm { flex:1; min-width:0; font-size:14px; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.tmplrow .sx { font-size:11px; color:var(--muted); font-family:var(--mono); }
+.tmplrow button { border:none; background:none; font-family:inherit; font-size:15px;
+  color:var(--muted); padding:3px 7px; cursor:pointer; border-radius:7px; }
+.tmplrow button:disabled { opacity:.25; cursor:default; }
 .unitrow { display:flex; align-items:center; justify-content:space-between; gap:10px;
   margin-top:18px; }
 .unitrow > span { font-size:11px; font-weight:600; letter-spacing:.07em;
@@ -207,10 +261,12 @@ input[type=number] { -moz-appearance:textfield; }
 .engine .go { flex:none; color:var(--muted); font-size:15px; }
 
 /* The execution score. One number, top corner, never a chart. */
-.score { display:flex; align-items:baseline; gap:5px; font-family:var(--mono);
-  font-size:13px; font-weight:500; color:var(--series); }
-.score span { font-size:9.5px; font-family:var(--body); font-weight:600;
-  letter-spacing:.09em; text-transform:uppercase; color:var(--muted); }
+.score { display:flex; flex-direction:column; align-items:flex-end; gap:1px;
+  font-family:var(--mono); font-size:15px; font-weight:500; color:var(--series);
+  background:none; border:none; padding:2px 0 2px 8px; cursor:pointer; }
+.score span { font-size:9px; font-family:var(--body); font-weight:600;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--muted);
+  white-space:nowrap; }
 
 /* The family command centre: one compact row each, with a trend line. */
 .cmd { margin-top:22px; padding-top:18px; border-top:1px solid var(--line); }
@@ -606,6 +662,11 @@ button.mark .mlabel { color:var(--ink-2); }
     weekAnchor: null,     // Monday of the week on the charts; null means this week
     // The family block, per metric, fetched on first open and kept.
     fam: { open: false, data: {} },
+    kpi:  "week",         // week | cycle — which horizon the headline shows
+    range: "week",        // week | month — which graph the page is showing
+    month: {},            // 35 days per metric, fetched when Month is opened
+    histOpen: false,      // the workout history fold
+    tmpl: null,           // { label, mode, items:[...] } while being edited
 
     lift: {
       loaded: false,
@@ -736,7 +797,9 @@ button.mark .mlabel { color:var(--ink-2); }
     const m = me();
     if (iso === todayISO() && m)
       return { value: val(m, k), logged: k === "steps" ? !!m.steps_logged : val(m, k) > 0 };
-    const d = (state.history[k] || []).find((x) => x.date === iso);
+    // fall through to the loaded week/month below
+    const d = (state.history[k] || []).find((x) => x.date === iso)
+           || (state.month[k]   || []).find((x) => x.date === iso);
     return { value: d ? Number(d.value) : 0, logged: d ? d.logged : false };
   }
 
@@ -819,16 +882,60 @@ button.mark .mlabel { color:var(--ink-2); }
         </div>`;
 
     if (strip) return `<div class="strip">${svg}</div>`;
+    return `<div class="bigchart">${svg}</div>`;
+  }
+
+  /* ---------- thirty-five days, as dots ------------------------------
+     A month cannot be bars on a phone. Seven bars get a 47px slot; thirty
+     get 11px, which is 6px of bar — too thin to read and far too thin to
+     tap, and tapping a day is how you log it.
+
+     So the month view changes the MARK rather than the range. Five rows of
+     seven: filled when the day cleared the target, ringed when something
+     was logged but fell short, dashed when nothing was. Magnitude is gone,
+     which is the point — at a month's distance the only question worth
+     asking is whether this is a habit yet, and that is a shape, not a
+     number. It is also the execution score drawn out: every filled dot is
+     a day that counted.
+     ------------------------------------------------------------------ */
+  const DOWS = ["M","T","W","T","F","S","S"];
+
+  function monthGrid(k) {
+    const met = M[k];
+    const days = state.month[k] || [];
+    if (!days.length) return `<p class="loading">Loading\u2026</p>`;
+    const goal = target(me() || {}, k);
+    const today = todayISO();
+    const sel = entryDay();
+    const hit = days.filter((d) => goal ? Number(d.value) >= goal : Number(d.value) > 0).length;
 
     return `
-      <div class="mini">
-        <div class="mini-head">
-          <span class="mini-name" style="color:${met.color}">${met.label}</span>
-          <span class="mini-total">${totalWords}</span>
-        </div>
-        ${svg}
-        <div class="mini-foot">${goalTap}</div>
-      </div>`;
+      <div class="gdow">${DOWS.map((d) => `<span>${d}</span>`).join("")}</div>
+      <div class="grid" style="color:${met.color}">
+        ${days.map((d) => {
+          const v = Number(d.value) || 0;
+          const cls = v <= 0 ? "none" : (goal ? (v >= goal ? "full" : "part") : "full");
+          return `<button type="button" class="gcell ${cls}${d.date === sel ? " sel" : ""}"
+            data-day="${d.date}" ${d.date > today ? "disabled" : ""}
+            aria-label="${esc(longLabel(d.date))}: ${v > 0 ? num(Math.round(v)) : "nothing"}"
+            title="${esc(longLabel(d.date))} \u00b7 ${v > 0 ? num(Math.round(v)) : "\u2014"}"></button>`;
+        }).join("")}
+      </div>
+      <p class="hint dshint">${hit} of ${days.filter((d) => d.date <= today).length} days
+        ${goal ? "cleared your target" : "logged"}.</p>`;
+  }
+
+  // The month is its own fetch, and only on the page you are looking at.
+  async function loadMonth() {
+    const k = state.seg;
+    if (!state.meId) { state.month[k] = []; return; }
+    // 35 days ending on the Sunday of the current week, so the grid always
+    // starts on a Monday and the columns mean what the header says.
+    const end = weekBounds().end;
+    const res = await call("app_history", {
+      p_code:state.code, p_person:state.meId,
+      p_days:35, p_metric:M[k].key, p_today:end });
+    state.month[k] = res.error ? [] : (res.days || []);
   }
 
   // Seven points, each a day's steps as a fraction of that person's own
@@ -886,7 +993,20 @@ button.mark .mlabel { color:var(--ink-2); }
   // because the denominator is days ELAPSED — which only the server knows,
   // and which a phone left shut for a week would get wrong in exactly the
   // flattering direction.
-  const execOf = (p) => (p && p.exec) || { pct: 0, hit: 0, day: 0, of: 84 };
+  const execOf = (p) => (p && p.exec) ||
+    { pct: 0, hit: 0, day: 0, of: 84, week_hit: 0, week_of: 0 };
+
+  // V1.7b. A bare 88% floats: no denominator, and over 84 days a single
+  // day moves it by roughly one point, so by mid-cycle nothing you do
+  // today changes what you see. The headline is the rolling week — it
+  // moves every morning and one missed day is visibly one seventh. The
+  // cycle figure is one tap away, because the 12-week horizon is the
+  // point of the framework; it just stops being the thing that shouts.
+  function kpiWords(e) {
+    if (state.kpi === "cycle")
+      return `${e.hit} of ${e.day}<span>this cycle \u00b7 ${e.pct}%</span>`;
+    return `${e.week_hit}/${e.week_of}<span>this week</span>`;
+  }
 
   // DELETED in V1.7: scoreChip (the rate now lives on the category header,
   // which is where a pillar-level number belongs), engines (the three home
@@ -914,9 +1034,8 @@ button.mark .mlabel { color:var(--ink-2); }
       body = others.length
         ? others.map((r) => {
             const days = (r.days || []).map(Number);
-            // Cardio has no goal by design — V1.5 settled that a target on
-            // "any cardio at all" is a number nobody would honour.
-            const goal = k === "cardio" ? 0 : (Number(r.goal) || 0);
+            // V1.7b: Cardio has a minimum standard now, like the other two.
+            const goal = Number(r.goal) || 0;
             const base = goal || Math.max(1, ...days);
             const initials = r.name.trim().split(/\s+/).slice(0,2)
               .map((w) => (w[0] || "").toUpperCase()).join("");
@@ -1235,20 +1354,27 @@ button.mark .mlabel { color:var(--ink-2); }
     const a = { id: uuid(), label: label || "", date: iso || todayISO(),
                 startedAt: Date.now(), endedAt: null, ex: [], pendingFinish: false };
 
+    // V1.7b. One call answers "what is this workout made of, and what did
+    // I last lift for each part of it" — the explicit template if there is
+    // one, the last session under that label if not. The LIST can now be
+    // edited without doing the workout; the NUMBERS still come from what
+    // was actually lifted, so they can never go stale.
     if (label && navigator.onLine) {
-      const res = await call("app_lift_detail", {
+      const res = await call("app_template", {
         p_code: state.code, p_person: state.meId, p_label: label, p_mode: state.mode });
-      const prev = res && res.session;
-      if (prev && prev.sets && prev.sets.length) {
-        const byPos = new Map();
-        for (const s of prev.sets) {
-          if (!byPos.has(s.position))
-            byPos.set(s.position, { name: s.exercise, kind: s.kind || "weight_reps", sets: [] });
-          byPos.get(s.position).sets.push({
-            w: Number(s.weight) || 0, r: Number(s.reps) || 0,
-            d: Number(s.distance) || 0, t: Number(s.seconds) || 0, on: false });
-        }
-        a.ex = [...byPos.entries()].sort((x, y) => x[0] - y[0]).map(([, v]) => v);
+      const items = (res && res.items) || [];
+      if (items.length) {
+        a.ex = items.map((it) => {
+          const last = Array.isArray(it.last) ? it.last : [];
+          const n = Math.max(1, Number(it.sets) || last.length || 1);
+          const sets = [];
+          for (let i = 0; i < n; i++) {
+            const src = last[i] || last[last.length - 1] || {};
+            sets.push({ w: Number(src.w) || 0, r: Number(src.r) || 0,
+                        d: Number(src.d) || 0, t: Number(src.t) || 0, on: false });
+          }
+          return { name: it.exercise, kind: it.kind || "weight_reps", sets };
+        });
       }
     }
 
@@ -1375,6 +1501,7 @@ button.mark .mlabel { color:var(--ink-2); }
               aria-label="Options for ${esc(l.label)}">&hellip;</button>
             ${state.lift.menu === l.label ? `
               <div class="sheet">
+                <button data-tmpl="${esc(l.label)}">Edit exercises</button>
                 <button data-rename="${esc(l.label)}">Rename</button>
                 <button data-drop="${esc(l.label)}">Remove tile</button>
               </div>` : ""}
@@ -1388,7 +1515,108 @@ button.mark .mlabel { color:var(--ink-2); }
             <p class="hint" style="flex-basis:100%;margin-top:0">Renames it on every
               session you logged under that name. The workouts themselves are untouched.</p>
           </div>` : ""}
+        ${templateEditor()}
       </section>`;
+  }
+
+  /* ---------- editing what a workout is made of -----------------------
+     V1.3 deliberately shipped without templates: the last session under a
+     label WAS the template, so it could never drift from reality and
+     there was nothing to maintain. That rule has one hole, and it is the
+     one being closed here — you could not change a workout without doing
+     it. Dropping an exercise from your Push day meant doing Push once
+     without it.
+
+     So the rule is layered rather than replaced. Save a list and it wins;
+     clear the list and that label goes back to following your last
+     session. Weights and reps are not stored: the list is yours, the
+     numbers come from what you actually last lifted.
+     ------------------------------------------------------------------ */
+  function templateEditor() {
+    const t = state.tmpl;
+    if (!t) return "";
+    return `
+      <div class="tmpl" id="tmplBox">
+        <h3>${esc(t.label)}</h3>
+        ${t.items.length
+          ? t.items.map((it, i) => `
+            <div class="tmplrow">
+              <span class="nm">${esc(it.exercise)}</span>
+              <span class="sx">${it.sets} \u00d7</span>
+              <button type="button" data-tup="${i}" ${i === 0 ? "disabled" : ""}
+                aria-label="Move up">\u2191</button>
+              <button type="button" data-tdown="${i}"
+                ${i === t.items.length - 1 ? "disabled" : ""}
+                aria-label="Move down">\u2193</button>
+              <button type="button" data-tdel="${i}" aria-label="Remove">\u00d7</button>
+            </div>`).join("")
+          : `<p class="hint" style="margin:0 0 4px">Empty. Saving now puts this
+              workout back to following whatever you last did under it.</p>`}
+        <div class="exadd" style="margin-top:11px">
+          <input class="field" id="tmplName" list="exlist" placeholder="Add ${
+            state.mode === "cardio" ? "an activity" : "an exercise"}"
+            autocomplete="off" maxlength="60" aria-label="Exercise to add">
+          <button class="btn" id="tmplAdd" style="background:var(--train)">Add</button>
+        </div>
+        <datalist id="exlist">${state.lift.exercises.map((e) =>
+          `<option value="${esc(e.name || e)}"></option>`).join("")}</datalist>
+        <div class="addrow" style="margin-top:11px">
+          <button class="btn" id="tmplSave">Save</button>
+          <button class="btn-quiet" id="tmplCancel">Cancel</button>
+        </div>
+      </div>`;
+  }
+
+  async function openTemplate(label) {
+    state.lift.menu = null;
+    state.tmpl = { label, mode: state.mode, items: [], loading: true };
+    render();
+    const res = await call("app_template", {
+      p_code: state.code, p_person: state.meId, p_label: label, p_mode: state.mode });
+    state.tmpl = { label, mode: state.mode,
+      items: (res.items || []).map((i) => ({
+        exercise: i.exercise, kind: i.kind || "weight_reps", sets: Number(i.sets) || 1 })) };
+    render();
+  }
+
+  function wireTemplate() {
+    document.querySelectorAll("[data-tmpl]").forEach((el) =>
+      el.addEventListener("click", () => openTemplate(el.dataset.tmpl)));
+
+    const t = state.tmpl;
+    if (!t) return;
+    const swap = (i, j) => {
+      [t.items[i], t.items[j]] = [t.items[j], t.items[i]];
+      render();
+    };
+    document.querySelectorAll("[data-tup]").forEach((el) =>
+      el.addEventListener("click", () => swap(+el.dataset.tup, +el.dataset.tup - 1)));
+    document.querySelectorAll("[data-tdown]").forEach((el) =>
+      el.addEventListener("click", () => swap(+el.dataset.tdown, +el.dataset.tdown + 1)));
+    document.querySelectorAll("[data-tdel]").forEach((el) =>
+      el.addEventListener("click", () => { t.items.splice(+el.dataset.tdel, 1); render(); }));
+
+    const add = () => {
+      const f = document.getElementById("tmplName");
+      const name = (f.value || "").trim();
+      if (!name) return;
+      t.items.push({ exercise: name, kind: kindFor(name, "weight_reps"), sets: 1 });
+      render();
+      document.getElementById("tmplName")?.focus();
+    };
+    on("tmplAdd", "click", add);
+    on("tmplName", "keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); add(); } });
+
+    on("tmplCancel", "click", () => { state.tmpl = null; render(); });
+    on("tmplSave", "click", async () => {
+      const res = await call("app_template_save", {
+        p_code: state.code, p_person: state.meId,
+        p_label: t.label, p_mode: t.mode, p_items: t.items });
+      if (res.error) { alert(res.error); return; }
+      state.tmpl = null;
+      await loadLift();
+      render();
+    });
   }
 
   function liftHistory() {
@@ -1399,9 +1627,13 @@ button.mark .mlabel { color:var(--ink-2); }
           : "Start a workout and it appears here, with your best set for every exercise."}
         </p></div>`;
     return `<section>
-        <div class="section-head"><h2>History</h2>
+        <div class="section-head">
+          <button class="foldbtn" id="foldHist" aria-expanded="${state.histOpen}">
+            <span class="caret">${state.histOpen ? "\u25be" : "\u25b8"}</span>
+            <h2>History</h2></button>
           <span class="eyebrow">${state.lift.sessions.length} logged</span></div>
-        ${state.lift.sessions.map((s) => sessionCard(s, true)).join("")}
+        ${state.histOpen
+          ? state.lift.sessions.map((s) => sessionCard(s, true)).join("") : ""}
       </section>`;
   }
 
@@ -1835,7 +2067,55 @@ under it stay in your history, they just stop being a tile.`)) return;
   // to be on the board, and the log that used to be its own screen.
   function wireExercise() {
     wireLift();
-    wireChart(state.seg);
+    if (state.range === "week") wireChart(state.seg);
+
+    // A day at a time, from the log box itself. The graph can still jump
+    // you to any day; this is for "yesterday", which is most of them.
+    const stepDay = async (n) => {
+      const next = shiftISO(entryDay(), n);
+      if (next > todayISO()) return;
+      state.entryDate = next === todayISO() ? null : next;
+      state.msg = null;
+      if (mondayOf(next) !== weekBounds().start) {
+        state.weekAnchor = mondayOf(next) === thisMonday() ? null : mondayOf(next);
+        await loadHistory();
+        if (state.range === "month") { state.month[state.seg] = null; await loadMonth(); }
+      }
+      render();
+    };
+    on("dPrev", "click", () => stepDay(-1));
+    on("dNext", "click", () => stepDay(1));
+
+    // Week or month. The month is fetched once per metric, on first ask.
+    document.querySelectorAll("[data-range]").forEach((el) =>
+      el.addEventListener("click", async () => {
+        const v = el.dataset.range;
+        if (v === state.range) return;
+        state.range = v;
+        try { localStorage.setItem("fhd.range", v); } catch {}
+        render();
+        if (v === "month" && !state.month[state.seg]) { await loadMonth(); render(); }
+      }));
+
+    // Every dot is a day, and tapping one selects it exactly as a bar does.
+    document.querySelectorAll(".gcell[data-day]").forEach((el) =>
+      el.addEventListener("click", () => {
+        const iso = el.dataset.day;
+        state.entryDate = iso === todayISO() ? null : iso;
+        state.msg = null;
+        render();
+        document.getElementById("steps")?.focus();
+      }));
+
+    // The workout history folds. It is the longest thing on the page and
+    // the least often wanted.
+    on("foldHist", "click", () => {
+      state.histOpen = !state.histOpen;
+      try { localStorage.setItem("fhd.hist", state.histOpen ? "open" : "shut"); } catch {}
+      render();
+    });
+
+    wireTemplate();
 
     // The family block is fetched the first time it is opened, then kept.
     on("foldFam", "click", async () => {
@@ -1860,7 +2140,7 @@ under it stay in your history, they just stop being a tile.`)) return;
     on("wPrev", "click", () => stepWeek(-1));
     on("wNext", "click", () => stepWeek(1));
 
-    on("save", "click", saveSteps);
+    on("save", "click", saveNumber);
     on("steps", "keydown", (e) => {
       if (e.key === "Enter") document.getElementById("save").click(); });
 
@@ -1873,7 +2153,10 @@ under it stay in your history, they just stop being a tile.`)) return;
     wireEditor();
   }
 
-  async function saveSteps(e) {
+  // V1.7b. One save for all three metrics. Minutes used to be writable
+  // only by the logger; now they can be typed, and a typed number wins.
+  async function saveNumber(e) {
+    const k = state.seg;
     const raw = (document.getElementById("steps").value || "").replace(/[^0-9]/g, "");
     if (raw === "") {
       state.msg = "Enter a number."; state.msgKind = "bad"; render(); return;
@@ -1883,11 +2166,12 @@ under it stay in your history, they just stop being a tile.`)) return;
     // means for this person; the phone only says which zone it is in. A page
     // that has been open since yesterday therefore cannot write yesterday.
     const res = await call("app_log", { p_code:state.code, p_person:state.meId,
-      p_value:Number(raw), p_metric:M.steps.key,
+      p_value:Number(raw), p_metric:M[k].key,
       p_date:state.entryDate || null, p_tz:deviceTZ() });
     state.msg = res.error ? res.error : "Saved. Your family can see it.";
     state.msgKind = res.error ? "bad" : "ok";
     if (!res.error) state.entryDate = null;
+    if (state.range === "month") { state.month[k] = null; await loadMonth(); }
     await refresh();
     setTimeout(() => { state.msg = null; state.msgKind = null; }, 100);
   }
@@ -1925,6 +2209,7 @@ under it stay in your history, they just stop being a tile.`)) return;
     state.view = "exercise";
     render();                 // paint immediately; the list can arrive after
     if (state.seg !== "steps") { await loadLift(); render(); }
+    if (state.range === "month") { await loadMonth(); render(); }
     if (state.fam.open) { await loadFamily(); render(); }
   }
 
@@ -2023,8 +2308,9 @@ under it stay in your history, they just stop being a tile.`)) return;
       <div class="cat${on ? " done" : ""}">
         <span class="box" aria-hidden="true">\u2713</span>
         <h2>${esc(PILLARS.find((x) => x.live).label)}</h2>
-        ${e.day ? `<span class="score" title="${e.hit} of ${e.day} days this cycle"
-          >${e.pct}%<span>exec</span></span>` : ""}
+        ${e.day ? (clickable
+          ? `<button type="button" class="score" id="kpi">${kpiWords(e)}</button>`
+          : `<span class="score">${kpiWords(e)}</span>`) : ""}
       </div>
       <div class="cattiles">${tiles.map((t) => {
         const inner = `
@@ -2202,33 +2488,103 @@ under it stay in your history, they just stop being a tile.`)) return;
      ------------------------------------------------------------------ */
 
   const PAGE = {
-    steps:  { sub:"The keystone. One number a day." },
-    train:  { sub:"Lifting and yoga." },
-    cardio: { sub:"Walking, running, swimming, the machines." },
+    steps:  { sub:"The keystone. One number a day.", verb:"steps" },
+    train:  { sub:"Lifting and yoga.",               verb:"minutes" },
+    cardio: { sub:"Walking, running, swimming, the machines.", verb:"minutes" },
   };
+
+  /* ---------- the log box ---------------------------------------------
+     V1.7b splits recording from reviewing. This box records: it carries
+     its own date, its own number and nothing else. The graph below it is
+     for looking at, and the two no longer share a card and confuse which
+     of them you are touching.
+
+     All three metrics are typed now. Train and Cardio still have the
+     logger, and a workout still writes the minutes — but a number you
+     type outranks it, permanently, for that day. One sentence, no marks
+     to decode: what you typed is what the day says.
+     ------------------------------------------------------------------ */
+  function logCard(k) {
+    const met = M[k];
+    const m   = me() || {};
+    const iso = entryDay();
+    const rec = dayRecord(k);
+    const isToday = iso === todayISO();
+    const goal = target(m, k);
+    const shown = isToday ? val(m, k) : rec.value;
+
+    return `
+      <section class="card">
+        <div class="daynav">
+          <button type="button" id="dPrev" aria-label="Previous day">&lsaquo;</button>
+          <span>${isToday ? "Today" : esc(fullDate(iso))}</span>
+          <button type="button" id="dNext" aria-label="Next day"
+            ${isToday ? "disabled" : ""}>&rsaquo;</button>
+        </div>
+
+        <div class="domino" style="padding-top:10px">
+          <b class="big" style="color:${met.color}">${num(Math.round(shown))}</b>
+          <button type="button" class="of" data-edit="goal" data-metric="${k}">${goal
+            ? `of <b>${num(Math.round(goal))}</b> ${met.unit}`
+            : `set a ${esc(met.label.toLowerCase())} target`}</button>
+        </div>
+
+        <div class="logrow">
+          <input id="steps" type="number" inputmode="numeric" placeholder="0"
+                 aria-label="${esc(met.label)} on ${isToday ? "today" : esc(fullDate(iso))}"
+                 value="${rec.logged ? rec.value : ""}">
+          <em>${esc(met.unit)}</em>
+          <button class="btn" id="save" style="background:${met.color};padding:11px 20px">${
+            rec.logged ? "Update" : "Log"}</button>
+        </div>
+
+        ${k === "steps" ? "" : `
+          <button class="btn-quiet" id="startEmpty" style="width:100%;margin-top:10px">
+            ${k === "cardio" ? "Start an activity" : "Start a workout"} instead</button>`}
+
+        <p class="hint dshint ${state.msgKind || ""}" id="hint">${state.msg ? esc(state.msg)
+          : k === "steps"
+            ? "Or tap a day on the graph below."
+            : "A workout you log fills this in \u2014 a number you type wins."}</p>
+      </section>`;
+  }
+
+  function graphCard(k) {
+    const met = M[k];
+    const month = state.range === "month";
+    const total = points(k).reduce((t, p) => t + p.value, 0);
+
+    return `
+      <section>
+        <div class="section-head">
+          <h2>${month ? "Last 5 weeks" : "The week"}</h2>
+          <div class="rangetog" role="group" aria-label="How much to show">
+            ${[["week","Week"],["month","Month"]].map(([v, l]) =>
+              `<button type="button" data-range="${v}"
+                aria-pressed="${state.range === v}">${l}</button>`).join("")}
+          </div>
+        </div>
+        <div class="card">
+          ${month ? monthGrid(k) : `
+            <div class="mini-head">
+              <span class="mini-name" style="color:${met.color}">${met.label}</span>
+              <span class="mini-total">${num(Math.round(total))} ${esc(met.unit)}</span>
+            </div>
+            ${miniChart(k)}
+            <div class="weekrow">
+              <button type="button" id="wPrev" aria-label="Previous week">&lsaquo;</button>
+              <span class="wlab">${esc(weekWords())}</span>
+              <button type="button" id="wNext" aria-label="Next week"
+                ${weekBounds().start === thisMonday() ? "disabled" : ""}>&rsaquo;</button>
+            </div>`}
+        </div>
+      </section>`;
+  }
 
   function metricView() {
     const k = state.seg;
-    const m = me() || {};
     const met = M[k];
-    const rec = k === "steps" ? dayRecord("steps") : null;
-    const goal = target(m, k);
-    const shown = k === "steps"
-      ? (entryDay() === todayISO() ? val(m, "steps") : rec.value)
-      : val(m, k);
 
-    // Steps is typed. Train and Cardio are never typed — the logger is the
-    // only thing that writes them, so each minute count has exactly one
-    // source of truth and sets, reps and distance keep meaning something.
-    const recorder = k === "steps" ? daySheet() : `
-      <button class="btn" id="startEmpty"
-              style="width:100%;margin-top:12px;background:${met.color}">
-        ${k === "cardio" ? "Start an activity" : "Start a workout"}</button>
-      <p class="hint dshint">${state.msg ? esc(state.msg)
-        : "Tap any bar to record that day instead."}</p>`;
-
-    // A labelled row, not a floating pill cluster. Three unlabelled
-    // buttons adrift between two cards read as a bug.
     const unitRow = k === "steps" ? "" : `
       <div class="unitrow">
         <span>Show ${k === "cardio" ? "distance" : "weight"} in</span>
@@ -2252,28 +2608,9 @@ under it stay in your history, they just stop being a tile.`)) return;
       </header>
 
       ${resumeBanner()}
-
-      <section class="card">
-        <div class="domino">
-          <b class="big" style="color:${met.color}">${
-            shown > 0 ? num(Math.round(shown)) : "0"}</b>
-          ${k === "cardio"
-            ? `<span class="of" style="text-decoration:none">minutes today</span>`
-            : `<button type="button" class="of" data-edit="goal" data-metric="${k}">${goal
-                ? `of <b>${num(Math.round(goal))}</b> ${met.unit}`
-                : `set a ${esc(met.label.toLowerCase())} goal`}</button>`}
-        </div>
-        ${miniChart(k, true)}
-        <div class="weekrow">
-          <button type="button" id="wPrev" aria-label="Previous week">&lsaquo;</button>
-          <span>${esc(weekWords())}</span>
-          <button type="button" id="wNext" aria-label="Next week"
-            ${weekBounds().start === thisMonday() ? "disabled" : ""}>&rsaquo;</button>
-        </div>
-        ${recorder}
-      </section>
-
+      ${logCard(k)}
       ${editRowHTML()}
+      ${graphCard(k)}
 
       ${k === "steps" ? "" : `
         ${unitRow}
@@ -2493,6 +2830,12 @@ under it stay in your history, they just stop being a tile.`)) return;
     document.querySelectorAll("[data-tile]").forEach((el) =>
       el.addEventListener("click", () => openExercise(el.dataset.tile)));
 
+    on("kpi", "click", () => {
+      state.kpi = state.kpi === "week" ? "cycle" : "week";
+      try { localStorage.setItem("fhd.kpi", state.kpi); } catch {}
+      render();
+    });
+
     // Tap someone's volume chip to read the session behind it. The board
     // stays a scoreboard; the detail is one tap away for whoever wants it.
     document.querySelectorAll("[data-see]").forEach((el) => {
@@ -2526,6 +2869,11 @@ under it stay in your history, they just stop being a tile.`)) return;
     if (state.code) {
       state.meId = loadMe();
       state.fam.open = famOpen();
+      try {
+        state.kpi = localStorage.getItem("fhd.kpi") === "cycle" ? "cycle" : "week";
+        state.range = localStorage.getItem("fhd.range") === "month" ? "month" : "week";
+        state.histOpen = localStorage.getItem("fhd.hist") === "open";
+      } catch {}
       await refresh();
       watchClock();
       // A workout finished with no signal uploads itself the moment there
