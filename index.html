@@ -174,6 +174,20 @@ input[type=number] { -moz-appearance:textfield; }
    loudest thing on the screen. */
 .strip { margin-top:14px; }
 .strip .chart svg { height:46px; }
+.sessdate { margin-top:9px; border:1px solid var(--line); border-radius:999px;
+  background:var(--surface); font-family:inherit; font-size:12.5px; color:var(--ink-2);
+  padding:5px 12px; cursor:pointer; }
+.sessdate span { margin-left:7px; font-size:10px; font-weight:600; letter-spacing:.07em;
+  text-transform:uppercase; color:var(--muted); }
+.weekrow { display:flex; align-items:center; justify-content:center; gap:14px;
+  margin-top:8px; font-size:12px; color:var(--muted); }
+.weekrow button { border:none; background:none; font-family:inherit; font-size:17px;
+  line-height:1; color:var(--ink-2); padding:2px 8px; cursor:pointer; border-radius:8px; }
+.weekrow button:disabled { color:var(--line-strong); cursor:default; }
+.unitrow { display:flex; align-items:center; justify-content:space-between; gap:10px;
+  margin-top:18px; }
+.unitrow > span { font-size:11px; font-weight:600; letter-spacing:.07em;
+  text-transform:uppercase; color:var(--muted); }
 .strip .axis { display:flex; margin-top:5px; font-size:9.5px; color:var(--muted); }
 .strip .axis span { text-align:center; }
 
@@ -248,6 +262,49 @@ input[type=number] { -moz-appearance:textfield; }
 .golog .gl span { display:block; margin-top:1px; font-size:12.5px; color:var(--muted);
   overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .golog .go { flex:none; color:var(--muted); font-size:17px; }
+
+/* V1.7. Exercise is a master category, not a destination. The header
+   labels it and carries its state; the three tiles under it are the
+   things you tap. When Sleep arrives it becomes a second header with its
+   own tiles and nothing here has to be redesigned. */
+.cat { display:flex; align-items:center; gap:11px; margin-top:16px; }
+.cat .box { flex:none; width:22px; height:22px; border-radius:50%;
+  border:1.5px solid var(--line-strong); background:var(--surface); display:grid;
+  place-items:center; color:transparent; font-size:12px; line-height:1; }
+.cat.done .box { background:var(--series); border-color:var(--series); color:#fff; }
+:root[data-theme="dark"] .cat.done .box { color:#08120f; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .cat.done .box { color:#08120f; }
+}
+.cat h2 { flex:1; min-width:0; font-size:17px; }
+
+.cattiles { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:10px; }
+.tile3 { display:flex; flex-direction:column; align-items:flex-start; gap:2px;
+  padding:13px 12px 12px; border:1px solid var(--line); border-radius:13px;
+  background:var(--surface); font-family:inherit; color:inherit; text-align:left;
+  cursor:pointer; min-width:0; }
+.tile3.on { border-color:var(--series); background:var(--soft); }
+.tile3 .t3l { font-size:10px; font-weight:600; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--muted); }
+.tile3.on .t3l { color:var(--accent); }
+.tile3 .t3v { font-family:var(--mono); font-size:19px; font-weight:500;
+  letter-spacing:-.02em; line-height:1.15; width:100%; overflow:hidden;
+  text-overflow:ellipsis; white-space:nowrap; }
+.tile3 .t3u { font-size:10.5px; color:var(--muted); }
+
+/* the family block on a metric page: folded by default */
+.fam .frow { display:flex; align-items:center; gap:11px; padding:9px 0;
+  border-bottom:1px solid var(--line); }
+.fam .frow:last-child { border-bottom:none; }
+.fam .dot { flex:none; width:26px; height:26px; border-radius:99px; display:grid;
+  place-items:center; font-size:10px; font-weight:600; }
+.fam .fname { flex:1; min-width:0; font-size:14px; overflow:hidden;
+  text-overflow:ellipsis; white-space:nowrap; }
+.fam .trend { flex:none; width:66px; height:20px; }
+.fam .fval { flex:none; min-width:52px; text-align:right; font-family:var(--mono);
+  font-size:13px; color:var(--muted); }
+.fam .frow.did .fval { color:var(--series); }
+.fam .loading { padding:12px 0; font-size:13px; color:var(--muted); }
 
 /* the four that are not measured yet */
 .marks { display:grid; grid-template-columns:repeat(4,1fr); gap:4px; margin-top:14px; }
@@ -442,7 +499,7 @@ button.mark .mlabel { color:var(--ink-2); }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "1.6";
+  const APP_VERSION = "1.7";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -544,9 +601,12 @@ button.mark .mlabel { color:var(--ink-2); }
     // V1.3. The board is still the whole app for nine people out of ten;
     // Lift is a place you go, not a thing on the board.
     view: "board",        // board | exercise | session | detail
-    seg:  "home",         // home | train | cardio — Exercise, or a log behind it
+    seg:  "steps",        // steps | train | cardio — which metric page is open
     mode: "lift",         // lift | cardio — which log the segment is showing
     weekAnchor: null,     // Monday of the week on the charts; null means this week
+    // The family block, per metric, fetched on first open and kept.
+    fam: { open: false, data: {} },
+
     lift: {
       loaded: false,
       labels: [], sessions: [], exercises: [],
@@ -592,6 +652,13 @@ button.mark .mlabel { color:var(--ink-2); }
     if (!state.people.some((p) => p.id === state.meId)) state.meId = loadMe();
     if (!state.people.some((p) => p.id === state.meId)) state.meId = null;
     await loadHistory();
+    // If the family block is open on the page you are looking at, it is
+    // showing numbers that just changed. Refetch it here rather than in
+    // each caller, so no path can leave it stale.
+    if (state.fam.open && state.view === "exercise") {
+      state.fam.data[state.seg] = null;
+      await loadFamily();
+    }
     render();
   }
 
@@ -767,7 +834,7 @@ button.mark .mlabel { color:var(--ink-2); }
   // Seven points, each a day's steps as a fraction of that person's own
   // goal. A fraction rather than a raw count is what lets two people with
   // different targets sit in the same column and mean the same thing.
-  function sparkline(spark, hue) {
+  function sparkline(spark, hue, goalLine) {
     const pts = (spark || []).map(Number).filter((n) => !Number.isNaN(n));
     if (pts.length < 2) return `<svg class="trend" viewBox="0 0 64 20"></svg>`;
     const max = Math.max(1, ...pts);
@@ -777,8 +844,9 @@ button.mark .mlabel { color:var(--ink-2); }
     const col = `hsl(${hue} 55% 42%)`;
     const last = pts[pts.length - 1];
     return `<svg class="trend" viewBox="0 0 64 20" role="img" aria-hidden="true">
-      <line x1="0" x2="64" y1="${y(1)}" y2="${y(1)}" stroke="var(--line-strong)"
-            stroke-width="1" stroke-dasharray="2 3" vector-effect="non-scaling-stroke"></line>
+      ${goalLine === false ? "" : `<line x1="0" x2="64" y1="${y(1)}" y2="${y(1)}"
+            stroke="var(--line-strong)" stroke-width="1" stroke-dasharray="2 3"
+            vector-effect="non-scaling-stroke"></line>`}
       <path d="${d}" fill="none" stroke="${col}" stroke-width="1.5"
             stroke-linecap="round" stroke-linejoin="round"
             vector-effect="non-scaling-stroke"></path>
@@ -820,64 +888,72 @@ button.mark .mlabel { color:var(--ink-2); }
   // flattering direction.
   const execOf = (p) => (p && p.exec) || { pct: 0, hit: 0, day: 0, of: 84 };
 
-  function scoreChip(p) {
-    const e = execOf(p);
-    if (!e.day) return "";
-    return `<span class="score" id="scoreChip" title="${e.hit} of ${e.day} days this cycle"
-      >${e.pct}%<span>exec</span></span>`;
+  // DELETED in V1.7: scoreChip (the rate now lives on the category header,
+  // which is where a pillar-level number belongs), engines (the three home
+  // tiles replaced them) and commandCentre (steps-only, always rendered;
+  // replaced by famBlock, which is per metric and behind a fold).
+
+  // The family block on a metric page. Folded by default and fetched only
+  // when it is opened, so the common case — land, type a number, leave —
+  // costs one round trip rather than four.
+  function famOpen() {
+    try { return localStorage.getItem("fhd.fam") === "open"; } catch { return false; }
   }
 
-  // Train and Cardio do not get charts on this screen any more. They get a
-  // line each that says what happened today and opens the log that wrote
-  // it. Neither is ever typed: the logger is the only thing that sets them,
-  // so there is exactly one source of truth per number.
-  function engines() {
-    const m = me() || {};
-    const rows = [
-      { k:"train",  label:"Train",  cls:"", words: val(m,"train") > 0
-          ? `${num(val(m,"train"))} min` : "not yet" },
-      { k:"cardio", label:"Cardio", cls:" cardio", words: val(m,"cardio") > 0
-          ? `${num(val(m,"cardio"))} min${Number(m.cardio_distance) > 0
-              ? " \u00b7 " + distWords(Number(m.cardio_distance)) : ""}`
-          : "not yet" },
-    ];
-    return `<div class="engines">${rows.map((r) => `
-      <button type="button" class="engine${val(m, r.k) > 0 ? " on" : ""}${r.cls}"
-              data-engine="${r.k}">
-        <i class="tick" aria-hidden="true"></i>
-        <b>${r.label}</b>
-        <span class="said">${esc(r.words)}</span>
-        <span class="go" aria-hidden="true">\u203a</span>
-      </button>`).join("")}</div>`;
-  }
+  function famBlock() {
+    const k = state.seg;
+    const open = state.fam.open;
+    const rows = state.fam.data[k];
+    const mine = state.meId;
 
-  // The rest of the family, one compact row each: a trend line of the last
-  // seven days against their own goal, and their execution rate. Deliberately
-  // not a second copy of the board — no raw numbers, just shape and rate.
-  function commandCentre() {
-    const others = state.people.filter((p) => p.id !== state.meId);
-    if (!others.length) return "";
+    let body = "";
+    if (!open) body = "";
+    else if (!rows) body = `<p class="loading">Loading\u2026</p>`;
+    else {
+      const others = rows.filter((r) => r.id !== mine);
+      body = others.length
+        ? others.map((r) => {
+            const days = (r.days || []).map(Number);
+            // Cardio has no goal by design — V1.5 settled that a target on
+            // "any cardio at all" is a number nobody would honour.
+            const goal = k === "cardio" ? 0 : (Number(r.goal) || 0);
+            const base = goal || Math.max(1, ...days);
+            const initials = r.name.trim().split(/\s+/).slice(0,2)
+              .map((w) => (w[0] || "").toUpperCase()).join("");
+            const today = Number(r.today) || 0;
+            return `<div class="frow${today > 0 ? " did" : ""}">
+              <span class="dot" aria-hidden="true"
+                style="background:color-mix(in oklab, hsl(${r.hue} 62% 48%) 16%, var(--surface));
+                       color:color-mix(in oklab, hsl(${r.hue} 62% 48%) 78%, var(--ink))"
+                >${esc(initials)}</span>
+              <span class="fname">${esc(r.name)}</span>
+              ${sparkline(days.map((v) => v / base), r.hue, !!goal)}
+              <span class="fval">${today > 0 ? num(Math.round(today)) : "\u2013"}</span>
+            </div>`;
+          }).join("")
+        : `<p class="loading">Nobody else has been added yet.</p>`;
+    }
+
+    const logged = rows ? rows.filter((r) => Number(r.today) > 0).length : null;
     return `
-      <section class="cmd">
+      <section class="fam">
         <div class="section-head">
-          <h2>The family</h2>
-          <span class="eyebrow">7-day trend</span>
+          <button class="foldbtn" id="foldFam" aria-expanded="${open}">
+            <span class="caret">${open ? "\u25be" : "\u25b8"}</span>
+            <h2>The family</h2></button>
+          <span class="eyebrow">${logged === null ? "7-day trend"
+            : `${logged}/${rows.length} logged`}</span>
         </div>
-        ${others.map((p) => {
-          const initials = p.name.trim().split(/\s+/).slice(0,2)
-            .map((w) => (w[0] || "").toUpperCase()).join("");
-          const e = execOf(p);
-          return `<div class="crow${p.done ? " did" : ""}">
-            <span class="dot" aria-hidden="true"
-              style="background:color-mix(in oklab, hsl(${p.hue} 62% 48%) 16%, var(--surface));
-                     color:color-mix(in oklab, hsl(${p.hue} 62% 48%) 78%, var(--ink))"
-              >${esc(initials)}</span>
-            <span class="cname">${esc(p.name)}</span>
-            ${sparkline(p.spark, p.hue)}
-            <span class="cpct">${e.day ? e.pct + "%" : "\u2014"}</span>
-          </div>`;
-        }).join("")}
+        ${body}
       </section>`;
+  }
+
+  async function loadFamily(force) {
+    const k = state.seg;
+    if (state.fam.data[k] && !force) return;
+    const res = await call("app_family", {
+      p_code: state.code, p_metric: M[k].key, p_days: 7 });
+    state.fam.data[k] = res.error ? [] : (res.people || []);
   }
 
   /* ---------- home-screen hint --------------------------------------- */
@@ -1152,8 +1228,11 @@ button.mark .mlabel { color:var(--ink-2); }
   // Starting a labelled day pulls the last one and lays it out ready to
   // tick off, weights and all. That is the whole reason there is no
   // template table: the last session already is the template.
-  async function startSession(label) {
-    const a = { id: uuid(), label: label || "", date: todayISO(),
+  // V1.7. `iso` is which day the session belongs to. Until now it was
+  // always today with no way to say otherwise, which meant a Cardio
+  // session missed on Tuesday could never be recorded at all.
+  async function startSession(label, iso) {
+    const a = { id: uuid(), label: label || "", date: iso || todayISO(),
                 startedAt: Date.now(), endedAt: null, ex: [], pendingFinish: false };
 
     if (label && navigator.onLine) {
@@ -1328,7 +1407,7 @@ button.mark .mlabel { color:var(--ink-2); }
 
   function sessionView() {
     const a = A();
-    if (!a) { state.view = "exercise"; return exerciseView(); }
+    if (!a) { state.view = "exercise"; return metricView(); }
 
     const blocks = a.ex.map((x, i) => exBlock(x, i)).join("") ||
       `<div class="dashed"><p class="empty">No exercises yet.<br>
@@ -1356,6 +1435,12 @@ button.mark .mlabel { color:var(--ink-2); }
           <b id="elapsed">${clock(elapsedMs(a))}</b>
           <span id="sessTotals">${totalsWords(a)}</span>
         </div>
+        <!-- V1.7. The escape hatch. The bar you tapped chose the day; this
+             corrects it — for a midnight session filed under tomorrow, or
+             a mistapped bar. Without it the only fix is delete and redo. -->
+        <button type="button" class="sessdate" id="sessDate">
+          ${a.date === todayISO() ? "Today" : esc(fullDate(a.date))}
+          <span>change</span></button>
       </header>
 
       <div id="blocks">${blocks}</div>
@@ -1443,7 +1528,7 @@ button.mark .mlabel { color:var(--ink-2); }
 
   function detailView() {
     const s = state.lift.detail;
-    if (!s) { state.view = "exercise"; return exerciseView(); }
+    if (!s) { state.view = "exercise"; return metricView(); }
     const byPos = new Map();
     for (const r of (s.sets || [])) {
       if (!byPos.has(r.position)) byPos.set(r.position, { name: r.exercise, sets: [] });
@@ -1584,14 +1669,6 @@ button.mark .mlabel { color:var(--ink-2); }
         state.view = state.lift.from === "board" ? "board" : "exercise";
       }
       else if (state.view === "session") state.view = "exercise";
-      // V1.6. Exercise has two depths now: the domino screen, and a log
-      // behind an engine. Back from a log returns to the domino, not all
-      // the way out to the board.
-      else if (state.view === "exercise" && state.seg !== "home") {
-        state.seg = "home";
-        state.mode = "lift";
-        state.msg = null;
-      }
       else state.view = "board";
       render();
     });
@@ -1644,6 +1721,18 @@ under it stay in your history, they just stop being a tile.`)) return;
       const a = A();
       a.ex.forEach((_, i) => wireExBlock(i));
       startTicking();
+
+      // One tap steps the session back a day; it wraps round to today
+      // after a fortnight, because anything older than that is a bar on
+      // the chart, not a button you should press fourteen times.
+      on("sessDate", "click", () => {
+        const back = Math.round((new Date(todayISO() + "T00:00:00Z") -
+                                 new Date(a.date + "T00:00:00Z")) / 86400000);
+        a.date = back >= 13 ? todayISO() : shiftISO(a.date, -1);
+        saveLocal();
+        queueSync();
+        render();
+      });
 
       // Tapping the unit in a column header cycles it. Putting the switch
       // on the header means you can go metric mid-swim without leaving
@@ -1746,20 +1835,15 @@ under it stay in your history, they just stop being a tile.`)) return;
   // to be on the board, and the log that used to be its own screen.
   function wireExercise() {
     wireLift();
-    wireChart(state.seg === "home" ? "steps" : state.seg);
+    wireChart(state.seg);
 
-    // An engine is a door, not a field. Tapping it opens the log that
-    // writes that number; nothing on the Exercise screen can type it.
-    document.querySelectorAll("[data-engine]").forEach((el) =>
-      el.addEventListener("click", async () => {
-        state.seg  = el.dataset.engine;
-        state.mode = state.seg === "cardio" ? "cardio" : "lift";
-        state.lift.menu = null; state.lift.rename = null;
-        state.msg = null;
-        render();
-        await loadLift();
-        render();
-      }));
+    // The family block is fetched the first time it is opened, then kept.
+    on("foldFam", "click", async () => {
+      state.fam.open = !state.fam.open;
+      try { localStorage.setItem("fhd.fam", state.fam.open ? "open" : "shut"); } catch {}
+      render();
+      if (state.fam.open) { await loadFamily(); render(); }
+    });
 
 
     // Stepping weeks moves the selection with it. Otherwise the sheet under
@@ -1832,7 +1916,7 @@ under it stay in your history, they just stop being a tile.`)) return;
   async function openExercise(seg) {
     if (!state.meId) return;
     stopTicking();
-    state.seg  = seg || "home";
+    state.seg  = seg || "steps";
     state.mode = state.seg === "cardio" ? "cardio" : "lift";
     state.lift.loaded = false;
     state.lift.labels = []; state.lift.sessions = [];
@@ -1840,7 +1924,8 @@ under it stay in your history, they just stop being a tile.`)) return;
     loadLocal();
     state.view = "exercise";
     render();                 // paint immediately; the list can arrive after
-    if (state.seg !== "home") { await loadLift(); render(); }
+    if (state.seg !== "steps") { await loadLift(); render(); }
+    if (state.fam.open) { await loadFamily(); render(); }
   }
 
   /* ---------- views ------------------------------------------------ */
@@ -1913,22 +1998,44 @@ under it stay in your history, they just stop being a tile.`)) return;
     return bits.length ? bits.join(" \u00b7 ") : "Tap to log today";
   }
 
-  // The live pillar is a labelled button. The dark four sit beneath it.
+  // V1.7. Exercise is a MASTER CATEGORY, not a destination.
+  //
+  // The header labels it and carries its state and its execution rate. The
+  // three tiles under it are what you tap, and each is one tap from home
+  // to the number it holds. That cost Train and Cardio a tap in V1.6,
+  // where they sat behind an overview screen that has now been deleted.
+  //
+  // It also scales: Sleep arrives as a second header with its own tiles,
+  // and nothing on this screen has to be redesigned to make room.
   function markRow(p, clickable) {
     const on = anyLog(p);
     const quiet = PILLARS.filter((pl) => !pl.live);
-    const live = PILLARS.find((pl) => pl.live);
-    const tag  = clickable ? "button" : "div";
-    const attr = clickable ? ` type="button" data-pillar="${live.key}"` : "";
+    const e = execOf(p);
+
+    const tiles = [
+      { k:"steps",  label:"Steps",  v: val(p,"steps"),
+        unit: target(p,"steps") ? `of ${num(Math.round(target(p,"steps")))}` : "steps" },
+      { k:"train",  label:"Train",  v: val(p,"train"),  unit:"minutes" },
+      { k:"cardio", label:"Cardio", v: val(p,"cardio"), unit:"minutes" },
+    ];
+
     return `
-      <${tag} class="golog${on ? " done" : ""}"${attr}>
+      <div class="cat${on ? " done" : ""}">
         <span class="box" aria-hidden="true">\u2713</span>
-        <span class="gl">
-          <b>${esc(live.label)}</b>
-          <span>${esc(todayWords(p))}</span>
-        </span>
-        ${clickable ? '<span class="go" aria-hidden="true">\u203a</span>' : ""}
-      </${tag}>
+        <h2>${esc(PILLARS.find((x) => x.live).label)}</h2>
+        ${e.day ? `<span class="score" title="${e.hit} of ${e.day} days this cycle"
+          >${e.pct}%<span>exec</span></span>` : ""}
+      </div>
+      <div class="cattiles">${tiles.map((t) => {
+        const inner = `
+          <span class="t3l">${t.label}</span>
+          <span class="t3v">${t.v > 0 ? num(Math.round(t.v)) : "\u2013"}</span>
+          <span class="t3u">${esc(t.unit)}</span>`;
+        return clickable
+          ? `<button type="button" class="tile3${t.v > 0 ? " on" : ""}"
+               data-tile="${t.k}" aria-label="${t.label}, open">${inner}</button>`
+          : `<div class="tile3${t.v > 0 ? " on" : ""}">${inner}</div>`;
+      }).join("")}</div>
       <div class="marks">${quiet.map((pl) =>
         `<span class="mark" aria-hidden="true">
           <span class="pip off"></span><span class="mlabel">${esc(pl.label)}</span>
@@ -2082,97 +2189,98 @@ under it stay in your history, they just stop being a tile.`)) return;
         : `<p class="hint dshint">Tap any bar to log that day.</p>`}`;
   }
 
-  /* ---------- Exercise: the lead domino, two engines, the family ------
-     V1.6 second pass. The screen is now ordered by leverage rather than by
-     data type. Steps is the domino: doing it makes the rest easier, so it
-     is the only number rendered large, and it sits alone at the top. Train
-     and Cardio are two flat lines beneath it that go somewhere. Everything
-     historical collapses into one execution percentage in the corner.
-     ------------------------------------------------------------------ */
-  function exerciseView() {
-    if (state.seg !== "home") return logView();
+  /* ---------- one page per metric --------------------------------------
+     V1.7. Steps, Train and Cardio are three pages built from one template,
+     each one tap from home. The V1.6 overview screen that used to sit in
+     front of them is deleted: it held a number you can see on the tile, a
+     score that moved to the category header, and two pills the tiles
+     replaced.
 
+     Top to bottom, every page is the same shape, so learning one teaches
+     all three: today's number, the week as seven tappable bars, the thing
+     that records it, then the family behind a fold.
+     ------------------------------------------------------------------ */
+
+  const PAGE = {
+    steps:  { sub:"The keystone. One number a day." },
+    train:  { sub:"Lifting and yoga." },
+    cardio: { sub:"Walking, running, swimming, the machines." },
+  };
+
+  function metricView() {
+    const k = state.seg;
     const m = me() || {};
-    const rec = dayRecord("steps");
-    const goal = target(m, "steps");
-    const shown = entryDay() === todayISO() ? val(m, "steps") : rec.value;
+    const met = M[k];
+    const rec = k === "steps" ? dayRecord("steps") : null;
+    const goal = target(m, k);
+    const shown = k === "steps"
+      ? (entryDay() === todayISO() ? val(m, "steps") : rec.value)
+      : val(m, k);
+
+    // Steps is typed. Train and Cardio are never typed — the logger is the
+    // only thing that writes them, so each minute count has exactly one
+    // source of truth and sets, reps and distance keep meaning something.
+    const recorder = k === "steps" ? daySheet() : `
+      <button class="btn" id="startEmpty"
+              style="width:100%;margin-top:12px;background:${met.color}">
+        ${k === "cardio" ? "Start an activity" : "Start a workout"}</button>
+      <p class="hint dshint">${state.msg ? esc(state.msg)
+        : "Tap any bar to record that day instead."}</p>`;
+
+    // A labelled row, not a floating pill cluster. Three unlabelled
+    // buttons adrift between two cards read as a bug.
+    const unitRow = k === "steps" ? "" : `
+      <div class="unitrow">
+        <span>Show ${k === "cardio" ? "distance" : "weight"} in</span>
+        <div class="range" role="group" aria-label="${
+          k === "cardio" ? "Distance unit" : "Weight unit"}">${
+          (k === "cardio" ? ["mi","km","m"] : ["lb","kg"]).map((u) =>
+            `<button type="button" data-${k === "cardio" ? "d" : "w"}unit="${u}"
+              aria-pressed="${(k === "cardio" ? units.d : units.w) === u}">${u}</button>`
+          ).join("")}</div>
+      </div>`;
 
     return `
       <div class="topbar">
         <button class="backlink" id="back">&larr; ${esc(state.group.name)}</button>
-        ${scoreChip(m)}
+        <span class="sync ${state.lift.sync}" id="syncChip">${syncWords(state.lift.sync)}</span>
       </div>
 
       <header class="masthead">
-        <h1>Exercise</h1>
-        <p class="sub">One pillar of five.</p>
+        <h1>${esc(met.label)}</h1>
+        <p class="sub">${esc(PAGE[k].sub)}</p>
       </header>
 
       ${resumeBanner()}
 
       <section class="card">
         <div class="domino">
-          <b class="big">${num(Math.round(shown))}</b>
-          <button type="button" class="of" data-edit="goal" data-metric="steps">${goal
-            ? `of <b>${num(Math.round(goal))}</b> steps`
-            : "set a step goal"}</button>
+          <b class="big" style="color:${met.color}">${
+            shown > 0 ? num(Math.round(shown)) : "0"}</b>
+          ${k === "cardio"
+            ? `<span class="of" style="text-decoration:none">minutes today</span>`
+            : `<button type="button" class="of" data-edit="goal" data-metric="${k}">${goal
+                ? `of <b>${num(Math.round(goal))}</b> ${met.unit}`
+                : `set a ${esc(met.label.toLowerCase())} goal`}</button>`}
         </div>
-        ${miniChart("steps", true)}
-        ${daySheet()}
-      </section>
-
-      ${engines()}
-
-      ${editRowHTML()}
-
-      ${commandCentre()}
-
-      <p class="ver">v${APP_VERSION}</p>`;
-  }
-
-  // Behind an engine: the log that writes that number. Charts, tiles and
-  // history for Train or Cardio live here and nowhere else, which is what
-  // let the segment control and the second set of charts be deleted.
-  function logView() {
-    const cardio = state.seg === "cardio";
-    return `
-      <div class="topbar">
-        <button class="backlink" id="back">&larr; Exercise</button>
-        <span class="sync ${state.lift.sync}" id="syncChip">${syncWords(state.lift.sync)}</span>
-      </div>
-
-      <header class="masthead">
-        <h1>${cardio ? "Cardio" : "Train"}</h1>
-        <p class="sub">${cardio
-          ? "Walking, running, swimming, the machines."
-          : "Lifting and yoga."}</p>
-      </header>
-
-      ${resumeBanner()}
-
-      <div class="segrow">
-        <div class="range" role="group" aria-label="${cardio ? "Distance unit" : "Weight unit"}">${
-          (cardio ? ["mi","km","m"] : ["lb","kg"]).map((u) =>
-            `<button type="button" data-${cardio ? "d" : "w"}unit="${u}"
-              aria-pressed="${(cardio ? units.d : units.w) === u}">${u}</button>`).join("")}</div>
-        <div class="weeknav" role="group" aria-label="Which week">
+        ${miniChart(k, true)}
+        <div class="weekrow">
           <button type="button" id="wPrev" aria-label="Previous week">&lsaquo;</button>
+          <span>${esc(weekWords())}</span>
           <button type="button" id="wNext" aria-label="Next week"
             ${weekBounds().start === thisMonday() ? "disabled" : ""}>&rsaquo;</button>
         </div>
-      </div>
+        ${recorder}
+      </section>
 
       ${editRowHTML()}
 
-      <section>
-        <div class="section-head"><h2>${esc(weekWords())}</h2></div>
-        <div class="card">${miniChart(state.seg)}</div>
-      </section>
+      ${k === "steps" ? "" : `
+        ${unitRow}
+        ${liftTiles()}
+        ${liftHistory()}`}
 
-      <button class="btn" id="startEmpty" style="width:100%;background:var(--train)">
-        ${cardio ? "Start an activity" : "Start an empty workout"}</button>
-      ${liftTiles()}
-      ${liftHistory()}
+      ${famBlock()}
 
       <p class="ver">v${APP_VERSION}</p>`;
   }
@@ -2201,7 +2309,7 @@ under it stay in your history, they just stop being a tile.`)) return;
     }
     if (!(state.code && state.group)) { app.innerHTML = landing(); wire(); return; }
 
-    if (state.view === "exercise") { app.innerHTML = exerciseView(); wireExercise(); return; }
+    if (state.view === "exercise") { app.innerHTML = metricView(); wireExercise(); return; }
     if (state.view === "session")  { app.innerHTML = sessionView();  wireLift();     return; }
     if (state.view === "detail")   { app.innerHTML = detailView();   wireLift();     return; }
 
@@ -2235,9 +2343,12 @@ under it stay in your history, they just stop being a tile.`)) return;
           state.view = "detail";
           render();
         } else {
-          state.msg = "Nothing logged that day.";
-          state.msgKind = null;
-          render();
+          // V1.7. An empty bar is not a dead end any more. It is how you
+          // record a workout you did but did not log — the same gesture
+          // that backlogs a step count one page over.
+          state.msg = null;
+          state.mode = k === "cardio" ? "cardio" : "lift";
+          await startSession("", iso);
         }
         return;
       }
@@ -2378,10 +2489,9 @@ under it stay in your history, they just stop being a tile.`)) return;
     // The marks ARE the navigation. Tapping a live pillar goes straight
     // into it, which is why there is no tab bar and no Log screen: pillars
     // two to five arrive as taps, not as furniture.
-    document.querySelectorAll("[data-pillar]").forEach((el) =>
-      el.addEventListener("click", () => {
-        if (el.dataset.pillar === "exercise") openExercise("home");
-      }));
+    // V1.7. Three tiles, three destinations, one tap each.
+    document.querySelectorAll("[data-tile]").forEach((el) =>
+      el.addEventListener("click", () => openExercise(el.dataset.tile)));
 
     // Tap someone's volume chip to read the session behind it. The board
     // stays a scoreboard; the detail is one tap away for whoever wants it.
@@ -2415,6 +2525,7 @@ under it stay in your history, they just stop being a tile.`)) return;
     }
     if (state.code) {
       state.meId = loadMe();
+      state.fam.open = famOpen();
       await refresh();
       watchClock();
       // A workout finished with no signal uploads itself the moment there
