@@ -159,19 +159,18 @@ input[type=number] { -moz-appearance:textfield; }
 
 
 .note { font-size:13px; color:var(--muted); }
-/* V1.5 — one number, not two boxes competing for the same attention */
-.bignum { width:100%; margin-top:12px; border:1px solid var(--line-strong);
-  background:var(--surface); border-radius:12px; padding:14px 16px;
-  font-family:var(--mono); font-size:34px; font-weight:500; letter-spacing:-.03em;
-  text-align:right; color:var(--ink); }
-.bignum:focus { border-color:var(--series); }
-.stepline { display:flex; align-items:center; gap:9px; padding:11px 14px;
-  border:1px solid var(--line); border-radius:12px; background:var(--surface); }
-.stepline > span { font-size:13px; color:var(--muted); flex:none; }
-.stepline input { flex:1; min-width:0; border:none; background:none; text-align:right;
-  font-family:var(--mono); font-size:19px; font-weight:500; color:var(--ink);
+/* V1.6 — the chart IS the form. One line, under the bar you tapped. */
+.daysheet { display:flex; align-items:center; gap:9px; margin-top:12px;
+  padding:10px 12px; border:1px solid var(--line); border-radius:12px;
+  background:var(--surface); }
+.daysheet > span { font-size:13px; color:var(--ink); font-weight:500; flex:none;
+  min-width:62px; }
+.daysheet input { flex:1; min-width:0; border:none; background:none; text-align:right;
+  font-family:var(--mono); font-size:22px; font-weight:500; color:var(--ink);
   padding:0; }
-.stepline > em { font-style:normal; font-size:11px; color:var(--muted); flex:none; }
+.daysheet input:focus { outline:none; }
+.daysheet > em { font-style:normal; font-size:11px; color:var(--muted); flex:none; }
+.dshint { margin-top:8px; }
 
 /* the five pillars */
 .marks { display:grid; grid-template-columns:repeat(5,1fr); gap:4px; margin-top:14px; }
@@ -366,7 +365,7 @@ button.mark .mlabel { color:var(--ink-2); }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "1.5";
+  const APP_VERSION = "1.6";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -375,9 +374,29 @@ button.mark .mlabel { color:var(--ink-2); }
   const esc = (s) => String(s).replace(/[&<>"']/g,
     (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
 
-  const todayISO = () => {
+  // The date on THIS phone, right now. Read fresh every time: a phone that
+  // has been asleep in a pocket since yesterday must not keep answering
+  // yesterday.
+  const deviceISO = () => {
     const d = new Date();
     return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+  };
+
+  // The zone this phone is in, e.g. "Europe/London". Sent with every log so
+  // the server can compute this person's midnight without being told a date.
+  const deviceTZ = () => {
+    try { return Intl.DateTimeFormat().resolvedOptions().timeZone || null; }
+    catch { return null; }
+  };
+
+  // V1.6. "Today" is no longer whatever this device believes. The server
+  // computes it per person from their own stored zone and hands it back on
+  // the board, so Karachi and Connecticut each see their own day even when
+  // they are looking at the same screen at the same instant. The device
+  // date is only the fallback before the first load answers.
+  const todayISO = () => {
+    const m = me();
+    return (m && m.their_date) || deviceISO();
   };
   const shiftISO = (iso, n) => {
     const d = new Date(iso + "T00:00:00Z");
@@ -483,7 +502,11 @@ button.mark .mlabel { color:var(--ink-2); }
 
   /* ---------- data ------------------------------------------------- */
   async function refresh() {
-    const res = await call("app_state", { p_code: state.code, p_today: todayISO() });
+    // p_me + p_tz teach the server where this phone is, on every load. A
+    // family member who only ever reads the board would otherwise keep the
+    // group's zone for ever and see somebody else's day.
+    const res = await call("app_state", { p_code: state.code,
+      p_me: state.meId || null, p_tz: deviceTZ() });
     if (res.error) { state.fatal = res.error; render(); return; }
     state.group = res.group;
     // Alphabetical, so a name is findable without reading the whole list.
@@ -493,6 +516,38 @@ button.mark .mlabel { color:var(--ink-2); }
     if (!state.people.some((p) => p.id === state.meId)) state.meId = null;
     await loadHistory();
     render();
+  }
+
+  /* ---------- the clock ---------------------------------------------
+     V1.6. `refresh()` used to run exactly once, at boot. Added to the Home
+     Screen, this app is resumed rather than reloaded, so "today" froze at
+     whatever moment iOS last cold-started it — which is precisely the
+     "it resets in the middle of the day" that started this release.
+
+     Two cheap triggers fix it, and nothing polls the network on a timer:
+       * coming back to the screen re-asks the server for the day;
+       * a one-minute local tick notices the device date has rolled over
+         and only then re-asks.
+     ------------------------------------------------------------------ */
+  let clockDay = null, clockTimer = null;
+
+  function watchClock() {
+    clockDay = deviceISO();
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) return;
+      refresh();
+    });
+
+    if (clockTimer) clearInterval(clockTimer);
+    clockTimer = setInterval(() => {
+      const d = deviceISO();
+      if (d === clockDay) return;
+      clockDay = d;
+      // A new day: the week the charts are anchored to is last week now.
+      if (state.weekAnchor === null) state.entryDate = null;
+      if (!document.hidden) refresh();
+    }, 60000);
   }
 
   // Today's numbers for one person, by short metric name.
@@ -567,8 +622,15 @@ button.mark .mlabel { color:var(--ink-2); }
     const n = pts.length, slot = 100 / n, bw = slot * 0.52;
 
     let bars = "";
+    const sel = k === "steps" ? entryDay() : null;
     pts.forEach((p, i) => {
       const x = i * slot + (slot - bw) / 2;
+      // V1.6. The selected column is the form's title bar. Nothing else on
+      // the screen says which day you are typing into, so this has to.
+      if (p.key === sel) {
+        bars += `<rect x="${x - bw*0.3}" y="${PT-6}" width="${bw*1.6}" height="${plot+8}"
+                  rx="2" fill="${met.soft}" opacity="0.55" pointer-events="none"></rect>`;
+      }
       if (p.value <= 0) {
         bars += `<rect x="${x}" y="${PT}" width="${bw}" height="${plot}" fill="transparent"
                   data-day="${p.key}" data-metric="${k}"></rect>` +
@@ -692,8 +754,8 @@ button.mark .mlabel { color:var(--ink-2); }
     const done = state.people.filter(anyLog);
     const missing = state.people.filter((p) => !anyLog(p));
     const hit = state.people.filter((p) => p.done);
-    const day = new Date().toLocaleDateString(undefined,
-      { weekday:"short", month:"short", day:"numeric" });
+    const day = new Date(todayISO() + "T00:00:00Z").toLocaleDateString(undefined,
+      { timeZone:"UTC", weekday:"short", month:"short", day:"numeric" });
 
     const lines = [
       `*${state.group.name}* \u00b7 ${day}`,
@@ -888,6 +950,7 @@ button.mark .mlabel { color:var(--ink-2); }
       p_label: a.label || "", p_date: a.date,
       p_duration: durationMin(a), p_sets: setsPayload(a),
       p_finished: !!(finish || a.pendingFinish), p_mode: state.mode,
+      p_tz: deviceTZ(),
     });
 
     if (res.error) { setSync("offline"); return res; }
@@ -1534,9 +1597,14 @@ under it stay in your history, they just stop being a tile.`)) return;
       }));
 
 
+    // Stepping weeks moves the selection with it. Otherwise the sheet under
+    // the chart would still say "Today" while you are looking at a week that
+    // does not contain today, and you would log into a bar you cannot see.
     const stepWeek = async (n) => {
       state.weekAnchor = shiftISO(weekBounds().start, n * 7);
       if (state.weekAnchor === thisMonday()) state.weekAnchor = null;
+      state.entryDate = state.weekAnchor ? shiftISO(state.weekAnchor, 6) : null;
+      state.msg = null;
       await loadHistory();
       render();
     };
@@ -1562,8 +1630,12 @@ under it stay in your history, they just stop being a tile.`)) return;
       state.msg = "Enter a number."; state.msgKind = "bad"; render(); return;
     }
     e.target.disabled = true;
+    // p_date is null for today on purpose. The server decides what "today"
+    // means for this person; the phone only says which zone it is in. A page
+    // that has been open since yesterday therefore cannot write yesterday.
     const res = await call("app_log", { p_code:state.code, p_person:state.meId,
-      p_value:Number(raw), p_metric:M.steps.key, p_date:entryDay() });
+      p_value:Number(raw), p_metric:M.steps.key,
+      p_date:state.entryDate || null, p_tz:deviceTZ() });
     state.msg = res.error ? res.error : "Saved. Your family can see it.";
     state.msgKind = res.error ? "bad" : "ok";
     if (!res.error) state.entryDate = null;
@@ -1749,8 +1821,8 @@ under it stay in your history, they just stop being a tile.`)) return;
     return `
       <header class="masthead">
         <h1>${esc(state.group.name)}</h1>
-        <p class="sub">${esc(new Date().toLocaleDateString(undefined,
-          { weekday:"long", month:"long", day:"numeric" }))}</p>
+        <p class="sub">${esc(new Date(todayISO() + "T00:00:00Z").toLocaleDateString(undefined,
+          { timeZone:"UTC", weekday:"long", month:"long", day:"numeric" }))}</p>
       </header>
 
       <div class="whoami">
@@ -1795,15 +1867,28 @@ under it stay in your history, they just stop being a tile.`)) return;
      outgrow when the other four pillars arrive.
      ------------------------------------------------------------------ */
 
-  function exerciseView() {
-    const m = me();
+  // V1.6. The chart is the form. One line under the bar you tapped, showing
+  // whichever day is selected — today when you land, so the common case is
+  // still type-and-go and nothing had to be picked from a date field.
+  function daySheet() {
     const iso = entryDay();
-    const isToday = iso === todayISO();
     const rec = dayRecord("steps");
-    const dayTitle = isToday ? "Today"
-      : new Date(iso + "T00:00:00Z").toLocaleDateString(undefined,
-          { timeZone:"UTC", weekday:"long", month:"short", day:"numeric" });
+    const label = iso === todayISO() ? "Today" : longLabel(iso);
+    return `
+      <div class="daysheet">
+        <span>${esc(label)}</span>
+        <input id="steps" type="number" inputmode="numeric" placeholder="0"
+               aria-label="Steps on ${esc(label)}"
+               value="${rec.logged ? rec.value : ""}">
+        <em>steps</em>
+        <button class="btn-quiet" id="save">${rec.logged ? "Update" : "Log"}</button>
+      </div>
+      ${state.msg
+        ? `<p class="hint dshint ${state.msgKind || ""}" id="hint">${esc(state.msg)}</p>`
+        : `<p class="hint dshint">Tap any bar to log that day.</p>`}`;
+  }
 
+  function exerciseView() {
     const segs = [["steps","Steps"],["train","Train"],["cardio","Cardio"]];
 
     const logSection = state.seg === "steps" ? "" : `
@@ -1824,35 +1909,6 @@ under it stay in your history, they just stop being a tile.`)) return;
       </header>
 
       ${resumeBanner()}
-
-      ${state.seg === "steps" ? `
-      <section class="card">
-        <div class="section-head">
-          <h2>${esc(dayTitle)}</h2>
-          <span class="eyebrow">steps</span>
-        </div>
-        <input class="bignum" id="steps" type="number" inputmode="numeric" placeholder="0"
-               aria-label="Steps on ${esc(dayTitle)}"
-               value="${rec.logged ? rec.value : ""}">
-        <button class="btn" id="save" style="width:100%;margin-top:10px">${
-          rec.logged ? "Update" : "Log"}</button>
-        <p class="hint ${state.msgKind || ""}" id="hint">${esc(state.msg ||
-          (rec.logged ? "Already recorded. You can correct it."
-                      : "Train and cardio minutes are written by what you log below."))}</p>
-      </section>` : `
-      <!-- Steps is the keystone, so it stays reachable from every segment.
-           It just stops shouting when you came here to look at something
-           else: one line instead of a card. -->
-      <div class="stepline">
-        <span>${esc(dayTitle)}</span>
-        <input id="steps" type="number" inputmode="numeric" placeholder="0"
-               aria-label="Steps on ${esc(dayTitle)}"
-               value="${rec.logged ? rec.value : ""}">
-        <em>steps</em>
-        <button class="btn-quiet" id="save">${rec.logged ? "Update" : "Log"}</button>
-      </div>
-      ${state.msg ? `<p class="hint ${state.msgKind || ""}" id="hint"
-        style="margin-top:-18px">${esc(state.msg)}</p>` : ""}`}
 
       <div class="segrow">
         <div class="seg" role="group" aria-label="Which number">
@@ -1883,6 +1939,7 @@ under it stay in your history, they just stop being a tile.`)) return;
         </div>
         <div class="card">
           ${chartsHTML()}
+          ${state.seg === "steps" ? daySheet() : ""}
           ${statsHTML()}
         </div>
       </section>
@@ -2133,6 +2190,7 @@ under it stay in your history, they just stop being a tile.`)) return;
     if (state.code) {
       state.meId = loadMe();
       await refresh();
+      watchClock();
       // A workout finished with no signal uploads itself the moment there
       // is one — on this load, and again whenever the phone reconnects.
       loadLocal();
