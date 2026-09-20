@@ -159,6 +159,60 @@ input[type=number] { -moz-appearance:textfield; }
 
 
 .note { font-size:13px; color:var(--muted); }
+/* V1.6 — the lead domino. Steps is the ONE thing, so it is the only
+   number on the screen rendered at a size you can read across a room. */
+.domino { text-align:center; padding:4px 0 2px; }
+.domino .big { font-family:var(--mono); font-size:56px; line-height:1;
+  font-weight:500; letter-spacing:-.04em; color:var(--ink); display:block; }
+.domino .of { display:inline-block; margin-top:7px; font-size:12px; color:var(--muted);
+  letter-spacing:.02em; background:none; border:none; font-family:inherit;
+  padding:2px 4px; cursor:pointer; text-decoration:underline dotted;
+  text-underline-offset:3px; text-decoration-color:var(--line-strong); }
+.domino .of b { color:var(--series); font-weight:600; }
+
+/* The seven days shrink to a strip. Still the form, just no longer the
+   loudest thing on the screen. */
+.strip { margin-top:14px; }
+.strip .chart svg { height:46px; }
+.strip .axis { display:flex; margin-top:5px; font-size:9.5px; color:var(--muted); }
+.strip .axis span { text-align:center; }
+
+/* Two engines. Wide, flat, and they go somewhere. */
+.engines { display:grid; gap:8px; margin-top:16px; }
+.engine { display:flex; align-items:center; gap:12px; width:100%; padding:14px 16px;
+  border:1px solid var(--line); border-radius:13px; background:var(--surface);
+  font-family:inherit; font-size:15px; color:var(--ink); text-align:left;
+  cursor:pointer; }
+.engine .tick { flex:none; width:8px; height:8px; border-radius:99px;
+  background:var(--line-strong); }
+.engine.on .tick { background:var(--train); }
+.engine.on.cardio .tick { background:var(--swim); }
+.engine b { font-weight:500; flex:none; }
+.engine .said { flex:1; min-width:0; font-size:13px; color:var(--muted);
+  text-align:right; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.engine .go { flex:none; color:var(--muted); font-size:15px; }
+
+/* The execution score. One number, top corner, never a chart. */
+.score { display:flex; align-items:baseline; gap:5px; font-family:var(--mono);
+  font-size:13px; font-weight:500; color:var(--series); }
+.score span { font-size:9.5px; font-family:var(--body); font-weight:600;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--muted); }
+
+/* The family command centre: one compact row each, with a trend line. */
+.cmd { margin-top:22px; padding-top:18px; border-top:1px solid var(--line); }
+.cmd .section-head { margin-bottom:4px; }
+.crow { display:flex; align-items:center; gap:11px; padding:9px 0;
+  border-bottom:1px solid var(--line); }
+.crow:last-child { border-bottom:none; }
+.crow .dot { flex:none; width:26px; height:26px; border-radius:99px; display:grid;
+  place-items:center; font-size:10px; font-weight:600; }
+.crow .cname { flex:1; min-width:0; font-size:14px; overflow:hidden;
+  text-overflow:ellipsis; white-space:nowrap; }
+.crow .trend { flex:none; width:64px; height:20px; }
+.crow .cpct { flex:none; width:38px; text-align:right; font-family:var(--mono);
+  font-size:13px; color:var(--muted); }
+.crow.did .cpct { color:var(--series); }
+
 /* V1.6 — the chart IS the form. One line, under the bar you tapped. */
 .daysheet { display:flex; align-items:center; gap:9px; margin-top:12px;
   padding:10px 12px; border:1px solid var(--line); border-radius:12px;
@@ -172,8 +226,31 @@ input[type=number] { -moz-appearance:textfield; }
 .daysheet > em { font-style:normal; font-size:11px; color:var(--muted); flex:none; }
 .dshint { margin-top:8px; }
 
-/* the five pillars */
-.marks { display:grid; grid-template-columns:repeat(5,1fr); gap:4px; margin-top:14px; }
+/* V1.6. The Exercise pillar stopped being a dot you had to guess was a
+   button. It is a row with a border, a check circle, a verb and a chevron
+   — an obvious control. The other four stay as small dim marks under it,
+   so the roadmap survives without competing for the tap. */
+.golog { display:flex; align-items:center; gap:13px; width:100%; margin-top:14px;
+  padding:14px 15px; border:1.5px solid var(--series); border-radius:14px;
+  background:var(--surface); font-family:inherit; color:inherit; text-align:left;
+  cursor:pointer; }
+.golog.done { border-color:var(--series); background:var(--soft); }
+.golog .box { flex:none; width:26px; height:26px; border-radius:50%;
+  border:1.5px solid var(--line-strong); background:var(--surface); display:grid;
+  place-items:center; color:transparent; font-size:14px; line-height:1; }
+.golog.done .box { background:var(--series); border-color:var(--series); color:#fff; }
+:root[data-theme="dark"] .golog.done .box { color:#08120f; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .golog.done .box { color:#08120f; }
+}
+.golog .gl { flex:1; min-width:0; }
+.golog .gl b { display:block; font-size:15px; font-weight:500; }
+.golog .gl span { display:block; margin-top:1px; font-size:12.5px; color:var(--muted);
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.golog .go { flex:none; color:var(--muted); font-size:17px; }
+
+/* the four that are not measured yet */
+.marks { display:grid; grid-template-columns:repeat(4,1fr); gap:4px; margin-top:14px; }
 .mark { display:flex; flex-direction:column; align-items:center; gap:7px;
   background:none; border:none; padding:6px 2px; font-family:inherit; color:inherit; }
 button.mark { cursor:pointer; }
@@ -467,7 +544,7 @@ button.mark .mlabel { color:var(--ink-2); }
     // V1.3. The board is still the whole app for nine people out of ten;
     // Lift is a place you go, not a thing on the board.
     view: "board",        // board | exercise | session | detail
-    seg:  "steps",        // steps | train | cardio — the Exercise segment
+    seg:  "home",         // home | train | cardio — Exercise, or a log behind it
     mode: "lift",         // lift | cardio — which log the segment is showing
     weekAnchor: null,     // Monday of the week on the charts; null means this week
     lift: {
@@ -608,14 +685,17 @@ button.mark .mlabel { color:var(--ink-2); }
 
   // One mini chart per metric, stacked, sharing the same columns. Steps and
   // minutes cannot honestly share a y-axis, so they each keep their own.
-  function miniChart(k) {
+  function miniChart(k, strip) {
     const met = M[k];
     const pts = points(k);
     if (!pts.length) return "";
 
     const goal = target(me() || {}, k);
 
-    const H = 96, PT = 10, PB = 4, plot = H - PT - PB;
+    // The strip is the same chart at a third of the height, with its head
+    // and its totals removed. It is still the form: every bar is a tap
+    // target, and the selected column is still drawn behind the bar.
+    const H = strip ? 46 : 96, PT = strip ? 5 : 10, PB = 4, plot = H - PT - PB;
     const peak = Math.max(...pts.map((p) => p.value), goal || 0, 1);
     const max = peak * 1.15;
     const y = (v) => PT + plot - (v / max) * plot;
@@ -660,12 +740,7 @@ button.mark .mlabel { color:var(--ink-2); }
       : `<button class="tapedit small" data-edit="goal" data-metric="${k}">${
            goal ? "goal " + num(goal) + (k === "steps" ? "" : " min") : "set a goal"}</button>`;
 
-    return `
-      <div class="mini">
-        <div class="mini-head">
-          <span class="mini-name" style="color:${met.color}">${met.label}</span>
-          <span class="mini-total">${totalWords}</span>
-        </div>
+    const svg = `
         <div class="chart" id="chart-${k}" data-chart="${k}">
           <svg viewBox="0 0 100 ${H}" preserveAspectRatio="none" role="img"
                aria-label="${met.label} for the period shown">
@@ -674,9 +749,42 @@ button.mark .mlabel { color:var(--ink-2); }
             ${bars}${goalLine}
           </svg>
           <div class="axis">${axis}</div>
+        </div>`;
+
+    if (strip) return `<div class="strip">${svg}</div>`;
+
+    return `
+      <div class="mini">
+        <div class="mini-head">
+          <span class="mini-name" style="color:${met.color}">${met.label}</span>
+          <span class="mini-total">${totalWords}</span>
         </div>
+        ${svg}
         <div class="mini-foot">${goalTap}</div>
       </div>`;
+  }
+
+  // Seven points, each a day's steps as a fraction of that person's own
+  // goal. A fraction rather than a raw count is what lets two people with
+  // different targets sit in the same column and mean the same thing.
+  function sparkline(spark, hue) {
+    const pts = (spark || []).map(Number).filter((n) => !Number.isNaN(n));
+    if (pts.length < 2) return `<svg class="trend" viewBox="0 0 64 20"></svg>`;
+    const max = Math.max(1, ...pts);
+    const x = (i) => (i / (pts.length - 1)) * 62 + 1;
+    const y = (v) => 18 - (v / max) * 16;
+    const d = pts.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const col = `hsl(${hue} 55% 42%)`;
+    const last = pts[pts.length - 1];
+    return `<svg class="trend" viewBox="0 0 64 20" role="img" aria-hidden="true">
+      <line x1="0" x2="64" y1="${y(1)}" y2="${y(1)}" stroke="var(--line-strong)"
+            stroke-width="1" stroke-dasharray="2 3" vector-effect="non-scaling-stroke"></line>
+      <path d="${d}" fill="none" stroke="${col}" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round"
+            vector-effect="non-scaling-stroke"></path>
+      <circle cx="${x(pts.length-1).toFixed(1)}" cy="${y(last).toFixed(1)}" r="1.8"
+              fill="${col}"></circle>
+    </svg>`;
   }
 
   function editTarget() {
@@ -702,26 +810,74 @@ button.mark .mlabel { color:var(--ink-2); }
   // Train first. It is the one he acts on, and the first thing on a screen
   // is the thing the screen is about.
   // One chart. Which one is the segment's business, not the chart's.
-  function chartsHTML() { return miniChart(state.seg); }
+  // DELETED in V1.6: statsHTML (daily average, best day, goal hit) and the
+  // chartsHTML wrapper. Averages and best days are outcomes. The execution
+  // rate is the thing you actually control, so one number replaces three.
+  //
+  // The score is computed server-side over the person's own 12-week cycle,
+  // because the denominator is days ELAPSED — which only the server knows,
+  // and which a phone left shut for a week would get wrong in exactly the
+  // flattering direction.
+  const execOf = (p) => (p && p.exec) || { pct: 0, hit: 0, day: 0, of: 84 };
 
-  function statsHTML() {
-    const k = state.seg;
-    const pts = points(k);
-    const logged = pts.filter((p) => p.logged);
-    const avg = logged.length
-      ? Math.round(logged.reduce((s, p) => s + p.value, 0) / logged.length) : 0;
-    const best = pts.reduce((m, p) => Math.max(m, p.value), 0);
-    const goal = target(me() || {}, k);
-    const hit = (!pts.length || !goal)
-      ? null : Math.round((pts.filter((p) => p.value >= goal).length / pts.length) * 100);
-    const days = pts.filter((p) => p.value > 0).length;
-    const cells = [
-      [num(avg), "Daily average"],
-      [num(best), "Best day"],
-      hit === null ? [String(days), "Days logged"] : [hit + "%", "Goal hit"],
+  function scoreChip(p) {
+    const e = execOf(p);
+    if (!e.day) return "";
+    return `<span class="score" id="scoreChip" title="${e.hit} of ${e.day} days this cycle"
+      >${e.pct}%<span>exec</span></span>`;
+  }
+
+  // Train and Cardio do not get charts on this screen any more. They get a
+  // line each that says what happened today and opens the log that wrote
+  // it. Neither is ever typed: the logger is the only thing that sets them,
+  // so there is exactly one source of truth per number.
+  function engines() {
+    const m = me() || {};
+    const rows = [
+      { k:"train",  label:"Train",  cls:"", words: val(m,"train") > 0
+          ? `${num(val(m,"train"))} min` : "not yet" },
+      { k:"cardio", label:"Cardio", cls:" cardio", words: val(m,"cardio") > 0
+          ? `${num(val(m,"cardio"))} min${Number(m.cardio_distance) > 0
+              ? " \u00b7 " + distWords(Number(m.cardio_distance)) : ""}`
+          : "not yet" },
     ];
-    return `<div class="stats">${cells.map(([v, l]) =>
-      `<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("")}</div>`;
+    return `<div class="engines">${rows.map((r) => `
+      <button type="button" class="engine${val(m, r.k) > 0 ? " on" : ""}${r.cls}"
+              data-engine="${r.k}">
+        <i class="tick" aria-hidden="true"></i>
+        <b>${r.label}</b>
+        <span class="said">${esc(r.words)}</span>
+        <span class="go" aria-hidden="true">\u203a</span>
+      </button>`).join("")}</div>`;
+  }
+
+  // The rest of the family, one compact row each: a trend line of the last
+  // seven days against their own goal, and their execution rate. Deliberately
+  // not a second copy of the board — no raw numbers, just shape and rate.
+  function commandCentre() {
+    const others = state.people.filter((p) => p.id !== state.meId);
+    if (!others.length) return "";
+    return `
+      <section class="cmd">
+        <div class="section-head">
+          <h2>The family</h2>
+          <span class="eyebrow">7-day trend</span>
+        </div>
+        ${others.map((p) => {
+          const initials = p.name.trim().split(/\s+/).slice(0,2)
+            .map((w) => (w[0] || "").toUpperCase()).join("");
+          const e = execOf(p);
+          return `<div class="crow${p.done ? " did" : ""}">
+            <span class="dot" aria-hidden="true"
+              style="background:color-mix(in oklab, hsl(${p.hue} 62% 48%) 16%, var(--surface));
+                     color:color-mix(in oklab, hsl(${p.hue} 62% 48%) 78%, var(--ink))"
+              >${esc(initials)}</span>
+            <span class="cname">${esc(p.name)}</span>
+            ${sparkline(p.spark, p.hue)}
+            <span class="cpct">${e.day ? e.pct + "%" : "\u2014"}</span>
+          </div>`;
+        }).join("")}
+      </section>`;
   }
 
   /* ---------- home-screen hint --------------------------------------- */
@@ -750,7 +906,6 @@ button.mark .mlabel { color:var(--ink-2); }
   // Written to be read in a chat, not on a dashboard: the standings first,
   // who is missing second, the link last. Asterisks are WhatsApp bold.
   function dailyMessage() {
-    const anyLog = (p) => val(p,"steps") > 0 || val(p,"train") > 0 || val(p,"cardio") > 0;
     const done = state.people.filter(anyLog);
     const missing = state.people.filter((p) => !anyLog(p));
     const hit = state.people.filter((p) => p.done);
@@ -1429,6 +1584,14 @@ button.mark .mlabel { color:var(--ink-2); }
         state.view = state.lift.from === "board" ? "board" : "exercise";
       }
       else if (state.view === "session") state.view = "exercise";
+      // V1.6. Exercise has two depths now: the domino screen, and a log
+      // behind an engine. Back from a log returns to the domino, not all
+      // the way out to the board.
+      else if (state.view === "exercise" && state.seg !== "home") {
+        state.seg = "home";
+        state.mode = "lift";
+        state.msg = null;
+      }
       else state.view = "board";
       render();
     });
@@ -1583,17 +1746,19 @@ under it stay in your history, they just stop being a tile.`)) return;
   // to be on the board, and the log that used to be its own screen.
   function wireExercise() {
     wireLift();
-    wireChart(state.seg);
+    wireChart(state.seg === "home" ? "steps" : state.seg);
 
-    document.querySelectorAll("[data-seg]").forEach((el) =>
+    // An engine is a door, not a field. Tapping it opens the log that
+    // writes that number; nothing on the Exercise screen can type it.
+    document.querySelectorAll("[data-engine]").forEach((el) =>
       el.addEventListener("click", async () => {
-        const k = el.dataset.seg;
-        if (k === state.seg) return;
-        state.seg  = k;
-        state.mode = k === "cardio" ? "cardio" : "lift";
+        state.seg  = el.dataset.engine;
+        state.mode = state.seg === "cardio" ? "cardio" : "lift";
         state.lift.menu = null; state.lift.rename = null;
+        state.msg = null;
         render();
-        if (k !== "steps") { await loadLift(); render(); }
+        await loadLift();
+        render();
       }));
 
 
@@ -1667,7 +1832,7 @@ under it stay in your history, they just stop being a tile.`)) return;
   async function openExercise(seg) {
     if (!state.meId) return;
     stopTicking();
-    state.seg  = seg || "steps";
+    state.seg  = seg || "home";
     state.mode = state.seg === "cardio" ? "cardio" : "lift";
     state.lift.loaded = false;
     state.lift.labels = []; state.lift.sessions = [];
@@ -1675,7 +1840,7 @@ under it stay in your history, they just stop being a tile.`)) return;
     loadLocal();
     state.view = "exercise";
     render();                 // paint immediately; the list can arrive after
-    if (state.seg !== "steps") { await loadLift(); render(); }
+    if (state.seg !== "home") { await loadLift(); render(); }
   }
 
   /* ---------- views ------------------------------------------------ */
@@ -1728,16 +1893,46 @@ under it stay in your history, they just stop being a tile.`)) return;
      pillars instead of one.
      ------------------------------------------------------------------ */
 
+  // Did this person record ANYTHING today? Deliberately not `done`.
+  //
+  // `done` is the bar: the step goal met, or a workout, or cardio. It still
+  // drives the roster's "moved" mark and the execution percentage, because
+  // a rate that counts 400 steps as a win measures nothing.
+  //
+  // The green circle is the other question — did you show up — and it is
+  // the one the board should answer, because logging is the habit being
+  // built and punishing a 4,000-step day with a grey dot teaches people to
+  // stop opening the app.
+  const anyLog = (p) => val(p,"steps") > 0 || val(p,"train") > 0 || val(p,"cardio") > 0;
+
+  function todayWords(p) {
+    const bits = [];
+    if (val(p,"steps")  > 0) bits.push(`${num(val(p,"steps"))} steps`);
+    if (val(p,"train")  > 0) bits.push(`${num(val(p,"train"))}m train`);
+    if (val(p,"cardio") > 0) bits.push(`${num(val(p,"cardio"))}m cardio`);
+    return bits.length ? bits.join(" \u00b7 ") : "Tap to log today";
+  }
+
+  // The live pillar is a labelled button. The dark four sit beneath it.
   function markRow(p, clickable) {
-    return `<div class="marks">${PILLARS.map((pl) => {
-      const lit  = pl.live && !!p.done;
-      const cls  = !pl.live ? "pip off" : lit ? "pip on" : "pip";
-      const tag  = clickable && pl.live ? "button" : "span";
-      const attr = clickable && pl.live ? ` data-pillar="${pl.key}"` : "";
-      return `<${tag} class="mark"${attr}${pl.live ? "" : ' aria-hidden="true"'}>
-        <span class="${cls}"></span><span class="mlabel">${esc(pl.label)}</span>
-      </${tag}>`;
-    }).join("")}</div>`;
+    const on = anyLog(p);
+    const quiet = PILLARS.filter((pl) => !pl.live);
+    const live = PILLARS.find((pl) => pl.live);
+    const tag  = clickable ? "button" : "div";
+    const attr = clickable ? ` type="button" data-pillar="${live.key}"` : "";
+    return `
+      <${tag} class="golog${on ? " done" : ""}"${attr}>
+        <span class="box" aria-hidden="true">\u2713</span>
+        <span class="gl">
+          <b>${esc(live.label)}</b>
+          <span>${esc(todayWords(p))}</span>
+        </span>
+        ${clickable ? '<span class="go" aria-hidden="true">\u203a</span>' : ""}
+      </${tag}>
+      <div class="marks">${quiet.map((pl) =>
+        `<span class="mark" aria-hidden="true">
+          <span class="pip off"></span><span class="mlabel">${esc(pl.label)}</span>
+        </span>`).join("")}</div>`;
   }
 
   // One editor, two screens: names are edited on the board, goals on
@@ -1760,8 +1955,7 @@ under it stay in your history, they just stop being a tile.`)) return;
   function boardView() {
     const m = me();
     const livePillars = PILLARS.filter((x) => x.live).length;
-    const logged = state.people.filter((p) =>
-      val(p,"steps") > 0 || val(p,"train") > 0 || val(p,"cardio") > 0).length;
+    const logged = state.people.filter(anyLog).length;
     const moved  = state.people.filter((p) => p.done).length;
 
     const whoOptions = state.people.length === 0
@@ -1888,63 +2082,97 @@ under it stay in your history, they just stop being a tile.`)) return;
         : `<p class="hint dshint">Tap any bar to log that day.</p>`}`;
   }
 
+  /* ---------- Exercise: the lead domino, two engines, the family ------
+     V1.6 second pass. The screen is now ordered by leverage rather than by
+     data type. Steps is the domino: doing it makes the rest easier, so it
+     is the only number rendered large, and it sits alone at the top. Train
+     and Cardio are two flat lines beneath it that go somewhere. Everything
+     historical collapses into one execution percentage in the corner.
+     ------------------------------------------------------------------ */
   function exerciseView() {
-    const segs = [["steps","Steps"],["train","Train"],["cardio","Cardio"]];
+    if (state.seg !== "home") return logView();
 
-    const logSection = state.seg === "steps" ? "" : `
-      <button class="btn" id="startEmpty" style="width:100%;background:var(--train)">
-        ${state.mode === "cardio" ? "Start an activity" : "Start an empty workout"}</button>
-      ${liftTiles()}
-      ${liftHistory()}`;
+    const m = me() || {};
+    const rec = dayRecord("steps");
+    const goal = target(m, "steps");
+    const shown = entryDay() === todayISO() ? val(m, "steps") : rec.value;
 
     return `
       <div class="topbar">
         <button class="backlink" id="back">&larr; ${esc(state.group.name)}</button>
-        <span class="sync ${state.lift.sync}" id="syncChip">${syncWords(state.lift.sync)}</span>
+        ${scoreChip(m)}
       </div>
 
       <header class="masthead">
         <h1>Exercise</h1>
-        <p class="sub">Steps, training, cardio. One pillar of five.</p>
+        <p class="sub">One pillar of five.</p>
+      </header>
+
+      ${resumeBanner()}
+
+      <section class="card">
+        <div class="domino">
+          <b class="big">${num(Math.round(shown))}</b>
+          <button type="button" class="of" data-edit="goal" data-metric="steps">${goal
+            ? `of <b>${num(Math.round(goal))}</b> steps`
+            : "set a step goal"}</button>
+        </div>
+        ${miniChart("steps", true)}
+        ${daySheet()}
+      </section>
+
+      ${engines()}
+
+      ${editRowHTML()}
+
+      ${commandCentre()}
+
+      <p class="ver">v${APP_VERSION}</p>`;
+  }
+
+  // Behind an engine: the log that writes that number. Charts, tiles and
+  // history for Train or Cardio live here and nowhere else, which is what
+  // let the segment control and the second set of charts be deleted.
+  function logView() {
+    const cardio = state.seg === "cardio";
+    return `
+      <div class="topbar">
+        <button class="backlink" id="back">&larr; Exercise</button>
+        <span class="sync ${state.lift.sync}" id="syncChip">${syncWords(state.lift.sync)}</span>
+      </div>
+
+      <header class="masthead">
+        <h1>${cardio ? "Cardio" : "Train"}</h1>
+        <p class="sub">${cardio
+          ? "Walking, running, swimming, the machines."
+          : "Lifting and yoga."}</p>
       </header>
 
       ${resumeBanner()}
 
       <div class="segrow">
-        <div class="seg" role="group" aria-label="Which number">
-          ${segs.map(([k, lbl]) =>
-            `<button type="button" data-seg="${k}" aria-pressed="${state.seg === k}">${lbl}</button>`
-          ).join("")}
+        <div class="range" role="group" aria-label="${cardio ? "Distance unit" : "Weight unit"}">${
+          (cardio ? ["mi","km","m"] : ["lb","kg"]).map((u) =>
+            `<button type="button" data-${cardio ? "d" : "w"}unit="${u}"
+              aria-pressed="${(cardio ? units.d : units.w) === u}">${u}</button>`).join("")}</div>
+        <div class="weeknav" role="group" aria-label="Which week">
+          <button type="button" id="wPrev" aria-label="Previous week">&lsaquo;</button>
+          <button type="button" id="wNext" aria-label="Next week"
+            ${weekBounds().start === thisMonday() ? "disabled" : ""}>&rsaquo;</button>
         </div>
-        ${state.seg === "train" ? `<div class="range" role="group" aria-label="Weight unit">${
-            ["lb","kg"].map((u) =>
-              `<button type="button" data-wunit="${u}" aria-pressed="${units.w === u}">${u}</button>`
-            ).join("")}</div>`
-        : state.seg === "cardio" ? `<div class="range" role="group" aria-label="Distance unit">${
-            ["mi","km","m"].map((u) =>
-              `<button type="button" data-dunit="${u}" aria-pressed="${units.d === u}">${u}</button>`
-            ).join("")}</div>` : ""}
       </div>
 
       ${editRowHTML()}
 
       <section>
-        <div class="section-head">
-          <h2>${esc(weekWords())}</h2>
-          <div class="weeknav" role="group" aria-label="Which week">
-            <button type="button" id="wPrev" aria-label="Previous week">&lsaquo;</button>
-            <button type="button" id="wNext" aria-label="Next week"
-              ${weekBounds().start === thisMonday() ? "disabled" : ""}>&rsaquo;</button>
-          </div>
-        </div>
-        <div class="card">
-          ${chartsHTML()}
-          ${state.seg === "steps" ? daySheet() : ""}
-          ${statsHTML()}
-        </div>
+        <div class="section-head"><h2>${esc(weekWords())}</h2></div>
+        <div class="card">${miniChart(state.seg)}</div>
       </section>
 
-      ${logSection}
+      <button class="btn" id="startEmpty" style="width:100%;background:var(--train)">
+        ${cardio ? "Start an activity" : "Start an empty workout"}</button>
+      ${liftTiles()}
+      ${liftHistory()}
 
       <p class="ver">v${APP_VERSION}</p>`;
   }
@@ -2023,8 +2251,6 @@ under it stay in your history, they just stop being a tile.`)) return;
       document.getElementById("steps")?.focus();
     });
 
-    const g = host.parentElement.querySelector("[data-edit]");
-    if (g) g.addEventListener("click", () => openEditor(g.dataset.edit));
   }
 
   function openEditor(kind, personId) {
@@ -2154,7 +2380,7 @@ under it stay in your history, they just stop being a tile.`)) return;
     // two to five arrive as taps, not as furniture.
     document.querySelectorAll("[data-pillar]").forEach((el) =>
       el.addEventListener("click", () => {
-        if (el.dataset.pillar === "exercise") openExercise("steps");
+        if (el.dataset.pillar === "exercise") openExercise("home");
       }));
 
     // Tap someone's volume chip to read the session behind it. The board
