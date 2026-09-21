@@ -174,6 +174,11 @@ input[type=number] { -moz-appearance:textfield; }
    loudest thing on the screen. */
 .strip { margin-top:14px; }
 .strip .chart svg { height:46px; }
+.bigedit { display:block; width:100%; border:none; background:none; text-align:center;
+  font-family:var(--mono); font-size:56px; line-height:1; font-weight:500;
+  letter-spacing:-.04em; padding:2px 0 4px; border-radius:12px; caret-color:currentColor; }
+.bigedit::placeholder { color:var(--line-strong); }
+.bigedit:focus { outline:none; background:var(--surface-2); }
 .sessdate { margin-top:9px; border:1px solid var(--line); border-radius:999px;
   background:var(--surface); font-family:inherit; font-size:12.5px; color:var(--ink-2);
   padding:5px 12px; cursor:pointer; }
@@ -219,7 +224,12 @@ input[type=number] { -moz-appearance:textfield; }
 .gcell.full { border-color:currentColor; background:currentColor; }
 .gcell.none  { border-style:dashed; }
 .gcell.sel  { box-shadow:0 0 0 2px var(--surface), 0 0 0 4px var(--ink-2); }
-.gcell:disabled { opacity:.25; cursor:default; }
+.gcell:disabled { opacity:.3; cursor:default; }
+.gcell { display:grid; place-items:center; }
+.gcell i { font-style:normal; font-size:10px; font-weight:600; color:var(--ink-2);
+  font-family:var(--body); }
+.gcell.full i { color:var(--surface); }
+.gcell.none i { color:var(--muted); }
 .gdow { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:9px;
   margin:4px auto 0; max-width:266px;
   font-size:9.5px; font-weight:600; letter-spacing:.04em; text-transform:uppercase;
@@ -260,93 +270,49 @@ input[type=number] { -moz-appearance:textfield; }
   text-align:right; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .engine .go { flex:none; color:var(--muted); font-size:15px; }
 
-/* The execution score. One number, top corner, never a chart. */
-.score { display:flex; flex-direction:column; align-items:flex-end; gap:1px;
-  font-family:var(--mono); font-size:15px; font-weight:500; color:var(--series);
-  background:none; border:none; padding:2px 0 2px 8px; cursor:pointer; }
-.score span { font-size:9px; font-family:var(--body); font-weight:600;
-  letter-spacing:.08em; text-transform:uppercase; color:var(--muted);
-  white-space:nowrap; }
-
-/* The family command centre: one compact row each, with a trend line. */
-.cmd { margin-top:22px; padding-top:18px; border-top:1px solid var(--line); }
-.cmd .section-head { margin-bottom:4px; }
-.crow { display:flex; align-items:center; gap:11px; padding:9px 0;
-  border-bottom:1px solid var(--line); }
-.crow:last-child { border-bottom:none; }
-.crow .dot { flex:none; width:26px; height:26px; border-radius:99px; display:grid;
-  place-items:center; font-size:10px; font-weight:600; }
-.crow .cname { flex:1; min-width:0; font-size:14px; overflow:hidden;
-  text-overflow:ellipsis; white-space:nowrap; }
-.crow .trend { flex:none; width:64px; height:20px; }
-.crow .cpct { flex:none; width:38px; text-align:right; font-family:var(--mono);
-  font-size:13px; color:var(--muted); }
-.crow.did .cpct { color:var(--series); }
-
-/* V1.6 — the chart IS the form. One line, under the bar you tapped. */
-.daysheet { display:flex; align-items:center; gap:9px; margin-top:12px;
-  padding:10px 12px; border:1px solid var(--line); border-radius:12px;
-  background:var(--surface); }
-.daysheet > span { font-size:13px; color:var(--ink); font-weight:500; flex:none;
-  min-width:62px; }
-.daysheet input { flex:1; min-width:0; border:none; background:none; text-align:right;
-  font-family:var(--mono); font-size:22px; font-weight:500; color:var(--ink);
-  padding:0; }
-.daysheet input:focus { outline:none; }
-.daysheet > em { font-style:normal; font-size:11px; color:var(--muted); flex:none; }
-.dshint { margin-top:8px; }
-
-/* V1.6. The Exercise pillar stopped being a dot you had to guess was a
-   button. It is a row with a border, a check circle, a verb and a chevron
-   — an obvious control. The other four stay as small dim marks under it,
-   so the roadmap survives without competing for the tap. */
-.golog { display:flex; align-items:center; gap:13px; width:100%; margin-top:14px;
-  padding:14px 15px; border:1.5px solid var(--series); border-radius:14px;
-  background:var(--surface); font-family:inherit; color:inherit; text-align:left;
-  cursor:pointer; }
-.golog.done { border-color:var(--series); background:var(--soft); }
-.golog .box { flex:none; width:26px; height:26px; border-radius:50%;
-  border:1.5px solid var(--line-strong); background:var(--surface); display:grid;
-  place-items:center; color:transparent; font-size:14px; line-height:1; }
-.golog.done .box { background:var(--series); border-color:var(--series); color:#fff; }
-:root[data-theme="dark"] .golog.done .box { color:#08120f; }
+/* V2.1 — the pillars as rows. One row per live pillar, chips inline. */
+.prow { display:flex; align-items:center; gap:10px; padding:12px 0;
+  border-top:1px solid var(--line); }
+.mine .prow:first-of-type { border-top:none; padding-top:6px; }
+.pdot { flex:none; width:20px; height:20px; border-radius:50%;
+  border:1.5px solid var(--line-strong); display:grid; place-items:center;
+  color:transparent; font-size:11px; line-height:1; }
+.prow.done .pdot { background:var(--series); border-color:var(--series); color:#fff; }
+:root[data-theme="dark"] .prow.done .pdot { color:#08120f; }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .golog.done .box { color:#08120f; }
+  :root:not([data-theme="light"]) .prow.done .pdot { color:#08120f; }
 }
-.golog .gl { flex:1; min-width:0; }
-.golog .gl b { display:block; font-size:15px; font-weight:500; }
-.golog .gl span { display:block; margin-top:1px; font-size:12.5px; color:var(--muted);
+.pname { flex:1; min-width:0; font-family:var(--display); font-size:17px;
   overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.golog .go { flex:none; color:var(--muted); font-size:17px; }
-
-/* V1.7. Exercise is a master category, not a destination. The header
-   labels it and carries its state; the three tiles under it are the
-   things you tap. When Sleep arrives it becomes a second header with its
-   own tiles and nothing here has to be redesigned. */
-.cat { display:flex; align-items:center; gap:11px; margin-top:16px; }
-.cat .box { flex:none; width:22px; height:22px; border-radius:50%;
-  border:1.5px solid var(--line-strong); background:var(--surface); display:grid;
-  place-items:center; color:transparent; font-size:12px; line-height:1; }
-.cat.done .box { background:var(--series); border-color:var(--series); color:#fff; }
-:root[data-theme="dark"] .cat.done .box { color:#08120f; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .cat.done .box { color:#08120f; }
-}
-.cat h2 { flex:1; min-width:0; font-size:17px; }
-
-.cattiles { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:10px; }
-.tile3 { display:flex; flex-direction:column; align-items:flex-start; gap:2px;
-  padding:13px 12px 12px; border:1px solid var(--line); border-radius:13px;
-  background:var(--surface); font-family:inherit; color:inherit; text-align:left;
-  cursor:pointer; min-width:0; }
-.tile3.on { border-color:var(--series); background:var(--soft); }
-.tile3 .t3l { font-size:10px; font-weight:600; letter-spacing:.08em;
+.chips { flex:none; display:flex; gap:6px; }
+.chip { position:relative; width:58px; height:46px; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:1px; border:1px solid var(--line);
+  border-radius:12px; background:var(--surface); font-family:inherit; color:inherit;
+  cursor:pointer; padding:0; overflow:hidden; }
+.chip b { font-family:var(--mono); font-size:13.5px; font-weight:500; line-height:1.1;
+  letter-spacing:-.02em; color:var(--muted); }
+.chip span { font-size:8.5px; font-weight:600; letter-spacing:.08em;
   text-transform:uppercase; color:var(--muted); }
-.tile3.on .t3l { color:var(--accent); }
-.tile3 .t3v { font-family:var(--mono); font-size:19px; font-weight:500;
-  letter-spacing:-.02em; line-height:1.15; width:100%; overflow:hidden;
-  text-overflow:ellipsis; white-space:nowrap; }
-.tile3 .t3u { font-size:10.5px; color:var(--muted); }
+.chip.on { border-color:var(--series); background:var(--soft); }
+.chip.on b { color:var(--ink); }
+.chip.on span { color:var(--accent); }
+.chip:active { transform:scale(.97); }
+/* the stamped chip IS a time input, invisible, covering it: one tap opens
+   the native wheel, with no showPicker() support needed */
+.chiptime { position:absolute; inset:0; width:100%; height:100%; opacity:0;
+  border:none; padding:0; margin:0; cursor:pointer; font-size:16px; }
+.undobar { display:flex; align-items:center; justify-content:space-between; gap:10px;
+  margin:2px 0 6px; padding:8px 12px; border-radius:10px; background:var(--surface-2);
+  font-size:12.5px; color:var(--ink-2); }
+.undobar button { border:none; background:none; font-family:inherit; font-size:12.5px;
+  font-weight:600; color:var(--accent); cursor:pointer; padding:2px 4px; }
+.soon { margin-top:4px; padding-top:11px; border-top:1px solid var(--line);
+  font-size:12px; color:var(--muted); letter-spacing:.01em; }
+.soon em { font-style:normal; margin-left:8px; font-size:9px; font-weight:600;
+  letter-spacing:.09em; text-transform:uppercase; padding:2px 6px; border-radius:99px;
+  background:var(--surface-2); }
+.sleepline { margin-top:3px; font-size:11.5px; color:var(--muted);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
 /* the family block on a metric page: folded by default */
 .fam .frow { display:flex; align-items:center; gap:11px; padding:9px 0;
@@ -362,23 +328,20 @@ input[type=number] { -moz-appearance:textfield; }
 .fam .frow.did .fval { color:var(--series); }
 .fam .loading { padding:12px 0; font-size:13px; color:var(--muted); }
 
-/* the four that are not measured yet */
-.marks { display:grid; grid-template-columns:repeat(4,1fr); gap:4px; margin-top:14px; }
-.mark { display:flex; flex-direction:column; align-items:center; gap:7px;
-  background:none; border:none; padding:6px 2px; font-family:inherit; color:inherit; }
-button.mark { cursor:pointer; }
-.pip { width:13px; height:13px; border-radius:50%; border:1.5px solid var(--line-strong);
-  background:none; }
-.pip.on { background:var(--series); border-color:var(--series); }
-.pip.off { border:none; width:13px; height:1.5px; border-radius:2px;
-  background:var(--line-strong); margin:5.75px 0; }
-.mlabel { font-size:9.5px; font-weight:600; letter-spacing:.04em; line-height:1.25;
-  text-transform:uppercase; color:var(--muted); text-align:center;
-  /* two lines reserved for every pillar, so "Great Work" wrapping does not
-     leave the row looking like a mistake */
-  min-height:2.5em; }
-button.mark .mlabel { color:var(--ink-2); }
-.mcap { margin-top:10px; text-align:center; font-size:11.5px; }
+
+/* V1.6 — the chart IS the form. One line, under the bar you tapped. */
+.daysheet { display:flex; align-items:center; gap:9px; margin-top:12px;
+  padding:10px 12px; border:1px solid var(--line); border-radius:12px;
+  background:var(--surface); }
+.daysheet > span { font-size:13px; color:var(--ink); font-weight:500; flex:none;
+  min-width:62px; }
+.daysheet input { flex:1; min-width:0; border:none; background:none; text-align:right;
+  font-family:var(--mono); font-size:22px; font-weight:500; color:var(--ink);
+  padding:0; }
+.daysheet input:focus { outline:none; }
+.daysheet > em { font-style:normal; font-size:11px; color:var(--muted); flex:none; }
+.dshint { margin-top:8px; }
+
 
 /* the segment that drives both the chart and the log under it */
 .segrow { display:flex; align-items:center; gap:10px; }
@@ -555,7 +518,7 @@ button.mark .mlabel { color:var(--ink-2); }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "1.7";
+  const APP_VERSION = "2.1";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -628,7 +591,7 @@ button.mark .mlabel { color:var(--ink-2); }
   // redesigned when each one arrives.
   const PILLARS = [
     { key:"exercise",   label:"Exercise",   live:true  },
-    { key:"sleep",      label:"Sleep",      live:false },
+    { key:"sleep",      label:"Sleep",      live:true  },
     { key:"meditation", label:"Meditate",   live:false },
     { key:"diet",       label:"Diet",       live:false },
     { key:"focus",      label:"Great Work", live:false },
@@ -662,9 +625,10 @@ button.mark .mlabel { color:var(--ink-2); }
     weekAnchor: null,     // Monday of the week on the charts; null means this week
     // The family block, per metric, fetched on first open and kept.
     fam: { open: false, data: {} },
-    kpi:  "week",         // week | cycle — which horizon the headline shows
+    undo: null,           // { key, date, words } for a few seconds after a stamp
     range: "week",        // week | month — which graph the page is showing
-    month: {},            // 35 days per metric, fetched when Month is opened
+    month: {},            // per metric per calendar month, fetched when Month is opened
+    monthAnchor: null,    // first of the month on show; null means this month
     histOpen: false,      // the workout history fold
     tmpl: null,           // { label, mode, items:[...] } while being edited
 
@@ -758,8 +722,22 @@ button.mark .mlabel { color:var(--ink-2); }
   // Today's numbers for one person, by short metric name.
   const val = (p, k) => Number(
     k === "steps" ? p.steps : k === "train" ? p.train_min : p.cardio_min) || 0;
-  const target = (p, k) => k === "steps" ? Number(p.steps_target) || 0
-                         : k === "train" ? Number(p.train_target) || 0 : 0;
+  // V2.1 FIX. Cardio was hard-coded to 0 here, so the Cardio target V1.7
+  // let you set was saved and then never shown or used anywhere.
+  const target = (p, k) => k === "steps" ? Number(p.steps_target)  || 0
+                         : k === "train" ? Number(p.train_target)  || 0
+                         : k === "cardio"? Number(p.cardio_target) || 0 : 0;
+
+  // V2.1. The family's day. Everything shown ABOUT other people — the
+  // family list, its counts, the WhatsApp post — reads these, so a
+  // relative whose own midnight has passed keeps their numbers on the
+  // board until the family's day ends.
+  const board = (p) => p.board || {};
+  const bval = (p, k) => Number(
+    k === "steps" ? board(p).steps : k === "train" ? board(p).train_min : board(p).cardio_min) || 0;
+  const banyLog = (p) => bval(p,"steps") > 0 || bval(p,"train") > 0 || bval(p,"cardio") > 0;
+  const bdone = (p) => !!board(p).done;
+  const familyISO = () => (state.group && state.group.family_date) || todayISO();
 
   // One window, both metrics. The week view is a real Monday-to-Sunday
   // calendar week, so everyone is looking at the same seven columns.
@@ -799,7 +777,7 @@ button.mark .mlabel { color:var(--ink-2); }
       return { value: val(m, k), logged: k === "steps" ? !!m.steps_logged : val(m, k) > 0 };
     // fall through to the loaded week/month below
     const d = (state.history[k] || []).find((x) => x.date === iso)
-           || (state.month[k]   || []).find((x) => x.date === iso);
+           || (monthData(k)     || []).find((x) => x.date === iso);
     return { value: d ? Number(d.value) : 0, logged: d ? d.logged : false };
   }
 
@@ -885,57 +863,78 @@ button.mark .mlabel { color:var(--ink-2); }
     return `<div class="bigchart">${svg}</div>`;
   }
 
-  /* ---------- thirty-five days, as dots ------------------------------
-     A month cannot be bars on a phone. Seven bars get a 47px slot; thirty
-     get 11px, which is 6px of bar — too thin to read and far too thin to
-     tap, and tapping a day is how you log it.
-
-     So the month view changes the MARK rather than the range. Five rows of
-     seven: filled when the day cleared the target, ringed when something
-     was logged but fell short, dashed when nothing was. Magnitude is gone,
-     which is the point — at a month's distance the only question worth
-     asking is whether this is a habit yet, and that is a shape, not a
-     number. It is also the execution score drawn out: every filled dot is
-     a day that counted.
+  /* ---------- a month, as dots -----------------------------------------
+     A month cannot be bars on a phone: thirty bars get 11px slots, which is
+     6px of bar, too thin to read and far too thin to tap — and tapping a
+     day is how you log it. So the month changes the MARK, not the range:
+     filled when the day cleared the target, ringed when something was
+     logged but fell short, dashed when nothing was. At a month's distance
+     the only question worth asking is whether this is a habit yet, and
+     that is a shape, not a number.
      ------------------------------------------------------------------ */
   const DOWS = ["M","T","W","T","F","S","S"];
 
+  /* ---------- the calendar month -----------------------------------------
+     V2.1. "Month" means the month on the calendar, not the last 35 days.
+     September is September: it starts on its 1st, in the right weekday
+     column, and ‹ › walks back through August and July. A rolling window
+     was a number nobody talks in.
+     ------------------------------------------------------------------ */
+  const monthOf = (iso) => iso.slice(0, 7) + "-01";
+  function monthBounds() {
+    const first = state.monthAnchor || monthOf(todayISO());
+    const d = new Date(first + "T00:00:00Z");
+    const next = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1));
+    const last = shiftISO(next.toISOString().slice(0, 10), -1);
+    return { first, last, days: Number(last.slice(8)) };
+  }
+  const monthWords = (first) => new Date(first + "T00:00:00Z")
+    .toLocaleDateString(undefined, { timeZone:"UTC", month:"long", year:"numeric" });
+  const monthKey = (k) => `${k}:${monthBounds().first}`;
+  const monthData = (k) => state.month[monthKey(k)];
+
   function monthGrid(k) {
     const met = M[k];
-    const days = state.month[k] || [];
-    if (!days.length) return `<p class="loading">Loading\u2026</p>`;
+    const days = monthData(k);
+    if (!days) return `<p class="loading" style="text-align:center">Loading…</p>`;
     const goal = target(me() || {}, k);
     const today = todayISO();
     const sel = entryDay();
-    const hit = days.filter((d) => goal ? Number(d.value) >= goal : Number(d.value) > 0).length;
+    const { first } = monthBounds();
+    // Monday-first: how many empty cells before the 1st.
+    const lead = (new Date(first + "T00:00:00Z").getUTCDay() + 6) % 7;
+    const past = days.filter((d) => d.date <= today);
+    const hit = past.filter((d) => goal ? Number(d.value) >= goal : Number(d.value) > 0).length;
 
     return `
       <div class="gdow">${DOWS.map((d) => `<span>${d}</span>`).join("")}</div>
       <div class="grid" style="color:${met.color}">
+        ${"<span></span>".repeat(lead)}
         ${days.map((d) => {
           const v = Number(d.value) || 0;
-          const cls = v <= 0 ? "none" : (goal ? (v >= goal ? "full" : "part") : "full");
+          const future = d.date > today;
+          const cls = future ? "none" : v <= 0 ? "none"
+                    : (goal ? (v >= goal ? "full" : "part") : "full");
           return `<button type="button" class="gcell ${cls}${d.date === sel ? " sel" : ""}"
-            data-day="${d.date}" ${d.date > today ? "disabled" : ""}
+            data-day="${d.date}" ${future ? "disabled" : ""}
             aria-label="${esc(longLabel(d.date))}: ${v > 0 ? num(Math.round(v)) : "nothing"}"
-            title="${esc(longLabel(d.date))} \u00b7 ${v > 0 ? num(Math.round(v)) : "\u2014"}"></button>`;
+            ><i>${Number(d.date.slice(8))}</i></button>`;
         }).join("")}
       </div>
-      <p class="hint dshint">${hit} of ${days.filter((d) => d.date <= today).length} days
+      <p class="hint dshint" style="text-align:center">${hit} of ${past.length} days
         ${goal ? "cleared your target" : "logged"}.</p>`;
   }
 
-  // The month is its own fetch, and only on the page you are looking at.
-  async function loadMonth() {
+  async function loadMonth(force) {
     const k = state.seg;
-    if (!state.meId) { state.month[k] = []; return; }
-    // 35 days ending on the Sunday of the current week, so the grid always
-    // starts on a Monday and the columns mean what the header says.
-    const end = weekBounds().end;
+    const key = monthKey(k);
+    if (state.month[key] && !force) return;
+    if (!state.meId) { state.month[key] = []; return; }
+    const { last, days } = monthBounds();
     const res = await call("app_history", {
       p_code:state.code, p_person:state.meId,
-      p_days:35, p_metric:M[k].key, p_today:end });
-    state.month[k] = res.error ? [] : (res.days || []);
+      p_days:days, p_metric:M[k].key, p_today:last });
+    state.month[key] = res.error ? [] : (res.days || []);
   }
 
   // Seven points, each a day's steps as a fraction of that person's own
@@ -993,20 +992,7 @@ button.mark .mlabel { color:var(--ink-2); }
   // because the denominator is days ELAPSED — which only the server knows,
   // and which a phone left shut for a week would get wrong in exactly the
   // flattering direction.
-  const execOf = (p) => (p && p.exec) ||
-    { pct: 0, hit: 0, day: 0, of: 84, week_hit: 0, week_of: 0 };
-
-  // V1.7b. A bare 88% floats: no denominator, and over 84 days a single
-  // day moves it by roughly one point, so by mid-cycle nothing you do
-  // today changes what you see. The headline is the rolling week — it
-  // moves every morning and one missed day is visibly one seventh. The
-  // cycle figure is one tap away, because the 12-week horizon is the
-  // point of the framework; it just stops being the thing that shouts.
-  function kpiWords(e) {
-    if (state.kpi === "cycle")
-      return `${e.hit} of ${e.day}<span>this cycle \u00b7 ${e.pct}%</span>`;
-    return `${e.week_hit}/${e.week_of}<span>this week</span>`;
-  }
+  // DELETED in V2.1: execOf and kpiWords, along with the execution score.
 
   // DELETED in V1.7: scoreChip (the rate now lives on the category header,
   // which is where a pillar-level number belongs), engines (the three home
@@ -1101,10 +1087,13 @@ button.mark .mlabel { color:var(--ink-2); }
   // Written to be read in a chat, not on a dashboard: the standings first,
   // who is missing second, the link last. Asterisks are WhatsApp bold.
   function dailyMessage() {
-    const done = state.people.filter(anyLog);
-    const missing = state.people.filter((p) => !anyLog(p));
-    const hit = state.people.filter((p) => p.done);
-    const day = new Date(todayISO() + "T00:00:00Z").toLocaleDateString(undefined,
+    // V2.1. The post is about the FAMILY's day. At 8pm Eastern every
+    // overseas relative is already past their own midnight; reading their
+    // own day here is exactly what used to drop them from the post.
+    const done = state.people.filter(banyLog);
+    const missing = state.people.filter((p) => !banyLog(p));
+    const hit = state.people.filter(bdone);
+    const day = new Date(familyISO() + "T00:00:00Z").toLocaleDateString(undefined,
       { timeZone:"UTC", weekday:"short", month:"short", day:"numeric" });
 
     const lines = [
@@ -1116,17 +1105,17 @@ button.mark .mlabel { color:var(--ink-2); }
     // Ranked here, unlike the app: a chat message is skimmed once and the
     // order is what makes it worth reading. Train is appended only for the
     // people who did some, so ten relatives is not a wall of text.
-    const sorted = [...done].sort((a, b) => val(b,"steps") - val(a,"steps"));
+    const sorted = [...done].sort((a, b) => bval(b,"steps") - bval(a,"steps"));
     for (const p of sorted) {
-      const met = !!p.done;
+      const met = bdone(p);
       // Steps and minutes only \u2014 no pounds, no kilometres, nothing a
       // relative has to convert in their head before the line means
       // something. Train and Cardio are named because they are different
       // things and the family should see which one you did.
       const bits = [];
-      if (val(p, "steps") > 0)  bits.push(num(val(p, "steps")));
-      if (val(p, "train") > 0)  bits.push(num(val(p, "train")) + "m train");
-      if (val(p, "cardio") > 0) bits.push(num(val(p, "cardio")) + "m cardio");
+      if (bval(p, "steps") > 0)  bits.push(num(bval(p, "steps")));
+      if (bval(p, "train") > 0)  bits.push(num(bval(p, "train")) + "m train");
+      if (bval(p, "cardio") > 0) bits.push(num(bval(p, "cardio")) + "m cardio");
       const streak = p.streak > 1 ? `  (${p.streak}-day streak)` : "";
       lines.push(`${met ? "\u2705" : "\u25ab\ufe0f"} ${p.name} \u2014 ${bits.join(" \u00b7 ")}${streak}`);
     }
@@ -1210,9 +1199,6 @@ button.mark .mlabel { color:var(--ink-2); }
   // swim does not throw away a half-logged leg day.
   const liftKey = () => `fhd.lift.${state.code}.${state.meId}.${state.mode}`;
   const exKey   = () => `fhd.ex.${state.code}.${state.meId}.${state.mode}`;
-  const MODE = () => (state.mode === "cardio"
-    ? { key:"cardio", title:"Cardio", verb:"activity", start:"Start an activity" }
-    : { key:"lift",   title:"Lift",   verb:"exercise", start:"Start an empty workout" });
 
   function saveLocal() {
     try {
@@ -1487,8 +1473,7 @@ button.mark .mlabel { color:var(--ink-2); }
     if (!state.lift.labels.length) return "";
     return `
       <section>
-        <div class="section-head"><h2>${state.mode === "cardio"
-            ? "Your activities" : "Your workouts"}</h2>
+        <div class="section-head"><h2>My Templates</h2>
           <span class="eyebrow">tap to start</span></div>
         <div class="tiles">${state.lift.labels.map((l) => `
           <div class="tilewrap">
@@ -2079,7 +2064,11 @@ under it stay in your history, they just stop being a tile.`)) return;
       if (mondayOf(next) !== weekBounds().start) {
         state.weekAnchor = mondayOf(next) === thisMonday() ? null : mondayOf(next);
         await loadHistory();
-        if (state.range === "month") { state.month[state.seg] = null; await loadMonth(); }
+      }
+      // Walking the day off the edge of the month on show moves the month.
+      if (state.range === "month" && monthOf(next) !== monthBounds().first) {
+        state.monthAnchor = monthOf(next) === monthOf(todayISO()) ? null : monthOf(next);
+        await loadMonth();
       }
       render();
     };
@@ -2094,7 +2083,7 @@ under it stay in your history, they just stop being a tile.`)) return;
         state.range = v;
         try { localStorage.setItem("fhd.range", v); } catch {}
         render();
-        if (v === "month" && !state.month[state.seg]) { await loadMonth(); render(); }
+        if (v === "month" && !monthData(state.seg)) { await loadMonth(); render(); }
       }));
 
     // Every dot is a day, and tapping one selects it exactly as a bar does.
@@ -2140,9 +2129,45 @@ under it stay in your history, they just stop being a tile.`)) return;
     on("wPrev", "click", () => stepWeek(-1));
     on("wNext", "click", () => stepWeek(1));
 
-    on("save", "click", saveNumber);
-    on("steps", "keydown", (e) => {
-      if (e.key === "Enter") document.getElementById("save").click(); });
+    // A month at a time. The selection moves with it, like the week does,
+    // so the log box never points at a day the grid isn't showing.
+    const stepMonth = async (n) => {
+      const d = new Date(monthBounds().first + "T00:00:00Z");
+      const first = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + n, 1))
+        .toISOString().slice(0, 10);
+      if (first > monthOf(todayISO())) return;
+      state.monthAnchor = first === monthOf(todayISO()) ? null : first;
+      const b = monthBounds();
+      state.entryDate = state.monthAnchor ? b.last : null;
+      state.msg = null;
+      render();
+      await loadMonth();
+      render();
+    };
+    on("mPrev", "click", () => stepMonth(-1));
+    on("mNext", "click", () => stepMonth(1));
+
+    // V2.1. The big number is the input. Show it formatted; edit it raw.
+    const big = document.getElementById("steps");
+    if (big && big.classList.contains("bigedit")) {
+      big.addEventListener("focus", () => {
+        big.value = big.dataset.raw || "";
+        requestAnimationFrame(() => big.select());
+      });
+      big.addEventListener("keydown", (e) => { if (e.key === "Enter") big.blur(); });
+      big.addEventListener("blur", async () => {
+        const raw = (big.value || "").replace(/[^0-9]/g, "");
+        if (raw === "" || raw === (big.dataset.raw || "")) {
+          // Nothing changed: put the formatted number back and do nothing.
+          big.value = big.dataset.raw ? num(Number(big.dataset.raw)) : "";
+          return;
+        }
+        big.value = num(Number(raw));
+        await saveNumber(raw);
+      });
+    }
+
+
 
     document.querySelectorAll('[data-edit="goal"]').forEach((el) =>
       el.addEventListener("click", () => {
@@ -2155,13 +2180,9 @@ under it stay in your history, they just stop being a tile.`)) return;
 
   // V1.7b. One save for all three metrics. Minutes used to be writable
   // only by the logger; now they can be typed, and a typed number wins.
-  async function saveNumber(e) {
+  async function saveNumber(raw) {
     const k = state.seg;
-    const raw = (document.getElementById("steps").value || "").replace(/[^0-9]/g, "");
-    if (raw === "") {
-      state.msg = "Enter a number."; state.msgKind = "bad"; render(); return;
-    }
-    e.target.disabled = true;
+    if (raw === "" || raw === undefined) return;
     // p_date is null for today on purpose. The server decides what "today"
     // means for this person; the phone only says which zone it is in. A page
     // that has been open since yesterday therefore cannot write yesterday.
@@ -2171,7 +2192,7 @@ under it stay in your history, they just stop being a tile.`)) return;
     state.msg = res.error ? res.error : "Saved. Your family can see it.";
     state.msgKind = res.error ? "bad" : "ok";
     if (!res.error) state.entryDate = null;
-    if (state.range === "month") { state.month[k] = null; await loadMonth(); }
+    if (state.range === "month") await loadMonth(true);
     await refresh();
     setTimeout(() => { state.msg = null; state.msgKind = null; }, 100);
   }
@@ -2275,57 +2296,110 @@ under it stay in your history, they just stop being a tile.`)) return;
   // stop opening the app.
   const anyLog = (p) => val(p,"steps") > 0 || val(p,"train") > 0 || val(p,"cardio") > 0;
 
-  function todayWords(p) {
-    const bits = [];
-    if (val(p,"steps")  > 0) bits.push(`${num(val(p,"steps"))} steps`);
-    if (val(p,"train")  > 0) bits.push(`${num(val(p,"train"))}m train`);
-    if (val(p,"cardio") > 0) bits.push(`${num(val(p,"cardio"))}m cardio`);
-    return bits.length ? bits.join(" \u00b7 ") : "Tap to log today";
+  // Undo lives for six seconds after a stamp: long enough to notice a
+  // mis-tap, short enough not to sit on the screen as clutter.
+  let undoTimer = null;
+  function armUndo(u) {
+    state.undo = u;
+    if (undoTimer) clearTimeout(undoTimer);
+    undoTimer = setTimeout(() => { state.undo = null; if (state.view === "board") render(); }, 6000);
+  }
+  function disarmUndo() {
+    state.undo = null;
+    if (undoTimer) { clearTimeout(undoTimer); undoTimer = null; }
   }
 
-  // V1.7. Exercise is a MASTER CATEGORY, not a destination.
-  //
-  // The header labels it and carries its state and its execution rate. The
-  // three tiles under it are what you tap, and each is one tap from home
-  // to the number it holds. That cost Train and Cardio a tap in V1.6,
-  // where they sat behind an overview screen that has now been deleted.
-  //
-  // It also scales: Sleep arrives as a second header with its own tiles,
-  // and nothing on this screen has to be redesigned to make room.
-  function markRow(p, clickable) {
-    const on = anyLog(p);
-    const quiet = PILLARS.filter((pl) => !pl.live);
-    const e = execOf(p);
 
-    const tiles = [
-      { k:"steps",  label:"Steps",  v: val(p,"steps"),
-        unit: target(p,"steps") ? `of ${num(Math.round(target(p,"steps")))}` : "steps" },
-      { k:"train",  label:"Train",  v: val(p,"train"),  unit:"minutes" },
-      { k:"cardio", label:"Cardio", v: val(p,"cardio"), unit:"minutes" },
-    ];
+  /* ---------- the pillars, as rows ------------------------------------
+     V2.1. Each live pillar is ONE ROW: a status circle, its name, and its
+     chips on the same line. A row is the unit that scales — Sleep arrived
+     as a second row without touching the first, and Meditate, Diet and
+     Great Work will each arrive the same way. Until then they share one
+     quiet line, so the five-pillar shape stays on screen without three
+     rows of nothing.
+
+     A chip is value on top, tiny label below. Outline when empty, filled
+     when logged. Small enough for three beside a name on a phone, large
+     enough (44px) to hit with a thumb.
+     ------------------------------------------------------------------ */
+  const shortNum = (v) => v >= 10000 ? (v / 1000).toFixed(1).replace(/\.0$/, "") + "k"
+                        : v >= 1000  ? (v / 1000).toFixed(1).replace(/\.0$/, "") + "k"
+                        : String(Math.round(v));
+
+  // Minutes after midnight -> "10:40p". Values past 1440 are after-midnight
+  // bedtimes stored on the evening's date, so they wrap.
+  function clockWords(min) {
+    if (min === null || min === undefined || min === "") return "";
+    const m = ((Math.round(Number(min)) % 1440) + 1440) % 1440;
+    const h = Math.floor(m / 60), mm = m % 60;
+    const h12 = ((h + 11) % 12) + 1;
+    return `${h12}:${pad(mm)}${h < 12 ? "a" : "p"}`;
+  }
+  const clockInput = (min) => {
+    const m = ((Math.round(Number(min)) % 1440) + 1440) % 1440;
+    return `${pad(Math.floor(m / 60))}:${pad(m % 60)}`;
+  };
+
+  const SLEEP = [
+    { k:"rest", key:"rest_time", label:"Rest" },
+    { k:"rise", key:"rise_time", label:"Rise" },
+    { k:"meal", key:"meal_time", label:"Meal" },
+  ];
+  const sleepVal = (p, k) => { const v = p[k]; return v === null || v === undefined ? null : Number(v); };
+  const sleepAny = (p) => SLEEP.some((x) => sleepVal(p, x.k) !== null);
+
+  function markRow(p, clickable) {
+    const exOn = anyLog(p);
+    const slOn = sleepAny(p);
+
+    const exChips = [
+      { k:"steps",  label:"Steps",  v: val(p,"steps"),  w: (v) => shortNum(v) },
+      { k:"train",  label:"Train",  v: val(p,"train"),  w: (v) => Math.round(v) + "m" },
+      { k:"cardio", label:"Cardio", v: val(p,"cardio"), w: (v) => Math.round(v) + "m" },
+    ].map((c) => {
+      const inner = `<b>${c.v > 0 ? c.w(c.v) : "–"}</b><span>${c.label}</span>`;
+      return clickable
+        ? `<button type="button" class="chip${c.v > 0 ? " on" : ""}" data-tile="${c.k}"
+             aria-label="${c.label}: ${c.v > 0 ? c.w(c.v) : "nothing yet"}">${inner}</button>`
+        : `<span class="chip${c.v > 0 ? " on" : ""}">${inner}</span>`;
+    }).join("");
+
+    // Empty sleep chip: one tap stamps NOW. Stamped: the chip is a native
+    // time input laid over itself, so one tap opens the iPhone wheel to
+    // correct it. Undo covers the accidental stamp.
+    const slChips = SLEEP.map((x) => {
+      const v = sleepVal(p, x.k);
+      const inner = `<b>${v !== null ? clockWords(v) : "–"}</b><span>${x.label}</span>`;
+      if (!clickable) return `<span class="chip${v !== null ? " on" : ""}">${inner}</span>`;
+      if (v === null)
+        return `<button type="button" class="chip" data-stamp="${x.key}"
+                  aria-label="${x.label}: tap to record now">${inner}</button>`;
+      return `<label class="chip on" aria-label="${x.label}: ${clockWords(v)}, tap to change">
+                ${inner}
+                <input type="time" class="chiptime" data-stime="${x.key}"
+                       value="${clockInput(v)}">
+              </label>`;
+    }).join("");
+
+    const quiet = PILLARS.filter((pl) => !pl.live && pl.key !== "sleep").map((pl) => pl.label);
 
     return `
-      <div class="cat${on ? " done" : ""}">
-        <span class="box" aria-hidden="true">\u2713</span>
-        <h2>${esc(PILLARS.find((x) => x.live).label)}</h2>
-        ${e.day ? (clickable
-          ? `<button type="button" class="score" id="kpi">${kpiWords(e)}</button>`
-          : `<span class="score">${kpiWords(e)}</span>`) : ""}
+      <div class="prow${exOn ? " done" : ""}">
+        <span class="pdot" aria-hidden="true">✓</span>
+        <span class="pname">Exercise</span>
+        <div class="chips">${exChips}</div>
       </div>
-      <div class="cattiles">${tiles.map((t) => {
-        const inner = `
-          <span class="t3l">${t.label}</span>
-          <span class="t3v">${t.v > 0 ? num(Math.round(t.v)) : "\u2013"}</span>
-          <span class="t3u">${esc(t.unit)}</span>`;
-        return clickable
-          ? `<button type="button" class="tile3${t.v > 0 ? " on" : ""}"
-               data-tile="${t.k}" aria-label="${t.label}, open">${inner}</button>`
-          : `<div class="tile3${t.v > 0 ? " on" : ""}">${inner}</div>`;
-      }).join("")}</div>
-      <div class="marks">${quiet.map((pl) =>
-        `<span class="mark" aria-hidden="true">
-          <span class="pip off"></span><span class="mlabel">${esc(pl.label)}</span>
-        </span>`).join("")}</div>`;
+      <div class="prow${slOn ? " done" : ""}">
+        <span class="pdot" aria-hidden="true">✓</span>
+        <span class="pname">Sleep</span>
+        <div class="chips">${slChips}</div>
+      </div>
+      ${state.undo ? `
+        <div class="undobar" role="status">
+          <span>${esc(state.undo.words)}</span>
+          <button type="button" id="undoStamp">Undo</button>
+        </div>` : ""}
+      <p class="soon">${quiet.map(esc).join(" · ")}<em>soon</em></p>`;
   }
 
   // One editor, two screens: names are edited on the board, goals on
@@ -2347,9 +2421,9 @@ under it stay in your history, they just stop being a tile.`)) return;
 
   function boardView() {
     const m = me();
-    const livePillars = PILLARS.filter((x) => x.live).length;
-    const logged = state.people.filter(anyLog).length;
-    const moved  = state.people.filter((p) => p.done).length;
+    // The family's day, not anyone's own: see board() above.
+    const logged = state.people.filter(banyLog).length;
+    const moved  = state.people.filter(bdone).length;
 
     const whoOptions = state.people.length === 0
       ? `<option value="">nobody yet</option>`
@@ -2364,7 +2438,6 @@ under it stay in your history, they just stop being a tile.`)) return;
           <span class="eyebrow">${m.streak > 0 ? m.streak + "-day streak" : "today"}</span>
         </div>
         ${markRow(m, true)}
-        <p class="note mcap">${livePillars} of ${PILLARS.length} pillars measured</p>
       </section>` : `
       <div class="dashed"><p class="note">Pick your name above, or add it,
         and your day appears here.</p></div>`;
@@ -2373,11 +2446,22 @@ under it stay in your history, they just stop being a tile.`)) return;
       ? `<div class="dashed"><p class="note">Nobody has been added yet.
            Add the first name above.</p></div>`
       : `<div class="roster">${state.people.map((p) => {
-          const v = val(p, "steps"), t = target(p, "steps");
+          const v = bval(p, "steps"), t = target(p, "steps");
+          const bd = board(p);
+          // Bed and wake read as one range: 10:30p–5:30a says "slept then"
+          // in half the width of two labels, which is what lets it fit on
+          // one line beside the steps column.
+          const has = (k) => bd[k] !== null && bd[k] !== undefined;
+          const sleepLine = [
+            has("rest") && has("rise") ? `${clockWords(bd.rest)}\u2013${clockWords(bd.rise)}`
+              : has("rest") ? `rest ${clockWords(bd.rest)}`
+              : has("rise") ? `rise ${clockWords(bd.rise)}` : "",
+            has("meal") ? `meal ${clockWords(bd.meal)}` : "",
+          ].filter(Boolean).join(" \u00b7 ");
           const initials = p.name.trim().split(/\s+/).slice(0,2)
             .map((w) => (w[0] || "").toUpperCase()).join("");
           const isMe = p.id === state.meId;
-          return `<div class="person${p.done ? " did" : ""}">
+          return `<div class="person${bdone(p) ? " did" : ""}">
             <span class="dot" aria-hidden="true"
               style="background:color-mix(in oklab, hsl(${p.hue} 62% 48%) 16%, var(--surface));
                      color:color-mix(in oklab, hsl(${p.hue} 62% 48%) 78%, var(--ink))"
@@ -2390,25 +2474,26 @@ under it stay in your history, they just stop being a tile.`)) return;
                 ${p.streak > 1 ? `<em>${p.streak}d</em>` : ""}
               </div>
               <div class="sub2">${[
-                  p.lifted ? `<button class="liftchip" data-see="${p.id}" data-m="lift"
-                     aria-label="See ${esc(p.name)}'s workout">${val(p,"train")}m train</button>` : "",
-                  Number(p.cardio_distance) > 0 || val(p,"cardio") > 0
+                  bval(p,"train") > 0 ? `<button class="liftchip" data-see="${p.id}" data-m="lift"
+                     aria-label="See ${esc(p.name)}'s workout">${bval(p,"train")}m train</button>` : "",
+                  Number(bd.cardio_distance) > 0 || bval(p,"cardio") > 0
                     ? `<button class="liftchip cardio" data-see="${p.id}" data-m="cardio"
-                     aria-label="See ${esc(p.name)}'s cardio">${val(p,"cardio")}m${
-                       Number(p.cardio_distance) > 0 ? " \u00b7 " + esc(distWords(p.cardio_distance)) : ""
+                     aria-label="See ${esc(p.name)}'s cardio">${bval(p,"cardio")}m${
+                       Number(bd.cardio_distance) > 0 ? " \u00b7 " + esc(distWords(bd.cardio_distance)) : ""
                      }</button>` : "",
                 ].filter(Boolean).join(" ") || "&nbsp;"}</div>
+              ${sleepLine ? `<div class="sleepline">${esc(sleepLine)}</div>` : ""}
             </div>
             <div class="num"><b>${v > 0 ? num(v) : "&mdash;"}</b>
-              <span class="${p.done ? "met" : ""}">${
-                p.done ? "\u2713 moved" : v > 0 ? "of " + num(t) : "nothing yet"}</span></div>
+              <span class="${bdone(p) ? "met" : ""}">${
+                bdone(p) ? "\u2713 moved" : v > 0 ? "of " + num(t) : "nothing yet"}</span></div>
           </div>`;
         }).join("")}</div>`;
 
     return `
       <header class="masthead">
         <h1>${esc(state.group.name)}</h1>
-        <p class="sub">${esc(new Date(todayISO() + "T00:00:00Z").toLocaleDateString(undefined,
+        <p class="sub">${esc(new Date(familyISO() + "T00:00:00Z").toLocaleDateString(undefined,
           { timeZone:"UTC", weekday:"long", month:"long", day:"numeric" }))}</p>
       </header>
 
@@ -2454,26 +2539,6 @@ under it stay in your history, they just stop being a tile.`)) return;
      outgrow when the other four pillars arrive.
      ------------------------------------------------------------------ */
 
-  // V1.6. The chart is the form. One line under the bar you tapped, showing
-  // whichever day is selected — today when you land, so the common case is
-  // still type-and-go and nothing had to be picked from a date field.
-  function daySheet() {
-    const iso = entryDay();
-    const rec = dayRecord("steps");
-    const label = iso === todayISO() ? "Today" : longLabel(iso);
-    return `
-      <div class="daysheet">
-        <span>${esc(label)}</span>
-        <input id="steps" type="number" inputmode="numeric" placeholder="0"
-               aria-label="Steps on ${esc(label)}"
-               value="${rec.logged ? rec.value : ""}">
-        <em>steps</em>
-        <button class="btn-quiet" id="save">${rec.logged ? "Update" : "Log"}</button>
-      </div>
-      ${state.msg
-        ? `<p class="hint dshint ${state.msgKind || ""}" id="hint">${esc(state.msg)}</p>`
-        : `<p class="hint dshint">Tap any bar to log that day.</p>`}`;
-  }
 
   /* ---------- one page per metric --------------------------------------
      V1.7. Steps, Train and Cardio are three pages built from one template,
@@ -2512,7 +2577,12 @@ under it stay in your history, they just stop being a tile.`)) return;
     const isToday = iso === todayISO();
     const goal = target(m, k);
     const shown = isToday ? val(m, k) : rec.value;
+    const has = isToday ? (k === "steps" ? !!m.steps_logged : shown > 0) : rec.logged;
 
+    // V2.1. The number IS the input. Tap it and the keyboard comes up with
+    // the digits selected; leave it and it saves. There is no second box
+    // to find and no button to press, which on an iPhone numeric keypad —
+    // it has no return key — was always one more thing to hunt for.
     return `
       <section class="card">
         <div class="daynav">
@@ -2523,29 +2593,21 @@ under it stay in your history, they just stop being a tile.`)) return;
         </div>
 
         <div class="domino" style="padding-top:10px">
-          <b class="big" style="color:${met.color}">${num(Math.round(shown))}</b>
+          <input class="bigedit" id="steps" type="text" inputmode="numeric"
+                 pattern="[0-9]*" autocomplete="off" enterkeyhint="done"
+                 style="color:${met.color}"
+                 value="${has ? num(Math.round(shown)) : ""}" placeholder="0"
+                 data-raw="${has ? Math.round(shown) : ""}"
+                 aria-label="${esc(met.label)} on ${isToday ? "today" : esc(fullDate(iso))}, tap to edit">
           <button type="button" class="of" data-edit="goal" data-metric="${k}">${goal
             ? `of <b>${num(Math.round(goal))}</b> ${met.unit}`
             : `set a ${esc(met.label.toLowerCase())} target`}</button>
         </div>
 
-        <div class="logrow">
-          <input id="steps" type="number" inputmode="numeric" placeholder="0"
-                 aria-label="${esc(met.label)} on ${isToday ? "today" : esc(fullDate(iso))}"
-                 value="${rec.logged ? rec.value : ""}">
-          <em>${esc(met.unit)}</em>
-          <button class="btn" id="save" style="background:${met.color};padding:11px 20px">${
-            rec.logged ? "Update" : "Log"}</button>
-        </div>
-
-        ${k === "steps" ? "" : `
-          <button class="btn-quiet" id="startEmpty" style="width:100%;margin-top:10px">
-            ${k === "cardio" ? "Start an activity" : "Start a workout"} instead</button>`}
-
-        <p class="hint dshint ${state.msgKind || ""}" id="hint">${state.msg ? esc(state.msg)
-          : k === "steps"
-            ? "Or tap a day on the graph below."
-            : "A workout you log fills this in \u2014 a number you type wins."}</p>
+        <p class="hint dshint ${state.msgKind || ""}" id="hint"
+           style="text-align:center">${state.msg ? esc(state.msg)
+          : has ? "Tap the number to change it."
+                : `Tap the number to log ${isToday ? "today" : "this day"}.`}</p>
       </section>`;
   }
 
@@ -2553,11 +2615,15 @@ under it stay in your history, they just stop being a tile.`)) return;
     const met = M[k];
     const month = state.range === "month";
     const total = points(k).reduce((t, p) => t + p.value, 0);
+    const mb = monthBounds();
 
+    // V2.1. The period control sits at the TOP of the graph, mirroring the
+    // day control at the top of the log box: two cards, the same shape,
+    // each saying first which slice of time it is showing.
     return `
       <section>
         <div class="section-head">
-          <h2>${month ? "Last 5 weeks" : "The week"}</h2>
+          <h2>Trend</h2>
           <div class="rangetog" role="group" aria-label="How much to show">
             ${[["week","Week"],["month","Month"]].map(([v, l]) =>
               `<button type="button" data-range="${v}"
@@ -2565,18 +2631,23 @@ under it stay in your history, they just stop being a tile.`)) return;
           </div>
         </div>
         <div class="card">
-          ${month ? monthGrid(k) : `
-            <div class="mini-head">
-              <span class="mini-name" style="color:${met.color}">${met.label}</span>
-              <span class="mini-total">${num(Math.round(total))} ${esc(met.unit)}</span>
+          ${month ? `
+            <div class="daynav">
+              <button type="button" id="mPrev" aria-label="Previous month">&lsaquo;</button>
+              <span class="wlab">${esc(monthWords(mb.first))}</span>
+              <button type="button" id="mNext" aria-label="Next month"
+                ${mb.first === monthOf(todayISO()) ? "disabled" : ""}>&rsaquo;</button>
             </div>
-            ${miniChart(k)}
-            <div class="weekrow">
+            ${monthGrid(k)}` : `
+            <div class="daynav">
               <button type="button" id="wPrev" aria-label="Previous week">&lsaquo;</button>
               <span class="wlab">${esc(weekWords())}</span>
               <button type="button" id="wNext" aria-label="Next week"
                 ${weekBounds().start === thisMonday() ? "disabled" : ""}>&rsaquo;</button>
-            </div>`}
+            </div>
+            ${miniChart(k)}
+            <p class="hint dshint" style="text-align:center">${num(Math.round(total))}
+              ${esc(met.unit)} this week</p>`}
         </div>
       </section>`;
   }
@@ -2613,8 +2684,11 @@ under it stay in your history, they just stop being a tile.`)) return;
       ${graphCard(k)}
 
       ${k === "steps" ? "" : `
-        ${unitRow}
+        <button class="btn" id="startEmpty"
+                style="width:100%;margin-top:22px;background:${met.color}">
+          ${k === "cardio" ? "Start an Empty Activity" : "Start an Empty Workout"}</button>
         ${liftTiles()}
+        ${unitRow}
         ${liftHistory()}`}
 
       ${famBlock()}
@@ -2830,11 +2904,50 @@ under it stay in your history, they just stop being a tile.`)) return;
     document.querySelectorAll("[data-tile]").forEach((el) =>
       el.addEventListener("click", () => openExercise(el.dataset.tile)));
 
-    on("kpi", "click", () => {
-      state.kpi = state.kpi === "week" ? "cycle" : "week";
-      try { localStorage.setItem("fhd.kpi", state.kpi); } catch {}
-      render();
+    // V2.1. An empty sleep chip stamps NOW, on the server, in this
+    // person's zone, under the 5am rule. One tap, then six seconds to undo.
+    document.querySelectorAll("[data-stamp]").forEach((el) =>
+      el.addEventListener("click", async () => {
+        if (!state.meId) return;
+        el.disabled = true;
+        const key = el.dataset.stamp;
+        const res = await call("app_stamp", {
+          p_code: state.code, p_person: state.meId, p_metric: key, p_tz: deviceTZ() });
+        if (res.error) { el.disabled = false; alert(res.error); return; }
+        const label = SLEEP.find((x) => x.key === key).label;
+        armUndo({ key, date: res.date, words: `${label} ${clockWords(res.value)} saved` });
+        await refresh();
+      }));
+
+    // A stamped chip is a native time input: changing it corrects the time
+    // for the SAME day the stamp was filed under. Clearing it removes it.
+    document.querySelectorAll("[data-stime]").forEach((el) =>
+      el.addEventListener("change", async () => {
+        const key = el.dataset.stime;
+        const m = me();
+        const date = key === "rest_time" ? m.rest_day : m.their_date;
+        if (!el.value) {
+          await call("app_unlog", { p_code: state.code, p_person: state.meId,
+                                    p_metric: key, p_date: date });
+          await refresh(); return;
+        }
+        const [h, mm] = el.value.split(":").map(Number);
+        let v = h * 60 + mm;
+        if (key === "rest_time" && h < 5) v += 1440;   // after midnight, same evening
+        await call("app_log", { p_code: state.code, p_person: state.meId,
+          p_value: v, p_metric: key, p_date: date, p_tz: deviceTZ() });
+        await refresh();
+      }));
+
+    on("undoStamp", "click", async () => {
+      const u = state.undo;
+      if (!u) return;
+      disarmUndo();
+      await call("app_unlog", { p_code: state.code, p_person: state.meId,
+                                p_metric: u.key, p_date: u.date });
+      await refresh();
     });
+
 
     // Tap someone's volume chip to read the session behind it. The board
     // stays a scoreboard; the detail is one tap away for whoever wants it.
@@ -2870,7 +2983,6 @@ under it stay in your history, they just stop being a tile.`)) return;
       state.meId = loadMe();
       state.fam.open = famOpen();
       try {
-        state.kpi = localStorage.getItem("fhd.kpi") === "cycle" ? "cycle" : "week";
         state.range = localStorage.getItem("fhd.range") === "month" ? "month" : "week";
         state.histOpen = localStorage.getItem("fhd.hist") === "open";
       } catch {}
