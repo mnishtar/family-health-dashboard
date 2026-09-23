@@ -38,6 +38,7 @@
   --train:#c2600f; --train-soft:#f6e3d2;
   --swim:#1f6f9b;  --swim-soft:#d9e9f3;
   --warn:#8a4a12; --warn-soft:#f6ecdf;
+  --sleep:#4f5bd5; --sleep-soft:#e4e6fb;
   --shadow:0 1px 2px rgba(9,26,21,.05), 0 8px 24px -16px rgba(9,26,21,.25);
   --display:"Newsreader",Georgia,serif;
   --body:"Public Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -53,6 +54,7 @@
     --train:#cf7a33; --train-soft:#3a2a1a;
     --swim:#59a6cf;  --swim-soft:#16303e;
     --warn:#e0a86a; --warn-soft:#2a2318;
+    --sleep:#8d97ec; --sleep-soft:#20244a;
     --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
     color-scheme: dark;
   }
@@ -179,6 +181,23 @@ input[type=number] { -moz-appearance:textfield; }
   letter-spacing:-.04em; padding:2px 0 4px; border-radius:12px; caret-color:currentColor; }
 .bigedit::placeholder { color:var(--line-strong); }
 .bigedit:focus { outline:none; background:var(--surface-2); }
+.bigtime { position:relative; display:block; }
+.bigtime b { display:block; font-family:var(--mono); font-size:52px; line-height:1;
+  font-weight:500; letter-spacing:-.04em; padding:2px 0 4px; }
+.bigtime b.none { font-family:var(--body); font-size:26px; font-weight:400;
+  color:var(--muted); padding:16px 0 14px; }
+.bigtime input { position:absolute; inset:0; width:100%; height:100%; opacity:0;
+  border:none; padding:0; margin:0; cursor:pointer; font-size:16px; }
+.habits { margin-top:6px; }
+.habit { display:flex; align-items:center; gap:11px; width:100%; padding:11px 13px;
+  margin-top:7px; border:1px solid var(--line); border-radius:12px;
+  background:var(--surface); font-family:inherit; font-size:14px; color:var(--ink);
+  text-align:left; cursor:pointer; line-height:1.3; }
+.habit.on { border-color:var(--sleep); background:var(--sleep-soft); }
+.habit .hbox { flex:none; width:22px; height:22px; border-radius:7px;
+  border:1.5px solid var(--line-strong); display:grid; place-items:center;
+  color:transparent; font-size:12px; line-height:1; }
+.habit.on .hbox { background:var(--sleep); border-color:var(--sleep); color:#fff; }
 .sessdate { margin-top:9px; border:1px solid var(--line); border-radius:999px;
   background:var(--surface); font-family:inherit; font-size:12.5px; color:var(--ink-2);
   padding:5px 12px; cursor:pointer; }
@@ -301,6 +320,11 @@ input[type=number] { -moz-appearance:textfield; }
    the native wheel, with no showPicker() support needed */
 .chiptime { position:absolute; inset:0; width:100%; height:100%; opacity:0;
   border:none; padding:0; margin:0; cursor:pointer; font-size:16px; }
+.netbar { display:flex; align-items:center; justify-content:space-between; gap:10px;
+  margin:0 0 12px; padding:9px 13px; border-radius:10px; background:var(--warn-soft);
+  border:1px solid var(--line); font-size:12.5px; color:var(--ink-2); }
+.netbar button { border:none; background:none; font-family:inherit; font-size:12.5px;
+  font-weight:600; color:var(--warn); cursor:pointer; padding:2px 4px; }
 .undobar { display:flex; align-items:center; justify-content:space-between; gap:10px;
   margin:2px 0 6px; padding:8px 12px; border-radius:10px; background:var(--surface-2);
   font-size:12.5px; color:var(--ink-2); }
@@ -434,7 +458,7 @@ input[type=number] { -moz-appearance:textfield; }
   overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .xbtn { background:none; border:none; color:var(--muted); cursor:pointer;
   font-size:18px; line-height:1; padding:2px 5px; }
-.setgrid { display:grid; grid-template-columns:24px 1fr 1fr 44px; gap:8px;
+.setgrid { display:grid; grid-template-columns:22px 1fr 1fr 40px 26px; gap:7px;
   align-items:center; margin-top:9px; }
 .setgrid .hd { font-size:10px; font-weight:700; letter-spacing:.08em;
   text-transform:uppercase; color:var(--muted); text-align:center; }
@@ -489,7 +513,19 @@ input[type=number] { -moz-appearance:textfield; }
   font-family:inherit; color:var(--ink); cursor:pointer; }
 .sheet button:first-child { border-top:none; }
 
-.setgrid.one { grid-template-columns:24px 1fr 44px; }
+.setgrid.one { grid-template-columns:22px 1fr 40px 26px; }
+.xset { border:none; background:none; color:var(--line-strong); font-size:17px;
+  line-height:1; padding:0; cursor:pointer; }
+.xset:hover, .xset:active { color:var(--warn); }
+.exname { flex:1; min-width:0; border:none; background:none; font-family:inherit;
+  font-size:15px; font-weight:600; color:var(--ink); padding:2px 0; }
+.exname:focus { outline:none; border-bottom:1px solid var(--train); }
+.durwrap { display:inline-flex; align-items:baseline; gap:4px; }
+.durin { width:62px; border:1px solid var(--line-strong); background:var(--surface);
+  border-radius:9px; padding:4px 8px; font-family:var(--mono); font-size:19px;
+  font-weight:500; text-align:right; color:var(--ink); }
+.durin:focus { outline:none; border-color:var(--train); }
+.durwrap em { font-style:normal; font-size:11px; color:var(--muted); }
 .kindpick { display:flex; align-items:center; gap:6px; margin-top:9px;
   font-size:11px; color:var(--muted); }
 .kindpick button { border:1px solid var(--line); background:none; border-radius:999px;
@@ -569,10 +605,52 @@ input[type=number] { -moz-appearance:textfield; }
     sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   }
 
+  /* ---------- talking to the database --------------------------------
+     V2.1b. A lost packet must not be able to kill the app.
+
+     Every request here can fail two ways, and they are nothing alike. The
+     database saying "no group with that code" is final: no amount of
+     retrying changes it. A fetch that never reached the database is
+     weather — the phone came back from the background, the lift had no
+     signal, the wifi handed over. Safari reports the second as
+     "TypeError: Load failed", and until now the app took that literally
+     and painted a dead screen whose only button threw away the join code.
+
+     So a failure is classified at the only place it can be, and network
+     failures never become state.fatal.
+     ------------------------------------------------------------------ */
+  const OFFLINE_RX = /load failed|failed to fetch|networkerror|network request failed|timeout|aborted/i;
+  const isNetwork = (m) => !m || OFFLINE_RX.test(m);
+
   async function call(fn, args) {
-    const { data, error } = await sb.rpc(fn, args);
-    if (error) return { error: error.message };
-    return data || {};
+    try {
+      const { data, error } = await sb.rpc(fn, args);
+      if (error) {
+        return isNetwork(error.message)
+          ? { error: error.message, offline: true }
+          : { error: error.message };
+      }
+      return data || {};
+    } catch (e) {
+      // supabase-js normally hands errors back rather than throwing, but a
+      // throw here is by definition not the database's answer.
+      return { error: (e && e.message) || "Network error", offline: true };
+    }
+  }
+
+  // The same call, retried while the failure is only weather. Three goes
+  // over about seven seconds, then it gives up quietly and the caller
+  // keeps whatever was on screen.
+  async function callRetry(fn, args, tries = 3) {
+    let last = null;
+    for (let i = 0; i < tries; i++) {
+      if (i && !navigator.onLine) break;
+      const res = await call(fn, args);
+      if (!res.offline) return res;
+      last = res;
+      if (i < tries - 1) await new Promise((r) => setTimeout(r, 1000 * Math.pow(2, i)));
+    }
+    return last;
   }
 
   // Exercise is ONE pillar with three numbers in it. Train is lifting and
@@ -583,7 +661,36 @@ input[type=number] { -moz-appearance:textfield; }
     steps:  { key:"steps",      label:"Steps",  unit:"steps",   color:"var(--series)", soft:"var(--soft)" },
     train:  { key:"train_min",  label:"Train",  unit:"minutes", color:"var(--train)",  soft:"var(--train-soft)" },
     cardio: { key:"cardio_min", label:"Cardio", unit:"minutes", color:"var(--swim)",   soft:"var(--swim-soft)" },
+    // V2.1b. Two of these are TIMES: the number is a clock reading, and
+    // lower is better for both — going to bed later and getting up later
+    // are the same kind of miss.
+    rest:   { key:"rest_time",  label:"Rest",   unit:"time", color:"var(--sleep)", soft:"var(--sleep-soft)", time:true, night:true },
+    rise:   { key:"rise_time",  label:"Rise",   unit:"time", color:"var(--sleep)", soft:"var(--sleep-soft)", time:true },
+    sleep:  { key:"sleep_items",label:"Sleep Score", unit:"%", color:"var(--sleep)", soft:"var(--sleep-soft)", bits:true, night:true },
   };
+
+  /* ---------- the twelve habits --------------------------------------
+     Stored as one integer per night, one bit each, in this order. The
+     order is the evening in sequence — what you do hours before bed, then
+     the room, then the clock — so the list reads like a night rather than
+     a checklist someone sorted alphabetically.
+     ------------------------------------------------------------------ */
+  const HABITS = [
+    { g:"Evening", t:"Last meal 4h before bed" },
+    { g:"Evening", t:"No caffeine 12h before bed" },
+    { g:"Evening", t:"No hard exercise 4h before bed" },
+    { g:"Evening", t:"Dim lights, no screens, 1h before" },
+    { g:"Evening", t:"Wind-down routine, 30 min before" },
+    { g:"Bedroom", t:"Room 60\u201367\u00b0F" },
+    { g:"Bedroom", t:"Dark room, or an eye mask" },
+    { g:"Bedroom", t:"Quiet room, or white noise" },
+    { g:"Clock",   t:"In bed within 15 min of target" },
+    { g:"Clock",   t:"Bright light within 15 min of waking" },
+    { g:"Habits",  t:"Bed used only for sleep" },
+    { g:"Habits",  t:"Sleep tracked \u2014 journal or device" },
+  ];
+  const bitsOn = (v) => { let n = 0, x = Number(v) || 0; while (x) { n += x & 1; x >>= 1; } return n; };
+  const scorePct = (v) => Math.round(bitsOn(v) / HABITS.length * 100);
 
   // The five pillars, in the order they will always appear. Four are dark
   // and unclickable until they are measured; showing them anyway is the
@@ -609,7 +716,7 @@ input[type=number] { -moz-appearance:textfield; }
     metric: { key:"steps", unit:"steps", default_target:8000 },
     people: [],
     meId: null,
-    history: { steps: [], train: [], cardio: [] },
+    history: {},          // one week of the metric on screen, by short key
     adding: false,
     editing: null,        // null | 'name' | 'goal'
     editPerson: null,
@@ -626,6 +733,7 @@ input[type=number] { -moz-appearance:textfield; }
     // The family block, per metric, fetched on first open and kept.
     fam: { open: false, data: {} },
     undo: null,           // { key, date, words } for a few seconds after a stamp
+    net: "ok",            // ok | offline — whether the last call reached the database
     range: "week",        // week | month — which graph the page is showing
     month: {},            // per metric per calendar month, fetched when Month is opened
     monthAnchor: null,    // first of the month on show; null means this month
@@ -667,9 +775,15 @@ input[type=number] { -moz-appearance:textfield; }
     // p_me + p_tz teach the server where this phone is, on every load. A
     // family member who only ever reads the board would otherwise keep the
     // group's zone for ever and see somebody else's day.
-    const res = await call("app_state", { p_code: state.code,
+    const res = await callRetry("app_state", { p_code: state.code,
       p_me: state.meId || null, p_tz: deviceTZ() });
-    if (res.error) { state.fatal = res.error; render(); return; }
+    if (res.error) {
+      // Weather: keep the screen exactly as it is and try again shortly.
+      // Only an answer FROM the database can be fatal.
+      if (res.offline) { setNet("offline"); scheduleRetry(); render(); return; }
+      state.fatal = res.error; render(); return;
+    }
+    setNet("ok");
     state.group = res.group;
     // Alphabetical, so a name is findable without reading the whole list.
     state.people = (res.people || []).slice().sort((a, b) =>
@@ -700,6 +814,22 @@ input[type=number] { -moz-appearance:textfield; }
      ------------------------------------------------------------------ */
   let clockDay = null, clockTimer = null;
 
+  /* ---------- the network chip ---------------------------------------
+     One quiet line, not a screen. It says what is happening and gets out
+     of the way the moment a call succeeds.
+     ------------------------------------------------------------------ */
+  let retryTimer = null, retryIn = 0;
+  function setNet(s) {
+    if (s === "ok" && retryTimer) { clearTimeout(retryTimer); retryTimer = null; retryIn = 0; }
+    if (state.net === s) return;
+    state.net = s;
+  }
+  function scheduleRetry() {
+    if (retryTimer) return;
+    retryIn = Math.min(retryIn ? retryIn * 2 : 5, 60);
+    retryTimer = setTimeout(() => { retryTimer = null; refresh(); }, retryIn * 1000);
+  }
+
   function watchClock() {
     clockDay = deviceISO();
 
@@ -726,7 +856,23 @@ input[type=number] { -moz-appearance:textfield; }
   // let you set was saved and then never shown or used anywhere.
   const target = (p, k) => k === "steps" ? Number(p.steps_target)  || 0
                          : k === "train" ? Number(p.train_target)  || 0
-                         : k === "cardio"? Number(p.cardio_target) || 0 : 0;
+                         : k === "cardio"? Number(p.cardio_target) || 0
+                         : k === "rest"  ? num0(p.rest_target)
+                         : k === "rise"  ? num0(p.rise_target)
+                         : k === "sleep" ? 100 : 0;
+  // A time target can legitimately be 0 (midnight), so "unset" has to be
+  // null rather than falsy.
+  const num0 = (v) => (v === null || v === undefined ? 0 : Number(v));
+  const hasTarget = (p, k) => M[k] && M[k].time
+    ? (k === "rest" ? p.rest_target : p.rise_target) !== null &&
+      (k === "rest" ? p.rest_target : p.rise_target) !== undefined
+    : target(p, k) > 0;
+  // The raw stored value, where null means "never recorded" — unlike
+  // steps, a Rest of 0 is midnight, not nothing.
+  const rawVal = (p, k) => k === "rest" ? p.rest : k === "rise" ? p.rise
+                         : k === "sleep" ? p.items : val(p, k);
+  const hasVal = (p, k) => { const v = rawVal(p, k);
+    return M[k] && (M[k].time || M[k].bits) ? v !== null && v !== undefined : Number(v) > 0; };
 
   // V2.1. The family's day. Everything shown ABOUT other people — the
   // family list, its counts, the WhatsApp post — reads these, so a
@@ -753,14 +899,16 @@ input[type=number] { -moz-appearance:textfield; }
     return longLabel(start) + " \u2013 " + longLabel(end);
   }
 
+  // V2.1b. One metric, not three. Only the page you are looking at needs
+  // its week, and three calls per open were two more round trips than the
+  // screen could use.
   async function loadHistory() {
-    if (!state.meId) { state.history = { steps: [], train: [], cardio: [] }; return; }
-    const anchor = weekBounds().end;
-    const keys = ["steps","train","cardio"];
-    const got = await Promise.all(keys.map((k) => call("app_history", {
+    const k = state.seg;
+    if (!state.meId || !M[k]) { state.history[k] = []; return; }
+    const res = await call("app_history", {
       p_code:state.code, p_person:state.meId,
-      p_days:7, p_metric:M[k].key, p_today:anchor })));
-    keys.forEach((k, i) => { state.history[k] = got[i].error ? [] : (got[i].days || []); });
+      p_days:7, p_metric:M[k].key, p_today:weekBounds().end });
+    state.history[k] = res.error ? [] : (res.days || []);
   }
 
   /* ---------- which day is being logged ----------------------------- */
@@ -785,8 +933,10 @@ input[type=number] { -moz-appearance:textfield; }
   const DOW = ["M","T","W","T","F","S","S"];
 
   function points(k) {
+    const met = M[k] || {};
     return (state.history[k] || []).map((d, i) => ({
-      key:d.date, label:DOW[i] || dayLabel(d.date), value:Number(d.value),
+      key:d.date, label:DOW[i] || dayLabel(d.date),
+      value: met.bits ? scorePct(d.value) : Number(d.value),
       logged:d.logged, full:longLabel(d.date),
     }));
   }
@@ -803,15 +953,60 @@ input[type=number] { -moz-appearance:textfield; }
     // The strip is the same chart at a third of the height, with its head
     // and its totals removed. It is still the form: every bar is a tap
     // target, and the selected column is still drawn behind the bar.
-    const H = strip ? 46 : 96, PT = strip ? 5 : 10, PB = 4, plot = H - PT - PB;
-    const peak = Math.max(...pts.map((p) => p.value), goal || 0, 1);
-    const max = peak * 1.15;
-    const y = (v) => PT + plot - (v / max) * plot;
+    const H = strip ? 46 : 118, PT = strip ? 5 : 10, PB = 4, plot = H - PT - PB;
     const n = pts.length, slot = 100 / n, bw = slot * 0.52;
 
+    // V2.1b. A clock reading is not a quantity. Drawn from zero, every
+    // bedtime between ten and eleven is the same bar; what you want to see
+    // is whether tonight was later than last night. So times get their own
+    // scale, fitted to the week, and are drawn as points rather than bars —
+    // a bar starting anywhere but zero would be a lie.
+    const vals = pts.filter((p) => p.logged || p.value > 0).map((p) => p.value);
+    const timed = !!(met.time && vals.length);
+    const peak = Math.max(...pts.map((p) => p.value), goal || 0, 1);
+    const max = peak * 1.15;
+    let y;
+    if (timed) {
+      const lo = Math.min(...vals, goal || Infinity) - 25;
+      const hi = Math.max(...vals, goal || -Infinity) + 25;
+      const span = Math.max(hi - lo, 60);
+      y = (v) => PT + plot - ((v - lo) / span) * plot;
+    } else {
+      y = (v) => PT + plot - (v / max) * plot;
+    }
+
     let bars = "";
-    const sel = k === "steps" ? entryDay() : null;
-    pts.forEach((p, i) => {
+    // V2.1b. Every metric highlights the selected day, not just Steps —
+    // Train and Cardio have a number you type now, so which day is being
+    // typed into has to be visible on their charts too.
+    const sel = entryDay();
+    if (timed) {
+      // Every day keeps a full-height invisible target, so tapping still
+      // selects a day with no point to aim at.
+      const seen = pts.map((p, i) => ({ p, i })).filter((o) => o.p.logged || o.p.value > 0);
+      const cx = (i) => i * slot + slot / 2;
+      bars = pts.map((p, i) =>
+        `<rect x="${i * slot}" y="${PT}" width="${slot}" height="${plot}"
+           fill="${p.key === sel ? met.soft : "transparent"}"
+           ${p.key === sel ? 'opacity="0.55"' : ""}
+           data-day="${p.key}" data-metric="${k}"></rect>`).join("")
+        + (seen.length > 1
+          ? `<polyline points="${seen.map((o) =>
+               `${cx(o.i).toFixed(2)},${y(o.p.value).toFixed(2)}`).join(" ")}"
+               fill="none" stroke="${met.color}" stroke-width="1.5" stroke-linecap="round"
+               stroke-linejoin="round" vector-effect="non-scaling-stroke"
+               pointer-events="none"></polyline>` : "")
+        // A <circle> would come out an oval: the chart is stretched
+        // horizontally (viewBox 100 wide, preserveAspectRatio none). A
+        // zero-length round-capped stroke with non-scaling-stroke is a
+        // true circle at any width.
+        + seen.map((o) =>
+          `<line x1="${cx(o.i).toFixed(2)}" y1="${y(o.p.value).toFixed(2)}"
+             x2="${cx(o.i).toFixed(2)}" y2="${y(o.p.value).toFixed(2)}"
+             stroke="${met.color}" stroke-width="5.5" stroke-linecap="round"
+             vector-effect="non-scaling-stroke" pointer-events="none"></line>`).join("");
+    }
+    if (!timed) pts.forEach((p, i) => {
       const x = i * slot + (slot - bw) / 2;
       // V1.6. The selected column is the form's title bar. Nothing else on
       // the screen says which day you are typing into, so this has to.
@@ -831,7 +1026,7 @@ input[type=number] { -moz-appearance:textfield; }
                 data-metric="${k}"></rect>`;
     });
 
-    const goalLine = goal && goal <= max
+    const goalLine = (timed ? (goal || goal === 0) : (goal && goal <= max))
       ? `<line x1="0" x2="100" y1="${y(goal)}" y2="${y(goal)}" stroke="${met.color}"
            stroke-width="1" stroke-dasharray="3 3" opacity="0.8" vector-effect="non-scaling-stroke"></line>` : "";
 
@@ -852,8 +1047,9 @@ input[type=number] { -moz-appearance:textfield; }
         <div class="chart" id="chart-${k}" data-chart="${k}">
           <svg viewBox="0 0 100 ${H}" preserveAspectRatio="none" role="img"
                aria-label="${met.label} for the period shown">
-            <line x1="0" x2="100" y1="${y(0)}" y2="${y(0)}" stroke="var(--line-strong)"
-                  stroke-width="1" vector-effect="non-scaling-stroke"></line>
+            ${timed ? "" : `<line x1="0" x2="100" y1="${y(0)}" y2="${y(0)}"
+                  stroke="var(--line-strong)" stroke-width="1"
+                  vector-effect="non-scaling-stroke"></line>`}
             ${bars}${goalLine}
           </svg>
           <div class="axis">${axis}</div>
@@ -966,8 +1162,11 @@ input[type=number] { -moz-appearance:textfield; }
   }
   function editSeed() {
     if (state.editing === "name") return esc(editTarget() ? editTarget().name : "");
-    return Math.round(target(me() || {}, state.editMetric)) ||
-           (state.editMetric === "steps" ? 8000 : 40);
+    const k = state.editMetric;
+    if (M[k] && M[k].time)
+      return clockInput(hasTarget(me() || {}, k) ? target(me() || {}, k)
+                        : (k === "rest" ? 1350 : 360));
+    return Math.round(target(me() || {}, k)) || (k === "steps" ? 8000 : 40);
   }
   function editHintText() {
     if (state.editing === "name") {
@@ -1006,6 +1205,14 @@ input[type=number] { -moz-appearance:textfield; }
     try { return localStorage.getItem("fhd.fam") === "open"; } catch { return false; }
   }
 
+  const fmtFam = (k, v) => {
+    const met = M[k] || {};
+    if (v === null || v === undefined) return "\u2013";
+    if (met.time) return clockWords(v);
+    if (met.bits) return scorePct(v) + "%";
+    return Number(v) > 0 ? num(Math.round(v)) : "\u2013";
+  };
+
   function famBlock() {
     const k = state.seg;
     const open = state.fam.open;
@@ -1026,14 +1233,15 @@ input[type=number] { -moz-appearance:textfield; }
             const initials = r.name.trim().split(/\s+/).slice(0,2)
               .map((w) => (w[0] || "").toUpperCase()).join("");
             const today = Number(r.today) || 0;
-            return `<div class="frow${today > 0 ? " did" : ""}">
+            return `<div class="frow${today !== null && today !== undefined
+                      && (M[k].time || M[k].bits || today > 0) ? " did" : ""}">
               <span class="dot" aria-hidden="true"
                 style="background:color-mix(in oklab, hsl(${r.hue} 62% 48%) 16%, var(--surface));
                        color:color-mix(in oklab, hsl(${r.hue} 62% 48%) 78%, var(--ink))"
                 >${esc(initials)}</span>
               <span class="fname">${esc(r.name)}</span>
               ${sparkline(days.map((v) => v / base), r.hue, !!goal)}
-              <span class="fval">${today > 0 ? num(Math.round(today)) : "\u2013"}</span>
+              <span class="fval">${fmtFam(k, today)}</span>
             </div>`;
           }).join("")
         : `<p class="loading">Nobody else has been added yet.</p>`;
@@ -1227,7 +1435,22 @@ input[type=number] { -moz-appearance:textfield; }
     const s = Math.floor(ms / 1000);
     return `${pad(Math.floor(s / 3600))}:${pad(Math.floor(s / 60) % 60)}:${pad(s % 60)}`;
   }
-  const durationMin = (a) => Math.max(1, Math.round(elapsedMs(a) / 60000));
+  const setSeconds = (a) => (a.ex || []).reduce((t, x) =>
+    t + x.sets.reduce((u, s) => u + (Number(s.t) || 0), 0), 0);
+
+  // V2.1b. Three sources, in order of how much they know.
+  //   * a number you typed always wins;
+  //   * Cardio adds up the times you logged per activity — it has no
+  //     running clock, because the clock was measuring the same thing
+  //     twice and the logged times are the honest version;
+  //   * Train keeps the stopwatch, which is genuinely useful between sets.
+  function durationMin(a) {
+    if (a.durOverride !== null && a.durOverride !== undefined)
+      return Math.max(0, Math.round(Number(a.durOverride) || 0));
+    if ((a.mode || state.mode) === "cardio")
+      return Math.max(1, Math.ceil(setSeconds(a) / 60));
+    return Math.max(1, Math.round(elapsedMs(a) / 60000));
+  }
 
   // V1.4 deleted volume. What a session is worth is what you did in it,
   // not a number that rewards doing light things many times.
@@ -1285,8 +1508,11 @@ input[type=number] { -moz-appearance:textfield; }
       p_code: state.code, p_person: state.meId, p_session: a.id,
       p_label: a.label || "", p_date: a.date,
       p_duration: durationMin(a), p_sets: setsPayload(a),
-      p_finished: !!(finish || a.pendingFinish), p_mode: state.mode,
+      p_finished: !!(finish || a.pendingFinish), p_mode: a.mode || state.mode,
       p_tz: deviceTZ(),
+      // Somebody typed this duration, or edited the session from History.
+      // Either way it is a deliberate statement about that day.
+      p_claim: a.durOverride !== null && a.durOverride !== undefined,
     });
 
     if (res.error) { setSync("offline"); return res; }
@@ -1338,7 +1564,8 @@ input[type=number] { -moz-appearance:textfield; }
   // session missed on Tuesday could never be recorded at all.
   async function startSession(label, iso) {
     const a = { id: uuid(), label: label || "", date: iso || todayISO(),
-                startedAt: Date.now(), endedAt: null, ex: [], pendingFinish: false };
+                startedAt: Date.now(), endedAt: null, ex: [], pendingFinish: false,
+                mode: state.mode, durOverride: null };
 
     // V1.7b. One call answers "what is this workout made of, and what did
     // I last lift for each part of it" — the explicit template if there is
@@ -1649,7 +1876,13 @@ input[type=number] { -moz-appearance:textfield; }
           <button class="btn" id="finish" style="padding:10px 18px">Finish</button>
         </div>
         <div class="timer">
-          <b id="elapsed">${clock(elapsedMs(a))}</b>
+          ${(a.mode || state.mode) === "cardio" || a.durOverride !== null
+            ? `<span class="durwrap"><input id="durIn" class="durin" type="number"
+                 inputmode="numeric" min="0" max="600" value="${durationMin(a)}"
+                 aria-label="Minutes"><em>min</em></span>`
+            : `<b id="elapsed">${clock(elapsedMs(a))}</b>
+               <button type="button" class="linkbtn" id="durEdit"
+                 style="font-size:11px;color:var(--muted)">edit</button>`}
           <span id="sessTotals">${totalsWords(a)}</span>
         </div>
         <!-- V1.7. The escape hatch. The bar you tapped chose the day; this
@@ -1674,7 +1907,6 @@ input[type=number] { -moz-appearance:textfield; }
         ${[["weight_reps","weights"],["duration","time"]].map(([k, lbl]) =>
           `<button type="button" data-kind="${k}" aria-pressed="${
             (state.newKind || "weight_reps") === k}">${lbl}</button>`).join("")}
-        <span>&mdash; remembered next time</span>
       </div>`}
       ${datalist}
 
@@ -1720,13 +1952,16 @@ input[type=number] { -moz-appearance:textfield; }
       :                            field(s,j,"d","0",units.d) + field(s,j,"t","0:00","time");
       return `<span class="ix">${j + 1}</span>${cells}
       <button class="tick" data-tick="${i}:${j}" aria-pressed="${!!s.on}"
-              aria-label="Mark ${j + 1} done">&#10003;</button>`;
+              aria-label="Mark ${j + 1} done">&#10003;</button>
+      <button class="xset" data-delset="${i}:${j}"
+              aria-label="Delete set ${j + 1}">&times;</button>`;
     }).join("");
 
     return `
       <div class="exblock" id="ex-${i}">
         <div class="exhead">
-          <b>${esc(x.name)}</b>
+          <input class="exname" data-exname="${i}" value="${esc(x.name)}" maxlength="60"
+                 aria-label="Exercise name">
           <button class="xbtn" data-delex="${i}" aria-label="Remove ${esc(x.name)}">&times;</button>
         </div>
         <div class="setgrid${cls}">
@@ -1735,7 +1970,7 @@ input[type=number] { -moz-appearance:textfield; }
               ? `<button class="hd unit" data-cycle="${c === units.w ? "w" : "d"}"
                    aria-label="Change unit">${esc(c)}</button>`
               : `<span class="hd">${esc(c)}</span>`).join("")}
-          <span class="hd"></span>
+          <span class="hd"></span><span class="hd"></span>
           ${rows}
         </div>
         <button class="addset" data-addset="${i}">+ Add ${
@@ -1783,8 +2018,11 @@ input[type=number] { -moz-appearance:textfield; }
 
       ${blocks}
 
-      ${mine ? `<button class="linkbtn" id="delSession" style="color:var(--warn)">
-        Delete this workout</button>` : ""}
+      ${mine ? `<div class="addrow" style="margin-top:6px">
+        <button class="btn" id="editSession">Edit</button>
+        <button class="linkbtn" id="delSession" style="color:var(--warn)">
+          Delete this workout</button>
+      </div>` : ""}
 
       <p class="ver">v${APP_VERSION}</p>`;
   }
@@ -1873,6 +2111,28 @@ input[type=number] { -moz-appearance:textfield; }
       queueSync();
       render();
     });
+
+    // V2.1b. Rename an exercise in place, and delete one set rather than
+    // the whole exercise. Removing the last set removes the exercise,
+    // because an exercise with no sets is not a thing that happened.
+    const nm = host.querySelector("[data-exname]");
+    if (nm) nm.addEventListener("change", () => {
+      const v = (nm.value || "").trim();
+      if (!v) { nm.value = a.ex[i].name; return; }
+      a.ex[i].name = v;
+      a.ex[i].kind = kindFor(v, a.ex[i].kind);
+      queueSync();
+      render();
+    });
+
+    host.querySelectorAll("[data-delset]").forEach((el) =>
+      el.addEventListener("click", () => {
+        const j = Number(el.dataset.delset.split(":")[1]);
+        a.ex[i].sets.splice(j, 1);
+        if (!a.ex[i].sets.length) a.ex.splice(i, 1);
+        queueSync();
+        render();
+      }));
   }
 
   function wireLift() {
@@ -1887,6 +2147,7 @@ input[type=number] { -moz-appearance:textfield; }
       }
       else if (state.view === "session") state.view = "exercise";
       else state.view = "board";
+      if (state.view === "board") { state.seg = "steps"; state.entryDate = null; }
       render();
     });
 
@@ -1937,7 +2198,25 @@ under it stay in your history, they just stop being a tile.`)) return;
     if (state.view === "session") {
       const a = A();
       a.ex.forEach((_, i) => wireExBlock(i));
-      startTicking();
+      if ((a.mode || state.mode) !== "cardio" &&
+          (a.durOverride === null || a.durOverride === undefined)) startTicking();
+
+      // Typing a duration takes the day: the chart moves to match.
+      on("durEdit", "click", () => {
+        A().durOverride = durationMin(A());
+        stopTicking();
+        render();
+        const f = document.getElementById("durIn");
+        if (f) { f.focus(); f.select(); }
+      });
+      on("durIn", "change", () => {
+        const f = document.getElementById("durIn");
+        const v = Math.max(0, Math.min(600, Math.round(Number(f.value) || 0)));
+        A().durOverride = v;
+        saveLocal();
+        queueSync();
+        paintTotals();
+      });
 
       // One tap steps the session back a day; it wraps round to today
       // after a fortnight, because anything older than that is a bar on
@@ -2033,6 +2312,32 @@ under it stay in your history, they just stop being a tile.`)) return;
     }
 
     if (state.view === "detail") {
+      // V2.1b. Editing a past workout reopens it in the same editor that
+      // recorded it, rather than a second read-only one that would drift.
+      on("editSession", "click", () => {
+        const d = state.lift.detail;
+        const byPos = new Map();
+        for (const r of (d.sets || [])) {
+          if (!byPos.has(r.position))
+            byPos.set(r.position, { name: r.exercise, kind: r.kind || "weight_reps", sets: [] });
+          byPos.get(r.position).sets.push({
+            w: Number(r.weight) || 0, r: Number(r.reps) || 0,
+            d: Number(r.distance) || 0, t: Number(r.seconds) || 0, on: false });
+        }
+        state.mode = d.mode === "cardio" ? "cardio" : "lift";
+        state.seg  = state.mode === "cardio" ? "cardio" : "train";
+        state.lift.active = {
+          id: d.id, label: d.label || "", date: d.entry_date,
+          startedAt: Date.now(), endedAt: Date.now(), pendingFinish: false,
+          mode: state.mode, durOverride: Number(d.duration_min) || 0,
+          ex: [...byPos.entries()].sort((x, y) => x[0] - y[0]).map(([, v]) => v),
+        };
+        state.lift.detail = null;
+        saveLocal();
+        state.view = "session";
+        render();
+      });
+
       on("delSession", "click", async () => {
         const s = state.lift.detail;
         if (!confirm("Delete this workout? Your Train minutes for that day go back down.")) return;
@@ -2057,16 +2362,22 @@ under it stay in your history, they just stop being a tile.`)) return;
     // A day at a time, from the log box itself. The graph can still jump
     // you to any day; this is for "yesterday", which is most of them.
     const stepDay = async (n) => {
-      const next = shiftISO(entryDay(), n);
+      // V2.1b BUG FIX. The week was compared AFTER entryDate had already
+      // moved, and weekBounds() falls back to mondayOf(entryDay()) — so the
+      // test was always false, loadHistory never re-ran, and the chart kept
+      // last week's bars under this week's label. Compare the two days
+      // against each other, before anything is mutated.
+      const from = entryDay();
+      const next = shiftISO(from, n);
       if (next > todayISO()) return;
       state.entryDate = next === todayISO() ? null : next;
       state.msg = null;
-      if (mondayOf(next) !== weekBounds().start) {
+      if (mondayOf(next) !== mondayOf(from)) {
         state.weekAnchor = mondayOf(next) === thisMonday() ? null : mondayOf(next);
         await loadHistory();
       }
       // Walking the day off the edge of the month on show moves the month.
-      if (state.range === "month" && monthOf(next) !== monthBounds().first) {
+      if (state.range === "month" && monthOf(next) !== monthOf(from)) {
         state.monthAnchor = monthOf(next) === monthOf(todayISO()) ? null : monthOf(next);
         await loadMonth();
       }
@@ -2105,6 +2416,57 @@ under it stay in your history, they just stop being a tile.`)) return;
     });
 
     wireTemplate();
+
+    // V2.1b. Rest and Rise: the time itself is a native wheel laid over
+    // the big figure, and one button stamps right now.
+    on("timeIn", "change", async () => {
+      const f = document.getElementById("timeIn");
+      const k = state.seg;
+      if (!f.value) {
+        await call("app_unlog", { p_code: state.code, p_person: state.meId,
+          p_metric: M[k].key, p_date: nightDay(k) });
+        await refresh(); return;
+      }
+      const [h, mm] = f.value.split(":").map(Number);
+      let v = h * 60 + mm;
+      if (k === "rest" && h < 5) v += 1440;
+      await call("app_log", { p_code: state.code, p_person: state.meId,
+        p_value: v, p_metric: M[k].key, p_date: nightDay(k), p_tz: deviceTZ() });
+      await loadHistory();
+      await refresh();
+    });
+
+    on("stampNow", "click", async (e) => {
+      e.target.disabled = true;
+      const k = state.seg;
+      const res = await call("app_stamp", {
+        p_code: state.code, p_person: state.meId, p_metric: M[k].key, p_tz: deviceTZ() });
+      if (res.error) { e.target.disabled = false; state.msg = res.error;
+                       state.msgKind = "bad"; render(); return; }
+      armUndo({ key: M[k].key, date: res.date,
+                words: `${M[k].label} ${clockWords(res.value)} saved` });
+      await loadHistory();
+      await refresh();
+    });
+
+    // The twelve habits: one integer, one bit each, written on every tap.
+    document.querySelectorAll("[data-habit]").forEach((el) =>
+      el.addEventListener("click", async () => {
+        const i = Number(el.dataset.habit);
+        const m = me() || {};
+        const cur = Number(entryDay() === todayISO()
+          ? (m.items || 0) : (dayRecord("sleep").value || 0)) || 0;
+        const next = cur ^ (1 << i);
+        // Paint immediately: a checklist that waits for the network before
+        // ticking feels broken even when it is working.
+        el.classList.toggle("on");
+        el.setAttribute("aria-pressed", String(!!((next >> i) & 1)));
+        await call("app_log", { p_code: state.code, p_person: state.meId,
+          p_value: next, p_metric: "sleep_items", p_date: nightDay("sleep"),
+          p_tz: deviceTZ() });
+        await loadHistory();
+        await refresh();
+      }));
 
     // The family block is fetched the first time it is opened, then kept.
     on("foldFam", "click", async () => {
@@ -2223,13 +2585,15 @@ under it stay in your history, they just stop being a tile.`)) return;
     stopTicking();
     state.seg  = seg || "steps";
     state.mode = state.seg === "cardio" ? "cardio" : "lift";
+    state.entryDate = null;
     state.lift.loaded = false;
     state.lift.labels = []; state.lift.sessions = [];
     state.lift.menu = null; state.lift.rename = null;
     loadLocal();
-    state.view = "exercise";
+    state.view = state.seg === "sleep" ? "sleep" : "exercise";
     render();                 // paint immediately; the list can arrive after
-    if (state.seg !== "steps") { await loadLift(); render(); }
+    await loadHistory(); render();
+    if (state.seg === "train" || state.seg === "cardio") { await loadLift(); render(); }
     if (state.range === "month") { await loadMonth(); render(); }
     if (state.fam.open) { await loadFamily(); render(); }
   }
@@ -2340,20 +2704,29 @@ under it stay in your history, they just stop being a tile.`)) return;
     return `${pad(Math.floor(m / 60))}:${pad(m % 60)}`;
   };
 
-  const SLEEP = [
-    { k:"rest", key:"rest_time", label:"Rest" },
-    { k:"rise", key:"rise_time", label:"Rise" },
-    { k:"meal", key:"meal_time", label:"Meal" },
-  ];
-  const sleepVal = (p, k) => { const v = p[k]; return v === null || v === undefined ? null : Number(v); };
-  const sleepAny = (p) => SLEEP.some((x) => sleepVal(p, x.k) !== null);
+  // Which date a sleep entry belongs to. Rest and the habits are filed
+  // against the NIGHT, which the server works out under the 5am rule and
+  // hands back as rest_day; Rise is filed against the clock date.
+  function nightDay(k) {
+    if (state.entryDate) return state.entryDate;
+    const m = me() || {};
+    return (M[k] && M[k].night) ? (m.rest_day || todayISO()) : (m.their_date || todayISO());
+  }
+
+  const sleepAny = (p) => ["sleep","rise","rest"].some((k) => hasVal(p, k));
 
   function markRow(p, clickable) {
     const exOn = anyLog(p);
     const slOn = sleepAny(p);
 
+    // V2.1b. Steps reads as a SCORE here: what you walked against what
+    // you set out to walk. The count itself is one tap away, on the page
+    // where you type it — a percentage is the comparable number, a raw
+    // count is the editable one, and the two screens want different things.
+    const sGoal = target(p, "steps");
     const exChips = [
-      { k:"steps",  label:"Steps",  v: val(p,"steps"),  w: (v) => shortNum(v) },
+      { k:"steps",  label:"Step Score",  v: val(p,"steps"),
+        w: (v) => sGoal ? Math.round(v / sGoal * 100) + "%" : shortNum(v) },
       { k:"train",  label:"Train",  v: val(p,"train"),  w: (v) => Math.round(v) + "m" },
       { k:"cardio", label:"Cardio", v: val(p,"cardio"), w: (v) => Math.round(v) + "m" },
     ].map((c) => {
@@ -2364,21 +2737,20 @@ under it stay in your history, they just stop being a tile.`)) return;
         : `<span class="chip${c.v > 0 ? " on" : ""}">${inner}</span>`;
     }).join("");
 
-    // Empty sleep chip: one tap stamps NOW. Stamped: the chip is a native
-    // time input laid over itself, so one tap opens the iPhone wheel to
-    // correct it. Undo covers the accidental stamp.
-    const slChips = SLEEP.map((x) => {
-      const v = sleepVal(p, x.k);
-      const inner = `<b>${v !== null ? clockWords(v) : "–"}</b><span>${x.label}</span>`;
-      if (!clickable) return `<span class="chip${v !== null ? " on" : ""}">${inner}</span>`;
-      if (v === null)
-        return `<button type="button" class="chip" data-stamp="${x.key}"
-                  aria-label="${x.label}: tap to record now">${inner}</button>`;
-      return `<label class="chip on" aria-label="${x.label}: ${clockWords(v)}, tap to change">
-                ${inner}
-                <input type="time" class="chiptime" data-stime="${x.key}"
-                       value="${clockInput(v)}">
-              </label>`;
+    // V2.1b. Sleep Score, Rise, Rest — each a door to its own page, the
+    // same as the Exercise three. Last Meal is no longer a chip of its
+    // own; it is the first of the twelve habits behind Sleep Score.
+    const slChips = [
+      { k:"sleep", label:"Score" }, { k:"rise", label:"Rise" }, { k:"rest", label:"Rest" },
+    ].map((c) => {
+      const on = hasVal(p, c.k);
+      const words = !on ? "\u2013"
+        : c.k === "sleep" ? scorePct(p.items) + "%" : clockWords(rawVal(p, c.k));
+      const inner = `<b>${words}</b><span>${c.label}</span>`;
+      return clickable
+        ? `<button type="button" class="chip${on ? " on" : ""}" data-tile="${c.k}"
+             aria-label="${c.label}: ${on ? words : "nothing yet"}">${inner}</button>`
+        : `<span class="chip${on ? " on" : ""}">${inner}</span>`;
     }).join("");
 
     const quiet = PILLARS.filter((pl) => !pl.live && pl.key !== "sleep").map((pl) => pl.label);
@@ -2394,11 +2766,6 @@ under it stay in your history, they just stop being a tile.`)) return;
         <span class="pname">Sleep</span>
         <div class="chips">${slChips}</div>
       </div>
-      ${state.undo ? `
-        <div class="undobar" role="status">
-          <span>${esc(state.undo.words)}</span>
-          <button type="button" id="undoStamp">Undo</button>
-        </div>` : ""}
       <p class="soon">${quiet.map(esc).join(" · ")}<em>soon</em></p>`;
   }
 
@@ -2410,7 +2777,9 @@ under it stay in your history, they just stop being a tile.`)) return;
     return `
       <div class="addrow" id="editRow">
         <input class="field" id="editVal" maxlength="40" autocomplete="off"
-               ${state.editing === "name" ? "" : 'type="number" inputmode="numeric"'}
+               ${state.editing === "name" ? ""
+                 : M[state.editMetric] && M[state.editMetric].time ? 'type="time"'
+                 : 'type="number" inputmode="numeric"'}
                value="${editSeed()}"
                aria-label="${state.editing === "name" ? "Name" : "Daily goal"}">
         <button class="btn" id="editSave">Save</button>
@@ -2556,6 +2925,9 @@ under it stay in your history, they just stop being a tile.`)) return;
     steps:  { sub:"The keystone. One number a day.", verb:"steps" },
     train:  { sub:"Lifting and yoga.",               verb:"minutes" },
     cardio: { sub:"Walking, running, swimming, the machines.", verb:"minutes" },
+    rest:   { sub:"What time you actually went to bed.",       verb:"time" },
+    rise:   { sub:"What time you actually got up.",            verb:"time" },
+    sleep:  { sub:"Twelve things that decide how well you sleep.", verb:"%" },
   };
 
   /* ---------- the log box ---------------------------------------------
@@ -2576,6 +2948,7 @@ under it stay in your history, they just stop being a tile.`)) return;
     const rec = dayRecord(k);
     const isToday = iso === todayISO();
     const goal = target(m, k);
+    if (met.time) return timeCard(k, iso, isToday, m, rec, goal);
     const shown = isToday ? val(m, k) : rec.value;
     const has = isToday ? (k === "steps" ? !!m.steps_logged : shown > 0) : rec.logged;
 
@@ -2611,10 +2984,63 @@ under it stay in your history, they just stop being a tile.`)) return;
       </section>`;
   }
 
+  /* ---------- a time, not an amount -----------------------------------
+     Rest and Rise are clock readings. The big figure is still the input:
+     a native time wheel sits invisibly over it, so one tap edits it the
+     same way one tap edits the step count. The button under it stamps
+     right now, for the mornings and nights when you are holding the phone
+     anyway and do not want to spin a wheel.
+     ------------------------------------------------------------------ */
+  function timeCard(k, iso, isToday, m, rec, goal) {
+    const met = M[k];
+    const v = isToday ? rawVal(m, k) : (rec.logged ? rec.value : null);
+    const has = v !== null && v !== undefined;
+    return `
+      <section class="card">
+        <div class="daynav">
+          <button type="button" id="dPrev" aria-label="Previous day">&lsaquo;</button>
+          <span>${isToday ? (met.night ? "Tonight" : "Today") : esc(fullDate(iso))}</span>
+          <button type="button" id="dNext" aria-label="Next day"
+            ${isToday ? "disabled" : ""}>&rsaquo;</button>
+        </div>
+
+        <div class="domino" style="padding-top:10px">
+          <label class="bigtime" style="color:${met.color}">
+            <b class="${has ? "" : "none"}">${has ? clockWords(v) : "not set"}</b>
+            <input type="time" id="timeIn" value="${has ? clockInput(v) : ""}"
+                   aria-label="${esc(met.label)} time">
+          </label>
+          <button type="button" class="of" data-edit="goal" data-metric="${k}">${
+            hasTarget(m, k) ? `target <b>${clockWords(goal)}</b>`
+                            : `set a ${esc(met.label.toLowerCase())} target`}</button>
+        </div>
+
+        <button class="btn" id="stampNow"
+                style="width:100%;margin-top:12px;background:${met.color}">${
+          has ? "Set to now" : `${esc(met.label)} \u2014 now`}</button>
+
+        <p class="hint dshint ${state.msgKind || ""}" id="hint"
+           style="text-align:center">${state.msg ? esc(state.msg)
+          : "Tap the time to change it."}</p>
+      </section>`;
+  }
+
+  // What the week adds up to — which is not a sum for every metric. Adding
+  // up seven percentages gives 700, and adding up seven bedtimes gives a
+  // number of minutes nobody has a use for. Those average instead.
+  function weekWords2(k) {
+    const met = M[k] || {};
+    const pts = points(k).filter((p) => met.time || met.bits ? p.logged : true);
+    if (!pts.length) return "nothing logged this week";
+    const sum = pts.reduce((t, p) => t + p.value, 0);
+    if (met.bits) return `${Math.round(sum / pts.length)}% average this week`;
+    if (met.time) return `${clockWords(Math.round(sum / pts.length))} average this week`;
+    return `${num(Math.round(sum))} ${met.unit} this week`;
+  }
+
   function graphCard(k) {
     const met = M[k];
     const month = state.range === "month";
-    const total = points(k).reduce((t, p) => t + p.value, 0);
     const mb = monthBounds();
 
     // V2.1. The period control sits at the TOP of the graph, mirroring the
@@ -2646,10 +3072,69 @@ under it stay in your history, they just stop being a tile.`)) return;
                 ${weekBounds().start === thisMonday() ? "disabled" : ""}>&rsaquo;</button>
             </div>
             ${miniChart(k)}
-            <p class="hint dshint" style="text-align:center">${num(Math.round(total))}
-              ${esc(met.unit)} this week</p>`}
+            <p class="hint dshint" style="text-align:center">${esc(weekWords2(k))}</p>`}
         </div>
       </section>`;
+  }
+
+  /* ---------- the twelve habits ---------------------------------------
+     One integer a night. The score is how many are on, which is the only
+     weighting I would trust myself to defend: every item here is something
+     a sleep clinic would tell you to do, and inventing a ranking between
+     them would be inventing precision.
+     ------------------------------------------------------------------ */
+  function sleepView() {
+    const m = me() || {};
+    const iso = entryDay();
+    const isToday = iso === todayISO();
+    const mask = Number(isToday ? (m.items || 0) : (dayRecord("sleep").value || 0)) || 0;
+    const pct = scorePct(mask);
+    const groups = [];
+    HABITS.forEach((h, i) => {
+      if (!groups.length || groups[groups.length - 1].g !== h.g) groups.push({ g:h.g, items:[] });
+      groups[groups.length - 1].items.push({ ...h, i });
+    });
+
+    return `
+      <div class="topbar">
+        <button class="backlink" id="back">&larr; ${esc(state.group.name)}</button>
+        <span class="sync ${state.lift.sync}" id="syncChip">${syncWords(state.lift.sync)}</span>
+      </div>
+
+      <header class="masthead">
+        <h1>Sleep Score</h1>
+        <p class="sub">Twelve things that decide how well you sleep.</p>
+      </header>
+
+      <section class="card">
+        <div class="daynav">
+          <button type="button" id="dPrev" aria-label="Previous night">&lsaquo;</button>
+          <span>${isToday ? "Tonight" : esc(fullDate(iso))}</span>
+          <button type="button" id="dNext" aria-label="Next night"
+            ${isToday ? "disabled" : ""}>&rsaquo;</button>
+        </div>
+        <div class="domino" style="padding-top:10px">
+          <b class="big" style="color:var(--sleep)">${pct}%</b>
+          <span class="of" style="text-decoration:none">${bitsOn(mask)} of
+            ${HABITS.length} done</span>
+        </div>
+      </section>
+
+      ${groups.map((gr) => `
+        <section class="habits">
+          <div class="section-head"><h2>${esc(gr.g)}</h2></div>
+          ${gr.items.map((h) => `
+            <button type="button" class="habit${(mask >> h.i) & 1 ? " on" : ""}"
+                    data-habit="${h.i}" aria-pressed="${!!((mask >> h.i) & 1)}">
+              <span class="hbox" aria-hidden="true">\u2713</span>
+              <span>${esc(h.t)}</span>
+            </button>`).join("")}
+        </section>`).join("")}
+
+      ${graphCard("sleep")}
+      ${famBlock()}
+
+      <p class="ver">v${APP_VERSION}</p>`;
   }
 
   function metricView() {
@@ -2683,7 +3168,7 @@ under it stay in your history, they just stop being a tile.`)) return;
       ${editRowHTML()}
       ${graphCard(k)}
 
-      ${k === "steps" ? "" : `
+      ${k === "steps" || M[k].time ? "" : `
         <button class="btn" id="startEmpty"
                 style="width:100%;margin-top:22px;background:${met.color}">
           ${k === "cardio" ? "Start an Empty Activity" : "Start an Empty Workout"}</button>
@@ -2714,18 +3199,33 @@ under it stay in your history, they just stop being a tile.`)) return;
   function render() {
     if (!configured) { app.innerHTML = notConfigured(); return; }
     if (state.fatal) {
+      // Keep the join code on the retry link. Losing it was how a blip
+      // turned into "set the whole thing up again".
       app.innerHTML = `<div class="banner">${esc(state.fatal)}</div>
-        <p style="margin-top:16px"><a href="${location.pathname}">Start over</a></p>`;
+        <p style="margin-top:16px"><a href="${location.pathname}?g=${
+          encodeURIComponent(state.code || "")}">Try again</a>
+        &nbsp;&middot;&nbsp;
+        <a href="${location.pathname}" style="color:var(--muted)">Start over</a></p>`;
       return;
     }
     if (!(state.code && state.group)) { app.innerHTML = landing(); wire(); return; }
+    // Two strips that can appear on any screen, so they live here rather
+    // than in whichever view happened to need them first.
+    const netBar = (state.net === "offline"
+      ? `<div class="netbar" role="status">Offline \u00b7 showing the last numbers loaded
+           <button type="button" id="netRetry">Retry</button></div>` : "")
+      + (state.undo
+      ? `<div class="undobar" role="status"><span>${esc(state.undo.words)}</span>
+           <button type="button" id="undoStamp">Undo</button></div>` : "");
 
-    if (state.view === "exercise") { app.innerHTML = metricView(); wireExercise(); return; }
-    if (state.view === "session")  { app.innerHTML = sessionView();  wireLift();     return; }
-    if (state.view === "detail")   { app.innerHTML = detailView();   wireLift();     return; }
+    if (state.view === "sleep")    { app.innerHTML = netBar + sleepView();  wireExercise(); wireNet(); return; }
+    if (state.view === "exercise") { app.innerHTML = netBar + metricView(); wireExercise(); wireNet(); return; }
+    if (state.view === "session")  { app.innerHTML = netBar + sessionView();  wireLift(); wireNet(); return; }
+    if (state.view === "detail")   { app.innerHTML = netBar + detailView();   wireLift(); wireNet(); return; }
 
-    app.innerHTML = boardView();
+    app.innerHTML = netBar + boardView();
     wire();
+    wireNet(); wireNet();
   }
 
 
@@ -2744,6 +3244,9 @@ under it stay in your history, they just stop being a tile.`)) return;
       if (!iso) return;
 
       if (k !== "steps") {
+        // Select the day as well as opening it: coming back from the
+        // session, the log box is already pointed at the right day.
+        state.entryDate = iso === todayISO() ? null : iso;
         const got = await call("app_lift_detail", {
           p_code: state.code, p_person: state.meId, p_date: iso,
           p_mode: k === "cardio" ? "cardio" : "lift" });
@@ -2782,6 +3285,19 @@ under it stay in your history, they just stop being a tile.`)) return;
     render();
     const f = document.getElementById("editVal");
     if (f) { f.focus(); f.select(); }
+  }
+
+  function wireNet() {
+    on("netRetry", "click", () => { retryIn = 0; setNet("ok"); render(); refresh(); });
+    on("undoStamp", "click", async () => {
+      const u = state.undo;
+      if (!u) return;
+      disarmUndo();
+      await call("app_unlog", { p_code: state.code, p_person: state.meId,
+                                p_metric: u.key, p_date: u.date });
+      await loadHistory();
+      await refresh();
+    });
   }
 
   function on(id, ev, fn) {
@@ -2869,8 +3385,20 @@ under it stay in your history, they just stop being a tile.`)) return;
       const hint = document.getElementById("editHint");
 
       if (kind === "goal") {
-        const t = Number(raw.replace(/[^0-9]/g, ""));
-        if (!t) { hint.textContent = "Enter a target above zero."; return; }
+        const met = M[state.editMetric] || {};
+        let t;
+        if (met.time) {
+          // A target time comes back as HH:MM and is stored as minutes.
+          // A bedtime before 5am belongs to the evening, so it goes past
+          // 1440 exactly as a stamped Rest does.
+          const [hh, mm] = raw.split(":").map(Number);
+          if (Number.isNaN(hh)) { hint.textContent = "Pick a time."; return; }
+          t = hh * 60 + (mm || 0);
+          if (state.editMetric === "rest" && hh < 5) t += 1440;
+        } else {
+          t = Number(raw.replace(/[^0-9]/g, ""));
+          if (!t) { hint.textContent = "Enter a target above zero."; return; }
+        }
         e.target.disabled = true;
         const res = await call("app_set_goal", {
           p_code: state.code, p_person: state.meId, p_target: t,
@@ -2897,57 +3425,10 @@ under it stay in your history, they just stop being a tile.`)) return;
 
   // Board-only: the pillar marks, the tap-through chips, the one button.
   function wireBoardActions() {
-    // The marks ARE the navigation. Tapping a live pillar goes straight
-    // into it, which is why there is no tab bar and no Log screen: pillars
-    // two to five arrive as taps, not as furniture.
-    // V1.7. Three tiles, three destinations, one tap each.
+    // The chips ARE the navigation: one tap from a pillar row to the page
+    // that records it. No tab bar, and no Log screen to outgrow.
     document.querySelectorAll("[data-tile]").forEach((el) =>
       el.addEventListener("click", () => openExercise(el.dataset.tile)));
-
-    // V2.1. An empty sleep chip stamps NOW, on the server, in this
-    // person's zone, under the 5am rule. One tap, then six seconds to undo.
-    document.querySelectorAll("[data-stamp]").forEach((el) =>
-      el.addEventListener("click", async () => {
-        if (!state.meId) return;
-        el.disabled = true;
-        const key = el.dataset.stamp;
-        const res = await call("app_stamp", {
-          p_code: state.code, p_person: state.meId, p_metric: key, p_tz: deviceTZ() });
-        if (res.error) { el.disabled = false; alert(res.error); return; }
-        const label = SLEEP.find((x) => x.key === key).label;
-        armUndo({ key, date: res.date, words: `${label} ${clockWords(res.value)} saved` });
-        await refresh();
-      }));
-
-    // A stamped chip is a native time input: changing it corrects the time
-    // for the SAME day the stamp was filed under. Clearing it removes it.
-    document.querySelectorAll("[data-stime]").forEach((el) =>
-      el.addEventListener("change", async () => {
-        const key = el.dataset.stime;
-        const m = me();
-        const date = key === "rest_time" ? m.rest_day : m.their_date;
-        if (!el.value) {
-          await call("app_unlog", { p_code: state.code, p_person: state.meId,
-                                    p_metric: key, p_date: date });
-          await refresh(); return;
-        }
-        const [h, mm] = el.value.split(":").map(Number);
-        let v = h * 60 + mm;
-        if (key === "rest_time" && h < 5) v += 1440;   // after midnight, same evening
-        await call("app_log", { p_code: state.code, p_person: state.meId,
-          p_value: v, p_metric: key, p_date: date, p_tz: deviceTZ() });
-        await refresh();
-      }));
-
-    on("undoStamp", "click", async () => {
-      const u = state.undo;
-      if (!u) return;
-      disarmUndo();
-      await call("app_unlog", { p_code: state.code, p_person: state.meId,
-                                p_metric: u.key, p_date: u.date });
-      await refresh();
-    });
-
 
     // Tap someone's volume chip to read the session behind it. The board
     // stays a scoreboard; the detail is one tap away for whoever wants it.
@@ -2993,7 +3474,9 @@ under it stay in your history, they just stop being a tile.`)) return;
       loadLocal();
       flushPending().then(() => { if (state.view === "board") render(); });
       window.addEventListener("online", () => {
-        flushPending().then(() => { if (state.view !== "session") render(); });
+        retryIn = 0;
+        flushPending().then(() => { if (state.net === "offline") refresh();
+                                    else if (state.view !== "session") render(); });
       });
     } else {
       render();
