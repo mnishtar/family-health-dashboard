@@ -194,6 +194,14 @@ input[type=number] { -moz-appearance:textfield; }
   background:var(--surface); font-family:inherit; font-size:14px; color:var(--ink);
   text-align:left; cursor:pointer; line-height:1.3; }
 .habit.on { border-color:var(--sleep); background:var(--sleep-soft); }
+/* The weight, small and last. It has to be visible — you cannot choose
+   what to fix tonight without it — and quiet, because the habit is the
+   thing you read and the number is the footnote. */
+.habit > span:nth-child(2) { flex:1; min-width:0; }
+.habit .pts { flex:none; font-family:var(--mono); font-size:11px; font-weight:500;
+  color:var(--muted); background:var(--surface-2); border-radius:99px;
+  padding:2px 8px; }
+.habit.on .pts { color:var(--sleep); background:color-mix(in oklab, var(--sleep) 14%, transparent); }
 .habit .hbox { flex:none; width:22px; height:22px; border-radius:7px;
   border:1.5px solid var(--line-strong); display:grid; place-items:center;
   color:transparent; font-size:12px; line-height:1; }
@@ -458,8 +466,8 @@ input[type=number] { -moz-appearance:textfield; }
   overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .xbtn { background:none; border:none; color:var(--muted); cursor:pointer;
   font-size:18px; line-height:1; padding:2px 5px; }
-.setgrid { display:grid; grid-template-columns:22px 1fr 1fr 40px 26px; gap:7px;
-  align-items:center; margin-top:9px; }
+.setgrid { display:grid; grid-template-columns:20px minmax(52px,.85fr) 1fr 1fr 38px 22px;
+  gap:6px; align-items:center; margin-top:9px; }
 .setgrid .hd { font-size:10px; font-weight:700; letter-spacing:.08em;
   text-transform:uppercase; color:var(--muted); text-align:center; }
 .setgrid .hd.l { text-align:left; }
@@ -513,7 +521,19 @@ input[type=number] { -moz-appearance:textfield; }
   font-family:inherit; color:var(--ink); cursor:pointer; }
 .sheet button:first-child { border-top:none; }
 
-.setgrid.one { grid-template-columns:22px 1fr 40px 26px; }
+.setgrid.one { grid-template-columns:20px minmax(52px,.85fr) 1fr 38px 22px; }
+/* What you did last time, greyed. It is a reference, not a field: you
+   read it, you type over the number beside it, you move on. Strong puts
+   it here and it is the single reason their logger feels like memory. */
+.setgrid .prev { font-family:var(--mono); font-size:11.5px; color:var(--muted);
+  text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.kindmini { display:flex; gap:4px; flex:none; }
+.kindmini button { border:1px solid var(--line); background:var(--surface);
+  color:var(--muted); border-radius:99px; padding:3px 9px; font-family:inherit;
+  font-size:10.5px; font-weight:600; letter-spacing:.04em; text-transform:uppercase;
+  cursor:pointer; }
+.kindmini button[aria-pressed="true"] { border-color:var(--train); color:var(--train);
+  background:var(--train-soft); }
 .xset { border:none; background:none; color:var(--line-strong); font-size:17px;
   line-height:1; padding:0; cursor:pointer; }
 .xset:hover, .xset:active { color:var(--warn); }
@@ -526,13 +546,6 @@ input[type=number] { -moz-appearance:textfield; }
   font-weight:500; text-align:right; color:var(--ink); }
 .durin:focus { outline:none; border-color:var(--train); }
 .durwrap em { font-style:normal; font-size:11px; color:var(--muted); }
-.kindpick { display:flex; align-items:center; gap:6px; margin-top:9px;
-  font-size:11px; color:var(--muted); }
-.kindpick button { border:1px solid var(--line); background:none; border-radius:999px;
-  padding:4px 11px; font-size:11.5px; font-weight:500; color:var(--muted);
-  cursor:pointer; font-family:inherit; }
-.kindpick button[aria-pressed="true"] { border-color:var(--train); color:var(--train);
-  background:var(--train-soft); }
 .hd.unit { border:none; background:none; padding:0; cursor:pointer; font:inherit;
   font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
   color:var(--train); text-decoration:underline; text-decoration-style:dotted;
@@ -554,7 +567,7 @@ input[type=number] { -moz-appearance:textfield; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "2.1";
+  const APP_VERSION = "2.3";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -664,8 +677,8 @@ input[type=number] { -moz-appearance:textfield; }
     // V2.1b. Two of these are TIMES: the number is a clock reading, and
     // lower is better for both — going to bed later and getting up later
     // are the same kind of miss.
-    rest:   { key:"rest_time",  label:"Rest",   unit:"time", color:"var(--sleep)", soft:"var(--sleep-soft)", time:true, night:true },
-    rise:   { key:"rise_time",  label:"Rise",   unit:"time", color:"var(--sleep)", soft:"var(--sleep-soft)", time:true },
+    rest:   { key:"rest_time",  label:"Rest",   unit:"time", color:"var(--sleep)", soft:"var(--sleep-soft)", time:true, night:true, lower:true },
+    rise:   { key:"rise_time",  label:"Rise",   unit:"time", color:"var(--sleep)", soft:"var(--sleep-soft)", time:true, lower:true },
     sleep:  { key:"sleep_items",label:"Sleep Score", unit:"%", color:"var(--sleep)", soft:"var(--sleep-soft)", bits:true, night:true },
   };
 
@@ -690,7 +703,27 @@ input[type=number] { -moz-appearance:textfield; }
     { g:"Habits",  t:"Sleep tracked \u2014 journal or device" },
   ];
   const bitsOn = (v) => { let n = 0, x = Number(v) || 0; while (x) { n += x & 1; x >>= 1; } return n; };
-  const scorePct = (v) => Math.round(bitsOn(v) / HABITS.length * 100);
+
+  // V2.3. The twelve are not worth the same. A dark room and a journal
+  // entry both took one tap and both moved the old score by a twelfth,
+  // which is the kind of number that stops meaning anything by week two.
+  //
+  // The weights come from the SERVER, on app_state, and this is the only
+  // copy the page keeps. The schema and this file are two separate pastes
+  // into two separate places, so somebody will eventually upgrade one and
+  // not the other — and when they do, the score on the Sleep page and the
+  // score on the family board still have to be the same number.
+  const FALLBACK_W = [2,3,1,2,1,2,3,2,3,3,1,1];
+  const weights  = () => (state.group && state.group.sleep_weights) || FALLBACK_W;
+  const scoreMax = () => Number(state.group && state.group.sleep_max) ||
+                         weights().reduce((a, b) => a + b, 0);
+  const scorePts = (v) => {
+    const x = Number(v) || 0, w = weights();
+    let n = 0;
+    for (let i = 0; i < w.length; i++) if ((x >> i) & 1) n += w[i];
+    return n;
+  };
+  const scorePct = (v) => Math.round(scorePts(v) / Math.max(1, scoreMax()) * 100);
 
   // The five pillars, in the order they will always appear. Four are dark
   // and unclickable until they are measured; showing them anyway is the
@@ -1089,6 +1122,16 @@ input[type=number] { -moz-appearance:textfield; }
   const monthKey = (k) => `${k}:${monthBounds().first}`;
   const monthData = (k) => state.month[monthKey(k)];
 
+  // V2.3. Whether a day cleared its target depends on which way the metric
+  // runs. Steps and minutes want MORE; a bedtime and a wake time want
+  // LESS, so 10:00p against a 10:30p target is a hit, not a near miss.
+  // One rule, so the circles and the count under them cannot disagree.
+  function cleared(k, v, goal) {
+    if (!(Number(v) > 0)) return false;
+    if (!goal) return true;
+    return M[k] && M[k].lower ? Number(v) <= goal : Number(v) >= goal;
+  }
+
   function monthGrid(k) {
     const met = M[k];
     const days = monthData(k);
@@ -1100,7 +1143,7 @@ input[type=number] { -moz-appearance:textfield; }
     // Monday-first: how many empty cells before the 1st.
     const lead = (new Date(first + "T00:00:00Z").getUTCDay() + 6) % 7;
     const past = days.filter((d) => d.date <= today);
-    const hit = past.filter((d) => goal ? Number(d.value) >= goal : Number(d.value) > 0).length;
+    const hit = past.filter((d) => cleared(k, d.value, goal)).length;
 
     return `
       <div class="gdow">${DOWS.map((d) => `<span>${d}</span>`).join("")}</div>
@@ -1109,8 +1152,10 @@ input[type=number] { -moz-appearance:textfield; }
         ${days.map((d) => {
           const v = Number(d.value) || 0;
           const future = d.date > today;
-          const cls = future ? "none" : v <= 0 ? "none"
-                    : (goal ? (v >= goal ? "full" : "part") : "full");
+          // full = logged and on target (or better). part = the hollow
+          // ring: you logged it, it missed. none = nothing logged at all,
+          // which has to stay distinguishable from a miss.
+          const cls = future || v <= 0 ? "none" : cleared(k, v, goal) ? "full" : "part";
           return `<button type="button" class="gcell ${cls}${d.date === sel ? " sel" : ""}"
             data-day="${d.date}" ${future ? "disabled" : ""}
             aria-label="${esc(longLabel(d.date))}: ${v > 0 ? num(Math.round(v)) : "nothing"}"
@@ -1313,15 +1358,28 @@ input[type=number] { -moz-appearance:textfield; }
     // Ranked here, unlike the app: a chat message is skimmed once and the
     // order is what makes it worth reading. Train is appended only for the
     // people who did some, so ten relatives is not a wall of text.
-    const sorted = [...done].sort((a, b) => bval(b,"steps") - bval(a,"steps"));
+    // V2.3. The post carries the PERCENT of each person's own target, not
+    // the raw count. Ten people with ten different bodies were being
+    // ranked on one number, which read as a leaderboard the oldest and the
+    // injured could never be on. Percent makes the effort comparable.
+    //
+    // The cost, stated plainly because it is real: percent rewards a soft
+    // target. Anybody can be top of this list by asking for less. What
+    // stops that is that the targets are visible in the app to everyone,
+    // so it is a choice made in front of the family rather than in private.
+    const pctOf = (p) => {
+      const t = target(p, "steps");
+      return t > 0 ? Math.round(bval(p, "steps") / t * 100) : null;
+    };
+    const sorted = [...done].sort((a, b) => (pctOf(b) ?? -1) - (pctOf(a) ?? -1));
     for (const p of sorted) {
       const met = bdone(p);
-      // Steps and minutes only \u2014 no pounds, no kilometres, nothing a
-      // relative has to convert in their head before the line means
-      // something. Train and Cardio are named because they are different
-      // things and the family should see which one you did.
+      // Minutes stay absolute: Train and Cardio are named because they are
+      // different things and the family should see which one you did.
       const bits = [];
-      if (bval(p, "steps") > 0)  bits.push(num(bval(p, "steps")));
+      const pc = pctOf(p);
+      if (pc !== null && bval(p, "steps") > 0) bits.push(pc + "% steps");
+      else if (bval(p, "steps") > 0)           bits.push(num(bval(p, "steps")) + " steps");
       if (bval(p, "train") > 0)  bits.push(num(bval(p, "train")) + "m train");
       if (bval(p, "cardio") > 0) bits.push(num(bval(p, "cardio")) + "m cardio");
       const streak = p.streak > 1 ? `  (${p.streak}-day streak)` : "";
@@ -1583,8 +1641,11 @@ input[type=number] { -moz-appearance:textfield; }
           const sets = [];
           for (let i = 0; i < n; i++) {
             const src = last[i] || last[last.length - 1] || {};
-            sets.push({ w: Number(src.w) || 0, r: Number(src.r) || 0,
-                        d: Number(src.d) || 0, t: Number(src.t) || 0, on: false });
+            const w = Number(src.w) || 0, r = Number(src.r) || 0;
+            const d = Number(src.d) || 0, t = Number(src.t) || 0;
+            // Prefilled AND remembered: pw/pr/pd/pt are last time's, and
+            // they stay put while you type over w/r/d/t.
+            sets.push({ w, r, d, t, on: false, pw: w, pr: r, pd: d, pt: t });
           }
           return { name: it.exercise, kind: it.kind || "weight_reps", sets };
         });
@@ -1633,11 +1694,11 @@ input[type=number] { -moz-appearance:textfield; }
       const hit = (s.exercises || []).find((e) => String(e.exercise).toLowerCase() === key);
       if (hit) {
         const n = Math.max(1, kind === "weight_reps" ? hit.sets : 1);
+        const w = Number(hit.top_weight) || 0, r = Number(hit.top_reps) || 0;
+        const d = Number(hit.distance) || 0;
+        const t = Math.round((Number(hit.seconds) || 0) / Math.max(1, hit.sets));
         return Array.from({ length: n }, () => ({
-          w: Number(hit.top_weight) || 0, r: Number(hit.top_reps) || 0,
-          d: Number(hit.distance) || 0,
-          t: Math.round((Number(hit.seconds) || 0) / Math.max(1, hit.sets)),
-          on: false }));
+          w, r, d, t, on: false, pw: w, pr: r, pd: d, pt: t }));
       }
     }
     return [];
@@ -1902,12 +1963,6 @@ input[type=number] { -moz-appearance:textfield; }
           state.mode === "cardio" ? "Activity" : "Exercise"} name">
         <button class="btn" id="exAdd" style="background:var(--train)">Add</button>
       </div>
-      ${state.mode === "cardio" ? "" : `
-      <div class="kindpick" role="group" aria-label="What this exercise records">
-        ${[["weight_reps","weights"],["duration","time"]].map(([k, lbl]) =>
-          `<button type="button" data-kind="${k}" aria-pressed="${
-            (state.newKind || "weight_reps") === k}">${lbl}</button>`).join("")}
-      </div>`}
       ${datalist}
 
       <p class="hint" id="liftHint">${esc(state.lift.msg || "")}</p>
@@ -1927,10 +1982,34 @@ input[type=number] { -moz-appearance:textfield; }
     distance_time: () => [units.d, "time"],
   };
 
+  // V2.3. What you lifted last time, beside the box you are about to type
+  // in. The numbers were already being PREFILLED from the last session,
+  // which sounds like the same thing and is not: once you overwrite the
+  // box, the thing you were trying to beat is gone off the screen.
+  function prevWords(s, kind) {
+    if (!s) return "";
+    if (kind === "duration")      return s.pt ? mmss(s.pt) : "";
+    if (kind === "distance_time") return (s.pd || s.pt)
+      ? `${s.pd ? dShow(s.pd) : "0"}\u00b7${mmss(s.pt || 0)}` : "";
+    return s.pw ? `${wShow(s.pw)}\u00d7${s.pr || 0}` : "";
+  }
+
   function exBlock(x, i) {
     const kind = x.kind || "weight_reps";
     const cols = COLS[kind]();
     const cls  = kind === "weight_reps" ? "" : cols.length === 1 ? " one" : "";
+    // The unit choice used to be one row at the FOOT of the workout, two
+    // buttons reading "weights time", which is a sentence nobody wrote and
+    // applied to whatever you typed next. It belongs to the exercise, so
+    // it lives on the exercise — and only until the exercise has a history
+    // or a ticked set, after which it is settled and the control is noise.
+    const settled = (x.sets || []).some((t) => t.on) || kindFor(x.name, null) !== null;
+    const picker = (state.mode === "cardio" || settled) ? "" : `
+      <div class="kindmini" role="group" aria-label="What ${esc(x.name)} records">
+        ${[["weight_reps","weights"],["duration","time"]].map(([kk, lbl]) =>
+          `<button type="button" data-exkind="${i}:${kk}"
+            aria-pressed="${kind === kk}">${lbl}</button>`).join("")}
+      </div>`;
 
     const field = (s, j, f, ph, label) => {
       const val = f === "w" ? (s.w ? wShow(s.w) : "")
@@ -1950,7 +2029,9 @@ input[type=number] { -moz-appearance:textfield; }
         kind === "weight_reps"   ? field(s,j,"w","0",units.w) + field(s,j,"r","0","reps")
       : kind === "duration"      ? field(s,j,"t","0:00","time")
       :                            field(s,j,"d","0",units.d) + field(s,j,"t","0:00","time");
-      return `<span class="ix">${j + 1}</span>${cells}
+      const pw = prevWords(s, kind);
+      return `<span class="ix">${j + 1}</span>
+      <span class="prev">${pw || "\u2013"}</span>${cells}
       <button class="tick" data-tick="${i}:${j}" aria-pressed="${!!s.on}"
               aria-label="Mark ${j + 1} done">&#10003;</button>
       <button class="xset" data-delset="${i}:${j}"
@@ -1962,10 +2043,11 @@ input[type=number] { -moz-appearance:textfield; }
         <div class="exhead">
           <input class="exname" data-exname="${i}" value="${esc(x.name)}" maxlength="60"
                  aria-label="Exercise name">
+          ${picker}
           <button class="xbtn" data-delex="${i}" aria-label="Remove ${esc(x.name)}">&times;</button>
         </div>
         <div class="setgrid${cls}">
-          <span class="hd">#</span>${cols.map((c) =>
+          <span class="hd">#</span><span class="hd">Prev</span>${cols.map((c) =>
             (c === units.w || c === units.d)
               ? `<button class="hd unit" data-cycle="${c === units.w ? "w" : "d"}"
                    aria-label="Change unit">${esc(c)}</button>`
@@ -2096,7 +2178,8 @@ input[type=number] { -moz-appearance:textfield; }
     if (add) add.addEventListener("click", () => {
       const sets = a.ex[i].sets;
       const last = sets[sets.length - 1] || {};
-      sets.push({ w: last.w || 0, r: last.r || 0, d: last.d || 0, t: last.t || 0, on: false });
+      sets.push({ w: last.w || 0, r: last.r || 0, d: last.d || 0, t: last.t || 0, on: false,
+                  pw: last.pw || 0, pr: last.pr || 0, pd: last.pd || 0, pt: last.pt || 0 });
       queueSync();
       paintEx(i);
       const rows = document.querySelectorAll(`#ex-${i} .setgrid input`);
@@ -2104,6 +2187,23 @@ input[type=number] { -moz-appearance:textfield; }
       const f = rows[rows.length - kindCols];
       if (f) { f.focus(); f.select(); }
     });
+
+    // The weights/time switch, now on the exercise it describes. Changing
+    // it keeps the rows and clears the columns that no longer apply, so a
+    // plank typed as 3 reps does not silently become 3 seconds.
+    host.querySelectorAll("[data-exkind]").forEach((el) =>
+      el.addEventListener("click", () => {
+        const [xi, kk] = el.dataset.exkind.split(":");
+        const x = a.ex[+xi];
+        if (!x || x.kind === kk) return;
+        x.kind = kk;
+        for (const t of x.sets) {
+          if (kk === "duration") { t.w = 0; t.r = 0; }
+          else { t.t = 0; t.d = 0; }
+        }
+        queueSync();
+        paintEx(+xi);
+      }));
 
     const del = host.querySelector("[data-delex]");
     if (del) del.addEventListener("click", () => {
@@ -2240,21 +2340,16 @@ under it stay in your history, they just stop being a tile.`)) return;
           render();
         }));
 
-      document.querySelectorAll("[data-kind]").forEach((el) =>
-        el.addEventListener("click", () => {
-          state.newKind = el.dataset.kind;
-          document.querySelectorAll("[data-kind]").forEach((b) =>
-            b.setAttribute("aria-pressed", String(b.dataset.kind === state.newKind)));
-        }));
-
       on("exAdd", "click", () => {
         const f = document.getElementById("exName");
         const nm = (f.value || "").trim();
         if (!nm) { f.focus(); return; }
-        // A name you have used before keeps its own kind; a new one takes
-        // whatever the toggle says, and remembers it from then on.
+        // A name you have used before keeps its own kind. A new one comes
+        // in as weights (a swim as distance) and carries its own little
+        // weights/time switch until you tick a set, which is where V2.3
+        // moved that choice from the foot of the page.
         const known = kindFor(nm, null);
-        addExercise(nm, known || state.newKind ||
+        addExercise(nm, known ||
           (state.mode === "cardio" ? "distance_time" : "weight_reps"));
         f.value = "";
         render();
@@ -2741,7 +2836,7 @@ under it stay in your history, they just stop being a tile.`)) return;
     // same as the Exercise three. Last Meal is no longer a chip of its
     // own; it is the first of the twelve habits behind Sleep Score.
     const slChips = [
-      { k:"sleep", label:"Score" }, { k:"rise", label:"Rise" }, { k:"rest", label:"Rest" },
+      { k:"sleep", label:"Sleep Score" }, { k:"rise", label:"Rise" }, { k:"rest", label:"Rest" },
     ].map((c) => {
       const on = hasVal(p, c.k);
       const words = !on ? "\u2013"
@@ -2817,14 +2912,16 @@ under it stay in your history, they just stop being a tile.`)) return;
       : `<div class="roster">${state.people.map((p) => {
           const v = bval(p, "steps"), t = target(p, "steps");
           const bd = board(p);
-          // Bed and wake read as one range: 10:30p–5:30a says "slept then"
-          // in half the width of two labels, which is what lets it fit on
-          // one line beside the steps column.
+          // V2.3. This used to read "10:30p–5:30a", which looked like a
+          // night's sleep and was not one. Both numbers belong to the same
+          // CALENDAR day: the 5:30a is the morning that ended the night
+          // before, the 10:30p is the start of the night to come. Writing
+          // them as a range claims a duration nobody measured.
+          // Two facts, labelled, in the order they happened.
           const has = (k) => bd[k] !== null && bd[k] !== undefined;
           const sleepLine = [
-            has("rest") && has("rise") ? `${clockWords(bd.rest)}\u2013${clockWords(bd.rise)}`
-              : has("rest") ? `rest ${clockWords(bd.rest)}`
-              : has("rise") ? `rise ${clockWords(bd.rise)}` : "",
+            has("rise") ? `rise ${clockWords(bd.rise)}` : "",
+            has("rest") ? `rest ${clockWords(bd.rest)}` : "",
             has("meal") ? `meal ${clockWords(bd.meal)}` : "",
           ].filter(Boolean).join(" \u00b7 ");
           const initials = p.name.trim().split(/\s+/).slice(0,2)
@@ -3103,7 +3200,8 @@ under it stay in your history, they just stop being a tile.`)) return;
 
       <header class="masthead">
         <h1>Sleep Score</h1>
-        <p class="sub">Twelve things that decide how well you sleep.</p>
+        <p class="sub">Twelve things that decide how well you sleep, weighted
+          by how much each one moves the night.</p>
       </header>
 
       <section class="card">
@@ -3115,8 +3213,8 @@ under it stay in your history, they just stop being a tile.`)) return;
         </div>
         <div class="domino" style="padding-top:10px">
           <b class="big" style="color:var(--sleep)">${pct}%</b>
-          <span class="of" style="text-decoration:none">${bitsOn(mask)} of
-            ${HABITS.length} done</span>
+          <span class="of" style="text-decoration:none">${scorePts(mask)} of
+            ${scoreMax()} points \u00b7 ${bitsOn(mask)}/${HABITS.length} done</span>
         </div>
       </section>
 
@@ -3128,6 +3226,8 @@ under it stay in your history, they just stop being a tile.`)) return;
                     data-habit="${h.i}" aria-pressed="${!!((mask >> h.i) & 1)}">
               <span class="hbox" aria-hidden="true">\u2713</span>
               <span>${esc(h.t)}</span>
+              <span class="pts" aria-label="${weights()[h.i]} points"
+                >${weights()[h.i]}</span>
             </button>`).join("")}
         </section>`).join("")}
 
