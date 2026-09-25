@@ -181,31 +181,49 @@ input[type=number] { -moz-appearance:textfield; }
   letter-spacing:-.04em; padding:2px 0 4px; border-radius:12px; caret-color:currentColor; }
 .bigedit::placeholder { color:var(--line-strong); }
 .bigedit:focus { outline:none; background:var(--surface-2); }
-.bigtime { position:relative; display:block; }
-.bigtime b { display:block; font-family:var(--mono); font-size:52px; line-height:1;
-  font-weight:500; letter-spacing:-.04em; padding:2px 0 4px; }
-.bigtime b.none { font-family:var(--body); font-size:26px; font-weight:400;
-  color:var(--muted); padding:16px 0 14px; }
-.bigtime input { position:absolute; inset:0; width:100%; height:100%; opacity:0;
-  border:none; padding:0; margin:0; cursor:pointer; font-size:16px; }
-.habits { margin-top:6px; }
-.habit { display:flex; align-items:center; gap:11px; width:100%; padding:11px 13px;
-  margin-top:7px; border:1px solid var(--line); border-radius:12px;
-  background:var(--surface); font-family:inherit; font-size:14px; color:var(--ink);
-  text-align:left; cursor:pointer; line-height:1.3; }
-.habit.on { border-color:var(--sleep); background:var(--sleep-soft); }
-/* The weight, small and last. It has to be visible — you cannot choose
-   what to fix tonight without it — and quiet, because the habit is the
-   thing you read and the number is the footnote. */
-.habit > span:nth-child(2) { flex:1; min-width:0; }
-.habit .pts { flex:none; font-family:var(--mono); font-size:11px; font-weight:500;
-  color:var(--muted); background:var(--surface-2); border-radius:99px;
-  padding:2px 8px; }
-.habit.on .pts { color:var(--sleep); background:color-mix(in oklab, var(--sleep) 14%, transparent); }
-.habit .hbox { flex:none; width:22px; height:22px; border-radius:7px;
-  border:1.5px solid var(--line-strong); display:grid; place-items:center;
-  color:transparent; font-size:12px; line-height:1; }
-.habit.on .hbox { background:var(--sleep); border-color:var(--sleep); color:#fff; }
+.bigtime { display:flex; align-items:center; justify-content:center; gap:10px;
+  padding:2px 0 4px; }
+.timeedit { width:4.2ch; min-width:0; background:none; border:none; padding:0;
+  font-family:var(--mono); font-size:52px; line-height:1; font-weight:500;
+  letter-spacing:-.04em; color:inherit; text-align:right; }
+.timeedit:focus { outline:none; }
+/* Empty, it should read as an invitation rather than as a row of dashes
+   shouting in 52px. Smaller, and in words. */
+.timeedit.none { width:auto; font-family:var(--body); font-size:26px; font-weight:400;
+  color:var(--muted); text-align:center; }
+.timeedit.none::placeholder { color:var(--muted); opacity:1; }
+.timeedit::placeholder { color:var(--line-strong); }
+/* Stacked, so two 52px digits and the choice fit one line on a 390px phone. */
+.ampm { display:flex; flex-direction:column; gap:3px; }
+.ampm button { border:1px solid var(--line); background:var(--surface); color:var(--muted);
+  border-radius:8px; padding:3px 9px; font-family:inherit; font-size:11px;
+  font-weight:700; letter-spacing:.05em; cursor:pointer; }
+.ampm button[aria-pressed="true"] { border-color:currentColor; color:var(--sleep);
+  background:var(--sleep-soft); }
+/* The pyramid. Each row is one grid of N equal columns, so the tiles
+   widen as you go up: the apex is physically the biggest thing on the
+   page and the base is four small ones. The shape carries the ranking,
+   which means the score needs no key. */
+.pyramid { margin-top:14px; }
+.prow { display:grid; grid-template-columns:repeat(var(--n), 1fr); gap:7px; margin-top:7px; }
+.ptile { position:relative; display:flex; flex-direction:column; justify-content:center;
+  gap:3px; min-height:62px; padding:10px 9px; border:1px solid var(--line);
+  border-radius:13px; background:var(--surface); font-family:inherit; color:var(--ink);
+  text-align:center; cursor:pointer; line-height:1.2; }
+.ptile b { font-size:13px; font-weight:600; overflow-wrap:break-word; hyphens:none; }
+.prow:first-child .ptile { min-height:76px; }
+.prow:first-child .ptile b { font-size:17px; }
+.prow:nth-child(2) .ptile b { font-size:15px; }
+.prow:last-child .ptile { min-height:58px; padding:9px 5px; }
+.prow:last-child .ptile b { font-size:11.5px; }
+.ptile .pts { font-family:var(--mono); font-size:10.5px; font-weight:500; color:var(--muted); }
+.ptile.on { border-color:var(--sleep); background:var(--sleep-soft); }
+.ptile.on b, .ptile.on .pts { color:var(--sleep); }
+/* A tick in the corner, so held and not-held differ by shape as well as
+   colour \u2014 two of the ten people here are red-green colourblind men by
+   base rate alone, and this list gets tapped in the dark. */
+.ptile.on::after { content:"\2713"; position:absolute; top:5px; right:7px;
+  font-size:11px; font-weight:700; color:var(--sleep); }
 .sessdate { margin-top:9px; border:1px solid var(--line); border-radius:999px;
   background:var(--surface); font-family:inherit; font-size:12.5px; color:var(--ink-2);
   padding:5px 12px; cursor:pointer; }
@@ -492,6 +510,9 @@ input[type=number] { -moz-appearance:textfield; }
   letter-spacing:-0.01em; color:var(--train);
   border-bottom:1px dotted var(--line-strong); }
 .labelin::placeholder { color:var(--line-strong); }
+.labelfix { display:block; font-family:var(--display); font-size:28px; font-weight:500;
+  line-height:1.15; letter-spacing:-0.01em; color:var(--train);
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 
 .liftchip { background:none; border:1px solid var(--line); border-radius:999px;
   padding:1px 8px; font-family:var(--mono); font-size:10.5px; color:var(--train);
@@ -567,7 +588,7 @@ input[type=number] { -moz-appearance:textfield; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "2.3";
+  const APP_VERSION = "2.4";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -688,20 +709,48 @@ input[type=number] { -moz-appearance:textfield; }
      the room, then the clock — so the list reads like a night rather than
      a checklist someone sorted alphabetically.
      ------------------------------------------------------------------ */
+  /* ---------- the sleep pyramid ---------------------------------------
+     V2.4. Ten habits, not twelve, ranked by how good the evidence for
+     each one actually is, and laid out as a pyramid: the apex is the one
+     worth fixing first and the base is the fine tuning. The shape IS the
+     scoring \u2014 row 1 is worth 4, row 2 is worth 3, row 3 is 2, row 4 is 1,
+     twenty points a night \u2014 so nobody has to read a key to know what
+     matters. Sorting by weight inside a row would be false precision;
+     within a row they are genuinely comparable.
+
+     Three items were dropped and two added, on the evidence:
+       out  no hard exercise before bed \u2014 an evening-exercise network
+            meta-analysis finds no disruption at ANY timing window, and
+            the rule discourages the best-evidenced behaviour in the app
+       out  wind-down routine \u2014 the 226-trial component analysis puts
+            relaxation at iOR 0.81, i.e. plausibly counterproductive,
+            probably by cultivating sleep effort
+       out  sleep tracked \u2014 not a sleep behaviour; one mixed RCT for,
+            case reports of tracking anxiety against
+       in   same wake time \u2014 sleep regularity beat sleep DURATION for
+            mortality in 61k people, and nothing here measured it
+       in   no alcohol within 3h \u2014 REM suppression from about two drinks
+
+     `t` is what the tile says; `full` is the plain-English version under
+     it, because "stimulus control" is not a phrase anyone taps at 11pm.
+     ------------------------------------------------------------------ */
   const HABITS = [
-    { g:"Evening", t:"Last meal 4h before bed" },
-    { g:"Evening", t:"No caffeine 12h before bed" },
-    { g:"Evening", t:"No hard exercise 4h before bed" },
-    { g:"Evening", t:"Dim lights, no screens, 1h before" },
-    { g:"Evening", t:"Wind-down routine, 30 min before" },
-    { g:"Bedroom", t:"Room 60\u201367\u00b0F" },
-    { g:"Bedroom", t:"Dark room, or an eye mask" },
-    { g:"Bedroom", t:"Quiet room, or white noise" },
-    { g:"Clock",   t:"In bed within 15 min of target" },
-    { g:"Clock",   t:"Bright light within 15 min of waking" },
-    { g:"Habits",  t:"Bed used only for sleep" },
-    { g:"Habits",  t:"Sleep tracked \u2014 journal or device" },
+    { w:4, t:"Bed only for sleep", full:"Bed is for sleep. Up and out if you are awake 20 minutes." },
+
+    { w:3, t:"Same wake time",     full:"Up at the same time, seven days a week." },
+    { w:3, t:"Caffeine before 2p", full:"Last coffee, tea or cola by about 2pm." },
+
+    { w:2, t:"No alcohol 3h",      full:"Nothing to drink within three hours of bed." },
+    { w:2, t:"Dark room",          full:"Dark enough to lose your hand, or an eye mask." },
+    { w:2, t:"Cool room",          full:"Under 75\u00b0F, and never above 80\u00b0F." },
+
+    { w:1, t:"Morning light",      full:"Daylight or a bright lamp within 15 minutes of getting up." },
+    { w:1, t:"Screens off 1h",     full:"Work and screens down an hour before bed." },
+    { w:1, t:"Quiet room",         full:"No intrusive noise \u2014 earplugs count." },
+    { w:1, t:"Last meal 3h",       full:"Finish eating about three hours before bed." },
   ];
+  // 1, 2, 3, 4 \u2014 which is why there are ten.
+  const ROWS = [1, 2, 3, 4];
   const bitsOn = (v) => { let n = 0, x = Number(v) || 0; while (x) { n += x & 1; x >>= 1; } return n; };
 
   // V2.3. The twelve are not worth the same. A dark room and a journal
@@ -713,7 +762,7 @@ input[type=number] { -moz-appearance:textfield; }
   // into two separate places, so somebody will eventually upgrade one and
   // not the other — and when they do, the score on the Sleep page and the
   // score on the family board still have to be the same number.
-  const FALLBACK_W = [2,3,1,2,1,2,3,2,3,3,1,1];
+  const FALLBACK_W = HABITS.map((h) => h.w);
   const weights  = () => (state.group && state.group.sleep_weights) || FALLBACK_W;
   const scoreMax = () => Number(state.group && state.group.sleep_max) ||
                          weights().reduce((a, b) => a + b, 0);
@@ -1623,7 +1672,9 @@ input[type=number] { -moz-appearance:textfield; }
   async function startSession(label, iso) {
     const a = { id: uuid(), label: label || "", date: iso || todayISO(),
                 startedAt: Date.now(), endedAt: null, ex: [], pendingFinish: false,
-                mode: state.mode, durOverride: null };
+                mode: state.mode, durOverride: null,
+                // Started from a tile, so the name is settled.
+                fromTile: !!label };
 
     // V1.7b. One call answers "what is this workout made of, and what did
     // I last lift for each part of it" — the explicit template if there is
@@ -1930,10 +1981,18 @@ input[type=number] { -moz-appearance:textfield; }
 
       <header class="masthead">
         <div style="display:flex;align-items:center;gap:10px">
-          <h1 style="flex:1;min-width:0">
-            <input id="labelIn" class="labelin" value="${esc(a.label)}" maxlength="24"
+          <h1 style="flex:1;min-width:0">${a.fromTile
+            // V2.4. You already said which workout this is, by tapping its
+            // tile. Leaving the name editable here meant a stray keystroke
+            // minted a second tile that looked like a duplicate of the
+            // first \u2014 and there was no way to tell "today is C2" apart
+            // from "C is now called C2". So a workout started from a tile
+            // carries that tile's name as a heading. Renaming lives on the
+            // tile, where it means one thing.
+            ? `<span class="labelfix">${esc(a.label)}</span>`
+            : `<input id="labelIn" class="labelin" value="${esc(a.label)}" maxlength="24"
                    placeholder="Name this day" autocomplete="off"
-                   aria-label="What to call this workout"></h1>
+                   aria-label="What to call this workout">`}</h1>
           <button class="btn" id="finish" style="padding:10px 18px">Finish</button>
         </div>
         <div class="timer">
@@ -2512,24 +2571,64 @@ under it stay in your history, they just stop being a tile.`)) return;
 
     wireTemplate();
 
-    // V2.1b. Rest and Rise: the time itself is a native wheel laid over
-    // the big figure, and one button stamps right now.
-    on("timeIn", "change", async () => {
-      const f = document.getElementById("timeIn");
-      const k = state.seg;
-      if (!f.value) {
-        await call("app_unlog", { p_code: state.code, p_person: state.meId,
-          p_metric: M[k].key, p_date: nightDay(k) });
-        await refresh(); return;
-      }
-      const [h, mm] = f.value.split(":").map(Number);
-      let v = h * 60 + mm;
-      if (k === "rest" && h < 5) v += 1440;
-      await call("app_log", { p_code: state.code, p_person: state.meId,
-        p_value: v, p_metric: M[k].key, p_date: nightDay(k), p_tz: deviceTZ() });
-      await loadHistory();
-      await refresh();
-    });
+    // V2.4. Rest and Rise: type the time, pick AM or PM, tap away.
+    {
+      const isPMnow = () => {
+        const b = document.querySelector('[data-ampm="p"]');
+        return !!(b && b.getAttribute("aria-pressed") === "true");
+      };
+      const saveTime = async () => {
+        const f = document.getElementById("timeIn");
+        if (!f) return;
+        const k = state.seg;
+        // An emptied box means "I did not do this", not "save zero".
+        if (!String(f.value).trim()) {
+          await call("app_unlog", { p_code: state.code, p_person: state.meId,
+            p_metric: M[k].key, p_date: nightDay(k) });
+          await loadHistory(); await refresh(); return;
+        }
+        let v = readClock(f.value, isPMnow());
+        if (v === null) {
+          state.msg = "That is not a time \u2014 try 10:30 or 1030.";
+          state.msgKind = "bad"; render(); return;
+        }
+        // The 5am rule, unchanged: a bedtime after midnight belongs to the
+        // evening it started, and is stored past 1440.
+        if (k === "rest" && v < 5 * 60) v += 1440;
+        await call("app_log", { p_code: state.code, p_person: state.meId,
+          p_value: v, p_metric: M[k].key, p_date: nightDay(k), p_tz: deviceTZ() });
+        await loadHistory();
+        await refresh();
+      };
+
+      on("timeIn", "focus", (e) => e.target.select());
+      // Blur saves \u2014 but NOT when the thing you tapped is AM or PM. That
+      // tap blurs the box first, so a plain blur handler saved the old
+      // half of the day and then re-rendered the page out from under the
+      // click, which never landed. Typing 12:20 and tapping AM stored
+      // 12:20pm. relatedTarget is what the focus is moving TO.
+      on("timeIn", "blur", (e) => {
+        if (e.relatedTarget && e.relatedTarget.hasAttribute("data-ampm")) return;
+        saveTime();
+      });
+      on("timeIn", "keydown", (e) => { if (e.key === "Enter") e.target.blur(); });
+      // Typing past four digits is a typo, not an intention.
+      on("timeIn", "input", (e) => {
+        const d = e.target.value.replace(/\D/g, "").slice(0, 4);
+        e.target.value = d.length > 2 ? `${d.slice(0, d.length - 2)}:${d.slice(-2)}` : d;
+      });
+      document.querySelectorAll("[data-ampm]").forEach((el) => {
+        // Keep the keypad up and the focus put while the half of the day
+        // is chosen; without this the box blurs on the way down.
+        el.addEventListener("pointerdown", (e) => e.preventDefault());
+        el.addEventListener("click", async () => {
+          document.querySelectorAll("[data-ampm]").forEach((b) =>
+            b.setAttribute("aria-pressed", String(b === el)));
+          // Only meaningful once there is a time to apply it to.
+          if (String(document.getElementById("timeIn")?.value || "").trim()) await saveTime();
+        });
+      });
+    }
 
     on("stampNow", "click", async (e) => {
       e.target.disabled = true;
@@ -2798,6 +2897,43 @@ under it stay in your history, they just stop being a tile.`)) return;
     const m = ((Math.round(Number(min)) % 1440) + 1440) % 1440;
     return `${pad(Math.floor(m / 60))}:${pad(m % 60)}`;
   };
+
+  /* ---------- V2.4: typing a time --------------------------------------
+     What was here was an <input type="time"> at opacity 0, stretched over
+     a 52px number. Tapping it was a lottery: iOS only opens its wheel on
+     the hour or minute sub-field, both of which were invisible, and the
+     wheel then commits on every flick. Hence "finicky".
+
+     So the time is typed, exactly like the Steps number, which already
+     works. A numeric keypad, four digits, and AM/PM as two buttons you
+     can see. No OS widget, so every phone behaves the same.
+     ------------------------------------------------------------------ */
+  const isPM = (min) => {
+    const m = ((Math.round(Number(min)) % 1440) + 1440) % 1440;
+    return Math.floor(m / 60) >= 12;
+  };
+  // Minutes-after-midnight to the 12-hour figure shown in the box.
+  const hhmm = (min) => {
+    const m = ((Math.round(Number(min)) % 1440) + 1440) % 1440;
+    return `${((Math.floor(m / 60) + 11) % 12) + 1}:${pad(m % 60)}`;
+  };
+  // Read back whatever got typed. People type "1030", "10:30", "10", "7",
+  // and on a bad day ":30" \u2014 all of which mean something obvious. Returns
+  // null when it does not, so a half-typed box never saves a wrong time.
+  function readClock(raw, pm) {
+    const d = String(raw || "").replace(/\D/g, "");
+    if (!d.length || d.length > 4) return null;
+    let h, mi;
+    if (d.length <= 2)      { h = Number(d);              mi = 0; }
+    else if (d.length === 3){ h = Number(d.slice(0, 1));  mi = Number(d.slice(1)); }
+    else                    { h = Number(d.slice(0, 2));  mi = Number(d.slice(2)); }
+    if (!(mi >= 0 && mi <= 59)) return null;
+    // 13:00 typed on a 24-hour brain is unambiguous; take it as given.
+    if (h >= 13 && h <= 23) return h * 60 + mi;
+    if (!(h >= 1 && h <= 12)) { if (h === 0) h = 12; else return null; }
+    const h24 = pm ? (h === 12 ? 12 : h + 12) : (h === 12 ? 0 : h);
+    return h24 * 60 + mi;
+  }
 
   // Which date a sleep entry belongs to. Rest and the habits are filed
   // against the NIGHT, which the server works out under the 5am rule and
@@ -3102,11 +3238,17 @@ under it stay in your history, they just stop being a tile.`)) return;
         </div>
 
         <div class="domino" style="padding-top:10px">
-          <label class="bigtime" style="color:${met.color}">
-            <b class="${has ? "" : "none"}">${has ? clockWords(v) : "not set"}</b>
-            <input type="time" id="timeIn" value="${has ? clockInput(v) : ""}"
-                   aria-label="${esc(met.label)} time">
-          </label>
+          <div class="bigtime" style="color:${met.color}">
+            <input id="timeIn" class="timeedit ${has ? "" : "none"}" type="text"
+                   inputmode="numeric" autocomplete="off" enterkeyhint="done"
+                   value="${has ? hhmm(v) : ""}" placeholder="not set"
+                   aria-label="${esc(met.label)} time, hours and minutes">
+            <div class="ampm" role="group" aria-label="Morning or evening">
+              ${["a","p"].map((x) => `<button type="button" data-ampm="${x}"
+                aria-pressed="${(has ? (isPM(v) ? "p" : "a") : met.night ? "p" : "a") === x}"
+                >${x === "a" ? "AM" : "PM"}</button>`).join("")}
+            </div>
+          </div>
           <button type="button" class="of" data-edit="goal" data-metric="${k}">${
             hasTarget(m, k) ? `target <b>${clockWords(goal)}</b>`
                             : `set a ${esc(met.label.toLowerCase())} target`}</button>
@@ -3118,7 +3260,8 @@ under it stay in your history, they just stop being a tile.`)) return;
 
         <p class="hint dshint ${state.msgKind || ""}" id="hint"
            style="text-align:center">${state.msg ? esc(state.msg)
-          : "Tap the time to change it."}</p>
+          : has ? "Tap the time and type to change it."
+                : "Tap the time and type it, or use the button."}</p>
       </section>`;
   }
 
@@ -3186,11 +3329,14 @@ under it stay in your history, they just stop being a tile.`)) return;
     const isToday = iso === todayISO();
     const mask = Number(isToday ? (m.items || 0) : (dayRecord("sleep").value || 0)) || 0;
     const pct = scorePct(mask);
-    const groups = [];
-    HABITS.forEach((h, i) => {
-      if (!groups.length || groups[groups.length - 1].g !== h.g) groups.push({ g:h.g, items:[] });
-      groups[groups.length - 1].items.push({ ...h, i });
-    });
+    // Cut the flat list into the pyramid's rows: one, then two, then
+    // three, then four. Anything the list grows past that falls into a
+    // final row of its own rather than silently disappearing.
+    const rows = []; let at = 0;
+    for (const n of ROWS) { if (at >= HABITS.length) break;
+      rows.push(HABITS.slice(at, at + n).map((h, j) => ({ ...h, i: at + j }))); at += n; }
+    if (at < HABITS.length)
+      rows.push(HABITS.slice(at).map((h, j) => ({ ...h, i: at + j })));
 
     return `
       <div class="topbar">
@@ -3200,8 +3346,8 @@ under it stay in your history, they just stop being a tile.`)) return;
 
       <header class="masthead">
         <h1>Sleep Score</h1>
-        <p class="sub">Twelve things that decide how well you sleep, weighted
-          by how much each one moves the night.</p>
+        <p class="sub">Ten things that decide how well you sleep, stacked
+          with the heaviest first.</p>
       </header>
 
       <section class="card">
@@ -3214,22 +3360,25 @@ under it stay in your history, they just stop being a tile.`)) return;
         <div class="domino" style="padding-top:10px">
           <b class="big" style="color:var(--sleep)">${pct}%</b>
           <span class="of" style="text-decoration:none">${scorePts(mask)} of
-            ${scoreMax()} points \u00b7 ${bitsOn(mask)}/${HABITS.length} done</span>
+            ${scoreMax()} points \u00b7 ${bitsOn(mask)}/${HABITS.length} held</span>
         </div>
       </section>
 
-      ${groups.map((gr) => `
-        <section class="habits">
-          <div class="section-head"><h2>${esc(gr.g)}</h2></div>
-          ${gr.items.map((h) => `
-            <button type="button" class="habit${(mask >> h.i) & 1 ? " on" : ""}"
-                    data-habit="${h.i}" aria-pressed="${!!((mask >> h.i) & 1)}">
-              <span class="hbox" aria-hidden="true">\u2713</span>
-              <span>${esc(h.t)}</span>
-              <span class="pts" aria-label="${weights()[h.i]} points"
-                >${weights()[h.i]}</span>
-            </button>`).join("")}
-        </section>`).join("")}
+      <section class="pyramid">
+        ${rows.map((row, ri) => `
+          <div class="prow" style="--n:${row.length}">${row.map((h) => {
+            const on = !!((mask >> h.i) & 1);
+            return `<button type="button" class="ptile${on ? " on" : ""}"
+                      data-habit="${h.i}" aria-pressed="${on}"
+                      title="${esc(h.full)}"
+                      aria-label="${esc(h.full)} \u2014 worth ${weights()[h.i]} of ${scoreMax()}">
+              <b>${esc(h.t)}</b>
+              <span class="pts">${weights()[h.i]}</span>
+            </button>`; }).join("")}</div>`).join("")}
+        <p class="hint" style="text-align:center;margin-top:10px">Top of the
+          pyramid is worth the most and has the best evidence behind it.
+          Tap a tile to hold it.</p>
+      </section>
 
       ${graphCard("sleep")}
       ${famBlock()}
