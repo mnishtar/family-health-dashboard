@@ -181,29 +181,53 @@ input[type=number] { -moz-appearance:textfield; }
   letter-spacing:-.04em; padding:2px 0 4px; border-radius:12px; caret-color:currentColor; }
 .bigedit::placeholder { color:var(--line-strong); }
 .bigedit:focus { outline:none; background:var(--surface-2); }
-.bigtime { display:flex; align-items:center; justify-content:center; gap:10px;
-  padding:2px 0 4px; }
-.timeedit { width:4.2ch; min-width:0; background:none; border:none; padding:0;
-  font-family:var(--mono); font-size:52px; line-height:1; font-weight:500;
-  letter-spacing:-.04em; color:inherit; text-align:right; }
-.timeedit:focus { outline:none; }
-/* Empty, it should read as an invitation rather than as a row of dashes
-   shouting in 52px. Smaller, and in words. */
-.timeedit.none { width:auto; font-family:var(--body); font-size:26px; font-weight:400;
-  color:var(--muted); text-align:center; }
-.timeedit.none::placeholder { color:var(--muted); opacity:1; }
-.timeedit::placeholder { color:var(--line-strong); }
-/* Stacked, so two 52px digits and the choice fit one line on a 390px phone. */
-.ampm { display:flex; flex-direction:column; gap:3px; }
-.ampm button { border:1px solid var(--line); background:var(--surface); color:var(--muted);
-  border-radius:8px; padding:3px 9px; font-family:inherit; font-size:11px;
-  font-weight:700; letter-spacing:.05em; cursor:pointer; }
-.ampm button[aria-pressed="true"] { border-color:currentColor; color:var(--sleep);
-  background:var(--sleep-soft); }
+/* The wheel. Three scroll containers with snap points; the value in the
+   middle band is the value. --wi is one row, and the padding above and
+   below each column is exactly one row, which is what puts the first and
+   last items reachable in the middle rather than stuck at an edge. */
+.wheel { --wi:40px; position:relative; display:flex; align-items:center;
+  justify-content:center; gap:2px; height:calc(var(--wi) * 3); }
+.wheel.unset { opacity:.45; }
+.wcol { height:100%; overflow-y:auto; scroll-snap-type:y mandatory;
+  scrollbar-width:none; -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain; text-align:center; }
+.wcol::-webkit-scrollbar { display:none; }
+.wcol:focus-visible { outline:2px solid currentColor; border-radius:10px; }
+.wpad { height:var(--wi); }
+.witem { height:var(--wi); line-height:var(--wi); scroll-snap-align:center;
+  font-family:var(--mono); font-size:30px; font-weight:500; color:var(--muted);
+  opacity:.4; transition:opacity .12s ease, color .12s ease; }
+.witem[aria-selected="true"] { color:inherit; opacity:1; }
+/* Fixed px, not ch: a scroll container clips anything wider than itself,
+   and 2.7ch of a 30px mono glyph does not hold "42". */
+.wcol[data-wheel="h"]  { width:58px; }
+.wcol[data-wheel="m"]  { width:58px; }
+.wcol[data-wheel="ap"] { width:46px; margin-left:10px; }
+.wcol[data-wheel="ap"] .witem { font-size:15px; font-weight:700; letter-spacing:.04em; }
+.wsep { font-family:var(--mono); font-size:30px; font-weight:500; opacity:.45;
+  margin:0 -4px 3px; }
+/* The band says which row counts, without a border round every column. */
+.wband { position:absolute; left:0; right:0; top:var(--wi); height:var(--wi);
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  pointer-events:none; }
 /* The pyramid. Each row is one grid of N equal columns, so the tiles
    widen as you go up: the apex is physically the biggest thing on the
    page and the base is four small ones. The shape carries the ranking,
    which means the score needs no key. */
+/* The ranking list. Number, name, what that slot pays, and two arrows. */
+.rankrow { display:flex; align-items:center; gap:10px; padding:7px 0;
+  border-top:1px solid var(--line); }
+.rankrow:first-of-type { border-top:none; }
+.rnum { width:18px; font-family:var(--mono); font-size:12px; color:var(--muted);
+  text-align:right; }
+.rname { flex:1; min-width:0; font-size:14px; overflow:hidden;
+  text-overflow:ellipsis; white-space:nowrap; }
+.rpts { font-family:var(--mono); font-size:11px; color:var(--sleep);
+  background:var(--sleep-soft); border-radius:99px; padding:2px 8px; }
+.rankrow button { border:1px solid var(--line); background:var(--surface);
+  color:var(--ink-2); border-radius:8px; width:30px; height:30px; font-size:14px;
+  line-height:1; cursor:pointer; font-family:inherit; }
+.rankrow button:disabled { opacity:.3; cursor:default; }
 .pyramid { margin-top:14px; }
 .prow { display:grid; grid-template-columns:repeat(var(--n), 1fr); gap:7px; margin-top:7px; }
 .ptile { position:relative; display:flex; flex-direction:column; justify-content:center;
@@ -464,6 +488,10 @@ input[type=number] { -moz-appearance:textfield; }
 .hcard + .hcard { margin-top:10px; }
 .hcard h3 { margin:0; font-size:16px; font-family:var(--display); font-weight:500; }
 .hcard .when { font-size:13px; color:var(--muted); margin-top:1px; }
+/* The day's note, beside the template's name. Same line, clearly second. */
+.hnote { font-family:var(--body); font-size:13px; font-weight:400; color:var(--muted);
+  margin-left:8px; }
+.hnote::before { content:"\00b7"; margin-right:8px; }
 .hmeta { display:flex; gap:16px; margin:10px 0 2px; font-size:13px; color:var(--ink-2); }
 .hmeta b { font-family:var(--mono); font-weight:500; }
 .htab { width:100%; border-collapse:collapse; margin-top:8px; font-size:13px; }
@@ -510,6 +538,10 @@ input[type=number] { -moz-appearance:textfield; }
   letter-spacing:-0.01em; color:var(--train);
   border-bottom:1px dotted var(--line-strong); }
 .labelin::placeholder { color:var(--line-strong); }
+.notein { display:block; width:100%; margin-top:2px; background:none; border:none;
+  padding:1px 0; font-family:inherit; font-size:13.5px; color:var(--ink-2); }
+.notein::placeholder { color:var(--muted); }
+.notein:focus { outline:none; border-bottom:1px dotted var(--line-strong); }
 .labelfix { display:block; font-family:var(--display); font-size:28px; font-weight:500;
   line-height:1.15; letter-spacing:-0.01em; color:var(--train);
   overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
@@ -588,7 +620,7 @@ input[type=number] { -moz-appearance:textfield; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "2.4";
+  const APP_VERSION = "2.5";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -731,23 +763,29 @@ input[type=number] { -moz-appearance:textfield; }
             mortality in 61k people, and nothing here measured it
        in   no alcohol within 3h \u2014 REM suppression from about two drinks
 
+     THE ORDER OF THIS ARRAY IS THE BIT ORDER AND IS FROZEN FOREVER. It
+     is no longer the ranking: from V2.5 the family arranges the pyramid
+     and `state.group.sleep_order` says who sits where. A tick records
+     WHICH habit, so re-ranking rewrites nothing. Adding a habit means
+     appending to the end, never inserting.
+
      `t` is what the tile says; `full` is the plain-English version under
      it, because "stimulus control" is not a phrase anyone taps at 11pm.
      ------------------------------------------------------------------ */
   const HABITS = [
-    { w:4, t:"Bed only for sleep", full:"Bed is for sleep. Up and out if you are awake 20 minutes." },
+    { t:"Bed only for sleep", full:"Bed is for sleep. Up and out if you are awake 20 minutes." },
 
-    { w:3, t:"Same wake time",     full:"Up at the same time, seven days a week." },
-    { w:3, t:"Caffeine before 2p", full:"Last coffee, tea or cola by about 2pm." },
+    { t:"Same wake time",     full:"Up at the same time, seven days a week." },
+    { t:"Caffeine before 2p", full:"Last coffee, tea or cola by about 2pm." },
 
-    { w:2, t:"No alcohol 3h",      full:"Nothing to drink within three hours of bed." },
-    { w:2, t:"Dark room",          full:"Dark enough to lose your hand, or an eye mask." },
-    { w:2, t:"Cool room",          full:"Under 75\u00b0F, and never above 80\u00b0F." },
+    { t:"No alcohol 3h",      full:"Nothing to drink within three hours of bed." },
+    { t:"Dark room",          full:"Dark enough to lose your hand, or an eye mask." },
+    { t:"Cool room",          full:"Under 75\u00b0F, and never above 80\u00b0F." },
 
-    { w:1, t:"Morning light",      full:"Daylight or a bright lamp within 15 minutes of getting up." },
-    { w:1, t:"Screens off 1h",     full:"Work and screens down an hour before bed." },
-    { w:1, t:"Quiet room",         full:"No intrusive noise \u2014 earplugs count." },
-    { w:1, t:"Last meal 3h",       full:"Finish eating about three hours before bed." },
+    { t:"Morning light",      full:"Daylight or a bright lamp within 15 minutes of getting up." },
+    { t:"Screens off 1h",     full:"Work and screens down an hour before bed." },
+    { t:"Quiet room",         full:"No intrusive noise \u2014 earplugs count." },
+    { t:"Last meal 3h",       full:"Finish eating about three hours before bed." },
   ];
   // 1, 2, 3, 4 \u2014 which is why there are ten.
   const ROWS = [1, 2, 3, 4];
@@ -762,7 +800,19 @@ input[type=number] { -moz-appearance:textfield; }
   // into two separate places, so somebody will eventually upgrade one and
   // not the other — and when they do, the score on the Sleep page and the
   // score on the family board still have to be the same number.
-  const FALLBACK_W = HABITS.map((h) => h.w);
+  // The pyramid ladder: what a POSITION is worth, apex first. The family
+  // decides which habit sits where; the shape never moves.
+  const LADDER = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
+  const IDENT  = HABITS.map((_, i) => i);
+  const order  = () => {
+    const o = state.group && state.group.sleep_order;
+    return Array.isArray(o) && o.length === HABITS.length ? o : IDENT;
+  };
+  const FALLBACK_W = (() => {
+    const w = HABITS.map(() => 0);
+    IDENT.forEach((bit, pos) => { w[bit] = LADDER[pos]; });
+    return w;
+  })();
   const weights  = () => (state.group && state.group.sleep_weights) || FALLBACK_W;
   const scoreMax = () => Number(state.group && state.group.sleep_max) ||
                          weights().reduce((a, b) => a + b, 0);
@@ -816,6 +866,7 @@ input[type=number] { -moz-appearance:textfield; }
     fam: { open: false, data: {} },
     undo: null,           // { key, date, words } for a few seconds after a stamp
     net: "ok",            // ok | offline — whether the last call reached the database
+    rank: null,           // the ranking sheet, while it is open
     range: "week",        // week | month — which graph the page is showing
     month: {},            // per metric per calendar month, fetched when Month is opened
     monthAnchor: null,    // first of the month on show; null means this month
@@ -1613,7 +1664,7 @@ input[type=number] { -moz-appearance:textfield; }
 
     const res = await call("app_lift_save", {
       p_code: state.code, p_person: state.meId, p_session: a.id,
-      p_label: a.label || "", p_date: a.date,
+      p_label: a.label || "", p_note: a.note || null, p_date: a.date,
       p_duration: durationMin(a), p_sets: setsPayload(a),
       p_finished: !!(finish || a.pendingFinish), p_mode: a.mode || state.mode,
       p_tz: deviceTZ(),
@@ -1672,7 +1723,7 @@ input[type=number] { -moz-appearance:textfield; }
   async function startSession(label, iso) {
     const a = { id: uuid(), label: label || "", date: iso || todayISO(),
                 startedAt: Date.now(), endedAt: null, ex: [], pendingFinish: false,
-                mode: state.mode, durOverride: null,
+                mode: state.mode, durOverride: null, note: "",
                 // Started from a tile, so the name is settled.
                 fromTile: !!label };
 
@@ -1787,7 +1838,8 @@ input[type=number] { -moz-appearance:textfield; }
         s.pr_count === 1 ? "" : "s"}</span>`);
     return `
       <${clickable ? "button" : "div"} class="hcard" ${clickable ? `data-open="${s.id}"` : ""}>
-        <h3>${esc(s.label || "Workout")}</h3>
+        <h3>${esc(s.label || "Workout")}${s.note
+          ? `<span class="hnote">${esc(s.note)}</span>` : ""}</h3>
         <p class="when">${esc(fullDate(s.entry_date))}</p>
         <div class="hmeta">${meta.join("")}</div>
         ${rows ? `<table class="htab"><thead><tr><th>${
@@ -1995,6 +2047,14 @@ input[type=number] { -moz-appearance:textfield; }
                    aria-label="What to call this workout">`}</h1>
           <button class="btn" id="finish" style="padding:10px 18px">Finish</button>
         </div>
+        ${a.fromTile ? `
+          <!-- V2.5. Which workout this is, and what today's was, are two
+               different facts. The tile above is the first; this is the
+               second. It goes in History and never makes a tile, which
+               is what the old editable title could not promise. -->
+          <input id="noteIn" class="notein" value="${esc(a.note || "")}" maxlength="40"
+                 placeholder="+ name today \u2014 C2, heavy singles…"
+                 autocomplete="off" aria-label="A note for today's workout">` : ""}
         <div class="timer">
           ${(a.mode || state.mode) === "cardio" || a.durOverride !== null
             ? `<span class="durwrap"><input id="durIn" class="durin" type="number"
@@ -2147,7 +2207,8 @@ input[type=number] { -moz-appearance:textfield; }
       </div>
 
       <header class="masthead">
-        <h1 style="color:var(--train)">${esc(s.label || "Workout")}</h1>
+        <h1 style="color:var(--train)">${esc(s.label || "Workout")}${s.note
+          ? `<span class="hnote">${esc(s.note)}</span>` : ""}</h1>
         <p class="sub">${esc(s.person)} &middot; ${esc(fullDate(s.entry_date))}</p>
         <div class="timer" style="margin-top:8px">
           <span><b>${s.duration_min}m</b></span>
@@ -2420,6 +2481,7 @@ under it stay in your history, they just stop being a tile.`)) return;
       // The name is just a field. No prompt, no modal, no editor state —
       // a label you can only set at the start is a label you get wrong.
       on("labelIn", "input", (e) => { a.label = e.target.value.slice(0, 24); queueSync(); });
+      on("noteIn", "input", (e) => { a.note = e.target.value.slice(0, 40); queueSync(); });
 
       on("finish", "click", async (e) => {
         if (doneSets(a) === 0) {
@@ -2570,64 +2632,68 @@ under it stay in your history, they just stop being a tile.`)) return;
     });
 
     wireTemplate();
+    wireRank();
 
-    // V2.4. Rest and Rise: type the time, pick AM or PM, tap away.
+    // V2.5. Rest and Rise: three scroll columns, the middle row wins.
     {
-      const isPMnow = () => {
-        const b = document.querySelector('[data-ampm="p"]');
-        return !!(b && b.getAttribute("aria-pressed") === "true");
-      };
-      const saveTime = async () => {
-        const f = document.getElementById("timeIn");
-        if (!f) return;
-        const k = state.seg;
-        // An emptied box means "I did not do this", not "save zero".
-        if (!String(f.value).trim()) {
-          await call("app_unlog", { p_code: state.code, p_person: state.meId,
-            p_metric: M[k].key, p_date: nightDay(k) });
-          await loadHistory(); await refresh(); return;
-        }
-        let v = readClock(f.value, isPMnow());
-        if (v === null) {
-          state.msg = "That is not a time \u2014 try 10:30 or 1030.";
-          state.msgKind = "bad"; render(); return;
-        }
-        // The 5am rule, unchanged: a bedtime after midnight belongs to the
-        // evening it started, and is stored past 1440.
-        if (k === "rest" && v < 5 * 60) v += 1440;
-        await call("app_log", { p_code: state.code, p_person: state.meId,
-          p_value: v, p_metric: M[k].key, p_date: nightDay(k), p_tz: deviceTZ() });
-        await loadHistory();
-        await refresh();
-      };
+      const cols = [...document.querySelectorAll("[data-wheel]")];
+      if (cols.length) {
+        const ITEM = () => {
+          const el = document.querySelector(".witem");
+          return el ? el.getBoundingClientRect().height : 40;
+        };
+        // Setting scrollTop fires scroll events. Without this guard the
+        // act of positioning the wheel on load reads back as the user
+        // having chosen something, and saves it.
+        let placing = true;
+        let timer = null;
 
-      on("timeIn", "focus", (e) => e.target.select());
-      // Blur saves \u2014 but NOT when the thing you tapped is AM or PM. That
-      // tap blurs the box first, so a plain blur handler saved the old
-      // half of the day and then re-rendered the page out from under the
-      // click, which never landed. Typing 12:20 and tapping AM stored
-      // 12:20pm. relatedTarget is what the focus is moving TO.
-      on("timeIn", "blur", (e) => {
-        if (e.relatedTarget && e.relatedTarget.hasAttribute("data-ampm")) return;
-        saveTime();
-      });
-      on("timeIn", "keydown", (e) => { if (e.key === "Enter") e.target.blur(); });
-      // Typing past four digits is a typo, not an intention.
-      on("timeIn", "input", (e) => {
-        const d = e.target.value.replace(/\D/g, "").slice(0, 4);
-        e.target.value = d.length > 2 ? `${d.slice(0, d.length - 2)}:${d.slice(-2)}` : d;
-      });
-      document.querySelectorAll("[data-ampm]").forEach((el) => {
-        // Keep the keypad up and the focus put while the half of the day
-        // is chosen; without this the box blurs on the way down.
-        el.addEventListener("pointerdown", (e) => e.preventDefault());
-        el.addEventListener("click", async () => {
-          document.querySelectorAll("[data-ampm]").forEach((b) =>
-            b.setAttribute("aria-pressed", String(b === el)));
-          // Only meaningful once there is a time to apply it to.
-          if (String(document.getElementById("timeIn")?.value || "").trim()) await saveTime();
+        const indexOf = (c) => Math.round(c.scrollTop / ITEM());
+        const paint = (c) => {
+          const at = indexOf(c);
+          [...c.querySelectorAll(".witem")].forEach((el, i) =>
+            el.setAttribute("aria-selected", String(i === at)));
+        };
+        const place = (c) => { c.scrollTop = Number(c.dataset.at || 0) * ITEM(); paint(c); };
+
+        const save = async () => {
+          const get = (n) => indexOf(cols.find((c) => c.dataset.wheel === n));
+          const k = state.seg;
+          const h12 = get("h") + 1, mi = get("m"), pm = get("ap") === 1;
+          let v = ((pm ? (h12 === 12 ? 12 : h12 + 12) : (h12 === 12 ? 0 : h12)) * 60) + mi;
+          // The 5am rule, unchanged: a bedtime after midnight belongs to
+          // the evening it started, and is stored past 1440.
+          if (k === "rest" && v < 5 * 60) v += 1440;
+          await call("app_log", { p_code: state.code, p_person: state.meId,
+            p_value: v, p_metric: M[k].key, p_date: nightDay(k), p_tz: deviceTZ() });
+          await loadHistory();
+          await refresh();
+        };
+
+        cols.forEach((c) => {
+          place(c);
+          c.addEventListener("scroll", () => {
+            paint(c);
+            if (placing) return;
+            clearTimeout(timer);
+            // Long enough that momentum has stopped and snap has landed.
+            timer = setTimeout(save, 260);
+          }, { passive: true });
+          // Tapping a row is quicker than scrolling to it.
+          c.querySelectorAll(".witem").forEach((el) =>
+            el.addEventListener("click", () => {
+              c.scrollTo({ top: Number(el.dataset.i) * ITEM(), behavior: "smooth" });
+            }));
+          // Arrow keys, for anyone on a laptop.
+          c.addEventListener("keydown", (e) => {
+            const d = e.key === "ArrowDown" ? 1 : e.key === "ArrowUp" ? -1 : 0;
+            if (!d) return;
+            e.preventDefault();
+            c.scrollTo({ top: Math.max(0, (indexOf(c) + d)) * ITEM(), behavior: "smooth" });
+          });
         });
-      });
+        requestAnimationFrame(() => requestAnimationFrame(() => { placing = false; }));
+      }
     }
 
     on("stampNow", "click", async (e) => {
@@ -2898,42 +2964,6 @@ under it stay in your history, they just stop being a tile.`)) return;
     return `${pad(Math.floor(m / 60))}:${pad(m % 60)}`;
   };
 
-  /* ---------- V2.4: typing a time --------------------------------------
-     What was here was an <input type="time"> at opacity 0, stretched over
-     a 52px number. Tapping it was a lottery: iOS only opens its wheel on
-     the hour or minute sub-field, both of which were invisible, and the
-     wheel then commits on every flick. Hence "finicky".
-
-     So the time is typed, exactly like the Steps number, which already
-     works. A numeric keypad, four digits, and AM/PM as two buttons you
-     can see. No OS widget, so every phone behaves the same.
-     ------------------------------------------------------------------ */
-  const isPM = (min) => {
-    const m = ((Math.round(Number(min)) % 1440) + 1440) % 1440;
-    return Math.floor(m / 60) >= 12;
-  };
-  // Minutes-after-midnight to the 12-hour figure shown in the box.
-  const hhmm = (min) => {
-    const m = ((Math.round(Number(min)) % 1440) + 1440) % 1440;
-    return `${((Math.floor(m / 60) + 11) % 12) + 1}:${pad(m % 60)}`;
-  };
-  // Read back whatever got typed. People type "1030", "10:30", "10", "7",
-  // and on a bad day ":30" \u2014 all of which mean something obvious. Returns
-  // null when it does not, so a half-typed box never saves a wrong time.
-  function readClock(raw, pm) {
-    const d = String(raw || "").replace(/\D/g, "");
-    if (!d.length || d.length > 4) return null;
-    let h, mi;
-    if (d.length <= 2)      { h = Number(d);              mi = 0; }
-    else if (d.length === 3){ h = Number(d.slice(0, 1));  mi = Number(d.slice(1)); }
-    else                    { h = Number(d.slice(0, 2));  mi = Number(d.slice(2)); }
-    if (!(mi >= 0 && mi <= 59)) return null;
-    // 13:00 typed on a 24-hour brain is unambiguous; take it as given.
-    if (h >= 13 && h <= 23) return h * 60 + mi;
-    if (!(h >= 1 && h <= 12)) { if (h === 0) h = 12; else return null; }
-    const h24 = pm ? (h === 12 ? 12 : h + 12) : (h === 12 ? 0 : h);
-    return h24 * 60 + mi;
-  }
 
   // Which date a sleep entry belongs to. Rest and the habits are filed
   // against the NIGHT, which the server works out under the 5am rule and
@@ -3237,22 +3267,38 @@ under it stay in your history, they just stop being a tile.`)) return;
             ${isToday ? "disabled" : ""}>&rsaquo;</button>
         </div>
 
-        <div class="domino" style="padding-top:10px">
-          <div class="bigtime" style="color:${met.color}">
-            <input id="timeIn" class="timeedit ${has ? "" : "none"}" type="text"
-                   inputmode="numeric" autocomplete="off" enterkeyhint="done"
-                   value="${has ? hhmm(v) : ""}" placeholder="not set"
-                   aria-label="${esc(met.label)} time, hours and minutes">
-            <div class="ampm" role="group" aria-label="Morning or evening">
-              ${["a","p"].map((x) => `<button type="button" data-ampm="${x}"
-                aria-pressed="${(has ? (isPM(v) ? "p" : "a") : met.night ? "p" : "a") === x}"
-                >${x === "a" ? "AM" : "PM"}</button>`).join("")}
-            </div>
+        ${(() => {
+          // V2.5. Three columns you scroll, snapping to the value in the
+          // middle band. Built here rather than handed to the OS: the
+          // native wheel is the thing that was finicky, and a page of our
+          // own behaves the same on every phone. The minute column is
+          // every minute, not every five, so a stamped 10:42p is never
+          // quietly rounded away the first time the card is opened.
+          const base = has ? v : (hasTarget(m, k) ? goal : (met.night ? 22 * 60 : 7 * 60));
+          const b = ((Math.round(base) % 1440) + 1440) % 1440;
+          const h24 = Math.floor(b / 60);
+          const sel = { h: ((h24 + 11) % 12), m: b % 60, ap: h24 >= 12 ? 1 : 0 };
+          const col = (name, items, at, label) => `
+            <div class="wcol" data-wheel="${name}" role="listbox"
+                 aria-label="${label}" tabindex="0" data-at="${at}">
+              <div class="wpad"></div>
+              ${items.map((t, i) => `<div class="witem" data-i="${i}"
+                 role="option" aria-selected="${i === at}">${t}</div>`).join("")}
+              <div class="wpad"></div>
+            </div>`;
+          return `
+        <div class="domino" style="padding-top:6px">
+          <div class="wheel${has ? "" : " unset"}" style="color:${met.color}">
+            ${col("h", Array.from({length:12}, (_, i) => i + 1), sel.h, "Hour")}
+            <span class="wsep">:</span>
+            ${col("m", Array.from({length:60}, (_, i) => pad(i)), sel.m, "Minute")}
+            ${col("ap", ["AM","PM"], sel.ap, "Morning or evening")}
+            <div class="wband" aria-hidden="true"></div>
           </div>
           <button type="button" class="of" data-edit="goal" data-metric="${k}">${
             hasTarget(m, k) ? `target <b>${clockWords(goal)}</b>`
                             : `set a ${esc(met.label.toLowerCase())} target`}</button>
-        </div>
+        </div>`; })()}
 
         <button class="btn" id="stampNow"
                 style="width:100%;margin-top:12px;background:${met.color}">${
@@ -3260,8 +3306,8 @@ under it stay in your history, they just stop being a tile.`)) return;
 
         <p class="hint dshint ${state.msgKind || ""}" id="hint"
            style="text-align:center">${state.msg ? esc(state.msg)
-          : has ? "Tap the time and type to change it."
-                : "Tap the time and type it, or use the button."}</p>
+          : has ? "Scroll to change it."
+                : "Nothing recorded yet \u2014 scroll to set it, or use the button."}</p>
       </section>`;
   }
 
@@ -3332,11 +3378,15 @@ under it stay in your history, they just stop being a tile.`)) return;
     // Cut the flat list into the pyramid's rows: one, then two, then
     // three, then four. Anything the list grows past that falls into a
     // final row of its own rather than silently disappearing.
+    // V2.5. HABITS is the permanent bit order and never moves; `order`
+    // is the family's ranking and decides who sits where. Keeping those
+    // apart is what lets the pyramid be rearranged without rewriting a
+    // single stored night.
+    const ranked = order().map((bit) => ({ ...HABITS[bit], i: bit }));
     const rows = []; let at = 0;
-    for (const n of ROWS) { if (at >= HABITS.length) break;
-      rows.push(HABITS.slice(at, at + n).map((h, j) => ({ ...h, i: at + j }))); at += n; }
-    if (at < HABITS.length)
-      rows.push(HABITS.slice(at).map((h, j) => ({ ...h, i: at + j })));
+    for (const n of ROWS) { if (at >= ranked.length) break;
+      rows.push(ranked.slice(at, at + n)); at += n; }
+    if (at < ranked.length) rows.push(ranked.slice(at));
 
     return `
       <div class="topbar">
@@ -3376,14 +3426,81 @@ under it stay in your history, they just stop being a tile.`)) return;
               <span class="pts">${weights()[h.i]}</span>
             </button>`; }).join("")}</div>`).join("")}
         <p class="hint" style="text-align:center;margin-top:10px">Top of the
-          pyramid is worth the most and has the best evidence behind it.
-          Tap a tile to hold it.</p>
+          pyramid is worth the most. Tap a tile to hold it,
+          <button type="button" class="linkbtn" id="rankOpen">or rearrange it</button>.</p>
       </section>
+      ${rankSheet()}
 
       ${graphCard("sleep")}
       ${famBlock()}
 
       <p class="ver">v${APP_VERSION}</p>`;
+  }
+
+  /* ---------- rearranging the pyramid ---------------------------------
+     One ranking for the whole family, because a board that compares
+     scores has to have worked them out the same way. Up and down arrows
+     rather than drag: it is the control the workout template editor
+     already uses, it cannot be triggered by a scroll, and it is the only
+     one that works with a thumb on a phone in the dark.
+     ------------------------------------------------------------------ */
+  function rankSheet() {
+    const r = state.rank;
+    if (!r) return "";
+    const lad = LADDER;
+    return `
+      <section class="card" id="rankCard">
+        <div class="section-head"><h2>Rank these</h2>
+          <span class="eyebrow">the whole family\u2019s order</span></div>
+        <p class="hint" style="margin:0 0 8px">Whatever you put first is worth
+          ${lad[0]} points a night. Nothing already logged changes.</p>
+        ${r.order.map((bit, pos) => `
+          <div class="rankrow">
+            <span class="rnum">${pos + 1}</span>
+            <span class="rname">${esc(HABITS[bit].t)}</span>
+            <span class="rpts">${lad[pos]}</span>
+            <button type="button" data-rup="${pos}" ${pos === 0 ? "disabled" : ""}
+              aria-label="Move ${esc(HABITS[bit].t)} up">\u2191</button>
+            <button type="button" data-rdown="${pos}"
+              ${pos === r.order.length - 1 ? "disabled" : ""}
+              aria-label="Move ${esc(HABITS[bit].t)} down">\u2193</button>
+          </div>`).join("")}
+        <div class="addrow" style="margin-top:12px">
+          <button class="btn" id="rankSave" style="background:var(--sleep)">Save</button>
+          <button class="btn-quiet" id="rankCancel">Cancel</button>
+        </div>
+        <button type="button" class="linkbtn" id="rankReset"
+          style="margin-top:9px;font-size:12px;color:var(--muted)">Back to the
+          best-evidence order</button>
+      </section>`;
+  }
+
+  function wireRank() {
+    on("rankOpen", "click", () => {
+      state.rank = { order: order().slice() };
+      render();
+      document.getElementById("rankCard")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    const r = state.rank;
+    if (!r) return;
+    const swap = (i, j) => {
+      if (j < 0 || j >= r.order.length) return;
+      [r.order[i], r.order[j]] = [r.order[j], r.order[i]];
+      render();
+    };
+    document.querySelectorAll("[data-rup]").forEach((el) =>
+      el.addEventListener("click", () => swap(+el.dataset.rup, +el.dataset.rup - 1)));
+    document.querySelectorAll("[data-rdown]").forEach((el) =>
+      el.addEventListener("click", () => swap(+el.dataset.rdown, +el.dataset.rdown + 1)));
+    on("rankCancel", "click", () => { state.rank = null; render(); });
+    on("rankReset", "click", () => { state.rank = { order: IDENT.slice() }; render(); });
+    on("rankSave", "click", async () => {
+      const res = await call("app_set_sleep_order",
+        { p_code: state.code, p_order: r.order });
+      if (res.error) { state.msg = res.error; state.msgKind = "bad"; render(); return; }
+      state.rank = null;
+      await refresh();
+    });
   }
 
   function metricView() {
