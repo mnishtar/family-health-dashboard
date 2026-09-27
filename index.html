@@ -210,44 +210,75 @@ input[type=number] { -moz-appearance:textfield; }
 .wband { position:absolute; left:0; right:0; top:var(--wi); height:var(--wi);
   border-top:1px solid var(--line); border-bottom:1px solid var(--line);
   pointer-events:none; }
-/* The pyramid. Each row is one grid of N equal columns, so the tiles
-   widen as you go up: the apex is physically the biggest thing on the
-   page and the base is four small ones. The shape carries the ranking,
-   which means the score needs no key. */
-/* The ranking list. Number, name, what that slot pays, and two arrows. */
-.rankrow { display:flex; align-items:center; gap:10px; padding:7px 0;
-  border-top:1px solid var(--line); }
-.rankrow:first-of-type { border-top:none; }
-.rnum { width:18px; font-family:var(--mono); font-size:12px; color:var(--muted);
-  text-align:right; }
-.rname { flex:1; min-width:0; font-size:14px; overflow:hidden;
-  text-overflow:ellipsis; white-space:nowrap; }
-.rpts { font-family:var(--mono); font-size:11px; color:var(--sleep);
-  background:var(--sleep-soft); border-radius:99px; padding:2px 8px; }
-.rankrow button { border:1px solid var(--line); background:var(--surface);
-  color:var(--ink-2); border-radius:8px; width:30px; height:30px; font-size:14px;
-  line-height:1; cursor:pointer; font-family:inherit; }
-.rankrow button:disabled { opacity:.3; cursor:default; }
-.pyramid { margin-top:14px; }
-.prow { display:grid; grid-template-columns:repeat(var(--n), 1fr); gap:7px; margin-top:7px; }
-.ptile { position:relative; display:flex; flex-direction:column; justify-content:center;
-  gap:3px; min-height:62px; padding:10px 9px; border:1px solid var(--line);
-  border-radius:13px; background:var(--surface); font-family:inherit; color:var(--ink);
-  text-align:center; cursor:pointer; line-height:1.2; }
-.ptile b { font-size:13px; font-weight:600; overflow-wrap:break-word; hyphens:none; }
-.prow:first-child .ptile { min-height:76px; }
-.prow:first-child .ptile b { font-size:17px; }
-.prow:nth-child(2) .ptile b { font-size:15px; }
-.prow:last-child .ptile { min-height:58px; padding:9px 5px; }
-.prow:last-child .ptile b { font-size:11.5px; }
-.ptile .pts { font-family:var(--mono); font-size:10.5px; font-weight:500; color:var(--muted); }
+/* ---------- the pyramid ----------------------------------------------
+   Four rows of one, two, three and four. Each row is a grid of N equal
+   columns inset by (4-N) half-columns, so the rows centre on each other
+   and every tile in a row is the same width \u2014 which is what the V2.5
+   version got wrong: tiles of three different widths never line up, and
+   the eye reads the mess before it reads the ranking.
+   Each tile is a square. A square at any width is the one shape that
+   scales down a phone without the text reflowing into a different
+   number of lines per row. */
+.pyramid { position:relative; margin-top:16px; }
+.pyrow { display:grid; grid-template-columns:repeat(var(--n), 1fr); gap:9px;
+  margin-top:9px; width:calc((var(--n) / 4) * 100% + ((var(--n) - 4) / 4) * 9px);
+  margin-inline:auto; }
+.pcell { position:relative; }
+.ptile { position:relative; width:100%; aspect-ratio:1 / 1; display:flex;
+  flex-direction:column; align-items:center; justify-content:center; gap:2px;
+  padding:8px 7px; border:1px solid var(--line); border-radius:16px;
+  background:var(--surface); font-family:inherit; color:var(--ink);
+  text-align:center; cursor:pointer; line-height:1.15;
+  transition:background .16s ease, border-color .16s ease, transform .12s ease; }
+.ptile:active { transform:scale(.97); }
+.ptile b { font-size:13.5px; font-weight:600; overflow-wrap:normal; hyphens:none; }
+.ptile em { font-style:normal; font-size:10px; color:var(--muted); line-height:1.2;
+  padding:0 2px; }
+/* The points sit in the corner as a quiet numeral, not a badge: the tile's
+   height in the stack already says what it is worth. */
+.ptile .pts { position:absolute; top:7px; left:9px; font-family:var(--mono);
+  font-size:10.5px; font-weight:500; color:var(--line-strong); }
+.pyrow:nth-child(1) .ptile b { font-size:18px; }
+.pyrow:nth-child(2) .ptile b { font-size:14.5px; }
+.pyrow:nth-child(4) .ptile { border-radius:13px; padding:7px 5px; }
+.pyrow:nth-child(4) .ptile b { font-size:11.5px; overflow-wrap:break-word; }
+.pyrow:nth-child(4) .ptile em { font-size:9.5px; }
+.pyrow:nth-child(4) .ptile .pts { top:5px; left:6px; font-size:9.5px; }
 .ptile.on { border-color:var(--sleep); background:var(--sleep-soft); }
-.ptile.on b, .ptile.on .pts { color:var(--sleep); }
-/* A tick in the corner, so held and not-held differ by shape as well as
-   colour \u2014 two of the ten people here are red-green colourblind men by
-   base rate alone, and this list gets tapped in the dark. */
-.ptile.on::after { content:"\2713"; position:absolute; top:5px; right:7px;
-  font-size:11px; font-weight:700; color:var(--sleep); }
+.ptile.on b { color:var(--sleep); }
+.ptile.on .pts { color:var(--sleep); }
+/* Held and not-held differ by shape as well as colour \u2014 this gets tapped
+   in the dark, and by base rate one of ten men here is colour-blind. */
+.ptile.on::after { content:"\2713"; position:absolute; top:6px; right:8px;
+  font-size:12px; font-weight:700; color:var(--sleep); }
+.pinfo { position:absolute; right:2px; bottom:2px; width:26px; height:26px;
+  border:none; background:none; color:var(--line-strong); font-family:var(--display);
+  font-size:13px; font-style:italic; line-height:1; cursor:pointer; }
+.pinfo:hover, .pinfo:active { color:var(--sleep); }
+
+/* The back of a tile, brought forward over the pyramid. */
+.pback { position:absolute; left:0; right:0; top:50%; transform:translateY(-50%);
+  z-index:7; display:flex; flex-direction:column; gap:9px;
+  padding:20px 22px; border-radius:20px;
+  background:var(--surface); border:1px solid var(--sleep);
+  box-shadow:0 22px 50px -18px rgba(10,14,40,.5);
+  animation:flipin .22s ease both; }
+/* The rest of the stack stays visible behind it, softened, so turning a
+   tile over never feels like leaving the page. */
+.pscrim { position:absolute; inset:-6px; z-index:6; border-radius:22px;
+  background:var(--ground); opacity:.78; }
+@keyframes flipin {
+  from { opacity:0; transform:translateY(-50%) perspective(900px) rotateY(-88deg); }
+  to   { opacity:1; transform:translateY(-50%) perspective(900px) rotateY(0); }
+}
+@media (prefers-reduced-motion: reduce) { .pback { animation:none; } }
+.pback .pts { font-family:var(--mono); font-size:11px; font-weight:500;
+  color:var(--sleep); letter-spacing:.04em; text-transform:uppercase; }
+.pback b { font-family:var(--display); font-size:23px; font-weight:500;
+  line-height:1.15; }
+.pback p { margin:0; font-size:14px; line-height:1.5; color:var(--ink-2); }
+.pbackrow { display:flex; gap:9px; margin-top:4px; }
+.pbackrow .btn { flex:1; }
 .sessdate { margin-top:9px; border:1px solid var(--line); border-radius:999px;
   background:var(--surface); font-family:inherit; font-size:12.5px; color:var(--ink-2);
   padding:5px 12px; cursor:pointer; }
@@ -448,6 +479,14 @@ input[type=number] { -moz-appearance:textfield; }
 .tapedit.small { font-size:11px; font-weight:400; color:var(--muted); }
 .tapedit.small.met { color:var(--accent); font-weight:500; }
 .chart svg rect[data-day] { cursor:pointer; }
+/* Which way is late. Set in HTML, not in the SVG: the chart is stretched
+   horizontally (preserveAspectRatio none) and any text inside it would
+   be stretched with it. */
+.chart.dev { position:relative; }
+.devax { position:absolute; left:1px; font-size:9px; letter-spacing:.06em;
+  text-transform:uppercase; color:var(--muted); opacity:.75; pointer-events:none; }
+.devax.up { top:6px; }
+.devax.dn { bottom:26px; }
 .install { display:flex; align-items:flex-start; gap:10px; padding:12px 14px;
   border:1px solid var(--line); border-radius:12px; background:var(--soft);
   font-size:13px; color:var(--ink-2); }
@@ -580,11 +619,11 @@ input[type=number] { -moz-appearance:textfield; }
    it here and it is the single reason their logger feels like memory. */
 .setgrid .prev { font-family:var(--mono); font-size:11.5px; color:var(--muted);
   text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.kindmini { display:flex; gap:4px; flex:none; }
+.kindmini { display:flex; gap:3px; flex:none; }
 .kindmini button { border:1px solid var(--line); background:var(--surface);
-  color:var(--muted); border-radius:99px; padding:3px 9px; font-family:inherit;
-  font-size:10.5px; font-weight:600; letter-spacing:.04em; text-transform:uppercase;
-  cursor:pointer; }
+  color:var(--muted); border-radius:99px; padding:3px 8px; font-family:inherit;
+  font-size:10px; font-weight:600; letter-spacing:.03em; text-transform:uppercase;
+  cursor:pointer; white-space:nowrap; }
 .kindmini button[aria-pressed="true"] { border-color:var(--train); color:var(--train);
   background:var(--train-soft); }
 .xset { border:none; background:none; color:var(--line-strong); font-size:17px;
@@ -620,7 +659,7 @@ input[type=number] { -moz-appearance:textfield; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "2.5";
+  const APP_VERSION = "2.6";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -773,21 +812,63 @@ input[type=number] { -moz-appearance:textfield; }
      it, because "stimulus control" is not a phrase anyone taps at 11pm.
      ------------------------------------------------------------------ */
   const HABITS = [
-    { t:"Bed only for sleep", full:"Bed is for sleep. Up and out if you are awake 20 minutes." },
-
-    { t:"Same wake time",     full:"Up at the same time, seven days a week." },
-    { t:"Caffeine before 2p", full:"Last coffee, tea or cola by about 2pm." },
-
-    { t:"No alcohol 3h",      full:"Nothing to drink within three hours of bed." },
-    { t:"Dark room",          full:"Dark enough to lose your hand, or an eye mask." },
-    { t:"Cool room",          full:"Under 75\u00b0F, and never above 80\u00b0F." },
-
-    { t:"Morning light",      full:"Daylight or a bright lamp within 15 minutes of getting up." },
-    { t:"Screens off 1h",     full:"Work and screens down an hour before bed." },
-    { t:"Quiet room",         full:"No intrusive noise \u2014 earplugs count." },
-    { t:"Last meal 3h",       full:"Finish eating about three hours before bed." },
+    { bit:10, t:"Bedtime",      sub:"alarm, by target", long:"Bedtime alarm",
+      full:"Set an alarm to be in bed at or before your target time. This is " +
+           "the most important appointment of the day, and the rest of your " +
+           "schedule should revolve around it." },
+    { bit:6,  t:"Light",        sub:"on waking",       long:"Morning light",
+      full:"View bright light within 15 to 30 minutes of waking, at about the " +
+           "same time each day. A light therapy device works if you are up " +
+           "before the sun." },
+    { bit:7,  t:"Wind-down",    sub:"the last hour",   long:"The wind-down hour",
+      full:"Dim, warm lighting for the hour before bed, with screens limited \u2014 " +
+           "blue-light filters and glasses help. Make the hour relaxing: " +
+           "reading, a warm bath, conversation or a walk, soothing music, " +
+           "meditation." },
+    { bit:5,  t:"Cool",         sub:"60\u201367\u00b0F",         long:"A cool room",
+      full:"Sleep between 60 and 67\u00b0F (15\u201319\u00b0C), with breathable bedding and " +
+           "light sleepwear. A fan or cooling device helps, and so does a warm " +
+           "bath before bed." },
+    { bit:8,  t:"Quiet",        sub:"or masked",       long:"A quiet room",
+      full:"Keep the bedroom quiet. A white noise machine offsets environmental " +
+           "sound, and earplugs work if you need them." },
+    { bit:4,  t:"Dark",         sub:"no light",        long:"A dark room",
+      full:"Blackout curtains or an eye mask. As dark as you can make it, with " +
+           "no artificial light." },
+    { bit:2,  t:"Caffeine",     sub:"none for 10h",    long:"No caffeine for 10h",
+      full:"Avoid caffeine within 10 hours of bed \u2014 its half-life is about six " +
+           "hours. Swap to herbal tea or another relaxing drink in the evening, " +
+           "ideally two hours before bed." },
+    { bit:9,  t:"Last meal",    sub:"4h before",       long:"Last meal 4h before bed",
+      full:"Finish eating at least four hours before bed, and avoid large meals " +
+           "close to bedtime." },
+    { bit:11, t:"No hard set",  sub:"3h before",       long:"No hard exercise 3h before",
+      full:"Avoid strenuous exercise in the last three hours. It makes it " +
+           "harder for the brain to wind down." },
+    { bit:12, t:"Track it",     sub:"journal or app",  long:"Track your sleep",
+      full:"Keep a journal or use a sleep tracker. Use the data to make " +
+           "informed adjustments, and monitor and tweak your habits to improve " +
+           "the quality of your sleep." },
   ];
-  // 1, 2, 3, 4 \u2014 which is why there are ten.
+
+  /* ---------- how a night is stored, and why it survives this list ------
+     V2.6. `bit` is an explicit, PERMANENT number, not the position in this
+     array. That is the whole point: the list has now changed three times
+     (twelve, then ten, then these ten), and the first two changes each
+     needed a one-off migration to rewrite every stored night, because the
+     position in the array WAS the bit.
+
+     From here the array is append-only. Reorder it freely; drop an item
+     and its bit is simply retired and stops scoring; add one and it takes
+     the next free number. Nothing stored is ever rewritten again.
+
+     Retired so far: 0 bed-only-for-sleep, 1 same-wake-time, 3 no-alcohol.
+     Next free bit: 13.
+     ------------------------------------------------------------------ */
+  const BITS = HABITS.map((h) => h.bit);
+  const BYBIT = Object.fromEntries(HABITS.map((h) => [h.bit, h]));
+  const MAXBIT = Math.max(...BITS);
+  // One tile, then two, then three, then four.
   const ROWS = [1, 2, 3, 4];
   const bitsOn = (v) => { let n = 0, x = Number(v) || 0; while (x) { n += x & 1; x >>= 1; } return n; };
 
@@ -803,17 +884,26 @@ input[type=number] { -moz-appearance:textfield; }
   // The pyramid ladder: what a POSITION is worth, apex first. The family
   // decides which habit sits where; the shape never moves.
   const LADDER = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
-  const IDENT  = HABITS.map((_, i) => i);
+  // The order the list is written in IS the default ranking.
+  const IDENT  = BITS.slice();
+  const okOrder = (o) => Array.isArray(o) && o.length === BITS.length &&
+    new Set(o).size === BITS.length && o.every((b) => BYBIT[b] !== undefined);
   const order  = () => {
     const o = state.group && state.group.sleep_order;
-    return Array.isArray(o) && o.length === HABITS.length ? o : IDENT;
+    return okOrder(o) ? o : IDENT;
   };
-  const FALLBACK_W = (() => {
-    const w = HABITS.map(() => 0);
-    IDENT.forEach((bit, pos) => { w[bit] = LADDER[pos]; });
+  // Indexed by BIT, so a retired bit sits at zero and an old night that
+  // held it simply stops earning anything for it.
+  const wtFrom = (ord) => {
+    const w = new Array(MAXBIT + 1).fill(0);
+    ord.forEach((bit, pos) => { if (pos < LADDER.length) w[bit] = LADDER[pos]; });
     return w;
-  })();
-  const weights  = () => (state.group && state.group.sleep_weights) || FALLBACK_W;
+  };
+  const FALLBACK_W = wtFrom(IDENT);
+  const weights  = () => {
+    const w = state.group && state.group.sleep_weights;
+    return Array.isArray(w) && w.length > MAXBIT ? w : FALLBACK_W;
+  };
   const scoreMax = () => Number(state.group && state.group.sleep_max) ||
                          weights().reduce((a, b) => a + b, 0);
   const scorePts = (v) => {
@@ -866,6 +956,7 @@ input[type=number] { -moz-appearance:textfield; }
     fam: { open: false, data: {} },
     undo: null,           // { key, date, words } for a few seconds after a stamp
     net: "ok",            // ok | offline — whether the last call reached the database
+    flip: null,           // which tile is showing its back
     rank: null,           // the ranking sheet, while it is open
     range: "week",        // week | month — which graph the page is showing
     month: {},            // per metric per calendar month, fetched when Month is opened
@@ -1096,10 +1187,25 @@ input[type=number] { -moz-appearance:textfield; }
     // a bar starting anywhere but zero would be a lie.
     const vals = pts.filter((p) => p.logged || p.value > 0).map((p) => p.value);
     const timed = !!(met.time && vals.length);
+    // V2.6. For a clock with a target, the number that means something is
+    // the MISS, not the reading. "22 minutes late" lands; "10:52p" has to
+    // be subtracted from 10:30p first, every time you look at it. So Rest
+    // and Rise are drawn as deviation from target: a centre line that IS
+    // your target, bars up for late and down for early. Without a target
+    // there is nothing to deviate from, and the fitted line from V2.1b
+    // stays.
+    const dev = !!(timed && (goal || goal === 0));
     const peak = Math.max(...pts.map((p) => p.value), goal || 0, 1);
     const max = peak * 1.15;
-    let y;
-    if (timed) {
+    let y, mid, devSpan;
+    if (dev) {
+      // A symmetric scale, so ten minutes late and ten minutes early are
+      // the same distance from the line. Floored at half an hour each way
+      // so a good week does not magnify two-minute wobbles into mountains.
+      devSpan = Math.max(30, ...vals.map((v) => Math.abs(v - goal))) * 1.15;
+      mid = PT + plot / 2;
+      y = (v) => mid - ((v - goal) / devSpan) * (plot / 2);
+    } else if (timed) {
       const lo = Math.min(...vals, goal || Infinity) - 25;
       const hi = Math.max(...vals, goal || -Infinity) + 25;
       const span = Math.max(hi - lo, 60);
@@ -1122,8 +1228,30 @@ input[type=number] { -moz-appearance:textfield; }
         `<rect x="${i * slot}" y="${PT}" width="${slot}" height="${plot}"
            fill="${p.key === sel ? met.soft : "transparent"}"
            ${p.key === sel ? 'opacity="0.55"' : ""}
-           data-day="${p.key}" data-metric="${k}"></rect>`).join("")
-        + (seen.length > 1
+           data-day="${p.key}" data-metric="${k}"></rect>`).join("");
+
+      if (dev) {
+        // One bar per night, hanging off the target line. Rounded at the
+        // free end only, so the bar reads as growing away from the line
+        // rather than floating beside it.
+        const dw = slot * 0.4;
+        bars += seen.map((o) => {
+          const yv = y(o.p.value), h = Math.abs(yv - mid);
+          const top = Math.min(yv, mid);
+          const x = cx(o.i) - dw / 2;
+          if (h < 0.9) {
+            // Dead on target: a dash, not a sliver of a bar.
+            return `<rect x="${x.toFixed(2)}" y="${(mid - 0.9).toFixed(2)}"
+              width="${dw.toFixed(2)}" height="1.8" rx="0.9" fill="${met.color}"
+              pointer-events="none"></rect>`;
+          }
+          return `<rect x="${x.toFixed(2)}" y="${top.toFixed(2)}"
+            width="${dw.toFixed(2)}" height="${h.toFixed(2)}" rx="${(dw / 2).toFixed(2)}"
+            fill="${met.color}" opacity="${o.p.value > goal ? 0.9 : 0.45}"
+            pointer-events="none"></rect>`;
+        }).join("");
+      } else {
+        bars += (seen.length > 1
           ? `<polyline points="${seen.map((o) =>
                `${cx(o.i).toFixed(2)},${y(o.p.value).toFixed(2)}`).join(" ")}"
                fill="none" stroke="${met.color}" stroke-width="1.5" stroke-linecap="round"
@@ -1138,6 +1266,7 @@ input[type=number] { -moz-appearance:textfield; }
              x2="${cx(o.i).toFixed(2)}" y2="${y(o.p.value).toFixed(2)}"
              stroke="${met.color}" stroke-width="5.5" stroke-linecap="round"
              vector-effect="non-scaling-stroke" pointer-events="none"></line>`).join("");
+      }
     }
     if (!timed) pts.forEach((p, i) => {
       const x = i * slot + (slot - bw) / 2;
@@ -1159,7 +1288,12 @@ input[type=number] { -moz-appearance:textfield; }
                 data-metric="${k}"></rect>`;
     });
 
-    const goalLine = (timed ? (goal || goal === 0) : (goal && goal <= max))
+    // On a deviation chart the target is the axis, so it is a solid hairline
+    // rather than a dashed guide: it is the thing everything is measured from.
+    const goalLine = dev
+      ? `<line x1="0" x2="100" y1="${mid}" y2="${mid}" stroke="${met.color}"
+           stroke-width="1" opacity="0.55" vector-effect="non-scaling-stroke"></line>`
+      : (timed ? (goal || goal === 0) : (goal && goal <= max))
       ? `<line x1="0" x2="100" y1="${y(goal)}" y2="${y(goal)}" stroke="${met.color}"
            stroke-width="1" stroke-dasharray="3 3" opacity="0.8" vector-effect="non-scaling-stroke"></line>` : "";
 
@@ -1177,7 +1311,9 @@ input[type=number] { -moz-appearance:textfield; }
            goal ? "goal " + num(goal) + (k === "steps" ? "" : " min") : "set a goal"}</button>`;
 
     const svg = `
-        <div class="chart" id="chart-${k}" data-chart="${k}">
+        <div class="chart${dev ? " dev" : ""}" id="chart-${k}" data-chart="${k}">
+          ${dev ? `<span class="devax up">later</span>
+                   <span class="devax dn">earlier</span>` : ""}
           <svg viewBox="0 0 100 ${H}" preserveAspectRatio="none" role="img"
                aria-label="${met.label} for the period shown">
             ${timed ? "" : `<line x1="0" x2="100" y1="${y(0)}" y2="${y(0)}"
@@ -2122,10 +2258,18 @@ input[type=number] { -moz-appearance:textfield; }
     // applied to whatever you typed next. It belongs to the exercise, so
     // it lives on the exercise — and only until the exercise has a history
     // or a ticked set, after which it is settled and the control is noise.
-    const settled = (x.sets || []).some((t) => t.on) || kindFor(x.name, null) !== null;
-    const picker = (state.mode === "cardio" || settled) ? "" : `
+    // V2.6. Always there, on every exercise, whatever it has recorded
+    // before. V2.3 hid it once an exercise had a history or a ticked set,
+    // on the theory that the question was then settled \u2014 which is exactly
+    // backwards for Yoga or a farmer's carry, the movements most likely to
+    // be logged one way this week and the other way next. A carry is reps
+    // on Monday and a stopwatch on Thursday, and neither is a mistake.
+    const KINDS = state.mode === "cardio"
+      ? [["distance_time", "distance"], ["duration", "time"], ["weight_reps", "reps"]]
+      : [["weight_reps", "reps"], ["duration", "time"]];
+    const picker = `
       <div class="kindmini" role="group" aria-label="What ${esc(x.name)} records">
-        ${[["weight_reps","weights"],["duration","time"]].map(([kk, lbl]) =>
+        ${KINDS.map(([kk, lbl]) =>
           `<button type="button" data-exkind="${i}:${kk}"
             aria-pressed="${kind === kk}">${lbl}</button>`).join("")}
       </div>`;
@@ -2317,9 +2461,12 @@ input[type=number] { -moz-appearance:textfield; }
         const x = a.ex[+xi];
         if (!x || x.kind === kk) return;
         x.kind = kk;
+        // Clear the columns that no longer apply, so 3 reps never becomes
+        // 3 seconds. What is kept for each kind is what that kind means.
         for (const t of x.sets) {
-          if (kk === "duration") { t.w = 0; t.r = 0; }
-          else { t.t = 0; t.d = 0; }
+          if (kk === "duration")           { t.w = 0; t.r = 0; t.d = 0; }
+          else if (kk === "weight_reps")   { t.t = 0; t.d = 0; }
+          else                             { t.w = 0; t.r = 0; }
         }
         queueSync();
         paintEx(+xi);
@@ -2573,7 +2720,6 @@ under it stay in your history, they just stop being a tile.`)) return;
   // to be on the board, and the log that used to be its own screen.
   function wireExercise() {
     wireLift();
-    if (state.range === "week") wireChart(state.seg);
 
     // A day at a time, from the log box itself. The graph can still jump
     // you to any day; this is for "yesterday", which is most of them.
@@ -2602,27 +2748,6 @@ under it stay in your history, they just stop being a tile.`)) return;
     on("dPrev", "click", () => stepDay(-1));
     on("dNext", "click", () => stepDay(1));
 
-    // Week or month. The month is fetched once per metric, on first ask.
-    document.querySelectorAll("[data-range]").forEach((el) =>
-      el.addEventListener("click", async () => {
-        const v = el.dataset.range;
-        if (v === state.range) return;
-        state.range = v;
-        try { localStorage.setItem("fhd.range", v); } catch {}
-        render();
-        if (v === "month" && !monthData(state.seg)) { await loadMonth(); render(); }
-      }));
-
-    // Every dot is a day, and tapping one selects it exactly as a bar does.
-    document.querySelectorAll(".gcell[data-day]").forEach((el) =>
-      el.addEventListener("click", () => {
-        const iso = el.dataset.day;
-        state.entryDate = iso === todayISO() ? null : iso;
-        state.msg = null;
-        render();
-        document.getElementById("steps")?.focus();
-      }));
-
     // The workout history folds. It is the longest thing on the page and
     // the least often wanted.
     on("foldHist", "click", () => {
@@ -2634,65 +2759,140 @@ under it stay in your history, they just stop being a tile.`)) return;
     wireTemplate();
     wireRank();
 
-    // V2.5. Rest and Rise: three scroll columns, the middle row wins.
+    // Rest and Rise: three scroll columns, the middle row wins.
+    //
+    // V2.6 rewrite, because V2.5's version got stuck. Three causes, all
+    // the same shape \u2014 the page rebuilding itself under a moving finger:
+    //
+    //   1. Saving called refresh(), which re-rendered the whole card and
+    //      replaced the very elements being scrolled. Mid-flick the
+    //      column vanished and the scroll died with it.
+    //   2. The re-render then re-placed the wheel at the SAVED value, so
+    //      a second scroll begun before the save landed was yanked back.
+    //   3. 260ms of quiet is not the end of an iOS momentum scroll. A
+    //      slow coast has gaps longer than that, so a save fired in the
+    //      middle of one and triggered (1).
+    //
+    // Now: a save never re-renders the card. It writes, updates the
+    // state in place, and repaints only the graph below. A save is also
+    // abandoned if the user has started scrolling again while it was in
+    // flight, and nothing saves until a real gesture has happened.
     {
       const cols = [...document.querySelectorAll("[data-wheel]")];
       if (cols.length) {
-        const ITEM = () => {
-          const el = document.querySelector(".witem");
-          return el ? el.getBoundingClientRect().height : 40;
-        };
-        // Setting scrollTop fires scroll events. Without this guard the
-        // act of positioning the wheel on load reads back as the user
-        // having chosen something, and saves it.
-        let placing = true;
+        // Measured once, at mount. Re-measuring during a scroll can read
+        // a transient zero and put NaN through the arithmetic.
+        const probe = document.querySelector(".witem");
+        const ITEM = Math.max(1, probe ? probe.getBoundingClientRect().height : 40);
+
+        let live = false;     // has the user actually touched a wheel yet
+        let gen  = 0;         // bumped by every scroll; stales an in-flight save
         let timer = null;
 
-        const indexOf = (c) => Math.round(c.scrollTop / ITEM());
+        const indexOf = (c) => {
+          const n = Math.round(c.scrollTop / ITEM);
+          return Number.isFinite(n) ? Math.max(0, n) : 0;
+        };
         const paint = (c) => {
           const at = indexOf(c);
           [...c.querySelectorAll(".witem")].forEach((el, i) =>
             el.setAttribute("aria-selected", String(i === at)));
         };
-        const place = (c) => { c.scrollTop = Number(c.dataset.at || 0) * ITEM(); paint(c); };
+        const place = (c) => {
+          c.scrollTop = Number(c.dataset.at || 0) * ITEM;
+          paint(c);
+        };
 
-        const save = async () => {
-          const get = (n) => indexOf(cols.find((c) => c.dataset.wheel === n));
+        const readValue = () => {
+          const get = (n) => {
+            const c = cols.find((x) => x.dataset.wheel === n);
+            return c ? indexOf(c) : 0;
+          };
           const k = state.seg;
-          const h12 = get("h") + 1, mi = get("m"), pm = get("ap") === 1;
+          const h12 = Math.min(11, get("h")) + 1;
+          const mi  = Math.min(59, get("m"));
+          const pm  = get("ap") === 1;
           let v = ((pm ? (h12 === 12 ? 12 : h12 + 12) : (h12 === 12 ? 0 : h12)) * 60) + mi;
           // The 5am rule, unchanged: a bedtime after midnight belongs to
           // the evening it started, and is stored past 1440.
           if (k === "rest" && v < 5 * 60) v += 1440;
+          return v;
+        };
+
+        const save = async () => {
+          const mine = gen;
+          const k = state.seg, v = readValue();
+          if (!Number.isFinite(v)) return;
+
+          // Show it as set straight away. The wheel already reads the new
+          // time; everything else on the page should agree with it before
+          // the network does.
+          const m = me();
+          if (m && entryDay() === todayISO()) m[k] = v;
+          const wrap = document.querySelector(".wheel");
+          if (wrap) wrap.classList.remove("unset");
+
           await call("app_log", { p_code: state.code, p_person: state.meId,
             p_value: v, p_metric: M[k].key, p_date: nightDay(k), p_tz: deviceTZ() });
+          if (mine !== gen) return;          // they kept scrolling; leave it alone
           await loadHistory();
-          await refresh();
+          if (mine !== gen) return;
+          // Repaint the graph only. The card, and the wheel inside it,
+          // are left exactly as the finger left them.
+          const slot = document.getElementById("graphSlot");
+          if (slot) { slot.innerHTML = graphCard(k); wireGraph(); }
+          const hint = document.getElementById("hint");
+          if (hint) hint.textContent = "Scroll to change it.";
+          refresh();                          // the board, quietly, in the background
+        };
+
+        const settle = () => {
+          clearTimeout(timer);
+          // Long enough to outlast an iOS momentum coast.
+          timer = setTimeout(save, 450);
         };
 
         cols.forEach((c) => {
           place(c);
+          const wake = () => { live = true; };
+          ["pointerdown", "touchstart", "wheel", "keydown"].forEach((ev) =>
+            c.addEventListener(ev, wake, { passive: true }));
+
           c.addEventListener("scroll", () => {
             paint(c);
-            if (placing) return;
-            clearTimeout(timer);
-            // Long enough that momentum has stopped and snap has landed.
-            timer = setTimeout(save, 260);
+            if (!live) return;
+            gen++;
+            settle();
           }, { passive: true });
+
+          // Some browsers fire this exactly once when scrolling truly
+          // stops, which beats any timeout. Harmless where unsupported.
+          c.addEventListener("scrollend", () => {
+            if (!live) return;
+            clearTimeout(timer);
+            timer = setTimeout(save, 60);
+          });
+
           // Tapping a row is quicker than scrolling to it.
           c.querySelectorAll(".witem").forEach((el) =>
             el.addEventListener("click", () => {
-              c.scrollTo({ top: Number(el.dataset.i) * ITEM(), behavior: "smooth" });
+              live = true;
+              c.scrollTo({ top: Number(el.dataset.i) * ITEM, behavior: "smooth" });
+              gen++; settle();
             }));
+
           // Arrow keys, for anyone on a laptop.
           c.addEventListener("keydown", (e) => {
             const d = e.key === "ArrowDown" ? 1 : e.key === "ArrowUp" ? -1 : 0;
             if (!d) return;
             e.preventDefault();
-            c.scrollTo({ top: Math.max(0, (indexOf(c) + d)) * ITEM(), behavior: "smooth" });
+            live = true;
+            const n = Math.max(0, Math.min(c.querySelectorAll(".witem").length - 1,
+                                           indexOf(c) + d));
+            c.scrollTo({ top: n * ITEM, behavior: "smooth" });
+            gen++; settle();
           });
         });
-        requestAnimationFrame(() => requestAnimationFrame(() => { placing = false; }));
       }
     }
 
@@ -2709,24 +2909,45 @@ under it stay in your history, they just stop being a tile.`)) return;
       await refresh();
     });
 
-    // The twelve habits: one integer, one bit each, written on every tap.
-    document.querySelectorAll("[data-habit]").forEach((el) =>
-      el.addEventListener("click", async () => {
-        const i = Number(el.dataset.habit);
-        const m = me() || {};
-        const cur = Number(entryDay() === todayISO()
-          ? (m.items || 0) : (dayRecord("sleep").value || 0)) || 0;
-        const next = cur ^ (1 << i);
-        // Paint immediately: a checklist that waits for the network before
-        // ticking feels broken even when it is working.
+    // The habits: one integer, one bit each, written on every tap.
+    const heldNow = () => {
+      const m = me() || {};
+      return Number(entryDay() === todayISO()
+        ? (m.items || 0) : (dayRecord("sleep").value || 0)) || 0;
+    };
+    const holdBit = async (bit, el) => {
+      const next = heldNow() ^ (1 << bit);
+      // Paint immediately: a checklist that waits for the network before
+      // ticking feels broken even when it is working.
+      if (el) {
         el.classList.toggle("on");
-        el.setAttribute("aria-pressed", String(!!((next >> i) & 1)));
-        await call("app_log", { p_code: state.code, p_person: state.meId,
-          p_value: next, p_metric: "sleep_items", p_date: nightDay("sleep"),
-          p_tz: deviceTZ() });
-        await loadHistory();
-        await refresh();
+        el.setAttribute("aria-pressed", String(!!((next >> bit) & 1)));
+      }
+      await call("app_log", { p_code: state.code, p_person: state.meId,
+        p_value: next, p_metric: "sleep_items", p_date: nightDay("sleep"),
+        p_tz: deviceTZ() });
+      await loadHistory();
+      await refresh();
+    };
+    document.querySelectorAll("[data-habit]").forEach((el) =>
+      el.addEventListener("click", () => holdBit(Number(el.dataset.habit), el)));
+
+    // Turning a tile over. The back closes on the next tap anywhere, the
+    // way a card you have finished reading goes back down.
+    document.querySelectorAll("[data-flip]").forEach((el) =>
+      el.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const b = Number(el.dataset.flip);
+        state.flip = state.flip === b ? null : b;
+        render();
       }));
+    on("flipShut", "click", () => { state.flip = null; render(); });
+    document.querySelectorAll("[data-shut]").forEach((el) =>
+      el.addEventListener("click", () => { state.flip = null; render(); }));
+    on("flipHold", "click", async () => {
+      const b = state.flip; state.flip = null;
+      await holdBit(b, null);
+    });
 
     // The family block is fetched the first time it is opened, then kept.
     on("foldFam", "click", async () => {
@@ -2737,37 +2958,7 @@ under it stay in your history, they just stop being a tile.`)) return;
     });
 
 
-    // Stepping weeks moves the selection with it. Otherwise the sheet under
-    // the chart would still say "Today" while you are looking at a week that
-    // does not contain today, and you would log into a bar you cannot see.
-    const stepWeek = async (n) => {
-      state.weekAnchor = shiftISO(weekBounds().start, n * 7);
-      if (state.weekAnchor === thisMonday()) state.weekAnchor = null;
-      state.entryDate = state.weekAnchor ? shiftISO(state.weekAnchor, 6) : null;
-      state.msg = null;
-      await loadHistory();
-      render();
-    };
-    on("wPrev", "click", () => stepWeek(-1));
-    on("wNext", "click", () => stepWeek(1));
-
-    // A month at a time. The selection moves with it, like the week does,
-    // so the log box never points at a day the grid isn't showing.
-    const stepMonth = async (n) => {
-      const d = new Date(monthBounds().first + "T00:00:00Z");
-      const first = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + n, 1))
-        .toISOString().slice(0, 10);
-      if (first > monthOf(todayISO())) return;
-      state.monthAnchor = first === monthOf(todayISO()) ? null : first;
-      const b = monthBounds();
-      state.entryDate = state.monthAnchor ? b.last : null;
-      state.msg = null;
-      render();
-      await loadMonth();
-      render();
-    };
-    on("mPrev", "click", () => stepMonth(-1));
-    on("mNext", "click", () => stepMonth(1));
+    wireGraph();
 
     // V2.1. The big number is the input. Show it formatted; edit it raw.
     const big = document.getElementById("steps");
@@ -2848,7 +3039,7 @@ under it stay in your history, they just stop being a tile.`)) return;
     state.entryDate = null;
     state.lift.loaded = false;
     state.lift.labels = []; state.lift.sessions = [];
-    state.lift.menu = null; state.lift.rename = null;
+    state.lift.menu = null; state.lift.rename = null; state.flip = null;
     loadLocal();
     state.view = state.seg === "sleep" ? "sleep" : "exercise";
     render();                 // paint immediately; the list can arrive after
@@ -3314,13 +3505,36 @@ under it stay in your history, they just stop being a tile.`)) return;
   // What the week adds up to — which is not a sum for every metric. Adding
   // up seven percentages gives 700, and adding up seven bedtimes gives a
   // number of minutes nobody has a use for. Those average instead.
+  // How far off, in words. "22 min late" is the sentence; "10:52p" is the
+  // arithmetic problem it saves you.
+  function offWords(mins) {
+    const m = Math.round(Math.abs(mins));
+    if (m === 0) return "on target";
+    const h = Math.floor(m / 60), r = m % 60;
+    const span = h ? (r ? `${h}h ${r}m` : `${h}h`) : `${m} min`;
+    return `${span} ${mins > 0 ? "late" : "early"}`;
+  }
+
   function weekWords2(k) {
     const met = M[k] || {};
     const pts = points(k).filter((p) => met.time || met.bits ? p.logged : true);
     if (!pts.length) return "nothing logged this week";
     const sum = pts.reduce((t, p) => t + p.value, 0);
     if (met.bits) return `${Math.round(sum / pts.length)}% average this week`;
-    if (met.time) return `${clockWords(Math.round(sum / pts.length))} average this week`;
+    if (met.time) {
+      const avg = Math.round(sum / pts.length);
+      const goal = target(me() || {}, k);
+      // With a target, the average miss says more than the average time.
+      // The clock reading is still there, in brackets, for anyone who
+      // wants it.
+      if (goal || goal === 0) {
+        const d = avg - goal;
+        return Math.abs(d) < 1
+          ? `on target on average \u00b7 ${clockWords(avg)}`
+          : `${offWords(d)} on average \u00b7 ${clockWords(avg)}`;
+      }
+      return `${clockWords(avg)} average this week`;
+    }
     return `${num(Math.round(sum))} ${met.unit} this week`;
   }
 
@@ -3382,7 +3596,7 @@ under it stay in your history, they just stop being a tile.`)) return;
     // is the family's ranking and decides who sits where. Keeping those
     // apart is what lets the pyramid be rearranged without rewriting a
     // single stored night.
-    const ranked = order().map((bit) => ({ ...HABITS[bit], i: bit }));
+    const ranked = order().map((bit) => ({ ...BYBIT[bit], i: bit }));
     const rows = []; let at = 0;
     for (const n of ROWS) { if (at >= ranked.length) break;
       rows.push(ranked.slice(at, at + n)); at += n; }
@@ -3396,8 +3610,8 @@ under it stay in your history, they just stop being a tile.`)) return;
 
       <header class="masthead">
         <h1>Sleep Score</h1>
-        <p class="sub">Ten things that decide how well you sleep, stacked
-          with the heaviest first.</p>
+        <p class="sub">Ten things that decide how well you sleep. The higher
+          the tile, the more it is worth.</p>
       </header>
 
       <section class="card">
@@ -3414,20 +3628,46 @@ under it stay in your history, they just stop being a tile.`)) return;
         </div>
       </section>
 
-      <section class="pyramid">
-        ${rows.map((row, ri) => `
-          <div class="prow" style="--n:${row.length}">${row.map((h) => {
+      <section class="pyramid" id="pyr">
+        ${rows.map((row) => `
+          <div class="pyrow" style="--n:${row.length}">${row.map((h) => {
             const on = !!((mask >> h.i) & 1);
-            return `<button type="button" class="ptile${on ? " on" : ""}"
+            const w  = weights()[h.i];
+            return `<div class="pcell">
+              <button type="button" class="ptile${on ? " on" : ""}"
                       data-habit="${h.i}" aria-pressed="${on}"
-                      title="${esc(h.full)}"
-                      aria-label="${esc(h.full)} \u2014 worth ${weights()[h.i]} of ${scoreMax()}">
-              <b>${esc(h.t)}</b>
-              <span class="pts">${weights()[h.i]}</span>
-            </button>`; }).join("")}</div>`).join("")}
-        <p class="hint" style="text-align:center;margin-top:10px">Top of the
-          pyramid is worth the most. Tap a tile to hold it,
-          <button type="button" class="linkbtn" id="rankOpen">or rearrange it</button>.</p>
+                      aria-label="${esc(h.t)}, worth ${w} of ${scoreMax()}">
+                <span class="pts" aria-hidden="true">${w}</span>
+                <b>${esc(h.t)}</b>
+                <em>${esc(h.sub || "")}</em>
+              </button>
+              <button type="button" class="pinfo" data-flip="${h.i}"
+                aria-label="What ${esc(h.t)} means">i</button>
+            </div>`; }).join("")}</div>`).join("")}
+
+        <!-- The back of a tile. At 85px square a description is unreadable,
+             so flipping brings the card forward over the whole pyramid
+             instead of turning in place. Same gesture, legible result. -->
+        ${state.flip !== null && state.flip !== undefined && BYBIT[state.flip] ? `
+          <div class="pscrim" data-shut="1" aria-hidden="true"></div>
+          <div class="pback" id="pback" role="dialog" aria-modal="false"
+               aria-label="${esc(BYBIT[state.flip].long || BYBIT[state.flip].t)}">
+            <span class="pts">${weights()[state.flip]} ${
+              weights()[state.flip] === 1 ? "point" : "points"}</span>
+            <b>${esc(BYBIT[state.flip].long || BYBIT[state.flip].t)}</b>
+            <p>${esc(BYBIT[state.flip].full)}</p>
+            <div class="pbackrow">
+              <button type="button" class="btn" id="flipHold"
+                style="background:var(--sleep)">${
+                ((mask >> state.flip) & 1) ? "Held tonight \u2713" : "Hold it tonight"}</button>
+              <button type="button" class="btn-quiet" id="flipShut">Close</button>
+            </div>
+          </div>` : ""}
+
+        <p class="hint" style="text-align:center;margin-top:12px">Tap a tile to
+          hold it, <b>i</b> to read what it means, or
+          <button type="button" class="linkbtn" id="rankOpen">rearrange the
+          pyramid</button>.</p>
       </section>
       ${rankSheet()}
 
@@ -3457,13 +3697,13 @@ under it stay in your history, they just stop being a tile.`)) return;
         ${r.order.map((bit, pos) => `
           <div class="rankrow">
             <span class="rnum">${pos + 1}</span>
-            <span class="rname">${esc(HABITS[bit].t)}</span>
+            <span class="rname">${esc(BYBIT[bit].t)}</span>
             <span class="rpts">${lad[pos]}</span>
             <button type="button" data-rup="${pos}" ${pos === 0 ? "disabled" : ""}
-              aria-label="Move ${esc(HABITS[bit].t)} up">\u2191</button>
+              aria-label="Move ${esc(BYBIT[bit].t)} up">\u2191</button>
             <button type="button" data-rdown="${pos}"
               ${pos === r.order.length - 1 ? "disabled" : ""}
-              aria-label="Move ${esc(HABITS[bit].t)} down">\u2193</button>
+              aria-label="Move ${esc(BYBIT[bit].t)} down">\u2193</button>
           </div>`).join("")}
         <div class="addrow" style="margin-top:12px">
           <button class="btn" id="rankSave" style="background:var(--sleep)">Save</button>
@@ -3532,7 +3772,11 @@ under it stay in your history, they just stop being a tile.`)) return;
       ${resumeBanner()}
       ${logCard(k)}
       ${editRowHTML()}
-      ${graphCard(k)}
+      <!-- V2.6. The graph lives in a slot of its own so a wheel save can
+           repaint it WITHOUT rebuilding the card above it. Re-rendering
+           the whole page under a finger that is still scrolling is what
+           made the time wheel feel stuck. -->
+      <div id="graphSlot">${graphCard(k)}</div>
 
       ${k === "steps" || M[k].time ? "" : `
         <button class="btn" id="startEmpty"
@@ -3594,6 +3838,74 @@ under it stay in your history, they just stop being a tile.`)) return;
     wireNet(); wireNet();
   }
 
+
+  /* ---------- everything inside the graph slot -------------------------
+     V2.6. Pulled out of the one big wiring pass so the slot can be
+     repainted on its own. A time wheel save needs the graph to catch up
+     without the card above it being rebuilt, and rebuilding the card was
+     what made the wheel stick.
+     ------------------------------------------------------------------ */
+  // Stepping weeks moves the selection with it. Otherwise the sheet under
+  // the chart would still say "Today" while you are looking at a week that
+  // does not contain today, and you would log into a bar you cannot see.
+  const stepWeek = async (n) => {
+    state.weekAnchor = shiftISO(weekBounds().start, n * 7);
+    if (state.weekAnchor === thisMonday()) state.weekAnchor = null;
+    state.entryDate = state.weekAnchor ? shiftISO(state.weekAnchor, 6) : null;
+    state.msg = null;
+    await loadHistory();
+    render();
+  };
+  on("wPrev", "click", () => stepWeek(-1));
+  on("wNext", "click", () => stepWeek(1));
+
+  // A month at a time. The selection moves with it, like the week does,
+  // so the log box never points at a day the grid isn't showing.
+  const stepMonth = async (n) => {
+    const d = new Date(monthBounds().first + "T00:00:00Z");
+    const first = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + n, 1))
+      .toISOString().slice(0, 10);
+    if (first > monthOf(todayISO())) return;
+    state.monthAnchor = first === monthOf(todayISO()) ? null : first;
+    const b = monthBounds();
+    state.entryDate = state.monthAnchor ? b.last : null;
+    state.msg = null;
+    render();
+    await loadMonth();
+    render();
+  };
+  on("mPrev", "click", () => stepMonth(-1));
+  on("mNext", "click", () => stepMonth(1));
+
+  function wireGraph() {
+    if (state.range === "week") wireChart(state.seg);
+
+    // Week or month. The month is fetched once per metric, on first ask.
+    document.querySelectorAll("[data-range]").forEach((el) =>
+      el.addEventListener("click", async () => {
+        const v = el.dataset.range;
+        if (v === state.range) return;
+        state.range = v;
+        try { localStorage.setItem("fhd.range", v); } catch {}
+        render();
+        if (v === "month" && !monthData(state.seg)) { await loadMonth(); render(); }
+      }));
+
+    // Every dot is a day, and tapping one selects it exactly as a bar does.
+    document.querySelectorAll(".gcell[data-day]").forEach((el) =>
+      el.addEventListener("click", () => {
+        const iso = el.dataset.day;
+        state.entryDate = iso === todayISO() ? null : iso;
+        state.msg = null;
+        render();
+        document.getElementById("steps")?.focus();
+      }));
+
+    on("wPrev", "click", () => stepWeek(-1));
+    on("wNext", "click", () => stepWeek(1));
+    on("mPrev", "click", () => stepMonth(-1));
+    on("mNext", "click", () => stepMonth(1));
+  }
 
   function wireChart(k) {
     const host = document.getElementById("chart-" + k);
