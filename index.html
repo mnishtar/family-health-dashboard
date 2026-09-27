@@ -219,7 +219,19 @@ input[type=number] { -moz-appearance:textfield; }
    Each tile is a square. A square at any width is the one shape that
    scales down a phone without the text reflowing into a different
    number of lines per row. */
-.pyramid { position:relative; margin-top:16px; }
+/* The epigraph. Set in the display face, indented from the rule, quiet
+   enough that it introduces the page rather than competing with it. */
+/* The roster's own day control, inset from the card edges so it reads as
+   belonging to the list rather than to the page. */
+.famnav { margin:2px 0 4px; }
+.famnav span { font-size:13px; }
+.epi { margin:12px 0 0; padding-left:13px; border-left:2px solid var(--sleep-soft);
+  font-family:var(--display); font-size:16px; line-height:1.4; font-style:italic;
+  color:var(--ink-2); text-wrap:balance; }
+.epi cite { display:block; margin-top:5px; font-family:var(--body); font-size:11px;
+  font-style:normal; font-weight:600; letter-spacing:.07em; text-transform:uppercase;
+  color:var(--muted); }
+.pyramid { position:relative; margin-top:18px; }
 .pyrow { display:grid; grid-template-columns:repeat(var(--n), 1fr); gap:9px;
   margin-top:9px; width:calc((var(--n) / 4) * 100% + ((var(--n) - 4) / 4) * 9px);
   margin-inline:auto; }
@@ -234,10 +246,14 @@ input[type=number] { -moz-appearance:textfield; }
 .ptile b { font-size:13.5px; font-weight:600; overflow-wrap:normal; hyphens:none; }
 .ptile em { font-style:normal; font-size:10px; color:var(--muted); line-height:1.2;
   padding:0 2px; }
-/* The points sit in the corner as a quiet numeral, not a badge: the tile's
-   height in the stack already says what it is worth. */
-.ptile .pts { position:absolute; top:7px; left:9px; font-family:var(--mono);
-  font-size:10.5px; font-weight:500; color:var(--line-strong); }
+/* V2.7. The weight is pips, not a numeral \u2014 four dots at the apex, one at
+   the base. You see it rather than read it, which is the whole point of
+   putting the ranking into a shape in the first place. */
+.ptile .pips { position:absolute; top:8px; left:9px; display:flex; gap:2.5px; }
+.ptile .pips i { width:4px; height:4px; border-radius:50%;
+  background:var(--line-strong); }
+.pyrow:nth-child(4) .ptile .pips { top:6px; left:6px; gap:2px; }
+.pyrow:nth-child(4) .ptile .pips i { width:3.5px; height:3.5px; }
 .pyrow:nth-child(1) .ptile b { font-size:18px; }
 .pyrow:nth-child(2) .ptile b { font-size:14.5px; }
 .pyrow:nth-child(4) .ptile { border-radius:13px; padding:7px 5px; }
@@ -246,15 +262,33 @@ input[type=number] { -moz-appearance:textfield; }
 .pyrow:nth-child(4) .ptile .pts { top:5px; left:6px; font-size:9.5px; }
 .ptile.on { border-color:var(--sleep); background:var(--sleep-soft); }
 .ptile.on b { color:var(--sleep); }
-.ptile.on .pts { color:var(--sleep); }
+.ptile.on .pips i { background:var(--sleep); }
 /* Held and not-held differ by shape as well as colour \u2014 this gets tapped
    in the dark, and by base rate one of ten men here is colour-blind. */
 .ptile.on::after { content:"\2713"; position:absolute; top:6px; right:8px;
   font-size:12px; font-weight:700; color:var(--sleep); }
-.pinfo { position:absolute; right:2px; bottom:2px; width:26px; height:26px;
-  border:none; background:none; color:var(--line-strong); font-family:var(--display);
-  font-size:13px; font-style:italic; line-height:1; cursor:pointer; }
-.pinfo:hover, .pinfo:active { color:var(--sleep); }
+/* A turned-up corner: it says "there is a back to this" in the one idiom
+   everyone already knows, and it is its own tap target. */
+.pinfo { position:absolute; right:0; bottom:0; width:34px; height:34px;
+  border:none; background:none; padding:0; cursor:pointer;
+  -webkit-tap-highlight-color:transparent; }
+.pinfo::before { content:""; position:absolute; right:0; bottom:0;
+  border-width:0 0 24px 24px; border-style:solid;
+  border-color:transparent transparent
+    color-mix(in oklab, var(--sleep) 14%, var(--surface-2)) transparent;
+  border-bottom-right-radius:15px; transition:border-color .16s ease; }
+.pinfo span { position:absolute; right:5px; bottom:2px; font-family:var(--display);
+  font-size:13px; font-weight:500; font-style:italic; line-height:1; color:var(--ink-2); }
+.ptile.on + .pinfo::before {
+  border-color:transparent transparent
+    color-mix(in oklab, var(--sleep) 30%, var(--surface)) transparent; }
+.ptile.on + .pinfo span { color:var(--sleep); }
+.pinfo:hover::before, .pinfo:active::before {
+  border-color:transparent transparent var(--sleep) transparent; }
+.pinfo:hover span, .pinfo:active span { color:#fff; }
+.pyrow:nth-child(4) .pinfo::before { border-width:0 0 20px 20px;
+  border-bottom-right-radius:12px; }
+.pyrow:nth-child(4) .pinfo span { font-size:11px; right:4px; bottom:1px; }
 
 /* The back of a tile, brought forward over the pyramid. */
 .pback { position:absolute; left:0; right:0; top:50%; transform:translateY(-50%);
@@ -626,6 +660,11 @@ input[type=number] { -moz-appearance:textfield; }
   cursor:pointer; white-space:nowrap; }
 .kindmini button[aria-pressed="true"] { border-color:var(--train); color:var(--train);
   background:var(--train-soft); }
+/* The unit, not a mode: set apart so it does not read as a third choice
+   of what the exercise records. */
+.unitchip { margin-left:4px; border-style:dashed !important; color:var(--series) !important;
+  text-transform:lowercase !important; letter-spacing:0 !important;
+  font-family:var(--mono) !important; }
 .xset { border:none; background:none; color:var(--line-strong); font-size:17px;
   line-height:1; padding:0; cursor:pointer; }
 .xset:hover, .xset:active { color:var(--warn); }
@@ -659,7 +698,7 @@ input[type=number] { -moz-appearance:textfield; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "2.6";
+  const APP_VERSION = "2.7";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -815,37 +854,51 @@ input[type=number] { -moz-appearance:textfield; }
     { bit:10, t:"Bedtime",      sub:"alarm, by target", long:"Bedtime alarm",
       full:"Set an alarm to be in bed at or before your target time. This is " +
            "the most important appointment of the day, and the rest of your " +
-           "schedule should revolve around it." },
-    { bit:6,  t:"Light",        sub:"on waking",       long:"Morning light",
+           "schedule should revolve around it. The bed is for sleeping only \u2014 " +
+           "do anything else in it and your brain learns to associate it with " +
+           "being awake. Same time, same place, weekends included." },
+    { bit:6,  t:"Light",        sub:"on waking",        long:"Morning light",
       full:"View bright light within 15 to 30 minutes of waking, at about the " +
-           "same time each day. A light therapy device works if you are up " +
-           "before the sun." },
-    { bit:7,  t:"Wind-down",    sub:"the last hour",   long:"The wind-down hour",
-      full:"Dim, warm lighting for the hour before bed, with screens limited \u2014 " +
-           "blue-light filters and glasses help. Make the hour relaxing: " +
-           "reading, a warm bath, conversation or a walk, soothing music, " +
-           "meditation." },
+           "same time each day. Aim for 10 minutes of sunlight, and wake at the " +
+           "same hour on weekends too. A light therapy device works if you are " +
+           "up before the sun." },
+    { bit:7,  t:"Wind-down",    sub:"the last hour",    long:"The wind-down hour",
+      full:"Warm, dim lighting for the hour before bed \u2014 a red light is better " +
+           "still \u2014 and screens down for at least that hour. Unwinding is " +
+           "gradual, so give it the whole hour: journal the open loops and " +
+           "worries, stretch lightly, read, take a warm bath, talk or walk, " +
+           "listen to something soothing, meditate." },
     { bit:5,  t:"Cool",         sub:"60\u201367\u00b0F",         long:"A cool room",
       full:"Sleep between 60 and 67\u00b0F (15\u201319\u00b0C), with breathable bedding and " +
-           "light sleepwear. A fan or cooling device helps, and so does a warm " +
-           "bath before bed." },
-    { bit:8,  t:"Quiet",        sub:"or masked",       long:"A quiet room",
-      full:"Keep the bedroom quiet. A white noise machine offsets environmental " +
-           "sound, and earplugs work if you need them." },
-    { bit:4,  t:"Dark",         sub:"no light",        long:"A dark room",
+           "light sleepwear. Layer blankets you can throw off rather than " +
+           "fighting the thermostat. A fan or cooling device helps, and so " +
+           "does a warm bath before bed." },
+    { bit:8,  t:"Quiet",        sub:"or white noise",   long:"A quiet room",
+      full:"Keep the bedroom quiet. A white noise machine covers environmental " +
+           "sound and earplugs work if you need them \u2014 but remove the " +
+           "interruptions as well, phone alerts above all." },
+    { bit:4,  t:"Dark",         sub:"no light",         long:"A dark room",
       full:"Blackout curtains or an eye mask. As dark as you can make it, with " +
-           "no artificial light." },
-    { bit:2,  t:"Caffeine",     sub:"none for 10h",    long:"No caffeine for 10h",
-      full:"Avoid caffeine within 10 hours of bed \u2014 its half-life is about six " +
-           "hours. Swap to herbal tea or another relaxing drink in the evening, " +
-           "ideally two hours before bed." },
-    { bit:9,  t:"Last meal",    sub:"4h before",       long:"Last meal 4h before bed",
-      full:"Finish eating at least four hours before bed, and avoid large meals " +
-           "close to bedtime." },
-    { bit:11, t:"No hard set",  sub:"3h before",       long:"No hard exercise 3h before",
-      full:"Avoid strenuous exercise in the last three hours. It makes it " +
-           "harder for the brain to wind down." },
-    { bit:12, t:"Track it",     sub:"journal or app",  long:"Track your sleep",
+           "no artificial light. Candlelight and moonlight are fine." },
+    { bit:2,  t:"Caffeine",     sub:"none 8\u201310h",       long:"No caffeine for 8\u201310h",
+      full:"Avoid caffeine within 8 to 10 hours of bed. Caffeine blocks " +
+           "adenosine receptors, so your brain stops sensing its own declining " +
+           "energy \u2014 and that sense is what switches it into sleep mode. " +
+           "Caffeine still in your system near bedtime also disrupts your sleep " +
+           "phases and the quality of the later night. Swap to herbal tea or " +
+           "another relaxing drink, ideally two hours before bed." },
+    { bit:9,  t:"Last meal",    sub:"4h before",        long:"Last meal 4h before bed",
+      full:"Finish eating at least four hours before bed, and avoid fluids in " +
+           "the last two. A body still digesting sleeps worse: eating close to " +
+           "bed makes a large metabolic demand, swings blood glucose, reduces " +
+           "melatonin, and works against the fall in core body temperature that " +
+           "sleep depends on." },
+    { bit:11, t:"Exercise early", sub:"not within 3h",  long:"Exercise early",
+      full:"Keep strenuous exercise out of the last three hours before bed. It " +
+           "makes it harder for the brain to wind down. Train earlier in the " +
+           "day instead \u2014 the exercise itself is one of the best things you can " +
+           "do for your sleep." },
+    { bit:12, t:"Track it",     sub:"journal or app",   long:"Track your sleep",
       full:"Keep a journal or use a sleep tracker. Use the data to make " +
            "informed adjustments, and monitor and tweak your habits to improve " +
            "the quality of your sleep." },
@@ -957,7 +1010,9 @@ input[type=number] { -moz-appearance:textfield; }
     undo: null,           // { key, date, words } for a few seconds after a stamp
     net: "ok",            // ok | offline — whether the last call reached the database
     flip: null,           // which tile is showing its back
-    rank: null,           // the ranking sheet, while it is open
+    boardDay: null,       // which family day the roster shows; null means today
+    boardCards: null,     // that day's cards by person id
+    boardBusy: false,
     range: "week",        // week | month — which graph the page is showing
     month: {},            // per metric per calendar month, fetched when Month is opened
     monthAnchor: null,    // first of the month on show; null means this month
@@ -1102,7 +1157,13 @@ input[type=number] { -moz-appearance:textfield; }
   // family list, its counts, the WhatsApp post — reads these, so a
   // relative whose own midnight has passed keeps their numbers on the
   // board until the family's day ends.
-  const board = (p) => p.board || {};
+  // V2.7. The roster can look back. Day 0 is the family's own date and
+  // comes free on app_state; any earlier day is fetched once and kept.
+  const famDayISO = () => state.boardDay || familyISO();
+  const board = (p) => {
+    if (state.boardDay && state.boardCards) return state.boardCards[p.id] || {};
+    return p.board || {};
+  };
   const bval = (p, k) => Number(
     k === "steps" ? board(p).steps : k === "train" ? board(p).train_min : board(p).cardio_min) || 0;
   const banyLog = (p) => bval(p,"steps") > 0 || bval(p,"train") > 0 || bval(p,"cardio") > 0;
@@ -2264,14 +2325,24 @@ input[type=number] { -moz-appearance:textfield; }
     // backwards for Yoga or a farmer's carry, the movements most likely to
     // be logged one way this week and the other way next. A carry is reps
     // on Monday and a stopwatch on Thursday, and neither is a mistake.
+    // V2.7. Reps are gone from Cardio: nobody counts reps of a swim, and
+    // offering it only invited the wrong choice.
     const KINDS = state.mode === "cardio"
-      ? [["distance_time", "distance"], ["duration", "time"], ["weight_reps", "reps"]]
+      ? [["distance_time", "distance"], ["duration", "time"]]
       : [["weight_reps", "reps"], ["duration", "time"]];
+    // One chip, tapped to cycle mi -> km -> m, rather than three units
+    // sitting there all the time. It shows on a distance exercise only,
+    // because it has nothing to say about anything else.
+    const unitChip = kind === "distance_time"
+      ? `<button type="button" class="unitchip" data-cycle="d"
+           aria-label="Distance unit, now ${esc(units.d)}">${esc(units.d)}</button>`
+      : "";
     const picker = `
       <div class="kindmini" role="group" aria-label="What ${esc(x.name)} records">
         ${KINDS.map(([kk, lbl]) =>
           `<button type="button" data-exkind="${i}:${kk}"
             aria-pressed="${kind === kk}">${lbl}</button>`).join("")}
+        ${unitChip}
       </div>`;
 
     const field = (s, j, f, ph, label) => {
@@ -2757,7 +2828,6 @@ under it stay in your history, they just stop being a tile.`)) return;
     });
 
     wireTemplate();
-    wireRank();
 
     // Rest and Rise: three scroll columns, the middle row wins.
     //
@@ -2895,6 +2965,18 @@ under it stay in your history, they just stop being a tile.`)) return;
         });
       }
     }
+
+    on("clearDay", "click", async () => {
+      const k = state.seg;
+      const res = await call("app_unlog", { p_code: state.code, p_person: state.meId,
+        p_metric: M[k].key, p_date: nightDay(k) });
+      if (res.error) { state.msg = res.error; state.msgKind = "bad"; render(); return; }
+      state.msg = `${M[k].label} cleared.`;
+      state.msgKind = "ok";
+      await loadHistory();
+      await refresh();
+      setTimeout(() => { state.msg = null; state.msgKind = null; render(); }, 1600);
+    });
 
     on("stampNow", "click", async (e) => {
       e.target.disabled = true;
@@ -3343,14 +3425,24 @@ under it stay in your history, they just stop being a tile.`)) return;
         <div class="section-head">
           <button class="foldbtn" id="foldBoard" aria-expanded="${boardOpen()}">
             <span class="caret">${boardOpen() ? "\u25be" : "\u25b8"}</span>
-            <h2>The family today</h2></button>
+            <h2>${state.boardDay ? "The family" : "The family today"}</h2></button>
           <span class="eyebrow">${state.people.length
             ? `${logged}/${state.people.length} logged \u00b7 ${moved} moved` : ""}</span>
         </div>
-        ${boardOpen() ? roster : ""}
+        ${boardOpen() ? `
+          <div class="daynav famnav">
+            <button type="button" id="bPrev" aria-label="The day before">&lsaquo;</button>
+            <span>${state.boardBusy ? "\u2026"
+              : famDayISO() === familyISO() ? "Today"
+              : esc(fullDate(famDayISO()))}</span>
+            <button type="button" id="bNext" aria-label="The day after"
+              ${famDayISO() >= familyISO() ? "disabled" : ""}>&rsaquo;</button>
+          </div>
+          ${roster}` : ""}
       </section>
 
-      <button class="btn" id="waShare" style="width:100%">Post today to WhatsApp</button>
+      ${state.boardDay ? "" : `
+        <button class="btn" id="waShare" style="width:100%">Post today to WhatsApp</button>`}
 
       <p class="ver">v${APP_VERSION}</p>`;
   }
@@ -3494,6 +3586,13 @@ under it stay in your history, they just stop being a tile.`)) return;
         <button class="btn" id="stampNow"
                 style="width:100%;margin-top:12px;background:${met.color}">${
           has ? "Set to now" : `${esc(met.label)} \u2014 now`}</button>
+        ${has ? `
+          <!-- V2.7. A wheel always reads SOME time, so a day you never
+               logged can be recorded by accident. This takes the day back
+               out rather than leaving a wrong number in the week. -->
+          <button type="button" class="linkbtn" id="clearDay"
+            style="display:block;margin:9px auto 0;font-size:12px;color:var(--muted)">
+            Clear this ${met.night ? "night" : "day"}</button>` : ""}
 
         <p class="hint dshint ${state.msgKind || ""}" id="hint"
            style="text-align:center">${state.msg ? esc(state.msg)
@@ -3610,8 +3709,9 @@ under it stay in your history, they just stop being a tile.`)) return;
 
       <header class="masthead">
         <h1>Sleep Score</h1>
-        <p class="sub">Ten things that decide how well you sleep. The higher
-          the tile, the more it is worth.</p>
+        <blockquote class="epi">Sleep is probably the single most effective
+          thing you can do to reset your body and health.
+          <cite>Dr. Matthew Walker</cite></blockquote>
       </header>
 
       <section class="card">
@@ -3637,12 +3737,13 @@ under it stay in your history, they just stop being a tile.`)) return;
               <button type="button" class="ptile${on ? " on" : ""}"
                       data-habit="${h.i}" aria-pressed="${on}"
                       aria-label="${esc(h.t)}, worth ${w} of ${scoreMax()}">
-                <span class="pts" aria-hidden="true">${w}</span>
+                <span class="pips" aria-hidden="true">${
+                  "<i></i>".repeat(w)}</span>
                 <b>${esc(h.t)}</b>
                 <em>${esc(h.sub || "")}</em>
               </button>
               <button type="button" class="pinfo" data-flip="${h.i}"
-                aria-label="What ${esc(h.t)} means">i</button>
+                aria-label="What ${esc(h.t)} means"><span>i</span></button>
             </div>`; }).join("")}</div>`).join("")}
 
         <!-- The back of a tile. At 85px square a description is unreadable,
@@ -3665,82 +3766,13 @@ under it stay in your history, they just stop being a tile.`)) return;
           </div>` : ""}
 
         <p class="hint" style="text-align:center;margin-top:12px">Tap a tile to
-          hold it, <b>i</b> to read what it means, or
-          <button type="button" class="linkbtn" id="rankOpen">rearrange the
-          pyramid</button>.</p>
+          hold it. Tap the corner to read what it means.</p>
       </section>
-      ${rankSheet()}
 
       ${graphCard("sleep")}
       ${famBlock()}
 
       <p class="ver">v${APP_VERSION}</p>`;
-  }
-
-  /* ---------- rearranging the pyramid ---------------------------------
-     One ranking for the whole family, because a board that compares
-     scores has to have worked them out the same way. Up and down arrows
-     rather than drag: it is the control the workout template editor
-     already uses, it cannot be triggered by a scroll, and it is the only
-     one that works with a thumb on a phone in the dark.
-     ------------------------------------------------------------------ */
-  function rankSheet() {
-    const r = state.rank;
-    if (!r) return "";
-    const lad = LADDER;
-    return `
-      <section class="card" id="rankCard">
-        <div class="section-head"><h2>Rank these</h2>
-          <span class="eyebrow">the whole family\u2019s order</span></div>
-        <p class="hint" style="margin:0 0 8px">Whatever you put first is worth
-          ${lad[0]} points a night. Nothing already logged changes.</p>
-        ${r.order.map((bit, pos) => `
-          <div class="rankrow">
-            <span class="rnum">${pos + 1}</span>
-            <span class="rname">${esc(BYBIT[bit].t)}</span>
-            <span class="rpts">${lad[pos]}</span>
-            <button type="button" data-rup="${pos}" ${pos === 0 ? "disabled" : ""}
-              aria-label="Move ${esc(BYBIT[bit].t)} up">\u2191</button>
-            <button type="button" data-rdown="${pos}"
-              ${pos === r.order.length - 1 ? "disabled" : ""}
-              aria-label="Move ${esc(BYBIT[bit].t)} down">\u2193</button>
-          </div>`).join("")}
-        <div class="addrow" style="margin-top:12px">
-          <button class="btn" id="rankSave" style="background:var(--sleep)">Save</button>
-          <button class="btn-quiet" id="rankCancel">Cancel</button>
-        </div>
-        <button type="button" class="linkbtn" id="rankReset"
-          style="margin-top:9px;font-size:12px;color:var(--muted)">Back to the
-          best-evidence order</button>
-      </section>`;
-  }
-
-  function wireRank() {
-    on("rankOpen", "click", () => {
-      state.rank = { order: order().slice() };
-      render();
-      document.getElementById("rankCard")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-    const r = state.rank;
-    if (!r) return;
-    const swap = (i, j) => {
-      if (j < 0 || j >= r.order.length) return;
-      [r.order[i], r.order[j]] = [r.order[j], r.order[i]];
-      render();
-    };
-    document.querySelectorAll("[data-rup]").forEach((el) =>
-      el.addEventListener("click", () => swap(+el.dataset.rup, +el.dataset.rup - 1)));
-    document.querySelectorAll("[data-rdown]").forEach((el) =>
-      el.addEventListener("click", () => swap(+el.dataset.rdown, +el.dataset.rdown + 1)));
-    on("rankCancel", "click", () => { state.rank = null; render(); });
-    on("rankReset", "click", () => { state.rank = { order: IDENT.slice() }; render(); });
-    on("rankSave", "click", async () => {
-      const res = await call("app_set_sleep_order",
-        { p_code: state.code, p_order: r.order });
-      if (res.error) { state.msg = res.error; state.msgKind = "bad"; render(); return; }
-      state.rank = null;
-      await refresh();
-    });
   }
 
   function metricView() {
@@ -3891,20 +3923,60 @@ under it stay in your history, they just stop being a tile.`)) return;
         if (v === "month" && !monthData(state.seg)) { await loadMonth(); render(); }
       }));
 
-    // Every dot is a day, and tapping one selects it exactly as a bar does.
+    // Every cell is a day, and tapping one does exactly what tapping the
+    // bar for that day does — including opening the workout behind it on
+    // Train and Cardio, which the month grid never used to.
     document.querySelectorAll(".gcell[data-day]").forEach((el) =>
-      el.addEventListener("click", () => {
-        const iso = el.dataset.day;
-        state.entryDate = iso === todayISO() ? null : iso;
-        state.msg = null;
-        render();
-        document.getElementById("steps")?.focus();
-      }));
+      el.addEventListener("click", () => pickDay(state.seg, el.dataset.day)));
 
     on("wPrev", "click", () => stepWeek(-1));
     on("wNext", "click", () => stepWeek(1));
     on("mPrev", "click", () => stepMonth(-1));
     on("mNext", "click", () => stepMonth(1));
+  }
+
+  /* ---------- what tapping a day means --------------------------------
+     V2.7. Two bugs lived here, both from one line: `k !== "steps"` meant
+     "open the workout". That was written when Steps, Train and Cardio
+     were the only charts. Sleep Score, Rest and Rise arrived later and
+     fell into the workout branch, so tapping Tuesday on the Rest chart
+     opened Tuesday's WORKOUT. Meanwhile the month grid never opened
+     anything, on any metric.
+
+     Now the rule is named rather than inferred: only Train and Cardio
+     have a workout behind a day. Everything else selects the day on the
+     page you are already on, which is what you asked the chart.
+     ------------------------------------------------------------------ */
+  const HAS_SESSION = { train: true, cardio: true };
+
+  async function pickDay(k, iso) {
+    // Selecting the day comes first either way, so coming back from a
+    // session the log box is already pointed at the right day.
+    state.entryDate = iso === todayISO() ? null : iso;
+    state.msg = null;
+
+    if (!HAS_SESSION[k]) {
+      render();
+      document.getElementById("steps")?.focus();
+      return;
+    }
+
+    const got = await call("app_lift_detail", {
+      p_code: state.code, p_person: state.meId, p_date: iso,
+      p_mode: k === "cardio" ? "cardio" : "lift" });
+    const sess = got && got.session;
+    if (sess) {
+      state.lift.detail = sess;
+      state.lift.from = "exercise";
+      state.view = "detail";
+      render();
+      return;
+    }
+    // V1.7. An empty bar is not a dead end any more. It is how you record
+    // a workout you did but did not log — the same gesture that backlogs
+    // a step count one page over.
+    state.mode = k === "cardio" ? "cardio" : "lift";
+    await startSession("", iso);
   }
 
   function wireChart(k) {
@@ -3920,38 +3992,7 @@ under it stay in your history, they just stop being a tile.`)) return;
     svg.addEventListener("click", async (e) => {
       const iso = e.target && e.target.dataset ? e.target.dataset.day : null;
       if (!iso) return;
-
-      if (k !== "steps") {
-        // Select the day as well as opening it: coming back from the
-        // session, the log box is already pointed at the right day.
-        state.entryDate = iso === todayISO() ? null : iso;
-        const got = await call("app_lift_detail", {
-          p_code: state.code, p_person: state.meId, p_date: iso,
-          p_mode: k === "cardio" ? "cardio" : "lift" });
-        const sess = got && got.session;
-        if (sess) {
-          state.lift.detail = sess;
-          state.lift.from = "exercise";
-          state.view = "detail";
-          render();
-        } else {
-          // V1.7. An empty bar is not a dead end any more. It is how you
-          // record a workout you did but did not log — the same gesture
-          // that backlogs a step count one page over.
-          state.msg = null;
-          state.mode = k === "cardio" ? "cardio" : "lift";
-          await startSession("", iso);
-        }
-        return;
-      }
-
-      // A Steps bar is the only way left to log a past day, now that the
-      // date picker is gone. The week is already loaded, so there is
-      // nothing to fetch.
-      state.entryDate = iso === todayISO() ? null : iso;
-      state.msg = null;
-      render();
-      document.getElementById("steps")?.focus();
+      await pickDay(k, iso);
     });
 
   }
@@ -4030,6 +4071,28 @@ under it stay in your history, they just stop being a tile.`)) return;
     });
 
 
+
+    // Walking the roster back a day. Today needs no call \u2014 app_state
+    // already carries it \u2014 so only a past day costs a round trip.
+    const stepBoard = async (n) => {
+      const next = shiftISO(famDayISO(), n);
+      if (next > familyISO()) return;
+      if (next === familyISO()) {
+        state.boardDay = null; state.boardCards = null; render(); return;
+      }
+      state.boardDay = next; state.boardBusy = true; render();
+      const res = await call("app_board", { p_code: state.code, p_day: next });
+      state.boardBusy = false;
+      if (res.error || !res.people) {
+        state.boardDay = null; state.boardCards = null;
+        if (res.error) { state.msg = res.error; state.msgKind = "bad"; }
+        render(); return;
+      }
+      state.boardCards = Object.fromEntries(res.people.map((r) => [r.id, r.board || {}]));
+      render();
+    };
+    on("bPrev", "click", () => stepBoard(-1));
+    on("bNext", "click", () => stepBoard(1));
 
     on("foldBoard", "click", () => {
       try { localStorage.setItem("fhd.board", boardOpen() ? "shut" : "open"); } catch {}
