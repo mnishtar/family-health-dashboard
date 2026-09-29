@@ -39,6 +39,7 @@
   --swim:#1f6f9b;  --swim-soft:#d9e9f3;
   --warn:#8a4a12; --warn-soft:#f6ecdf;
   --sleep:#4f5bd5; --sleep-soft:#e4e6fb;
+  --work:#a4640a;  --work-soft:#f7ead3;
   --shadow:0 1px 2px rgba(9,26,21,.05), 0 8px 24px -16px rgba(9,26,21,.25);
   --display:"Newsreader",Georgia,serif;
   --body:"Public Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -55,6 +56,7 @@
     --swim:#59a6cf;  --swim-soft:#16303e;
     --warn:#e0a86a; --warn-soft:#2a2318;
     --sleep:#8d97ec; --sleep-soft:#20244a;
+    --work:#e2a64a;  --work-soft:#3a2c14;
     --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
     color-scheme: dark;
   }
@@ -213,18 +215,134 @@ input[type=number] { -moz-appearance:textfield; }
 /* ---------- the pyramid ----------------------------------------------
    Four rows of one, two, three and four. Each row is a grid of N equal
    columns inset by (4-N) half-columns, so the rows centre on each other
-   and every tile in a row is the same width \u2014 which is what the V2.5
+   and every tile in a row is the same width — which is what the V2.5
    version got wrong: tiles of three different widths never line up, and
    the eye reads the mess before it reads the ranking.
    Each tile is a square. A square at any width is the one shape that
    scales down a phone without the text reflowing into a different
    number of lines per row. */
+/* ---------- the popup ------------------------------------------------ */
+.modal { position:fixed; inset:0; z-index:50; display:grid; place-items:center;
+  padding:24px 18px calc(24px + env(safe-area-inset-bottom, 0px));
+  background:rgba(10,14,12,.46); animation:mfade .16s ease both; }
+@keyframes mfade { from { opacity:0; } to { opacity:1; } }
+.mcard { width:100%; max-width:380px; background:var(--surface); border-radius:22px;
+  padding:26px 20px 18px; text-align:center;
+  box-shadow:0 24px 60px -24px rgba(0,0,0,.5); animation:mrise .2s ease both; }
+@keyframes mrise { from { transform:translateY(10px) scale(.98); } to { transform:none; } }
+@media (prefers-reduced-motion: reduce) { .modal, .mcard { animation:none; } }
+.mmark { font-size:30px; line-height:1; margin-bottom:10px; }
+.mcard h3 { margin:0; font-family:var(--body); font-size:17px; font-weight:600; }
+.mcard p { margin:9px 0 0; font-size:14px; color:var(--ink-2); line-height:1.45; }
+.mbtns { display:flex; flex-direction:column; gap:9px; margin-top:20px; }
+.mbtn { border:none; border-radius:12px; padding:13px 14px; font-family:inherit;
+  font-size:15px; font-weight:600; cursor:pointer; line-height:1.25; }
+.mbtn small { display:block; font-size:12px; font-weight:500; opacity:.85; margin-top:2px; }
+.mbtn.go    { background:var(--accent); color:#fff; }
+.mbtn.bad   { background:var(--warn-soft); color:#b3422a; }
+.mbtn.quiet { background:var(--surface-2); color:var(--ink); }
+@media (prefers-color-scheme: dark) { .mbtn.go { color:#08120f; } .mbtn.bad { color:#f09a82; } }
+
+/* ---------- the work timer --------------------------------------------- */
+.workcard { text-align:center; }
+.ring { position:relative; width:min(236px, 70vw); aspect-ratio:1/1; margin:8px auto 0; }
+.ring svg { width:100%; height:100%; transform:rotate(-90deg); display:block; }
+.ring .rtrack { fill:none; stroke:var(--surface-2); stroke-width:4.5; }
+.ring .rfill  { fill:none; stroke:var(--work); stroke-width:4.5; stroke-linecap:round;
+  transition:stroke-dashoffset .9s linear; }
+.ring.paused .rfill { opacity:.45; }
+.rin { position:absolute; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:2px; }
+.rin .rlab { font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--muted); }
+.rin b { font-family:var(--mono); font-size:48px; font-weight:500; letter-spacing:-.03em;
+  line-height:1.05; font-variant-numeric:tabular-nums; }
+.rin .rsub { font-size:12.5px; color:var(--muted); }
+.workbtns { display:flex; justify-content:center; gap:10px; margin-top:16px; }
+.workbtns .btn, .workbtns .btn-quiet { min-width:124px; border-radius:99px; padding:13px 22px; }
+.workgo { background:var(--work) !important; }
+.lenrow { display:flex; justify-content:center; align-items:center; gap:6px; margin-top:14px; }
+.lenrow button { border:1px solid var(--line); background:var(--surface); color:var(--ink-2);
+  border-radius:99px; min-width:40px; padding:5px 10px; font-family:var(--mono);
+  font-size:12.5px; cursor:pointer; }
+.lenrow button[aria-pressed="true"] { border-color:var(--work); color:var(--work);
+  background:var(--work-soft); }
+.lenrow span { font-size:11.5px; color:var(--muted); margin-left:2px; }
+.worktoday { margin-top:14px; font-size:13px; color:var(--muted); }
+.worktoday .linkbtn { font-size:13px; }
+.sesslist { list-style:none; margin:10px auto 0; padding:0; max-width:260px; text-align:left; }
+.sesslist li { display:flex; align-items:center; gap:10px; padding:6px 2px;
+  border-top:1px solid var(--line); font-size:13px; }
+.sesslist li span { font-family:var(--mono); min-width:56px; }
+.sesslist li em { flex:1; font-style:normal; color:var(--muted); }
+.sesslist li button { border:none; background:none; color:var(--line-strong);
+  font-size:17px; cursor:pointer; padding:0 4px; }
+
+/* A failed task save says so, in one quiet red line. */
+.terr { min-height:20px; margin-top:10px; font-size:13px; color:#b3422a; }
+
+/* ---------- the matrix -------------------------------------------------- */
+/* Two columns and two rows of quadrants, with the axis names in their own
+   thin track across the top and down the side — the drawing everyone
+   already knows, rather than four cards in a list. */
+.matrix { display:grid; grid-template-columns:18px 1fr 1fr; grid-template-rows:auto auto auto;
+  gap:6px; align-items:stretch; }
+.axis { font-size:9.5px; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--muted); display:flex; align-items:center; justify-content:center; }
+.ax-u  { grid-column:2; grid-row:1; }
+.ax-nu { grid-column:3; grid-row:1; }
+.ax-i, .ax-ni { writing-mode:vertical-rl; transform:rotate(180deg); }
+.ax-i  { grid-column:1; grid-row:2; }
+.ax-ni { grid-column:1; grid-row:3; }
+.qcell { background:var(--surface); border:1px solid var(--line); border-radius:14px;
+  padding:9px 9px 10px; min-height:132px; min-width:0; display:flex; flex-direction:column; }
+.qcell.q1 { grid-column:2; grid-row:2; border-top:3px solid var(--work); }
+.qcell.q2 { grid-column:3; grid-row:2; border-top:3px solid var(--accent); }
+.qcell.q3 { grid-column:2; grid-row:3; border-top:3px solid var(--swim); }
+.qcell.q4 { grid-column:3; grid-row:3; border-top:3px solid var(--line-strong); }
+.qhead { display:flex; align-items:baseline; gap:6px; width:100%; border:none; background:none;
+  padding:0 0 6px; text-align:left; cursor:pointer; font-family:inherit; color:var(--ink); }
+.qhead b { font-family:var(--display); font-size:17px; font-weight:500; }
+.qhead em { flex:1; min-width:0; font-style:normal; font-size:10.5px; color:var(--muted);
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.qplus { color:var(--muted); font-size:16px; line-height:1; }
+.tlist { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:3px; }
+.task .trow { display:flex; align-items:flex-start; gap:7px; }
+.tbox { flex:none; width:17px; height:17px; margin-top:1px; border-radius:5px;
+  border:1.5px solid var(--line-strong); background:var(--surface); cursor:pointer; padding:0;
+  position:relative; }
+.tbox[aria-pressed="true"] { background:var(--ink-2); border-color:var(--ink-2); }
+.tbox[aria-pressed="true"]::after { content:"\2713"; position:absolute; inset:0; display:grid;
+  place-items:center; color:var(--surface); font-size:11px; font-weight:700; line-height:1; }
+.ttl { flex:1; min-width:0; font-size:13px; line-height:1.3; overflow-wrap:anywhere; }
+/* Done is struck and quieted — still there to be proud of, no longer
+   asking for attention. A struck main task strikes its subtasks with it. */
+.task.done > .trow .ttl { text-decoration:line-through; color:var(--muted); }
+.subs { list-style:none; margin:3px 0 2px 24px; padding:0; display:flex; flex-direction:column; gap:2px; }
+.task.sub .tbox { width:14px; height:14px; border-radius:4px; }
+.task.sub .ttl { font-size:12px; color:var(--ink-2); }
+
+.qfocus h2 { margin-top:8px; font-size:24px; }
+.qfocus .tlist { margin-top:12px; gap:8px; }
+.qfocus .ttl { font-size:15px; }
+.qfocus .task.sub .ttl { font-size:13.5px; }
+.qfocus .tbox { width:20px; height:20px; }
+.tmove { border:1px solid var(--line); background:var(--surface-2); border-radius:8px;
+  font-family:inherit; font-size:11.5px; color:var(--ink-2); padding:3px 4px; }
+.tx { border:none; background:none; color:var(--line-strong); font-size:18px; line-height:1;
+  cursor:pointer; padding:0 2px; }
+.taddsub { margin:5px 0 4px 27px; }
+.taddsub .field { padding:6px 10px; font-size:13px; }
+.tadd { display:flex; gap:8px; margin-top:14px; }
+.tadd .field { flex:1; }
+
 /* The epigraph. Set in the display face, indented from the rule, quiet
    enough that it introduces the page rather than competing with it. */
 /* The roster's own day control, inset from the card edges so it reads as
    belonging to the list rather than to the page. */
-.famnav { margin:2px 0 4px; }
+.famnav { margin:4px 0 10px; }
 .famnav span { font-size:13px; }
+.soonchip { opacity:.5; cursor:default; border-style:dashed !important; }
 .epi { margin:12px 0 0; padding-left:13px; border-left:2px solid var(--sleep-soft);
   font-family:var(--display); font-size:16px; line-height:1.4; font-style:italic;
   color:var(--ink-2); text-wrap:balance; }
@@ -246,7 +364,7 @@ input[type=number] { -moz-appearance:textfield; }
 .ptile b { font-size:13.5px; font-weight:600; overflow-wrap:normal; hyphens:none; }
 .ptile em { font-style:normal; font-size:10px; color:var(--muted); line-height:1.2;
   padding:0 2px; }
-/* V2.7. The weight is pips, not a numeral \u2014 four dots at the apex, one at
+/* V2.7. The weight is pips, not a numeral — four dots at the apex, one at
    the base. You see it rather than read it, which is the whole point of
    putting the ranking into a shape in the first place. */
 .ptile .pips { position:absolute; top:8px; left:9px; display:flex; gap:2.5px; }
@@ -263,7 +381,7 @@ input[type=number] { -moz-appearance:textfield; }
 .ptile.on { border-color:var(--sleep); background:var(--sleep-soft); }
 .ptile.on b { color:var(--sleep); }
 .ptile.on .pips i { background:var(--sleep); }
-/* Held and not-held differ by shape as well as colour \u2014 this gets tapped
+/* Held and not-held differ by shape as well as colour — this gets tapped
    in the dark, and by base rate one of ten men here is colour-blind. */
 .ptile.on::after { content:"\2713"; position:absolute; top:6px; right:8px;
   font-size:12px; font-weight:700; color:var(--sleep); }
@@ -325,12 +443,23 @@ input[type=number] { -moz-appearance:textfield; }
 .weekrow button:disabled { color:var(--line-strong); cursor:default; }
 
 /* V1.7b — the log box is its own card, and carries its own date. */
-.daynav { display:flex; align-items:center; justify-content:center; gap:6px; }
-.daynav button { border:none; background:none; font-family:inherit; font-size:19px;
-  line-height:1; color:var(--ink-2); padding:4px 12px; cursor:pointer; border-radius:9px; }
-.daynav button:disabled { color:var(--line-strong); cursor:default; }
-.daynav > span { min-width:132px; text-align:center; font-size:12.5px; font-weight:500;
-  color:var(--ink-2); }
+/* V2.8. Round, filled, 40px — a thumb target that looks like one. The
+   disabled "next" on today stays visible but faint, so the pair always
+   reads as a pair and you can see which way time runs. */
+.daynav { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.dnav { width:40px; height:40px; flex:none; border-radius:50%; cursor:pointer;
+  border:1px solid var(--line-strong); background:var(--bg); color:var(--ink);
+  display:grid; place-items:center; padding:0; transition:transform .08s, background .15s; }
+.dnav svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:2.4;
+  stroke-linecap:round; stroke-linejoin:round; }
+.dnav:active:not(:disabled) { transform:scale(.92); background:var(--line); }
+.dnav:disabled { opacity:.3; cursor:default; }
+.dlabel { flex:1; min-width:0; display:flex; flex-direction:column; align-items:center;
+  gap:2px; text-align:center; }
+.dlabel > span { font-size:14px; font-weight:600; color:var(--ink); }
+.dlabel small { font-size:11px; color:var(--muted); letter-spacing:.02em; line-height:18px; }
+.dtoday { border:none; background:none; padding:0; font-family:inherit; font-size:11.5px;
+  font-weight:600; color:var(--accent); cursor:pointer; line-height:18px; }
 .logrow { display:flex; align-items:center; gap:9px; margin-top:14px; }
 .logrow input { flex:1; min-width:0; border:1px solid var(--line-strong); background:var(--surface);
   border-radius:11px; padding:11px 14px; text-align:right;
@@ -417,7 +546,7 @@ input[type=number] { -moz-appearance:textfield; }
   :root:not([data-theme="light"]) .prow.done .pdot { color:#08120f; }
 }
 .pname { flex:1; min-width:0; font-family:var(--display); font-size:17px;
-  overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  line-height:1.15; overflow-wrap:break-word; }
 .chips { flex:none; display:flex; gap:6px; }
 .chip { position:relative; width:58px; height:46px; display:flex; flex-direction:column;
   align-items:center; justify-content:center; gap:1px; border:1px solid var(--line);
@@ -546,6 +675,24 @@ input[type=number] { -moz-appearance:textfield; }
 .sync.saved   { color:var(--accent); }
 .sync.offline { color:var(--warn); }
 
+/* V2.8. The first workout. Three full-width rows, not tiles: each is a
+   decision to read, not a shortcut to recognise. */
+.firstcard { margin:0 0 16px; background:var(--surface); border:1px solid var(--line);
+  border-radius:16px; padding:18px 16px 14px; box-shadow:var(--shadow); }
+.firstcard h2 { margin:2px 0 0; font-family:var(--display); font-weight:500; font-size:22px; }
+.starters { display:flex; flex-direction:column; gap:8px; margin-top:14px; }
+.starter { text-align:left; background:var(--bg); border:1px solid var(--line);
+  border-radius:12px; padding:12px 14px; font-family:inherit; color:inherit; cursor:pointer;
+  display:flex; flex-direction:column; gap:3px; position:relative; }
+.starter::after { content:"›"; position:absolute; right:14px; top:50%;
+  transform:translateY(-50%); font-size:22px; color:var(--muted); }
+.starter b { font-size:15px; font-weight:600; }
+.starter span { font-size:12.5px; color:var(--muted); padding-right:22px; line-height:1.35; }
+.starter:active { transform:scale(.99); }
+/* One line, once: what just happened to the workout you finished. */
+.flash { margin:0 0 14px; padding:10px 14px; border-radius:12px; font-size:13.5px;
+  background:var(--train-soft); color:var(--ink); text-align:center; }
+.firstempty { justify-content:center; padding:13px; font-size:14px; }
 .tiles { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .tile { text-align:left; background:var(--surface); border:1px solid var(--line);
   border-radius:12px; padding:13px; cursor:pointer; font-family:inherit; color:inherit;
@@ -623,6 +770,7 @@ input[type=number] { -moz-appearance:textfield; }
   padding:1px 8px; font-family:var(--mono); font-size:10.5px; color:var(--train);
   cursor:pointer; white-space:nowrap; }
 .liftchip.cardio { color:var(--series); }
+.liftchip.work { color:var(--work); cursor:default; }
 
 /* V1.4 */
 .weeknav { display:flex; gap:6px; }
@@ -698,7 +846,7 @@ input[type=number] { -moz-appearance:textfield; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "2.7";
+  const APP_VERSION = "3.1";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -811,6 +959,9 @@ input[type=number] { -moz-appearance:textfield; }
     rest:   { key:"rest_time",  label:"Rest",   unit:"time", color:"var(--sleep)", soft:"var(--sleep-soft)", time:true, night:true, lower:true },
     rise:   { key:"rise_time",  label:"Rise",   unit:"time", color:"var(--sleep)", soft:"var(--sleep-soft)", time:true, lower:true },
     sleep:  { key:"sleep_items",label:"Sleep Score", unit:"%", color:"var(--sleep)", soft:"var(--sleep-soft)", bits:true, night:true },
+    // V2.8. Deep work, in minutes, filled by pomodoros. Shaped like Train
+    // on purpose: a number you can type, a target, a week and a month.
+    work:   { key:"work_min",   label:"Work Score", unit:"minutes", color:"var(--work)", soft:"var(--work-soft)" },
   };
 
   /* ---------- the twelve habits --------------------------------------
@@ -823,23 +974,23 @@ input[type=number] { -moz-appearance:textfield; }
      V2.4. Ten habits, not twelve, ranked by how good the evidence for
      each one actually is, and laid out as a pyramid: the apex is the one
      worth fixing first and the base is the fine tuning. The shape IS the
-     scoring \u2014 row 1 is worth 4, row 2 is worth 3, row 3 is 2, row 4 is 1,
-     twenty points a night \u2014 so nobody has to read a key to know what
+     scoring — row 1 is worth 4, row 2 is worth 3, row 3 is 2, row 4 is 1,
+     twenty points a night — so nobody has to read a key to know what
      matters. Sorting by weight inside a row would be false precision;
      within a row they are genuinely comparable.
 
      Three items were dropped and two added, on the evidence:
-       out  no hard exercise before bed \u2014 an evening-exercise network
+       out  no hard exercise before bed — an evening-exercise network
             meta-analysis finds no disruption at ANY timing window, and
             the rule discourages the best-evidenced behaviour in the app
-       out  wind-down routine \u2014 the 226-trial component analysis puts
+       out  wind-down routine — the 226-trial component analysis puts
             relaxation at iOR 0.81, i.e. plausibly counterproductive,
             probably by cultivating sleep effort
-       out  sleep tracked \u2014 not a sleep behaviour; one mixed RCT for,
+       out  sleep tracked — not a sleep behaviour; one mixed RCT for,
             case reports of tracking anxiety against
-       in   same wake time \u2014 sleep regularity beat sleep DURATION for
+       in   same wake time — sleep regularity beat sleep DURATION for
             mortality in 61k people, and nothing here measured it
-       in   no alcohol within 3h \u2014 REM suppression from about two drinks
+       in   no alcohol within 3h — REM suppression from about two drinks
 
      THE ORDER OF THIS ARRAY IS THE BIT ORDER AND IS FROZEN FOREVER. It
      is no longer the ranking: from V2.5 the family arranges the pyramid
@@ -854,7 +1005,7 @@ input[type=number] { -moz-appearance:textfield; }
     { bit:10, t:"Bedtime",      sub:"alarm, by target", long:"Bedtime alarm",
       full:"Set an alarm to be in bed at or before your target time. This is " +
            "the most important appointment of the day, and the rest of your " +
-           "schedule should revolve around it. The bed is for sleeping only \u2014 " +
+           "schedule should revolve around it. The bed is for sleeping only — " +
            "do anything else in it and your brain learns to associate it with " +
            "being awake. Same time, same place, weekends included." },
     { bit:6,  t:"Light",        sub:"on waking",        long:"Morning light",
@@ -863,8 +1014,8 @@ input[type=number] { -moz-appearance:textfield; }
            "same hour on weekends too. A light therapy device works if you are " +
            "up before the sun." },
     { bit:7,  t:"Wind-down",    sub:"the last hour",    long:"The wind-down hour",
-      full:"Warm, dim lighting for the hour before bed \u2014 a red light is better " +
-           "still \u2014 and screens down for at least that hour. Unwinding is " +
+      full:"Warm, dim lighting for the hour before bed — a red light is better " +
+           "still — and screens down for at least that hour. Unwinding is " +
            "gradual, so give it the whole hour: journal the open loops and " +
            "worries, stretch lightly, read, take a warm bath, talk or walk, " +
            "listen to something soothing, meditate." },
@@ -875,7 +1026,7 @@ input[type=number] { -moz-appearance:textfield; }
            "does a warm bath before bed." },
     { bit:8,  t:"Quiet",        sub:"or white noise",   long:"A quiet room",
       full:"Keep the bedroom quiet. A white noise machine covers environmental " +
-           "sound and earplugs work if you need them \u2014 but remove the " +
+           "sound and earplugs work if you need them — but remove the " +
            "interruptions as well, phone alerts above all." },
     { bit:4,  t:"Dark",         sub:"no light",         long:"A dark room",
       full:"Blackout curtains or an eye mask. As dark as you can make it, with " +
@@ -883,7 +1034,7 @@ input[type=number] { -moz-appearance:textfield; }
     { bit:2,  t:"Caffeine",     sub:"none 8\u201310h",       long:"No caffeine for 8\u201310h",
       full:"Avoid caffeine within 8 to 10 hours of bed. Caffeine blocks " +
            "adenosine receptors, so your brain stops sensing its own declining " +
-           "energy \u2014 and that sense is what switches it into sleep mode. " +
+           "energy — and that sense is what switches it into sleep mode. " +
            "Caffeine still in your system near bedtime also disrupts your sleep " +
            "phases and the quality of the later night. Swap to herbal tea or " +
            "another relaxing drink, ideally two hours before bed." },
@@ -896,7 +1047,7 @@ input[type=number] { -moz-appearance:textfield; }
     { bit:11, t:"Exercise early", sub:"not within 3h",  long:"Exercise early",
       full:"Keep strenuous exercise out of the last three hours before bed. It " +
            "makes it harder for the brain to wind down. Train earlier in the " +
-           "day instead \u2014 the exercise itself is one of the best things you can " +
+           "day instead — the exercise itself is one of the best things you can " +
            "do for your sleep." },
     { bit:12, t:"Track it",     sub:"journal or app",   long:"Track your sleep",
       full:"Keep a journal or use a sleep tracker. Use the data to make " +
@@ -976,7 +1127,7 @@ input[type=number] { -moz-appearance:textfield; }
     { key:"sleep",      label:"Sleep",      live:true  },
     { key:"meditation", label:"Meditate",   live:false },
     { key:"diet",       label:"Diet",       live:false },
-    { key:"focus",      label:"Great Work", live:false },
+    { key:"focus",      label:"Great Work", live:true  },
   ];
 
   const mondayOf = (iso) => {
@@ -1064,6 +1215,13 @@ input[type=number] { -moz-appearance:textfield; }
     }
     setNet("ok");
     state.group = res.group;
+    // V2.8. A focus session that ended while the page was asleep.
+    if (state.meId && !state.workChecking) {
+      state.workChecking = true;
+      setTimeout(async () => {
+        try { if (await checkWork()) render(); } finally { state.workChecking = false; }
+      }, 0);
+    }
     // Alphabetical, so a name is findable without reading the whole list.
     state.people = (res.people || []).slice().sort((a, b) =>
       a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
@@ -1643,7 +1801,11 @@ input[type=number] { -moz-appearance:textfield; }
     const done = state.people.filter(banyLog);
     const missing = state.people.filter((p) => !banyLog(p));
     const hit = state.people.filter(bdone);
-    const day = new Date(familyISO() + "T00:00:00Z").toLocaleDateString(undefined,
+    // V2.8. Whatever day the roster is showing is the day that gets posted.
+    // At 8pm Eastern, Lahore and Berlin are asleep and half their day is
+    // missing; the morning after, yesterday is complete for everyone.
+    const past = !!state.boardDay;
+    const day = new Date(famDayISO() + "T00:00:00Z").toLocaleDateString(undefined,
       { timeZone:"UTC", weekday:"short", month:"short", day:"numeric" });
 
     const lines = [
@@ -1679,12 +1841,15 @@ input[type=number] { -moz-appearance:textfield; }
       else if (bval(p, "steps") > 0)           bits.push(num(bval(p, "steps")) + " steps");
       if (bval(p, "train") > 0)  bits.push(num(bval(p, "train")) + "m train");
       if (bval(p, "cardio") > 0) bits.push(num(bval(p, "cardio")) + "m cardio");
-      const streak = p.streak > 1 ? `  (${p.streak}-day streak)` : "";
-      lines.push(`${met ? "\u2705" : "\u25ab\ufe0f"} ${p.name} \u2014 ${bits.join(" \u00b7 ")}${streak}`);
+      const wm = Number(board(p).work_min) || 0;
+      if (wm > 0) bits.push(hm(wm) + " work");
+      // A streak is a today fact: yesterday's post cannot know it.
+      const streak = !past && p.streak > 1 ? `  (${p.streak}-day streak)` : "";
+      lines.push(`${met ? "\u2705" : "\u25ab\ufe0f"} ${p.name} — ${bits.join(" \u00b7 ")}${streak}`);
     }
 
     if (missing.length) {
-      lines.push("", `Still to log: ${missing.map((p) => p.name).join(", ")}`);
+      lines.push("", `${past ? "Nothing logged" : "Still to log"}: ${missing.map((p) => p.name).join(", ")}`);
     }
     lines.push("", `${location.origin}${location.pathname}?g=${state.code}`);
     return lines.join("\n");
@@ -1918,6 +2083,7 @@ input[type=number] { -moz-appearance:textfield; }
   // always today with no way to say otherwise, which meant a Cardio
   // session missed on Tuesday could never be recorded at all.
   async function startSession(label, iso) {
+    state.lift.msg = null;
     const a = { id: uuid(), label: label || "", date: iso || todayISO(),
                 startedAt: Date.now(), endedAt: null, ex: [], pendingFinish: false,
                 mode: state.mode, durOverride: null, note: "",
@@ -1950,6 +2116,11 @@ input[type=number] { -moz-appearance:textfield; }
         });
       }
     }
+
+    // V2.8. Remember the shape this workout started from, so Finish can
+    // tell whether you changed it — an exercise added or dropped, a set
+    // more or fewer — and only then ask about the template.
+    a.tmpl = a.ex.map((x) => ({ name: x.name, kind: x.kind, sets: x.sets.length }));
 
     state.lift.active = a;
     saveLocal();
@@ -2014,8 +2185,36 @@ input[type=number] { -moz-appearance:textfield; }
     if (d < 14) return "last week";
     return Math.floor(d / 7) + " weeks ago";
   }
+  const shortDay = (iso) => new Date(iso + "T00:00:00Z").toLocaleDateString(undefined,
+    { timeZone: "UTC", weekday: "short", month: "short", day: "numeric" });
   const fullDate = (iso) => new Date(iso + "T00:00:00Z").toLocaleDateString(undefined,
     { timeZone: "UTC", weekday: "long", month: "short", day: "numeric" });
+
+  /* ---------- walking between days ------------------------------------
+     V2.8. Someone could not find how to log yesterday's steps. The arrows
+     were bare 19px glyphs in grey: they read as punctuation, not buttons.
+     Now they are round, filled, thumb-sized buttons with a drawn chevron,
+     and the label under the date says what to do next — "‹ earlier days"
+     on today, a "Back to today" button on any other day. Same two-line
+     block either way, so nothing on the page jumps when you step.
+     ------------------------------------------------------------------ */
+  const CHEV = (d) => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${
+    d < 0 ? "M14.5 5.5 8 12l6.5 6.5" : "M9.5 5.5 16 12l-6.5 6.5"}"/></svg>`;
+  function dayNav({ ids = ["dPrev", "dNext", "dToday"], label, atToday, unit = "day",
+                    todayWord = "today", cls = "" }) {
+    return `
+      <div class="daynav ${cls}">
+        <button type="button" class="dnav" id="${ids[0]}" aria-label="Previous ${unit}">${CHEV(-1)}</button>
+        <div class="dlabel">
+          <span>${label}</span>
+          ${atToday
+            ? `<small>&lsaquo; earlier ${unit}s</small>`
+            : `<button type="button" class="dtoday" id="${ids[2]}">Back to ${todayWord} &rsaquo;</button>`}
+        </div>
+        <button type="button" class="dnav" id="${ids[1]}" aria-label="Next ${unit}"
+          ${atToday ? "disabled" : ""}>${CHEV(1)}</button>
+      </div>`;
+  }
 
   function bestSetWords(e) {
     if (e.kind === "duration")      return mmss(e.seconds);
@@ -2055,6 +2254,65 @@ input[type=number] { -moz-appearance:textfield; }
            ${totalsWords(a)} logged.</p>
         <button class="btn-quiet" id="resume" style="flex:none">Resume</button>
       </div>`;
+  }
+
+  /* ---------- the first workout -------------------------------------
+     V2.8. A new person opened Train, saw one button and an empty page, and
+     logged nothing. A blank page asks you to already know the app. So until
+     you have a single workout of your own, the page offers three real
+     ones: tap one and it is laid out, ready to tick, and saved as your
+     first tile. Every part of it can be changed as you go. Once you have
+     any workout of your own this card is gone — it is scaffolding, not a
+     feature.
+     ------------------------------------------------------------------ */
+  const STARTERS = {
+    lift: [
+      { label: "Full body", items: [
+        ["Squat", "weight_reps", 3], ["Bench Press", "weight_reps", 3],
+        ["Bent-over Row", "weight_reps", 3], ["Overhead Press", "weight_reps", 3],
+        ["Plank", "duration", 2]] },
+      { label: "Upper body", items: [
+        ["Bench Press", "weight_reps", 3], ["Pull-up", "weight_reps", 3],
+        ["Overhead Press", "weight_reps", 3], ["Bicep Curl", "weight_reps", 3],
+        ["Tricep Pushdown", "weight_reps", 3]] },
+      { label: "Lower body", items: [
+        ["Squat", "weight_reps", 3], ["Romanian Deadlift", "weight_reps", 3],
+        ["Lunge", "weight_reps", 3], ["Calf Raise", "weight_reps", 3]] },
+    ],
+    cardio: [
+      { label: "Walk", items: [["Walk", "distance_time", 1]] },
+      { label: "Run",  items: [["Run", "distance_time", 1]] },
+      { label: "Swim", items: [["Pool Swim", "distance_time", 1]] },
+    ],
+  };
+  const isFirst = () => state.lift.loaded && !state.lift.active &&
+    !state.lift.labels.length && !state.lift.sessions.length;
+  function firstCard(k) {
+    if (!isFirst()) return "";
+    const mode = k === "cardio" ? "cardio" : "lift";
+    return `
+      <section class="firstcard">
+        <p class="eyebrow">Your first ${mode === "cardio" ? "activity" : "workout"}</p>
+        <h2>Pick one to begin.</h2>
+        <p class="hint" style="margin-top:4px">It opens ready to fill in. Add, drop or
+          rename anything as you go.</p>
+        <div class="starters">${STARTERS[mode].map((t) => `
+          <button class="starter" data-starter="${esc(t.label)}">
+            <b>${esc(t.label)}</b>
+            <span>${t.items.map((x) => esc(x[0])).join(" · ")}</span>
+          </button>`).join("")}</div>
+      </section>`;
+  }
+  async function startStarter(label) {
+    const t = (STARTERS[state.mode === "cardio" ? "cardio" : "lift"] || [])
+      .find((x) => x.label === label);
+    if (!t) return;
+    const items = t.items.map(([exercise, kind, sets]) => ({ exercise, kind, sets }));
+    const res = await call("app_template_save", { p_code: state.code, p_person: state.meId,
+      p_label: t.label, p_mode: state.mode, p_items: items });
+    if (res.error) { state.lift.msg = res.error; render(); return; }
+    await loadLift();
+    await startSession(t.label);
   }
 
   function liftTiles() {
@@ -2185,7 +2443,7 @@ input[type=number] { -moz-appearance:textfield; }
       const res = await call("app_template_save", {
         p_code: state.code, p_person: state.meId,
         p_label: t.label, p_mode: t.mode, p_items: t.items });
-      if (res.error) { alert(res.error); return; }
+      if (res.error) { say(res.error); return; }
       state.tmpl = null;
       await loadLift();
       render();
@@ -2234,7 +2492,7 @@ input[type=number] { -moz-appearance:textfield; }
             // V2.4. You already said which workout this is, by tapping its
             // tile. Leaving the name editable here meant a stray keystroke
             // minted a second tile that looked like a duplicate of the
-            // first \u2014 and there was no way to tell "today is C2" apart
+            // first — and there was no way to tell "today is C2" apart
             // from "C is now called C2". So a workout started from a tile
             // carries that tile's name as a heading. Renaming lives on the
             // tile, where it means one thing.
@@ -2250,7 +2508,7 @@ input[type=number] { -moz-appearance:textfield; }
                second. It goes in History and never makes a tile, which
                is what the old editable title could not promise. -->
           <input id="noteIn" class="notein" value="${esc(a.note || "")}" maxlength="40"
-                 placeholder="+ name today \u2014 C2, heavy singles…"
+                 placeholder="+ name today — C2, heavy singles…"
                  autocomplete="off" aria-label="A note for today's workout">` : ""}
         <div class="timer">
           ${(a.mode || state.mode) === "cardio" || a.durOverride !== null
@@ -2321,7 +2579,7 @@ input[type=number] { -moz-appearance:textfield; }
     // or a ticked set, after which it is settled and the control is noise.
     // V2.6. Always there, on every exercise, whatever it has recorded
     // before. V2.3 hid it once an exercise had a history or a ticked set,
-    // on the theory that the question was then settled \u2014 which is exactly
+    // on the theory that the question was then settled — which is exactly
     // backwards for Yoga or a farmer's carry, the movements most likely to
     // be logged one way this week and the other way next. A carry is reps
     // on Monday and a stopwatch on Thursday, and neither is a mistake.
@@ -2410,7 +2668,7 @@ input[type=number] { -moz-appearance:textfield; }
       <div class="exblock">
         <div class="exhead"><b>${esc(x.name)}</b></div>
         <table class="htab"><tbody>${x.sets.map((r, i) => `
-          <tr><td class="nm">${x.sets.length > 1 ? "Set " + (i + 1) : "\u2014"}</td>
+          <tr><td class="nm">${x.sets.length > 1 ? "Set " + (i + 1) : "—"}</td>
               <td>${cell(r)}</td></tr>`).join("")}</tbody></table>
       </div>`).join("");
 
@@ -2591,6 +2849,8 @@ input[type=number] { -moz-appearance:textfield; }
 
     if (state.view === "exercise") {
       on("startEmpty", "click", () => startSession(""));
+      document.querySelectorAll("[data-starter]").forEach((el) =>
+        el.addEventListener("click", () => startStarter(el.dataset.starter)));
       on("resume", "click", () => { state.view = "session"; render(); });
       document.querySelectorAll("[data-start]").forEach((el) =>
         el.addEventListener("click", () => startSession(el.dataset.start)));
@@ -2625,12 +2885,17 @@ input[type=number] { -moz-appearance:textfield; }
         if (e.key === "Escape") { state.lift.rename = null; render(); }
       });
       document.querySelectorAll("[data-drop]").forEach((el) =>
-        el.addEventListener("click", async () => {
-          if (!confirm(`Remove the "${el.dataset.drop}" tile? The workouts you logged
-under it stay in your history, they just stop being a tile.`)) return;
-          state.lift.renameFrom = el.dataset.drop;
-          await saveLabel("");
-        }));
+        el.addEventListener("click", () => openModal({
+          title: `Remove the “${el.dataset.drop}” tile?`,
+          body: "The workouts you logged under it stay in your history.",
+          buttons: [
+            { label: "Remove tile", kind: "bad", run: async () => {
+                state.lift.renameFrom = el.dataset.drop;
+                await saveLabel("");
+              } },
+            { label: "Keep it", kind: "quiet" },
+          ],
+        })));
     }
 
     if (state.view === "session") {
@@ -2701,48 +2966,22 @@ under it stay in your history, they just stop being a tile.`)) return;
       on("labelIn", "input", (e) => { a.label = e.target.value.slice(0, 24); queueSync(); });
       on("noteIn", "input", (e) => { a.note = e.target.value.slice(0, 40); queueSync(); });
 
-      on("finish", "click", async (e) => {
-        if (doneSets(a) === 0) {
-          state.lift.msg = "Tick at least one set before finishing.";
-          const h = document.getElementById("liftHint");
-          if (h) h.textContent = state.lift.msg;
-          return;
-        }
-        e.target.disabled = true;
-        stopTicking();
-        const res = await syncLift(true);
+      on("finish", "click", () => finishFlow(a));
 
-        // A finish never fails. If the network is down, or the call errors
-        // for any other reason, the workout is already on the phone and
-        // marked finished — it goes up on the next load or reconnect. The
-        // one thing that must never happen is a finished session held
-        // hostage on a screen someone is trying to leave.
-        if (res.offline || res.error) {
-          state.lift.msg = "Saved on this phone. It will upload by itself.";
-          state.view = "lift";
-          state.lift.loaded = false;
-          render();
-          return;
-        }
-        const prs = Number(res.pr_count) || 0;
-        state.lift.active = null;
-        saveLocal();
-        state.lift.msg = prs ? `Logged. ${prs} personal record${prs === 1 ? "" : "s"}.` : null;
-        state.view = "lift";
-        await loadLift();
-        render();
-        refresh();                       // the board now owes you Train minutes
-      });
-
-      on("scrap", "click", () => {
-        if (!confirm(`Throw this ${state.mode === "cardio" ? "activity" : "workout"
-          } away? It is not saved anywhere else.`)) return;
-        stopTicking();
-        state.lift.active = null;
-        saveLocal();
-        state.view = "lift";
-        render();
-      });
+      on("scrap", "click", () => openModal({
+        title: `Discard this ${state.mode === "cardio" ? "activity" : "workout"}?`,
+        body: "It is not saved anywhere else.",
+        buttons: [
+          { label: "Discard", kind: "bad", run: () => {
+              stopTicking();
+              state.lift.active = null;
+              saveLocal();
+              state.view = "exercise";
+              render();
+            } },
+          { label: "Keep going", kind: "quiet" },
+        ],
+      }));
     }
 
     if (state.view === "detail") {
@@ -2772,18 +3011,26 @@ under it stay in your history, they just stop being a tile.`)) return;
         render();
       });
 
-      on("delSession", "click", async () => {
-        const s = state.lift.detail;
-        if (!confirm("Delete this workout? Your Train minutes for that day go back down.")) return;
-        const res = await call("app_lift_delete", {
-          p_code: state.code, p_person: state.meId, p_session: s.id });
-        if (res.error) { alert(res.error); return; }
-        state.lift.detail = null;
-        state.view = "lift";
-        await loadLift();
-        render();
-        refresh();
-      });
+      // V2.8: confirm() does nothing in some in-app browsers, so this was a
+      // button that silently did nothing there. Same modal as everywhere.
+      on("delSession", "click", () => openModal({
+        title: "Delete this workout?",
+        body: "Its minutes come off that day.",
+        buttons: [
+          { label: "Delete", kind: "bad", run: async () => {
+              const s = state.lift.detail;
+              const res = await call("app_lift_delete", {
+                p_code: state.code, p_person: state.meId, p_session: s.id });
+              if (res.error) { say(res.error); return; }
+              state.lift.detail = null;
+              state.view = "exercise";
+              await loadLift();
+              render();
+              refresh();
+            } },
+          { label: "Keep it", kind: "quiet" },
+        ],
+      }));
     }
   }
 
@@ -2818,6 +3065,8 @@ under it stay in your history, they just stop being a tile.`)) return;
     };
     on("dPrev", "click", () => stepDay(-1));
     on("dNext", "click", () => stepDay(1));
+    on("dToday", "click", () => stepDay(Math.round(
+      (new Date(todayISO() + "T00:00:00Z") - new Date(entryDay() + "T00:00:00Z")) / 86400000)));
 
     // The workout history folds. It is the longest thing on the page and
     // the least often wanted.
@@ -2828,11 +3077,12 @@ under it stay in your history, they just stop being a tile.`)) return;
     });
 
     wireTemplate();
+    wireWork();
 
     // Rest and Rise: three scroll columns, the middle row wins.
     //
     // V2.6 rewrite, because V2.5's version got stuck. Three causes, all
-    // the same shape \u2014 the page rebuilding itself under a moving finger:
+    // the same shape — the page rebuilding itself under a moving finger:
     //
     //   1. Saving called refresh(), which re-rendered the whole card and
     //      replaced the very elements being scrolled. Mid-flick the
@@ -3098,7 +3348,7 @@ under it stay in your history, they just stop being a tile.`)) return;
     const res = await call("app_lift_label", {
       p_code: state.code, p_person: state.meId,
       p_old: from, p_new: next, p_mode: state.mode });
-    if (res.error) { alert(res.error); return; }
+    if (res.error) { say(res.error); return; }
     state.lift.rename = null; state.lift.menu = null; state.lift.renameFrom = null;
     await loadLift();
     render();
@@ -3122,9 +3372,17 @@ under it stay in your history, they just stop being a tile.`)) return;
     state.lift.loaded = false;
     state.lift.labels = []; state.lift.sessions = [];
     state.lift.menu = null; state.lift.rename = null; state.flip = null;
+    state.lift.msg = null;
     loadLocal();
-    state.view = state.seg === "sleep" ? "sleep" : "exercise";
+    state.view = state.seg === "sleep" ? "sleep"
+               : state.seg === "tasks" ? "tasks" : "exercise";
     render();                 // paint immediately; the list can arrive after
+    if (state.seg === "tasks") { await openTasks(); return; }
+    if (state.seg === "work")  {
+      loadWorkLocal();
+      if (await checkWork()) render();
+      await loadWorkSessions(); render();
+    }
     await loadHistory(); render();
     if (state.seg === "train" || state.seg === "cardio") { await loadLift(); render(); }
     if (state.range === "month") { await loadMonth(); render(); }
@@ -3287,6 +3545,25 @@ under it stay in your history, they just stop being a tile.`)) return;
         : `<span class="chip${on ? " on" : ""}">${inner}</span>`;
     }).join("");
 
+    // V2.8. Great Work: a score, a door to goals (arriving next), and a
+    // door to tasks. V3.1: the Tasks chip counts what is still open.
+    const wGoal = Number(p.work_target) || 180;
+    const wMin  = Number(p.work_min) || 0;
+    const gwChips = [
+      { k:"work",  label:"Work Score", on: wMin > 0,
+        words: wMin > 0 ? Math.round(wMin / wGoal * 100) + "%" : "\u2013" },
+      { k:"goals", label:"Goals", on:false, words:"soon", off:true },
+      { k:"tasks", label:"Tasks", on:false,
+        words: Number(p.tasks_open) > 0 ? String(p.tasks_open) : "\u2013" },
+    ].map((c) => {
+      const inner = `<b>${c.words}</b><span>${c.label}</span>`;
+      if (c.off) return `<span class="chip soonchip" aria-label="${c.label}: coming next">${inner}</span>`;
+      return clickable
+        ? `<button type="button" class="chip${c.on ? " on" : ""}" data-tile="${c.k}"
+             aria-label="${c.label}${c.on ? ": " + c.words : ""}">${inner}</button>`
+        : `<span class="chip${c.on ? " on" : ""}">${inner}</span>`;
+    }).join("");
+
     const quiet = PILLARS.filter((pl) => !pl.live && pl.key !== "sleep").map((pl) => pl.label);
 
     return `
@@ -3299,6 +3576,11 @@ under it stay in your history, they just stop being a tile.`)) return;
         <span class="pdot" aria-hidden="true">✓</span>
         <span class="pname">Sleep</span>
         <div class="chips">${slChips}</div>
+      </div>
+      <div class="prow${wMin > 0 ? " done" : ""}">
+        <span class="pdot" aria-hidden="true">✓</span>
+        <span class="pname">Great Work</span>
+        <div class="chips">${gwChips}</div>
       </div>
       <p class="soon">${quiet.map(esc).join(" · ")}<em>soon</em></p>`;
   }
@@ -3386,6 +3668,10 @@ under it stay in your history, they just stop being a tile.`)) return;
                      aria-label="See ${esc(p.name)}'s cardio">${bval(p,"cardio")}m${
                        Number(bd.cardio_distance) > 0 ? " \u00b7 " + esc(distWords(bd.cardio_distance)) : ""
                      }</button>` : "",
+                  // V2.8. Deep work is shared, so it sits with the rest of
+                  // the day. A pill, not a button: the sessions are theirs.
+                  Number(bd.work_min) > 0
+                    ? `<span class="liftchip work">${esc(hm(Number(bd.work_min)))} work</span>` : "",
                 ].filter(Boolean).join(" ") || "&nbsp;"}</div>
               ${sleepLine ? `<div class="sleepline">${esc(sleepLine)}</div>` : ""}
             </div>
@@ -3430,19 +3716,16 @@ under it stay in your history, they just stop being a tile.`)) return;
             ? `${logged}/${state.people.length} logged \u00b7 ${moved} moved` : ""}</span>
         </div>
         ${boardOpen() ? `
-          <div class="daynav famnav">
-            <button type="button" id="bPrev" aria-label="The day before">&lsaquo;</button>
-            <span>${state.boardBusy ? "\u2026"
-              : famDayISO() === familyISO() ? "Today"
-              : esc(fullDate(famDayISO()))}</span>
-            <button type="button" id="bNext" aria-label="The day after"
-              ${famDayISO() >= familyISO() ? "disabled" : ""}>&rsaquo;</button>
-          </div>
+          ${dayNav({ ids: ["bPrev", "bNext", "bToday"], cls: "famnav",
+                     atToday: famDayISO() >= familyISO(),
+                     label: state.boardBusy ? "\u2026"
+                       : famDayISO() === familyISO() ? "Today" : esc(fullDate(famDayISO())) })}
           ${roster}` : ""}
       </section>
 
-      ${state.boardDay ? "" : `
-        <button class="btn" id="waShare" style="width:100%">Post today to WhatsApp</button>`}
+      ${state.boardBusy ? "" : `
+        <button class="btn" id="waShare" style="width:100%">${state.boardDay
+          ? `Post ${esc(shortDay(famDayISO()))} to WhatsApp` : "Post today to WhatsApp"}</button>`}
 
       <p class="ver">v${APP_VERSION}</p>`;
   }
@@ -3474,6 +3757,7 @@ under it stay in your history, they just stop being a tile.`)) return;
     rest:   { sub:"What time you actually went to bed.",       verb:"time" },
     rise:   { sub:"What time you actually got up.",            verb:"time" },
     sleep:  { sub:"Twelve things that decide how well you sleep.", verb:"%" },
+    work:   { sub:"Deep work, one focused session at a time.", verb:"minutes" },
   };
 
   /* ---------- the log box ---------------------------------------------
@@ -3504,12 +3788,7 @@ under it stay in your history, they just stop being a tile.`)) return;
     // it has no return key — was always one more thing to hunt for.
     return `
       <section class="card">
-        <div class="daynav">
-          <button type="button" id="dPrev" aria-label="Previous day">&lsaquo;</button>
-          <span>${isToday ? "Today" : esc(fullDate(iso))}</span>
-          <button type="button" id="dNext" aria-label="Next day"
-            ${isToday ? "disabled" : ""}>&rsaquo;</button>
-        </div>
+        ${dayNav({ label: isToday ? "Today" : esc(fullDate(iso)), atToday: isToday, unit: "day" })}
 
         <div class="domino" style="padding-top:10px">
           <input class="bigedit" id="steps" type="text" inputmode="numeric"
@@ -3543,12 +3822,7 @@ under it stay in your history, they just stop being a tile.`)) return;
     const has = v !== null && v !== undefined;
     return `
       <section class="card">
-        <div class="daynav">
-          <button type="button" id="dPrev" aria-label="Previous day">&lsaquo;</button>
-          <span>${isToday ? (met.night ? "Tonight" : "Today") : esc(fullDate(iso))}</span>
-          <button type="button" id="dNext" aria-label="Next day"
-            ${isToday ? "disabled" : ""}>&rsaquo;</button>
-        </div>
+        ${dayNav({ label: isToday ? (met.night ? "Tonight" : "Today") : esc(fullDate(iso)), atToday: isToday, unit: "day", todayWord: met.night ? "tonight" : "today" })}
 
         ${(() => {
           // V2.5. Three columns you scroll, snapping to the value in the
@@ -3585,7 +3859,7 @@ under it stay in your history, they just stop being a tile.`)) return;
 
         <button class="btn" id="stampNow"
                 style="width:100%;margin-top:12px;background:${met.color}">${
-          has ? "Set to now" : `${esc(met.label)} \u2014 now`}</button>
+          has ? "Set to now" : `${esc(met.label)} — now`}</button>
         ${has ? `
           <!-- V2.7. A wheel always reads SOME time, so a day you never
                logged can be recorded by accident. This takes the day back
@@ -3597,7 +3871,7 @@ under it stay in your history, they just stop being a tile.`)) return;
         <p class="hint dshint ${state.msgKind || ""}" id="hint"
            style="text-align:center">${state.msg ? esc(state.msg)
           : has ? "Scroll to change it."
-                : "Nothing recorded yet \u2014 scroll to set it, or use the button."}</p>
+                : "Nothing recorded yet — scroll to set it, or use the button."}</p>
       </section>`;
   }
 
@@ -3715,12 +3989,7 @@ under it stay in your history, they just stop being a tile.`)) return;
       </header>
 
       <section class="card">
-        <div class="daynav">
-          <button type="button" id="dPrev" aria-label="Previous night">&lsaquo;</button>
-          <span>${isToday ? "Tonight" : esc(fullDate(iso))}</span>
-          <button type="button" id="dNext" aria-label="Next night"
-            ${isToday ? "disabled" : ""}>&rsaquo;</button>
-        </div>
+        ${dayNav({ label: isToday ? "Tonight" : esc(fullDate(iso)), atToday: isToday, unit: "night", todayWord: "tonight" })}
         <div class="domino" style="padding-top:10px">
           <b class="big" style="color:var(--sleep)">${pct}%</b>
           <span class="of" style="text-decoration:none">${scorePts(mask)} of
@@ -3775,6 +4044,671 @@ under it stay in your history, they just stop being a tile.`)) return;
       <p class="ver">v${APP_VERSION}</p>`;
   }
 
+  /* ---------- Tasks: four quadrants ---------------------------------
+     V2.8. Eisenhower's matrix, drawn the way it is always drawn — urgent
+     across the top, important down the side — because the shape IS the
+     method: the thing you are meant to notice is how little lives in the
+     bottom-right, and how much of your day it takes anyway.
+
+     The matrix is for reading and ticking. Tap a quadrant's name and it
+     opens full width for writing: adding, subtasks, moving, deleting. A
+     phone is too narrow to do both in the same 170px cell.
+
+     V3.1. No PIN. Like everything else here, the list is readable by
+     anyone holding the family link.
+     ------------------------------------------------------------------ */
+  const QUADS = [
+    { q:1, name:"Do",       hint:"Do it first",               u:true,  i:true  },
+    { q:2, name:"Decide",   hint:"Schedule a time to do it",  u:false, i:true  },
+    { q:3, name:"Delegate", hint:"Find someone else to do it",u:true,  i:false },
+    { q:4, name:"Delete",   hint:"Take it off your list",     u:false, i:false },
+  ];
+  async function openTasks() {
+    // V3.1. V2.8 kept each person's PIN in plain text on the phone. The PIN
+    // is gone, so its digits should not outlive it there.
+    try { Object.keys(localStorage).filter((k) => k.startsWith("fhd.pin."))
+            .forEach((k) => localStorage.removeItem(k)); } catch {}
+    state.tasks = { list: [], loaded: false, focus: null, err: null };
+    const res = await call("app_tasks", { p_code: state.code, p_person: state.meId });
+    if (res.error) state.tasks.err = res.error;
+    state.tasks.list = res.tasks || [];
+    state.tasks.loaded = true;
+    render();
+  }
+  const taskCall = async (fn, args) => {
+    const res = await call(fn, Object.assign({ p_code: state.code, p_person: state.meId }, args));
+    if (res.error) state.tasks.err = res.error;
+    return res;
+  };
+  const kids = (id) => state.tasks.list.filter((x) => x.parent_id === id)
+    .sort((a, b) => a.position - b.position);
+  const mains = (q) => state.tasks.list.filter((x) => !x.parent_id && x.quadrant === q)
+    .sort((a, b) => (a.done - b.done) || (a.position - b.position));
+
+  function taskItem(x, editing) {
+    const subs = kids(x.id);
+    return `
+      <li class="task${x.done ? " done" : ""}">
+        <div class="trow">
+          <button type="button" class="tbox" data-tdone="${x.id}" aria-pressed="${x.done}"
+            aria-label="${x.done ? "Mark not done" : "Mark done"}: ${esc(x.title)}"></button>
+          <span class="ttl">${esc(x.title)}</span>
+          ${editing ? `
+            <select class="tmove" data-tmove="${x.id}" aria-label="Move to">
+              ${QUADS.map((qq) => `<option value="${qq.q}" ${qq.q === x.quadrant ? "selected" : ""}>${qq.name}</option>`).join("")}
+            </select>
+            <button type="button" class="tx" data-tdel2="${x.id}" aria-label="Delete ${esc(x.title)}">&times;</button>` : ""}
+        </div>
+        ${subs.length ? `<ul class="subs">${subs.map((c) => `
+          <li class="task sub${c.done || x.done ? " done" : ""}">
+            <div class="trow">
+              <button type="button" class="tbox" data-tdone="${c.id}" aria-pressed="${c.done || x.done}"
+                aria-label="${c.done ? "Mark not done" : "Mark done"}: ${esc(c.title)}"></button>
+              <span class="ttl">${esc(c.title)}</span>
+              ${editing ? `<button type="button" class="tx" data-tdel2="${c.id}"
+                aria-label="Delete ${esc(c.title)}">&times;</button>` : ""}
+            </div>
+          </li>`).join("")}</ul>` : ""}
+        ${editing ? `
+          <form class="taddsub" data-tsub="${x.id}">
+            <input class="field" maxlength="200" placeholder="+ subtask" aria-label="Add a subtask to ${esc(x.title)}">
+          </form>` : ""}
+      </li>`;
+  }
+
+  function tasksView() {
+    const t = state.tasks || {};
+    const head = `
+      <div class="topbar">
+        <button class="backlink" id="back">&larr; ${esc(state.group.name)}</button>
+      </div>
+      <header class="masthead">
+        <h1>Tasks</h1>
+        <p class="sub">What matters, sorted by whether it is urgent.</p>
+      </header>`;
+    if (!t.loaded) return head + `<p class="loading">Opening…</p>`
+      + `<p class="ver">v${APP_VERSION}</p>`;
+
+    // One quadrant open for writing.
+    if (t.focus) {
+      const Q = QUADS.find((x) => x.q === t.focus);
+      const list = mains(Q.q);
+      return head + `
+        <section class="card qfocus q${Q.q}">
+          <button type="button" class="linkbtn" id="qBack">&lsaquo; All four</button>
+          <h2>${Q.name}</h2>
+          <p class="hint">${Q.u ? "Urgent" : "Not urgent"} · ${Q.i ? "important" : "not important"}
+            · ${Q.hint.toLowerCase()}</p>
+          <ul class="tlist">${list.map((x) => taskItem(x, true)).join("")}</ul>
+          <form class="tadd" id="tAdd">
+            <input class="field" id="tAddIn" maxlength="200" placeholder="Add a task" autocomplete="off">
+            <button class="btn" type="submit">Add</button>
+          </form>
+          ${t.err ? `<p class="terr">${esc(t.err)}</p>` : ""}
+        </section>
+        <p class="ver">v${APP_VERSION}</p>`;
+    }
+
+    // The matrix.
+    const cell = (Q) => {
+      const list = mains(Q.q);
+      const open = list.filter((x) => !x.done).length;
+      return `
+        <div class="qcell q${Q.q}">
+          <button type="button" class="qhead" data-qopen="${Q.q}">
+            <b>${Q.name}</b><em>${open ? `${open} open` : Q.hint}</em>
+            <span class="qplus" aria-hidden="true">+</span>
+          </button>
+          <ul class="tlist">${list.map((x) => taskItem(x, false)).join("")}</ul>
+        </div>`;
+    };
+    return head + `
+      <section class="matrix">
+        <span class="axis ax-u">Urgent</span>
+        <span class="axis ax-nu">Not urgent</span>
+        <span class="axis ax-i">Important</span>
+        <span class="axis ax-ni">Not important</span>
+        ${QUADS.map(cell).join("")}
+      </section>
+      ${t.err ? `<p class="terr">${esc(t.err)}</p>` : ""}
+      <p class="hint" style="text-align:center">Tap a quadrant's name to add or rearrange.</p>
+      <p class="ver">v${APP_VERSION}</p>`;
+  }
+
+  function wireTasks() {
+    // Back refreshes, so the open-task count on the home chip is current.
+    on("back", "click", () => { state.view = "board"; state.tasks = null; render(); refresh(); });
+    const t = state.tasks;
+    if (!t) return;
+
+    document.querySelectorAll("[data-qopen]").forEach((el) =>
+      el.addEventListener("click", () => { t.focus = Number(el.dataset.qopen); t.err = null; render(); }));
+    on("qBack", "click", () => { t.focus = null; t.err = null; render(); });
+
+    // Ticking: painted first, saved second, put back if the save fails.
+    document.querySelectorAll("[data-tdone]").forEach((el) =>
+      el.addEventListener("click", async () => {
+        const x = t.list.find((y) => y.id === el.dataset.tdone);
+        if (!x) return;
+        const before = JSON.parse(JSON.stringify(t.list));
+        x.done = !x.done;
+        if (!x.parent_id && x.done) kids(x.id).forEach((c) => { c.done = true; });
+        if (x.parent_id) {
+          const p = t.list.find((y) => y.id === x.parent_id);
+          const sibs = kids(x.parent_id);
+          if (p) p.done = sibs.length > 0 && sibs.every((c) => c.done);
+        }
+        render();
+        const res = await taskCall("app_task_save", { p_task: {
+          id: x.id, parent_id: x.parent_id, quadrant: x.quadrant, title: x.title,
+          done: x.done, position: x.position } });
+        if (res.error) { t.list = before; render(); }
+      }));
+
+    const nextPos = (pred) => Math.max(-1, ...t.list.filter(pred).map((x) => x.position)) + 1;
+    on("tAdd", "submit", async (e) => {
+      e.preventDefault();
+      const f = document.getElementById("tAddIn");
+      const title = (f.value || "").trim();
+      if (!title) return;
+      const x = { id: uuid(), parent_id: null, quadrant: t.focus, title, done: false,
+                  position: nextPos((y) => !y.parent_id && y.quadrant === t.focus) };
+      t.list.push(x); render();
+      document.getElementById("tAddIn")?.focus();
+      const res = await taskCall("app_task_save", { p_task: x });
+      if (res.error) { t.list = t.list.filter((y) => y.id !== x.id); render(); }
+    });
+    document.querySelectorAll("[data-tsub]").forEach((form) =>
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const pid = form.dataset.tsub, inp = form.querySelector("input");
+        const title = (inp.value || "").trim();
+        if (!title) return;
+        const parent = t.list.find((y) => y.id === pid);
+        const x = { id: uuid(), parent_id: pid, quadrant: parent.quadrant, title, done: false,
+                    position: nextPos((y) => y.parent_id === pid) };
+        t.list.push(x);
+        const reopened = parent.done;               // a new open subtask reopens the task
+        if (reopened) parent.done = false;
+        render();
+        document.querySelector(`[data-tsub="${pid}"] input`)?.focus();
+        const res = await taskCall("app_task_save", { p_task: x });
+        if (!res.error && reopened) await taskCall("app_task_save", { p_task: parent });
+        if (res.error) { t.list = t.list.filter((y) => y.id !== x.id); render(); }
+      }));
+    document.querySelectorAll("[data-tmove]").forEach((el) =>
+      el.addEventListener("change", async () => {
+        const x = t.list.find((y) => y.id === el.dataset.tmove);
+        const q = Number(el.value);
+        x.quadrant = q; kids(x.id).forEach((c) => { c.quadrant = q; });
+        x.position = nextPos((y) => !y.parent_id && y.quadrant === q && y.id !== x.id);
+        render();
+        await taskCall("app_task_save", { p_task: x });
+      }));
+    document.querySelectorAll("[data-tdel2]").forEach((el) =>
+      el.addEventListener("click", async () => {
+        const id = el.dataset.tdel2;
+        const x = t.list.find((y) => y.id === id);
+        t.list = t.list.filter((y) => y.id !== id && y.parent_id !== id);
+        if (x && x.parent_id) {
+          const sibs = kids(x.parent_id), p = t.list.find((y) => y.id === x.parent_id);
+          if (p && sibs.length) p.done = sibs.every((c) => c.done);
+        }
+        render();
+        await taskCall("app_task_delete", { p_id: id });
+      }));
+  }
+
+  /* ---------- finishing a workout --------------------------------------
+     V2.8, modelled on Strong because Strong got this right.
+
+     1. Sets with numbers in them that you never ticked are a question, not
+        an answer: you may have done them and not tapped, or planned them
+        and skipped. So Finish asks — complete them, or discard them. Empty
+        rows are dropped without asking; there is nothing to decide.
+     2. If what you did has a different SHAPE from the template you started
+        from — an exercise added or dropped, more or fewer sets — it asks
+        whether to make that the template. Strong offers a third choice,
+        "update values only", but here the weights and reps always carry
+        forward from your last session, so that button would do the same
+        thing as Keep. Two honest choices beat three where two are one.
+     ------------------------------------------------------------------ */
+  const hasNums = (st, kind) => kind === "duration" ? st.t > 0
+    : kind === "distance_time" ? (st.d > 0 || st.t > 0) : (st.w > 0 || st.r > 0);
+
+  async function finishFlow(a) {
+    const unfinished = [];
+    a.ex.forEach((x) => x.sets.forEach((st) => {
+      if (!st.on && hasNums(st, x.kind)) unfinished.push(st);
+    }));
+
+    if (!doneSets(a) && !unfinished.length) {
+      state.lift.msg = "Tick at least one set before finishing.";
+      const h = document.getElementById("liftHint");
+      if (h) h.textContent = state.lift.msg;
+      return;
+    }
+
+    const proceed = async (completeThem) => {
+      // Resolve the unticked rows, then drop anything still empty.
+      a.ex.forEach((x) => {
+        x.sets = x.sets.filter((st) => {
+          if (st.on) return true;
+          if (hasNums(st, x.kind) && completeThem) { st.on = true; return true; }
+          return false;
+        });
+      });
+      a.ex = a.ex.filter((x) => x.sets.length);
+      // Discarding the only sets there were leaves nothing to log. Saying
+      // "Logged" over an empty workout would be a lie, so treat it as the
+      // Discard it effectively was.
+      if (!a.ex.length) {
+        stopTicking();
+        state.lift.active = null;
+        saveLocal();
+        state.lift.msg = "Nothing was ticked, so nothing was saved.";
+        state.view = "exercise";
+        render();
+        return;
+      }
+      saveLocal();
+      await commitFinish(a);
+    };
+
+    if (unfinished.length) {
+      const n = unfinished.length;
+      openModal({
+        mark: "✓",
+        title: "Finish workout?",
+        body: `${n === 1 ? "One set has" : `${n} sets have`} numbers in ${n === 1 ? "it" : "them"} but ${
+          n === 1 ? "is" : "are"} not ticked. Empty sets will be removed.`,
+        buttons: [
+          { label: "Complete unfinished sets", kind: "go",    run: () => proceed(true) },
+          { label: "Discard unfinished sets",  kind: "bad",   run: () => proceed(false) },
+          { label: "Cancel",                   kind: "quiet" },
+        ],
+      });
+      return;
+    }
+    await proceed(false);
+  }
+
+  // What changed between the template and what was done, in words.
+  function shapeChange(a) {
+    if (!a.fromTile || !Array.isArray(a.tmpl)) return null;
+    const was = new Map(a.tmpl.map((x) => [x.name.toLowerCase(), x]));
+    const now = new Map(a.ex.map((x) => [x.name.toLowerCase(), x]));
+    const added = a.ex.filter((x) => !was.has(x.name.toLowerCase())).map((x) => x.name);
+    const dropped = a.tmpl.filter((x) => !now.has(x.name.toLowerCase())).map((x) => x.name);
+    const more = [], fewer = [];
+    a.ex.forEach((x) => {
+      const w = was.get(x.name.toLowerCase());
+      if (!w) return;
+      if (x.sets.length > w.sets) more.push(x.name);
+      if (x.sets.length < w.sets) fewer.push(x.name);
+    });
+    const order = a.tmpl.map((x) => x.name.toLowerCase()).filter((k) => now.has(k)).join("|")
+              !== a.ex.map((x) => x.name.toLowerCase()).filter((k) => was.has(k)).join("|");
+    if (!added.length && !dropped.length && !more.length && !fewer.length && !order) return null;
+    const list = (xs) => xs.length <= 2 ? xs.join(" and ")
+      : xs.slice(0, -1).join(", ") + " and " + xs[xs.length - 1];
+    const bits = [];
+    if (added.length)   bits.push(`added ${list(added)}`);
+    if (dropped.length) bits.push(`dropped ${list(dropped)}`);
+    if (more.length)    bits.push(`did more sets of ${list(more)}`);
+    if (fewer.length)   bits.push(`did fewer sets of ${list(fewer)}`);
+    if (!bits.length && order) bits.push("changed the order");
+    const s = bits.join(", ");
+    return "You " + s + ".";
+  }
+
+  async function commitFinish(a) {
+    stopTicking();
+    const change = shapeChange(a);
+    const label = a.label;
+    const mode = a.mode || state.mode;
+    const res = await syncLift(true);
+
+    // A finish never fails. If the network is down, or the call errors
+    // for any other reason, the workout is already on the phone and
+    // marked finished — it goes up on the next load or reconnect. The
+    // one thing that must never happen is a finished session held
+    // hostage on a screen someone is trying to leave.
+    if (res.offline || res.error) {
+      state.lift.msg = "Saved on this phone. It will upload by itself.";
+      state.view = "exercise";
+      state.lift.loaded = false;
+      render();
+      return;
+    }
+    const prs = Number(res.pr_count) || 0;
+    const items = a.ex.map((x) => ({ exercise: x.name, kind: x.kind, sets: x.sets.length }));
+    state.lift.active = null;
+    saveLocal();
+    state.lift.msg = prs ? `Logged. ${prs} personal record${prs === 1 ? "" : "s"}.` : "Logged.";
+    // Back to the page the workout belongs to. It used to set a view name
+    // nothing rendered, which dropped you on the home screen instead.
+    state.view = "exercise";
+    await loadLift();
+    render();
+    refresh();                       // the board now owes you Train minutes
+
+    if (change && label) {
+      openModal({
+        title: `Update “${label}”?`,
+        body: `${change} Weights and reps carry forward either way.`,
+        buttons: [
+          { label: "Update template", kind: "go", run: async () => {
+              const r = await call("app_template_save", { p_code: state.code, p_person: state.meId,
+                p_label: label, p_mode: mode, p_items: items });
+              state.lift.msg = r.error ? r.error : `“${label}” updated.`;
+              await loadLift(); render();
+            } },
+          { label: "Keep template", kind: "quiet" },
+        ],
+      });
+    }
+  }
+
+  /* ---------- one popup, used everywhere a choice has to be made -------
+     V2.8. Built on the page, not with confirm(): a browser dialog cannot be
+     styled, cannot offer three answers, and inside some app views is not
+     shown at all. It sits outside the rendered page so a re-render behind
+     it cannot close it. Stacked, full-width buttons in the order of how
+     often each is the right answer — the Strong pattern, because it works.
+     ------------------------------------------------------------------ */
+  function openModal({ title, body, mark, buttons }) {
+    closeModal();
+    const wrap = document.createElement("div");
+    wrap.className = "modal";
+    wrap.id = "modal";
+    wrap.setAttribute("role", "dialog");
+    wrap.setAttribute("aria-modal", "true");
+    wrap.innerHTML = `
+      <div class="mcard">
+        ${mark ? `<div class="mmark" aria-hidden="true">${mark}</div>` : ""}
+        <h3>${esc(title)}</h3>
+        ${body ? `<p>${esc(body)}</p>` : ""}
+        <div class="mbtns">${buttons.map((b, i) => `
+          <button type="button" class="mbtn ${b.kind || "quiet"}" data-mb="${i}">
+            ${esc(b.label)}${b.sub ? `<small>${esc(b.sub)}</small>` : ""}</button>`).join("")}
+        </div>
+      </div>`;
+    document.body.appendChild(wrap);
+    wrap.querySelectorAll("[data-mb]").forEach((el) =>
+      el.addEventListener("click", async () => {
+        const b = buttons[Number(el.dataset.mb)];
+        closeModal();
+        if (b && b.run) await b.run();
+      }));
+    wrap.querySelector("[data-mb]")?.focus();
+  }
+  function closeModal() { document.getElementById("modal")?.remove(); }
+  // alert() has the same problem confirm() had: some app views never show it.
+  const say = (msg) => openModal({ title: msg, buttons: [{ label: "OK", kind: "quiet" }] });
+
+  /* ---------- Work: a focus timer that logs itself --------------------
+     V2.8. One circle, one button. Idle, the ring shows how far today is
+     toward your standard and the centre shows the session length, so the
+     screen answers "how much is left today" before you touch anything.
+     Running, the ring drains with the session.
+
+     The timer is WALL-CLOCK, not a counter. A phone suspends a page it is
+     not looking at, so a counter would stop the moment you lock the
+     screen. The start time is kept on the phone instead, and "how long is
+     left" is worked out from the clock every time the page looks — so a
+     session finishes on time whether or not you were watching, and is
+     logged the next time the app wakes.
+     ------------------------------------------------------------------ */
+  const WORK_LENS = [25, 40, 50, 90];
+  const workKey = () => "fhd.work." + (state.meId || "anon");
+  function loadWorkLocal() {
+    try {
+      const w = JSON.parse(localStorage.getItem(workKey()) || "{}");
+      state.work = { len: WORK_LENS.includes(w.len) ? w.len : 40, run: w.run || null,
+                     pending: Array.isArray(w.pending) ? w.pending : [],
+                     sessions: state.work && state.work.sessions || null };
+    } catch { state.work = { len: 40, run: null, pending: [], sessions: null }; }
+  }
+  function saveWorkLocal() {
+    try { localStorage.setItem(workKey(),
+      JSON.stringify({ len: state.work.len, run: state.work.run,
+                       pending: state.work.pending || [] })); } catch {}
+  }
+  const workElapsed = (r) => !r ? 0
+    : (r.pausedAt || Date.now()) - r.startedAt - (r.pausedMs || 0);
+  const workLeft = (r) => !r ? 0 : Math.max(0, r.len * 60000 - workElapsed(r));
+  const hm = (min) => {
+    const m = Math.round(Number(min) || 0), h = Math.floor(m / 60), r = m % 60;
+    return h ? (r ? `${h}h ${r}m` : `${h}h`) : `${r}m`;
+  };
+  const mmssMs = (ms) => {
+    const t = Math.ceil(ms / 1000), m = Math.floor(t / 60), sec = t % 60;
+    return `${m}:${pad(sec)}`;
+  };
+
+  function workCard() {
+    if (!state.work) loadWorkLocal();
+    const w = state.work, r = w.run;
+    const m = me() || {};
+    const today = entryDay() === todayISO();
+    const done = Number(today ? m.work_min : dayRecord("work").value) || 0;
+    const pomos = today ? Number(m.work_pomos) || 0 : null;
+    const goal = Number(m.work_target) || 180;
+    const running = !!r && !r.pausedAt;
+
+    // The ring: while a session runs it is the session; otherwise it is
+    // the day against the standard. Circumference of r=46 is 289.03.
+    const C = 289.03;
+    const frac = r ? 1 - workLeft(r) / (r.len * 60000) : Math.min(1, done / goal);
+    const centre = r ? mmssMs(workLeft(r)) : `${w.len}:00`;
+
+    return `
+      <section class="card workcard">
+        ${dayNav({ label: today ? "Today" : esc(fullDate(entryDay())), atToday: today, unit: "day" })}
+
+        ${today ? `
+        <div class="ring${running ? " run" : ""}${r && r.pausedAt ? " paused" : ""}">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50" cy="50" r="46" class="rtrack"></circle>
+            <circle cx="50" cy="50" r="46" class="rfill"
+              stroke-dasharray="${C}" stroke-dashoffset="${(C * (1 - frac)).toFixed(2)}"></circle>
+          </svg>
+          <div class="rin">
+            <span class="rlab">${r ? (r.pausedAt ? "Paused" : "Focus") : "Focus"}</span>
+            <b id="workClock">${centre}</b>
+            ${r ? "" : `<span class="rsub">${hm(done)} of ${hm(goal)} today</span>`}
+          </div>
+        </div>
+
+        <div class="workbtns">
+          ${!r ? `<button class="btn workgo" id="workStart">Start</button>`
+          : running ? `<button class="btn-quiet" id="workPause">Pause</button>
+                       <button class="btn workgo" id="workStop">Stop</button>`
+          : `<button class="btn workgo" id="workResume">Resume</button>
+             <button class="btn-quiet" id="workStop">Stop</button>`}
+        </div>
+
+        ${r ? "" : `
+        <div class="lenrow" role="group" aria-label="Session length">
+          ${WORK_LENS.map((n) => `<button type="button" data-wlen="${n}"
+            aria-pressed="${w.len === n}">${n}</button>`).join("")}
+          <span>min</span>
+        </div>`}
+
+        <p class="worktoday">
+          ${pomos === 1 ? "1 session" : `${pomos} sessions`} · ${hm(done)} of
+          <button type="button" class="linkbtn" data-edit="goal" data-metric="work">${hm(goal)}</button>
+        </p>
+        ${state.msg ? `<p class="hint dshint ${state.msgKind || ""}" style="text-align:center;margin-top:4px">${esc(state.msg)}</p>` : ""}
+        ${(w.sessions || []).length ? `
+          <ul class="sesslist">${w.sessions.map((x) => `
+            <li><span>${hm(x.minutes)}</span>
+              <em>${x.started_at ? new Date(x.started_at).toLocaleTimeString([],
+                { hour:"numeric", minute:"2-digit" }) : ""}</em>
+              <button type="button" data-wdel="${x.id}" aria-label="Remove this session">&times;</button>
+            </li>`).join("")}</ul>` : ""}
+        ` : `
+        <div class="domino" style="padding-top:8px">
+          <b class="big" style="color:var(--work)">${hm(done)}</b>
+          <span class="of" style="text-decoration:none">of ${hm(goal)}</span>
+        </div>`}
+      </section>`;
+  }
+
+  // Finish (or check for a finished) session. Called on a tick, on load,
+  // and on every resume, so a session that ran out while the phone was in
+  // a pocket is still logged the moment the app is opened again.
+  let workTick = null;
+  async function checkWork() {
+    if (!state.work) loadWorkLocal();
+    await flushWork();
+    const r = state.work.run;
+    if (!r || r.pausedAt || workLeft(r) > 0) return false;
+    state.work.run = null; saveWorkLocal();
+    const res = await logWork(r.id, r.len, r.startedAt, r.date);
+    chime();
+    state.msg = res.error ? "Session saved on this phone. It will upload by itself."
+                          : `Session logged · ${hm(r.len)}.`;
+    state.msgKind = "ok";
+    return true;
+  }
+  // A session is never lost to a dead signal. If the log call fails it is
+  // kept on the phone and sent again on the next look; the server treats
+  // a repeated id as the same session, so a retry can never count twice.
+  const workArgs = (x) => ({ p_code: state.code, p_person: state.meId,
+    p_id: x.id, p_minutes: Math.max(1, Math.round(x.minutes)),
+    p_date: x.date || null, p_tz: deviceTZ(),
+    p_started: x.startedAt ? new Date(x.startedAt).toISOString() : null });
+  async function flushWork() {
+    const q = (state.work && state.work.pending) || [];
+    if (!q.length || !navigator.onLine) return;
+    const left = [];
+    for (const x of q) {
+      const res = await call("app_work_log", workArgs(x));
+      if (res.error && OFFLINE_RX.test(res.error)) left.push(x);
+    }
+    state.work.pending = left; saveWorkLocal();
+    // Something landed: the board and the day's list owe you minutes.
+    if (left.length < q.length) {
+      await loadWorkSessions();
+      setTimeout(() => refresh().then(() => render()), 0);
+    }
+  }
+  async function logWork(id, minutes, startedAt, date) {
+    const x = { id, minutes, startedAt, date };
+    const res = await call("app_work_log", workArgs(x));
+    if (res.error && OFFLINE_RX.test(res.error)) {
+      state.work.pending = (state.work.pending || []).filter((y) => y.id !== id).concat([x]);
+      saveWorkLocal();
+      return res;
+    }
+    await loadWorkSessions();
+    await loadHistory();
+    await refresh();
+    return res;
+  }
+  async function loadWorkSessions() {
+    if (!state.work) loadWorkLocal();
+    const res = await call("app_work_day", { p_code: state.code, p_person: state.meId });
+    state.work.sessions = (res && res.sessions) || [];
+  }
+  function startWorkTick() {
+    stopWorkTick();
+    workTick = setInterval(async () => {
+      const r = state.work && state.work.run;
+      const el = document.getElementById("workClock");
+      if (!r || !el || state.seg !== "work") return stopWorkTick();
+      el.textContent = mmssMs(workLeft(r));
+      const fill = document.querySelector(".ring .rfill");
+      if (fill) fill.setAttribute("stroke-dashoffset",
+        (289.03 * (workLeft(r) / (r.len * 60000))).toFixed(2));
+      if (workLeft(r) <= 0) { stopWorkTick(); if (await checkWork()) render(); }
+    }, 1000);
+  }
+  function stopWorkTick() { if (workTick) { clearInterval(workTick); workTick = null; } }
+
+  // A short two-note chime. The audio context is made on the Start tap,
+  // because a phone only lets a page make sound after a touch.
+  let audioCtx = null;
+  function primeAudio() {
+    try { audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)(); }
+    catch { audioCtx = null; }
+  }
+  function chime() {
+    try {
+      if (navigator.vibrate) navigator.vibrate([120, 80, 120]);
+      if (!audioCtx) return;
+      [880, 1318].forEach((f, i) => {
+        const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+        o.frequency.value = f; o.connect(g); g.connect(audioCtx.destination);
+        const t = audioCtx.currentTime + i * 0.18;
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.18, t + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 0.5);
+        o.start(t); o.stop(t + 0.55);
+      });
+    } catch {}
+  }
+
+  function wireWork() {
+    if (state.seg !== "work") return;
+    if (!state.work) loadWorkLocal();
+    const w = state.work;
+    if (w.run && !w.run.pausedAt) startWorkTick();
+
+    document.querySelectorAll("[data-wlen]").forEach((el) =>
+      el.addEventListener("click", () => {
+        w.len = Number(el.dataset.wlen); saveWorkLocal(); render();
+      }));
+    on("workStart", "click", () => {
+      primeAudio();
+      w.run = { id: uuid(), startedAt: Date.now(), pausedAt: null, pausedMs: 0,
+                len: w.len, date: todayISO() };
+      saveWorkLocal(); render();
+    });
+    on("workPause", "click", () => {
+      w.run.pausedAt = Date.now(); saveWorkLocal(); stopWorkTick(); render();
+    });
+    on("workResume", "click", () => {
+      primeAudio();
+      w.run.pausedMs += Date.now() - w.run.pausedAt; w.run.pausedAt = null;
+      saveWorkLocal(); render();
+    });
+    on("workStop", "click", () => {
+      const r = w.run;
+      const mins = Math.floor(workElapsed(r) / 60000);
+      if (!r.pausedAt) { r.pausedAt = Date.now(); saveWorkLocal(); stopWorkTick(); }
+      // Stopping early is a real decision — half a session is still work —
+      // so it asks rather than guessing either way.
+      openModal({
+        title: "End this session?",
+        body: mins >= 1
+          ? `You focused for ${hm(mins)} of ${hm(r.len)}.`
+          : "Less than a minute in — nothing to log yet.",
+        buttons: [
+          ...(mins >= 1 ? [{ label: `Log ${hm(mins)}`, kind: "go", run: async () => {
+              w.run = null; saveWorkLocal();
+              const res = await logWork(r.id, mins, r.startedAt, r.date);
+              state.msg = res.error ? "Session saved on this phone. It will upload by itself."
+                                    : `Session logged · ${hm(mins)}.`;
+              state.msgKind = "ok"; render();
+            } }] : []),
+          { label: "Discard", kind: "bad", run: () => { w.run = null; saveWorkLocal(); render(); } },
+          { label: "Keep going", kind: "quiet", run: () => {
+              r.pausedMs += Date.now() - r.pausedAt; r.pausedAt = null; saveWorkLocal(); render();
+            } },
+        ],
+      });
+    });
+    document.querySelectorAll("[data-wdel]").forEach((el) =>
+      el.addEventListener("click", async () => {
+        await call("app_work_delete", { p_code: state.code, p_person: state.meId,
+          p_id: el.dataset.wdel });
+        await loadWorkSessions(); await loadHistory(); await refresh();
+      }));
+  }
+
   function metricView() {
     const k = state.seg;
     const met = M[k];
@@ -3802,7 +4736,10 @@ under it stay in your history, they just stop being a tile.`)) return;
       </header>
 
       ${resumeBanner()}
-      ${logCard(k)}
+      ${(k === "train" || k === "cardio") && state.lift.msg && !state.lift.active
+        ? `<p class="flash" role="status">${esc(state.lift.msg)}</p>` : ""}
+      ${(k === "train" || k === "cardio") ? firstCard(k) : ""}
+      ${k === "work" ? workCard() : logCard(k)}
       ${editRowHTML()}
       <!-- V2.6. The graph lives in a slot of its own so a wheel save can
            repaint it WITHOUT rebuilding the card above it. Re-rendering
@@ -3810,9 +4747,9 @@ under it stay in your history, they just stop being a tile.`)) return;
            made the time wheel feel stuck. -->
       <div id="graphSlot">${graphCard(k)}</div>
 
-      ${k === "steps" || M[k].time ? "" : `
-        <button class="btn" id="startEmpty"
-                style="width:100%;margin-top:22px;background:${met.color}">
+      ${!(k === "train" || k === "cardio") ? "" : `
+        <button class="${isFirst() ? "btn-quiet firstempty" : "btn"}" id="startEmpty"
+                style="width:100%;margin-top:${isFirst() ? 10 : 22}px;${isFirst() ? "" : `background:${met.color}`}">
           ${k === "cardio" ? "Start an Empty Activity" : "Start an Empty Workout"}</button>
         ${liftTiles()}
         ${unitRow}
@@ -3861,6 +4798,7 @@ under it stay in your history, they just stop being a tile.`)) return;
            <button type="button" id="undoStamp">Undo</button></div>` : "");
 
     if (state.view === "sleep")    { app.innerHTML = netBar + sleepView();  wireExercise(); wireNet(); return; }
+    if (state.view === "tasks")    { app.innerHTML = netBar + tasksView();  wireTasks();    wireNet(); return; }
     if (state.view === "exercise") { app.innerHTML = netBar + metricView(); wireExercise(); wireNet(); return; }
     if (state.view === "session")  { app.innerHTML = netBar + sessionView();  wireLift(); wireNet(); return; }
     if (state.view === "detail")   { app.innerHTML = netBar + detailView();   wireLift(); wireNet(); return; }
@@ -4072,8 +5010,8 @@ under it stay in your history, they just stop being a tile.`)) return;
 
 
 
-    // Walking the roster back a day. Today needs no call \u2014 app_state
-    // already carries it \u2014 so only a past day costs a round trip.
+    // Walking the roster back a day. Today needs no call — app_state
+    // already carries it — so only a past day costs a round trip.
     const stepBoard = async (n) => {
       const next = shiftISO(famDayISO(), n);
       if (next > familyISO()) return;
@@ -4093,6 +5031,7 @@ under it stay in your history, they just stop being a tile.`)) return;
     };
     on("bPrev", "click", () => stepBoard(-1));
     on("bNext", "click", () => stepBoard(1));
+    on("bToday", "click", () => { state.boardDay = null; state.boardCards = null; render(); });
 
     on("foldBoard", "click", () => {
       try { localStorage.setItem("fhd.board", boardOpen() ? "shut" : "open"); } catch {}
