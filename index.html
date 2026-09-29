@@ -336,13 +336,77 @@ input[type=number] { -moz-appearance:textfield; }
 .tadd { display:flex; gap:8px; margin-top:14px; }
 .tadd .field { flex:1; }
 
+
+/* ---------- Goals: the 12 Week Year ------------------------------------ */
+.gbars { position:relative; display:grid; grid-template-columns:repeat(12, 1fr); gap:4px;
+  margin-top:16px; }
+.gbar { border:none; background:none; padding:0; font-family:inherit; cursor:pointer;
+  display:flex; flex-direction:column; align-items:stretch; gap:3px; }
+.gbar:disabled { cursor:default; }
+.gbar .gt { height:56px; border-radius:5px; background:var(--surface-2);
+  display:flex; align-items:flex-end; overflow:hidden; }
+.gbar .gt i { display:block; width:100%; background:var(--line-strong); border-radius:4px 4px 0 0; }
+.gbar.win .gt i { background:var(--work); }
+.gbar.fut .gt { background:none; border:1px dashed var(--line); }
+.gbar.sel .gt { box-shadow:0 0 0 2px var(--ink); }
+.gbar span { font-family:var(--mono); font-size:10px; color:var(--muted); text-align:center; }
+.gbar.sel span { color:var(--ink); font-weight:600; }
+/* The 85% bar the week is judged against, drawn across all twelve. */
+.gline { position:absolute; left:0; right:0; top:8.4px; border-top:1.5px dashed var(--work);
+  pointer-events:none; opacity:.7; }
+.gfoot { display:flex; justify-content:space-between; margin-top:10px; font-size:12px;
+  color:var(--muted); }
+.ghead { display:flex; align-items:center; gap:10px; }
+.ghead h3 { flex:1; min-width:0; margin:0; font-family:var(--display); font-weight:500;
+  font-size:19px; line-height:1.25; overflow-wrap:anywhere; }
+.ghead .eyebrow { flex:1; margin:0; }
+.gnum { flex:none; width:26px; height:26px; border-radius:50%; display:grid; place-items:center;
+  background:var(--work-soft); color:var(--work); font-family:var(--mono); font-size:13px;
+  font-weight:600; }
+.gvtext { margin:8px 0 0; font-family:var(--display); font-size:18px; line-height:1.4;
+  color:var(--ink); white-space:pre-wrap; }
+.gempty { margin-top:8px; width:100%; text-align:left; border:1px dashed var(--line-strong);
+  background:none; border-radius:12px; padding:12px 14px; font-family:inherit; font-size:14px;
+  color:var(--muted); cursor:pointer; }
+.gvis { width:100%; margin-top:8px; resize:vertical; font-family:inherit; font-size:15px;
+  line-height:1.4; box-sizing:border-box; }
+.goal { border-top:3px solid var(--work); }
+.gkpi { display:flex; justify-content:space-between; align-items:baseline; margin-top:12px;
+  font-size:13px; color:var(--ink-2); }
+.gkpi b { font-family:var(--mono); font-weight:500; color:var(--ink); }
+.gkbar { height:6px; border-radius:3px; background:var(--surface-2); margin-top:5px; overflow:hidden; }
+.gkbar i { display:block; height:100%; background:var(--work); border-radius:3px; }
+.gtl { margin-top:14px; gap:9px; }
+.gtl .ttl { font-size:15px; }
+.gtl .tbox { width:20px; height:20px; }
+.gtl .tbox:disabled { opacity:.4; cursor:default; }
+.gtag { flex:none; font-style:normal; font-size:10.5px; color:var(--muted); font-family:var(--mono);
+  padding-top:3px; }
+.glab { display:block; margin:16px 0 6px; font-size:10.5px; font-weight:700; letter-spacing:.07em;
+  text-transform:uppercase; color:var(--muted); }
+.gtitle { flex:1; min-width:0; font-size:16px; }
+.gkpirow { display:flex; align-items:center; gap:6px; }
+.gkpirow .field { min-width:0; }
+.gkpirow .field:first-child { flex:1; }
+.gkpirow .gnumin { width:64px; flex:none; text-align:right; font-family:var(--mono); }
+.gtedit { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px; }
+.gtedit li { display:flex; align-items:center; gap:8px; }
+.gtedit .ttl { font-size:14px; }
+.gdel { display:block; margin-top:16px; color:var(--muted) !important; font-size:12.5px; }
+.gadd { width:100%; margin-top:12px; }
+.goal .tadd { flex-wrap:wrap; }
+.goal .tadd select { flex:1; }
+.gnew { display:block; margin:18px auto 0; color:var(--muted) !important; font-size:12.5px; }
+.gstart { display:flex; flex-direction:column; gap:8px; margin-top:16px; }
+.gstart .btn { background:var(--work); }
+.gstart .btn, .gstart .btn-quiet { width:100%; padding:13px; font-size:14px; }
+
 /* The epigraph. Set in the display face, indented from the rule, quiet
    enough that it introduces the page rather than competing with it. */
 /* The roster's own day control, inset from the card edges so it reads as
    belonging to the list rather than to the page. */
 .famnav { margin:4px 0 10px; }
 .famnav span { font-size:13px; }
-.soonchip { opacity:.5; cursor:default; border-style:dashed !important; }
 .epi { margin:12px 0 0; padding-left:13px; border-left:2px solid var(--sleep-soft);
   font-family:var(--display); font-size:16px; line-height:1.4; font-style:italic;
   color:var(--ink-2); text-wrap:balance; }
@@ -846,7 +910,7 @@ input[type=number] { -moz-appearance:textfield; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "3.1";
+  const APP_VERSION = "3.2";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -3375,9 +3439,11 @@ input[type=number] { -moz-appearance:textfield; }
     state.lift.msg = null;
     loadLocal();
     state.view = state.seg === "sleep" ? "sleep"
-               : state.seg === "tasks" ? "tasks" : "exercise";
+               : state.seg === "tasks" ? "tasks"
+               : state.seg === "goals" ? "goals" : "exercise";
     render();                 // paint immediately; the list can arrive after
     if (state.seg === "tasks") { await openTasks(); return; }
+    if (state.seg === "goals") { await openGoals(); return; }
     if (state.seg === "work")  {
       loadWorkLocal();
       if (await checkWork()) render();
@@ -3545,19 +3611,20 @@ input[type=number] { -moz-appearance:textfield; }
         : `<span class="chip${on ? " on" : ""}">${inner}</span>`;
     }).join("");
 
-    // V2.8. Great Work: a score, a door to goals (arriving next), and a
-    // door to tasks. V3.1: the Tasks chip counts what is still open.
+    // Great Work: a score, the 12-week goals, and the tasks. V3.1: the
+    // Tasks chip counts what is still open.
     const wGoal = Number(p.work_target) || 180;
     const wMin  = Number(p.work_min) || 0;
     const gwChips = [
       { k:"work",  label:"Work Score", on: wMin > 0,
         words: wMin > 0 ? Math.round(wMin / wGoal * 100) + "%" : "\u2013" },
-      { k:"goals", label:"Goals", on:false, words:"soon", off:true },
+      // V3.2. This week's execution score on the 12 weeks; lit at 85%.
+      { k:"goals", label:"Goals", on: Number(p.goal_pct) >= 85,
+        words: p.goal_pct !== null && p.goal_pct !== undefined ? p.goal_pct + "%" : "\u2013" },
       { k:"tasks", label:"Tasks", on:false,
         words: Number(p.tasks_open) > 0 ? String(p.tasks_open) : "\u2013" },
     ].map((c) => {
       const inner = `<b>${c.words}</b><span>${c.label}</span>`;
-      if (c.off) return `<span class="chip soonchip" aria-label="${c.label}: coming next">${inner}</span>`;
       return clickable
         ? `<button type="button" class="chip${c.on ? " on" : ""}" data-tile="${c.k}"
              aria-label="${c.label}${c.on ? ": " + c.words : ""}">${inner}</button>`
@@ -4410,6 +4477,344 @@ input[type=number] { -moz-appearance:textfield; }
     }
   }
 
+  /* ---------- Goals: the 12 Week Year --------------------------------
+     V3.2. Brian Moran's 12 Week Year, kept to its bones. Twelve weeks from
+     a Monday. One vision above them. Up to three goals, each with one KPI
+     (the number the goal is about) and its tactics (the actions you
+     control), every week or in one week. Each week is scored on the
+     tactics alone: of those due, the share done. 85% wins the week.
+
+     The page holds the whole plan as one document and saves it whole, a
+     moment after each change, so there is no Save button to forget and
+     nothing half-written on the server.
+     ------------------------------------------------------------------ */
+  const GOAL_WIN = 85;
+  const dueIn = (t, w) => t.week === null || t.week === undefined || Number(t.week) === w;
+  function weekTally(doc, w) {
+    let due = 0, done = 0;
+    for (const g of doc.goals) for (const t of g.tactics)
+      if (dueIn(t, w)) { due++; if ((t.done || []).includes(w)) done++; }
+    return { due, done, pct: due ? Math.round(done / due * 100) : null };
+  }
+  const curWeek = () => {
+    const G = state.goals;
+    if (!G || !G.cycle) return null;
+    return Math.floor((new Date(G.today + "T00:00:00Z") -
+                       new Date(G.cycle.start_date + "T00:00:00Z")) / 604800000) + 1;
+  };
+  // The last week that can be ticked: this one, or 12 once the run is over.
+  const lastOpen = () => Math.min(12, Math.max(1, curWeek() || 1));
+  function weekSpan(start, w) {
+    const a = shiftISO(start, (w - 1) * 7), b = shiftISO(a, 6);
+    const f = (iso, m) => new Date(iso + "T00:00:00Z").toLocaleDateString(undefined,
+      m ? { timeZone: "UTC", month: "short", day: "numeric" } : { timeZone: "UTC", day: "numeric" });
+    return `${f(a, true)} – ${a.slice(0, 7) === b.slice(0, 7) ? f(b, false) : f(b, true)}`;
+  }
+  const newGoal = () => ({ id: uuid(), title: "", kpi: "", kpi_now: null, kpi_target: null, tactics: [] });
+  const numOrNull = (v) => { const x = parseFloat(String(v).replace(/,/g, ""));
+                             return Number.isFinite(x) ? x : null; };
+  const fmtNum = (v) => v === null || v === undefined ? "–"
+    : Number(v).toLocaleString(undefined, { maximumFractionDigits: 2 });
+
+  async function openGoals() {
+    state.goals = { loaded: false, today: todayISO(), cycle: null, sel: 1, edit: null, err: null };
+    const res = await call("app_cycle", { p_code: state.code, p_person: state.meId });
+    const G = state.goals;
+    if (res.error) G.err = res.error;
+    G.today = res.today || todayISO();
+    G.cycle = res.cycle || null;
+    if (G.cycle) G.cycle.goals.forEach((g) => g.tactics.forEach((t) => {
+      t.done = (t.done || []).map(Number); }));
+    G.sel = lastOpen();
+    G.loaded = true;
+    render();
+  }
+
+  let goalTimer = null;
+  async function pushGoals() {
+    goalTimer = null;
+    const G = state.goals;
+    if (!G || !G.cycle) return;
+    const res = await call("app_cycle_save", { p_code: state.code, p_person: state.meId, p_doc: G.cycle });
+    if (res.error) { G.err = res.error; render(); }
+    else {
+      if (res.start_date) G.cycle.start_date = res.start_date;
+      if (G.err) { G.err = null; render(); }
+    }
+  }
+  function saveGoals() { clearTimeout(goalTimer); goalTimer = setTimeout(pushGoals, 600); }
+  async function flushGoals() { if (goalTimer) { clearTimeout(goalTimer); await pushGoals(); } }
+
+  function startCycle(monday) {
+    const G = state.goals;
+    const g = newGoal();
+    G.cycle = { id: uuid(), start_date: monday, vision: "", goals: [g] };
+    G.sel = lastOpen();
+    G.edit = g.id;
+    render();
+    pushGoals();
+  }
+
+  function goalsView() {
+    const G = state.goals || {};
+    const head = `
+      <div class="topbar">
+        <button class="backlink" id="back">&larr; ${esc(state.group.name)}</button>
+      </div>
+      <header class="masthead">
+        <h1>Goals</h1>
+        <p class="sub">Twelve weeks. Up to three goals. Win the week.</p>
+      </header>`;
+    const foot = `<p class="ver">v${APP_VERSION}</p>`;
+    if (!G.loaded) return head + `<p class="loading">Opening…</p>` + foot;
+    const mon = mondayOf(G.today), next = shiftISO(mon, 7);
+    if (!G.cycle) return head + `
+      <section class="card">
+        <p class="eyebrow">The 12 Week Year</p>
+        <h2 style="margin:4px 0 0;font-family:var(--display);font-weight:500;font-size:22px">
+          A year's work in twelve weeks.</h2>
+        <p class="hint" style="margin-top:6px">Write a vision. Set up to three goals, each with
+          one number to move and the tactics that move it. Every week, do what you planned:
+          ${GOAL_WIN}% of it wins the week.</p>
+        <div class="gstart">
+          <button class="btn" data-gstart="${mon}">Start this week · ${esc(shortDay(mon))}</button>
+          <button class="btn-quiet" data-gstart="${next}">Start next Monday · ${esc(shortDay(next))}</button>
+        </div>
+        ${G.err ? `<p class="terr">${esc(G.err)}</p>` : ""}
+      </section>` + foot;
+
+    const doc = G.cycle, cur = curWeek(), w = G.sel, open = lastOpen();
+    const pre = cur < 1, over = cur > 12;
+    const T = weekTally(doc, w);
+    const played = [];
+    for (let i = 1; i <= open && !pre; i++) { const p = weekTally(doc, i).pct; if (p !== null) played.push(p); }
+    const avg = played.length ? Math.round(played.reduce((a, b) => a + b, 0) / played.length) : null;
+
+    const weekCard = `
+      <section class="card">
+        ${dayNav({ ids: ["gPrev", "gNext", "gToday"], unit: "week", todayWord: "this week",
+                   atToday: pre || w >= open,
+                   label: pre ? `Starts ${esc(shortDay(doc.start_date))}` : `Week ${w} of 12` })}
+        <div class="domino" style="padding-top:10px">
+          <b class="big" style="color:${T.pct !== null && T.pct >= GOAL_WIN ? "var(--work)" : "var(--ink)"}">${
+            T.pct === null ? "–" : T.pct + "%"}</b>
+          <span class="of" style="text-decoration:none">${T.due
+            ? `${T.done} of ${T.due} tactics` : "nothing planned"} · ${esc(weekSpan(doc.start_date, w))}</span>
+        </div>
+        <div class="gbars" role="group" aria-label="The twelve weeks">
+          <em class="gline" aria-hidden="true"></em>
+          ${Array.from({ length: 12 }, (_, k) => k + 1).map((i) => {
+            const p = weekTally(doc, i).pct, fut = pre || i > open;
+            return `<button type="button" class="gbar${i === w ? " sel" : ""}${fut ? " fut" : ""}${
+              !fut && p !== null && p >= GOAL_WIN ? " win" : ""}" data-gweek="${i}" ${fut ? "disabled" : ""}
+              aria-label="Week ${i}: ${fut ? "to come" : p === null ? "nothing due" : p + "%"}">
+              <span class="gt"><i style="height:${fut || p === null ? 0 : Math.max(4, p)}%"></i></span>
+              <span>${i}</span></button>`;
+          }).join("")}
+        </div>
+        <div class="gfoot"><span>${avg === null ? "No weeks scored yet"
+          : `Average ${avg}% over ${played.length} week${played.length === 1 ? "" : "s"}`}</span>
+          <span>${GOAL_WIN}% wins a week</span></div>
+      </section>`;
+
+    const overCard = !over ? "" : `
+      <section class="card" style="background:var(--work-soft)">
+        <p class="eyebrow">Week ${cur > 13 ? "13 and beyond" : "13"}</p>
+        <h2 style="margin:4px 0 0;font-family:var(--display);font-weight:500;font-size:20px">
+          Twelve weeks done${avg === null ? "." : ` at ${avg}% on average.`}</h2>
+        <p class="hint" style="margin-top:6px">Week 13 is for review: what worked, what to
+          carry forward, what to drop. Then start the next twelve.</p>
+        <button class="btn" id="gNew2" style="width:100%;margin-top:12px;background:var(--work)">
+          Start the next 12 weeks</button>
+      </section>`;
+
+    const visionCard = `
+      <section class="card">
+        <div class="ghead"><p class="eyebrow">Vision</p>
+          ${doc.vision || G.edit === "vision" ? `<button type="button" class="linkbtn" id="gVisEdit">${
+            G.edit === "vision" ? "Done" : "Edit"}</button>` : ""}</div>
+        ${G.edit === "vision"
+          ? `<textarea class="field gvis" id="gVisIn" rows="4" maxlength="2000"
+               placeholder="Where are these twelve weeks taking you? A few sentences, in the present tense.">${esc(doc.vision)}</textarea>`
+          : doc.vision ? `<p class="gvtext">${esc(doc.vision)}</p>`
+          : `<button type="button" class="gempty" id="gVisEdit">Write your vision: where these twelve weeks are taking you.</button>`}
+      </section>`;
+
+    const weekOpts = (sel) => `<option value="" ${sel === null || sel === undefined ? "selected" : ""}>Every week</option>` +
+      Array.from({ length: 12 }, (_, k) => k + 1).map((i) =>
+        `<option value="${i}" ${Number(sel) === i ? "selected" : ""}>Week ${i}</option>`).join("");
+
+    const goalCard = (g, n) => {
+      if (G.edit === g.id) return `
+        <section class="card goal">
+          <div class="ghead"><span class="gnum">${n}</span>
+            <input class="field gtitle" data-gf="title" data-g="${g.id}" maxlength="200"
+              value="${esc(g.title)}" placeholder="The result, e.g. Finish the book draft" aria-label="Goal">
+            <button type="button" class="linkbtn" data-gdone="${g.id}">Done</button></div>
+          <label class="glab">KPI · the number this goal moves</label>
+          <div class="gkpirow">
+            <input class="field" data-gf="kpi" data-g="${g.id}" maxlength="80" value="${esc(g.kpi)}"
+              placeholder="e.g. Chapters" aria-label="KPI name">
+            <input class="field gnumin" data-gf="kpi_now" data-g="${g.id}" inputmode="decimal"
+              value="${g.kpi_now ?? ""}" placeholder="now" aria-label="KPI now">
+            <span>/</span>
+            <input class="field gnumin" data-gf="kpi_target" data-g="${g.id}" inputmode="decimal"
+              value="${g.kpi_target ?? ""}" placeholder="goal" aria-label="KPI goal"></div>
+          <label class="glab">Tactics · what you will do, and when</label>
+          <ul class="gtedit">${g.tactics.map((t) => `
+            <li><span class="ttl">${esc(t.title)}</span>
+              <select class="tmove" data-gtweek="${t.id}" aria-label="When">${weekOpts(t.week)}</select>
+              <button type="button" class="tx" data-gtdel="${t.id}" aria-label="Remove ${esc(t.title)}">&times;</button>
+            </li>`).join("")}</ul>
+          <form class="tadd" data-gtadd="${g.id}">
+            <input class="field" maxlength="200" placeholder="Add a tactic, e.g. Write 5 mornings" aria-label="New tactic" style="flex-basis:100%">
+            <select class="tmove" aria-label="When">${weekOpts(null)}</select>
+            <button class="btn" type="submit" style="background:var(--work)">Add</button>
+          </form>
+          <button type="button" class="linkbtn gdel" data-gdel="${g.id}">Remove this goal</button>
+        </section>`;
+      const due = g.tactics.filter((t) => dueIn(t, w));
+      const kp = Number(g.kpi_target) > 0 && g.kpi_now !== null
+        ? Math.max(0, Math.min(100, Number(g.kpi_now) / Number(g.kpi_target) * 100)) : 0;
+      return `
+        <section class="card goal">
+          <div class="ghead"><span class="gnum">${n}</span>
+            <h3>${g.title ? esc(g.title) : `<span style="color:var(--muted)">Untitled goal</span>`}</h3>
+            <button type="button" class="linkbtn" data-gedit="${g.id}">Edit</button></div>
+          ${g.kpi ? `
+            <div class="gkpi"><span>${esc(g.kpi)}</span><b>${fmtNum(g.kpi_now)} / ${fmtNum(g.kpi_target)}</b></div>
+            <div class="gkbar"><i style="width:${kp}%"></i></div>` : ""}
+          ${due.length ? `<ul class="tlist gtl">${due.map((t) => {
+              const d = (t.done || []).includes(w);
+              return `<li class="task${d ? " done" : ""}"><div class="trow">
+                <button type="button" class="tbox" data-gtick="${t.id}" aria-pressed="${d}"
+                  ${pre || w > open ? "disabled" : ""}
+                  aria-label="${d ? "Mark not done" : "Mark done"}: ${esc(t.title)}"></button>
+                <span class="ttl">${esc(t.title)}</span>
+                <em class="gtag">${t.week ? "wk " + t.week : "weekly"}</em></div></li>`;
+            }).join("")}</ul>`
+          : `<p class="hint" style="margin-top:12px">${g.tactics.length
+              ? `Nothing due in week ${w}.` : "No tactics yet. Tap Edit to add the actions that move this goal."}</p>`}
+        </section>`;
+    };
+
+    return head + overCard + weekCard + visionCard +
+      doc.goals.map((g, i) => goalCard(g, i + 1)).join("") +
+      (doc.goals.length < 3 ? `<button type="button" class="btn-quiet gadd" id="gAdd">+ Add a goal</button>` : "") +
+      (G.err ? `<p class="terr">${esc(G.err)}</p>` : "") +
+      `<button type="button" class="linkbtn gnew" id="gNew">Start a new 12 weeks</button>` + foot;
+  }
+
+  function wireGoals() {
+    on("back", "click", async () => {
+      await flushGoals();
+      state.view = "board"; state.goals = null; render(); refresh();
+    });
+    const G = state.goals;
+    if (!G) return;
+    const doc = G.cycle;
+    const findT = (id) => { for (const g of doc.goals) { const t = g.tactics.find((x) => x.id === id);
+                                                        if (t) return { g, t }; } return {}; };
+
+    document.querySelectorAll("[data-gstart]").forEach((el) =>
+      el.addEventListener("click", () => startCycle(el.dataset.gstart)));
+    const askNew = () => {
+      const mon = mondayOf(G.today), next = shiftISO(mon, 7);
+      openModal({
+        title: "Start a new 12 weeks?",
+        body: "This plan is kept. The new one becomes your current twelve weeks.",
+        buttons: [
+          { label: `Start this week · ${shortDay(mon)}`, kind: "go", run: () => startCycle(mon) },
+          { label: `Start next Monday · ${shortDay(next)}`, kind: "quiet", run: () => startCycle(next) },
+          { label: "Cancel", kind: "quiet" },
+        ],
+      });
+    };
+    on("gNew", "click", askNew);
+    on("gNew2", "click", askNew);
+    if (!doc) return;
+
+    const open = lastOpen();
+    on("gPrev", "click", () => { G.sel = Math.max(1, G.sel - 1); render(); });
+    on("gNext", "click", () => { G.sel = Math.min(open, G.sel + 1); render(); });
+    on("gToday", "click", () => { G.sel = open; render(); });
+    document.querySelectorAll("[data-gweek]").forEach((el) =>
+      el.addEventListener("click", () => { G.sel = Number(el.dataset.gweek); render(); }));
+
+    on("gVisEdit", "click", () => {
+      G.edit = G.edit === "vision" ? null : "vision"; render();
+      if (G.edit === "vision") document.getElementById("gVisIn")?.focus();
+    });
+    on("gVisIn", "input", (e) => { doc.vision = e.target.value.slice(0, 2000); saveGoals(); });
+
+    document.querySelectorAll("[data-gedit]").forEach((el) =>
+      el.addEventListener("click", () => { G.edit = el.dataset.gedit; render(); }));
+    document.querySelectorAll("[data-gdone]").forEach((el) =>
+      el.addEventListener("click", () => { G.edit = null; render(); }));
+    document.querySelectorAll("[data-gf]").forEach((el) =>
+      el.addEventListener("input", () => {
+        const g = doc.goals.find((x) => x.id === el.dataset.g);
+        if (!g) return;
+        const f = el.dataset.gf;
+        g[f] = f === "kpi_now" || f === "kpi_target" ? numOrNull(el.value) : el.value;
+        saveGoals();
+      }));
+
+    document.querySelectorAll("[data-gtick]").forEach((el) =>
+      el.addEventListener("click", () => {
+        const { t } = findT(el.dataset.gtick);
+        if (!t || G.sel > open) return;
+        t.done = t.done.includes(G.sel) ? t.done.filter((x) => x !== G.sel)
+                                        : t.done.concat([G.sel]).sort((a, b) => a - b);
+        render(); saveGoals();
+      }));
+    document.querySelectorAll("[data-gtweek]").forEach((el) =>
+      el.addEventListener("change", () => {
+        const { t } = findT(el.dataset.gtweek);
+        if (!t) return;
+        t.week = el.value ? Number(el.value) : null;
+        if (t.week) t.done = t.done.filter((x) => x === t.week);   // ticks only count in its week
+        saveGoals();
+      }));
+    document.querySelectorAll("[data-gtdel]").forEach((el) =>
+      el.addEventListener("click", () => {
+        const { g } = findT(el.dataset.gtdel);
+        if (!g) return;
+        g.tactics = g.tactics.filter((x) => x.id !== el.dataset.gtdel);
+        render(); saveGoals();
+      }));
+    document.querySelectorAll("[data-gtadd]").forEach((form) =>
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const g = doc.goals.find((x) => x.id === form.dataset.gtadd);
+        const inp = form.querySelector("input"), sel = form.querySelector("select");
+        const title = (inp.value || "").trim();
+        if (!g || !title) return;
+        if (g.tactics.length >= 30) { G.err = "Thirty tactics per goal at most."; render(); return; }
+        g.tactics.push({ id: uuid(), title: title.slice(0, 200),
+                         week: sel.value ? Number(sel.value) : null, done: [] });
+        render(); saveGoals();
+        document.querySelector(`[data-gtadd="${g.id}"] input`)?.focus();
+      }));
+    document.querySelectorAll("[data-gdel]").forEach((el) =>
+      el.addEventListener("click", () => openModal({
+        title: "Remove this goal?",
+        body: "Its tactics and ticks go with it.",
+        buttons: [
+          { label: "Remove goal", kind: "bad", run: () => {
+              doc.goals = doc.goals.filter((x) => x.id !== el.dataset.gdel);
+              G.edit = null; render(); saveGoals();
+            } },
+          { label: "Keep it", kind: "quiet" },
+        ],
+      })));
+    on("gAdd", "click", () => {
+      if (doc.goals.length >= 3) return;
+      const g = newGoal(); doc.goals.push(g); G.edit = g.id; render(); saveGoals();
+      document.querySelector(`[data-g="${g.id}"][data-gf="title"]`)?.focus();
+    });
+  }
+
   /* ---------- one popup, used everywhere a choice has to be made -------
      V2.8. Built on the page, not with confirm(): a browser dialog cannot be
      styled, cannot offer three answers, and inside some app views is not
@@ -4799,6 +5204,7 @@ input[type=number] { -moz-appearance:textfield; }
 
     if (state.view === "sleep")    { app.innerHTML = netBar + sleepView();  wireExercise(); wireNet(); return; }
     if (state.view === "tasks")    { app.innerHTML = netBar + tasksView();  wireTasks();    wireNet(); return; }
+    if (state.view === "goals")    { app.innerHTML = netBar + goalsView();  wireGoals();    wireNet(); return; }
     if (state.view === "exercise") { app.innerHTML = netBar + metricView(); wireExercise(); wireNet(); return; }
     if (state.view === "session")  { app.innerHTML = netBar + sessionView();  wireLift(); wireNet(); return; }
     if (state.view === "detail")   { app.innerHTML = netBar + detailView();   wireLift(); wireNet(); return; }
