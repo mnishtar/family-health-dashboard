@@ -284,6 +284,25 @@ input[type=number] { -moz-appearance:textfield; }
 .fnew { color:var(--work); }
 .fbtm { display:flex; justify-content:space-between; margin-top:10px; }
 .sesslist li em b { font-weight:600; color:var(--ink-2); }
+/* V3.2. The day's total, typed or timed, as one quiet line. */
+.wtotal { display:flex; align-items:baseline; justify-content:center; gap:8px; margin-top:16px; }
+.wtot { border:none; background:none; padding:0 2px; font-family:var(--mono); font-size:22px; font-weight:500;
+  color:var(--ink); cursor:text; border-bottom:1.5px dashed transparent; }
+.wtot:hover, .wtot:focus-visible { border-bottom-color:var(--line-strong); }
+.wtotin { width:88px; border:none; border-bottom:1.5px solid var(--work); background:none; text-align:right;
+  font-family:var(--mono); font-size:22px; font-weight:500; color:var(--ink); padding:0 2px; border-radius:0; }
+.wtotin:focus { outline:none; }
+.wunit { font-size:13px; color:var(--muted); }
+.wof { font-size:13px; color:var(--muted); }
+.wof .linkbtn { font-size:13px; }
+.wtotal.big .wtot, .wtotal.big .wtotin { font-size:44px; color:var(--work); }
+.wtotal.big .wtotin { width:130px; }
+.wpast { padding:10px 0 4px; }
+.wtyped { margin:4px 0 0; font-size:12px; color:var(--muted); }
+.wtyped .linkbtn { font-size:12px; }
+.wfold { display:inline-flex; align-items:center; gap:6px; margin-top:12px; border:none; background:none;
+  font-family:inherit; font-size:12.5px; color:var(--muted); cursor:pointer; padding:4px 8px; }
+.wfold i { font-style:normal; font-size:10px; }
 .worktoday { margin-top:14px; font-size:13px; color:var(--muted); }
 .worktoday .linkbtn { font-size:13px; }
 .sesslist { list-style:none; margin:10px auto 0; padding:0; max-width:260px; text-align:left; }
@@ -1006,7 +1025,7 @@ input[type=number] { -moz-appearance:textfield; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "3.1";
+  const APP_VERSION = "3.2";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -5387,6 +5406,34 @@ input[type=number] { -moz-appearance:textfield; }
     w.pickData = { tasks, tactics };
   }
 
+  // V3.2. The day's total is itself the input, as the step count is: tap
+  // it, type minutes, done. A typed total outranks the timer for that day
+  // (the server's rule for every metric); "Use timed" hands it back.
+  function workTotalLine(done, goal, typed, big) {
+    const w = state.work;
+    const timed = (w.sessions || []).reduce((a, x) => a + Number(x.minutes || 0), 0);
+    return `
+      <div class="wtotal${big ? " big" : ""}">
+        ${w.editTotal
+          ? `<input class="wtotin" id="workTotalIn" inputmode="numeric" enterkeyhint="done" autocomplete="off"
+               value="${done || ""}" placeholder="0" aria-label="Minutes of deep work"><span class="wunit">min</span>`
+          : `<button type="button" class="wtot" id="workTotal" aria-label="Total ${hm(done)}, tap to type it">${hm(done)}</button>`}
+        <span class="wof">of <button type="button" class="linkbtn" data-edit="goal" data-metric="work">${hm(goal)}</button></span>
+      </div>
+      ${typed && !w.editTotal ? `<p class="wtyped">Typed · <button type="button" class="linkbtn" id="workUntype">use timed${
+        timed ? ` (${hm(timed)})` : ""}</button></p>` : ""}`;
+  }
+  // "80", "1:20", "1h 20m", "1h" and "90m" all mean what they say.
+  function parseMinutes(v) {
+    const t = String(v || "").trim().toLowerCase();
+    if (!t) return null;
+    let m = t.match(/^(\d+):(\d{1,2})$/);
+    if (m) return Number(m[1]) * 60 + Number(m[2]);
+    m = t.match(/^(?:(\d+(?:\.\d+)?)\s*h)?\s*(?:(\d+)\s*m?)?$/);
+    if (m && (m[1] || m[2])) return Math.round(Number(m[1] || 0) * 60 + Number(m[2] || 0));
+    return null;
+  }
+
   function workCard() {
     if (!state.work) loadWorkLocal();
     const w = state.work, r = w.run;
@@ -5437,23 +5484,20 @@ input[type=number] { -moz-appearance:textfield; }
              <button class="btn-quiet workline" id="workEnd">End</button>`}
         </div>`}
 
-        <p class="worktoday">
-          ${pomos === 1 ? "1 session" : `${pomos} sessions`} · ${hm(done)} of
-          <button type="button" class="linkbtn" data-edit="goal" data-metric="work">${hm(goal)}</button>
-        </p>
+        ${workTotalLine(done, goal, m.work_typed)}
         ${state.msg ? `<p class="hint dshint ${state.msgKind || ""}" style="text-align:center;margin-top:4px">${esc(state.msg)}</p>` : ""}
         ${(w.sessions || []).length ? `
-          <ul class="sesslist">${w.sessions.map((x) => `
+          <button type="button" class="wfold" id="workFold" aria-expanded="${!!w.sessOpen}">
+            ${w.sessions.length === 1 ? "1 session" : `${w.sessions.length} sessions`}
+            <i aria-hidden="true">${w.sessOpen ? "\u25b4" : "\u25be"}</i></button>
+          ${w.sessOpen ? `<ul class="sesslist">${w.sessions.map((x) => `
             <li><span>${hm(x.minutes)}</span>
               <em>${x.label ? `<b>${esc(x.label)}</b> · ` : ""}${x.started_at ? new Date(x.started_at).toLocaleTimeString([],
                 { hour:"numeric", minute:"2-digit" }) : ""}</em>
               <button type="button" data-wdel="${x.id}" aria-label="Remove this session">&times;</button>
-            </li>`).join("")}</ul>` : ""}
+            </li>`).join("")}</ul>` : ""}` : ""}
         ` : `
-        <div class="domino" style="padding-top:8px">
-          <b class="big" style="color:var(--work)">${hm(done)}</b>
-          <span class="of" style="text-decoration:none">of ${hm(goal)}</span>
-        </div>`}
+        <div class="wpast">${workTotalLine(done, goal, false, true)}</div>`}
       </section>`;
   }
 
@@ -5642,6 +5686,36 @@ input[type=number] { -moz-appearance:textfield; }
             } },
         ],
       });
+    });
+    on("workFold", "click", () => { w.sessOpen = !w.sessOpen; render(); });
+    on("workTotal", "click", () => {
+      w.editTotal = true; render();
+      const f = document.getElementById("workTotalIn");
+      if (f) { f.focus(); f.select(); }
+    });
+    const commitTotal = async (el) => {
+      if (!w.editTotal) return;
+      w.editTotal = false;
+      const v = parseMinutes(el.value);
+      if (v === null) { render(); return; }
+      const today = entryDay() === todayISO();
+      const res = await call("app_log", { p_code: state.code, p_person: state.meId,
+        p_value: v, p_metric: "work_min", p_date: today ? null : entryDay(), p_tz: deviceTZ() });
+      state.msg = res.error ? res.error : null;
+      state.msgKind = res.error ? "bad" : null;
+      await loadHistory();
+      await refresh();
+    };
+    on("workTotalIn", "keydown", (e) => {
+      if (e.key === "Enter") { e.preventDefault(); commitTotal(e.target); }
+      if (e.key === "Escape") { w.editTotal = false; render(); }
+    });
+    on("workTotalIn", "blur", (e) => { const el = e.target;
+      setTimeout(() => { if (el.isConnected) commitTotal(el); }, 0); });
+    on("workUntype", "click", async () => {
+      await call("app_unlog", { p_code: state.code, p_person: state.meId,
+        p_metric: "work_min", p_date: todayISO() });
+      await loadHistory(); await refresh();
     });
     document.querySelectorAll("[data-wdel]").forEach((el) =>
       el.addEventListener("click", async () => {
