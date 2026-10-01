@@ -337,7 +337,7 @@ input[type=number] { -moz-appearance:textfield; }
 /* ---------- Tasks: one list, four boxes ---------------------------------- */
 .tseg { display:flex; width:100%; margin:0 0 14px; }
 .tseg button { flex:1; font-size:13.5px; padding:8px 0; }
-.tquick { position:sticky; top:0; z-index:5; background:var(--bg); padding:4px 0 10px; }
+.tquick { position:sticky; top:0; z-index:5; background:var(--ground); padding:4px 0 10px; }
 .tquick .field { width:100%; box-sizing:border-box; font-size:16px; padding:13px 14px; }
 .tbuckets { display:grid; grid-template-columns:repeat(4, 1fr); gap:6px; margin-top:8px; }
 .tbk { border:1.5px solid var(--line); background:var(--surface); border-radius:10px; padding:9px 0;
@@ -357,7 +357,7 @@ input[type=number] { -moz-appearance:textfield; }
 .tgh em { font-style:normal; font-family:var(--mono); font-size:13px; color:var(--qc); }
 .tempty { margin:10px 2px 0; font-size:13px; color:var(--muted); }
 .tl { list-style:none; margin:0; padding:0; }
-.tm { border-bottom:1px solid var(--line); background:var(--bg); }
+.tm { border-bottom:1px solid var(--line); background:var(--ground); }
 .tm.drag { background:var(--surface); box-shadow:var(--shadow); border-radius:10px; position:relative; z-index:3; }
 .tr { display:flex; align-items:center; gap:10px; min-height:50px; }
 .tdrag { flex:none; width:18px; height:34px; display:grid; place-items:center; cursor:grab;
@@ -421,12 +421,17 @@ input[type=number] { -moz-appearance:textfield; }
 .snow::before { content:""; position:absolute; left:-4px; top:-5px; width:8px; height:8px; border-radius:50%; background:#d0452f; }
 /* A block is text from the top-left, never centred: a button centres its
    content, which on a half-hour block pushed the title out of sight. */
-.sblk { position:absolute; left:6px; right:4px; border:none; border-radius:8px; padding:4px 9px; text-align:left;
-  font-family:inherit; color:var(--ink); cursor:pointer; overflow:hidden; display:block; line-height:1.25;
+.sblk { position:absolute; left:6px; right:4px; border:none; border-radius:8px; padding:4px 8px; text-align:left;
+  font-family:inherit; color:var(--ink); cursor:pointer; overflow:hidden; display:flex; align-items:flex-start;
+  gap:7px; line-height:1.25; box-sizing:border-box;
   background:color-mix(in oklab, var(--qc) 16%, var(--surface)); border-left:4px solid var(--qc); z-index:1; }
 .sblk.q1 { --qc:var(--work); } .sblk.q2 { --qc:var(--accent); }
 .sblk.q3 { --qc:var(--swim); } .sblk.q4 { --qc:var(--muted); }
+.sblk .tck { margin-top:1px; }
+.sbt { flex:1; min-width:0; }
 .sblk b { font-size:14px; font-weight:600; }
+.sblk.done { opacity:.55; }
+.sblk.done b { text-decoration:line-through; }
 .sblk small { font-family:var(--mono); font-size:10.5px; color:var(--ink-2); margin-left:6px; white-space:nowrap; }
 .sblk.sel { box-shadow:0 0 0 2px var(--qc); }
 .ssheet { position:fixed; left:0; right:0; bottom:0; z-index:30; background:var(--surface);
@@ -436,7 +441,7 @@ input[type=number] { -moz-appearance:textfield; }
 .ssh b { font-size:16px; }
 .ssh span { font-family:var(--mono); font-size:12px; color:var(--muted); }
 .sadj { display:grid; grid-template-columns:repeat(4, 1fr); gap:6px; margin-top:12px; }
-.sadj button { border:1px solid var(--line); background:var(--bg); border-radius:10px; padding:10px 0;
+.sadj button { border:1px solid var(--line); background:var(--ground); border-radius:10px; padding:10px 0;
   font-family:inherit; font-size:13px; color:var(--ink); cursor:pointer; }
 .sact { display:flex; gap:8px; margin-top:10px; }
 .sact .btn, .sact .btn-quiet { flex:1; padding:11px 6px; font-size:13.5px; }
@@ -515,6 +520,113 @@ input[type=number] { -moz-appearance:textfield; }
 .gstart { display:flex; flex-direction:column; gap:8px; margin-top:16px; }
 .gstart .btn { background:var(--work); }
 .gstart .btn, .gstart .btn-quiet { width:100%; padding:13px; font-size:14px; }
+
+
+/* ---------- V3.3: the opening screen ------------------------------------ */
+.hbar { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:2px 0 6px; }
+.hbar b { font-family:var(--display); font-weight:500; font-size:17px; color:var(--ink-2); }
+.hwho { position:relative; display:inline-flex; align-items:center; }
+.hwho select { appearance:none; -webkit-appearance:none; border:none; background:none; font-family:inherit;
+  font-size:14px; font-weight:600; color:var(--ink); padding:6px 18px 6px 6px; cursor:pointer; }
+.hwho i { position:absolute; right:4px; font-style:normal; font-size:10px; color:var(--muted); pointer-events:none; }
+.hfirst { margin-top:20px; }
+.hfirst h2 { margin:0; font-family:var(--display); font-weight:500; font-size:24px; }
+.dials { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none;
+  margin:0 -16px; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain; }
+.dials::-webkit-scrollbar { display:none; }
+.slide { flex:0 0 100%; scroll-snap-align:center; display:flex; flex-direction:column; align-items:center;
+  padding:10px 16px 0; box-sizing:border-box; }
+.slab { margin:6px 0 10px; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--muted); }
+.dial { position:relative; width:min(300px, 80vw); aspect-ratio:1/1; display:block; border:none;
+  background:none; padding:0; font:inherit; color:inherit; }
+.dtap { cursor:pointer; }
+.dring { width:100%; height:100%; transform:rotate(-90deg); display:block; }
+.dtrack { fill:none; stroke:var(--surface-2); stroke-width:7; }
+.dfill { fill:none; stroke-width:7; stroke-linecap:round; transition:stroke-dashoffset .5s ease, stroke .5s ease; }
+.dcore { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; }
+.dnum { width:78%; border:none; background:none; text-align:center; font-family:var(--mono);
+  font-size:clamp(44px, 15vw, 64px); font-weight:500; letter-spacing:-.03em; color:var(--ink); padding:0;
+  caret-color:var(--accent); }
+.dnum:focus { outline:none; }
+.dnum::placeholder { color:var(--line-strong); }
+.dof { border:none; background:none; font-family:inherit; font-size:14px; color:var(--muted); cursor:pointer; padding:2px 6px; }
+.dval { font-family:var(--mono); font-size:clamp(38px, 12vw, 52px); font-weight:500; letter-spacing:-.03em; }
+.dsub { font-size:14px; color:var(--muted); }
+.dmsg { min-height:18px; margin:8px 0 0; font-size:13px; color:var(--accent); }
+.ddots { display:flex; justify-content:center; gap:10px; margin:6px 0 4px; }
+.ddot { width:8px; height:8px; border-radius:50%; border:none; padding:0; background:var(--line-strong);
+  cursor:pointer; transition:width .2s, background .2s; }
+.ddot.on { width:22px; border-radius:4px; background:var(--ink-2); }
+.hfam { margin-top:22px; }
+.hfamline { display:flex; align-items:baseline; gap:10px; width:100%; border:none; border-top:1px solid var(--line);
+  background:none; padding:14px 2px; font-family:inherit; color:var(--ink); cursor:pointer; text-align:left; }
+.hfamline span { font-family:var(--display); font-size:17px; }
+.hfamline em { flex:1; font-style:normal; font-size:12.5px; color:var(--muted); }
+.hfamline i { font-style:normal; color:var(--muted); font-size:16px; }
+.hadd { margin-top:14px; }
+
+/* ---------- V3.3: the tab bar -------------------------------------------- */
+body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
+.tabbar { position:fixed; left:0; right:0; bottom:0; z-index:40; display:flex; justify-content:center; gap:6px;
+  padding:8px 12px calc(8px + env(safe-area-inset-bottom)); background:color-mix(in oklab, var(--ground) 88%, transparent);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-top:1px solid var(--line); }
+.tab { flex:1; max-width:76px; height:42px; border:none; border-radius:12px; background:none; font-family:var(--mono);
+  font-size:15px; font-weight:600; letter-spacing:.04em; color:var(--muted); cursor:pointer; }
+.tab.here { color:var(--ink); }
+.tab.here::after { content:""; display:block; width:5px; height:5px; border-radius:50%; background:var(--accent); margin:2px auto 0; }
+.tab.open { background:var(--surface-2); color:var(--ink); }
+.tabshade { position:fixed; inset:0; z-index:38; background:rgba(0,0,0,.06); }
+.tabpop { position:fixed; left:12px; right:12px; bottom:calc(66px + env(safe-area-inset-bottom)); z-index:39;
+  max-width:520px; margin:0 auto; background:var(--surface); border:1px solid var(--line); border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,.14); padding:12px 12px 14px; }
+.tabpop .eyebrow { margin:0 0 8px 2px; }
+.tabpop .chips { display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; }
+.tabpop .chip { width:auto; height:64px; border-radius:14px; }
+.tabpop .chip b { font-size:18px; }
+.tabpop .chip span { font-size:10px; }
+.tsoon { margin:4px 2px; font-size:14px; color:var(--muted); grid-column:1/-1; }
+.ssheet { bottom:calc(58px + env(safe-area-inset-bottom)) !important; }
+
+
+/* ---------- V3.3: a day with no time, and the matrix view -------------- */
+.twhen { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-top:10px; }
+.twhen > span { font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--muted);
+  margin-right:2px; }
+.tday { position:relative; border:1.5px solid var(--line); background:var(--surface); border-radius:99px;
+  padding:6px 12px; font-family:inherit; font-size:13px; color:var(--ink-2); cursor:pointer; overflow:hidden; }
+.tday.on { border-color:var(--qc, var(--work)); color:var(--qc, var(--work)); font-weight:600; }
+.tpick input { position:absolute; inset:0; opacity:0; width:100%; height:100%; cursor:pointer; font-size:16px; }
+.sany { margin:10px 0 4px; }
+.sanyh { display:flex; align-items:baseline; gap:10px; width:100%; border:none; background:none; padding:6px 2px;
+  font-family:inherit; text-align:left; cursor:default; }
+.sanyh .eyebrow { margin:0; }
+.sanyh em { font-style:normal; font-size:13px; color:var(--work); }
+.sany.armed .sanyh { cursor:copy; border:1.5px dashed var(--work); border-radius:10px; padding:10px 12px; }
+.sany .tm { --qc:var(--line-strong); }
+.sany .tm.q1 { --qc:var(--work); } .sany .tm.q2 { --qc:var(--accent); }
+.sany .tm.q3 { --qc:var(--swim); } .sany .tm.q4 { --qc:var(--muted); }
+.sany .tr { min-height:44px; }
+.sany .tt { cursor:default; padding:9px 0; }
+.mx { display:grid; grid-template-columns:16px 1fr 1fr; grid-template-rows:auto auto auto; gap:6px; }
+.mx .axis { font-size:9.5px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--muted);
+  display:flex; align-items:center; justify-content:center; }
+.mx .ax-u  { grid-column:2; grid-row:1; } .mx .ax-nu { grid-column:3; grid-row:1; }
+.mx .ax-i, .mx .ax-ni { writing-mode:vertical-rl; transform:rotate(180deg); }
+.mx .ax-i  { grid-column:1; grid-row:2; } .mx .ax-ni { grid-column:1; grid-row:3; }
+.mcell { min-width:0; min-height:150px; background:var(--surface); border:1px solid var(--line); border-radius:14px;
+  padding:10px 10px 12px; border-top:3px solid var(--qc); }
+.mcell.q1 { --qc:var(--work); grid-column:2; grid-row:2; } .mcell.q2 { --qc:var(--accent); grid-column:3; grid-row:2; }
+.mcell.q3 { --qc:var(--swim); grid-column:2; grid-row:3; } .mcell.q4 { --qc:var(--muted); grid-column:3; grid-row:3; }
+.mch { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:6px; }
+.mch b { font-family:var(--display); font-weight:500; font-size:17px; }
+.mch em { font-style:normal; font-family:var(--mono); font-size:12px; color:var(--qc); }
+.mlist { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px; }
+.mlist li { display:flex; align-items:flex-start; gap:7px; }
+.mlist .tck { margin-top:1px; }
+.mtt { flex:1; min-width:0; border:none; background:none; padding:0; text-align:left; font-family:inherit;
+  font-size:14px; line-height:1.3; color:var(--ink); cursor:pointer; overflow-wrap:anywhere; }
+.mempty { margin:0; font-size:12px; color:var(--muted); line-height:1.35; }
 
 /* The epigraph. Set in the display face, indented from the rule, quiet
    enough that it introduces the page rather than competing with it. */
@@ -627,7 +739,7 @@ input[type=number] { -moz-appearance:textfield; }
    reads as a pair and you can see which way time runs. */
 .daynav { display:flex; align-items:center; justify-content:space-between; gap:10px; }
 .dnav { width:40px; height:40px; flex:none; border-radius:50%; cursor:pointer;
-  border:1px solid var(--line-strong); background:var(--bg); color:var(--ink);
+  border:1px solid var(--line-strong); background:var(--ground); color:var(--ink);
   display:grid; place-items:center; padding:0; transition:transform .08s, background .15s; }
 .dnav svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:2.4;
   stroke-linecap:round; stroke-linejoin:round; }
@@ -860,7 +972,7 @@ input[type=number] { -moz-appearance:textfield; }
   border-radius:16px; padding:18px 16px 14px; box-shadow:var(--shadow); }
 .firstcard h2 { margin:2px 0 0; font-family:var(--display); font-weight:500; font-size:22px; }
 .starters { display:flex; flex-direction:column; gap:8px; margin-top:14px; }
-.starter { text-align:left; background:var(--bg); border:1px solid var(--line);
+.starter { text-align:left; background:var(--ground); border:1px solid var(--line);
   border-radius:12px; padding:12px 14px; font-family:inherit; color:inherit; cursor:pointer;
   display:flex; flex-direction:column; gap:3px; position:relative; }
 .starter::after { content:"›"; position:absolute; right:14px; top:50%;
@@ -1025,7 +1137,7 @@ input[type=number] { -moz-appearance:textfield; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "3.2";
+  const APP_VERSION = "3.3";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -1376,7 +1488,7 @@ input[type=number] { -moz-appearance:textfield; }
   // exists; remembered per phone, because on your own phone you may already
   // know what everyone did.
   function boardOpen() {
-    try { return localStorage.getItem("fhd.board") !== "shut"; } catch { return true; }
+    try { return localStorage.getItem("fhd.board") === "open"; } catch { return false; }
   }
 
   /* ---------- data ------------------------------------------------- */
@@ -3688,85 +3800,6 @@ input[type=number] { -moz-appearance:textfield; }
 
   const sleepAny = (p) => ["sleep","rise","rest"].some((k) => hasVal(p, k));
 
-  function markRow(p, clickable) {
-    const exOn = anyLog(p);
-    const slOn = sleepAny(p);
-
-    // V2.1b. Steps reads as a SCORE here: what you walked against what
-    // you set out to walk. The count itself is one tap away, on the page
-    // where you type it — a percentage is the comparable number, a raw
-    // count is the editable one, and the two screens want different things.
-    const sGoal = target(p, "steps");
-    const exChips = [
-      { k:"steps",  label:"Step Score",  v: val(p,"steps"),
-        w: (v) => sGoal ? Math.round(v / sGoal * 100) + "%" : shortNum(v) },
-      { k:"train",  label:"Train",  v: val(p,"train"),  w: (v) => Math.round(v) + "m" },
-      { k:"cardio", label:"Cardio", v: val(p,"cardio"), w: (v) => Math.round(v) + "m" },
-    ].map((c) => {
-      const inner = `<b>${c.v > 0 ? c.w(c.v) : "–"}</b><span>${c.label}</span>`;
-      return clickable
-        ? `<button type="button" class="chip${c.v > 0 ? " on" : ""}" data-tile="${c.k}"
-             aria-label="${c.label}: ${c.v > 0 ? c.w(c.v) : "nothing yet"}">${inner}</button>`
-        : `<span class="chip${c.v > 0 ? " on" : ""}">${inner}</span>`;
-    }).join("");
-
-    // V2.1b. Sleep Score, Rise, Rest — each a door to its own page, the
-    // same as the Exercise three. Last Meal is no longer a chip of its
-    // own; it is the first of the twelve habits behind Sleep Score.
-    const slChips = [
-      { k:"sleep", label:"Sleep Score" }, { k:"rise", label:"Rise" }, { k:"rest", label:"Rest" },
-    ].map((c) => {
-      const on = hasVal(p, c.k);
-      const words = !on ? "\u2013"
-        : c.k === "sleep" ? scorePct(p.items) + "%" : clockWords(rawVal(p, c.k));
-      const inner = `<b>${words}</b><span>${c.label}</span>`;
-      return clickable
-        ? `<button type="button" class="chip${on ? " on" : ""}" data-tile="${c.k}"
-             aria-label="${c.label}: ${on ? words : "nothing yet"}">${inner}</button>`
-        : `<span class="chip${on ? " on" : ""}">${inner}</span>`;
-    }).join("");
-
-    // Great Work: a score, the 12-week goals, and the tasks. V3.1: the
-    // Tasks chip counts what is still open.
-    const wGoal = Number(p.work_target) || 180;
-    const wMin  = Number(p.work_min) || 0;
-    const gwChips = [
-      { k:"work",  label:"Work Score", on: wMin > 0,
-        words: wMin > 0 ? Math.round(wMin / wGoal * 100) + "%" : "\u2013" },
-      // V3.1. This week's execution score on the 12 weeks; lit at 85%.
-      { k:"goals", label:"Goals", on: Number(p.goal_pct) >= 85,
-        words: p.goal_pct !== null && p.goal_pct !== undefined ? p.goal_pct + "%" : "\u2013" },
-      { k:"tasks", label:"Tasks", on:false,
-        words: Number(p.tasks_open) > 0 ? String(p.tasks_open) : "\u2013" },
-    ].map((c) => {
-      const inner = `<b>${c.words}</b><span>${c.label}</span>`;
-      return clickable
-        ? `<button type="button" class="chip${c.on ? " on" : ""}" data-tile="${c.k}"
-             aria-label="${c.label}${c.on ? ": " + c.words : ""}">${inner}</button>`
-        : `<span class="chip${c.on ? " on" : ""}">${inner}</span>`;
-    }).join("");
-
-    const quiet = PILLARS.filter((pl) => !pl.live && pl.key !== "sleep").map((pl) => pl.label);
-
-    return `
-      <div class="prow${exOn ? " done" : ""}">
-        <span class="pdot" aria-hidden="true">✓</span>
-        <span class="pname">Exercise</span>
-        <div class="chips">${exChips}</div>
-      </div>
-      <div class="prow${slOn ? " done" : ""}">
-        <span class="pdot" aria-hidden="true">✓</span>
-        <span class="pname">Sleep</span>
-        <div class="chips">${slChips}</div>
-      </div>
-      <div class="prow${wMin > 0 ? " done" : ""}">
-        <span class="pdot" aria-hidden="true">✓</span>
-        <span class="pname">Great Work</span>
-        <div class="chips">${gwChips}</div>
-      </div>
-      <p class="soon">${quiet.map(esc).join(" · ")}<em>soon</em></p>`;
-  }
-
   // One editor, two screens: names are edited on the board, goals on
   // Exercise. Rendering it in only one place is how tapping a goal used to
   // open nothing at all.
@@ -3797,17 +3830,6 @@ input[type=number] { -moz-appearance:textfield; }
       : (!state.meId ? `<option value="">choose your name</option>` : "") +
         state.people.map((p) =>
           `<option value="${p.id}"${p.id === state.meId ? " selected" : ""}>${esc(p.name)}</option>`).join("");
-
-    const mine = m ? `
-      <section class="card mine">
-        <div class="section-head">
-          <h2>${esc(m.name)}</h2>
-          <span class="eyebrow">${m.streak > 0 ? m.streak + "-day streak" : "today"}</span>
-        </div>
-        ${markRow(m, true)}
-      </section>` : `
-      <div class="dashed"><p class="note">Pick your name above, or add it,
-        and your day appears here.</p></div>`;
 
     const roster = state.people.length === 0
       ? `<div class="dashed"><p class="note">Nobody has been added yet.
@@ -3863,53 +3885,233 @@ input[type=number] { -moz-appearance:textfield; }
           </div>`;
         }).join("")}</div>`;
 
+    // V3.3. The opening screen is the Step Score, large, and nothing
+    // else that asks for attention. Swipe for Work and Sleep. The family,
+    // the post and adding people are one folded line underneath.
     return `
-      <header class="masthead">
-        <h1>${esc(state.group.name)}</h1>
-        <p class="sub">${esc(new Date(familyISO() + "T00:00:00Z").toLocaleDateString(undefined,
-          { timeZone:"UTC", weekday:"long", month:"long", day:"numeric" }))}</p>
-      </header>
-
-      <div class="whoami">
-        <span class="label">I am</span>
-        <select id="who" aria-label="Which family member are you"
-          ${state.people.length === 0 ? "disabled" : ""}>${whoOptions}</select>
-        <button class="linkbtn" id="addBtn">${state.adding ? "Never mind" : "Add someone"}</button>
+      <div class="hbar">
+        <b>${esc(state.group.name)}</b>
+        ${m ? `<label class="hwho"><select id="who" aria-label="Which family member are you">${whoOptions}</select>
+          <i aria-hidden="true">&#9662;</i></label>` : ""}
       </div>
 
       ${editRowHTML()}
 
-      <div class="addrow" id="addRow" ${state.adding ? "" : "hidden"}>
-        <input class="field" id="addName" placeholder="Their name" maxlength="40"
-               autocomplete="off" aria-label="Name of the person to add">
-        <button class="btn" id="addSave">Add</button>
-        <p class="hint" id="addHint" style="flex-basis:100%;margin-top:0"></p>
-      </div>
+      ${m ? homeDials(m) : `
+        <section class="card hfirst">
+          <h2>Who are you?</h2>
+          <p class="hint">Pick your name, or add it, and your Step Score appears here.</p>
+          <div class="whoami" style="margin-top:12px">
+            <select id="who" aria-label="Which family member are you"
+              ${state.people.length === 0 ? "disabled" : ""}>${whoOptions}</select>
+            <button class="linkbtn" id="addBtn">${state.adding ? "Never mind" : "Add someone"}</button>
+          </div>
+          <div class="addrow" id="addRow" ${state.adding ? "" : "hidden"}>
+            <input class="field" id="addName" placeholder="Your name" maxlength="40"
+                   autocomplete="off" aria-label="Name of the person to add">
+            <button class="btn" id="addSave">Add</button>
+            <p class="hint" id="addHint" style="flex-basis:100%;margin-top:0"></p>
+          </div>
+        </section>`}
 
-      ${installHint()}
-      ${mine}
-
-      <section>
-        <div class="section-head">
-          <button class="foldbtn" id="foldBoard" aria-expanded="${boardOpen()}">
-            <span class="caret">${boardOpen() ? "\u25be" : "\u25b8"}</span>
-            <h2>${state.boardDay ? "The family" : "The family today"}</h2></button>
-          <span class="eyebrow">${state.people.length
-            ? `${logged}/${state.people.length} logged \u00b7 ${moved} moved` : ""}</span>
-        </div>
+      <section class="hfam">
+        <button class="hfamline" id="foldBoard" aria-expanded="${boardOpen()}">
+          <span>${state.boardDay ? "The family" : "The family today"}</span>
+          <em>${state.people.length ? `${logged}/${state.people.length} logged` : ""}</em>
+          <i aria-hidden="true">${boardOpen() ? "\u25b4" : "\u203a"}</i></button>
         ${boardOpen() ? `
           ${dayNav({ ids: ["bPrev", "bNext", "bToday"], cls: "famnav",
                      atToday: famDayISO() >= familyISO(),
                      label: state.boardBusy ? "\u2026"
                        : famDayISO() === familyISO() ? "Today" : esc(fullDate(famDayISO())) })}
-          ${roster}` : ""}
+          ${roster}
+          ${state.boardBusy ? "" : `
+            <button class="btn" id="waShare" style="width:100%;margin-top:14px">${state.boardDay
+              ? `Post ${esc(shortDay(famDayISO()))} to WhatsApp` : "Post today to WhatsApp"}</button>`}
+          ${m ? `
+          <div class="hadd">
+            <button class="linkbtn" id="addBtn">${state.adding ? "Never mind" : "Add someone"}</button>
+            <div class="addrow" id="addRow" ${state.adding ? "" : "hidden"}>
+              <input class="field" id="addName" placeholder="Their name" maxlength="40"
+                     autocomplete="off" aria-label="Name of the person to add">
+              <button class="btn" id="addSave">Add</button>
+              <p class="hint" id="addHint" style="flex-basis:100%;margin-top:0"></p>
+            </div>
+          </div>` : ""}` : ""}
       </section>
 
-      ${state.boardBusy ? "" : `
-        <button class="btn" id="waShare" style="width:100%">${state.boardDay
-          ? `Post ${esc(shortDay(famDayISO()))} to WhatsApp` : "Post today to WhatsApp"}</button>`}
-
+      ${installHint()}
       <p class="ver">v${APP_VERSION}</p>`;
+  }
+
+  /* ---------- the dials -----------------------------------------------
+     V3.3. One circle per score, coloured by how close you are: red at
+     nothing, through amber, to green at your target. The Step dial IS the
+     input, like the big number it replaces: tap the count, type, done.
+     Work and Sleep are glances; tap one to open its page.
+     ------------------------------------------------------------------ */
+  const DIAL_C = 326.73;                       // 2πr, r = 52
+  const dialColor = (pct) => pct === null || pct === undefined ? "var(--line-strong)"
+    : `hsl(${Math.round(Math.max(0, Math.min(100, pct)) * 1.25)} 66% 43%)`;
+  function dialRing(pct) {
+    const f = pct === null || pct === undefined ? 0 : Math.max(0, Math.min(100, pct)) / 100;
+    return `<svg class="dring" viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="60" cy="60" r="52" class="dtrack"></circle>
+      <circle cx="60" cy="60" r="52" class="dfill" style="stroke:${dialColor(pct)}"
+        stroke-dasharray="${DIAL_C}" stroke-dashoffset="${(DIAL_C * (1 - f)).toFixed(2)}"></circle></svg>`;
+  }
+  const DIALS = ["steps", "work", "sleep"];
+  function homeDials(m) {
+    const st = val(m, "steps"), sg = target(m, "steps");
+    const sp = sg > 0 && st > 0 ? Math.round(st / sg * 100) : (st > 0 ? 100 : 0);
+    const wm = Number(m.work_min) || 0, wg = Number(m.work_target) || 180;
+    const wp = wm > 0 ? Math.round(wm / wg * 100) : 0;
+    const slOn = m.items !== null && m.items !== undefined;
+    const slp = slOn ? scorePct(m.items) : null;
+    const i = state.dialIdx || 0;
+    return `
+      <div class="dials" id="dials" aria-roledescription="carousel">
+        <section class="slide" aria-label="Step Score">
+          <p class="slab">Step Score</p>
+          <div class="dial">
+            ${dialRing(st > 0 ? sp : 0)}
+            <div class="dcore">
+              <input class="dnum" id="homeSteps" type="text" inputmode="numeric" pattern="[0-9]*"
+                autocomplete="off" enterkeyhint="done" placeholder="0"
+                value="${st > 0 ? num(Math.round(st)) : ""}" data-raw="${st > 0 ? Math.round(st) : ""}"
+                aria-label="Steps today, tap to type">
+              <button type="button" class="dof" data-edit="goal" data-metric="steps">${sg
+                ? `of ${num(Math.round(sg))}` : "set a target"}</button>
+            </div>
+          </div>
+          <p class="dmsg" id="homeMsg" role="status">${state.homeMsg ? esc(state.homeMsg) : "&nbsp;"}</p>
+        </section>
+        <section class="slide" aria-label="Work Score">
+          <p class="slab">Work Score</p>
+          <button type="button" class="dial dtap" data-go="work" aria-label="Work Score: ${hm(wm)} of ${hm(wg)}. Open">
+            ${dialRing(wp)}
+            <span class="dcore"><b class="dval">${hm(wm)}</b><span class="dsub">of ${hm(wg)}</span></span>
+          </button>
+          <p class="dmsg">&nbsp;</p>
+        </section>
+        <section class="slide" aria-label="Sleep Score">
+          <p class="slab">Sleep Score</p>
+          <button type="button" class="dial dtap" data-go="sleep" aria-label="Sleep Score${slOn ? ": " + slp + "%" : ""}. Open">
+            ${dialRing(slp)}
+            <span class="dcore"><b class="dval">${slOn ? slp + "%" : "\u2013"}</b><span class="dsub">${slOn ? "tonight" : "not logged"}</span></span>
+          </button>
+          <p class="dmsg">&nbsp;</p>
+        </section>
+      </div>
+      <div class="ddots" role="tablist" aria-label="Scores">${DIALS.map((k, n) => `
+        <button type="button" class="ddot${n === i ? " on" : ""}" data-dot="${n}" role="tab"
+          aria-selected="${n === i}" aria-label="${["Step", "Work", "Sleep"][n]} Score"></button>`).join("")}</div>`;
+  }
+  function wireHome() {
+    const box = document.getElementById("dials");
+    if (box) {
+      // Put the carousel back where it was before this render, without a
+      // visible jump, then follow the swipe.
+      box.scrollLeft = (state.dialIdx || 0) * box.clientWidth;
+      let t = null;
+      box.addEventListener("scroll", () => {
+        clearTimeout(t);
+        t = setTimeout(() => {
+          const n = Math.round(box.scrollLeft / Math.max(1, box.clientWidth));
+          if (n !== state.dialIdx) {
+            state.dialIdx = n;
+            document.querySelectorAll("[data-dot]").forEach((d, k) => {
+              d.classList.toggle("on", k === n); d.setAttribute("aria-selected", String(k === n)); });
+          }
+        }, 80);
+      }, { passive: true });
+      document.querySelectorAll("[data-dot]").forEach((d) =>
+        d.addEventListener("click", () => {
+          state.dialIdx = Number(d.dataset.dot);
+          box.scrollTo({ left: state.dialIdx * box.clientWidth, behavior: "smooth" });
+        }));
+    }
+    const f = document.getElementById("homeSteps");
+    if (f) {
+      f.addEventListener("focus", () => { f.value = f.dataset.raw || ""; requestAnimationFrame(() => f.select()); });
+      f.addEventListener("keydown", (e) => { if (e.key === "Enter") f.blur(); });
+      f.addEventListener("blur", async () => {
+        const raw = (f.value || "").replace(/[^0-9]/g, "");
+        if (raw === "" || raw === (f.dataset.raw || "")) {
+          f.value = f.dataset.raw ? num(Number(f.dataset.raw)) : ""; return;
+        }
+        f.value = num(Number(raw));
+        const res = await call("app_log", { p_code: state.code, p_person: state.meId,
+          p_value: Number(raw), p_metric: "steps", p_date: null, p_tz: deviceTZ() });
+        state.homeMsg = res.error ? res.error : "Saved.";
+        await refresh();
+        setTimeout(() => { state.homeMsg = null; const el = document.getElementById("homeMsg");
+          if (el) el.innerHTML = "&nbsp;"; }, 2200);
+      });
+    }
+    document.querySelectorAll('.dials [data-edit="goal"]').forEach((el) =>
+      el.addEventListener("click", () => { state.editMetric = "steps"; openEditor("goal"); }));
+  }
+
+  /* ---------- the tab bar -------------------------------------------
+     V3.3. Five letters for the five pillars, on every main screen. A tap
+     raises that row's links above the bar, with today's numbers on them;
+     a second tap opens one. Meditation and Diet say they are coming.
+     ------------------------------------------------------------------ */
+  const TABS = [
+    { t: "M",  name: "Meditation" }, { t: "E",  name: "Exercise" }, { t: "D",  name: "Diet" },
+    { t: "S",  name: "Sleep" },      { t: "GW", name: "Great Work" },
+  ];
+  const TAB_OF = { steps: "E", train: "E", cardio: "E", sleep: "S", rise: "S", rest: "S",
+                   work: "GW", goals: "GW", tasks: "GW" };
+  function tabChips(p, t) {
+    if (!p) return `<p class="tsoon">Pick your name first.</p>`;
+    const chip = (k, label, words, on) =>
+      `<button type="button" class="chip${on ? " on" : ""}" data-go="${k}" aria-label="${label}${on ? ": " + words : ""}">
+         <b>${words}</b><span>${label}</span></button>`;
+    if (t === "E") {
+      const sg = target(p, "steps"), sv = val(p, "steps");
+      return chip("steps", "Step Score", sv > 0 ? (sg ? Math.round(sv / sg * 100) + "%" : shortNum(sv)) : "\u2013", sv > 0)
+        + chip("train", "Train", val(p, "train") > 0 ? Math.round(val(p, "train")) + "m" : "\u2013", val(p, "train") > 0)
+        + chip("cardio", "Cardio", val(p, "cardio") > 0 ? Math.round(val(p, "cardio")) + "m" : "\u2013", val(p, "cardio") > 0);
+    }
+    if (t === "S") {
+      const w = (k) => !hasVal(p, k) ? "\u2013" : k === "sleep" ? scorePct(p.items) + "%" : clockWords(rawVal(p, k));
+      return chip("sleep", "Sleep Score", w("sleep"), hasVal(p, "sleep"))
+        + chip("rise", "Rise", w("rise"), hasVal(p, "rise"))
+        + chip("rest", "Rest", w("rest"), hasVal(p, "rest"));
+    }
+    if (t === "GW") {
+      const wg = Number(p.work_target) || 180, wm = Number(p.work_min) || 0;
+      const gp = p.goal_pct;
+      return chip("work", "Work Score", wm > 0 ? Math.round(wm / wg * 100) + "%" : "\u2013", wm > 0)
+        + chip("goals", "Goals", gp !== null && gp !== undefined ? gp + "%" : "\u2013", Number(gp) >= 85)
+        + chip("tasks", "Tasks", Number(p.tasks_open) > 0 ? String(p.tasks_open) : "\u2013", false);
+    }
+    return `<p class="tsoon">${t === "M" ? "Meditation" : "Diet"} is coming soon.</p>`;
+  }
+  function tabBar() {
+    const here = state.view === "board" ? null
+      : state.view === "tasks" ? "GW" : state.view === "goals" ? "GW"
+      : TAB_OF[state.seg] || null;
+    const open = state.tabOpen;
+    return `
+      ${open ? `<div class="tabshade" id="tabShade"></div>
+        <div class="tabpop" role="dialog" aria-label="${TABS.find((x) => x.t === open).name}">
+          <p class="eyebrow">${TABS.find((x) => x.t === open).name}</p>
+          <div class="chips">${tabChips(me(), open)}</div></div>` : ""}
+      <nav class="tabbar" aria-label="Pillars">${TABS.map((x) => `
+        <button type="button" class="tab${x.t === here ? " here" : ""}${x.t === open ? " open" : ""}"
+          data-tab="${x.t}" aria-label="${x.name}" aria-expanded="${x.t === open}">${x.t}</button>`).join("")}
+      </nav>`;
+  }
+  function wireTabs() {
+    document.querySelectorAll("[data-tab]").forEach((el) =>
+      el.addEventListener("click", () => {
+        state.tabOpen = state.tabOpen === el.dataset.tab ? null : el.dataset.tab; render(); }));
+    on("tabShade", "click", () => { state.tabOpen = null; render(); });
+    document.querySelectorAll("[data-go]").forEach((el) =>
+      el.addEventListener("click", () => { state.tabOpen = null; openExercise(el.dataset.go); }));
   }
 
   /* ---------- Exercise: one pillar, three numbers ---------------------
@@ -4093,6 +4295,7 @@ input[type=number] { -moz-appearance:textfield; }
     return `${num(Math.round(sum))} ${met.unit} this week`;
   }
 
+  const trendOpen = () => { try { return localStorage.getItem("fhd.trend") === "open"; } catch { return false; } };
   function graphCard(k) {
     const met = M[k];
     const month = state.range === "month";
@@ -4101,10 +4304,20 @@ input[type=number] { -moz-appearance:textfield; }
     // V2.1. The period control sits at the TOP of the graph, mirroring the
     // day control at the top of the log box: two cards, the same shape,
     // each saying first which slice of time it is showing.
+    // V3.3. Folded by default, so the page opens on the thing you came to
+    // log. Once opened it stays open, until you fold it again.
+    if (!trendOpen()) return `
+      <section>
+        <div class="section-head">
+          <button class="foldbtn" id="trendFold" aria-expanded="false">
+            <span class="caret">\u25b8</span><h2>Trend</h2></button>
+        </div>
+      </section>`;
     return `
       <section>
         <div class="section-head">
-          <h2>Trend</h2>
+          <button class="foldbtn" id="trendFold" aria-expanded="true">
+            <span class="caret">\u25be</span><h2>Trend</h2></button>
           <div class="rangetog" role="group" aria-label="How much to show">
             ${[["week","Week"],["month","Month"]].map(([v, l]) =>
               `<button type="button" data-range="${v}"
@@ -4286,8 +4499,12 @@ input[type=number] { -moz-appearance:textfield; }
 
   function taskRow(x) {
     const t = state.tasks, subs = kids(x.id), ed = t.edit === x.id;
-    const when = x.sched_date ? (x.sched_date === todayISO() ? clockOf(x.sched_start)
-      : `${shortDay(x.sched_date).replace(/,.*$/, "")} ${clockOf(x.sched_start)}`) : "";
+    // V3.3. A day with no time reads as the day alone: "Today", "Tue".
+    const dayWord = (d) => d === todayISO() ? "Today" : d === shiftISO(todayISO(), 1) ? "Tomorrow"
+      : shortDay(d).replace(/,.*$/, "");
+    const when = !x.sched_date ? ""
+      : x.sched_start === null || x.sched_start === undefined ? dayWord(x.sched_date)
+      : x.sched_date === todayISO() ? clockOf(x.sched_start) : `${dayWord(x.sched_date)} ${clockOf(x.sched_start)}`;
     return `
       <li class="tm${ed ? " editing" : ""}" data-id="${x.id}">
         <div class="tr">
@@ -4319,8 +4536,17 @@ input[type=number] { -moz-appearance:textfield; }
             <div class="tbuckets sm" role="group" aria-label="Move to">${QUADS.map((Q) => `
               <button type="button" class="tbk q${Q.q}${x.quadrant === Q.q ? " on" : ""}"
                 data-tmove="${x.id}:${Q.q}">${Q.name}</button>`).join("")}</div>
+            <div class="twhen" role="group" aria-label="Which day">
+              <span>Day</span>
+              <button type="button" class="tday${x.sched_date === todayISO() ? " on" : ""}" data-tday="${x.id}:${todayISO()}">Today</button>
+              <button type="button" class="tday${x.sched_date === shiftISO(todayISO(), 1) ? " on" : ""}" data-tday="${x.id}:${shiftISO(todayISO(), 1)}">Tomorrow</button>
+              <label class="tday tpick${x.sched_date && x.sched_date > shiftISO(todayISO(), 1) ? " on" : ""}">${
+                x.sched_date && x.sched_date > shiftISO(todayISO(), 1) ? esc(shortDay(x.sched_date)) : "Pick…"}
+                <input type="date" data-tdate="${x.id}" min="${todayISO()}" value="${x.sched_date || ""}" aria-label="Pick a day"></label>
+              ${x.sched_date ? `<button type="button" class="tday" data-tday="${x.id}:" aria-label="No day">&times;</button>` : ""}
+            </div>
             <div class="terow">
-              <button type="button" class="linkbtn" data-tsched="${x.id}">${x.sched_date ? "Reschedule" : "Schedule"}</button>
+              <button type="button" class="linkbtn" data-tsched="${x.id}">${x.sched_start != null ? "Change time" : "Give it a time"}</button>
               <button type="button" class="linkbtn" data-tfocus="${x.id}">Focus on it</button>
               <button type="button" class="linkbtn tdel" data-tdel="${x.id}">Delete</button>
               <button type="button" class="btn tok" data-tok="${x.id}">Done</button>
@@ -4371,9 +4597,14 @@ input[type=number] { -moz-appearance:textfield; }
 
   function schedView() {
     const t = state.tasks, day = t.day, isToday = day === todayISO();
-    const placed = state.tasks.list.filter((x) => !x.parent_id && !x.done && x.sched_date === day)
+    const onDay = state.tasks.list.filter((x) => !x.parent_id && x.sched_date === day);
+    const placed = onDay.filter((x) => x.sched_start !== null && x.sched_start !== undefined)
       .sort((a, b) => a.sched_start - b.sched_start);
-    const tray = QUADS.flatMap((Q) => openIn(Q.q)).filter((x) => x.sched_date !== day);
+    const anytime = onDay.filter((x) => x.sched_start === null || x.sched_start === undefined)
+      .sort((a, b) => (a.done - b.done) || (a.quadrant - b.quadrant) || (a.position - b.position));
+    // V3.3. The tray is only what has no day yet. A task given to Thursday
+    // waits on Thursday, not on every day in between.
+    const tray = QUADS.flatMap((Q) => openIn(Q.q)).filter((x) => !x.sched_date);
     const now = new Date(), nowMin = now.getHours() * 60 + now.getMinutes();
     const y = (m) => (m - SCH_FROM * 60) / 60 * SCH_H;
     const armed = t.arm && state.tasks.list.find((x) => x.id === t.arm);
@@ -4383,24 +4614,40 @@ input[type=number] { -moz-appearance:textfield; }
         ${dayNav({ ids: ["sPrev", "sNext", "sToday"], unit: "day", openNext: true,
                    atToday: isToday, label: isToday ? "Today" : esc(fullDate(day)) })}
       </section>
+      ${tray.length || armed ? `
       <section class="stray">
         <p class="eyebrow">To place</p>
-        ${tray.length ? `<div class="schips">${tray.map((x) => `
+        <div class="schips">${tray.map((x) => `
           <button type="button" class="schip q${x.quadrant}${t.arm === x.id ? " on" : ""}" data-sarm="${x.id}">
-            ${esc(x.title)}${x.sched_date ? `<small>${esc(shortDay(x.sched_date).replace(/,.*$/, ""))}</small>` : ""}</button>`).join("")}</div>`
-          : `<p class="hint">Nothing waiting. Add tasks in List.</p>`}
-        <p class="sarm">${armed ? `Now tap a time for <b>${esc(armed.title)}</b>.
+            ${esc(x.title)}</button>`).join("")}</div>
+        <p class="sarm">${armed ? `Tap a time for <b>${esc(armed.title)}</b>, or Anytime.
             <button type="button" class="linkbtn" id="sDisarm">Cancel</button>`
-          : tray.length ? "Tap a task, then tap a time." : ""}</p>
+          : "Tap a task, then a time, or Anytime."}</p>
+      </section>` : ""}
+      <section class="sany${armed ? " armed" : ""}">
+        <button type="button" class="sanyh" id="sAny" ${armed ? "" : "tabindex=\"-1\""}>
+          <span class="eyebrow">Anytime</span>${armed ? `<em>Tap to put it here</em>` : ""}</button>
+        ${anytime.length ? `<ul class="tl">${anytime.map((x) => `
+          <li class="tm q${x.quadrant}${x.done ? " done" : ""}"><div class="tr">
+            <button type="button" class="tck" data-tdone="${x.id}" aria-pressed="${!!x.done}"
+              aria-label="${x.done ? "Not done" : "Done"}: ${esc(x.title)}"></button>
+            <span class="tt">${esc(x.title)}</span>
+            <button type="button" class="tx" data-sunplace="${x.id}" aria-label="Take ${esc(x.title)} off this day">&times;</button>
+          </div></li>`).join("")}</ul>`
+          : `<p class="tempty">${armed ? "" : "Nothing for anytime this day."}</p>`}
       </section>
       <div class="sgrid${armed ? " armed" : ""}" id="sGrid" style="height:${(SCH_TO - SCH_FROM) * SCH_H}px">
         ${Array.from({ length: SCH_TO - SCH_FROM }, (_, k) => SCH_FROM + k).map((h) => `
           <div class="shr" style="top:${(h - SCH_FROM) * SCH_H}px"><span>${clockOf(h * 60)}</span></div>`).join("")}
         ${isToday && nowMin >= SCH_FROM * 60 ? `<div class="snow" style="top:${y(nowMin)}px"></div>` : ""}
         ${placed.map((x) => `
-          <button type="button" class="sblk q${x.quadrant}${t.sel === x.id ? " sel" : ""}" data-sblk="${x.id}"
-            style="top:${Math.max(0, y(x.sched_start))}px;height:${Math.max(22, x.sched_min / 60 * SCH_H - 2)}px">
-            <b>${esc(x.title)}</b><small>${clockOf(x.sched_start)}–${clockOf(x.sched_start + x.sched_min)}</small></button>`).join("")}
+          <div class="sblk q${x.quadrant}${t.sel === x.id ? " sel" : ""}${x.done ? " done" : ""}" data-sblk="${x.id}"
+            role="button" tabindex="0" aria-label="${esc(x.title)}, ${clockOf(x.sched_start)}"
+            style="top:${Math.max(0, y(x.sched_start))}px;height:${Math.max(26, x.sched_min / 60 * SCH_H - 2)}px">
+            <button type="button" class="tck sm" data-tdone="${x.id}" aria-pressed="${!!x.done}"
+              aria-label="${x.done ? "Not done" : "Done"}: ${esc(x.title)}"></button>
+            <span class="sbt"><b>${esc(x.title)}</b><small>${clockOf(x.sched_start)}–${clockOf(x.sched_start + x.sched_min)}</small></span>
+          </div>`).join("")}
       </div>
       ${sel ? `
         <div class="ssheet" role="dialog" aria-label="${esc(sel.title)}">
@@ -4414,10 +4661,37 @@ input[type=number] { -moz-appearance:textfield; }
           </div>
           <div class="sact">
             <button type="button" class="btn workgo" data-tfocus="${sel.id}">Focus on this</button>
-            <button type="button" class="btn-quiet" data-sunplace="${sel.id}">Unschedule</button>
-            <button type="button" class="btn-quiet" id="sClose">Close</button>
+            <button type="button" class="btn-quiet" data-sanytime="${sel.id}">Anytime</button>
+            <button type="button" class="btn-quiet" data-sunplace="${sel.id}">Off the day</button>
+            <button type="button" class="btn-quiet" id="sClose" aria-label="Close">&times;</button>
           </div>
         </div>` : ""}`;
+  }
+
+  // V3.3. The 2×2, back as a view: for seeing the shape of the week at a
+  // glance and ticking. Writing happens in the list, where there is room.
+  function matrixView() {
+    const cell = (Q) => {
+      const list = openIn(Q.q);
+      return `
+        <div class="mcell q${Q.q}">
+          <div class="mch"><b>${Q.name}</b><em>${list.length || ""}</em></div>
+          ${list.length ? `<ul class="mlist">${list.map((x) => `
+            <li><button type="button" class="tck sm" data-tdone="${x.id}" aria-pressed="false"
+                  aria-label="Done: ${esc(x.title)}"></button>
+              <button type="button" class="mtt" data-mopen="${x.id}">${esc(x.title)}</button></li>`).join("")}</ul>`
+            : `<p class="mempty">${Q.hint}</p>`}
+        </div>`;
+    };
+    return `
+      <section class="mx">
+        <span class="axis ax-u">Urgent</span>
+        <span class="axis ax-nu">Not urgent</span>
+        <span class="axis ax-i">Important</span>
+        <span class="axis ax-ni">Not important</span>
+        ${QUADS.map(cell).join("")}
+      </section>
+      <p class="hint" style="text-align:center;margin-top:12px">Tick here. Tap a task to edit it in the list.</p>`;
   }
 
   function tasksView() {
@@ -4434,9 +4708,10 @@ input[type=number] { -moz-appearance:textfield; }
     return head + `
       <div class="range tseg" role="group" aria-label="View">
         <button type="button" data-ttab="list" aria-pressed="${t.tab === "list"}">List</button>
+        <button type="button" data-ttab="matrix" aria-pressed="${t.tab === "matrix"}">Matrix</button>
         <button type="button" data-ttab="sched" aria-pressed="${t.tab === "sched"}">Schedule</button>
       </div>
-      ${t.tab === "sched" ? schedView() : listView()}
+      ${t.tab === "sched" ? schedView() : t.tab === "matrix" ? matrixView() : listView()}
       ${t.err ? `<p class="terr">${esc(t.err)}</p>` : ""}
       <p class="ver">v${APP_VERSION}</p>`;
   }
@@ -4552,9 +4827,31 @@ input[type=number] { -moz-appearance:textfield; }
         t.edit = null; render();
         await taskCall("app_task_delete", { p_id: id });
       }));
+    // V3.3. Give a task a day without a time: today, tomorrow, or any date.
+    const setDay = (x, d) => {
+      x.sched_date = d || null;
+      if (!d) { x.sched_start = null; x.sched_min = null; }
+      render(); save(x);
+    };
+    document.querySelectorAll("[data-tday]").forEach((el) => {
+      el.addEventListener("pointerdown", (e) => e.preventDefault());
+      el.addEventListener("click", () => {
+        const [id, d] = el.dataset.tday.split(":");
+        const x = find(id);
+        if (x) setDay(x, x.sched_date === d ? null : d);
+      });
+    });
+    document.querySelectorAll("[data-tdate]").forEach((el) =>
+      el.addEventListener("change", () => { const x = find(el.dataset.tdate); if (x && el.value) setDay(x, el.value); }));
+    document.querySelectorAll("[data-mopen]").forEach((el) =>
+      el.addEventListener("click", () => { t.tab = "list"; t.edit = el.dataset.mopen; render();
+        document.querySelector(`[data-tetitle="${t.edit}"]`)?.scrollIntoView({ block: "center" }); }));
     document.querySelectorAll("[data-tsched]").forEach((el) =>
       el.addEventListener("click", () => {
-        t.tab = "sched"; t.arm = el.dataset.tsched; t.edit = null; t.sel = null; t.day = todayISO(); render();
+        const x = find(el.dataset.tsched);
+        t.tab = "sched"; t.edit = null; t.day = (x && x.sched_date) || todayISO();
+        if (x && x.sched_start != null) { t.sel = x.id; t.arm = null; } else { t.arm = el.dataset.tsched; t.sel = null; }
+        render();
         document.querySelector(".snow, .sarm")?.scrollIntoView({ block: "center" });
       }));
     document.querySelectorAll("[data-tfocus]").forEach((el) =>
@@ -4664,7 +4961,20 @@ input[type=number] { -moz-appearance:textfield; }
         t.arm = t.arm === el.dataset.sarm ? null : el.dataset.sarm; t.sel = null; render(); }));
     on("sDisarm", "click", () => { t.arm = null; render(); });
     const grid = document.getElementById("sGrid");
+    on("sAny", "click", () => {
+      const x = t.arm && find(t.arm);
+      if (!x) return;
+      x.sched_date = t.day; x.sched_start = null; x.sched_min = null;
+      t.arm = null; render(); save(x);
+    });
+    document.querySelectorAll("[data-sanytime]").forEach((el) =>
+      el.addEventListener("click", () => {
+        const x = find(el.dataset.sanytime);
+        if (!x) return;
+        x.sched_start = null; x.sched_min = null; t.sel = null; render(); save(x);
+      }));
     if (grid) grid.addEventListener("click", (e) => {
+      if (e.target.closest("[data-tdone]")) return;           // a tick is not a tap on the block
       const blk = e.target.closest("[data-sblk]");
       if (!t.arm) {
         t.sel = blk ? (t.sel === blk.dataset.sblk ? null : blk.dataset.sblk) : null;
@@ -4695,7 +5005,8 @@ input[type=number] { -moz-appearance:textfield; }
         const x = find(el.dataset.sunplace);
         if (!x) return;
         x.sched_date = null; x.sched_start = null; x.sched_min = null;
-        t.sel = null; render(); save(x);
+        if (t.sel === x.id) t.sel = null;
+        render(); save(x);
       }));
     on("sClose", "click", () => { t.sel = null; render(); });
   }
@@ -5813,16 +6124,18 @@ input[type=number] { -moz-appearance:textfield; }
       ? `<div class="undobar" role="status"><span>${esc(state.undo.words)}</span>
            <button type="button" id="undoStamp">Undo</button></div>` : "");
 
-    if (state.view === "sleep")    { app.innerHTML = netBar + sleepView();  wireExercise(); wireNet(); return; }
-    if (state.view === "tasks")    { app.innerHTML = netBar + tasksView();  wireTasks();    wireNet(); return; }
-    if (state.view === "goals")    { app.innerHTML = netBar + goalsView();  wireGoals();    wireNet(); return; }
-    if (state.view === "exercise") { app.innerHTML = netBar + metricView(); wireExercise(); wireNet(); return; }
+    const bar = tabBar();
+    if (state.view === "sleep")    { app.innerHTML = netBar + sleepView() + bar;  wireExercise(); wireTabs(); wireNet(); return; }
+    if (state.view === "tasks")    { app.innerHTML = netBar + tasksView() + bar;  wireTasks();    wireTabs(); wireNet(); return; }
+    if (state.view === "goals")    { app.innerHTML = netBar + goalsView() + bar;  wireGoals();    wireTabs(); wireNet(); return; }
+    if (state.view === "exercise") { app.innerHTML = netBar + metricView() + bar; wireExercise(); wireTabs(); wireNet(); return; }
     if (state.view === "session")  { app.innerHTML = netBar + sessionView();  wireLift(); wireNet(); return; }
     if (state.view === "detail")   { app.innerHTML = netBar + detailView();   wireLift(); wireNet(); return; }
 
-    app.innerHTML = netBar + boardView();
+    app.innerHTML = netBar + boardView() + bar;
     wire();
-    wireNet(); wireNet();
+    wireHome(); wireTabs();
+    wireNet();
   }
 
 
@@ -5865,6 +6178,12 @@ input[type=number] { -moz-appearance:textfield; }
   on("mNext", "click", () => stepMonth(1));
 
   function wireGraph() {
+    on("trendFold", "click", async () => {
+      const open = !trendOpen();
+      try { localStorage.setItem("fhd.trend", open ? "open" : "shut"); } catch {}
+      render();
+      if (open && state.range === "month" && !monthData(state.seg)) { await loadMonth(); render(); }
+    });
     if (state.range === "week") wireChart(state.seg);
 
     // Week or month. The month is fetched once per metric, on first ask.
