@@ -552,7 +552,12 @@ input[type=number] { -moz-appearance:textfield; }
 .dnum::placeholder { color:var(--line-strong); }
 .dof { border:none; background:none; font-family:inherit; font-size:14px; color:var(--muted); cursor:pointer; padding:2px 6px; }
 .dval { font-family:var(--mono); font-size:clamp(38px, 12vw, 52px); font-weight:500; letter-spacing:-.03em; }
-.dsub { font-size:14px; color:var(--muted); }
+.dsub { font-size:14px; color:var(--muted); max-width:70%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.dplay { margin-top:10px; width:52px; height:52px; border-radius:50%; border:none; background:var(--work);
+  color:#fff; display:grid; place-items:center; cursor:pointer; padding:0; box-shadow:0 4px 14px rgba(0,0,0,.12); }
+.dplay svg { width:22px; height:22px; fill:currentColor; }
+.dplay.on { background:var(--surface); color:var(--work); border:2px solid var(--work); box-shadow:none; }
+.dfill.paused { opacity:.45; }
 .dmsg { min-height:18px; margin:8px 0 0; font-size:13px; color:var(--accent); }
 .ddots { display:flex; justify-content:center; gap:10px; margin:6px 0 4px; }
 .ddot { width:8px; height:8px; border-radius:50%; border:none; padding:0; background:var(--line-strong);
@@ -3962,73 +3967,116 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
   }
   const DIALS = ["steps", "work", "sleep"];
   function homeDials(m) {
-    const st = val(m, "steps"), sg = target(m, "steps");
-    const sp = sg > 0 && st > 0 ? Math.round(st / sg * 100) : (st > 0 ? 100 : 0);
-    const wm = Number(m.work_min) || 0, wg = Number(m.work_target) || 180;
-    const wp = wm > 0 ? Math.round(wm / wg * 100) : 0;
-    const slOn = m.items !== null && m.items !== undefined;
-    const slp = slOn ? scorePct(m.items) : null;
     const i = state.dialIdx || 0;
+    // A loop: a copy of the last dial sits before the first and a
+    // copy of the first after the last. Land on a copy and the strip jumps,
+    // unseen, to the real one, so a swipe never hits a wall.
+    const order = ["sleep", "steps", "work", "sleep", "steps"];
     return `
       <div class="dials" id="dials" aria-roledescription="carousel">
-        <section class="slide" aria-label="Step Score">
-          <p class="slab">Step Score</p>
-          <div class="dial">
-            ${dialRing(st > 0 ? sp : 0)}
-            <div class="dcore">
-              <input class="dnum" id="homeSteps" type="text" inputmode="numeric" pattern="[0-9]*"
-                autocomplete="off" enterkeyhint="done" placeholder="0"
-                value="${st > 0 ? num(Math.round(st)) : ""}" data-raw="${st > 0 ? Math.round(st) : ""}"
-                aria-label="Steps today, tap to type">
-              <button type="button" class="dof" data-edit="goal" data-metric="steps">${sg
-                ? `of ${num(Math.round(sg))}` : "set a target"}</button>
-            </div>
-          </div>
-          <p class="dmsg" id="homeMsg" role="status">${state.homeMsg ? esc(state.homeMsg) : "&nbsp;"}</p>
-        </section>
-        <section class="slide" aria-label="Work Score">
-          <p class="slab">Work Score</p>
-          <button type="button" class="dial dtap" data-go="work" aria-label="Work Score: ${hm(wm)} of ${hm(wg)}. Open">
-            ${dialRing(wp)}
-            <span class="dcore"><b class="dval">${hm(wm)}</b><span class="dsub">of ${hm(wg)}</span></span>
-          </button>
-          <p class="dmsg">&nbsp;</p>
-        </section>
-        <section class="slide" aria-label="Sleep Score">
-          <p class="slab">Sleep Score</p>
-          <button type="button" class="dial dtap" data-go="sleep" aria-label="Sleep Score${slOn ? ": " + slp + "%" : ""}. Open">
-            ${dialRing(slp)}
-            <span class="dcore"><b class="dval">${slOn ? slp + "%" : "\u2013"}</b><span class="dsub">${slOn ? "tonight" : "not logged"}</span></span>
-          </button>
-          <p class="dmsg">&nbsp;</p>
-        </section>
+        ${order.map((k, n) => dialSlide(m, k, n === 0 || n === 4)).join("")}
       </div>
       <div class="ddots" role="tablist" aria-label="Scores">${DIALS.map((k, n) => `
         <button type="button" class="ddot${n === i ? " on" : ""}" data-dot="${n}" role="tab"
           aria-selected="${n === i}" aria-label="${["Step", "Work", "Sleep"][n]} Score"></button>`).join("")}</div>`;
   }
+  function dialSlide(m, k, clone) {
+    // A copy is drawn exactly like the real dial but is inert: no ids, no
+    // handlers, hidden from screen readers. It is only ever seen mid-swipe.
+    const id = (x) => clone ? "" : `id="${x}"`;
+    const shell = (label, body) => `
+      <section class="slide${clone ? " clone" : ""}" ${clone ? 'aria-hidden="true" inert' : `aria-label="${label}"`}>
+        <p class="slab">${label}</p>${body}</section>`;
+    if (k === "steps") {
+      const st = val(m, "steps"), sg = target(m, "steps");
+      const sp = sg > 0 && st > 0 ? Math.round(st / sg * 100) : (st > 0 ? 100 : 0);
+      return shell("Step Score", `
+        <div class="dial">
+          ${dialRing(st > 0 ? sp : 0)}
+          <div class="dcore">
+            <input class="dnum" ${id("homeSteps")} type="text" inputmode="numeric" pattern="[0-9]*"
+              autocomplete="off" enterkeyhint="done" placeholder="0" ${clone ? 'tabindex="-1" readonly' : ""}
+              value="${st > 0 ? num(Math.round(st)) : ""}" data-raw="${st > 0 ? Math.round(st) : ""}"
+              aria-label="Steps today, tap to type">
+            <button type="button" class="dof" ${clone ? 'tabindex="-1"' : 'data-edit="goal" data-metric="steps"'}>${sg
+              ? `of ${num(Math.round(sg))}` : "set a target"}</button>
+          </div>
+        </div>
+        <p class="dmsg" ${id("homeMsg")} role="status">${!clone && state.homeMsg ? esc(state.homeMsg) : "&nbsp;"}</p>`);
+    }
+    if (k === "work") {
+      if (!state.work) loadWorkLocal();
+      const r = state.work.run;
+      const wm = Number(m.work_min) || 0, wg = Number(m.work_target) || 180;
+      const wp = wm > 0 ? Math.round(wm / wg * 100) : 0;
+      // Running, the ring is the session draining and the centre is the
+      // clock; idle, it is the day against the standard.
+      const ring = r ? (() => {
+        const f = workLeft(r) / (r.len * 60000);
+        return `<svg class="dring" viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="60" cy="60" r="52" class="dtrack"></circle>
+          <circle cx="60" cy="60" r="52" class="dfill${r.pausedAt ? " paused" : ""}" ${id("homeWorkRing")}
+            style="stroke:var(--work)" stroke-dasharray="${DIAL_C}" stroke-dashoffset="${(DIAL_C * (1 - f)).toFixed(2)}"></circle></svg>`;
+      })() : dialRing(wp);
+      return shell("Work Score", `
+        <div class="dial dtap" ${clone ? "" : `data-go="work" role="button" tabindex="0"`}
+          aria-label="Work Score: ${hm(wm)} of ${hm(wg)}. Open">
+          ${ring}
+          <span class="dcore">
+            ${r ? `<b class="dval" ${id("homeWorkClock")}>${mmssMs(workLeft(r))}</b>
+                   <span class="dsub">${r.pausedAt ? "Paused" : r.label ? esc(r.label) : "Focus"}</span>`
+                : `<b class="dval">${hm(wm)}</b><span class="dsub">of ${hm(wg)}</span>`}
+            <button type="button" class="dplay${r && !r.pausedAt ? " on" : ""}" ${id("homeWorkGo")}
+              ${clone ? 'tabindex="-1"' : ""}
+              aria-label="${!r ? `Start a ${state.work.len}-minute session` : r.pausedAt ? "Continue" : "Pause"}">${
+              r && !r.pausedAt
+                ? `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="5" width="3.6" height="14" rx="1"/><rect x="13.9" y="5" width="3.6" height="14" rx="1"/></svg>`
+                : `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg>`}</button>
+          </span>
+        </div>
+        <p class="dmsg">&nbsp;</p>`);
+    }
+    const slOn = m.items !== null && m.items !== undefined;
+    const slp = slOn ? scorePct(m.items) : null;
+    return shell("Sleep Score", `
+      <div class="dial dtap" ${clone ? "" : `data-go="sleep" role="button" tabindex="0"`}
+        aria-label="Sleep Score${slOn ? ": " + slp + "%" : ""}. Open">
+        ${dialRing(slp)}
+        <span class="dcore"><b class="dval">${slOn ? slp + "%" : "–"}</b><span class="dsub">${slOn ? "tonight" : "not logged"}</span></span>
+      </div>
+      <p class="dmsg">&nbsp;</p>`);
+  }
+  let homeTick = null;
   function wireHome() {
     const box = document.getElementById("dials");
     if (box) {
-      // Put the carousel back where it was before this render, without a
-      // visible jump, then follow the swipe.
-      box.scrollLeft = (state.dialIdx || 0) * box.clientWidth;
+      // Strip positions: 0 copy of Sleep · 1 Steps · 2 Work · 3 Sleep ·
+      // 4 copy of Steps. Put it back where it was before this render, then
+      // follow the swipe; landing on a copy jumps to the real dial.
+      const W = () => Math.max(1, box.clientWidth);
+      const jump = (pos) => {
+        box.style.scrollSnapType = "none";
+        box.scrollLeft = pos * W();
+        requestAnimationFrame(() => { box.style.scrollSnapType = ""; });
+      };
+      jump((state.dialIdx || 0) + 1);
+      const mark = (n) => {
+        state.dialIdx = n;
+        document.querySelectorAll("[data-dot]").forEach((d, k) => {
+          d.classList.toggle("on", k === n); d.setAttribute("aria-selected", String(k === n)); });
+      };
+      const settle = () => {
+        let pos = Math.round(box.scrollLeft / W());
+        if (pos === 0) { pos = 3; jump(3); }
+        if (pos === 4) { pos = 1; jump(1); }
+        mark(pos - 1);
+      };
       let t = null;
-      box.addEventListener("scroll", () => {
-        clearTimeout(t);
-        t = setTimeout(() => {
-          const n = Math.round(box.scrollLeft / Math.max(1, box.clientWidth));
-          if (n !== state.dialIdx) {
-            state.dialIdx = n;
-            document.querySelectorAll("[data-dot]").forEach((d, k) => {
-              d.classList.toggle("on", k === n); d.setAttribute("aria-selected", String(k === n)); });
-          }
-        }, 80);
-      }, { passive: true });
+      box.addEventListener("scroll", () => { clearTimeout(t); t = setTimeout(settle, 120); }, { passive: true });
       document.querySelectorAll("[data-dot]").forEach((d) =>
         d.addEventListener("click", () => {
-          state.dialIdx = Number(d.dataset.dot);
-          box.scrollTo({ left: state.dialIdx * box.clientWidth, behavior: "smooth" });
+          mark(Number(d.dataset.dot));
+          box.scrollTo({ left: (state.dialIdx + 1) * W(), behavior: "smooth" });
         }));
     }
     const f = document.getElementById("homeSteps");
@@ -4049,6 +4097,27 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
           if (el) el.innerHTML = "&nbsp;"; }, 2200);
       });
     }
+    // The play button starts, pauses and continues without leaving home.
+    // It stops the tap there, so the dial underneath does not also open
+    // the Work page.
+    on("homeWorkGo", "click", (e) => {
+      e.stopPropagation();
+      if (!state.work) loadWorkLocal();
+      const r = state.work.run;
+      if (!r) workGo(); else if (r.pausedAt) workResume(); else workHold();
+      render();
+    });
+    clearInterval(homeTick); homeTick = null;
+    const run = state.work && state.work.run;
+    if (run && !run.pausedAt) homeTick = setInterval(async () => {
+      const r = state.work && state.work.run;
+      const el = document.getElementById("homeWorkClock");
+      if (state.view !== "board" || !r || r.pausedAt || !el) { clearInterval(homeTick); homeTick = null; return; }
+      el.textContent = mmssMs(workLeft(r));
+      const ring = document.getElementById("homeWorkRing");
+      if (ring) ring.setAttribute("stroke-dashoffset", (DIAL_C * (1 - workLeft(r) / (r.len * 60000))).toFixed(2));
+      if (workLeft(r) <= 0) { clearInterval(homeTick); homeTick = null; if (await checkWork()) render(); }
+    }, 1000);
     document.querySelectorAll('.dials [data-edit="goal"]').forEach((el) =>
       el.addEventListener("click", () => { state.editMetric = "steps"; openEditor("goal"); }));
   }
@@ -4110,8 +4179,11 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
       el.addEventListener("click", () => {
         state.tabOpen = state.tabOpen === el.dataset.tab ? null : el.dataset.tab; render(); }));
     on("tabShade", "click", () => { state.tabOpen = null; render(); });
-    document.querySelectorAll("[data-go]").forEach((el) =>
-      el.addEventListener("click", () => { state.tabOpen = null; openExercise(el.dataset.go); }));
+    document.querySelectorAll("[data-go]").forEach((el) => {
+      el.addEventListener("click", () => { state.tabOpen = null; openExercise(el.dataset.go); });
+      if (el.getAttribute("role") === "button") el.addEventListener("keydown", (e) => {
+        if ((e.key === "Enter" || e.key === " ") && e.target === el) { e.preventDefault(); el.click(); } });
+    });
   }
 
   /* ---------- Exercise: one pillar, three numbers ---------------------
@@ -5745,6 +5817,28 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
     return null;
   }
 
+  // One set of verbs for the timer, used by the Work page and by the
+  // play button on the home dial, so the two can never disagree.
+  function workGo() {
+    if (!state.work) loadWorkLocal();
+    const w = state.work;
+    primeAudio();
+    w.adjust = false;
+    w.run = { id: uuid(), startedAt: Date.now(), pausedAt: null, pausedMs: 0,
+              len: w.len, date: todayISO(),
+              label: w.focus ? w.focus.label : null, task: w.focus ? w.focus.task_id : null };
+    if (w.focus) pushRecent(w.focus);
+    saveWorkLocal();
+  }
+  function workHold() { const r = state.work.run; if (r && !r.pausedAt) { r.pausedAt = Date.now(); saveWorkLocal(); } }
+  function workResume() {
+    const r = state.work.run;
+    if (!r || !r.pausedAt) return;
+    primeAudio();
+    r.pausedMs += Date.now() - r.pausedAt; r.pausedAt = null;
+    saveWorkLocal();
+  }
+
   function workCard() {
     if (!state.work) loadWorkLocal();
     const w = state.work, r = w.run;
@@ -5955,23 +6049,9 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
     on("fNone", "click", () => choose(null));
     on("fClose", "click", () => { w.pick = false; render(); });
 
-    on("workStart", "click", () => {
-      primeAudio();
-      w.adjust = false;
-      w.run = { id: uuid(), startedAt: Date.now(), pausedAt: null, pausedMs: 0,
-                len: w.len, date: todayISO(),
-                label: w.focus ? w.focus.label : null, task: w.focus ? w.focus.task_id : null };
-      if (w.focus) pushRecent(w.focus);
-      saveWorkLocal(); render();
-    });
-    on("workPause", "click", () => {
-      w.run.pausedAt = Date.now(); saveWorkLocal(); stopWorkTick(); render();
-    });
-    on("workContinue", "click", () => {
-      primeAudio();
-      w.run.pausedMs += Date.now() - w.run.pausedAt; w.run.pausedAt = null;
-      saveWorkLocal(); render();
-    });
+    on("workStart", "click", () => { workGo(); render(); });
+    on("workPause", "click", () => { workHold(); stopWorkTick(); render(); });
+    on("workContinue", "click", () => { workResume(); render(); });
     on("workEnd", "click", () => {
       const r = w.run;
       const mins = Math.floor(workElapsed(r) / 60000);
