@@ -338,6 +338,21 @@ input[type=number] { -moz-appearance:textfield; }
 .tseg { display:flex; width:100%; margin:0 0 14px; }
 .tseg button { flex:1; font-size:13.5px; padding:8px 0; }
 .tquick { position:sticky; top:0; z-index:5; background:var(--ground); padding:4px 0 10px; }
+/* V3.4. One list, one colour. */
+.tl, .stray, .sany, .sgrid, .ssheet { --qc:var(--work); }
+.trank { flex:none; width:26px; height:30px; border:none; background:none; padding:0; cursor:pointer;
+  font-family:var(--mono); font-size:13px; font-weight:600; color:var(--muted); text-align:center;
+  font-variant-numeric:tabular-nums; }
+.tl li:nth-child(-n+3) > .tr .trank { color:var(--work); }
+.trankin { flex:none; width:38px; height:32px; box-sizing:border-box; border:1.5px solid var(--work); border-radius:8px;
+  font-family:var(--mono); font-size:16px; text-align:center; background:var(--surface); color:var(--ink); }
+.tr .tdrag { margin-left:2px; }
+.tsubn { font-family:var(--mono); font-size:11px; color:var(--muted); margin-left:4px; }
+.tpick select { position:absolute; inset:0; opacity:0; width:100%; height:100%; cursor:pointer; }
+.tm .tx { flex:none; }
+.tl .ts { margin-left:36px; }
+.tl .tsubin { margin-left:70px; width:calc(100% - 70px); }
+.tl .tebar { padding-left:36px; }
 .tquick .field { width:100%; box-sizing:border-box; font-size:16px; padding:13px 14px; }
 .tbuckets { display:grid; grid-template-columns:repeat(4, 1fr); gap:6px; margin-top:8px; }
 .tbk { border:1.5px solid var(--line); background:var(--surface); border-radius:10px; padding:9px 0;
@@ -517,6 +532,95 @@ input[type=number] { -moz-appearance:textfield; }
   font-size:14px; line-height:1.45; color:var(--ink-2); }
 .ghow b { color:var(--ink); }
 .ghowcard .foldbtn h2 { font-size:16px; }
+/* ---------- V3.4: Goals --------------------------------------------------- */
+.casc .eyebrow { margin-bottom:4px; }
+.crow { display:grid; grid-template-columns:76px 1fr; gap:10px; align-items:baseline; padding:9px 0;
+  border-top:1px solid var(--line); }
+.casc .eyebrow + .crow { border-top:none; }
+.clab { font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.cval { display:block; position:relative; min-width:0; width:100%; justify-self:stretch; text-align:left; background:none; border:none; padding:0; margin:0;
+  font-family:var(--display); font-size:16.5px; font-weight:500; line-height:1.35; color:var(--ink); cursor:pointer; }
+.cval.cnil { font-family:inherit; font-size:13.5px; font-weight:400; color:var(--muted);
+  text-decoration:underline dashed var(--line-strong); text-underline-offset:4px; }
+.ro .cval { cursor:default; }
+.csel select { position:absolute; inset:0; width:100%; height:100%; opacity:0; cursor:pointer; font-size:16px; }
+.cin { width:100%; box-sizing:border-box; font-size:16px; resize:vertical; }
+.crow.now { border-top:none; margin:4px -10px 0; padding:10px; border-radius:10px;
+  background:color-mix(in oklab, var(--work) 9%, var(--surface)); }
+.crow.now .clab { color:var(--work); }
+.cstar { color:var(--work); margin-right:5px; }
+.cq { margin:12px 0 0; font-size:12.5px; font-style:italic; line-height:1.45; color:var(--muted); }
+.gnum.xs { width:18px; height:18px; font-size:10px; display:inline-grid; vertical-align:1px; margin-right:7px; }
+.sc-ro { display:flex; justify-content:space-between; align-items:baseline; }
+.sc-ro b { font-size:15px; } .sc-ro span { font-size:12px; color:var(--muted); }
+.sc-top { display:flex; align-items:center; justify-content:center; gap:16px; padding-top:10px; flex-wrap:wrap; }
+.sc-top .big { font-family:var(--mono); font-size:48px; font-weight:500; line-height:1; }
+.sc-per { display:flex; flex-direction:column; gap:4px; }
+.sc-per span { font-family:var(--mono); font-size:12px; padding:2px 9px; border-radius:99px;
+  background:var(--surface-2); color:var(--ink-2); }
+.sc-per span.win { background:color-mix(in oklab, var(--work) 14%, var(--surface)); color:var(--work); }
+.sc-of { text-align:center; margin:8px 0 0; font-size:12px; color:var(--muted); }
+.sc-of .linkbtn { font-size:12px; color:var(--muted); }
+table.sc { width:100%; border-collapse:collapse; table-layout:fixed; margin-top:10px; }
+.sc col.scs { width:40px; }
+.sc thead th { font-size:10px; font-weight:700; color:var(--muted); text-align:center; padding:0 0 2px; }
+.sc thead th.today { color:var(--work); }
+.scgh th { text-align:left; padding:14px 0 4px; font-size:13.5px; font-weight:700; color:var(--ink);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.scgh td { text-align:right; padding:14px 0 4px; font-family:var(--mono); font-size:12px; color:var(--ink-2); }
+.scgh td.win { color:var(--work); font-weight:600; }
+.sct { text-align:left; font-weight:500; font-size:14px; color:var(--ink); padding:9px 4px 3px 0;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.sctr td.scn { padding-top:9px; }
+.scdr td { padding:1px 0 4px; }
+.sct small { font-family:var(--mono); font-size:10px; color:var(--muted); margin-left:5px; }
+.sc td { text-align:center; padding:2px 0; }
+.scc { width:30px; height:30px; border-radius:50%; border:1.5px solid var(--line-strong); background:var(--surface);
+  padding:0; cursor:pointer; vertical-align:middle; }
+.scc.on { background:var(--work); border-color:var(--work); }
+.scc.today { border-color:var(--work); box-shadow:0 0 0 2.5px color-mix(in oklab, var(--work) 22%, transparent); }
+.scc:disabled { cursor:default; }
+.scc:disabled:not(.on) { opacity:.35; }
+.ro .scc:disabled:not(.on) { opacity:.6; }
+.sc td.scn { font-family:var(--mono); font-size:11px; color:var(--muted); text-align:right; }
+.sc td.scn.full { color:var(--work); }
+.sc td.scnone { text-align:left; padding:4px 0 2px 0; font-size:12.5px; color:var(--muted); }
+.rs-wrap { overflow-x:auto; margin:8px -2px 0; -webkit-overflow-scrolling:touch; }
+table.rs { border-collapse:separate; border-spacing:0; font-variant-numeric:tabular-nums; }
+.rs th, .rs td { white-space:nowrap; padding:7px 6px; font-size:12px; }
+.rs thead th { font-size:10px; font-weight:700; letter-spacing:.04em; color:var(--muted); text-align:right; }
+.rs thead th.cur { color:var(--ink); }
+.rs tbody th { position:sticky; left:0; z-index:1; background:var(--surface); text-align:left; font-weight:600;
+  color:var(--ink-2); max-width:112px; overflow:hidden; text-overflow:ellipsis; white-space:normal; line-height:1.25; border-top:1px solid var(--line);
+  box-shadow:1px 0 0 var(--line); }
+.rs tbody th small { display:block; font-weight:400; color:var(--muted); }
+.rs tbody th { min-width:104px; }
+.rs tr.rsg th, .rs tr.rss th { white-space:nowrap; }
+.rs td { font-family:var(--mono); text-align:right; min-width:34px; color:var(--ink); border-top:1px solid var(--line); }
+.rs tr.rss td, .rs tr.rss th { font-weight:700; color:var(--ink); }
+.rs tr.rsg th { font-weight:500; color:var(--muted); }
+.rs td.win { color:var(--work); }
+.rs td.fut { color:var(--line-strong); }
+.rs td.curc { background:color-mix(in oklab, var(--work) 7%, transparent); }
+.rs .kb { font:inherit; color:inherit; background:none; border:none; padding:0; min-width:28px; text-align:right;
+  cursor:pointer; text-decoration:underline dotted var(--line-strong); text-underline-offset:3px; }
+.rs .kb.nil { color:var(--muted); text-decoration:none; }
+.rs .kin { width:56px; box-sizing:border-box; font-family:var(--mono); font-size:16px; text-align:right;
+  border:1.5px solid var(--work); border-radius:6px; padding:2px 4px; background:var(--surface); color:var(--ink); }
+.prow { display:flex; align-items:flex-start; gap:10px; padding:12px 0; border-top:1px solid var(--line); }
+.plan .eyebrow + .prow, .plan .eyebrow + .pedit { border-top:none; }
+.pmain { flex:1; min-width:0; }
+.pt { font-size:15.5px; font-weight:600; color:var(--ink); }
+.pk { display:flex; justify-content:space-between; gap:8px; margin-top:3px; font-size:12px; color:var(--muted); }
+.pk b { font-family:var(--mono); font-weight:500; color:var(--ink); }
+.pedit { padding:12px 0 6px; border-top:1px solid var(--line); }
+.pedit .terow { margin-top:14px; }
+.pedit .gdel { margin:0; }
+.gstar { flex:none; border:none; background:none; padding:0 2px; font-size:22px; line-height:1; cursor:pointer;
+  color:var(--line-strong); }
+.gstar.on { color:var(--work); }
+.exwrap { margin-top:-4px; padding:12px 10px 2px; border-radius:16px; background:var(--surface-2); }
+.exwrap .card { box-shadow:none; }
 .gstart { display:flex; flex-direction:column; gap:8px; margin-top:16px; }
 .gstart .btn { background:var(--work); }
 .gstart .btn, .gstart .btn-quiet { width:100%; padding:13px; font-size:14px; }
@@ -1189,6 +1293,26 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 .fcard.me .tapedit { font-family:var(--display); font-weight:500; font-size:19px; color:var(--ink);
   text-decoration:none; }
 .fcard.me + .fcard { border-top-color:color-mix(in oklab, var(--hc) 20%, var(--line)); }
+
+/* Everyone else: one row each, nine small numbers, one header. */
+.ftab { border-top:1px solid var(--line); padding:8px 8px 6px 10px; }
+.ftbl { width:100%; border-collapse:collapse; table-layout:fixed; font-variant-numeric:tabular-nums; }
+.ftbl th, .ftbl td { padding:0 1px; text-align:center; white-space:nowrap; overflow:hidden; text-overflow:clip; }
+.ftbl thead th { font-size:8.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--muted); padding:0 0 5px; }
+.ftbl th.fn { width:21%; text-align:left; padding:0; }
+.ftbl tbody td { font-family:var(--mono); font-size:10.5px; letter-spacing:-.02em; color:var(--ink); height:30px;
+  border-top:1px solid var(--line); }
+.ftbl tbody th { border-top:1px solid var(--line); }
+.ftbl tbody tr:first-child td, .ftbl tbody tr:first-child th { border-top:none; }
+.ftbl td.nil { color:var(--muted); opacity:.5; }
+.ftbl .g0 { box-shadow:inset 1px 0 0 color-mix(in oklab, var(--line) 60%, transparent); }
+.ftbl td.see button { font:inherit; color:inherit; background:none; border:none; padding:0; cursor:pointer;
+  text-decoration:underline dotted; text-decoration-color:var(--line-strong); text-underline-offset:3px; }
+.ftn { display:flex; align-items:center; gap:6px; max-width:100%; background:none; border:none; padding:0;
+  font:inherit; font-size:12.5px; font-weight:600; color:var(--ink-2); cursor:pointer; overflow:hidden; }
+.ftn i { flex:none; width:7px; height:7px; border-radius:50%; background:var(--hc); }
+.sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
 
 /* ---------- V3.4: Train ----------------------------------------------------- */
 /* A number carried over from last time and not touched yet: a suggestion,
@@ -4047,10 +4171,49 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     };
     const ordered = state.people.slice().sort((a, b) =>
       (b.id === state.meId) - (a.id === state.meId));
+    // V3.4. Everyone but you, folded to one row each under one header:
+    // the same nine numbers in the same order, small, so the whole family
+    // fits in the space one card used to take. Columns read down.
+    const othersTable = ordered.some((p) => p.id === state.meId) && ordered.length > 1;
+    const FAB = { steps:"Stp", train:"Trn", cardio:"Crd", sleep:"Slp", rise:"Rise", rest:"Rest",
+                  work:"Wrk", goals:"Gls", tasks:"Tsk" };
+    const tiny = (k, v) => {
+      if (v === null || v === undefined) return "\u2013";
+      const x = Number(v);
+      switch (STD[k].kind) {
+        case "count": return k === "steps"
+          ? (x >= 10000 ? Math.round(x / 1000) + "k" : x >= 1000 ? (x / 1000).toFixed(1).replace(/\.0$/, "") + "k" : String(Math.round(x)))
+          : String(Math.round(x));
+        case "min": { const m = Math.round(x), h = Math.floor(m / 60), r = m % 60;
+          return h ? (r ? `${h}h${pad(r)}` : `${h}h`) : `${r}m`; }
+        case "pct": return Math.round(x) + "%";
+        case "time": { const m = ((Math.round(x) % 1440) + 1440) % 1440, h = Math.floor(m / 60);
+          return `${h % 12 || 12}:${pad(m % 60)}`; }
+      }
+      return String(x);
+    };
+    const famTable = (list) => {
+      const ks = STD_GROUPS.flatMap(([, g]) => g);
+      return `<div class="ftab"><table class="ftbl">
+        <thead><tr><th class="fn"><span class="sr">Name</span></th>${ks.map((k, i) =>
+          `<th class="${i % 3 === 0 ? "g0" : ""}" title="${STD[k].label}">${FAB[k]}</th>`).join("")}</tr></thead>
+        <tbody>${list.map((p) => {
+          const c = famCells(p);
+          return `<tr><th class="fn" scope="row" style="--hc:hsl(${p.hue} 58% 42%)">
+              <button type="button" class="ftn" data-edit="name" data-person="${p.id}"><i aria-hidden="true"></i>${esc(p.name)}</button></th>
+            ${ks.map((k, i) => {
+              const v = c[k], nil = v === null || v === undefined, g = i % 3 === 0 ? " g0" : "";
+              return !nil && (k === "train" || k === "cardio")
+                ? `<td class="see${g}"><button type="button" data-see="${p.id}" data-m="${k === "train" ? "lift" : "cardio"}"
+                     aria-label="See ${esc(p.name)}'s ${k === "train" ? "workout" : "cardio"}">${tiny(k, v)}</button></td>`
+                : `<td class="${nil ? "nil" : ""}${g}">${tiny(k, v)}</td>`;
+            }).join("")}</tr>`;
+        }).join("")}</tbody></table></div>`;
+    };
     const roster = state.people.length === 0
       ? `<div class="dashed"><p class="note">Nobody has been added yet.
            Add the first name above.</p></div>`
-      : `<div class="roster">${ordered.map((p) => {
+      : `<div class="roster">${ordered.filter((p) => !othersTable || p.id === state.meId).map((p) => {
           const c = famCells(p);
           const initials = p.name.trim().split(/\s+/).slice(0,2)
             .map((w) => (w[0] || "").toUpperCase()).join("");
@@ -4076,7 +4239,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             </div>
             <div class="fgrid">${STD_GROUPS.flatMap(([, ks]) => ks).map(cell).join("")}</div>
           </div>`;
-        }).join("")}</div>`;
+        }).join("")}${othersTable ? famTable(ordered.filter((p) => p.id !== state.meId)) : ""}</div>`;
 
     // V3.3. The opening screen is the Step Score, large, and nothing
     // else that asks for attention. Swipe for Work and Sleep. The family,
@@ -4741,34 +4904,26 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       <p class="ver">v${APP_VERSION}</p>`;
   }
 
-  /* ---------- Tasks: one list, four boxes, and a day to put them in -----
-     V2.8 drew Eisenhower's 2×2. On a phone that meant four 170px boxes of
-     12px text: fine to look at, bad to use. V3.1 keeps the four boxes as
-     the way a task is SORTED and drops them as the way it is DRAWN: one
-     column, full-size text, the boxes as headed groups in their order.
+  /* ---------- Tasks: one list, and a day to put it in -----------------
+     V3.4. One list. Its order is its priority: the top is what matters
+     most, and each task wears its rank. Drag the grip to move a task, or
+     tap its number and type where it goes. The four Eisenhower boxes and
+     the Matrix are gone: sorting every task twice (which box, then where
+     in it) was a decision more than the list needed.
 
-     Adding is one line and one tap. Type, then tap the box it belongs in;
-     or press return and it goes to the box you used last. Order inside a
-     box is priority: drag the grip to reorder. Tick it and it leaves the
-     list for "Done", which Clear empties for good. Tap a task to rename,
-     move, schedule or delete it.
+     Tap a task to rename it, give it a day or a time, add steps, start a
+     focus session on it, or delete it. Tick it and it drops to Done,
+     which Clear empties for good.
 
-     Schedule is today as an hour grid. Tap a task, tap a time. Tap a block
-     to shift it, stretch it, or start a focus session on it.
-
-     No PIN: like everything else here, readable by anyone with the link.
+     Schedule is a day as an hour grid. Tap a task, then a time. Tap a
+     block to shift it, stretch it, or focus on it.
      ------------------------------------------------------------------ */
-  const QUADS = [
-    { q:1, name:"Do",       hint:"Urgent and important: do it first.",           u:true,  i:true  },
-    { q:2, name:"Decide",   hint:"Important, not urgent: give it a time.",       u:false, i:true  },
-    { q:3, name:"Delegate", hint:"Urgent, not important: hand it to someone.",   u:true,  i:false },
-    { q:4, name:"Delete",   hint:"Neither: let it go, or park it here.",         u:false, i:false },
-  ];
   const SCH_FROM = 6, SCH_TO = 24, SCH_H = 56;          // 6am to midnight, 56px an hour
   const clockOf = (m) => {
     const h = Math.floor(m / 60) % 24, mm = m % 60, ap = h < 12 ? "am" : "pm";
     return `${h % 12 || 12}${mm ? ":" + pad(mm) : ""}${ap}`;
   };
+  const TLENS = [15, 30, 45, 60, 90, 120, 180];
 
   async function openTasks() {
     // V2.8 kept each person's PIN in plain text on the phone. The PIN is
@@ -4776,8 +4931,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     try { Object.keys(localStorage).filter((k) => k.startsWith("fhd.pin."))
             .forEach((k) => localStorage.removeItem(k)); } catch {}
     const keep = state.tasks || {};
-    state.tasks = { list: [], loaded: false, err: null, tab: keep.tab || "list",
-                    bucket: keep.bucket || 1, edit: null, subFor: null, doneOpen: false,
+    state.tasks = { list: [], loaded: false, err: null, tab: keep.tab === "sched" ? "sched" : "list",
+                    edit: null, subFor: null, doneOpen: false, rank: null,
                     day: todayISO(), arm: null, sel: null };
     const res = await call("app_tasks", { p_code: state.code, p_person: state.meId });
     if (res.error) state.tasks.err = res.error;
@@ -4792,14 +4947,16 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   };
   const kids = (id) => state.tasks.list.filter((x) => x.parent_id === id)
     .sort((a, b) => a.position - b.position);
-  const mains = (q) => state.tasks.list.filter((x) => !x.parent_id && x.quadrant === q)
-    .sort((a, b) => a.position - b.position);
-  const openIn = (q) => mains(q).filter((x) => !x.done);
-  const taskPayload = (x) => ({ id: x.id, parent_id: x.parent_id || null, quadrant: x.quadrant,
+  // The one list, in rank order. A V3.3 phone may still file a task in a
+  // box; the box is only a tie-break here.
+  const openTasksList = () => state.tasks.list.filter((x) => !x.parent_id && !x.done)
+    .sort((a, b) => (a.position - b.position) || ((a.quadrant || 1) - (b.quadrant || 1)));
+  const taskPayload = (x) => ({ id: x.id, parent_id: x.parent_id || null, quadrant: 1,
     title: x.title, done: !!x.done, position: x.position,
     sched_date: x.sched_date || null, sched_start: x.sched_start ?? null, sched_min: x.sched_min ?? null });
+  const hhmm = (m) => `${pad(Math.floor(m / 60))}:${pad(m % 60)}`;
 
-  function taskRow(x) {
+  function taskRow(x, rank) {
     const t = state.tasks, subs = kids(x.id), ed = t.edit === x.id;
     // V3.3. A day with no time reads as the day alone: "Today", "Tue".
     const dayWord = (d) => d === todayISO() ? "Today" : d === shiftISO(todayISO(), 1) ? "Tomorrow"
@@ -4807,49 +4964,60 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const when = !x.sched_date ? ""
       : x.sched_start === null || x.sched_start === undefined ? dayWord(x.sched_date)
       : x.sched_date === todayISO() ? clockOf(x.sched_start) : `${dayWord(x.sched_date)} ${clockOf(x.sched_start)}`;
+    const timed = x.sched_start !== null && x.sched_start !== undefined;
+    const later = x.sched_date && x.sched_date > shiftISO(todayISO(), 1);
     return `
       <li class="tm${ed ? " editing" : ""}" data-id="${x.id}">
         <div class="tr">
-          <span class="tdrag" data-drag="${x.id}" aria-label="Drag to reorder ${esc(x.title)}">
-            <svg viewBox="0 0 10 16" aria-hidden="true"><circle cx="3" cy="3" r="1.3"/><circle cx="7" cy="3" r="1.3"/><circle cx="3" cy="8" r="1.3"/><circle cx="7" cy="8" r="1.3"/><circle cx="3" cy="13" r="1.3"/><circle cx="7" cy="13" r="1.3"/></svg></span>
+          ${t.rank === x.id
+            ? `<input class="trankin" data-trankin="${x.id}" inputmode="numeric" pattern="[0-9]*" maxlength="3"
+                 value="${rank}" enterkeyhint="done" aria-label="New rank for ${esc(x.title)}">`
+            : `<button type="button" class="trank" data-trank="${x.id}" aria-label="Rank ${rank}. Tap to move ${esc(x.title)}">${rank}</button>`}
           <button type="button" class="tck" data-tdone="${x.id}" aria-pressed="false"
             aria-label="Done: ${esc(x.title)}"></button>
           ${ed ? `<input class="tedit" data-tetitle="${x.id}" maxlength="200" value="${esc(x.title)}"
                      enterkeyhint="done" aria-label="Task name">`
-               : `<button type="button" class="tt" data-tedit="${x.id}">${esc(x.title)}</button>`}
-          ${when ? `<span class="tsch">${esc(when)}</span>` : ""}
-          ${ed ? "" : `<button type="button" class="tsub" data-tsubopen="${x.id}"
-             aria-label="Add a subtask to ${esc(x.title)}">&#8627;</button>`}
+               : `<button type="button" class="tt" data-tedit="${x.id}">${esc(x.title)}${
+                   subs.length ? ` <small class="tsubn">${subs.filter((c) => c.done).length}/${subs.length}</small>` : ""}</button>`}
+          ${when && !ed ? `<span class="tsch">${esc(when)}</span>` : ""}
+          <span class="tdrag" data-drag="${x.id}" aria-label="Drag to reorder ${esc(x.title)}">
+            <svg viewBox="0 0 10 16" aria-hidden="true"><circle cx="3" cy="3" r="1.3"/><circle cx="7" cy="3" r="1.3"/><circle cx="3" cy="8" r="1.3"/><circle cx="7" cy="8" r="1.3"/><circle cx="3" cy="13" r="1.3"/><circle cx="7" cy="13" r="1.3"/></svg></span>
         </div>
-        ${subs.length ? `<ul class="ts">${subs.map((c) => `
+        ${subs.length && (ed || t.subFor === x.id) ? `<ul class="ts">${subs.map((c) => `
           <li class="tsx${c.done ? " done" : ""}">
             <button type="button" class="tck sm" data-tdone="${c.id}" aria-pressed="${!!c.done}"
               aria-label="${c.done ? "Not done" : "Done"}: ${esc(c.title)}"></button>
             ${t.edit === c.id
-              ? `<input class="tedit sm" data-tetitle="${c.id}" maxlength="200" value="${esc(c.title)}" aria-label="Subtask name">
+              ? `<input class="tedit sm" data-tetitle="${c.id}" maxlength="200" value="${esc(c.title)}" aria-label="Step name">
                  <button type="button" class="tx" data-tdel="${c.id}" aria-label="Delete ${esc(c.title)}">&times;</button>`
-              : `<button type="button" class="tt sm" data-tedit="${c.id}">${esc(c.title)}</button>`}
+              : `<span class="tt sm">${esc(c.title)}</span>
+                 <button type="button" class="tx" data-tdel="${c.id}" aria-label="Delete ${esc(c.title)}">&times;</button>`}
           </li>`).join("")}</ul>` : ""}
         ${t.subFor === x.id ? `
           <input class="tsubin" data-tsubnew="${x.id}" maxlength="200" enterkeyhint="done"
-            autocomplete="off" placeholder="Subtask" aria-label="New subtask under ${esc(x.title)}">` : ""}
+            autocomplete="off" placeholder="Add a step" aria-label="New step under ${esc(x.title)}">` : ""}
         ${ed ? `
           <div class="tebar">
-            <div class="tbuckets sm" role="group" aria-label="Move to">${QUADS.map((Q) => `
-              <button type="button" class="tbk q${Q.q}${x.quadrant === Q.q ? " on" : ""}"
-                data-tmove="${x.id}:${Q.q}">${Q.name}</button>`).join("")}</div>
             <div class="twhen" role="group" aria-label="Which day">
               <span>Day</span>
               <button type="button" class="tday${x.sched_date === todayISO() ? " on" : ""}" data-tday="${x.id}:${todayISO()}">Today</button>
               <button type="button" class="tday${x.sched_date === shiftISO(todayISO(), 1) ? " on" : ""}" data-tday="${x.id}:${shiftISO(todayISO(), 1)}">Tomorrow</button>
-              <label class="tday tpick${x.sched_date && x.sched_date > shiftISO(todayISO(), 1) ? " on" : ""}">${
-                x.sched_date && x.sched_date > shiftISO(todayISO(), 1) ? esc(shortDay(x.sched_date)) : "Pick…"}
+              <label class="tday tpick${later ? " on" : ""}">${later ? esc(shortDay(x.sched_date)) : "Pick…"}
                 <input type="date" data-tdate="${x.id}" min="${todayISO()}" value="${x.sched_date || ""}" aria-label="Pick a day"></label>
               ${x.sched_date ? `<button type="button" class="tday" data-tday="${x.id}:" aria-label="No day">&times;</button>` : ""}
             </div>
+            <div class="twhen" role="group" aria-label="What time">
+              <span>Time</span>
+              <label class="tday tpick${timed ? " on" : ""}">${timed ? clockOf(x.sched_start) : "Set…"}
+                <input type="time" step="900" data-ttime="${x.id}" value="${timed ? hhmm(x.sched_start) : ""}" aria-label="Start time"></label>
+              ${timed ? `<label class="tday tpick on">${hm(x.sched_min || 30)}
+                  <select data-tlen="${x.id}" aria-label="How long">${TLENS.map((n) =>
+                    `<option value="${n}" ${(x.sched_min || 30) === n ? "selected" : ""}>${hm(n)}</option>`).join("")}</select></label>
+                <button type="button" class="tday" data-tnotime="${x.id}" aria-label="No time">&times;</button>` : ""}
+            </div>
             <div class="terow">
-              <button type="button" class="linkbtn" data-tsched="${x.id}">${x.sched_start != null ? "Change time" : "Give it a time"}</button>
-              <button type="button" class="linkbtn" data-tfocus="${x.id}">Focus on it</button>
+              <button type="button" class="linkbtn" data-tsubopen="${x.id}">+ Step</button>
+              <button type="button" class="linkbtn" data-tfocus="${x.id}">Focus</button>
               <button type="button" class="linkbtn tdel" data-tdel="${x.id}">Delete</button>
               <button type="button" class="btn tok" data-tok="${x.id}">Done</button>
             </div>
@@ -4859,27 +5027,16 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
   function listView() {
     const t = state.tasks;
-    const B = QUADS.find((Q) => Q.q === t.bucket) || QUADS[0];
-    const done = QUADS.flatMap((Q) => mains(Q.q).filter((x) => x.done));
+    const open = openTasksList();
+    const done = t.list.filter((x) => !x.parent_id && x.done);
     return `
       <div class="tquick">
         <input class="field" id="tQuickIn" maxlength="200" enterkeyhint="done" autocomplete="off"
           placeholder="Add a task" aria-label="New task" value="${esc(t.draft || "")}">
-        <div class="tbuckets" role="group" aria-label="Add it to">${QUADS.map((Q) => `
-          <button type="button" class="tbk q${Q.q}${t.bucket === Q.q ? " on" : ""}" data-tbk="${Q.q}">${Q.name}</button>`).join("")}</div>
-        <p class="tqhint">Type, then tap a box. Return adds it to <b>${B.name}</b>.</p>
       </div>
-      ${QUADS.map((Q) => {
-        const open = openIn(Q.q);
-        return `
-        <section class="tgroup q${Q.q}">
-          <header class="tgh"><b>${Q.name}</b>
-            <span>${Q.u ? "urgent" : "not urgent"} · ${Q.i ? "important" : "not important"}</span>
-            <em>${open.length || ""}</em></header>
-          ${open.length ? `<ul class="tl" data-tgroup="${Q.q}">${open.map(taskRow).join("")}</ul>`
-                        : `<p class="tempty">${Q.hint}</p>`}
-        </section>`;
-      }).join("")}
+      ${open.length ? `<ul class="tl" id="tList">${open.map((x, i) => taskRow(x, i + 1)).join("")}</ul>
+        <p class="tqhint">Top matters most. Drag the grip, or tap a number to move a task.</p>`
+        : `<p class="tempty">Nothing on the list. Type above and press return.</p>`}
       ${done.length ? `
         <section class="tdone">
           <div class="tdh">
@@ -4892,21 +5049,21 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             <li class="tm done"><div class="tr">
               <button type="button" class="tck" data-tdone="${x.id}" aria-pressed="true"
                 aria-label="Not done: ${esc(x.title)}"></button>
-              <span class="tt">${esc(x.title)}</span>
-              <em class="tq">${QUADS[x.quadrant - 1].name}</em></div></li>`).join("")}</ul>` : ""}
+              <span class="tt">${esc(x.title)}</span></div></li>`).join("")}</ul>` : ""}
         </section>` : ""}`;
   }
 
   function schedView() {
     const t = state.tasks, day = t.day, isToday = day === todayISO();
+    const rankOf = new Map(openTasksList().map((x, i) => [x.id, i]));
     const onDay = state.tasks.list.filter((x) => !x.parent_id && x.sched_date === day);
     const placed = onDay.filter((x) => x.sched_start !== null && x.sched_start !== undefined)
       .sort((a, b) => a.sched_start - b.sched_start);
     const anytime = onDay.filter((x) => x.sched_start === null || x.sched_start === undefined)
-      .sort((a, b) => (a.done - b.done) || (a.quadrant - b.quadrant) || (a.position - b.position));
+      .sort((a, b) => (a.done - b.done) || ((rankOf.get(a.id) ?? 1e9) - (rankOf.get(b.id) ?? 1e9)));
     // V3.3. The tray is only what has no day yet. A task given to Thursday
     // waits on Thursday, not on every day in between.
-    const tray = QUADS.flatMap((Q) => openIn(Q.q)).filter((x) => !x.sched_date);
+    const tray = openTasksList().filter((x) => !x.sched_date);
     const now = new Date(), nowMin = now.getHours() * 60 + now.getMinutes();
     const y = (m) => (m - SCH_FROM * 60) / 60 * SCH_H;
     const armed = t.arm && state.tasks.list.find((x) => x.id === t.arm);
@@ -4920,7 +5077,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       <section class="stray">
         <p class="eyebrow">To place</p>
         <div class="schips">${tray.map((x) => `
-          <button type="button" class="schip q${x.quadrant}${t.arm === x.id ? " on" : ""}" data-sarm="${x.id}">
+          <button type="button" class="schip${t.arm === x.id ? " on" : ""}" data-sarm="${x.id}">
             ${esc(x.title)}</button>`).join("")}</div>
         <p class="sarm">${armed ? `Tap a time for <b>${esc(armed.title)}</b>, or Anytime.
             <button type="button" class="linkbtn" id="sDisarm">Cancel</button>`
@@ -4930,7 +5087,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <button type="button" class="sanyh" id="sAny" ${armed ? "" : "tabindex=\"-1\""}>
           <span class="eyebrow">Anytime</span>${armed ? `<em>Tap to put it here</em>` : ""}</button>
         ${anytime.length ? `<ul class="tl">${anytime.map((x) => `
-          <li class="tm q${x.quadrant}${x.done ? " done" : ""}"><div class="tr">
+          <li class="tm${x.done ? " done" : ""}"><div class="tr">
             <button type="button" class="tck" data-tdone="${x.id}" aria-pressed="${!!x.done}"
               aria-label="${x.done ? "Not done" : "Done"}: ${esc(x.title)}"></button>
             <span class="tt">${esc(x.title)}</span>
@@ -4943,7 +5100,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           <div class="shr" style="top:${(h - SCH_FROM) * SCH_H}px"><span>${clockOf(h * 60)}</span></div>`).join("")}
         ${isToday && nowMin >= SCH_FROM * 60 ? `<div class="snow" style="top:${y(nowMin)}px"></div>` : ""}
         ${placed.map((x) => `
-          <div class="sblk q${x.quadrant}${t.sel === x.id ? " sel" : ""}${x.done ? " done" : ""}" data-sblk="${x.id}"
+          <div class="sblk${t.sel === x.id ? " sel" : ""}${x.done ? " done" : ""}" data-sblk="${x.id}"
             role="button" tabindex="0" aria-label="${esc(x.title)}, ${clockOf(x.sched_start)}"
             style="top:${Math.max(0, y(x.sched_start))}px;height:${Math.max(26, x.sched_min / 60 * SCH_H - 2)}px">
             <button type="button" class="tck sm" data-tdone="${x.id}" aria-pressed="${!!x.done}"
@@ -4970,32 +5127,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         </div>` : ""}`;
   }
 
-  // V3.3. The 2×2, back as a view: for seeing the shape of the week at a
-  // glance and ticking. Writing happens in the list, where there is room.
-  function matrixView() {
-    const cell = (Q) => {
-      const list = openIn(Q.q);
-      return `
-        <div class="mcell q${Q.q}">
-          <div class="mch"><b>${Q.name}</b><em>${list.length || ""}</em></div>
-          ${list.length ? `<ul class="mlist">${list.map((x) => `
-            <li><button type="button" class="tck sm" data-tdone="${x.id}" aria-pressed="false"
-                  aria-label="Done: ${esc(x.title)}"></button>
-              <button type="button" class="mtt" data-mopen="${x.id}">${esc(x.title)}</button></li>`).join("")}</ul>`
-            : `<p class="mempty">${Q.hint}</p>`}
-        </div>`;
-    };
-    return `
-      <section class="mx">
-        <span class="axis ax-u">Urgent</span>
-        <span class="axis ax-nu">Not urgent</span>
-        <span class="axis ax-i">Important</span>
-        <span class="axis ax-ni">Not important</span>
-        ${QUADS.map(cell).join("")}
-      </section>
-      <p class="hint" style="text-align:center;margin-top:12px">Tick here. Tap a task to edit it in the list.</p>`;
-  }
-
   function tasksView() {
     const t = state.tasks || {};
     const head = `
@@ -5004,18 +5135,16 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       </div>
       <header class="masthead">
         <h1>Tasks</h1>
-        <p class="sub">What matters, sorted by whether it is urgent.</p>
-        <p class="sub stdline"><b style="color:var(--ink)">${Number((me() || {}).tasks_done) || 0}</b> done today \u00b7
+        <p class="sub stdline"><b style="color:var(--ink)">${Number((me() || {}).tasks_done) || 0}</b> done today ·
           <button type="button" class="linkbtn" data-edit="goal" data-metric="tasks">standard ${stdOf(me(), "tasks")}</button></p>
       </header>`;
     if (!t.loaded) return head + `<p class="loading">Opening…</p>`;
     return head + `
       <div class="range tseg" role="group" aria-label="View">
         <button type="button" data-ttab="list" aria-pressed="${t.tab === "list"}">List</button>
-        <button type="button" data-ttab="matrix" aria-pressed="${t.tab === "matrix"}">Matrix</button>
         <button type="button" data-ttab="sched" aria-pressed="${t.tab === "sched"}">Schedule</button>
       </div>
-      ${t.tab === "sched" ? schedView() : t.tab === "matrix" ? matrixView() : listView()}
+      ${t.tab === "sched" ? schedView() : listView()}
       ${t.err ? `<p class="terr">${esc(t.err)}</p>` : ""}
       <p class="ver">v${APP_VERSION}</p>`;
   }
@@ -5027,40 +5156,37 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const find = (id) => t.list.find((x) => x.id === id);
     const save = (x) => taskCall("app_task_save", { p_task: taskPayload(x) });
     const nextPos = (pred) => Math.max(-1, ...t.list.filter(pred).map((x) => x.position)) + 1;
+    // Rank is order: write 0, 1, 2… down the open list and send it.
+    const reorder = (ids) => {
+      const changed = ids.some((id, k) => find(id) && find(id).position !== k);
+      ids.forEach((id, k) => { const x = find(id); if (x) { x.position = k; x.quadrant = 1; } });
+      render();
+      if (changed) taskCall("app_task_order", { p_ids: ids });
+    };
 
     document.querySelectorAll("[data-ttab]").forEach((el) =>
       el.addEventListener("click", () => {
-        t.tab = el.dataset.ttab; t.edit = null; t.subFor = null; t.sel = null; t.arm = null;
+        t.tab = el.dataset.ttab; t.edit = null; t.subFor = null; t.sel = null; t.arm = null; t.rank = null;
         render();
         if (t.tab === "sched" && t.day === todayISO())
           document.querySelector(".snow")?.scrollIntoView({ block: "center" });
       }));
 
-    // ---- adding: one line, one tap ----
+    // ---- adding: one line; return adds it to the bottom ----
     const quick = document.getElementById("tQuickIn");
-    const addMain = (q, title) => {
-      const x = { id: uuid(), parent_id: null, quadrant: q, title: title.slice(0, 200), done: false,
-                  position: nextPos((y) => !y.parent_id && y.quadrant === q && !y.done),
-                  sched_date: null, sched_start: null, sched_min: null };
-      t.list.push(x);
-      save(x).then((res) => { if (res.error) { t.list = t.list.filter((y) => y.id !== x.id); render(); } });
-    };
-    const quickAdd = (q) => {
-      const title = (quick.value || "").trim();
-      t.bucket = q;
-      if (title) { addMain(q, title); quick.value = ""; t.draft = ""; }
-      render();
-      document.getElementById("tQuickIn")?.focus();
-    };
-    // What is typed survives a re-render (a tick elsewhere, a refresh).
     if (quick) quick.addEventListener("input", () => { t.draft = quick.value; });
     if (quick) quick.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") { e.preventDefault(); quickAdd(t.bucket); }
-    });
-    document.querySelectorAll("[data-tbk]").forEach((el) => {
-      // Keep the keyboard up: the tap must not take focus from the line.
-      el.addEventListener("pointerdown", (e) => e.preventDefault());
-      el.addEventListener("click", () => quickAdd(Number(el.dataset.tbk)));
+      if (e.key !== "Enter") return;
+      e.preventDefault();
+      const title = (quick.value || "").trim();
+      if (!title) return;
+      const x = { id: uuid(), parent_id: null, quadrant: 1, title: title.slice(0, 200), done: false,
+                  position: nextPos((y) => !y.parent_id && !y.done),
+                  sched_date: null, sched_start: null, sched_min: null };
+      t.list.push(x); t.draft = "";
+      render();
+      document.getElementById("tQuickIn")?.focus();
+      save(x).then((res) => { if (res.error) { t.list = t.list.filter((y) => y.id !== x.id); render(); } });
     });
 
     // ---- ticking ----
@@ -5075,9 +5201,11 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           const p = find(x.parent_id), sibs = kids(x.parent_id);
           if (p) p.done = sibs.length > 0 && sibs.every((c) => c.done);
         }
+        // A task brought back from Done goes to the bottom of the list.
+        if (!x.parent_id && !x.done) x.position = nextPos((y) => !y.parent_id && !y.done && y.id !== x.id);
         if (t.edit === x.id) t.edit = null;
-        // V3.4. Done today counts main tasks, so a subtask that finishes its
-        // parent counts the parent. Shown at once; the server keeps the log.
+        // V3.4. Done today counts main tasks, so a step that finishes its
+        // task counts the task. Shown at once; the server keeps the log.
         const mid = x.parent_id || x.id;
         const was = (before.find((y) => y.id === mid) || {}).done, now = (find(mid) || {}).done;
         const m = me();
@@ -5094,42 +5222,28 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     // ---- editing in place ----
     document.querySelectorAll("[data-tedit]").forEach((el) =>
       el.addEventListener("click", () => {
-        t.edit = el.dataset.tedit; t.subFor = null; render();
+        t.edit = el.dataset.tedit; t.subFor = null; t.rank = null; render();
         const f = document.querySelector(`[data-tetitle="${t.edit}"]`);
         if (f) { f.focus(); f.setSelectionRange(f.value.length, f.value.length); }
       }));
-    const finishEdit = (id) => {
+    const keepTitle = (id) => {
       const x = find(id), f = document.querySelector(`[data-tetitle="${id}"]`);
       if (x && f) {
         const v = f.value.trim().slice(0, 200);
-        if (v && v !== x.title) { x.title = v; save(x); }
+        if (v && v !== x.title) { x.title = v; return true; }
       }
-      t.edit = null; render();
+      return false;
     };
+    const finishEdit = (id) => { if (keepTitle(id)) save(find(id)); t.edit = null; render(); };
     document.querySelectorAll("[data-tetitle]").forEach((el) => {
       el.addEventListener("keydown", (e) => {
         if (e.key === "Enter") { e.preventDefault(); finishEdit(el.dataset.tetitle); }
         if (e.key === "Escape") { t.edit = null; render(); }
       });
-      // A subtask's line has no Done button, so leaving it is the save.
       if (el.classList.contains("sm")) el.addEventListener("change", () => finishEdit(el.dataset.tetitle));
     });
     document.querySelectorAll("[data-tok]").forEach((el) =>
       el.addEventListener("click", () => finishEdit(el.dataset.tok)));
-    document.querySelectorAll("[data-tmove]").forEach((el) => {
-      el.addEventListener("pointerdown", (e) => e.preventDefault());
-      el.addEventListener("click", () => {
-        const [id, q] = el.dataset.tmove.split(":");
-        const x = find(id);
-        if (!x || x.quadrant === Number(q)) return;
-        const f = document.querySelector(`[data-tetitle="${id}"]`);
-        if (f && f.value.trim()) x.title = f.value.trim().slice(0, 200);
-        x.quadrant = Number(q);
-        kids(x.id).forEach((c) => { c.quadrant = x.quadrant; });
-        x.position = nextPos((y) => !y.parent_id && y.quadrant === x.quadrant && y.id !== x.id && !y.done);
-        t.edit = null; render(); save(x);
-      });
-    });
     document.querySelectorAll("[data-tdel]").forEach((el) =>
       el.addEventListener("click", async () => {
         const id = el.dataset.tdel, x = find(id);
@@ -5138,40 +5252,50 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           const p = find(x.parent_id), sibs = kids(x.parent_id);
           if (p && sibs.length) p.done = sibs.every((c) => c.done);
         }
-        t.edit = null; render();
+        if (x && !x.parent_id) t.edit = null;
+        render();
         await taskCall("app_task_delete", { p_id: id });
       }));
-    // V3.3. Give a task a day without a time: today, tomorrow, or any date.
-    const setDay = (x, d) => {
-      x.sched_date = d || null;
-      if (!d) { x.sched_start = null; x.sched_min = null; }
+    // A day, a time, a length. Each change saves the name being typed too.
+    const change = (id, fn) => {
+      const x = find(id);
+      if (!x) return;
+      keepTitle(id);
+      fn(x);
       render(); save(x);
     };
     document.querySelectorAll("[data-tday]").forEach((el) => {
       el.addEventListener("pointerdown", (e) => e.preventDefault());
       el.addEventListener("click", () => {
         const [id, d] = el.dataset.tday.split(":");
-        const x = find(id);
-        if (x) setDay(x, x.sched_date === d ? null : d);
+        change(id, (x) => {
+          x.sched_date = x.sched_date === d || !d ? null : d;
+          if (!x.sched_date) { x.sched_start = null; x.sched_min = null; }
+        });
       });
     });
     document.querySelectorAll("[data-tdate]").forEach((el) =>
-      el.addEventListener("change", () => { const x = find(el.dataset.tdate); if (x && el.value) setDay(x, el.value); }));
-    document.querySelectorAll("[data-mopen]").forEach((el) =>
-      el.addEventListener("click", () => { t.tab = "list"; t.edit = el.dataset.mopen; render();
-        document.querySelector(`[data-tetitle="${t.edit}"]`)?.scrollIntoView({ block: "center" }); }));
-    document.querySelectorAll("[data-tsched]").forEach((el) =>
-      el.addEventListener("click", () => {
-        const x = find(el.dataset.tsched);
-        t.tab = "sched"; t.edit = null; t.day = (x && x.sched_date) || todayISO();
-        if (x && x.sched_start != null) { t.sel = x.id; t.arm = null; } else { t.arm = el.dataset.tsched; t.sel = null; }
-        render();
-        document.querySelector(".snow, .sarm")?.scrollIntoView({ block: "center" });
+      el.addEventListener("change", () => { if (el.value) change(el.dataset.tdate, (x) => { x.sched_date = el.value; }); }));
+    // V3.4. A time straight from the list: a task with no day is today's.
+    document.querySelectorAll("[data-ttime]").forEach((el) =>
+      el.addEventListener("change", () => {
+        const m = /^(\d{1,2}):(\d{2})/.exec(el.value || "");
+        if (!m) return;
+        change(el.dataset.ttime, (x) => {
+          x.sched_date = x.sched_date || todayISO();
+          x.sched_start = Math.min(1439, Number(m[1]) * 60 + Number(m[2]));
+          x.sched_min = x.sched_min || 30;
+        });
       }));
+    document.querySelectorAll("[data-tlen]").forEach((el) =>
+      el.addEventListener("change", () => change(el.dataset.tlen, (x) => { x.sched_min = Number(el.value) || 30; })));
+    document.querySelectorAll("[data-tnotime]").forEach((el) =>
+      el.addEventListener("click", () => change(el.dataset.tnotime, (x) => { x.sched_start = null; x.sched_min = null; })));
     document.querySelectorAll("[data-tfocus]").forEach((el) =>
       el.addEventListener("click", () => {
         const x = find(el.dataset.tfocus);
         if (!x) return;
+        keepTitle(x.id);
         loadWorkLocal();
         state.work.focus = { label: x.title, task_id: x.id };
         if (!state.work.run && x.sched_min) state.work.len = Math.max(5, Math.min(180, x.sched_min));
@@ -5180,9 +5304,37 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         openExercise("work");
       }));
 
-    // ---- subtasks: one tap opens a line, return keeps it open ----
+    // ---- rank: tap the number, type where it goes ----
+    document.querySelectorAll("[data-trank]").forEach((el) =>
+      el.addEventListener("click", () => {
+        t.rank = el.dataset.trank; t.edit = null; t.subFor = null; render();
+        const f = document.querySelector(`[data-trankin="${t.rank}"]`);
+        if (f) { f.focus(); f.select(); }
+      }));
+    document.querySelectorAll("[data-trankin]").forEach((el) => {
+      const id = el.dataset.trankin;
+      const commit = () => {
+        if (t.rank !== id) return;
+        t.rank = null;
+        const ids = openTasksList().map((x) => x.id);
+        const n = parseInt(el.value, 10);
+        if (!Number.isFinite(n)) { render(); return; }
+        const to = Math.max(1, Math.min(ids.length, n)) - 1;
+        const rest = ids.filter((x) => x !== id);
+        rest.splice(to, 0, id);
+        reorder(rest);
+      };
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") { e.preventDefault(); commit(); }
+        if (e.key === "Escape") { t.rank = null; render(); }
+      });
+      el.addEventListener("blur", () => setTimeout(() => { if (el.isConnected) commit(); }, 0));
+    });
+
+    // ---- steps: one tap opens a line, return keeps it open ----
     document.querySelectorAll("[data-tsubopen]").forEach((el) =>
       el.addEventListener("click", () => {
+        keepTitle(el.dataset.tsubopen);
         t.subFor = el.dataset.tsubopen; t.edit = null; render();
         document.querySelector(`[data-tsubnew="${t.subFor}"]`)?.focus();
       }));
@@ -5194,7 +5346,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         if (title) {
           const parent = find(pid);
           if (parent) {
-            const x = { id: uuid(), parent_id: pid, quadrant: parent.quadrant, title: title.slice(0, 200),
+            const x = { id: uuid(), parent_id: pid, quadrant: 1, title: title.slice(0, 200),
                         done: false, position: nextPos((y) => y.parent_id === pid) };
             t.list.push(x);
             if (parent.done) parent.done = false;
@@ -5209,19 +5361,15 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         if (e.key === "Enter") { e.preventDefault(); commit(true); }
         if (e.key === "Escape") { t.subFor = null; render(); }
       });
-      // Tapping away saves what was typed and closes the line. A blur
-      // caused by our own re-render (the element is gone) is not that.
       el.addEventListener("blur", () => setTimeout(() => {
         if (el.isConnected && document.activeElement !== el && t.subFor === pid) commit(false); }, 0));
     });
 
-    // ---- priority: drag the grip ----
+    // ---- rank: drag the grip ----
     document.querySelectorAll("[data-drag]").forEach((grip) =>
       grip.addEventListener("pointerdown", (e) => {
         e.preventDefault();
         const li = grip.closest("li.tm"), ul = li.parentElement;
-        // Listen on the window, not the grip: moving the row in the DOM
-        // drops any pointer capture the grip held.
         li.classList.add("drag");
         const move = (ev) => {
           const yy = ev.clientY;
@@ -5229,17 +5377,14 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           const before = others.find((c) => { const r = c.getBoundingClientRect(); return yy < r.top + r.height / 2; });
           if (before) { if (li.nextElementSibling !== before) ul.insertBefore(li, before); }
           else if (ul.lastElementChild !== li) ul.appendChild(li);
+          [...ul.children].forEach((c, k) => { const r = c.querySelector(".trank"); if (r) r.textContent = k + 1; });
         };
         const up = () => {
           window.removeEventListener("pointermove", move);
           window.removeEventListener("pointerup", up);
           window.removeEventListener("pointercancel", up);
           li.classList.remove("drag");
-          const ids = [...ul.children].map((c) => c.dataset.id);
-          const changed = ids.some((id, k) => find(id).position !== k);
-          ids.forEach((id, k) => { find(id).position = k; });
-          render();
-          if (changed) taskCall("app_task_order", { p_ids: ids });
+          reorder([...ul.children].map((c) => c.dataset.id));
         };
         window.addEventListener("pointermove", move);
         window.addEventListener("pointerup", up);
@@ -5421,44 +5566,53 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
   }
 
-  /* ---------- Goals: the 12 Week Year --------------------------------
-     V3.1. Brian Moran's 12 Week Year, kept to its bones. Twelve weeks from
-     a Monday. One vision above them. Up to three goals, each with one KPI
-     (the number the goal is about) and its tactics (the actions you
-     control): every day, every week, or in one week. Each week is scored
-     on the tactics alone: of those due, the share done — a daily tactic
-     is due seven times. 85% wins the week.
+  /* ---------- Goals: The ONE Thing over the 12 Week Year -------------
+     V3.4. Two books, one page.
 
-     The page holds the whole plan as one document and saves it whole, a
-     moment after each change, so there is no Save button to forget and
-     nothing half-written on the server.
+     Gary Keller's The ONE Thing sits on top: goal setting to the now.
+     Someday, then three years, then the ONE goal of these twelve weeks,
+     then this week's ONE Thing, then today's. Each line answers the
+     focusing question for a shorter stretch of time, so today is never
+     cut off from Someday.
+
+     Brian Moran's 12 Week Year is the engine underneath. Up to three
+     goals, each with one KPI (the result, logged weekly) and its tactics
+     (the actions you control, N times a week). The week is a scorecard,
+     like the paper one: tactics down the side, Monday to Sunday across,
+     tick the day you did it. The score is tactics done over tactics due;
+     your standard (85% unless you set one) wins the week.
+
+     The page holds the plan as one document and saves it whole, a moment
+     after each change. There is no Save button to forget.
      ------------------------------------------------------------------ */
-  // V3.4. What wins the week is your own Goals standard; 85% until set.
   const goalWin = () => stdOf(me(), "goals");
+  const timesOf = (t) => Math.max(1, Math.min(7, Number(t.times) || (t.daily ? 7 : 1)));
   const dueIn = (t, w) => t.week === null || t.week === undefined || Number(t.week) === w;
-  // A tick is [week, day]: day 0 for a weekly tactic, 1–7 (Mon–Sun) daily.
   const hasMark = (t, w, d) => (t.marks || []).some((m) => m[0] === w && m[1] === d);
   function toggleMark(t, w, d) {
     t.marks = hasMark(t, w, d) ? t.marks.filter((m) => !(m[0] === w && m[1] === d))
                                : (t.marks || []).concat([[w, d]]);
   }
-  function weekTally(doc, w) {
+  const ticksIn = (t, w) => [1, 2, 3, 4, 5, 6, 7].filter((d) => hasMark(t, w, d)).length;
+  // A tactic due N times counts at most N: a fourth gym day is not 4/3.
+  function goalTally(g, w) {
     let due = 0, done = 0;
-    for (const g of doc.goals) for (const t of g.tactics) {
+    for (const t of g.tactics) {
       if (!dueIn(t, w)) continue;
-      if (t.daily) { due += 7; for (let d = 1; d <= 7; d++) if (hasMark(t, w, d)) done++; }
-      else { due++; if (hasMark(t, w, 0)) done++; }
+      const n = timesOf(t);
+      due += n; done += Math.min(n, ticksIn(t, w));
     }
     return { due, done, pct: due ? Math.round(done / due * 100) : null };
   }
-  // Monday 1 … Sunday 7, for the person's own today.
-  const todayDow = () => ((new Date(state.goals.today + "T00:00:00Z").getUTCDay() + 6) % 7) + 1;
-  const curWeek = () => {
-    const G = state.goals;
-    if (!G || !G.cycle) return null;
-    return Math.floor((new Date(G.today + "T00:00:00Z") -
-                       new Date(G.cycle.start_date + "T00:00:00Z")) / 604800000) + 1;
-  };
+  function weekTally(doc, w) {
+    let due = 0, done = 0;
+    for (const g of doc.goals) { const x = goalTally(g, w); due += x.due; done += x.done; }
+    return { due, done, pct: due ? Math.round(done / due * 100) : null };
+  }
+  const dowOf = (iso) => ((new Date(iso + "T00:00:00Z").getUTCDay() + 6) % 7) + 1;   // Mon 1 … Sun 7
+  const weekOf = (doc, today) => Math.floor((new Date(today + "T00:00:00Z") -
+                                  new Date(doc.start_date + "T00:00:00Z")) / 604800000) + 1;
+  const curWeek = () => { const G = state.goals; return G && G.cycle ? weekOf(G.cycle, G.today) : null; };
   // The last week that can be ticked: this one, or 12 once the run is over.
   const lastOpen = () => Math.min(12, Math.max(1, curWeek() || 1));
   function weekSpan(start, w) {
@@ -5467,38 +5621,94 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       m ? { timeZone: "UTC", month: "short", day: "numeric" } : { timeZone: "UTC", day: "numeric" });
     return `${f(a, true)} – ${a.slice(0, 7) === b.slice(0, 7) ? f(b, false) : f(b, true)}`;
   }
-  // How to use it. Said once, plainly, on the page — the system only works
-  // if the weekly habit is understood, and nobody reads a manual.
-  const HOWTO = [
-    ["Write a vision", "Where you want your life to be, in a few sentences. Your goals should serve it."],
-    ["Pick up to three goals", "Results you can finish in twelve weeks, written as outcomes: “Finish the book draft,” not “work on the book.” Fewer is better."],
-    ["Give each goal one KPI", "The number that proves it is moving: chapters, miles, pounds, dollars. Update it when it changes."],
-    ["List the tactics", "The actions you control that move the number. Make each one specific (“Write 6–7am”, not “write more”) and set how often: every day, every week, or one week."],
-    ["Tick as you go", "Daily tactics have a box for each day. Weekly ones have one box for the week. Tick the day you do it."],
-    ["Score the week", "Your score is tactics done ÷ tactics due. 85% wins the week. You do not need 100%: 85% done steadily is what reaches the goal."],
-    ["Review every week", "Fifteen minutes, Sunday or Monday. Look at last week's score. Under 85%? Name what got in the way, then fix it or cut a tactic. Then plan the week ahead."],
-    ["Week 13: review and reset", "Look back over the twelve weeks, keep what worked, and start the next twelve."],
-  ];
-  const howtoList = () => `<ol class="ghow">${HOWTO.map(([h, b]) =>
-    `<li><b>${h}.</b> ${b}</li>`).join("")}</ol>
-    <p class="hint" style="margin-top:10px">From <i>The 12 Week Year</i> by Brian Moran and Michael Lennington.</p>`;
-
-  const newGoal = () => ({ id: uuid(), title: "", kpi: "", kpi_now: null, kpi_target: null, tactics: [] });
   const numOrNull = (v) => { const x = parseFloat(String(v).replace(/,/g, ""));
                              return Number.isFinite(x) ? x : null; };
   const fmtNum = (v) => v === null || v === undefined ? "–"
     : Number(v).toLocaleString(undefined, { maximumFractionDigits: 2 });
+  // The KPI as it stands: the latest week logged, or where it started.
+  const kpiLatest = (g, upto) => {
+    const log = g.kpi_log || {};
+    for (let w = upto; w >= 1; w--) if (log[w] !== undefined && log[w] !== null) return Number(log[w]);
+    return g.kpi_now === null || g.kpi_now === undefined ? null : Number(g.kpi_now);
+  };
+  const freqWord = (t) => t.week ? `wk ${t.week}` : timesOf(t) === 7 ? "daily" : `${timesOf(t)}×`;
+  const freqOf = (t) => t.week ? "w" + t.week : String(timesOf(t));
+  const FREQ_OPTS = [["7", "Every day"], ["6", "6× a week"], ["5", "5× a week"], ["4", "4× a week"],
+    ["3", "3× a week"], ["2", "2× a week"], ["1", "1× a week"]]
+    .concat(Array.from({ length: 12 }, (_, k) => ["w" + (k + 1), `Week ${k + 1} only`]));
+  const freqSelect = (sel, attrs) => `<select class="tmove" ${attrs} aria-label="How often">${FREQ_OPTS.map(([v, l]) =>
+    `<option value="${v}" ${sel === v ? "selected" : ""}>${l}</option>`).join("")}</select>`;
+  function setFreq(t, v) {
+    if (String(v).startsWith("w")) { t.week = Number(String(v).slice(1)); t.times = 1; }
+    else { t.week = null; t.times = Math.max(1, Math.min(7, Number(v) || 1)); }
+    t.daily = t.times === 7;
+    if (t.week) t.marks = (t.marks || []).filter((m) => m[0] === t.week);
+  }
+  const newGoal = () => ({ id: uuid(), title: "", kpi: "", kpi_now: null, kpi_target: null, kpi_log: {}, tactics: [] });
+
+  // How to use it. Said once, plainly, on the page.
+  const HOWTO = [
+    ["Start with Someday", "Write where you want your life to go. Then work down to now, asking each time: “Based on my Someday goal, what's the ONE Thing I can do in the next 3 years, 12 weeks, this week, today, so that I'm on track?”"],
+    ["Set up to three 12-week goals", "Results you can finish in twelve weeks, written as outcomes: “Lose 8 lb,” not “get fit.” Fewer is better. Star the ONE goal that matters most."],
+    ["Give each goal one KPI", "The number that proves the goal moved: pounds, hours, books. Log it once a week."],
+    ["List the tactics", "The actions you control that move the KPI. Make each one specific (“Lift 45 min”, not “exercise”) and say how often: every day, 3× a week, or one week only."],
+    ["Tick the day you do it", "Each tactic has a box for each day. Your score is tactics done ÷ tactics due. Your standard (85% to start) wins the week. Score the actions, not the result: the actions are what a week can decide."],
+    ["Block time for your ONE Thing", "Put today's ONE Thing on the calendar first and protect it like an appointment. Keller suggests up to four hours a day; start with what you can protect."],
+    ["Review every week", "Fifteen minutes, same time each week. Score last week, log the KPIs, write this week's ONE Thing. Under your standard? Name what got in the way, then fix it or cut a tactic."],
+    ["Week 13: review and reset", "Look back over the twelve weeks, keep what worked, and start the next twelve."],
+  ];
+  const howtoList = () => `<ol class="ghow">${HOWTO.map(([h, b]) =>
+    `<li><b>${h}.</b> ${b}</li>`).join("")}</ol>
+    <p class="hint" style="margin-top:10px">Adapted from <i>The ONE Thing</i> by Gary Keller with
+      Jay Papasan, and <i>The 12 Week Year</i> by Brian P. Moran and Michael Lennington.</p>`;
+
+  // The worked example: a whole plan four weeks in, on a Thursday. It is
+  // drawn by the same code as your own plan, read-only.
+  const EXAMPLE = (() => {
+    const tac = (title, times, weeks) => ({ id: "ex-" + title, title, times, daily: times === 7, week: null,
+      marks: weeks.flatMap((ds, i) => [...ds].map((d) => [i + 1, Number(d)])) });
+    const g = (id, title, kpi, start, target, log, tactics) =>
+      ({ id, title, kpi, kpi_now: start, kpi_target: target,
+         kpi_log: Object.fromEntries(log.map((v, i) => [i + 1, v])), tactics });
+    return {
+      id: "example", start_date: "2026-01-05",
+      vision: "Healthy and strong into my eighties, with a family that is too.",
+      three_year: "Lean and fit, running a 10K every spring, sleeping seven hours.",
+      one_goal: "ex-g1",
+      focus: { w4: "Lift Monday, Wednesday and Friday at 6 am.", w4d4: "Pack the gym bag tonight for a 6 am lift." },
+      goals: [
+        g("ex-g1", "Lose 8 lb", "Weight, lb", 184, 176, [183, 182, 181.5, 181], [
+          tac("Lift 45 min", 3, ["135", "13", "135", "13"]),
+          tac("Walk 8,000 steps", 7, ["123457", "1234567", "12456", "123"]),
+          tac("Protein at every meal", 7, ["1234", "123456", "1234567", "124"]) ]),
+        g("ex-g2", "Sleep 7 hours a night", "Average sleep, h", 6.2, 7, [6.3, 6.6, 6.8, 6.7], [
+          tac("Screens off by 9:30 pm", 7, ["125", "1234", "123457", "123"]),
+          tac("In bed by 10 pm", 5, ["123", "1234", "12345", "123"]) ]),
+        g("ex-g3", "Read 4 books", "Books finished", 0, 4, [0, 1, 1, 2], [
+          tac("Read 20 min", 7, ["12367", "12345", "23456", "1234"]),
+          tac("Weekly review, Sunday", 1, ["7", "7", "7", ""]) ]),
+      ],
+    };
+  })();
 
   async function openGoals() {
-    state.goals = { loaded: false, today: todayISO(), cycle: null, sel: 1, edit: null, err: null };
+    state.goals = { loaded: false, today: todayISO(), cycle: null, sel: 1, edit: null, err: null,
+                    help: null, ex: null };
     const res = await call("app_cycle", { p_code: state.code, p_person: state.meId });
     const G = state.goals;
     if (res.error) G.err = res.error;
     G.today = res.today || todayISO();
     G.cycle = res.cycle || null;
-    if (G.cycle) G.cycle.goals.forEach((g) => g.tactics.forEach((t) => {
-      t.daily = !!t.daily;
-      t.marks = (t.marks || []).map((m) => [Number(m[0]), Number(m[1])]); }));
+    if (G.cycle) {
+      G.cycle.focus = G.cycle.focus || {};
+      G.cycle.three_year = G.cycle.three_year || "";
+      G.cycle.goals.forEach((g) => {
+        g.kpi_log = g.kpi_log || {};
+        g.tactics.forEach((t) => {
+          t.times = timesOf(t); t.daily = t.times === 7;
+          t.marks = (t.marks || []).map((m) => [Number(m[0]), Number(m[1])]); });
+      });
+    }
     G.sel = lastOpen();
     G.loaded = true;
     render();
@@ -5519,15 +5729,226 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   function saveGoals() { clearTimeout(goalTimer); goalTimer = setTimeout(pushGoals, 600); }
   async function flushGoals() { if (goalTimer) { clearTimeout(goalTimer); await pushGoals(); } }
 
-  function startCycle(monday) {
-    const G = state.goals;
-    const g = newGoal();
-    G.cycle = { id: uuid(), start_date: monday, vision: "", goals: [g] };
+  // A new twelve weeks keeps Someday and three years: those outlive it.
+  // From the example, it takes the example's plan, with no ticks or logs.
+  function startCycle(monday, fromExample) {
+    const G = state.goals, prev = G.cycle;
+    let goals = [newGoal()], one = null;
+    if (fromExample) {
+      goals = EXAMPLE.goals.map((x) => ({ id: uuid(), title: x.title, kpi: x.kpi, kpi_now: x.kpi_now,
+        kpi_target: x.kpi_target, kpi_log: {}, tactics: x.tactics.map((t) => ({ id: uuid(), title: t.title,
+          times: t.times, daily: t.times === 7, week: null, marks: [] })) }));
+      one = goals[0].id;
+    }
+    G.cycle = { id: uuid(), start_date: monday,
+                vision: fromExample ? EXAMPLE.vision : prev ? prev.vision : "",
+                three_year: fromExample ? EXAMPLE.three_year : prev ? prev.three_year || "" : "",
+                one_goal: one, focus: {}, goals };
     G.sel = lastOpen();
-    G.edit = g.id;
+    G.edit = fromExample ? null : "g:" + goals[0].id;
     render();
     pushGoals();
   }
+
+  /* The four parts of the page. Each takes the plan and where "now" is,
+     so the example can be drawn with them too (ro: read-only). */
+  function cascadeCard(C) {
+    const doc = C.doc, G = state.goals || {};
+    const run = C.cur >= 1 && C.cur <= 12, wk = Math.min(12, Math.max(1, C.cur));
+    const one = doc.goals.find((g) => g.id === doc.one_goal);
+    const f = doc.focus || {};
+    const rows = [
+      ["vision", "Someday", doc.vision, "Where your life is headed"],
+      ["three_year", "3 years", doc.three_year, "What must be true in 3 years"],
+      ["one", "12 weeks", one ? one.title : "", "Star your ONE goal"],
+      ["fw", run ? "This week" : "Week 1", f["w" + wk], "This week's ONE Thing"],
+    ].concat(run ? [["fd", "Today", f[`w${wk}d${C.dow}`], "Today's ONE Thing"]] : []);
+    const cell = ([k, , v, ph]) => {
+      if (C.ro) return `<span class="cval${v ? "" : " cnil"}">${k === "one" && v ? "★ " : ""}${v ? esc(v) : ph}</span>`;
+      if (k === "one") {
+        const named = doc.goals.filter((g) => g.title.trim());
+        return named.length ? `<label class="cval csel${v ? "" : " cnil"}">${v ? "★ " + esc(v) : ph}
+            <select data-cone aria-label="Your ONE goal for these twelve weeks">
+              <option value="">None</option>${named.map((g) =>
+              `<option value="${g.id}" ${g.id === doc.one_goal ? "selected" : ""}>${esc(g.title)}</option>`).join("")}
+            </select></label>`
+          : `<span class="cval cnil">Add a goal below, then star it</span>`;
+      }
+      if (G.edit === "c:" + k) {
+        const big = k === "vision" || k === "three_year";
+        return big
+          ? `<textarea class="field cin" data-cf="${k}" rows="2" maxlength="${k === "vision" ? 2000 : 1000}"
+               placeholder="${ph}">${esc(v || "")}</textarea>`
+          : `<input class="field cin" data-cf="${k}" maxlength="200" enterkeyhint="done"
+               placeholder="${ph}" value="${esc(v || "")}">`;
+      }
+      return `<button type="button" class="cval${v ? "" : " cnil"}" data-cedit="${k}">${v ? esc(v) : ph}</button>`;
+    };
+    return `
+      <section class="card casc${C.ro ? " ro" : ""}">
+        <p class="eyebrow">Goal setting to the now</p>
+        ${rows.map((r) => `<div class="crow${r[0] === "fd" ? " now" : ""}">
+          <span class="clab">${r[1]}</span>${cell(r)}</div>`).join("")}
+        <p class="cq">What's the ONE Thing I can do such that by doing it everything else
+          will be easier or unnecessary?</p>
+      </section>`;
+  }
+
+  function scoreCard(C) {
+    const doc = C.doc, w = C.w, pre = C.cur < 1, open = Math.min(12, Math.max(1, C.cur));
+    const T = weekTally(doc, w), win = goalWin();
+    const per = doc.goals.map((g, i) => ({ i: i + 1, p: goalTally(g, w).pct }));
+    const DAYS = ["M", "T", "W", "T", "F", "S", "S"];
+    const DNAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const locked = C.ro || pre || w > open;
+    const rows = doc.goals.map((g, gi) => {
+      const due = g.tactics.filter((t) => dueIn(t, w)), gp = goalTally(g, w).pct;
+      return `
+        <tbody>
+          <tr class="scgh"><th colspan="7"><span class="gnum xs">${gi + 1}</span>${
+            g.id === doc.one_goal ? `<span class="cstar">★</span>` : ""}${
+            g.title ? esc(g.title) : `<span style="color:var(--muted)">Untitled goal</span>`}</th>
+            <td class="${gp !== null && gp >= win ? "win" : ""}">${gp === null ? "–" : gp + "%"}</td></tr>
+          ${due.length ? due.map((t) => {
+            const n = timesOf(t), k = ticksIn(t, w);
+            // The name on its own line, the week under it: on a phone the
+            // name needs the width, and the seven days line up with the header.
+            return `<tr class="sctr"><th class="sct" colspan="7" scope="row">${esc(t.title)}<small>${freqWord(t)}</small></th>
+              <td class="scn${Math.min(n, k) >= n ? " full" : ""}">${Math.min(n, k)}/${n}</td></tr>
+              <tr class="scdr">${DAYS.map((L, j) => {
+                const d = j + 1, on = hasMark(t, w, d);
+                const future = locked || (w === C.cur && d > C.dow);
+                return `<td><button type="button" class="scc${on ? " on" : ""}${!C.ro && w === C.cur && d === C.dow ? " today" : ""}"
+                  ${C.ro ? "" : `data-gday="${t.id}:${d}"`} aria-pressed="${on}" ${future ? "disabled" : ""}
+                  aria-label="${esc(t.title)}, ${DNAMES[j]}"></button></td>`;
+              }).join("")}<td></td></tr>`;
+          }).join("") : `<tr><td colspan="8" class="scnone">${g.tactics.length
+              ? `Nothing due in week ${w}.` : "No tactics yet. Add them in the plan below."}</td></tr>`}
+        </tbody>`;
+    }).join("");
+    const head = C.ro
+      ? `<div class="sc-ro"><b>Week ${w} of 12</b><span>${esc(weekSpan(doc.start_date, w))}</span></div>`
+      : dayNav({ ids: ["gPrev", "gNext", "gToday"], unit: "week", todayWord: "this week",
+                 atToday: pre || w >= open,
+                 label: pre ? `Starts ${esc(shortDay(doc.start_date))}` : `Week ${w} of 12` });
+    return `
+      <section class="card scard${C.ro ? " ro" : ""}">
+        ${head}
+        <div class="sc-top">
+          <b class="big" style="color:${T.pct !== null && T.pct >= win ? "var(--work)" : "var(--ink)"}">${
+            T.pct === null ? "–" : T.pct + "%"}</b>
+          ${per.length > 1 ? `<div class="sc-per">${per.map((x) =>
+            `<span class="${x.p !== null && x.p >= win ? "win" : ""}">${x.i} · ${x.p === null ? "–" : x.p + "%"}</span>`).join("")}</div>` : ""}
+        </div>
+        <p class="sc-of">${T.due ? `${T.done} of ${T.due} done` : "Nothing planned"}${C.ro ? "" : ` · ${esc(weekSpan(doc.start_date, w))}`} ·
+          ${C.ro ? `${win}% wins the week` : `<button type="button" class="linkbtn" data-edit="goal" data-metric="goals">${win}% wins the week</button>`}</p>
+        <table class="sc">
+          <colgroup><col span="7"><col class="scs"></colgroup>
+          <thead><tr>${DAYS.map((L, j) =>
+            `<th class="${!C.ro && w === C.cur && j + 1 === C.dow ? "today" : ""}">${L}</th>`).join("")}<th></th></tr></thead>
+          ${rows}
+        </table>
+      </section>`;
+  }
+
+  function resultsCard(C) {
+    const doc = C.doc, G = state.goals || {}, win = goalWin();
+    const pre = C.cur < 1, open = pre ? 0 : Math.min(12, C.cur);
+    const W = Array.from({ length: 12 }, (_, k) => k + 1);
+    const pctCell = (p, i) => i > open ? `<td class="fut">·</td>`
+      : `<td class="${p !== null && p >= win ? "win" : ""}${i === C.w ? " curc" : ""}">${p === null ? "–" : p}</td>`;
+    const kCell = (g, i) => {
+      if (i > open) return `<td class="fut">·</td>`;
+      const v = (g.kpi_log || {})[i], has = v !== undefined && v !== null;
+      if (C.ro) return `<td class="${i === C.w ? "curc" : ""}">${has ? fmtNum(v) : "–"}</td>`;
+      if (G.kedit === `${g.id}:${i}`) return `<td class="curc"><input class="kin" data-kin="${g.id}:${i}"
+          inputmode="decimal" enterkeyhint="done" value="${has ? v : ""}" aria-label="${esc(g.kpi || "KPI")}, week ${i}"></td>`;
+      return `<td class="${i === C.w ? "curc" : ""}"><button type="button" class="kb${has ? "" : " nil"}" data-kw="${g.id}:${i}"
+          aria-label="${esc(g.kpi || "KPI")}, week ${i}${has ? ": " + v : ""}">${has ? fmtNum(v) : "+"}</button></td>`;
+    };
+    return `
+      <section class="card${C.ro ? " ro" : ""}">
+        <p class="eyebrow">Twelve weeks</p>
+        <div class="rs-wrap"><table class="rs">
+          <thead><tr><th></th>${W.map((i) => `<th class="${i === C.w ? "cur" : ""}">W${i}</th>`).join("")}</tr></thead>
+          <tbody>
+            <tr class="rss"><th scope="row">Score %</th>${W.map((i) => pctCell(weekTally(doc, i).pct, i)).join("")}</tr>
+            ${doc.goals.map((g, gi) => `
+              <tr class="rsg"><th scope="row"><span class="gnum xs">${gi + 1}</span>score</th>${W.map((i) =>
+                pctCell(goalTally(g, i).pct, i)).join("")}</tr>
+              ${g.kpi ? `<tr class="rsk"><th scope="row">${esc(g.kpi)}${g.kpi_target !== null && g.kpi_target !== undefined
+                ? ` <small>→ ${fmtNum(g.kpi_target)}</small>` : ""}</th>${W.map((i) => kCell(g, i)).join("")}</tr>` : ""}`).join("")}
+          </tbody></table></div>
+        ${C.ro ? "" : `<p class="hint" style="margin-top:8px">Tap a KPI cell to log that week's number.</p>`}
+      </section>`;
+  }
+
+  function planCard(C) {
+    const doc = C.doc, G = state.goals, open = Math.min(12, Math.max(1, C.cur));
+    const goal = (g, n) => {
+      const isOne = g.id === doc.one_goal;
+      if (G.edit === "g:" + g.id) return `
+        <div class="pedit">
+          <div class="ghead"><span class="gnum">${n}</span>
+            <input class="field gtitle" data-gf="title" data-g="${g.id}" maxlength="200"
+              value="${esc(g.title)}" placeholder="The result, e.g. Lose 8 lb" aria-label="Goal">
+            <button type="button" class="gstar${isOne ? " on" : ""}" data-gstar="${g.id}" aria-pressed="${isOne}"
+              aria-label="${isOne ? "Your ONE goal" : "Make this your ONE goal"}">★</button></div>
+          <label class="glab">KPI · the number this goal moves</label>
+          <div class="gkpirow">
+            <input class="field" data-gf="kpi" data-g="${g.id}" maxlength="80" value="${esc(g.kpi)}"
+              placeholder="e.g. Weight, lb" aria-label="KPI name">
+            <input class="field gnumin" data-gf="kpi_now" data-g="${g.id}" inputmode="decimal"
+              value="${g.kpi_now ?? ""}" placeholder="start" aria-label="KPI at the start">
+            <span>→</span>
+            <input class="field gnumin" data-gf="kpi_target" data-g="${g.id}" inputmode="decimal"
+              value="${g.kpi_target ?? ""}" placeholder="goal" aria-label="KPI goal"></div>
+          <label class="glab">Tactics · what you will do, and how often</label>
+          <ul class="gtedit">${g.tactics.map((t) => `
+            <li><span class="ttl">${esc(t.title)}</span>
+              ${freqSelect(freqOf(t), `data-gtweek="${t.id}"`)}
+              <button type="button" class="tx" data-gtdel="${t.id}" aria-label="Remove ${esc(t.title)}">&times;</button>
+            </li>`).join("")}</ul>
+          <form class="tadd" data-gtadd="${g.id}">
+            <input class="field" maxlength="200" placeholder="Add a tactic, e.g. Lift 45 min" aria-label="New tactic" style="flex-basis:100%">
+            ${freqSelect("7", "")}
+            <button class="btn" type="submit" style="background:var(--work)">Add</button>
+          </form>
+          <div class="terow">
+            <button type="button" class="linkbtn gdel" data-gdel="${g.id}">Remove goal</button>
+            <button type="button" class="btn tok" data-gdone="${g.id}" style="background:var(--work)">Done</button>
+          </div>
+        </div>`;
+      const now = kpiLatest(g, open), tgt = g.kpi_target, start = g.kpi_now;
+      const span = tgt !== null && tgt !== undefined && start !== null && start !== undefined && Number(tgt) !== Number(start)
+        ? Math.max(0, Math.min(100, (Number(now) - Number(start)) / (Number(tgt) - Number(start)) * 100)) : null;
+      return `
+        <div class="prow">
+          <span class="gnum">${n}</span>
+          <div class="pmain">
+            <div class="pt">${isOne ? `<span class="cstar">★</span>` : ""}${g.title ? esc(g.title)
+              : `<span style="color:var(--muted)">Untitled goal</span>`}</div>
+            ${g.kpi ? `<div class="pk"><span>${esc(g.kpi)}</span><b>${fmtNum(now)} / ${fmtNum(tgt)}</b></div>
+              ${span !== null ? `<div class="gkbar"><i style="width:${span}%"></i></div>` : ""}`
+              : `<div class="pk"><span>No KPI yet</span></div>`}
+            <div class="pk"><span>${g.tactics.length} tactic${g.tactics.length === 1 ? "" : "s"}</span></div>
+          </div>
+          <button type="button" class="linkbtn" data-gedit="${g.id}">Edit</button>
+        </div>`;
+    };
+    return `
+      <section class="card plan">
+        <p class="eyebrow">The plan · up to three goals</p>
+        ${doc.goals.map((g, i) => goal(g, i + 1)).join("")}
+        ${doc.goals.length < 3 ? `<button type="button" class="btn-quiet gadd" id="gAdd">+ Add a goal</button>` : ""}
+      </section>`;
+  }
+
+  // The example, drawn with the real parts. Thursday of week 4.
+  const exampleParts = () => {
+    const C = { doc: EXAMPLE, cur: 4, w: 4, dow: 4, ro: true };
+    return cascadeCard(C) + scoreCard(C) + resultsCard(C);
+  };
 
   function goalsView() {
     const G = state.goals || {};
@@ -5537,66 +5958,52 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       </div>
       <header class="masthead">
         <h1>Goals</h1>
-        <p class="sub">Twelve weeks. Up to three goals. Win the week.</p>
+        <p class="sub">The ONE Thing, twelve weeks at a time.</p>
       </header>`;
     const foot = `<p class="ver">v${APP_VERSION}</p>`;
     if (!G.loaded) return head + `<p class="loading">Opening…</p>` + foot;
     const mon = mondayOf(G.today), next = shiftISO(mon, 7);
+    const howCard = (openIt) => `
+      <section class="card ghowcard">
+        <button type="button" class="foldbtn" id="gHow" aria-expanded="${openIt}">
+          <span class="caret">${openIt ? "▾" : "▸"}</span>
+          <h2>How it works</h2></button>
+        ${openIt ? howtoList() : ""}
+      </section>`;
+    const exCard = (openIt) => `
+      <section class="card ghowcard">
+        <button type="button" class="foldbtn" id="gEx" aria-expanded="${openIt}">
+          <span class="caret">${openIt ? "▾" : "▸"}</span>
+          <h2>See an example</h2></button>
+        ${openIt ? `<p class="hint" style="margin-top:8px">A plan four weeks in, on a Thursday.
+          Read only.</p>` : ""}
+      </section>
+      ${openIt ? `<div class="exwrap">${exampleParts()}</div>` : ""}`;
+
     if (!G.cycle) return head + `
       <section class="card">
-        <p class="eyebrow">The 12 Week Year</p>
+        <p class="eyebrow">The ONE Thing · The 12 Week Year</p>
         <h2 style="margin:4px 0 0;font-family:var(--display);font-weight:500;font-size:22px">
-          A year's work in twelve weeks.</h2>
-        <p class="hint" style="margin-top:6px">Write a vision. Set up to three goals, each with
-          one number to move and the tactics that move it. Every week, do what you planned:
-          <button type="button" class="linkbtn" data-edit="goal" data-metric="goals"
-            style="font-size:inherit">${goalWin()}%</button> of it wins the week.</p>
+          A year's work in twelve weeks, aimed at one thing.</h2>
+        <p class="hint" style="margin-top:6px">Write where you are going, from Someday down to today.
+          Set up to three goals, each with one number to move and the actions that move it. Tick
+          the days you do them: <button type="button" class="linkbtn" data-edit="goal" data-metric="goals"
+          style="font-size:inherit">${goalWin()}%</button> of the plan wins the week.</p>
         <div class="gstart">
           <button class="btn" data-gstart="${mon}">Start this week · ${esc(shortDay(mon))}</button>
           <button class="btn-quiet" data-gstart="${next}">Start next Monday · ${esc(shortDay(next))}</button>
+          <button class="btn-quiet" data-gexample="${mon}">Start from the example</button>
         </div>
         ${G.err ? `<p class="terr">${esc(G.err)}</p>` : ""}
       </section>
-      <section class="card">
-        <p class="eyebrow">How it works</p>
-        ${howtoList()}
-      </section>` + foot;
+      ${howCard(G.help !== false)}
+      ${exCard(G.ex !== false)}` + foot;
 
-    const doc = G.cycle, cur = curWeek(), w = G.sel, open = lastOpen();
-    const pre = cur < 1, over = cur > 12;
-    const T = weekTally(doc, w);
+    const doc = G.cycle, cur = curWeek(), over = cur > 12;
+    const C = { doc, cur, w: G.sel, dow: dowOf(G.today), ro: false };
     const played = [];
-    for (let i = 1; i <= open && !pre; i++) { const p = weekTally(doc, i).pct; if (p !== null) played.push(p); }
+    for (let i = 1; i <= lastOpen() && cur >= 1; i++) { const p = weekTally(doc, i).pct; if (p !== null) played.push(p); }
     const avg = played.length ? Math.round(played.reduce((a, b) => a + b, 0) / played.length) : null;
-
-    const weekCard = `
-      <section class="card">
-        ${dayNav({ ids: ["gPrev", "gNext", "gToday"], unit: "week", todayWord: "this week",
-                   atToday: pre || w >= open,
-                   label: pre ? `Starts ${esc(shortDay(doc.start_date))}` : `Week ${w} of 12` })}
-        <div class="domino" style="padding-top:10px">
-          <b class="big" style="color:${T.pct !== null && T.pct >= goalWin() ? "var(--work)" : "var(--ink)"}">${
-            T.pct === null ? "–" : T.pct + "%"}</b>
-          <span class="of" style="text-decoration:none">${T.due
-            ? `${T.done} of ${T.due} done` : "nothing planned"} · ${esc(weekSpan(doc.start_date, w))}</span>
-        </div>
-        <div class="gbars" role="group" aria-label="The twelve weeks">
-          <em class="gline" aria-hidden="true" style="top:${((100 - goalWin()) * 0.56).toFixed(1)}px"></em>
-          ${Array.from({ length: 12 }, (_, k) => k + 1).map((i) => {
-            const p = weekTally(doc, i).pct, fut = pre || i > open;
-            return `<button type="button" class="gbar${i === w ? " sel" : ""}${fut ? " fut" : ""}${
-              !fut && p !== null && p >= goalWin() ? " win" : ""}" data-gweek="${i}" ${fut ? "disabled" : ""}
-              aria-label="Week ${i}: ${fut ? "to come" : p === null ? "nothing due" : p + "%"}">
-              <span class="gt"><i style="height:${fut || p === null ? 0 : Math.max(4, p)}%"></i></span>
-              <span>${i}</span></button>`;
-          }).join("")}
-        </div>
-        <div class="gfoot"><span>${avg === null ? "No weeks scored yet"
-          : `Average ${avg}% over ${played.length} week${played.length === 1 ? "" : "s"}`}</span>
-          <button type="button" class="linkbtn" data-edit="goal" data-metric="goals"
-            style="font-size:12px;color:var(--muted)">${goalWin()}% wins a week</button></div>
-      </section>`;
-
     const overCard = !over ? "" : `
       <section class="card" style="background:var(--work-soft)">
         <p class="eyebrow">Week ${cur > 13 ? "13 and beyond" : "13"}</p>
@@ -5607,107 +6014,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <button class="btn" id="gNew2" style="width:100%;margin-top:12px;background:var(--work)">
           Start the next 12 weeks</button>
       </section>`;
-
-    const visionCard = `
-      <section class="card">
-        <div class="ghead"><p class="eyebrow">Vision</p>
-          ${doc.vision || G.edit === "vision" ? `<button type="button" class="linkbtn" id="gVisEdit">${
-            G.edit === "vision" ? "Done" : "Edit"}</button>` : ""}</div>
-        ${G.edit === "vision"
-          ? `<textarea class="field gvis" id="gVisIn" rows="4" maxlength="2000"
-               placeholder="Where are these twelve weeks taking you? A few sentences, in the present tense.">${esc(doc.vision)}</textarea>`
-          : doc.vision ? `<p class="gvtext">${esc(doc.vision)}</p>`
-          : `<button type="button" class="gempty" id="gVisEdit">Write your vision: where these twelve weeks are taking you.</button>`}
-      </section>`;
-
-    // How often: every day, every week, or one week. "d" / "" / "1"–"12".
-    const freqOf = (t) => t.daily ? "d" : t.week ? String(t.week) : "";
-    const weekOpts = (sel) => [["d", "Every day"], ["", "Every week"]]
-      .concat(Array.from({ length: 12 }, (_, k) => [String(k + 1), `Week ${k + 1}`]))
-      .map(([v, l]) => `<option value="${v}" ${sel === v ? "selected" : ""}>${l}</option>`).join("");
-
-    const goalCard = (g, n) => {
-      if (G.edit === g.id) return `
-        <section class="card goal">
-          <div class="ghead"><span class="gnum">${n}</span>
-            <input class="field gtitle" data-gf="title" data-g="${g.id}" maxlength="200"
-              value="${esc(g.title)}" placeholder="The result, e.g. Finish the book draft" aria-label="Goal">
-            <button type="button" class="linkbtn" data-gdone="${g.id}">Done</button></div>
-          <label class="glab">KPI · the number this goal moves</label>
-          <div class="gkpirow">
-            <input class="field" data-gf="kpi" data-g="${g.id}" maxlength="80" value="${esc(g.kpi)}"
-              placeholder="e.g. Chapters" aria-label="KPI name">
-            <input class="field gnumin" data-gf="kpi_now" data-g="${g.id}" inputmode="decimal"
-              value="${g.kpi_now ?? ""}" placeholder="now" aria-label="KPI now">
-            <span>/</span>
-            <input class="field gnumin" data-gf="kpi_target" data-g="${g.id}" inputmode="decimal"
-              value="${g.kpi_target ?? ""}" placeholder="goal" aria-label="KPI goal"></div>
-          <label class="glab">Tactics · what you will do, and when</label>
-          <ul class="gtedit">${g.tactics.map((t) => `
-            <li><span class="ttl">${esc(t.title)}</span>
-              <select class="tmove" data-gtweek="${t.id}" aria-label="How often">${weekOpts(freqOf(t))}</select>
-              <button type="button" class="tx" data-gtdel="${t.id}" aria-label="Remove ${esc(t.title)}">&times;</button>
-            </li>`).join("")}</ul>
-          <form class="tadd" data-gtadd="${g.id}">
-            <input class="field" maxlength="200" placeholder="Add a tactic, e.g. Write 5 mornings" aria-label="New tactic" style="flex-basis:100%">
-            <select class="tmove" aria-label="How often">${weekOpts("d")}</select>
-            <button class="btn" type="submit" style="background:var(--work)">Add</button>
-          </form>
-          <button type="button" class="linkbtn gdel" data-gdel="${g.id}">Remove this goal</button>
-        </section>`;
-      const due = g.tactics.filter((t) => dueIn(t, w));
-      const kp = Number(g.kpi_target) > 0 && g.kpi_now !== null
-        ? Math.max(0, Math.min(100, Number(g.kpi_now) / Number(g.kpi_target) * 100)) : 0;
-      return `
-        <section class="card goal">
-          <div class="ghead"><span class="gnum">${n}</span>
-            <h3>${g.title ? esc(g.title) : `<span style="color:var(--muted)">Untitled goal</span>`}</h3>
-            <button type="button" class="linkbtn" data-gedit="${g.id}">Edit</button></div>
-          ${g.kpi ? `
-            <div class="gkpi"><span>${esc(g.kpi)}</span><b>${fmtNum(g.kpi_now)} / ${fmtNum(g.kpi_target)}</b></div>
-            <div class="gkbar"><i style="width:${kp}%"></i></div>` : ""}
-          ${due.length ? `<ul class="tlist gtl">${due.map((t) => {
-              const locked = pre || w > open;
-              if (t.daily) {
-                // Seven boxes, Monday to Sunday. Days not yet reached this
-                // week cannot be ticked; today is ringed.
-                const n = [1, 2, 3, 4, 5, 6, 7].filter((d) => hasMark(t, w, d)).length;
-                return `<li class="task gdaily${n === 7 ? " done" : ""}"><div class="trow">
-                  <span class="ttl">${esc(t.title)}</span>
-                  <em class="gtag">${n}/7 · daily</em></div>
-                  <div class="gdays">${["M", "T", "W", "T", "F", "S", "S"].map((L, k) => {
-                    const d = k + 1, on = hasMark(t, w, d);
-                    const future = locked || (w === cur && d > todayDow());
-                    return `<button type="button" class="gday${on ? " on" : ""}${w === cur && d === todayDow() ? " today" : ""}"
-                      data-gday="${t.id}:${d}" aria-pressed="${on}" ${future ? "disabled" : ""}
-                      aria-label="${esc(t.title)}, ${["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"][k]}"><span>${L}</span></button>`;
-                  }).join("")}</div></li>`;
-              }
-              const d = hasMark(t, w, 0);
-              return `<li class="task${d ? " done" : ""}"><div class="trow">
-                <button type="button" class="tbox" data-gtick="${t.id}" aria-pressed="${d}"
-                  ${locked ? "disabled" : ""}
-                  aria-label="${d ? "Mark not done" : "Mark done"}: ${esc(t.title)}"></button>
-                <span class="ttl">${esc(t.title)}</span>
-                <em class="gtag">${t.week ? "wk " + t.week : "weekly"}</em></div></li>`;
-            }).join("")}</ul>`
-          : `<p class="hint" style="margin-top:12px">${g.tactics.length
-              ? `Nothing due in week ${w}.` : "No tactics yet. Tap Edit to add the actions that move this goal."}</p>`}
-        </section>`;
-    };
-
-    const howCard = `
-      <section class="card ghowcard">
-        <button type="button" class="foldbtn" id="gHow" aria-expanded="${!!G.help}">
-          <span class="caret">${G.help ? "\u25be" : "\u25b8"}</span>
-          <h2>How the 12 Week Year works</h2></button>
-        ${G.help ? howtoList() : ""}
-      </section>`;
-
-    return head + overCard + weekCard + howCard + visionCard +
-      doc.goals.map((g, i) => goalCard(g, i + 1)).join("") +
-      (doc.goals.length < 3 ? `<button type="button" class="btn-quiet gadd" id="gAdd">+ Add a goal</button>` : "") +
+    return head + overCard + cascadeCard(C) + scoreCard(C) + resultsCard(C) + planCard(C) +
       (G.err ? `<p class="terr">${esc(G.err)}</p>` : "") +
+      howCard(!!G.help) + exCard(!!G.ex) +
       `<button type="button" class="linkbtn gnew" id="gNew">Start a new 12 weeks</button>` + foot;
   }
 
@@ -5719,16 +6028,18 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const G = state.goals;
     if (!G) return;
     const doc = G.cycle;
-    const findT = (id) => { for (const g of doc.goals) { const t = g.tactics.find((x) => x.id === id);
-                                                        if (t) return { g, t }; } return {}; };
-
+    on("gHow", "click", () => { G.help = !(G.cycle ? !!G.help : G.help !== false); render(); });
+    on("gEx", "click", () => { G.ex = !(G.cycle ? !!G.ex : G.ex !== false); render();
+      if (G.ex) document.querySelector(".exwrap")?.scrollIntoView({ block: "start", behavior: "smooth" }); });
     document.querySelectorAll("[data-gstart]").forEach((el) =>
       el.addEventListener("click", () => startCycle(el.dataset.gstart)));
+    document.querySelectorAll("[data-gexample]").forEach((el) =>
+      el.addEventListener("click", () => startCycle(el.dataset.gexample, true)));
     const askNew = () => {
       const mon = mondayOf(G.today), next = shiftISO(mon, 7);
       openModal({
         title: "Start a new 12 weeks?",
-        body: "This plan is kept. The new one becomes your current twelve weeks.",
+        body: "This plan is kept. Someday and 3 years carry over; the goals start fresh.",
         buttons: [
           { label: `Start this week · ${shortDay(mon)}`, kind: "go", run: () => startCycle(mon) },
           { label: `Start next Monday · ${shortDay(next)}`, kind: "quiet", run: () => startCycle(next) },
@@ -5737,25 +6048,91 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       });
     };
     on("gNew", "click", askNew);
-    on("gHow", "click", () => { G.help = !G.help; render(); });
     on("gNew2", "click", askNew);
     if (!doc) return;
+    const open = lastOpen(), cur = curWeek();
+    const findT = (id) => { for (const g of doc.goals) { const t = g.tactics.find((x) => x.id === id);
+                                                        if (t) return { g, t }; } return {}; };
 
-    const open = lastOpen();
+    // ---- the week ----
     on("gPrev", "click", () => { G.sel = Math.max(1, G.sel - 1); render(); });
     on("gNext", "click", () => { G.sel = Math.min(open, G.sel + 1); render(); });
     on("gToday", "click", () => { G.sel = open; render(); });
-    document.querySelectorAll("[data-gweek]").forEach((el) =>
-      el.addEventListener("click", () => { G.sel = Number(el.dataset.gweek); render(); }));
+    document.querySelectorAll("[data-gday]").forEach((el) =>
+      el.addEventListener("click", () => {
+        const [id, d] = el.dataset.gday.split(":");
+        const { t } = findT(id);
+        if (!t || G.sel > open || cur < 1) return;
+        toggleMark(t, G.sel, Number(d));
+        render(); saveGoals();
+      }));
 
-    on("gVisEdit", "click", () => {
-      G.edit = G.edit === "vision" ? null : "vision"; render();
-      if (G.edit === "vision") document.getElementById("gVisIn")?.focus();
+    // ---- goal setting to the now ----
+    const wk = Math.min(12, Math.max(1, cur));
+    const focusKey = (k) => k === "fw" ? "w" + wk : `w${wk}d${dowOf(G.today)}`;
+    document.querySelectorAll("[data-cedit]").forEach((el) =>
+      el.addEventListener("click", () => {
+        G.edit = "c:" + el.dataset.cedit; render();
+        const f = document.querySelector(`[data-cf="${el.dataset.cedit}"]`);
+        if (f) { f.focus(); f.setSelectionRange(f.value.length, f.value.length); }
+      }));
+    document.querySelectorAll("[data-cf]").forEach((el) => {
+      const k = el.dataset.cf;
+      el.addEventListener("input", () => {
+        if (k === "vision" || k === "three_year") doc[k] = el.value.slice(0, k === "vision" ? 2000 : 1000);
+        else {
+          const v = el.value.slice(0, 200);
+          doc.focus = doc.focus || {};
+          if (v.trim()) doc.focus[focusKey(k)] = v; else delete doc.focus[focusKey(k)];
+        }
+        saveGoals();
+      });
+      const done = () => { if (G.edit === "c:" + k) { G.edit = null; render(); } };
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && (el.tagName === "INPUT" || !e.shiftKey)) { e.preventDefault(); done(); }
+        if (e.key === "Escape") done();
+      });
+      el.addEventListener("blur", () => setTimeout(() => { if (el.isConnected) done(); }, 0));
     });
-    on("gVisIn", "input", (e) => { doc.vision = e.target.value.slice(0, 2000); saveGoals(); });
+    document.querySelectorAll("[data-cone]").forEach((el) =>
+      el.addEventListener("change", () => { doc.one_goal = el.value || null; render(); saveGoals(); }));
 
+    // ---- KPI, week by week ----
+    const rs = document.querySelector(".card:not(.ro) .rs-wrap");
+    if (rs) {
+      const c = rs.querySelector("th.cur");
+      if (c) rs.scrollLeft = Math.max(0, c.offsetLeft - rs.clientWidth / 2);
+    }
+    document.querySelectorAll("[data-kw]").forEach((el) =>
+      el.addEventListener("click", () => {
+        G.kedit = el.dataset.kw; render();
+        const f = document.querySelector(`[data-kin="${G.kedit}"]`);
+        if (f) { f.focus(); f.select(); }
+      }));
+    document.querySelectorAll("[data-kin]").forEach((el) => {
+      const [gid, w] = el.dataset.kin.split(":");
+      const commit = () => {
+        if (G.kedit !== el.dataset.kin) return;
+        G.kedit = null;
+        const g = doc.goals.find((x) => x.id === gid);
+        if (g) {
+          g.kpi_log = g.kpi_log || {};
+          const v = numOrNull(el.value);
+          if (v === null) delete g.kpi_log[w]; else g.kpi_log[w] = v;
+          saveGoals();
+        }
+        render();
+      };
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") { e.preventDefault(); commit(); }
+        if (e.key === "Escape") { G.kedit = null; render(); }
+      });
+      el.addEventListener("blur", () => setTimeout(() => { if (el.isConnected) commit(); }, 0));
+    });
+
+    // ---- the plan ----
     document.querySelectorAll("[data-gedit]").forEach((el) =>
-      el.addEventListener("click", () => { G.edit = el.dataset.gedit; render(); }));
+      el.addEventListener("click", () => { G.edit = "g:" + el.dataset.gedit; render(); }));
     document.querySelectorAll("[data-gdone]").forEach((el) =>
       el.addEventListener("click", () => { G.edit = null; render(); }));
     document.querySelectorAll("[data-gf]").forEach((el) =>
@@ -5766,29 +6143,11 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         g[f] = f === "kpi_now" || f === "kpi_target" ? numOrNull(el.value) : el.value;
         saveGoals();
       }));
-
-    document.querySelectorAll("[data-gtick]").forEach((el) =>
+    document.querySelectorAll("[data-gstar]").forEach((el) =>
       el.addEventListener("click", () => {
-        const { t } = findT(el.dataset.gtick);
-        if (!t || G.sel > open) return;
-        toggleMark(t, G.sel, 0);
+        doc.one_goal = doc.one_goal === el.dataset.gstar ? null : el.dataset.gstar;
         render(); saveGoals();
       }));
-    document.querySelectorAll("[data-gday]").forEach((el) =>
-      el.addEventListener("click", () => {
-        const [id, d] = el.dataset.gday.split(":");
-        const { t } = findT(id);
-        if (!t || G.sel > open) return;
-        toggleMark(t, G.sel, Number(d));
-        render(); saveGoals();
-      }));
-    // Changing how often keeps only the ticks the new rhythm can hold.
-    const setFreq = (t, v) => {
-      t.daily = v === "d";
-      t.week = v && v !== "d" ? Number(v) : null;
-      t.marks = (t.marks || []).filter((m) =>
-        (t.daily ? m[1] >= 1 : m[1] === 0) && (!t.week || m[0] === t.week));
-    };
     document.querySelectorAll("[data-gtweek]").forEach((el) =>
       el.addEventListener("change", () => {
         const { t } = findT(el.dataset.gtweek);
@@ -5811,7 +6170,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         const title = (inp.value || "").trim();
         if (!g || !title) return;
         if (g.tactics.length >= 30) { G.err = "Thirty tactics per goal at most."; render(); return; }
-        const t = { id: uuid(), title: title.slice(0, 200), week: null, daily: false, marks: [] };
+        const t = { id: uuid(), title: title.slice(0, 200), week: null, times: 7, daily: true, marks: [] };
         setFreq(t, sel.value);
         g.tactics.push(t);
         render(); saveGoals();
@@ -5820,10 +6179,11 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     document.querySelectorAll("[data-gdel]").forEach((el) =>
       el.addEventListener("click", () => openModal({
         title: "Remove this goal?",
-        body: "Its tactics and ticks go with it.",
+        body: "Its tactics, ticks and KPI log go with it.",
         buttons: [
           { label: "Remove goal", kind: "bad", run: () => {
               doc.goals = doc.goals.filter((x) => x.id !== el.dataset.gdel);
+              if (doc.one_goal === el.dataset.gdel) doc.one_goal = null;
               G.edit = null; render(); saveGoals();
             } },
           { label: "Keep it", kind: "quiet" },
@@ -5831,7 +6191,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       })));
     on("gAdd", "click", () => {
       if (doc.goals.length >= 3) return;
-      const g = newGoal(); doc.goals.push(g); G.edit = g.id; render(); saveGoals();
+      const g = newGoal(); doc.goals.push(g);
+      if (doc.goals.length === 1) doc.one_goal = g.id;
+      G.edit = "g:" + g.id; render(); saveGoals();
       document.querySelector(`[data-g="${g.id}"][data-gf="title"]`)?.focus();
     });
   }
@@ -5972,10 +6334,15 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       call("app_cycle", { p_code: state.code, p_person: state.meId }),
     ]);
     const tasks = ((a && a.tasks) || []).filter((x) => !x.parent_id && !x.done)
-      .sort((x, y) => (x.quadrant - y.quadrant) || (x.position - y.position))
-      .map((x) => ({ label: x.title, task_id: x.id, tag: ["", "Do", "Decide", "Delegate", "Delete"][x.quadrant] }));
+      .sort((x, y) => (x.position - y.position) || ((x.quadrant || 1) - (y.quadrant || 1)))
+      .map((x, i) => ({ label: x.title, task_id: x.id, tag: "#" + (i + 1) }));
     const cy = b && b.cycle;
     const tactics = cy ? cy.goals.flatMap((g) => g.tactics.map((t) => ({ label: t.title, tag: g.title }))) : [];
+    // V3.4. Today's ONE Thing comes first: it is what the time is for.
+    if (cy && b.today) {
+      const wk = weekOf(cy, b.today), one = wk >= 1 && wk <= 12 && (cy.focus || {})[`w${wk}d${dowOf(b.today)}`];
+      if (one) tactics.unshift({ label: String(one).slice(0, 120), tag: "Today's ONE Thing" });
+    }
     w.pickData = { tasks, tactics };
   }
 
