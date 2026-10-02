@@ -1127,6 +1127,77 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
   text-underline-offset:3px; }
 .empty { text-align:center; padding:26px 16px; color:var(--muted); font-size:14px; }
 
+/* ---------- V3.4: the dials, any three ---------------------------------- */
+.slab { display:inline-flex; align-items:center; gap:5px; border:none; background:none; font-family:inherit;
+  cursor:pointer; padding:4px 8px; border-radius:8px; }
+.slab i { font-style:normal; font-size:15px; letter-spacing:0; color:var(--line-strong); transform:translateY(-1px); }
+.dnum.dmin { font-size:clamp(38px, 12vw, 54px); }
+.dgo { border:none; background:none; color:var(--ink); cursor:pointer; padding:0 6px; line-height:1.1; }
+.dnone { color:var(--line-strong) !important; }
+.dtime { position:relative; display:block; cursor:pointer; padding:0 8px; }
+.dtime .dval { display:block; }
+.dedit { display:block; margin:2px auto 0; border:none; background:none; font-family:inherit; font-size:12px;
+  color:var(--muted); cursor:pointer; padding:6px 10px; text-decoration:underline dotted;
+  text-decoration-color:var(--line-strong); text-underline-offset:3px; }
+
+/* ---------- V3.4: one sheet for standards and for choosing dials -------- */
+.sheetbg { position:fixed; inset:0; z-index:44; background:rgba(10,14,12,.36); animation:mfade .14s ease both; }
+.stdsheet { position:fixed; z-index:45; left:12px; right:12px; top:calc(env(safe-area-inset-top, 0px) + 56px);
+  max-width:420px; margin:0 auto; max-height:calc(100vh - 120px); overflow:auto;
+  background:var(--surface); border-radius:20px; padding:20px 18px 16px;
+  box-shadow:0 24px 60px -20px rgba(0,0,0,.45); animation:mrise .18s ease both; }
+.stdsheet h3 { margin:2px 0 0; font-family:var(--display); font-weight:500; font-size:24px; }
+.stdrow { display:flex; align-items:baseline; justify-content:center; gap:8px; margin-top:14px;
+  border-bottom:2px solid var(--accent); padding-bottom:4px; }
+.stdin { flex:1; min-width:0; border:none; background:none; text-align:center; font-family:var(--mono);
+  font-size:40px; font-weight:500; letter-spacing:-.02em; color:var(--ink); padding:0; }
+.stdin:focus { outline:none; }
+.stdu { flex:none; font-size:15px; color:var(--muted); }
+.stdbtns { display:flex; gap:10px; margin-top:16px; }
+.stdbtns .btn, .stdbtns .btn-quiet { flex:1; padding:13px 10px; font-size:15px; border-radius:12px; }
+.dpg { margin:16px 0 6px; font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.dpgrid { display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; }
+.dpk { position:relative; height:64px; border:1.5px solid var(--line); border-radius:14px; background:var(--surface);
+  font-family:inherit; font-size:13px; font-weight:600; color:var(--ink-2); cursor:pointer; padding:6px 4px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; }
+.dpk i { font-style:normal; width:20px; height:20px; border-radius:50%; display:grid; place-items:center;
+  font-family:var(--mono); font-size:11px; border:1.5px solid var(--line-strong); color:transparent; }
+.dpk.on { border-color:var(--accent); background:var(--soft); color:var(--ink); }
+.dpk.on i { background:var(--accent); border-color:var(--accent); color:#fff; }
+
+/* ---------- V3.4: the family, every number ------------------------------ */
+.fcard { padding:13px 14px 12px; border-top:1px solid var(--line); }
+.fcard:first-child { border-top:none; }
+.fhead { display:flex; align-items:center; gap:10px; }
+.fhead .tapedit { font-size:15px; }
+.fhead .fstreak { margin-left:auto; font-family:var(--mono); font-size:11.5px; color:var(--muted); }
+.fhead .fyou { font-style:normal; font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--hc); background:color-mix(in oklab, var(--hc) 12%, var(--surface)); padding:2px 7px; border-radius:99px; }
+.fgrid { display:grid; grid-template-columns:repeat(3, 1fr); gap:9px 8px; margin:11px 0 0 44px; align-items:start; }
+.fcell { display:flex; flex-direction:column; justify-content:flex-start; align-items:flex-start; gap:1px;
+  min-width:0; text-align:left; border:none; background:none; padding:0; margin:0;
+  font:inherit; line-height:1.5; color:inherit; }
+.fcell b { font-family:var(--mono); font-size:14.5px; font-weight:500; color:var(--ink); white-space:nowrap;
+  overflow:hidden; text-overflow:ellipsis; font-variant-numeric:tabular-nums; }
+.fcell span { font-size:9.5px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); }
+.fcell.nil b { color:var(--muted); opacity:.55; }
+button.fcell { cursor:pointer; }
+button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--line-strong); text-underline-offset:3px; }
+/* You, among them: first, in your own colour, set a little larger. */
+.fcard.me { position:relative; background:color-mix(in oklab, var(--hc) 7%, var(--surface));
+  box-shadow:inset 3px 0 0 var(--hc); }
+.fcard.me .tapedit { font-family:var(--display); font-weight:500; font-size:19px; color:var(--ink);
+  text-decoration:none; }
+.fcard.me + .fcard { border-top-color:color-mix(in oklab, var(--hc) 20%, var(--line)); }
+
+/* ---------- V3.4: Train ----------------------------------------------------- */
+/* A number carried over from last time and not touched yet: a suggestion,
+   so it is grey, and it is not logged unless you tick it or type over it. */
+.setgrid input.pre { color:var(--muted); }
+.tmoffer { display:block; margin-top:5px; font-size:12px; color:var(--muted); }
+.tmoffer .linkbtn { font-size:12px; color:var(--muted); font-weight:400; }
+.stdline { margin-top:4px; }
+
 </style>
 </head>
 <body>
@@ -1142,7 +1213,7 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "3.3";
+  const APP_VERSION = "3.4";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -1414,6 +1485,74 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
   };
   const scorePct = (v) => Math.round(scorePts(v) / Math.max(1, scoreMax()) * 100);
 
+  /* ---------- V3.4: a standard for every activity ----------------------
+     Nine activities, one shape. Each has a kind that decides how it is
+     typed, shown and scored against its standard:
+       count  a whole number        Steps, Tasks done
+       min    minutes               Train, Cardio, Work
+       pct    a percent             Sleep Score, Goals
+       time   a clock, lower wins   Rise, Rest
+     `key` is the metric the standard is stored under on the server.
+     ------------------------------------------------------------------ */
+  const STD = {
+    steps:  { label:"Step Score",  kind:"count", def:8000, key:"steps",      unit:"steps", short:"Steps" },
+    train:  { label:"Train",       kind:"min",   def:40,   key:"train_min" },
+    cardio: { label:"Cardio",      kind:"min",   def:30,   key:"cardio_min" },
+    sleep:  { label:"Sleep Score", kind:"pct",   def:80,   key:"sleep_pct", short:"Sleep" },
+    rise:   { label:"Rise",        kind:"time",  def:360,  key:"rise_time" },
+    rest:   { label:"Rest",        kind:"time",  def:1350, key:"rest_time" },
+    work:   { label:"Work Score",  kind:"min",   def:180,  key:"work_min",  short:"Work" },
+    goals:  { label:"Goals",       kind:"pct",   def:85,   key:"goal_pct" },
+    tasks:  { label:"Tasks",       kind:"count", def:5,    key:"tasks_done", unit:"done" },
+  };
+  const STD_GROUPS = [
+    ["Exercise",   ["steps", "train", "cardio"]],
+    ["Sleep",      ["sleep", "rise", "rest"]],
+    ["Great Work", ["work", "goals", "tasks"]],
+  ];
+  const DIAL_DEFAULT = ["steps", "work", "sleep"];
+  const STD_FIELD = { steps:"steps_target", train:"train_target", cardio:"cardio_target",
+    sleep:"sleep_target", rise:"rise_target", rest:"rest_target", work:"work_target",
+    goals:"goal_target", tasks:"tasks_target" };
+  // This person's standard, or the default when none was ever set.
+  function stdOf(p, k) {
+    const v = p ? p[STD_FIELD[k]] : null;
+    return v === null || v === undefined || v === "" ? STD[k].def : Number(v);
+  }
+  // Today's value on this person's own day. Null means nothing recorded.
+  function todayOf(p, k) {
+    if (!p) return null;
+    const n = (v) => v === null || v === undefined ? null : Number(v);
+    switch (k) {
+      case "steps":  return p.steps_logged || Number(p.steps) > 0 ? Number(p.steps) : null;
+      case "train":  return Number(p.train_min) > 0 ? Number(p.train_min) : null;
+      case "cardio": return Number(p.cardio_min) > 0 ? Number(p.cardio_min) : null;
+      case "work":   return Number(p.work_min) > 0 ? Number(p.work_min) : null;
+      case "sleep":  return p.items === null || p.items === undefined ? null : scorePct(p.items);
+      case "rise":   return n(p.rise);
+      case "rest":   return n(p.rest);
+      case "goals":  return n(p.goal_pct);
+      case "tasks":  return Number(p.tasks_done) || 0;
+    }
+    return null;
+  }
+  // How far toward the standard, 0 to 100. A time is the other way round:
+  // on or before the standard is 100, and an hour late is 0.
+  function stdPct(k, v, std) {
+    if (v === null || v === undefined) return null;
+    if (STD[k].kind === "time") return Math.max(0, Math.min(100, 100 - (Number(v) - std) / 60 * 100));
+    return std > 0 ? Math.max(0, Math.round(Number(v) / std * 100)) : (Number(v) > 0 ? 100 : 0);
+  }
+  // A value written the way the activity is spoken about.
+  function stdWords(k, v) {
+    if (v === null || v === undefined) return "\u2013";
+    const kind = STD[k].kind;
+    if (kind === "time") return clockWords(v);
+    if (kind === "pct")  return Math.round(Number(v)) + "%";
+    if (kind === "min")  return hm(v);
+    return num(Math.round(Number(v)));
+  }
+
   // The five pillars, in the order they will always appear. Four are dark
   // and unclickable until they are measured; showing them anyway is the
   // honest version of a roadmap, and it stops the board from being
@@ -1587,12 +1726,11 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
     k === "steps" ? p.steps : k === "train" ? p.train_min : p.cardio_min) || 0;
   // V2.1 FIX. Cardio was hard-coded to 0 here, so the Cardio target V1.7
   // let you set was saved and then never shown or used anywhere.
-  const target = (p, k) => k === "steps" ? Number(p.steps_target)  || 0
-                         : k === "train" ? Number(p.train_target)  || 0
-                         : k === "cardio"? Number(p.cardio_target) || 0
-                         : k === "rest"  ? num0(p.rest_target)
+  // V3.4. Every activity has a standard now, so an unset one is the
+  // default rather than zero. Times stay null-able: see hasTarget.
+  const target = (p, k) => k === "rest"  ? num0(p.rest_target)
                          : k === "rise"  ? num0(p.rise_target)
-                         : k === "sleep" ? 100 : 0;
+                         : STD[k] ? stdOf(p, k) : 0;
   // A time target can legitimately be 0 (midnight), so "unset" has to be
   // null rather than falsy.
   const num0 = (v) => (v === null || v === undefined ? 0 : Number(v));
@@ -1816,14 +1954,6 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
     const axis = pts.map((p, i) =>
       `<span style="width:${slot}%">${i % every === 0 ? p.label : ""}</span>`).join("");
 
-    const total = pts.reduce((t, p) => t + p.value, 0);
-    const totalWords = k === "steps"
-      ? `${num(Math.round(total))} steps` : `${num(Math.round(total))} minutes`;
-
-    // The goal is edited by tapping the line it controls.
-    const goalTap = k === "cardio" ? ""
-      : `<button class="tapedit small" data-edit="goal" data-metric="${k}">${
-           goal ? "goal " + num(goal) + (k === "steps" ? "" : " min") : "set a goal"}</button>`;
 
     const svg = `
         <div class="chart${dev ? " dev" : ""}" id="chart-${k}" data-chart="${k}">
@@ -2091,66 +2221,42 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
   // Written to be read in a chat, not on a dashboard: the standings first,
   // who is missing second, the link last. Asterisks are WhatsApp bold.
   function dailyMessage() {
-    // V2.1. The post is about the FAMILY's day. At 8pm Eastern every
-    // overseas relative is already past their own midnight; reading their
-    // own day here is exactly what used to drop them from the post.
-    const done = state.people.filter(banyLog);
-    const missing = state.people.filter((p) => !banyLog(p));
-    const hit = state.people.filter(bdone);
-    // V2.8. Whatever day the roster is showing is the day that gets posted.
-    // At 8pm Eastern, Lahore and Berlin are asleep and half their day is
-    // missing; the morning after, yesterday is complete for everyone.
+    // V3.4. Four things per person and nothing else: Step Score, Train
+    // and Cardio minutes, and the streak. Everyone who has any of the four
+    // gets one line, best Step Score first. The family's name and the
+    // date head it; the link closes it, because the link is how anyone
+    // reading gets into the app.
+    //
+    // The day is the FAMILY's, whatever day the roster is showing, so a
+    // post sent the morning after is yesterday complete in every zone.
     const past = !!state.boardDay;
     const day = new Date(famDayISO() + "T00:00:00Z").toLocaleDateString(undefined,
       { timeZone:"UTC", weekday:"short", month:"short", day:"numeric" });
-
-    const lines = [
-      `*${state.group.name}* \u00b7 ${day}`,
-      `${done.length}/${state.people.length} logged \u00b7 ${hit.length} moved`,
-      "",
-    ];
-
-    // Ranked here, unlike the app: a chat message is skimmed once and the
-    // order is what makes it worth reading. Train is appended only for the
-    // people who did some, so ten relatives is not a wall of text.
-    // V2.3. The post carries the PERCENT of each person's own target, not
-    // the raw count. Ten people with ten different bodies were being
-    // ranked on one number, which read as a leaderboard the oldest and the
-    // injured could never be on. Percent makes the effort comparable.
-    //
-    // The cost, stated plainly because it is real: percent rewards a soft
-    // target. Anybody can be top of this list by asking for less. What
-    // stops that is that the targets are visible in the app to everyone,
-    // so it is a choice made in front of the family rather than in private.
+    // Percent of each person's own standard, so ten different bodies are
+    // compared on effort, not on one number some of them can never reach.
     const pctOf = (p) => {
       const t = target(p, "steps");
-      return t > 0 ? Math.round(bval(p, "steps") / t * 100) : null;
+      return t > 0 && bval(p, "steps") > 0 ? Math.round(bval(p, "steps") / t * 100) : null;
     };
-    const sorted = [...done].sort((a, b) => (pctOf(b) ?? -1) - (pctOf(a) ?? -1));
-    for (const p of sorted) {
-      const met = bdone(p);
-      // Minutes stay absolute: Train and Cardio are named because they are
-      // different things and the family should see which one you did.
-      const bits = [];
-      const pc = pctOf(p);
-      if (pc !== null && bval(p, "steps") > 0) bits.push(pc + "% steps");
-      else if (bval(p, "steps") > 0)           bits.push(num(bval(p, "steps")) + " steps");
-      if (bval(p, "train") > 0)  bits.push(num(bval(p, "train")) + "m train");
-      if (bval(p, "cardio") > 0) bits.push(num(bval(p, "cardio")) + "m cardio");
-      const wm = Number(board(p).work_min) || 0;
-      if (wm > 0) bits.push(hm(wm) + " work");
-      // A streak is a today fact: yesterday's post cannot know it.
-      const streak = !past && p.streak > 1 ? `  (${p.streak}-day streak)` : "";
-      lines.push(`${met ? "\u2705" : "\u25ab\ufe0f"} ${p.name} — ${bits.join(" \u00b7 ")}${streak}`);
-    }
+    // A streak is a today fact: yesterday's post cannot know it.
+    const streakOf = (p) => !past && p.streak > 1 ? p.streak : 0;
+    const rows = state.people.filter((p) => pctOf(p) !== null || bval(p, "train") > 0
+      || bval(p, "cardio") > 0 || streakOf(p));
+    rows.sort((a, b) => (pctOf(b) ?? -1) - (pctOf(a) ?? -1));
 
-    if (missing.length) {
-      lines.push("", `${past ? "Nothing logged" : "Still to log"}: ${missing.map((p) => p.name).join(", ")}`);
+    const lines = [`*${state.group.name}* · ${day}`, ""];
+    for (const p of rows) {
+      const bits = [];
+      if (pctOf(p) !== null)     bits.push(`Step Score ${pctOf(p)}%`);
+      if (bval(p, "train") > 0)  bits.push(`Train ${hm(bval(p, "train"))}`);
+      if (bval(p, "cardio") > 0) bits.push(`Cardio ${hm(bval(p, "cardio"))}`);
+      if (streakOf(p))           bits.push(`${streakOf(p)}-day streak`);
+      lines.push(`*${p.name}* — ${bits.join(" · ")}`);
     }
+    if (!rows.length) lines.push("Nothing logged yet.");
     lines.push("", `${location.origin}${location.pathname}?g=${state.code}`);
     return lines.join("\n");
   }
-
 
 
   /* =================================================================
@@ -2224,10 +2330,16 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
   const liftKey = () => `fhd.lift.${state.code}.${state.meId}.${state.mode}`;
   const exKey   = () => `fhd.ex.${state.code}.${state.meId}.${state.mode}`;
 
-  function saveLocal() {
+  // V3.4 BUG FIX. A draft is filed under its OWN mode. It used to be filed
+  // under whichever page was open, so a Train workout could be saved into
+  // the Cardio slot, or a finish could clear the wrong slot and leave a
+  // finished workout lying around as a draft.
+  const liftKeyFor = (mode) => `fhd.lift.${state.code}.${state.meId}.${mode === "cardio" ? "cardio" : "lift"}`;
+  function saveLocal(mode) {
+    const a = state.lift.active;
     try {
-      if (state.lift.active) localStorage.setItem(liftKey(), JSON.stringify(state.lift.active));
-      else localStorage.removeItem(liftKey());
+      if (a) localStorage.setItem(liftKeyFor(a.mode || state.mode), JSON.stringify(a));
+      else localStorage.removeItem(liftKeyFor(mode || state.mode));
     } catch {}
   }
   function loadLocal() {
@@ -2272,7 +2384,7 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
   // not a number that rewards doing light things many times.
   function distanceOf(a) {
     let m = 0;
-    for (const x of a.ex) for (const s of x.sets) if (s.on) m += Number(s.d) || 0;
+    for (const x of a.ex) for (const s of x.sets) if (counts(s, x.kind)) m += Number(s.d) || 0;
     return m;
   }
   function totalsWords(a) {
@@ -2284,9 +2396,19 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
                                            : (n === 1 ? " set"   : " sets")));
     return bits.join(" \u00b7 ");
   }
+  // V3.4. A set counts if you ticked it OR typed in it. The numbers a
+  // template carries over from last time are a suggestion, drawn grey,
+  // and count only once you tick or change them. So: update the numbers
+  // you did, leave the sets you skipped, press Finish. No question asked.
+  const hasNumsSet = (st, kind) => kind === "duration" ? st.t > 0
+    : kind === "distance_time" ? (st.d > 0 || st.t > 0) : (st.w > 0 || st.r > 0);
+  const untouched = (s) => !s.typed && s.pw !== undefined &&
+    (Number(s.w) || 0) === (Number(s.pw) || 0) && (Number(s.r) || 0) === (Number(s.pr) || 0) &&
+    (Number(s.d) || 0) === (Number(s.pd) || 0) && (Number(s.t) || 0) === (Number(s.pt) || 0);
+  const counts = (s, kind) => !!s.on || (hasNumsSet(s, kind) && !untouched(s));
   function doneSets(a) {
     let n = 0;
-    for (const x of a.ex) for (const s of x.sets) if (s.on) n++;
+    for (const x of a.ex) for (const s of x.sets) if (counts(s, x.kind)) n++;
     return n;
   }
 
@@ -2295,7 +2417,7 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
   function setsPayload(a) {
     const out = [];
     a.ex.forEach((x, pos) => x.sets.forEach((s, i) => {
-      if (!s.on || !String(x.name || "").trim()) return;
+      if (!counts(s, x.kind) || !String(x.name || "").trim()) return;
       out.push({ position: pos, set_index: i, exercise: x.name.trim(),
                  kind: x.kind || "weight_reps",
                  weight: Number(s.w) || 0, reps: Number(s.r) || 0,
@@ -2324,7 +2446,10 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
       p_code: state.code, p_person: state.meId, p_session: a.id,
       p_label: a.label || "", p_note: a.note || null, p_date: a.date,
       p_duration: durationMin(a), p_sets: setsPayload(a),
-      p_finished: !!(finish || a.pendingFinish), p_mode: a.mode || state.mode,
+      // V3.4. A past workout being edited is already finished. Autosaving
+      // it as unfinished hid it from History until Finish was pressed, and
+      // for ever if it never was.
+      p_finished: !!(finish || a.pendingFinish || a.edit), p_mode: a.mode || state.mode,
       p_tz: deviceTZ(),
       // Somebody typed this duration, or edited the session from History.
       // Either way it is a deliberate statement about that day.
@@ -2370,6 +2495,31 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
     state.lift.sessions = res.sessions || [];
     if ((res.exercises || []).length) cacheExercises(res.exercises);
     state.lift.loaded = true;
+    await recoverLift();
+  }
+
+  // V3.4. The draft lives on the phone, and a phone can lose it: Safari
+  // and the home-screen icon keep separate storage, and a cleared browser
+  // clears it. Every few seconds a workout in progress is also on the
+  // server, so if this phone has nothing, the server's copy from the last
+  // twelve hours comes back as the workout in progress.
+  async function recoverLift() {
+    if (A() || !state.meId || !navigator.onLine) return;
+    const mode = state.mode;
+    const res = await call("app_lift_open", { p_code: state.code, p_person: state.meId, p_mode: mode });
+    const s = res && res.session;
+    if (!s || A() || state.mode !== mode) return;
+    const byPos = new Map();
+    for (const r of (s.sets || [])) {
+      if (!byPos.has(r.position)) byPos.set(r.position, { name: r.exercise, kind: r.kind || "weight_reps", sets: [] });
+      byPos.get(r.position).sets.push({ w: Number(r.weight) || 0, r: Number(r.reps) || 0,
+        d: Number(r.distance) || 0, t: Number(r.seconds) || 0, on: true });
+    }
+    state.lift.active = { id: s.id, label: s.label || "", note: s.note || "", date: s.entry_date,
+      startedAt: Date.parse(s.created_at) || Date.now(), endedAt: null, pendingFinish: false,
+      mode: s.mode || mode, durOverride: null, fromTile: !!s.label, recovered: true,
+      ex: [...byPos.entries()].sort((x, y) => x[0] - y[0]).map(([, v]) => v) };
+    saveLocal();
   }
 
   // Starting a labelled day pulls the last one and lays it out ready to
@@ -2378,8 +2528,43 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
   // V1.7. `iso` is which day the session belongs to. Until now it was
   // always today with no way to say otherwise, which meant a Cardio
   // session missed on Tuesday could never be recorded at all.
-  async function startSession(label, iso) {
-    state.lift.msg = null;
+  // V3.4 BUG FIX: "my workout was closed and wiped out." Tapping a
+  // template tile, Start an Empty Workout, an empty bar on the chart, or
+  // Edit on a past workout each started a NEW session on top of the one
+  // in progress, silently, and the old one was gone. Now a workout with
+  // anything in it is never replaced without a choice.
+  const hasContent = (a) => !!a && (a.ex || []).some((x) => (x.sets || []).some((s) =>
+    s.on || hasNumsSet(s, x.kind || "weight_reps")));
+  function guardActive(then, what) {
+    const cur = A();
+    if (!cur || cur.pendingFinish || !hasContent(cur)) {
+      if (cur && !cur.pendingFinish) dropServerCopy(cur);
+      return then();
+    }
+    const name = cur.label || (cur.mode === "cardio" ? "An activity" : "A workout");
+    openModal({
+      title: `${name} is still in progress`,
+      body: `${totalsWords(cur)} so far. Starting ${what} would replace it.`,
+      buttons: [
+        { label: `Resume ${cur.label || "it"}`, kind: "go",
+          run: () => { state.mode = cur.mode || state.mode; state.view = "session"; render(); } },
+        { label: `Discard it and start ${what}`, kind: "bad",
+          run: () => { dropServerCopy(cur); state.lift.active = null; saveLocal(cur.mode); return then(); } },
+        { label: "Cancel", kind: "quiet" },
+      ],
+    });
+  }
+  // A discarded workout must not come back from the server later.
+  function dropServerCopy(a) {
+    if (!a || !a.id || a.pendingFinish || a.edit) return;
+    call("app_lift_delete", { p_code: state.code, p_person: state.meId, p_session: a.id });
+  }
+
+  function startSession(label, iso) {
+    return guardActive(() => startSessionNow(label, iso), label ? `“${label}”` : "a new one");
+  }
+  async function startSessionNow(label, iso) {
+    state.lift.msg = null; state.lift.offer = null;
     const a = { id: uuid(), label: label || "", date: iso || todayISO(),
                 startedAt: Date.now(), endedAt: null, ex: [], pendingFinish: false,
                 mode: state.mode, durOverride: null, note: "",
@@ -2908,7 +3093,7 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
       return `<input type="${f === "t" ? "text" : "number"}"
              inputmode="${f === "t" ? "numeric" : numeric ? "numeric" : "decimal"}"
              data-ex="${i}" data-set="${j}" data-f="${f}"
-             class="${s.on ? "on" : ""}" value="${val}" placeholder="${ph}"
+             class="${s.on ? "on" : !counts(s, kind) && hasNumsSet(s, kind) ? "pre" : ""}" value="${val}" placeholder="${ph}"
              aria-label="Set ${j + 1} ${label}">`;
     };
 
@@ -3045,6 +3230,9 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
         else if (f === "d") s.d = v === "" ? 0 : dIn(Number(v));
         else if (f === "w") s.w = v === "" ? 0 : wIn(Number(v));
         else                s.r = v === "" ? 0 : Number(v);
+        s.typed = true;
+        host.querySelectorAll(`input[data-ex="${el.dataset.ex}"][data-set="${el.dataset.set}"]`)
+          .forEach((f) => f.classList.remove("pre"));
         paintTotals();
         queueSync();
       });
@@ -3057,7 +3245,8 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
         s.on = !s.on;
         el.setAttribute("aria-pressed", String(s.on));
         host.querySelectorAll(`input[data-ex="${xi}"][data-set="${si}"]`)
-            .forEach((f) => f.classList.toggle("on", s.on));
+            .forEach((f) => { f.classList.toggle("on", s.on);
+              f.classList.toggle("pre", !counts(s, a.ex[xi].kind) && hasNumsSet(s, a.ex[xi].kind)); });
         paintTotals();
         queueSync();
       });
@@ -3144,6 +3333,15 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
     });
 
     if (state.view === "exercise") {
+      on("tmplUpd", "click", async () => {
+        const o = state.lift.offer;
+        if (!o) return;
+        state.lift.offer = null;
+        const r = await call("app_template_save", { p_code: state.code, p_person: state.meId,
+          p_label: o.label, p_mode: o.mode, p_items: o.items });
+        state.lift.msg = r.error ? r.error : `“${o.label}” updated.`;
+        await loadLift(); render();
+      });
       on("startEmpty", "click", () => startSession(""));
       document.querySelectorAll("[data-starter]").forEach((el) =>
         el.addEventListener("click", () => startStarter(el.dataset.starter)));
@@ -3266,12 +3464,13 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
 
       on("scrap", "click", () => openModal({
         title: `Discard this ${state.mode === "cardio" ? "activity" : "workout"}?`,
-        body: "It is not saved anywhere else.",
+        body: a.edit ? "Changes made so far are already saved." : "It is deleted, here and on the server.",
         buttons: [
           { label: "Discard", kind: "bad", run: () => {
               stopTicking();
+              dropServerCopy(a);
               state.lift.active = null;
-              saveLocal();
+              saveLocal(a.mode);
               state.view = "exercise";
               render();
             } },
@@ -3283,21 +3482,22 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
     if (state.view === "detail") {
       // V2.1b. Editing a past workout reopens it in the same editor that
       // recorded it, rather than a second read-only one that would drift.
-      on("editSession", "click", () => {
+      on("editSession", "click", () => guardActive(() => {
         const d = state.lift.detail;
+        if (!d) return;
         const byPos = new Map();
         for (const r of (d.sets || [])) {
           if (!byPos.has(r.position))
             byPos.set(r.position, { name: r.exercise, kind: r.kind || "weight_reps", sets: [] });
           byPos.get(r.position).sets.push({
             w: Number(r.weight) || 0, r: Number(r.reps) || 0,
-            d: Number(r.distance) || 0, t: Number(r.seconds) || 0, on: false });
+            d: Number(r.distance) || 0, t: Number(r.seconds) || 0, on: true });
         }
         state.mode = d.mode === "cardio" ? "cardio" : "lift";
         state.seg  = state.mode === "cardio" ? "cardio" : "train";
         state.lift.active = {
           id: d.id, label: d.label || "", date: d.entry_date,
-          startedAt: Date.now(), endedAt: Date.now(), pendingFinish: false,
+          startedAt: Date.now(), endedAt: Date.now(), pendingFinish: false, edit: true,
           mode: state.mode, durOverride: Number(d.duration_min) || 0,
           ex: [...byPos.entries()].sort((x, y) => x[0] - y[0]).map(([, v]) => v),
         };
@@ -3305,7 +3505,7 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
         saveLocal();
         state.view = "session";
         render();
-      });
+      }, "editing this one"));
 
       // V2.8: confirm() does nothing in some in-app browsers, so this was a
       // button that silently did nothing there. Same modal as everywhere.
@@ -3610,12 +3810,6 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
 
 
 
-    document.querySelectorAll('[data-edit="goal"]').forEach((el) =>
-      el.addEventListener("click", () => {
-        state.editMetric = el.dataset.metric || "steps";
-        openEditor("goal");
-      }));
-
     wireEditor();
   }
 
@@ -3668,7 +3862,7 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
     state.lift.loaded = false;
     state.lift.labels = []; state.lift.sessions = [];
     state.lift.menu = null; state.lift.rename = null; state.flip = null;
-    state.lift.msg = null;
+    state.lift.msg = null; state.lift.offer = null;
     loadLocal();
     state.view = state.seg === "sleep" ? "sleep"
                : state.seg === "tasks" ? "tasks"
@@ -3809,15 +4003,13 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
   // Exercise. Rendering it in only one place is how tapping a goal used to
   // open nothing at all.
   function editRowHTML() {
-    if (!state.editing) return "";
+    // V3.4. Only names are edited here. Standards have a sheet of their own.
+    if (state.editing !== "name") return "";
     return `
       <div class="addrow" id="editRow">
         <input class="field" id="editVal" maxlength="40" autocomplete="off"
-               ${state.editing === "name" ? ""
-                 : M[state.editMetric] && M[state.editMetric].time ? 'type="time"'
-                 : 'type="number" inputmode="numeric"'}
-               value="${editSeed()}"
-               aria-label="${state.editing === "name" ? "Name" : "Daily goal"}">
+               value="${esc(state.editDraft !== null && state.editDraft !== undefined ? state.editDraft : editTarget() ? editTarget().name : "")}"
+               aria-label="Name">
         <button class="btn" id="editSave">Save</button>
         <button class="btn-quiet" id="editCancel">Cancel</button>
         <p class="hint" id="editHint" style="flex-basis:100%;margin-top:0">${editHintText()}</p>
@@ -3836,57 +4028,53 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
         state.people.map((p) =>
           `<option value="${p.id}"${p.id === state.meId ? " selected" : ""}>${esc(p.name)}</option>`).join("");
 
+    // V3.4. The family list is a dashboard: every activity, as a raw
+    // number, for everyone, in the same nine places, so a glance down the
+    // column compares like with like. No standards and no percentages
+    // here; those are each person's own business. You come first, in your
+    // own colour, so your row is the one the eye lands on.
+    const famCells = (p) => {
+      const bd = board(p);
+      const n = (x) => x === null || x === undefined || x === "" ? null : Number(x);
+      const pos = (x) => Number(x) > 0 ? Number(x) : null;
+      return {
+        steps: pos(bd.steps), train: pos(bd.train_min), cardio: pos(bd.cardio_min),
+        sleep: bd.items_pts === null || bd.items_pts === undefined ? null
+          : Math.round(Number(bd.items_pts) / Math.max(1, scoreMax()) * 100),
+        rise: n(bd.rise), rest: n(bd.rest),
+        work: pos(bd.work_min), goals: n(bd.goal_pct), tasks: pos(bd.tasks_done),
+      };
+    };
+    const ordered = state.people.slice().sort((a, b) =>
+      (b.id === state.meId) - (a.id === state.meId));
     const roster = state.people.length === 0
       ? `<div class="dashed"><p class="note">Nobody has been added yet.
            Add the first name above.</p></div>`
-      : `<div class="roster">${state.people.map((p) => {
-          const v = bval(p, "steps"), t = target(p, "steps");
-          const bd = board(p);
-          // V2.3. This used to read "10:30p–5:30a", which looked like a
-          // night's sleep and was not one. Both numbers belong to the same
-          // CALENDAR day: the 5:30a is the morning that ended the night
-          // before, the 10:30p is the start of the night to come. Writing
-          // them as a range claims a duration nobody measured.
-          // Two facts, labelled, in the order they happened.
-          const has = (k) => bd[k] !== null && bd[k] !== undefined;
-          const sleepLine = [
-            has("rise") ? `rise ${clockWords(bd.rise)}` : "",
-            has("rest") ? `rest ${clockWords(bd.rest)}` : "",
-            has("meal") ? `meal ${clockWords(bd.meal)}` : "",
-          ].filter(Boolean).join(" \u00b7 ");
+      : `<div class="roster">${ordered.map((p) => {
+          const c = famCells(p);
           const initials = p.name.trim().split(/\s+/).slice(0,2)
             .map((w) => (w[0] || "").toUpperCase()).join("");
           const isMe = p.id === state.meId;
-          return `<div class="person${bdone(p) ? " did" : ""}">
-            <span class="dot" aria-hidden="true"
-              style="background:color-mix(in oklab, hsl(${p.hue} 62% 48%) 16%, var(--surface));
-                     color:color-mix(in oklab, hsl(${p.hue} 62% 48%) 78%, var(--ink))"
-              >${esc(initials)}</span>
-            <div class="who">
-              <div class="name">
-                <button class="tapedit" data-edit="name" data-person="${p.id}"
-                  >${esc(p.name)}</button>
-                ${isMe ? "<em>you</em>" : ""}
-                ${p.streak > 1 ? `<em>${p.streak}d</em>` : ""}
-              </div>
-              <div class="sub2">${[
-                  bval(p,"train") > 0 ? `<button class="liftchip" data-see="${p.id}" data-m="lift"
-                     aria-label="See ${esc(p.name)}'s workout">${bval(p,"train")}m train</button>` : "",
-                  Number(bd.cardio_distance) > 0 || bval(p,"cardio") > 0
-                    ? `<button class="liftchip cardio" data-see="${p.id}" data-m="cardio"
-                     aria-label="See ${esc(p.name)}'s cardio">${bval(p,"cardio")}m${
-                       Number(bd.cardio_distance) > 0 ? " \u00b7 " + esc(distWords(bd.cardio_distance)) : ""
-                     }</button>` : "",
-                  // V2.8. Deep work is shared, so it sits with the rest of
-                  // the day. A pill, not a button: the sessions are theirs.
-                  Number(bd.work_min) > 0
-                    ? `<span class="liftchip work">${esc(hm(Number(bd.work_min)))} work</span>` : "",
-                ].filter(Boolean).join(" ") || "&nbsp;"}</div>
-              ${sleepLine ? `<div class="sleepline">${esc(sleepLine)}</div>` : ""}
+          const cell = (k) => {
+            const v = c[k], nil = v === null;
+            const label = STD[k].short || STD[k].label;
+            const see = !nil && (k === "train" || k === "cardio");
+            return see
+              ? `<button type="button" class="fcell" data-see="${p.id}" data-m="${k === "train" ? "lift" : "cardio"}"
+                   aria-label="See ${esc(p.name)}'s ${k === "train" ? "workout" : "cardio"}"><b>${stdWords(k, v)}</b><span>${label}</span></button>`
+              : `<div class="fcell${nil ? " nil" : ""}"><b>${nil ? "–" : stdWords(k, v)}</b><span>${label}</span></div>`;
+          };
+          return `<div class="fcard${isMe ? " me" : ""}" style="--hc:hsl(${p.hue} 58% 42%)">
+            <div class="fhead">
+              <span class="dot" aria-hidden="true"
+                style="background:color-mix(in oklab, hsl(${p.hue} 62% 48%) 16%, var(--surface));
+                       color:color-mix(in oklab, hsl(${p.hue} 62% 48%) 78%, var(--ink))"
+                >${esc(initials)}</span>
+              <button class="tapedit" data-edit="name" data-person="${p.id}">${esc(p.name)}</button>
+              ${isMe ? `<em class="fyou">you</em>` : ""}
+              ${p.streak > 1 && !state.boardDay ? `<span class="fstreak">${p.streak}-day streak</span>` : ""}
             </div>
-            <div class="num"><b>${v > 0 ? num(v) : "&mdash;"}</b>
-              <span class="${bdone(p) ? "met" : ""}">${
-                bdone(p) ? "\u2713 moved" : v > 0 ? "of " + num(t) : "nothing yet"}</span></div>
+            <div class="fgrid">${STD_GROUPS.flatMap(([, ks]) => ks).map(cell).join("")}</div>
           </div>`;
         }).join("")}</div>`;
 
@@ -3965,86 +4153,110 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
       <circle cx="60" cy="60" r="52" class="dfill" style="stroke:${dialColor(pct)}"
         stroke-dasharray="${DIAL_C}" stroke-dashoffset="${(DIAL_C * (1 - f)).toFixed(2)}"></circle></svg>`;
   }
-  const DIALS = ["steps", "work", "sleep"];
+  // V3.4. The three dials are each person's own choice, from all nine
+  // activities. Every one is drawn the same way: the name on top (tap it
+  // to open the page), a ring that fills toward the standard and shifts
+  // from red to green, today's value in the middle, and the standard
+  // under it (tap it to change it). Where a number can be typed, the
+  // middle IS the input, as the step count always was.
   function homeDials(m) {
-    const i = state.dialIdx || 0;
+    const keys = myDials();
+    const i = Math.min(state.dialIdx || 0, keys.length - 1);
     // A loop: a copy of the last dial sits before the first and a
     // copy of the first after the last. Land on a copy and the strip jumps,
     // unseen, to the real one, so a swipe never hits a wall.
-    const order = ["sleep", "steps", "work", "sleep", "steps"];
+    const order = [keys[2], keys[0], keys[1], keys[2], keys[0]];
     return `
       <div class="dials" id="dials" aria-roledescription="carousel">
         ${order.map((k, n) => dialSlide(m, k, n === 0 || n === 4)).join("")}
       </div>
-      <div class="ddots" role="tablist" aria-label="Scores">${DIALS.map((k, n) => `
+      <div class="ddots" role="tablist" aria-label="Your dials">${keys.map((k, n) => `
         <button type="button" class="ddot${n === i ? " on" : ""}" data-dot="${n}" role="tab"
-          aria-selected="${n === i}" aria-label="${["Step", "Work", "Sleep"][n]} Score"></button>`).join("")}</div>`;
+          aria-selected="${n === i}" aria-label="${esc(STD[k].label)}"></button>`).join("")}</div>
+      <button type="button" class="dedit" id="dialEdit">Change dials</button>`;
   }
+  const ofWords = (k, std) => STD[k].kind === "time" ? `by ${clockWords(std)}`
+    : STD[k].kind === "min" ? `of ${hm(std)}` : STD[k].kind === "pct" ? `of ${Math.round(std)}%`
+    : `of ${num(Math.round(std))}${k === "tasks" ? " done" : ""}`;
   function dialSlide(m, k, clone) {
     // A copy is drawn exactly like the real dial but is inert: no ids, no
     // handlers, hidden from screen readers. It is only ever seen mid-swipe.
-    const id = (x) => clone ? "" : `id="${x}"`;
-    const shell = (label, body) => `
-      <section class="slide${clone ? " clone" : ""}" ${clone ? 'aria-hidden="true" inert' : `aria-label="${label}"`}>
-        <p class="slab">${label}</p>${body}</section>`;
-    if (k === "steps") {
-      const st = val(m, "steps"), sg = target(m, "steps");
-      const sp = sg > 0 && st > 0 ? Math.round(st / sg * 100) : (st > 0 ? 100 : 0);
-      return shell("Step Score", `
-        <div class="dial">
-          ${dialRing(st > 0 ? sp : 0)}
-          <div class="dcore">
-            <input class="dnum" ${id("homeSteps")} type="text" inputmode="numeric" pattern="[0-9]*"
-              autocomplete="off" enterkeyhint="done" placeholder="0" ${clone ? 'tabindex="-1" readonly' : ""}
-              value="${st > 0 ? num(Math.round(st)) : ""}" data-raw="${st > 0 ? Math.round(st) : ""}"
-              aria-label="Steps today, tap to type">
-            <button type="button" class="dof" ${clone ? 'tabindex="-1"' : 'data-edit="goal" data-metric="steps"'}>${sg
-              ? `of ${num(Math.round(sg))}` : "set a target"}</button>
-          </div>
-        </div>
-        <p class="dmsg" ${id("homeMsg")} role="status">${!clone && state.homeMsg ? esc(state.homeMsg) : "&nbsp;"}</p>`);
-    }
+    const S = STD[k];
+    const std = k === "rise" || k === "rest" ? (hasTarget(m, k) ? target(m, k) : S.def) : stdOf(m, k);
+    const v = todayOf(m, k);
+    const pct = stdPct(k, v, std);
+    const go = (page) => clone ? "" : `data-go="${page}"`;
+    const page = k === "goals" ? "goals" : k === "tasks" ? "tasks" : k;
+    let ring = dialRing(pct), centre = "", extra = "";
+
     if (k === "work") {
       if (!state.work) loadWorkLocal();
       const r = state.work.run;
-      const wm = Number(m.work_min) || 0, wg = Number(m.work_target) || 180;
-      const wp = wm > 0 ? Math.round(wm / wg * 100) : 0;
       // Running, the ring is the session draining and the centre is the
       // clock; idle, it is the day against the standard.
-      const ring = r ? (() => {
+      if (r) {
         const f = workLeft(r) / (r.len * 60000);
-        return `<svg class="dring" viewBox="0 0 120 120" aria-hidden="true">
+        ring = `<svg class="dring" viewBox="0 0 120 120" aria-hidden="true">
           <circle cx="60" cy="60" r="52" class="dtrack"></circle>
-          <circle cx="60" cy="60" r="52" class="dfill${r.pausedAt ? " paused" : ""}" ${id("homeWorkRing")}
+          <circle cx="60" cy="60" r="52" class="dfill${r.pausedAt ? " paused" : ""}" ${clone ? "" : 'id="homeWorkRing"'}
             style="stroke:var(--work)" stroke-dasharray="${DIAL_C}" stroke-dashoffset="${(DIAL_C * (1 - f)).toFixed(2)}"></circle></svg>`;
-      })() : dialRing(wp);
-      return shell("Work Score", `
-        <div class="dial dtap" ${clone ? "" : `data-go="work" role="button" tabindex="0"`}
-          aria-label="Work Score: ${hm(wm)} of ${hm(wg)}. Open">
-          ${ring}
-          <span class="dcore">
-            ${r ? `<b class="dval" ${id("homeWorkClock")}>${mmssMs(workLeft(r))}</b>
-                   <span class="dsub">${r.pausedAt ? "Paused" : r.label ? esc(r.label) : "Focus"}</span>`
-                : `<b class="dval">${hm(wm)}</b><span class="dsub">of ${hm(wg)}</span>`}
-            <button type="button" class="dplay${r && !r.pausedAt ? " on" : ""}" ${id("homeWorkGo")}
-              ${clone ? 'tabindex="-1"' : ""}
-              aria-label="${!r ? `Start a ${state.work.len}-minute session` : r.pausedAt ? "Continue" : "Pause"}">${
-              r && !r.pausedAt
-                ? `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="5" width="3.6" height="14" rx="1"/><rect x="13.9" y="5" width="3.6" height="14" rx="1"/></svg>`
-                : `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg>`}</button>
-          </span>
-        </div>
-        <p class="dmsg">&nbsp;</p>`);
+        centre = `<b class="dval" ${clone ? "" : 'id="homeWorkClock"'}>${mmssMs(workLeft(r))}</b>
+          <span class="dsub">${r.pausedAt ? "Paused" : r.label ? esc(r.label) : "Focus"}</span>`;
+      }
+      extra = `<button type="button" class="dplay${r && !r.pausedAt ? " on" : ""}" ${clone ? 'tabindex="-1"' : 'id="homeWorkGo"'}
+          aria-label="${!r ? `Start a ${state.work.len}-minute session` : r.pausedAt ? "Continue" : "Pause"}">${
+          r && !r.pausedAt
+            ? `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="5" width="3.6" height="14" rx="1"/><rect x="13.9" y="5" width="3.6" height="14" rx="1"/></svg>`
+            : `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg>`}</button>`;
     }
-    const slOn = m.items !== null && m.items !== undefined;
-    const slp = slOn ? scorePct(m.items) : null;
-    return shell("Sleep Score", `
-      <div class="dial dtap" ${clone ? "" : `data-go="sleep" role="button" tabindex="0"`}
-        aria-label="Sleep Score${slOn ? ": " + slp + "%" : ""}. Open">
-        ${dialRing(slp)}
-        <span class="dcore"><b class="dval">${slOn ? slp + "%" : "–"}</b><span class="dsub">${slOn ? "tonight" : "not logged"}</span></span>
-      </div>
-      <p class="dmsg">&nbsp;</p>`);
+
+    if (!centre) {
+      if (S.kind === "count" && k !== "tasks" || S.kind === "min") {
+        // Typed. Shown formatted, edited raw.
+        const raw = v === null ? "" : String(Math.round(v));
+        const shown = v === null ? "" : stdWords(k, v);
+        centre = `<input class="dnum${S.kind === "min" ? " dmin" : ""}" ${clone ? 'tabindex="-1" readonly' : `data-dial="${k}" id="dial-${k}"`}
+            type="text" inputmode="${S.kind === "min" ? "text" : "numeric"}" ${S.kind === "min" ? "" : 'pattern="[0-9]*"'}
+            autocomplete="off" enterkeyhint="done" placeholder="0"
+            value="${esc(shown)}" data-raw="${raw}" data-show="${esc(shown)}"
+            aria-label="${esc(S.label)} today${S.kind === "min" ? ", in minutes" : ""}, tap to type">`;
+      } else if (S.kind === "time") {
+        // A clock: the native time wheel sits invisibly over the reading.
+        centre = `<label class="dtime">
+            <b class="dval${v === null ? " dnone" : ""}">${v === null ? "set" : clockWords(v)}</b>
+            ${clone ? "" : `<input type="time" class="chiptime" data-dialtime="${k}"
+              value="${v === null ? clockInput(std) : clockInput(v)}"
+              aria-label="${esc(S.label)} time, tap to set">`}</label>`;
+      } else {
+        // Made on its own page (the pyramid, the week's tactics, the list):
+        // the centre is the way in.
+        centre = `<button type="button" class="dval dgo${v === null ? " dnone" : ""}" ${go(page)} ${clone ? 'tabindex="-1"' : ""}>${
+          v === null ? "–" : stdWords(k, v)}</button>`;
+      }
+    }
+
+    const msg = !clone && state.homeMsg && state.homeMsg.k === k ? esc(state.homeMsg.t) : "&nbsp;";
+    return `
+      <section class="slide${clone ? " clone" : ""}" ${clone ? 'aria-hidden="true" inert' : `aria-label="${esc(S.label)}"`}>
+        <button type="button" class="slab" ${go(page)} ${clone ? 'tabindex="-1"' : ""}>${esc(S.label)}<i aria-hidden="true">&rsaquo;</i></button>
+        <div class="dial">
+          ${ring}
+          <div class="dcore">
+            ${centre}
+            <button type="button" class="dof" ${clone ? 'tabindex="-1"' : `data-edit="goal" data-metric="${k}"`}>${ofWords(k, std)}</button>
+            ${extra}
+          </div>
+        </div>
+        <p class="dmsg" ${clone ? "" : `id="dmsg-${k}"`} role="status">${msg}</p>
+      </section>`;
+  }
+  function dialSay(k, t) {
+    state.homeMsg = { k, t };
+    const el = document.getElementById("dmsg-" + k);
+    if (el) el.textContent = t;
+    clearTimeout(dialSay.t);
+    dialSay.t = setTimeout(() => { state.homeMsg = null;
+      const e2 = document.getElementById("dmsg-" + k); if (e2) e2.innerHTML = "&nbsp;"; }, 2200);
   }
   let homeTick = null;
   function wireHome() {
@@ -4079,24 +4291,42 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
           box.scrollTo({ left: (state.dialIdx + 1) * W(), behavior: "smooth" });
         }));
     }
-    const f = document.getElementById("homeSteps");
-    if (f) {
-      f.addEventListener("focus", () => { f.value = f.dataset.raw || ""; requestAnimationFrame(() => f.select()); });
+    // A typed dial: tap the number, type, leave. Steps take a count; Train,
+    // Cardio and Work take minutes, as 45, 1:30 or 1h 30m.
+    document.querySelectorAll("[data-dial]").forEach((f) => {
+      const k = f.dataset.dial, S = STD[k];
+      f.addEventListener("focus", () => {
+        if (restoring) return;
+        f.value = f.dataset.raw || ""; requestAnimationFrame(() => f.select()); });
       f.addEventListener("keydown", (e) => { if (e.key === "Enter") f.blur(); });
       f.addEventListener("blur", async () => {
-        const raw = (f.value || "").replace(/[^0-9]/g, "");
-        if (raw === "" || raw === (f.dataset.raw || "")) {
-          f.value = f.dataset.raw ? num(Number(f.dataset.raw)) : ""; return;
-        }
-        f.value = num(Number(raw));
+        const txt = (f.value || "").trim();
+        const digits = txt.replace(/[^0-9]/g, "");
+        const v = S.kind === "min" ? parseMinutes(txt) : digits === "" ? null : Number(digits);
+        if (v === null || String(v) === (f.dataset.raw || "")) { f.value = f.dataset.show || ""; return; }
+        if (S.kind === "min" && v > 1440) { f.value = f.dataset.show || ""; dialSay(k, "A day has 1,440 minutes."); return; }
+        f.value = stdWords(k, v);
+        f.dataset.raw = String(v);
         const res = await call("app_log", { p_code: state.code, p_person: state.meId,
-          p_value: Number(raw), p_metric: "steps", p_date: null, p_tz: deviceTZ() });
-        state.homeMsg = res.error ? res.error : "Saved.";
+          p_value: v, p_metric: S.key, p_date: null, p_tz: deviceTZ() });
+        dialSay(k, res.error ? (res.offline ? "No signal. Not saved yet." : res.error) : "Saved.");
         await refresh();
-        setTimeout(() => { state.homeMsg = null; const el = document.getElementById("homeMsg");
-          if (el) el.innerHTML = "&nbsp;"; }, 2200);
       });
-    }
+    });
+    // A clock dial: the native wheel, saved the moment it closes.
+    document.querySelectorAll("[data-dialtime]").forEach((el) =>
+      el.addEventListener("change", async () => {
+        const k = el.dataset.dialtime;
+        if (!el.value) return;
+        const [hh, mm] = el.value.split(":").map(Number);
+        let v = hh * 60 + (mm || 0);
+        if (k === "rest" && hh < 5) v += 1440;     // the 5am rule
+        const m = me(); if (m) m[k] = v;
+        const res = await call("app_log", { p_code: state.code, p_person: state.meId,
+          p_value: v, p_metric: STD[k].key, p_date: nightDay(k), p_tz: deviceTZ() });
+        dialSay(k, res.error ? (res.offline ? "No signal. Not saved yet." : res.error) : "Saved.");
+        await refresh();
+      }));
     // The play button starts, pauses and continues without leaving home.
     // It stops the tap there, so the dial underneath does not also open
     // the Work page.
@@ -4118,8 +4348,6 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
       if (ring) ring.setAttribute("stroke-dashoffset", (DIAL_C * (1 - workLeft(r) / (r.len * 60000))).toFixed(2));
       if (workLeft(r) <= 0) { clearInterval(homeTick); homeTick = null; if (await checkWork()) render(); }
     }, 1000);
-    document.querySelectorAll('.dials [data-edit="goal"]').forEach((el) =>
-      el.addEventListener("click", () => { state.editMetric = "steps"; openEditor("goal"); }));
   }
 
   /* ---------- the tab bar -------------------------------------------
@@ -4154,7 +4382,7 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
       const wg = Number(p.work_target) || 180, wm = Number(p.work_min) || 0;
       const gp = p.goal_pct;
       return chip("work", "Work Score", wm > 0 ? Math.round(wm / wg * 100) + "%" : "\u2013", wm > 0)
-        + chip("goals", "Goals", gp !== null && gp !== undefined ? gp + "%" : "\u2013", Number(gp) >= 85)
+        + chip("goals", "Goals", gp !== null && gp !== undefined ? gp + "%" : "\u2013", Number(gp) >= stdOf(p, "goals"))
         + chip("tasks", "Tasks", Number(p.tasks_open) > 0 ? String(p.tasks_open) : "\u2013", false);
     }
     return `<p class="tsoon">${t === "M" ? "Meditation" : "Diet"} is coming soon.</p>`;
@@ -4309,7 +4537,7 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
             <div class="wband" aria-hidden="true"></div>
           </div>
           <button type="button" class="of" data-edit="goal" data-metric="${k}">${
-            hasTarget(m, k) ? `target <b>${clockWords(goal)}</b>`
+            hasTarget(m, k) ? `standard <b>${clockWords(goal)}</b>`
                             : `set a ${esc(met.label.toLowerCase())} target`}</button>
         </div>`; })()}
 
@@ -4461,6 +4689,8 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
           <b class="big" style="color:var(--sleep)">${pct}%</b>
           <span class="of" style="text-decoration:none">${scorePts(mask)} of
             ${scoreMax()} points \u00b7 ${bitsOn(mask)}/${HABITS.length} held</span>
+          <button type="button" class="of" data-edit="goal" data-metric="sleep"
+            style="display:block;margin:4px auto 0">standard <b>${stdOf(m, "sleep")}%</b></button>
         </div>
       </section>
 
@@ -4775,6 +5005,8 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
       <header class="masthead">
         <h1>Tasks</h1>
         <p class="sub">What matters, sorted by whether it is urgent.</p>
+        <p class="sub stdline"><b style="color:var(--ink)">${Number((me() || {}).tasks_done) || 0}</b> done today \u00b7
+          <button type="button" class="linkbtn" data-edit="goal" data-metric="tasks">standard ${stdOf(me(), "tasks")}</button></p>
       </header>`;
     if (!t.loaded) return head + `<p class="loading">Opening…</p>`;
     return head + `
@@ -4844,9 +5076,19 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
           if (p) p.done = sibs.length > 0 && sibs.every((c) => c.done);
         }
         if (t.edit === x.id) t.edit = null;
+        // V3.4. Done today counts main tasks, so a subtask that finishes its
+        // parent counts the parent. Shown at once; the server keeps the log.
+        const mid = x.parent_id || x.id;
+        const was = (before.find((y) => y.id === mid) || {}).done, now = (find(mid) || {}).done;
+        const m = me();
+        if (m && !!was !== !!now) m.tasks_done = Math.max(0, (Number(m.tasks_done) || 0) + (now ? 1 : -1));
         render();
         const res = await save(x);
-        if (res.error) { t.list = before; render(); }
+        if (res.error) {
+          t.list = before;
+          if (m && !!was !== !!now) m.tasks_done = Math.max(0, (Number(m.tasks_done) || 0) - (now ? 1 : -1));
+          render();
+        }
       }));
 
     // ---- editing in place ----
@@ -5084,77 +5326,33 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
   }
 
   /* ---------- finishing a workout --------------------------------------
-     V2.8, modelled on Strong because Strong got this right.
-
-     1. Sets with numbers in them that you never ticked are a question, not
-        an answer: you may have done them and not tapped, or planned them
-        and skipped. So Finish asks — complete them, or discard them. Empty
-        rows are dropped without asking; there is nothing to decide.
-     2. If what you did has a different SHAPE from the template you started
-        from — an exercise added or dropped, more or fewer sets — it asks
-        whether to make that the template. Strong offers a third choice,
-        "update values only", but here the weights and reps always carry
-        forward from your last session, so that button would do the same
-        thing as Keep. Two honest choices beat three where two are one.
+     V3.4. Finish asks nothing. A set you ticked or typed in is logged; a
+     set still showing last time's grey numbers is one you skipped. If the
+     shape of the workout changed, one quiet line offers to update the
+     template, because almost nobody wants to, and nobody should have to
+     answer a question to say so.
      ------------------------------------------------------------------ */
-  const hasNums = (st, kind) => kind === "duration" ? st.t > 0
-    : kind === "distance_time" ? (st.d > 0 || st.t > 0) : (st.w > 0 || st.r > 0);
 
   async function finishFlow(a) {
-    const unfinished = [];
-    a.ex.forEach((x) => x.sets.forEach((st) => {
-      if (!st.on && hasNums(st, x.kind)) unfinished.push(st);
-    }));
-
-    if (!doneSets(a) && !unfinished.length) {
-      state.lift.msg = "Tick at least one set before finishing.";
+    // V3.4. No question at the end. What you ticked or typed is logged;
+    // the grey carried-over numbers you never touched are the sets you
+    // did not do, and they drop away with the empty rows.
+    if (!doneSets(a)) {
+      state.lift.msg = "Type or tick the sets you did, then Finish.";
       const h = document.getElementById("liftHint");
       if (h) h.textContent = state.lift.msg;
       return;
     }
-
-    const proceed = async (completeThem) => {
-      // Resolve the unticked rows, then drop anything still empty.
-      a.ex.forEach((x) => {
-        x.sets = x.sets.filter((st) => {
-          if (st.on) return true;
-          if (hasNums(st, x.kind) && completeThem) { st.on = true; return true; }
-          return false;
-        });
+    a.ex.forEach((x) => {
+      x.sets = x.sets.filter((st) => {
+        if (!counts(st, x.kind)) return false;
+        st.on = true;
+        return true;
       });
-      a.ex = a.ex.filter((x) => x.sets.length);
-      // Discarding the only sets there were leaves nothing to log. Saying
-      // "Logged" over an empty workout would be a lie, so treat it as the
-      // Discard it effectively was.
-      if (!a.ex.length) {
-        stopTicking();
-        state.lift.active = null;
-        saveLocal();
-        state.lift.msg = "Nothing was ticked, so nothing was saved.";
-        state.view = "exercise";
-        render();
-        return;
-      }
-      saveLocal();
-      await commitFinish(a);
-    };
-
-    if (unfinished.length) {
-      const n = unfinished.length;
-      openModal({
-        mark: "✓",
-        title: "Finish workout?",
-        body: `${n === 1 ? "One set has" : `${n} sets have`} numbers in ${n === 1 ? "it" : "them"} but ${
-          n === 1 ? "is" : "are"} not ticked. Empty sets will be removed.`,
-        buttons: [
-          { label: "Complete unfinished sets", kind: "go",    run: () => proceed(true) },
-          { label: "Discard unfinished sets",  kind: "bad",   run: () => proceed(false) },
-          { label: "Cancel",                   kind: "quiet" },
-        ],
-      });
-      return;
-    }
-    await proceed(false);
+    });
+    a.ex = a.ex.filter((x) => x.sets.length);
+    saveLocal();
+    await commitFinish(a);
   }
 
   // What changed between the template and what was done, in words.
@@ -5200,6 +5398,7 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
     // hostage on a screen someone is trying to leave.
     if (res.offline || res.error) {
       state.lift.msg = "Saved on this phone. It will upload by itself.";
+      state.lift.offer = null;
       state.view = "exercise";
       state.lift.loaded = false;
       render();
@@ -5208,8 +5407,11 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
     const prs = Number(res.pr_count) || 0;
     const items = a.ex.map((x) => ({ exercise: x.name, kind: x.kind, sets: x.sets.length }));
     state.lift.active = null;
-    saveLocal();
+    saveLocal(mode);
     state.lift.msg = prs ? `Logged. ${prs} personal record${prs === 1 ? "" : "s"}.` : "Logged.";
+    // V3.4. Changing the template is rare, so it is offered, not asked:
+    // one small grey line under "Logged", gone when you leave the page.
+    state.lift.offer = change && label ? { label, mode, items, change } : null;
     // Back to the page the workout belongs to. It used to set a view name
     // nothing rendered, which dropped you on the home screen instead.
     state.view = "exercise";
@@ -5217,21 +5419,6 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
     render();
     refresh();                       // the board now owes you Train minutes
 
-    if (change && label) {
-      openModal({
-        title: `Update “${label}”?`,
-        body: `${change} Weights and reps carry forward either way.`,
-        buttons: [
-          { label: "Update template", kind: "go", run: async () => {
-              const r = await call("app_template_save", { p_code: state.code, p_person: state.meId,
-                p_label: label, p_mode: mode, p_items: items });
-              state.lift.msg = r.error ? r.error : `“${label}” updated.`;
-              await loadLift(); render();
-            } },
-          { label: "Keep template", kind: "quiet" },
-        ],
-      });
-    }
   }
 
   /* ---------- Goals: the 12 Week Year --------------------------------
@@ -5246,7 +5433,8 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
      moment after each change, so there is no Save button to forget and
      nothing half-written on the server.
      ------------------------------------------------------------------ */
-  const GOAL_WIN = 85;
+  // V3.4. What wins the week is your own Goals standard; 85% until set.
+  const goalWin = () => stdOf(me(), "goals");
   const dueIn = (t, w) => t.week === null || t.week === undefined || Number(t.week) === w;
   // A tick is [week, day]: day 0 for a weekly tactic, 1–7 (Mon–Sun) daily.
   const hasMark = (t, w, d) => (t.marks || []).some((m) => m[0] === w && m[1] === d);
@@ -5361,7 +5549,8 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
           A year's work in twelve weeks.</h2>
         <p class="hint" style="margin-top:6px">Write a vision. Set up to three goals, each with
           one number to move and the tactics that move it. Every week, do what you planned:
-          ${GOAL_WIN}% of it wins the week.</p>
+          <button type="button" class="linkbtn" data-edit="goal" data-metric="goals"
+            style="font-size:inherit">${goalWin()}%</button> of it wins the week.</p>
         <div class="gstart">
           <button class="btn" data-gstart="${mon}">Start this week · ${esc(shortDay(mon))}</button>
           <button class="btn-quiet" data-gstart="${next}">Start next Monday · ${esc(shortDay(next))}</button>
@@ -5386,17 +5575,17 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
                    atToday: pre || w >= open,
                    label: pre ? `Starts ${esc(shortDay(doc.start_date))}` : `Week ${w} of 12` })}
         <div class="domino" style="padding-top:10px">
-          <b class="big" style="color:${T.pct !== null && T.pct >= GOAL_WIN ? "var(--work)" : "var(--ink)"}">${
+          <b class="big" style="color:${T.pct !== null && T.pct >= goalWin() ? "var(--work)" : "var(--ink)"}">${
             T.pct === null ? "–" : T.pct + "%"}</b>
           <span class="of" style="text-decoration:none">${T.due
             ? `${T.done} of ${T.due} done` : "nothing planned"} · ${esc(weekSpan(doc.start_date, w))}</span>
         </div>
         <div class="gbars" role="group" aria-label="The twelve weeks">
-          <em class="gline" aria-hidden="true"></em>
+          <em class="gline" aria-hidden="true" style="top:${((100 - goalWin()) * 0.56).toFixed(1)}px"></em>
           ${Array.from({ length: 12 }, (_, k) => k + 1).map((i) => {
             const p = weekTally(doc, i).pct, fut = pre || i > open;
             return `<button type="button" class="gbar${i === w ? " sel" : ""}${fut ? " fut" : ""}${
-              !fut && p !== null && p >= GOAL_WIN ? " win" : ""}" data-gweek="${i}" ${fut ? "disabled" : ""}
+              !fut && p !== null && p >= goalWin() ? " win" : ""}" data-gweek="${i}" ${fut ? "disabled" : ""}
               aria-label="Week ${i}: ${fut ? "to come" : p === null ? "nothing due" : p + "%"}">
               <span class="gt"><i style="height:${fut || p === null ? 0 : Math.max(4, p)}%"></i></span>
               <span>${i}</span></button>`;
@@ -5404,7 +5593,8 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
         </div>
         <div class="gfoot"><span>${avg === null ? "No weeks scored yet"
           : `Average ${avg}% over ${played.length} week${played.length === 1 ? "" : "s"}`}</span>
-          <span>${GOAL_WIN}% wins a week</span></div>
+          <button type="button" class="linkbtn" data-edit="goal" data-metric="goals"
+            style="font-size:12px;color:var(--muted)">${goalWin()}% wins a week</button></div>
       </section>`;
 
     const overCard = !over ? "" : `
@@ -6144,7 +6334,9 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
 
       ${resumeBanner()}
       ${(k === "train" || k === "cardio") && state.lift.msg && !state.lift.active
-        ? `<p class="flash" role="status">${esc(state.lift.msg)}</p>` : ""}
+        ? `<p class="flash" role="status">${esc(state.lift.msg)}${state.lift.offer ? `
+            <span class="tmoffer">${esc(state.lift.offer.change)}
+              <button type="button" class="linkbtn" id="tmplUpd">Update template</button></span>` : ""}</p>` : ""}
       ${(k === "train" || k === "cardio") ? firstCard(k) : ""}
       ${k === "work" ? workCard() : logCard(k)}
       ${editRowHTML()}
@@ -6204,19 +6396,53 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
       ? `<div class="undobar" role="status"><span>${esc(state.undo.words)}</span>
            <button type="button" id="undoStamp">Undo</button></div>` : "");
 
-    const bar = tabBar();
-    if (state.view === "sleep")    { app.innerHTML = netBar + sleepView() + bar;  wireExercise(); wireTabs(); wireNet(); return; }
-    if (state.view === "tasks")    { app.innerHTML = netBar + tasksView() + bar;  wireTasks();    wireTabs(); wireNet(); return; }
-    if (state.view === "goals")    { app.innerHTML = netBar + goalsView() + bar;  wireGoals();    wireTabs(); wireNet(); return; }
-    if (state.view === "exercise") { app.innerHTML = netBar + metricView() + bar; wireExercise(); wireTabs(); wireNet(); return; }
-    if (state.view === "session")  { app.innerHTML = netBar + sessionView();  wireLift(); wireNet(); return; }
-    if (state.view === "detail")   { app.innerHTML = netBar + detailView();   wireLift(); wireNet(); return; }
+    // V3.4 BUG FIX. A re-render used to throw away whatever was being
+    // typed. The server answering a save, or coming back from the Health
+    // app to copy a step count, repaints the page; the standard you were
+    // typing reverted to the old one, the keyboard dropped, and Save then
+    // saved the old number. Whatever input had focus keeps its text, its
+    // cursor and its focus across the repaint.
+    const ae = document.activeElement;
+    const keep = ae && ae.id && app.contains(ae) && /^(INPUT|TEXTAREA)$/.test(ae.tagName)
+      && ae.type !== "time"
+      ? { id: ae.id, v: ae.value, dirty: ae.value !== ae.defaultValue,
+          s: ae.selectionStart, e: ae.selectionEnd } : null;
 
-    app.innerHTML = netBar + boardView() + bar;
-    wire();
-    wireHome(); wireTabs();
+    const bar = tabBar();
+    const v = state.view;
+    if (v === "sleep")         { app.innerHTML = netBar + sleepView() + bar;  wireExercise(); wireTabs(); }
+    else if (v === "tasks")    { app.innerHTML = netBar + tasksView() + bar;  wireTasks();    wireTabs(); }
+    else if (v === "goals")    { app.innerHTML = netBar + goalsView() + bar;  wireGoals();    wireTabs(); }
+    else if (v === "exercise") { app.innerHTML = netBar + metricView() + bar; wireExercise(); wireTabs(); }
+    else if (v === "session")  { app.innerHTML = netBar + sessionView();  wireLift(); }
+    else if (v === "detail")   { app.innerHTML = netBar + detailView();   wireLift(); }
+    else {
+      app.innerHTML = netBar + boardView() + bar;
+      wire();
+      wireHome(); wireTabs();
+    }
     wireNet();
+    // One sheet for every standard and one for the home dials, on any page.
+    if (v !== "session" && v !== "detail") {
+      app.insertAdjacentHTML("beforeend", stdSheet() + dialSheet());
+      wireStd();
+    }
+
+    if (keep) {
+      const el = document.getElementById(keep.id);
+      if (el && el !== document.activeElement && /^(INPUT|TEXTAREA)$/.test(el.tagName)) {
+        restoring = true;
+        try {
+          el.focus({ preventScroll: true });
+          if (keep.dirty) el.value = keep.v;
+          try { el.setSelectionRange(keep.s, keep.e); } catch {}
+        } finally { restoring = false; }
+      }
+    }
   }
+  // True only while render() puts focus back where it was, so focus
+  // handlers that select-all or reload a value leave the typing alone.
+  let restoring = false;
 
 
   /* ---------- everything inside the graph slot -------------------------
@@ -6353,11 +6579,170 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
 
   function openEditor(kind, personId) {
     state.editing = kind;
+    state.editDraft = null;
     state.editPerson = personId || state.meId;
     state.adding = false;
     render();
-    const f = document.getElementById("editVal");
-    if (f) { f.focus(); f.select(); }
+    const f = document.getElementById(kind === "goal" ? "stdVal" : "editVal");
+    if (f) { f.focus(); if (f.type !== "time") f.select(); }
+  }
+
+  /* ---------- V3.4: the standard sheet ---------------------------------
+     One card for every activity's standard, opened from any "of …" on any
+     page or dial. It floats near the top so the keyboard never covers it.
+     What you type lives in state, so nothing the page does behind it can
+     put the old number back.
+     ------------------------------------------------------------------ */
+  function stdSheet() {
+    if (state.editing !== "goal" || !STD[state.editMetric]) return "";
+    const k = state.editMetric, S = STD[k], m = me() || {};
+    const cur = k === "rise" || k === "rest"
+      ? (hasTarget(m, k) ? target(m, k) : S.def) : stdOf(m, k);
+    const seed = state.editDraft !== null && state.editDraft !== undefined ? state.editDraft
+      : S.kind === "time" ? clockInput(cur) : S.kind === "min" ? hm(cur).replace(/ /g, " ") : String(Math.round(cur));
+    const hint = { count: k === "tasks" ? "Tasks to finish each day." : "Steps each day.",
+                   min: "Minutes each day. 45, 1:30 or 1h 30m all work.",
+                   pct: k === "goals" ? "The share of the week's tactics that wins the week."
+                                      : "The share of the sleep pyramid to hold each night.",
+                   time: k === "rest" ? "In bed by this time." : "Up by this time." }[S.kind];
+    return `
+      <div class="sheetbg" id="stdBg"></div>
+      <div class="stdsheet" role="dialog" aria-label="${esc(S.label)} standard">
+        <p class="eyebrow">Your daily standard</p>
+        <h3>${esc(S.label)}</h3>
+        <div class="stdrow">
+          <input id="stdVal" class="stdin" autocomplete="off" enterkeyhint="done"
+            ${S.kind === "time" ? 'type="time"' : S.kind === "min" ? 'type="text" inputmode="text"'
+              : 'type="text" inputmode="numeric" pattern="[0-9]*"'}
+            value="${esc(seed)}" aria-label="${esc(S.label)} standard">
+          ${S.kind === "pct" ? `<span class="stdu">%</span>` : S.kind === "count" ? `<span class="stdu">${esc(S.unit || "")}</span>` : ""}
+        </div>
+        <p class="hint" id="stdHint">${esc(hint)}</p>
+        <div class="stdbtns">
+          <button type="button" class="btn-quiet" id="stdCancel">Cancel</button>
+          <button type="button" class="btn" id="stdSave">Save</button>
+        </div>
+      </div>`;
+  }
+  function parseStd(k, raw) {
+    const S = STD[k], t = String(raw || "").trim();
+    if (S.kind === "time") {
+      const [hh, mm] = t.split(":").map(Number);
+      if (!t || Number.isNaN(hh)) return { err: "Pick a time." };
+      let v = hh * 60 + (mm || 0);
+      // A bedtime before 5am belongs to the evening, so it goes past 1440
+      // exactly as a stamped Rest does.
+      if (k === "rest" && hh < 5) v += 1440;
+      return { v };
+    }
+    if (S.kind === "min") {
+      const v = parseMinutes(t);
+      return v && v > 0 && v <= 1440 ? { v } : { err: "Type minutes, like 45 or 1h 30m." };
+    }
+    const v = Number(t.replace(/[^0-9]/g, ""));
+    if (!v) return { err: "Enter a number above zero." };
+    if (S.kind === "pct" && v > 100) return { err: "A percent is 100 at most." };
+    return { v };
+  }
+  async function saveStd() {
+    const k = state.editMetric, f = document.getElementById("stdVal");
+    const hint = document.getElementById("stdHint"), btn = document.getElementById("stdSave");
+    const r = parseStd(k, f ? f.value : state.editDraft);
+    if (r.err) { if (hint) { hint.textContent = r.err; hint.className = "hint bad"; } return; }
+    if (btn) btn.disabled = true;
+    const res = await call("app_set_goal", { p_code: state.code, p_person: state.meId,
+      p_target: r.v, p_metric: STD[k].key });
+    if (res.error) {
+      const h = document.getElementById("stdHint");
+      if (h) { h.textContent = res.offline ? "No signal. Try again in a moment." : res.error; h.className = "hint bad"; }
+      const b = document.getElementById("stdSave"); if (b) b.disabled = false;
+      return;
+    }
+    // Show it at once; the refresh confirms it.
+    const m = me(); if (m) m[STD_FIELD[k]] = r.v;
+    state.editing = null; state.editDraft = null;
+    render();
+    await refresh();
+  }
+
+  /* ---------- V3.4: choosing the three home dials ---------------------- */
+  const DIAL_KEYS = Object.keys(STD);
+  const okDials = (d) => Array.isArray(d) && d.length === 3 && new Set(d).size === 3 &&
+    d.every((k) => STD[k]);
+  function myDials() {
+    const m = me();
+    if (m && okDials(m.dials)) return m.dials.slice();
+    try {
+      const d = JSON.parse(localStorage.getItem("fhd.dials." + state.meId) || "null");
+      if (okDials(d)) return d;
+    } catch {}
+    return DIAL_DEFAULT.slice();
+  }
+  function dialSheet() {
+    const pick = state.dialPick;
+    if (!pick) return "";
+    const left = 3 - pick.length;
+    return `
+      <div class="sheetbg" id="dialBg"></div>
+      <div class="stdsheet dpick" role="dialog" aria-label="Choose your three dials">
+        <p class="eyebrow">Home screen</p>
+        <h3>Your three dials</h3>
+        <p class="hint" style="margin-top:4px">Tap three, in the order you want them.</p>
+        ${STD_GROUPS.map(([g, ks]) => `
+          <p class="dpg">${esc(g)}</p>
+          <div class="dpgrid">${ks.map((k) => {
+            const at = pick.indexOf(k);
+            return `<button type="button" class="dpk${at >= 0 ? " on" : ""}" data-dpk="${k}" aria-pressed="${at >= 0}">
+              <i>${at >= 0 ? at + 1 : ""}</i><span>${esc(STD[k].label)}</span></button>`;
+          }).join("")}</div>`).join("")}
+        <div class="stdbtns">
+          <button type="button" class="btn-quiet" id="dialCancel">Cancel</button>
+          <button type="button" class="btn" id="dialSave" ${left ? "disabled" : ""}>${
+            left ? `Pick ${left} more` : "Save"}</button>
+        </div>
+      </div>`;
+  }
+  async function saveDials(d) {
+    const m = me();
+    if (m) m.dials = d.slice();
+    try { localStorage.setItem("fhd.dials." + state.meId, JSON.stringify(d)); } catch {}
+    state.dialPick = null; state.dialIdx = 0;
+    render();
+    await call("app_set_dials", { p_code: state.code, p_person: state.meId, p_dials: d });
+  }
+
+  // Every "of …" and every standard line, on every page, opens the sheet.
+  function wireStd() {
+    document.querySelectorAll('[data-edit="goal"]').forEach((el) =>
+      el.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const k = el.dataset.metric || "steps";
+        if (!STD[k]) return;
+        state.editMetric = k;
+        openEditor("goal");
+      }));
+    on("stdCancel", "click", () => { state.editing = null; state.editDraft = null; render(); });
+    on("stdBg", "click", () => { state.editing = null; state.editDraft = null; render(); });
+    on("stdSave", "click", saveStd);
+    on("stdVal", "input", (e) => { state.editDraft = e.target.value; });
+    on("stdVal", "keydown", (e) => {
+      if (e.key === "Enter") { e.preventDefault(); saveStd(); }
+      if (e.key === "Escape") { state.editing = null; state.editDraft = null; render(); }
+    });
+
+    on("dialEdit", "click", () => { state.dialPick = myDials(); render(); });
+    on("dialCancel", "click", () => { state.dialPick = null; render(); });
+    on("dialBg", "click", () => { state.dialPick = null; render(); });
+    document.querySelectorAll("[data-dpk]").forEach((el) =>
+      el.addEventListener("click", () => {
+        const k = el.dataset.dpk, p = state.dialPick;
+        const at = p.indexOf(k);
+        if (at >= 0) p.splice(at, 1);
+        else if (p.length < 3) p.push(k);
+        else { p.pop(); p.push(k); }        // a fourth tap swaps out the last pick
+        render();
+      }));
+    on("dialSave", "click", () => { if (okDials(state.dialPick)) saveDials(state.dialPick); });
   }
 
   function wireNet() {
@@ -6473,35 +6858,14 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
   }
 
   function wireEditor() {
-    on("editCancel", "click", () => { state.editing = null; render(); });
+    on("editCancel", "click", () => { state.editing = null; state.editDraft = null; render(); });
 
     on("editSave", "click", async (e) => {
       const kind = state.editing;
       const raw = (document.getElementById("editVal").value || "").trim();
       const hint = document.getElementById("editHint");
 
-      if (kind === "goal") {
-        const met = M[state.editMetric] || {};
-        let t;
-        if (met.time) {
-          // A target time comes back as HH:MM and is stored as minutes.
-          // A bedtime before 5am belongs to the evening, so it goes past
-          // 1440 exactly as a stamped Rest does.
-          const [hh, mm] = raw.split(":").map(Number);
-          if (Number.isNaN(hh)) { hint.textContent = "Pick a time."; return; }
-          t = hh * 60 + (mm || 0);
-          if (state.editMetric === "rest" && hh < 5) t += 1440;
-        } else {
-          t = Number(raw.replace(/[^0-9]/g, ""));
-          if (!t) { hint.textContent = "Enter a target above zero."; return; }
-        }
-        e.target.disabled = true;
-        const res = await call("app_set_goal", {
-          p_code: state.code, p_person: state.meId, p_target: t,
-          p_metric: M[state.editMetric].key,
-        });
-        if (res.error) { hint.textContent = res.error; e.target.disabled = false; return; }
-      } else {
+      {
         if (!raw) { hint.textContent = "A name cannot be blank."; return; }
         e.target.disabled = true;
         const res = await call("app_rename_person", {
@@ -6509,9 +6873,10 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
         });
         if (res.error) { hint.textContent = res.error; e.target.disabled = false; return; }
       }
-      state.editing = null;
+      state.editing = null; state.editDraft = null;
       await refresh();
     });
+    on("editVal", "input", (e) => { state.editDraft = e.target.value; });
 
     on("editVal", "keydown", (e) => {
       if (e.key === "Enter") document.getElementById("editSave").click();
