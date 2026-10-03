@@ -183,35 +183,17 @@ input[type=number] { -moz-appearance:textfield; }
   letter-spacing:-.04em; padding:2px 0 4px; border-radius:12px; caret-color:currentColor; }
 .bigedit::placeholder { color:var(--line-strong); }
 .bigedit:focus { outline:none; background:var(--surface-2); }
-/* The wheel. Three scroll containers with snap points; the value in the
-   middle band is the value. --wi is one row, and the padding above and
-   below each column is exactly one row, which is what puts the first and
-   last items reachable in the middle rather than stuck at an edge. */
-.wheel { --wi:40px; position:relative; display:flex; align-items:center;
-  justify-content:center; gap:2px; height:calc(var(--wi) * 3); }
-.wheel.unset { opacity:.45; }
-.wcol { height:100%; overflow-y:auto; scroll-snap-type:y mandatory;
-  scrollbar-width:none; -webkit-overflow-scrolling:touch;
-  overscroll-behavior:contain; text-align:center; }
-.wcol::-webkit-scrollbar { display:none; }
-.wcol:focus-visible { outline:2px solid currentColor; border-radius:10px; }
-.wpad { height:var(--wi); }
-.witem { height:var(--wi); line-height:var(--wi); scroll-snap-align:center;
-  font-family:var(--mono); font-size:30px; font-weight:500; color:var(--muted);
-  opacity:.4; transition:opacity .12s ease, color .12s ease; }
-.witem[aria-selected="true"] { color:inherit; opacity:1; }
-/* Fixed px, not ch: a scroll container clips anything wider than itself,
-   and 2.7ch of a 30px mono glyph does not hold "42". */
-.wcol[data-wheel="h"]  { width:58px; }
-.wcol[data-wheel="m"]  { width:58px; }
-.wcol[data-wheel="ap"] { width:46px; margin-left:10px; }
-.wcol[data-wheel="ap"] .witem { font-size:15px; font-weight:700; letter-spacing:.04em; }
-.wsep { font-family:var(--mono); font-size:30px; font-weight:500; opacity:.45;
-  margin:0 -4px 3px; }
-/* The band says which row counts, without a border round every column. */
-.wband { position:absolute; left:0; right:0; top:var(--wi); height:var(--wi);
-  border-top:1px solid var(--line); border-bottom:1px solid var(--line);
-  pointer-events:none; }
+/* V3.5. Rest and Rise: a big time, four nudges, Now. */
+.tclock { display:flex; flex-direction:column; align-items:center; }
+.tbig { font-family:var(--mono); font-size:clamp(52px, 17vw, 72px); font-weight:500; letter-spacing:-.03em;
+  line-height:1.05; }
+.tbig small { font-size:.36em; margin-left:6px; letter-spacing:0; color:var(--muted); font-weight:600; }
+.tbig.unset { opacity:.32; }
+.tnudge { display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; width:100%; margin-top:14px; }
+.tnudge button { border:1px solid var(--line-strong); background:var(--surface); border-radius:12px;
+  padding:12px 0; font-family:var(--mono); font-size:16px; font-weight:500; color:var(--ink); cursor:pointer;
+  touch-action:manipulation; }
+.tnudge button:active { background:var(--surface-2); transform:scale(.97); }
 /* ---------- the pyramid ----------------------------------------------
    Four rows of one, two, three and four. Each row is a grid of N equal
    columns inset by (4-N) half-columns, so the rows centre on each other
@@ -240,7 +222,10 @@ input[type=number] { -moz-appearance:textfield; }
 .mbtn small { display:block; font-size:12px; font-weight:500; opacity:.85; margin-top:2px; }
 .mbtn.go    { background:var(--accent); color:#fff; }
 .mbtn.bad   { background:var(--warn-soft); color:#b3422a; }
-.mbtn.quiet { background:var(--surface-2); color:var(--ink); }
+.mbtn.quiet { background:var(--surface-2); color:var(--ink-2); }
+.mbtn.ok    { background:#4caf6e; color:#fff; }
+.mbtns.row { flex-direction:row; }
+.mbtns.row .mbtn { flex:1; }
 @media (prefers-color-scheme: dark) { .mbtn.go { color:#08120f; } .mbtn.bad { color:#f09a82; } }
 
 /* ---------- the work timer --------------------------------------------- */
@@ -339,13 +324,9 @@ input[type=number] { -moz-appearance:textfield; }
 .tseg button { flex:1; font-size:13.5px; padding:8px 0; }
 .tquick { position:sticky; top:0; z-index:5; background:var(--ground); padding:4px 0 10px; }
 /* V3.4. One list, one colour. */
-.tl, .stray, .sany, .sgrid, .ssheet { --qc:var(--work); }
-.trank { flex:none; width:26px; height:30px; border:none; background:none; padding:0; cursor:pointer;
-  font-family:var(--mono); font-size:13px; font-weight:600; color:var(--muted); text-align:center;
-  font-variant-numeric:tabular-nums; }
-.tl li:nth-child(-n+3) > .tr .trank { color:var(--work); }
-.trankin { flex:none; width:38px; height:32px; box-sizing:border-box; border:1.5px solid var(--work); border-radius:8px;
-  font-family:var(--mono); font-size:16px; text-align:center; background:var(--surface); color:var(--ink); }
+.stray, .sany, .sgrid, .ssheet, .tdone { --qc:var(--work); }
+.trank { flex:none; width:20px; font-family:var(--mono); font-size:13px; font-weight:600; color:var(--qc);
+  text-align:center; font-variant-numeric:tabular-nums; }
 .tr .tdrag { margin-left:2px; }
 .tsubn { font-family:var(--mono); font-size:11px; color:var(--muted); margin-left:4px; }
 .tpick select { position:absolute; inset:0; opacity:0; width:100%; height:100%; cursor:pointer; }
@@ -532,6 +513,24 @@ input[type=number] { -moz-appearance:textfield; }
   font-size:14px; line-height:1.45; color:var(--ink-2); }
 .ghow b { color:var(--ink); }
 .ghowcard .foldbtn h2 { font-size:16px; }
+/* ---------- V3.5: Do capped, Not-to-do folded ---------------------------- */
+.tbk small { font-family:var(--mono); font-size:11px; font-weight:500; opacity:.8; }
+.tbk.full { opacity:.45; }
+.tqhint.warn { color:#b3422a; }
+.tlim { margin-left:auto; border:1px solid var(--qc); background:none; color:var(--qc); border-radius:99px;
+  font-family:var(--mono); font-size:12px; padding:2px 9px; cursor:pointer; }
+.tdo .tgh span { flex:1; }
+.tempties { list-style:none; margin:0; padding:0; }
+.tslot { display:flex; align-items:center; gap:10px; min-height:46px; border-bottom:1px dashed var(--line); }
+.tslot .trank { color:var(--line-strong); }
+.tslotb { flex:1; height:40px; border:none; background:none; cursor:text; }
+.tnot { margin-top:22px; }
+.tnot .foldbtn h2 { font-size:16px; color:var(--muted); }
+.tnoth { margin:6px 2px 4px; font-size:12.5px; color:var(--muted); }
+.tnotx .tt { color:var(--ink-2); cursor:default; }
+.tnotmark { flex:none; width:24px; text-align:center; font-size:12px; color:var(--muted); }
+.tebar .tbuckets.sm { margin:0 0 10px; }
+
 /* ---------- V3.4: Goals --------------------------------------------------- */
 .casc .eyebrow { margin-bottom:4px; }
 .crow { display:grid; grid-template-columns:76px 1fr; gap:10px; align-items:baseline; padding:9px 0;
@@ -626,6 +625,63 @@ table.rs { border-collapse:separate; border-spacing:0; font-variant-numeric:tabu
 .gstart .btn, .gstart .btn-quiet { width:100%; padding:13px; font-size:14px; }
 
 
+/* ---------- V3.5: Goals as four steps ------------------------------------ */
+.gstep { padding-top:16px; }
+.gsh { display:flex; align-items:center; gap:10px; }
+.gsh h2 { flex:1; margin:0; font-family:var(--display); font-weight:500; font-size:20px; }
+.gsn { flex:none; width:24px; height:24px; border-radius:50%; display:grid; place-items:center; background:var(--work);
+  color:#fff; font-family:var(--mono); font-size:12.5px; font-weight:600; }
+.gsr { font-size:12px; color:var(--muted); font-family:var(--mono); }
+.gask { margin:8px 0 10px; font-size:13.5px; color:var(--muted); font-style:italic; line-height:1.4; }
+.gguide { display:inline-flex; align-items:center; gap:5px; margin-top:12px; border:none; background:none; padding:4px 0;
+  font-family:inherit; font-size:12.5px; color:var(--accent); cursor:pointer; }
+.gguide i { font-style:normal; font-size:10px; }
+.gguideb { margin-top:6px; padding:12px 14px; border-radius:12px; background:var(--surface-2); font-size:13.5px;
+  line-height:1.5; color:var(--ink-2); }
+.gguideb p { margin:0 0 8px; }
+.gguideb p:last-child { margin-bottom:0; }
+.gex b { display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase;
+  margin-right:6px; padding:1px 6px; border-radius:5px; }
+.gex.good b { background:color-mix(in oklab, #3f9b5f 16%, transparent); color:#2e7a49; }
+.gex.bad b { background:color-mix(in oklab, #c4513a 14%, transparent); color:#b3422a; }
+.gline2 { padding:10px 0 12px; border-top:1px solid var(--line); }
+.gline2:first-of-type { border-top:none; padding-top:2px; }
+.gline2.one h3 { font-size:20px; }
+.gline2 .gstar { cursor:default; font-size:20px; width:26px; text-align:center; }
+.gline2:not(.one) h3 { font-size:16px; color:var(--ink-2); }
+.galso { margin:10px 0 0; font-size:10.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); }
+.gadd2 { display:block; margin-top:8px; font-size:13.5px; }
+.gedit { padding:4px 0 10px; }
+.gscore { display:flex; align-items:baseline; justify-content:center; gap:10px; margin-top:8px; }
+.gscore b { font-family:var(--mono); font-size:40px; font-weight:500; letter-spacing:-.02em; }
+.gscore span { font-size:12.5px; color:var(--muted); }
+.gfor { margin:14px 0 2px; font-size:12px; font-weight:600; color:var(--ink-2); }
+.gfoot2 { margin:12px 0 0; font-size:12px; color:var(--muted); text-align:center; }
+.gone { display:flex; align-items:center; gap:10px; }
+.gone .field { flex:1; min-width:0; font-size:16px; }
+.gone .dplay { margin-top:0; width:46px; height:46px; flex:none; }
+.gfour { margin:14px 0 4px; padding-left:20px; display:flex; flex-direction:column; gap:6px; font-size:14px;
+  line-height:1.45; color:var(--ink-2); }
+.gfour b { color:var(--ink); }
+.gdone2 { display:block; margin-top:8px; }
+
+.gsub2 { margin-top:12px; }
+.gsub2 .clab { display:block; margin-bottom:4px; }
+.gstep .gvtext { margin-top:4px; }
+.gvtext.cnil { font-family:inherit; font-size:13.5px; color:var(--muted); }
+.gtap { font-size:17px; padding:2px 0; }
+.gstep .cin { margin-top:2px; }
+.gklog { display:flex; align-items:center; justify-content:flex-end; gap:8px; margin-top:6px; font-size:12px; color:var(--muted); }
+.gklog .kb { font-family:var(--mono); font-size:13px; color:var(--ink); background:none; border:none; padding:2px 0;
+  cursor:pointer; text-decoration:underline dotted var(--line-strong); text-underline-offset:3px; }
+.gklog .kb.nil { color:var(--accent); text-decoration:none; }
+.gklog .kin { width:72px; box-sizing:border-box; font-family:var(--mono); font-size:16px; text-align:right;
+  border:1.5px solid var(--work); border-radius:6px; padding:2px 6px; background:var(--surface); color:var(--ink); }
+.gnokpi { display:block; margin-top:6px; font-size:12.5px; }
+.gstep .daynav { margin-top:4px; }
+.gstep .rs-wrap { margin-top:10px; }
+.gstep .sc-ro { margin-top:4px; }
+
 /* ---------- V3.3: the opening screen ------------------------------------ */
 .hbar { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:2px 0 6px; }
 .hbar b { font-family:var(--display); font-weight:500; font-size:17px; color:var(--ink-2); }
@@ -675,27 +731,19 @@ table.rs { border-collapse:separate; border-spacing:0; font-variant-numeric:tabu
 .hfamline i { font-style:normal; color:var(--muted); font-size:16px; }
 .hadd { margin-top:14px; }
 
-/* ---------- V3.3: the tab bar -------------------------------------------- */
-body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
-.tabbar { position:fixed; left:0; right:0; bottom:0; z-index:40; display:flex; justify-content:center; gap:6px;
-  padding:8px 12px calc(8px + env(safe-area-inset-bottom)); background:color-mix(in oklab, var(--ground) 88%, transparent);
-  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-top:1px solid var(--line); }
-.tab { flex:1; max-width:76px; height:42px; border:none; border-radius:12px; background:none; font-family:var(--mono);
-  font-size:15px; font-weight:600; letter-spacing:.04em; color:var(--muted); cursor:pointer; }
-.tab.here { color:var(--ink); }
-.tab.here::after { content:""; display:block; width:5px; height:5px; border-radius:50%; background:var(--accent); margin:2px auto 0; }
-.tab.open { background:var(--surface-2); color:var(--ink); }
-.tabshade { position:fixed; inset:0; z-index:38; background:rgba(0,0,0,.06); }
-.tabpop { position:fixed; left:12px; right:12px; bottom:calc(66px + env(safe-area-inset-bottom)); z-index:39;
-  max-width:520px; margin:0 auto; background:var(--surface); border:1px solid var(--line); border-radius:16px;
-  box-shadow:0 10px 30px rgba(0,0,0,.14); padding:12px 12px 14px; }
-.tabpop .eyebrow { margin:0 0 8px 2px; }
-.tabpop .chips { display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; }
-.tabpop .chip { width:auto; height:64px; border-radius:14px; }
-.tabpop .chip b { font-size:18px; }
-.tabpop .chip span { font-size:10px; }
-.tsoon { margin:4px 2px; font-size:14px; color:var(--muted); grid-column:1/-1; }
-.ssheet { bottom:calc(58px + env(safe-area-inset-bottom)) !important; }
+/* ---------- V3.5: your dashboard, as three labelled lines of links ----- */
+.drows { margin-top:8px; }
+.drow { display:flex; flex-direction:column; gap:2px; padding:9px 0 8px; border-top:1px solid color-mix(in oklab, var(--hc) 14%, var(--line)); }
+.dname { flex:none; font-size:10.5px; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--muted); }
+.dlinks { min-width:0; display:flex; flex-wrap:wrap; gap:2px clamp(12px, 4.4vw, 18px); }
+.dlink { border:none; background:none; padding:4px 0; font-family:inherit; font-size:clamp(13.5px, 3.9vw, 14.5px); color:var(--ink-2);
+  cursor:pointer; white-space:nowrap; text-decoration:underline; text-decoration-color:var(--line-strong);
+  text-underline-offset:4px; }
+.dlink b { font-family:var(--mono); font-weight:500; font-size:13.5px; color:var(--muted); margin-left:3px; }
+.dlink.on b { color:var(--hc, var(--accent)); }
+.dlink:active { opacity:.6; }
+.dsoon { margin:6px 0 0; font-size:12px; color:var(--muted); }
 
 
 /* ---------- V3.3: a day with no time, and the matrix view -------------- */
@@ -960,10 +1008,6 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
 .chip.on b { color:var(--ink); }
 .chip.on span { color:var(--accent); }
 .chip:active { transform:scale(.97); }
-/* the stamped chip IS a time input, invisible, covering it: one tap opens
-   the native wheel, with no showPicker() support needed */
-.chiptime { position:absolute; inset:0; width:100%; height:100%; opacity:0;
-  border:none; padding:0; margin:0; cursor:pointer; font-size:16px; }
 .netbar { display:flex; align-items:center; justify-content:space-between; gap:10px;
   margin:0 0 12px; padding:9px 13px; border-radius:10px; background:var(--warn-soft);
   border:1px solid var(--line); font-size:12.5px; color:var(--ink-2); }
@@ -1238,8 +1282,7 @@ body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
 .dnum.dmin { font-size:clamp(38px, 12vw, 54px); }
 .dgo { border:none; background:none; color:var(--ink); cursor:pointer; padding:0 6px; line-height:1.1; }
 .dnone { color:var(--line-strong) !important; }
-.dtime { position:relative; display:block; cursor:pointer; padding:0 8px; }
-.dtime .dval { display:block; }
+.dnow { border:none; background:none; cursor:pointer; padding:0 10px; color:var(--accent); line-height:1.1; }
 .dedit { display:block; margin:2px auto 0; border:none; background:none; font-family:inherit; font-size:12px;
   color:var(--muted); cursor:pointer; padding:6px 10px; text-decoration:underline dotted;
   text-decoration-color:var(--line-strong); text-underline-offset:3px; }
@@ -1301,7 +1344,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 .ftbl thead th { font-size:8.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
   color:var(--muted); padding:0 0 5px; }
 .ftbl th.fn { width:21%; text-align:left; padding:0; }
-.ftbl tbody td { font-family:var(--mono); font-size:10.5px; letter-spacing:-.02em; color:var(--ink); height:30px;
+.ftbl tbody td { font-family:var(--mono); font-size:clamp(8.5px, 2.6vw, 10.5px); letter-spacing:-.04em; color:var(--ink); height:30px;
   border-top:1px solid var(--line); }
 .ftbl tbody th { border-top:1px solid var(--line); }
 .ftbl tbody tr:first-child td, .ftbl tbody tr:first-child th { border-top:none; }
@@ -1318,8 +1361,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 /* A number carried over from last time and not touched yet: a suggestion,
    so it is grey, and it is not logged unless you tick it or type over it. */
 .setgrid input.pre { color:var(--muted); }
-.tmoffer { display:block; margin-top:5px; font-size:12px; color:var(--muted); }
-.tmoffer .linkbtn { font-size:12px; color:var(--muted); font-weight:400; }
 .stdline { margin-top:4px; }
 
 </style>
@@ -1337,7 +1378,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "3.4";
+  const APP_VERSION = "3.5";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -2526,9 +2567,12 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   // you did, leave the sets you skipped, press Finish. No question asked.
   const hasNumsSet = (st, kind) => kind === "duration" ? st.t > 0
     : kind === "distance_time" ? (st.d > 0 || st.t > 0) : (st.w > 0 || st.r > 0);
-  const untouched = (s) => !s.typed && s.pw !== undefined &&
-    (Number(s.w) || 0) === (Number(s.pw) || 0) && (Number(s.r) || 0) === (Number(s.pr) || 0) &&
-    (Number(s.d) || 0) === (Number(s.pd) || 0) && (Number(s.t) || 0) === (Number(s.pt) || 0);
+  // What the boxes were filled with: the template's numbers (V3.5), or
+  // last time's for a draft saved before them.
+  const seedOf = (s) => s.s0 || (s.pw !== undefined ? { w: s.pw, r: s.pr, d: s.pd, t: s.pt } : null);
+  const untouched = (s) => { const z = seedOf(s); return !s.typed && !!z &&
+    (Number(s.w) || 0) === (Number(z.w) || 0) && (Number(s.r) || 0) === (Number(z.r) || 0) &&
+    (Number(s.d) || 0) === (Number(z.d) || 0) && (Number(s.t) || 0) === (Number(z.t) || 0); };
   const counts = (s, kind) => !!s.on || (hasNumsSet(s, kind) && !untouched(s));
   function doneSets(a) {
     let n = 0;
@@ -2688,7 +2732,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     return guardActive(() => startSessionNow(label, iso), label ? `“${label}”` : "a new one");
   }
   async function startSessionNow(label, iso) {
-    state.lift.msg = null; state.lift.offer = null;
+    state.lift.msg = null;
     const a = { id: uuid(), label: label || "", date: iso || todayISO(),
                 startedAt: Date.now(), endedAt: null, ex: [], pendingFinish: false,
                 mode: state.mode, durOverride: null, note: "",
@@ -2707,15 +2751,22 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       if (items.length) {
         a.ex = items.map((it) => {
           const last = Array.isArray(it.last) ? it.last : [];
+          // V3.5. A template that holds numbers starts from them, as
+          // Strong's do; one that does not follows last time. Either way
+          // pw/pr/pd/pt stay what you actually did last time, and s0 is
+          // what was put in the boxes, so a set counts only once you tick
+          // it or change it.
+          const vals = Array.isArray(it.vals) && it.vals.length ? it.vals : null;
           const n = Math.max(1, Number(it.sets) || last.length || 1);
           const sets = [];
           for (let i = 0; i < n; i++) {
-            const src = last[i] || last[last.length - 1] || {};
+            const prev = last[i] || last[last.length - 1] || {};
+            const src = vals ? (vals[i] || vals[vals.length - 1] || {}) : prev;
             const w = Number(src.w) || 0, r = Number(src.r) || 0;
             const d = Number(src.d) || 0, t = Number(src.t) || 0;
-            // Prefilled AND remembered: pw/pr/pd/pt are last time's, and
-            // they stay put while you type over w/r/d/t.
-            sets.push({ w, r, d, t, on: false, pw: w, pr: r, pd: d, pt: t });
+            sets.push({ w, r, d, t, on: false, s0: { w, r, d, t },
+                        pw: Number(prev.w) || 0, pr: Number(prev.r) || 0,
+                        pd: Number(prev.d) || 0, pt: Number(prev.t) || 0 });
           }
           return { name: it.exercise, kind: it.kind || "weight_reps", sets };
         });
@@ -2725,7 +2776,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     // V2.8. Remember the shape this workout started from, so Finish can
     // tell whether you changed it — an exercise added or dropped, a set
     // more or fewer — and only then ask about the template.
-    a.tmpl = a.ex.map((x) => ({ name: x.name, kind: x.kind, sets: x.sets.length }));
+    a.tmpl = a.ex.map((x) => ({ name: x.name, kind: x.kind, sets: x.sets.length,
+      vals: x.sets.map((st) => ({ w: st.w, r: st.r, d: st.d, t: st.t })) }));
 
     state.lift.active = a;
     saveLocal();
@@ -3457,15 +3509,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     });
 
     if (state.view === "exercise") {
-      on("tmplUpd", "click", async () => {
-        const o = state.lift.offer;
-        if (!o) return;
-        state.lift.offer = null;
-        const r = await call("app_template_save", { p_code: state.code, p_person: state.meId,
-          p_label: o.label, p_mode: o.mode, p_items: o.items });
-        state.lift.msg = r.error ? r.error : `“${o.label}” updated.`;
-        await loadLift(); render();
-      });
       on("startEmpty", "click", () => startSession(""));
       document.querySelectorAll("[data-starter]").forEach((el) =>
         el.addEventListener("click", () => startStarter(el.dataset.starter)));
@@ -3701,143 +3744,44 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
     // Rest and Rise: three scroll columns, the middle row wins.
     //
-    // V2.6 rewrite, because V2.5's version got stuck. Three causes, all
-    // the same shape — the page rebuilding itself under a moving finger:
-    //
-    //   1. Saving called refresh(), which re-rendered the whole card and
-    //      replaced the very elements being scrolled. Mid-flick the
-    //      column vanished and the scroll died with it.
-    //   2. The re-render then re-placed the wheel at the SAVED value, so
-    //      a second scroll begun before the save landed was yanked back.
-    //   3. 260ms of quiet is not the end of an iOS momentum scroll. A
-    //      slow coast has gaps longer than that, so a save fired in the
-    //      middle of one and triggered (1).
-    //
-    // Now: a save never re-renders the card. It writes, updates the
-    // state in place, and repaints only the graph below. A save is also
-    // abandoned if the user has started scrolling again while it was in
-    // flight, and nothing saves until a real gesture has happened.
+    // V3.5. The nudges. Each tap moves the time and shows it at once; the
+    // save waits for a pause in tapping, so four quick taps are one write.
     {
-      const cols = [...document.querySelectorAll("[data-wheel]")];
-      if (cols.length) {
-        // Measured once, at mount. Re-measuring during a scroll can read
-        // a transient zero and put NaN through the arithmetic.
-        const probe = document.querySelector(".witem");
-        const ITEM = Math.max(1, probe ? probe.getBoundingClientRect().height : 40);
-
-        let live = false;     // has the user actually touched a wheel yet
-        let gen  = 0;         // bumped by every scroll; stales an in-flight save
-        let timer = null;
-
-        const indexOf = (c) => {
-          const n = Math.round(c.scrollTop / ITEM);
-          return Number.isFinite(n) ? Math.max(0, n) : 0;
-        };
-        const paint = (c) => {
-          const at = indexOf(c);
-          [...c.querySelectorAll(".witem")].forEach((el, i) =>
-            el.setAttribute("aria-selected", String(i === at)));
-        };
-        const place = (c) => {
-          c.scrollTop = Number(c.dataset.at || 0) * ITEM;
-          paint(c);
-        };
-
-        const readValue = () => {
-          const get = (n) => {
-            const c = cols.find((x) => x.dataset.wheel === n);
-            return c ? indexOf(c) : 0;
-          };
-          const k = state.seg;
-          const h12 = Math.min(11, get("h")) + 1;
-          const mi  = Math.min(59, get("m"));
-          const pm  = get("ap") === 1;
-          let v = ((pm ? (h12 === 12 ? 12 : h12 + 12) : (h12 === 12 ? 0 : h12)) * 60) + mi;
-          // The 5am rule, unchanged: a bedtime after midnight belongs to
-          // the evening it started, and is stored past 1440.
-          if (k === "rest" && v < 5 * 60) v += 1440;
-          return v;
-        };
-
-        const save = async () => {
-          const mine = gen;
-          const k = state.seg, v = readValue();
-          if (!Number.isFinite(v)) return;
-
-          // Show it as set straight away. The wheel already reads the new
-          // time; everything else on the page should agree with it before
-          // the network does.
-          const m = me();
-          if (m && entryDay() === todayISO()) m[k] = v;
-          const wrap = document.querySelector(".wheel");
-          if (wrap) wrap.classList.remove("unset");
-
-          await call("app_log", { p_code: state.code, p_person: state.meId,
-            p_value: v, p_metric: M[k].key, p_date: nightDay(k), p_tz: deviceTZ() });
-          if (mine !== gen) return;          // they kept scrolling; leave it alone
+      const btns = document.querySelectorAll("[data-nudge]");
+      let timer = null, gen = 0;
+      btns.forEach((el) => el.addEventListener("click", () => {
+        const k = state.seg, iso = entryDay(), m = me() || {};
+        const met = M[k];
+        const cur = state.tLocal && state.tLocal.k === k && state.tLocal.iso === iso ? state.tLocal.v
+          : (iso === todayISO() ? rawVal(m, k) : (dayRecord(k).logged ? dayRecord(k).value : null));
+        const start = cur !== null && cur !== undefined ? cur
+          : (hasTarget(m, k) ? target(m, k) : (met.night ? 22 * 60 : 7 * 60));
+        let v = ((Math.round(start) + Number(el.dataset.nudge)) % 1440 + 1440) % 1440;
+        // The 5am rule: a bedtime after midnight belongs to the evening.
+        if (k === "rest" && v < 5 * 60) v += 1440;
+        state.tLocal = { k, iso, v };
+        const big = document.getElementById("tBig");
+        if (big) { big.innerHTML = tParts(v); big.classList.remove("unset"); }
+        const hint = document.getElementById("hint");
+        if (hint) hint.textContent = "Saving\u2026";
+        const mine = ++gen;
+        clearTimeout(timer);
+        timer = setTimeout(async () => {
+          const res = await call("app_log", { p_code: state.code, p_person: state.meId,
+            p_value: v, p_metric: met.key, p_date: nightDay(k), p_tz: deviceTZ() });
+          if (mine !== gen) return;                 // still tapping: the next one saves
+          if (res.error) { state.msg = res.error; state.msgKind = "bad"; }
+          if (iso === todayISO() && !res.error) m[k] = v;
+          state.tLocal = null;
           await loadHistory();
-          if (mine !== gen) return;
-          // Repaint the graph only. The card, and the wheel inside it,
-          // are left exactly as the finger left them.
-          const slot = document.getElementById("graphSlot");
-          if (slot) { slot.innerHTML = graphCard(k); wireGraph(); }
-          const hint = document.getElementById("hint");
-          if (hint) hint.textContent = "Scroll to change it.";
-          refresh();                          // the board, quietly, in the background
-        };
-
-        const settle = () => {
-          clearTimeout(timer);
-          // Long enough to outlast an iOS momentum coast.
-          timer = setTimeout(save, 450);
-        };
-
-        cols.forEach((c) => {
-          place(c);
-          const wake = () => { live = true; };
-          ["pointerdown", "touchstart", "wheel", "keydown"].forEach((ev) =>
-            c.addEventListener(ev, wake, { passive: true }));
-
-          c.addEventListener("scroll", () => {
-            paint(c);
-            if (!live) return;
-            gen++;
-            settle();
-          }, { passive: true });
-
-          // Some browsers fire this exactly once when scrolling truly
-          // stops, which beats any timeout. Harmless where unsupported.
-          c.addEventListener("scrollend", () => {
-            if (!live) return;
-            clearTimeout(timer);
-            timer = setTimeout(save, 60);
-          });
-
-          // Tapping a row is quicker than scrolling to it.
-          c.querySelectorAll(".witem").forEach((el) =>
-            el.addEventListener("click", () => {
-              live = true;
-              c.scrollTo({ top: Number(el.dataset.i) * ITEM, behavior: "smooth" });
-              gen++; settle();
-            }));
-
-          // Arrow keys, for anyone on a laptop.
-          c.addEventListener("keydown", (e) => {
-            const d = e.key === "ArrowDown" ? 1 : e.key === "ArrowUp" ? -1 : 0;
-            if (!d) return;
-            e.preventDefault();
-            live = true;
-            const n = Math.max(0, Math.min(c.querySelectorAll(".witem").length - 1,
-                                           indexOf(c) + d));
-            c.scrollTo({ top: n * ITEM, behavior: "smooth" });
-            gen++; settle();
-          });
-        });
-      }
+          await refresh();
+        }, 650);
+      }));
     }
 
     on("clearDay", "click", async () => {
       const k = state.seg;
+      state.tLocal = null;
       const res = await call("app_unlog", { p_code: state.code, p_person: state.meId,
         p_metric: M[k].key, p_date: nightDay(k) });
       if (res.error) { state.msg = res.error; state.msgKind = "bad"; render(); return; }
@@ -3850,6 +3794,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
     on("stampNow", "click", async (e) => {
       e.target.disabled = true;
+      state.tLocal = null;
       const k = state.seg;
       const res = await call("app_stamp", {
         p_code: state.code, p_person: state.meId, p_metric: M[k].key, p_tz: deviceTZ() });
@@ -3986,7 +3931,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     state.lift.loaded = false;
     state.lift.labels = []; state.lift.sessions = [];
     state.lift.menu = null; state.lift.rename = null; state.flip = null;
-    state.lift.msg = null; state.lift.offer = null;
+    state.lift.msg = null;
     loadLocal();
     state.view = state.seg === "sleep" ? "sleep"
                : state.seg === "tasks" ? "tasks"
@@ -4210,10 +4155,40 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             }).join("")}</tr>`;
         }).join("")}</tbody></table></div>`;
     };
+    // V3.5. Your own card is your dashboard: one labelled line per pillar,
+    // and every number on it is the link to its page. It stays in view
+    // with the family folded, because it is how you get anywhere; the tab
+    // bar that used to do that job is gone.
+    const meDash = (p) => {
+      const c = famCells(p);
+      const initials = p.name.trim().split(/\s+/).slice(0, 2).map((w) => (w[0] || "").toUpperCase()).join("");
+      const NAMES = { steps: "Steps", train: "Train", cardio: "Cardio", sleep: "Score", rise: "Rise", rest: "Rest",
+                      work: "Work", goals: "Goals", tasks: "Tasks" };
+      const link = (k) => {
+        const v = c[k], nil = v === null || v === undefined;
+        return `<button type="button" class="dlink${nil ? "" : " on"}" data-go="${k}"
+          aria-label="${esc(STD[k].label)}${nil ? "" : ": " + stdWords(k, v)}">${NAMES[k]} <b>${nil ? "\u2013" : stdWords(k, v)}</b></button>`;
+      };
+      return `<div class="fcard me mydash" style="--hc:hsl(${p.hue} 58% 42%)">
+        <div class="fhead">
+          <span class="dot" aria-hidden="true"
+            style="background:color-mix(in oklab, hsl(${p.hue} 62% 48%) 16%, var(--surface));
+                   color:color-mix(in oklab, hsl(${p.hue} 62% 48%) 78%, var(--ink))">${esc(initials)}</span>
+          <button class="tapedit" data-edit="name" data-person="${p.id}">${esc(p.name)}</button>
+          <em class="fyou">you</em>
+          ${p.streak > 1 && !state.boardDay ? `<span class="fstreak">${p.streak}-day streak</span>` : ""}
+        </div>
+        <div class="drows">${STD_GROUPS.map(([g, ks]) => `
+          <div class="drow"><span class="dname">${esc(g)}</span><div class="dlinks">${ks.map(link).join("")}</div></div>`).join("")}
+          <p class="dsoon">Meditation &middot; Diet &mdash; coming</p>
+        </div>
+      </div>`;
+    };
     const roster = state.people.length === 0
       ? `<div class="dashed"><p class="note">Nobody has been added yet.
            Add the first name above.</p></div>`
       : `<div class="roster">${ordered.filter((p) => !othersTable || p.id === state.meId).map((p) => {
+          if (p.id === state.meId) return meDash(p);
           const c = famCells(p);
           const initials = p.name.trim().split(/\s+/).slice(0,2)
             .map((w) => (w[0] || "").toUpperCase()).join("");
@@ -4239,7 +4214,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             </div>
             <div class="fgrid">${STD_GROUPS.flatMap(([, ks]) => ks).map(cell).join("")}</div>
           </div>`;
-        }).join("")}${othersTable ? famTable(ordered.filter((p) => p.id !== state.meId)) : ""}</div>`;
+        }).join("")}${othersTable && boardOpen() ? famTable(ordered.filter((p) => p.id !== state.meId)) : ""}</div>`;
 
     // V3.3. The opening screen is the Step Score, large, and nothing
     // else that asks for attention. Swipe for Work and Sleep. The family,
@@ -4275,12 +4250,12 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           <span>${state.boardDay ? "The family" : "The family today"}</span>
           <em>${state.people.length ? `${logged}/${state.people.length} logged` : ""}</em>
           <i aria-hidden="true">${boardOpen() ? "\u25b4" : "\u203a"}</i></button>
-        ${boardOpen() ? `
-          ${dayNav({ ids: ["bPrev", "bNext", "bToday"], cls: "famnav",
+        ${boardOpen() ? dayNav({ ids: ["bPrev", "bNext", "bToday"], cls: "famnav",
                      atToday: famDayISO() >= familyISO(),
                      label: state.boardBusy ? "\u2026"
-                       : famDayISO() === familyISO() ? "Today" : esc(fullDate(famDayISO())) })}
-          ${roster}
+                       : famDayISO() === familyISO() ? "Today" : esc(fullDate(famDayISO())) }) : ""}
+        ${boardOpen() || m ? roster : ""}
+        ${boardOpen() ? `
           ${state.boardBusy ? "" : `
             <button class="btn" id="waShare" style="width:100%;margin-top:14px">${state.boardDay
               ? `Post ${esc(shortDay(famDayISO()))} to WhatsApp` : "Post today to WhatsApp"}</button>`}
@@ -4384,12 +4359,14 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             value="${esc(shown)}" data-raw="${raw}" data-show="${esc(shown)}"
             aria-label="${esc(S.label)} today${S.kind === "min" ? ", in minutes" : ""}, tap to type">`;
       } else if (S.kind === "time") {
-        // A clock: the native time wheel sits invisibly over the reading.
-        centre = `<label class="dtime">
-            <b class="dval${v === null ? " dnone" : ""}">${v === null ? "set" : clockWords(v)}</b>
-            ${clone ? "" : `<input type="time" class="chiptime" data-dialtime="${k}"
-              value="${v === null ? clockInput(std) : clockInput(v)}"
-              aria-label="${esc(S.label)} time, tap to set">`}</label>`;
+        // V3.5. A clock dial has no wheel. Not logged yet: one tap on Now
+        // records this minute (with Undo). Logged: the time, which opens
+        // the page, where four nudges move it.
+        centre = v === null
+          ? `<button type="button" class="dval dnow" ${clone ? 'tabindex="-1"' : `data-dialnow="${k}"`}
+               aria-label="${esc(S.label)}: record now">Now</button>`
+          : `<button type="button" class="dval dgo" ${go(page)} ${clone ? 'tabindex="-1"' : ""}
+               aria-label="${esc(S.label)} ${clockWords(v)}. Open to adjust">${clockWords(v)}</button>`;
       } else {
         // Made on its own page (the pyramid, the week's tactics, the list):
         // the centre is the way in.
@@ -4476,18 +4453,16 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         await refresh();
       });
     });
-    // A clock dial: the native wheel, saved the moment it closes.
-    document.querySelectorAll("[data-dialtime]").forEach((el) =>
-      el.addEventListener("change", async () => {
-        const k = el.dataset.dialtime;
-        if (!el.value) return;
-        const [hh, mm] = el.value.split(":").map(Number);
-        let v = hh * 60 + (mm || 0);
-        if (k === "rest" && hh < 5) v += 1440;     // the 5am rule
-        const m = me(); if (m) m[k] = v;
-        const res = await call("app_log", { p_code: state.code, p_person: state.meId,
-          p_value: v, p_metric: STD[k].key, p_date: nightDay(k), p_tz: deviceTZ() });
-        dialSay(k, res.error ? (res.offline ? "No signal. Not saved yet." : res.error) : "Saved.");
+    // A clock dial: Now records this minute, the way the page's Now does.
+    document.querySelectorAll("[data-dialnow]").forEach((el) =>
+      el.addEventListener("click", async () => {
+        const k = el.dataset.dialnow;
+        el.disabled = true;
+        const res = await call("app_stamp", { p_code: state.code, p_person: state.meId,
+          p_metric: STD[k].key, p_tz: deviceTZ() });
+        if (res.error) { el.disabled = false; dialSay(k, res.offline ? "No signal. Not saved yet." : res.error); return; }
+        armUndo({ key: STD[k].key, date: res.date, words: `${STD[k].label} ${clockWords(res.value)} saved` });
+        const m = me(); if (m) m[k] = res.value;
         await refresh();
       }));
     // The play button starts, pauses and continues without leaving home.
@@ -4513,65 +4488,11 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     }, 1000);
   }
 
-  /* ---------- the tab bar -------------------------------------------
-     V3.3. Five letters for the five pillars, on every main screen. A tap
-     raises that row's links above the bar, with today's numbers on them;
-     a second tap opens one. Meditation and Diet say they are coming.
-     ------------------------------------------------------------------ */
-  const TABS = [
-    { t: "M",  name: "Meditation" }, { t: "E",  name: "Exercise" }, { t: "D",  name: "Diet" },
-    { t: "S",  name: "Sleep" },      { t: "GW", name: "Great Work" },
-  ];
-  const TAB_OF = { steps: "E", train: "E", cardio: "E", sleep: "S", rise: "S", rest: "S",
-                   work: "GW", goals: "GW", tasks: "GW" };
-  function tabChips(p, t) {
-    if (!p) return `<p class="tsoon">Pick your name first.</p>`;
-    const chip = (k, label, words, on) =>
-      `<button type="button" class="chip${on ? " on" : ""}" data-go="${k}" aria-label="${label}${on ? ": " + words : ""}">
-         <b>${words}</b><span>${label}</span></button>`;
-    if (t === "E") {
-      const sg = target(p, "steps"), sv = val(p, "steps");
-      return chip("steps", "Step Score", sv > 0 ? (sg ? Math.round(sv / sg * 100) + "%" : shortNum(sv)) : "\u2013", sv > 0)
-        + chip("train", "Train", val(p, "train") > 0 ? Math.round(val(p, "train")) + "m" : "\u2013", val(p, "train") > 0)
-        + chip("cardio", "Cardio", val(p, "cardio") > 0 ? Math.round(val(p, "cardio")) + "m" : "\u2013", val(p, "cardio") > 0);
-    }
-    if (t === "S") {
-      const w = (k) => !hasVal(p, k) ? "\u2013" : k === "sleep" ? scorePct(p.items) + "%" : clockWords(rawVal(p, k));
-      return chip("sleep", "Sleep Score", w("sleep"), hasVal(p, "sleep"))
-        + chip("rise", "Rise", w("rise"), hasVal(p, "rise"))
-        + chip("rest", "Rest", w("rest"), hasVal(p, "rest"));
-    }
-    if (t === "GW") {
-      const wg = Number(p.work_target) || 180, wm = Number(p.work_min) || 0;
-      const gp = p.goal_pct;
-      return chip("work", "Work Score", wm > 0 ? Math.round(wm / wg * 100) + "%" : "\u2013", wm > 0)
-        + chip("goals", "Goals", gp !== null && gp !== undefined ? gp + "%" : "\u2013", Number(gp) >= stdOf(p, "goals"))
-        + chip("tasks", "Tasks", Number(p.tasks_open) > 0 ? String(p.tasks_open) : "\u2013", false);
-    }
-    return `<p class="tsoon">${t === "M" ? "Meditation" : "Diet"} is coming soon.</p>`;
-  }
-  function tabBar() {
-    const here = state.view === "board" ? null
-      : state.view === "tasks" ? "GW" : state.view === "goals" ? "GW"
-      : TAB_OF[state.seg] || null;
-    const open = state.tabOpen;
-    return `
-      ${open ? `<div class="tabshade" id="tabShade"></div>
-        <div class="tabpop" role="dialog" aria-label="${TABS.find((x) => x.t === open).name}">
-          <p class="eyebrow">${TABS.find((x) => x.t === open).name}</p>
-          <div class="chips">${tabChips(me(), open)}</div></div>` : ""}
-      <nav class="tabbar" aria-label="Pillars">${TABS.map((x) => `
-        <button type="button" class="tab${x.t === here ? " here" : ""}${x.t === open ? " open" : ""}"
-          data-tab="${x.t}" aria-label="${x.name}" aria-expanded="${x.t === open}">${x.t}</button>`).join("")}
-      </nav>`;
-  }
-  function wireTabs() {
-    document.querySelectorAll("[data-tab]").forEach((el) =>
-      el.addEventListener("click", () => {
-        state.tabOpen = state.tabOpen === el.dataset.tab ? null : el.dataset.tab; render(); }));
-    on("tabShade", "click", () => { state.tabOpen = null; render(); });
+  // V3.5. The tab bar is deleted. Every page is reached from the links
+  // on the home screen (and the dials), and every page has its way back.
+  function wireGo() {
     document.querySelectorAll("[data-go]").forEach((el) => {
-      el.addEventListener("click", () => { state.tabOpen = null; openExercise(el.dataset.go); });
+      el.addEventListener("click", () => openExercise(el.dataset.go));
       if (el.getAttribute("role") === "button") el.addEventListener("keydown", (e) => {
         if ((e.key === "Enter" || e.key === " ") && e.target === el) { e.preventDefault(); el.click(); } });
     });
@@ -4663,62 +4584,48 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
      right now, for the mornings and nights when you are holding the phone
      anyway and do not want to spin a wheel.
      ------------------------------------------------------------------ */
+  // "10:42" with a small "pm": the reading, large; the half of the day, quiet.
+  function tParts(min) {
+    const b = ((Math.round(min) % 1440) + 1440) % 1440, h = Math.floor(b / 60);
+    return `${h % 12 || 12}:${pad(b % 60)}<small>${h < 12 ? "am" : "pm"}</small>`;
+  }
   function timeCard(k, iso, isToday, m, rec, goal) {
     const met = M[k];
-    const v = isToday ? rawVal(m, k) : (rec.logged ? rec.value : null);
+    const local = state.tLocal && state.tLocal.k === k && state.tLocal.iso === iso ? state.tLocal.v : null;
+    const v = local !== null ? local : isToday ? rawVal(m, k) : (rec.logged ? rec.value : null);
     const has = v !== null && v !== undefined;
     return `
       <section class="card">
         ${dayNav({ label: isToday ? (met.night ? "Tonight" : "Today") : esc(fullDate(iso)), atToday: isToday, unit: "day", todayWord: met.night ? "tonight" : "today" })}
 
         ${(() => {
-          // V2.5. Three columns you scroll, snapping to the value in the
-          // middle band. Built here rather than handed to the OS: the
-          // native wheel is the thing that was finicky, and a page of our
-          // own behaves the same on every phone. The minute column is
-          // every minute, not every five, so a stamped 10:42p is never
-          // quietly rounded away the first time the card is opened.
+          // V3.5. No wheel. One big time, Now for the usual case, and four
+          // nudges for the rest: nothing to scroll means nothing to stick.
+          // Unset, it shows your target faintly, so a nudge starts there.
           const base = has ? v : (hasTarget(m, k) ? goal : (met.night ? 22 * 60 : 7 * 60));
-          const b = ((Math.round(base) % 1440) + 1440) % 1440;
-          const h24 = Math.floor(b / 60);
-          const sel = { h: ((h24 + 11) % 12), m: b % 60, ap: h24 >= 12 ? 1 : 0 };
-          const col = (name, items, at, label) => `
-            <div class="wcol" data-wheel="${name}" role="listbox"
-                 aria-label="${label}" tabindex="0" data-at="${at}">
-              <div class="wpad"></div>
-              ${items.map((t, i) => `<div class="witem" data-i="${i}"
-                 role="option" aria-selected="${i === at}">${t}</div>`).join("")}
-              <div class="wpad"></div>
-            </div>`;
           return `
-        <div class="domino" style="padding-top:6px">
-          <div class="wheel${has ? "" : " unset"}" style="color:${met.color}">
-            ${col("h", Array.from({length:12}, (_, i) => i + 1), sel.h, "Hour")}
-            <span class="wsep">:</span>
-            ${col("m", Array.from({length:60}, (_, i) => pad(i)), sel.m, "Minute")}
-            ${col("ap", ["AM","PM"], sel.ap, "Morning or evening")}
-            <div class="wband" aria-hidden="true"></div>
-          </div>
+        <div class="domino tclock" style="padding-top:8px">
+          <b class="tbig${has ? "" : " unset"}" id="tBig" style="color:${met.color}">${tParts(base)}</b>
           <button type="button" class="of" data-edit="goal" data-metric="${k}">${
             hasTarget(m, k) ? `standard <b>${clockWords(goal)}</b>`
                             : `set a ${esc(met.label.toLowerCase())} target`}</button>
+          <div class="tnudge" role="group" aria-label="Adjust">
+            ${[-15, -5, 5, 15].map((d) => `<button type="button" data-nudge="${d}"
+              aria-label="${Math.abs(d)} minutes ${d < 0 ? "earlier" : "later"}">${d < 0 ? "\u2212" : "+"}${Math.abs(d)}</button>`).join("")}
+          </div>
         </div>`; })()}
 
         <button class="btn" id="stampNow"
-                style="width:100%;margin-top:12px;background:${met.color}">${
-          has ? "Set to now" : `${esc(met.label)} — now`}</button>
+                style="width:100%;margin-top:14px;background:${met.color}">Now</button>
         ${has ? `
-          <!-- V2.7. A wheel always reads SOME time, so a day you never
-               logged can be recorded by accident. This takes the day back
-               out rather than leaving a wrong number in the week. -->
           <button type="button" class="linkbtn" id="clearDay"
-            style="display:block;margin:9px auto 0;font-size:12px;color:var(--muted)">
+            style="display:block;margin:10px auto 0;font-size:12px;color:var(--muted)">
             Clear this ${met.night ? "night" : "day"}</button>` : ""}
 
         <p class="hint dshint ${state.msgKind || ""}" id="hint"
            style="text-align:center">${state.msg ? esc(state.msg)
-          : has ? "Scroll to change it."
-                : "Nothing recorded yet — scroll to set it, or use the button."}</p>
+          : has ? "Saved. Nudge to adjust."
+                : "Tap Now, or nudge from your target."}</p>
       </section>`;
   }
 
@@ -4904,20 +4811,32 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       <p class="ver">v${APP_VERSION}</p>`;
   }
 
-  /* ---------- Tasks: one list, and a day to put it in -----------------
-     V3.4. One list. Its order is its priority: the top is what matters
-     most, and each task wears its rank. Drag the grip to move a task, or
-     tap its number and type where it goes. The four Eisenhower boxes and
-     the Matrix are gone: sorting every task twice (which box, then where
-     in it) was a decision more than the list needed.
+  /* ---------- Tasks: today's few, then the rest ----------------------
+     V3.5. Eisenhower's four boxes, named for what you do with them:
+       Do         urgent and important. Today. Capped at your Tasks
+                  standard, so a standard of 3 means three, numbered.
+       Decide     important, not urgent. Give it a day.
+       Delegate   urgent, not important. Hand it off.
+       Not-to-do  what you have decided not to do. Folded away, no boxes.
+     The page opens with the cursor in the line, so a task can be typed
+     the moment Tasks is tapped. Return adds it to the box you used last.
 
-     Tap a task to rename it, give it a day or a time, add steps, start a
-     focus session on it, or delete it. Tick it and it drops to Done,
-     which Clear empties for good.
-
-     Schedule is a day as an hour grid. Tap a task, then a time. Tap a
-     block to shift it, stretch it, or focus on it.
+     Tap a task to rename it, move it, give it a day, a time and a length,
+     add steps, start a focus session on it, or delete it. Tick it and it
+     drops to Done, which Clear empties for good. Drag the grip to order
+     a box. Schedule is a day as an hour grid: tap a task, then a time.
      ------------------------------------------------------------------ */
+  const QUADS = [
+    { q:1, name:"Do",        tag:"today",         hint:"Urgent and important. Today, and only this many." },
+    { q:2, name:"Decide",    tag:"give it a day", hint:"Important, not urgent. Give it a day." },
+    { q:3, name:"Delegate",  tag:"hand it off",   hint:"Urgent, not important. Hand it to someone." },
+    { q:4, name:"Not-to-do", tag:"",              hint:"Things you have decided not to do. Nothing to tick." },
+  ];
+  // Do holds as many as your Tasks standard: one number, set in one place.
+  const doLimit = () => Math.max(1, Math.min(20, Math.round(stdOf(me(), "tasks")) || 5));
+  const doCount = () => openIn(1).length;
+  const doFull = () => doCount() >= doLimit();
+  const taskCacheKey = () => "fhd.tasks." + (state.meId || "anon");
   const SCH_FROM = 6, SCH_TO = 24, SCH_H = 56;          // 6am to midnight, 56px an hour
   const clockOf = (m) => {
     const h = Math.floor(m / 60) % 24, mm = m % 60, ap = h < 12 ? "am" : "pm";
@@ -4930,15 +4849,35 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     // gone, so its digits should not outlive it there.
     try { Object.keys(localStorage).filter((k) => k.startsWith("fhd.pin."))
             .forEach((k) => localStorage.removeItem(k)); } catch {}
+    // V3.5. The page opens ready to write: drawn at once from the copy kept
+    // on the phone, with the cursor already in the line. A phone raises its
+    // keyboard only for a focus made inside the tap itself, which is why
+    // this happens before anything waits on the network.
+    let cached = [];
+    try { cached = JSON.parse(localStorage.getItem(taskCacheKey()) || "[]"); } catch {}
     const keep = state.tasks || {};
-    state.tasks = { list: [], loaded: false, err: null, tab: keep.tab === "sched" ? "sched" : "list",
-                    edit: null, subFor: null, doneOpen: false, rank: null,
-                    day: todayISO(), arm: null, sel: null };
-    const res = await call("app_tasks", { p_code: state.code, p_person: state.meId });
-    if (res.error) state.tasks.err = res.error;
-    state.tasks.list = res.tasks || [];
-    state.tasks.loaded = true;
+    state.tasks = { list: Array.isArray(cached) ? cached : [], loaded: true, err: null,
+                    tab: keep.tab === "sched" ? "sched" : "list",
+                    bucket: keep.bucket || 1, edit: null, subFor: null, doneOpen: false, notOpen: false,
+                    day: todayISO(), arm: null, sel: null, added: new Set() };
     render();
+    if (state.tasks.tab === "list") document.getElementById("tQuickIn")?.focus();
+    const res = await call("app_tasks", { p_code: state.code, p_person: state.meId });
+    const t = state.tasks;
+    if (!t || state.view !== "tasks") return;
+    if (res.error) { t.err = res.error; render(); return; }
+    // Whatever was typed while this was in flight is kept: the server's list
+    // plus anything added here it has not seen yet.
+    const fresh = res.tasks || [];
+    const seen = new Set(fresh.map((x) => x.id));
+    t.list = fresh.concat(t.list.filter((x) => t.added.has(x.id) && !seen.has(x.id)));
+    try { localStorage.setItem(taskCacheKey(), JSON.stringify(t.list)); } catch {}
+    // Never pull the line out from under someone typing in it.
+    const f = document.getElementById("tQuickIn");
+    if (f && document.activeElement === f) {
+      t.stale = true;
+      f.addEventListener("blur", () => { if (t.stale && state.tasks === t) { t.stale = false; render(); } }, { once: true });
+    } else render();
   }
   const taskCall = async (fn, args) => {
     const res = await call(fn, Object.assign({ p_code: state.code, p_person: state.meId }, args));
@@ -4947,11 +4886,12 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   };
   const kids = (id) => state.tasks.list.filter((x) => x.parent_id === id)
     .sort((a, b) => a.position - b.position);
-  // The one list, in rank order. A V3.3 phone may still file a task in a
-  // box; the box is only a tie-break here.
-  const openTasksList = () => state.tasks.list.filter((x) => !x.parent_id && !x.done)
-    .sort((a, b) => (a.position - b.position) || ((a.quadrant || 1) - (b.quadrant || 1)));
-  const taskPayload = (x) => ({ id: x.id, parent_id: x.parent_id || null, quadrant: 1,
+  const mains = (q) => state.tasks.list.filter((x) => !x.parent_id && (x.quadrant || 1) === q)
+    .sort((a, b) => a.position - b.position);
+  const openIn = (q) => mains(q).filter((x) => !x.done);
+  // Everything there is to act on, in box order. Not-to-do is not that.
+  const actionable = () => [1, 2, 3].flatMap((q) => openIn(q));
+  const taskPayload = (x) => ({ id: x.id, parent_id: x.parent_id || null, quadrant: x.quadrant || 1,
     title: x.title, done: !!x.done, position: x.position,
     sched_date: x.sched_date || null, sched_start: x.sched_start ?? null, sched_min: x.sched_min ?? null });
   const hhmm = (m) => `${pad(Math.floor(m / 60))}:${pad(m % 60)}`;
@@ -4969,10 +4909,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     return `
       <li class="tm${ed ? " editing" : ""}" data-id="${x.id}">
         <div class="tr">
-          ${t.rank === x.id
-            ? `<input class="trankin" data-trankin="${x.id}" inputmode="numeric" pattern="[0-9]*" maxlength="3"
-                 value="${rank}" enterkeyhint="done" aria-label="New rank for ${esc(x.title)}">`
-            : `<button type="button" class="trank" data-trank="${x.id}" aria-label="Rank ${rank}. Tap to move ${esc(x.title)}">${rank}</button>`}
+          ${rank ? `<span class="trank" aria-hidden="true">${rank}</span>` : ""}
           <button type="button" class="tck" data-tdone="${x.id}" aria-pressed="false"
             aria-label="Done: ${esc(x.title)}"></button>
           ${ed ? `<input class="tedit" data-tetitle="${x.id}" maxlength="200" value="${esc(x.title)}"
@@ -4998,6 +4935,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             autocomplete="off" placeholder="Add a step" aria-label="New step under ${esc(x.title)}">` : ""}
         ${ed ? `
           <div class="tebar">
+            <div class="tbuckets sm" role="group" aria-label="Move to">${QUADS.map((Q) => `
+              <button type="button" class="tbk q${Q.q}${(x.quadrant || 1) === Q.q ? " on" : ""}${
+                Q.q === 1 && (x.quadrant || 1) !== 1 && doFull() ? " full" : ""}"
+                data-tmove="${x.id}:${Q.q}">${Q.name}</button>`).join("")}</div>
             <div class="twhen" role="group" aria-label="Which day">
               <span>Day</span>
               <button type="button" class="tday${x.sched_date === todayISO() ? " on" : ""}" data-tday="${x.id}:${todayISO()}">Today</button>
@@ -5027,16 +4968,59 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
   function listView() {
     const t = state.tasks;
-    const open = openTasksList();
-    const done = t.list.filter((x) => !x.parent_id && x.done);
+    const lim = doLimit(), full = doFull();
+    if (t.bucket === 1 && full) t.bucket = 2;
+    const B = QUADS.find((Q) => Q.q === t.bucket) || QUADS[1];
+    const done = t.list.filter((x) => !x.parent_id && x.done && (x.quadrant || 1) !== 4)
+      .sort((a, b) => (a.quadrant || 1) - (b.quadrant || 1) || a.position - b.position);
+    const not = mains(4);
+    const doList = openIn(1);
+    const group = (Q) => {
+      const open = openIn(Q.q);
+      return `
+        <section class="tgroup q${Q.q}">
+          <header class="tgh"><b>${Q.name}</b><span>${Q.tag}</span><em>${open.length || ""}</em></header>
+          ${open.length ? `<ul class="tl" data-tgroup="${Q.q}">${open.map((x) => taskRow(x)).join("")}</ul>` : ""}
+        </section>`;
+    };
     return `
       <div class="tquick">
         <input class="field" id="tQuickIn" maxlength="200" enterkeyhint="done" autocomplete="off"
           placeholder="Add a task" aria-label="New task" value="${esc(t.draft || "")}">
+        <div class="tbuckets" role="group" aria-label="Add it to">${QUADS.map((Q) => `
+          <button type="button" class="tbk q${Q.q}${t.bucket === Q.q ? " on" : ""}${Q.q === 1 && full ? " full" : ""}"
+            data-tbk="${Q.q}" ${Q.q === 1 && full ? 'aria-disabled="true"' : ""}>${Q.name}${
+            Q.q === 1 ? ` <small>${doList.length}/${lim}</small>` : ""}</button>`).join("")}</div>
+        <p class="tqhint" id="tqHint">${full
+          ? `Do is full. Finish or move one first. Return adds to <b>${B.name}</b>.`
+          : `Type, then tap a box. Return adds to <b>${B.name}</b>.`}</p>
       </div>
-      ${open.length ? `<ul class="tl" id="tList">${open.map((x, i) => taskRow(x, i + 1)).join("")}</ul>
-        <p class="tqhint">Top matters most. Drag the grip, or tap a number to move a task.</p>`
-        : `<p class="tempty">Nothing on the list. Type above and press return.</p>`}
+
+      <section class="tgroup q1 tdo">
+        <header class="tgh"><b>Do</b><span>today</span>
+          <button type="button" class="tlim" data-edit="goal" data-metric="tasks"
+            aria-label="Do holds ${lim}, your Tasks standard. Change it">${doList.length}/${lim}</button></header>
+        <ul class="tl" data-tgroup="1">${doList.map((x, n) => taskRow(x, n + 1)).join("")}</ul>
+        ${doList.length < lim ? `<ul class="tl tempties">${Array.from({ length: lim - doList.length }, (_, k) => `
+          <li class="tslot"><span class="trank">${doList.length + k + 1}</span>
+            <button type="button" class="tslotb" data-tslot="1" aria-label="Add to Do"></button></li>`).join("")}</ul>` : ""}
+      </section>
+      ${group(QUADS[1])}
+      ${group(QUADS[2])}
+
+      ${not.length ? `
+        <section class="tnot">
+          <button type="button" class="foldbtn" id="tNotFold" aria-expanded="${!!t.notOpen}">
+            <span class="caret">${t.notOpen ? "▾" : "▸"}</span><h2>Not-to-do · ${not.length}</h2></button>
+          ${t.notOpen ? `<p class="tnoth">${QUADS[3].hint}</p>
+            <ul class="tl">${not.map((x) => `
+            <li class="tm tnotx"><div class="tr">
+              <span class="tnotmark" aria-hidden="true">✕</span>
+              <span class="tt">${esc(x.title)}</span>
+              <button type="button" class="tx" data-tdel="${x.id}" aria-label="Remove ${esc(x.title)}">&times;</button>
+            </div></li>`).join("")}</ul>` : ""}
+        </section>` : ""}
+
       ${done.length ? `
         <section class="tdone">
           <div class="tdh">
@@ -5055,7 +5039,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
   function schedView() {
     const t = state.tasks, day = t.day, isToday = day === todayISO();
-    const rankOf = new Map(openTasksList().map((x, i) => [x.id, i]));
+    const rankOf = new Map(actionable().map((x, i) => [x.id, i]));
     const onDay = state.tasks.list.filter((x) => !x.parent_id && x.sched_date === day);
     const placed = onDay.filter((x) => x.sched_start !== null && x.sched_start !== undefined)
       .sort((a, b) => a.sched_start - b.sched_start);
@@ -5063,7 +5047,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       .sort((a, b) => (a.done - b.done) || ((rankOf.get(a.id) ?? 1e9) - (rankOf.get(b.id) ?? 1e9)));
     // V3.3. The tray is only what has no day yet. A task given to Thursday
     // waits on Thursday, not on every day in between.
-    const tray = openTasksList().filter((x) => !x.sched_date);
+    const tray = actionable().filter((x) => !x.sched_date);
     const now = new Date(), nowMin = now.getHours() * 60 + now.getMinutes();
     const y = (m) => (m - SCH_FROM * 60) / 60 * SCH_H;
     const armed = t.arm && state.tasks.list.find((x) => x.id === t.arm);
@@ -5154,40 +5138,68 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const t = state.tasks;
     if (!t || !t.loaded) return;
     const find = (id) => t.list.find((x) => x.id === id);
-    const save = (x) => taskCall("app_task_save", { p_task: taskPayload(x) });
+    const cacheTasks = () => { try { localStorage.setItem(taskCacheKey(), JSON.stringify(t.list)); } catch {} };
+    // Every save also refreshes the copy kept on the phone, so the next
+    // open draws what is true now.
+    const save = (x) => { cacheTasks(); return taskCall("app_task_save", { p_task: taskPayload(x) }); };
     const nextPos = (pred) => Math.max(-1, ...t.list.filter(pred).map((x) => x.position)) + 1;
-    // Rank is order: write 0, 1, 2… down the open list and send it.
+    const lastIn = (q, not) => nextPos((y) => !y.parent_id && (y.quadrant || 1) === q && !y.done && y.id !== not);
+    // Order inside a box: write 0, 1, 2… down it and send it.
     const reorder = (ids) => {
       const changed = ids.some((id, k) => find(id) && find(id).position !== k);
-      ids.forEach((id, k) => { const x = find(id); if (x) { x.position = k; x.quadrant = 1; } });
-      render();
+      ids.forEach((id, k) => { const x = find(id); if (x) x.position = k; });
+      render(); cacheTasks();
       if (changed) taskCall("app_task_order", { p_ids: ids });
     };
 
     document.querySelectorAll("[data-ttab]").forEach((el) =>
       el.addEventListener("click", () => {
-        t.tab = el.dataset.ttab; t.edit = null; t.subFor = null; t.sel = null; t.arm = null; t.rank = null;
+        t.tab = el.dataset.ttab; t.edit = null; t.subFor = null; t.sel = null; t.arm = null;
         render();
         if (t.tab === "sched" && t.day === todayISO())
           document.querySelector(".snow")?.scrollIntoView({ block: "center" });
       }));
 
-    // ---- adding: one line; return adds it to the bottom ----
+    // ---- adding: one line, one tap ----
     const quick = document.getElementById("tQuickIn");
-    if (quick) quick.addEventListener("input", () => { t.draft = quick.value; });
-    if (quick) quick.addEventListener("keydown", (e) => {
-      if (e.key !== "Enter") return;
-      e.preventDefault();
+    const addMain = (q, title) => {
+      const x = { id: uuid(), parent_id: null, quadrant: q, title: title.slice(0, 200), done: false,
+                  position: lastIn(q), sched_date: null, sched_start: null, sched_min: null };
+      t.list.push(x);
+      t.added.add(x.id);
+      save(x).then((res) => { if (res.error) { t.list = t.list.filter((y) => y.id !== x.id); cacheTasks(); render(); } });
+    };
+    const quickAdd = (q) => {
       const title = (quick.value || "").trim();
-      if (!title) return;
-      const x = { id: uuid(), parent_id: null, quadrant: 1, title: title.slice(0, 200), done: false,
-                  position: nextPos((y) => !y.parent_id && !y.done),
-                  sched_date: null, sched_start: null, sched_min: null };
-      t.list.push(x); t.draft = "";
+      if (q === 1 && doFull()) {
+        // Full means full. Say so where the eye already is; keep the words.
+        const h = document.getElementById("tqHint");
+        if (h) { h.innerHTML = `Do holds ${doLimit()}. Finish or move one, or tap Decide.`; h.classList.add("warn"); }
+        quick.focus();
+        return;
+      }
+      // A Not-to-do is a one-off decision; the next line goes back to work.
+      t.bucket = q === 4 ? (doFull() ? 2 : 1) : q;
+      if (title) { addMain(q, title); quick.value = ""; t.draft = ""; }
+      t.stale = false;
       render();
       document.getElementById("tQuickIn")?.focus();
-      save(x).then((res) => { if (res.error) { t.list = t.list.filter((y) => y.id !== x.id); render(); } });
+    };
+    // What is typed survives a re-render (a tick elsewhere, a refresh).
+    if (quick) quick.addEventListener("input", () => { t.draft = quick.value; });
+    if (quick) quick.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") { e.preventDefault(); quickAdd(t.bucket); }
     });
+    document.querySelectorAll("[data-tbk]").forEach((el) => {
+      // Keep the keyboard up: the tap must not take focus from the line.
+      el.addEventListener("pointerdown", (e) => e.preventDefault());
+      el.addEventListener("click", () => quickAdd(Number(el.dataset.tbk)));
+    });
+    document.querySelectorAll("[data-tslot]").forEach((el) =>
+      el.addEventListener("click", () => {
+        t.bucket = 1; render();
+        const f = document.getElementById("tQuickIn"); if (f) { f.focus(); f.scrollIntoView({ block: "center" }); }
+      }));
 
     // ---- ticking ----
     document.querySelectorAll("[data-tdone]").forEach((el) =>
@@ -5201,8 +5213,14 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           const p = find(x.parent_id), sibs = kids(x.parent_id);
           if (p) p.done = sibs.length > 0 && sibs.every((c) => c.done);
         }
-        // A task brought back from Done goes to the bottom of the list.
-        if (!x.parent_id && !x.done) x.position = nextPos((y) => !y.parent_id && !y.done && y.id !== x.id);
+        // A task brought back from Done goes to the bottom of its box, or
+        // to Decide when Do is already full.
+        if (!x.parent_id && !x.done) {
+          if ((x.quadrant || 1) === 1 && openIn(1).filter((y) => y.id !== x.id).length >= doLimit()) {
+            x.quadrant = 2; kids(x.id).forEach((c) => { c.quadrant = 2; });
+          }
+          x.position = lastIn(x.quadrant || 1, x.id);
+        }
         if (t.edit === x.id) t.edit = null;
         // V3.4. Done today counts main tasks, so a step that finishes its
         // task counts the task. Shown at once; the server keeps the log.
@@ -5222,7 +5240,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     // ---- editing in place ----
     document.querySelectorAll("[data-tedit]").forEach((el) =>
       el.addEventListener("click", () => {
-        t.edit = el.dataset.tedit; t.subFor = null; t.rank = null; render();
+        t.edit = el.dataset.tedit; t.subFor = null; render();
         const f = document.querySelector(`[data-tetitle="${t.edit}"]`);
         if (f) { f.focus(); f.setSelectionRange(f.value.length, f.value.length); }
       }));
@@ -5244,6 +5262,24 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     });
     document.querySelectorAll("[data-tok]").forEach((el) =>
       el.addEventListener("click", () => finishEdit(el.dataset.tok)));
+    // ---- moving to another box; Do takes only what fits ----
+    document.querySelectorAll("[data-tmove]").forEach((el) => {
+      el.addEventListener("pointerdown", (e) => e.preventDefault());
+      el.addEventListener("click", () => {
+        const [id, qs] = el.dataset.tmove.split(":"), q = Number(qs);
+        const x = find(id);
+        if (!x || (x.quadrant || 1) === q) return;
+        if (q === 1 && doFull()) {
+          t.err = `Do holds ${doLimit()}. Finish or move one first.`; render(); return;
+        }
+        keepTitle(id);
+        x.quadrant = q;
+        kids(x.id).forEach((c) => { c.quadrant = q; });
+        x.position = lastIn(q, x.id);
+        if (q === 4) { x.sched_date = null; x.sched_start = null; x.sched_min = null; }
+        t.err = null; t.edit = null; render(); save(x);
+      });
+    });
     document.querySelectorAll("[data-tdel]").forEach((el) =>
       el.addEventListener("click", async () => {
         const id = el.dataset.tdel, x = find(id);
@@ -5253,7 +5289,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           if (p && sibs.length) p.done = sibs.every((c) => c.done);
         }
         if (x && !x.parent_id) t.edit = null;
-        render();
+        render(); cacheTasks();
         await taskCall("app_task_delete", { p_id: id });
       }));
     // A day, a time, a length. Each change saves the name being typed too.
@@ -5304,33 +5340,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         openExercise("work");
       }));
 
-    // ---- rank: tap the number, type where it goes ----
-    document.querySelectorAll("[data-trank]").forEach((el) =>
-      el.addEventListener("click", () => {
-        t.rank = el.dataset.trank; t.edit = null; t.subFor = null; render();
-        const f = document.querySelector(`[data-trankin="${t.rank}"]`);
-        if (f) { f.focus(); f.select(); }
-      }));
-    document.querySelectorAll("[data-trankin]").forEach((el) => {
-      const id = el.dataset.trankin;
-      const commit = () => {
-        if (t.rank !== id) return;
-        t.rank = null;
-        const ids = openTasksList().map((x) => x.id);
-        const n = parseInt(el.value, 10);
-        if (!Number.isFinite(n)) { render(); return; }
-        const to = Math.max(1, Math.min(ids.length, n)) - 1;
-        const rest = ids.filter((x) => x !== id);
-        rest.splice(to, 0, id);
-        reorder(rest);
-      };
-      el.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") { e.preventDefault(); commit(); }
-        if (e.key === "Escape") { t.rank = null; render(); }
-      });
-      el.addEventListener("blur", () => setTimeout(() => { if (el.isConnected) commit(); }, 0));
-    });
-
     // ---- steps: one tap opens a line, return keeps it open ----
     document.querySelectorAll("[data-tsubopen]").forEach((el) =>
       el.addEventListener("click", () => {
@@ -5365,7 +5374,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         if (el.isConnected && document.activeElement !== el && t.subFor === pid) commit(false); }, 0));
     });
 
-    // ---- rank: drag the grip ----
+    // ---- order inside a box: drag the grip ----
     document.querySelectorAll("[data-drag]").forEach((grip) =>
       grip.addEventListener("pointerdown", (e) => {
         e.preventDefault();
@@ -5377,7 +5386,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           const before = others.find((c) => { const r = c.getBoundingClientRect(); return yy < r.top + r.height / 2; });
           if (before) { if (li.nextElementSibling !== before) ul.insertBefore(li, before); }
           else if (ul.lastElementChild !== li) ul.appendChild(li);
-          [...ul.children].forEach((c, k) => { const r = c.querySelector(".trank"); if (r) r.textContent = k + 1; });
+          if (ul.dataset.tgroup === "1")
+            [...ul.children].forEach((c, k) => { const r = c.querySelector(".trank"); if (r) r.textContent = k + 1; });
         };
         const up = () => {
           window.removeEventListener("pointermove", move);
@@ -5391,6 +5401,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         window.addEventListener("pointercancel", up);
       }));
 
+    on("tNotFold", "click", () => { t.notOpen = !t.notOpen; render(); });
+
     // ---- done: fold and clear ----
     on("tDoneFold", "click", () => { t.doneOpen = !t.doneOpen; render(); });
     on("tClear", "click", () => {
@@ -5402,7 +5414,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           { label: "Clear", kind: "bad", run: async () => {
               const doneIds = new Set(t.list.filter((x) => x.done).map((x) => x.id));
               t.list = t.list.filter((x) => !doneIds.has(x.id) && !doneIds.has(x.parent_id));
-              t.doneOpen = false; render();
+              t.doneOpen = false; render(); cacheTasks();
               await taskCall("app_tasks_clear", {});
             } },
           { label: "Cancel", kind: "quiet" },
@@ -5479,25 +5491,40 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
      ------------------------------------------------------------------ */
 
   async function finishFlow(a) {
-    // V3.4. No question at the end. What you ticked or typed is logged;
-    // the grey carried-over numbers you never touched are the sets you
-    // did not do, and they drop away with the empty rows.
+    // What you ticked or typed is logged; the grey carried-over numbers you
+    // never touched are the sets you did not do, and drop away with the
+    // empty rows.
     if (!doneSets(a)) {
       state.lift.msg = "Type or tick the sets you did, then Finish.";
       const h = document.getElementById("liftHint");
       if (h) h.textContent = state.lift.msg;
       return;
     }
-    a.ex.forEach((x) => {
-      x.sets = x.sets.filter((st) => {
-        if (!counts(st, x.kind)) return false;
-        st.on = true;
-        return true;
-      });
+    let skip = 0;
+    a.ex.forEach((x) => x.sets.forEach((st) => { if (!counts(st, x.kind) && hasNumsSet(st, x.kind)) skip++; }));
+    // V3.5. Every finish is confirmed first, as Strong does: one stray tap
+    // on Finish must not end a workout.
+    openModal({
+      mark: "\u{1F389}",
+      title: a.mode === "cardio" ? "Finish activity?" : "Finish workout?",
+      body: skip ? `${skip === 1 ? "One set" : `${skip} sets`} you did not tick or change ${skip === 1 ? "is" : "are"} left out.` : "",
+      row: true,
+      buttons: [
+        { label: "Cancel", kind: "quiet" },
+        { label: "Finish", kind: "ok", run: async () => {
+            a.ex.forEach((x) => {
+              x.sets = x.sets.filter((st) => {
+                if (!counts(st, x.kind)) return false;
+                st.on = true;
+                return true;
+              });
+            });
+            a.ex = a.ex.filter((x) => x.sets.length);
+            saveLocal();
+            await commitFinish(a);
+          } },
+      ],
     });
-    a.ex = a.ex.filter((x) => x.sets.length);
-    saveLocal();
-    await commitFinish(a);
   }
 
   // What changed between the template and what was done, in words.
@@ -5529,9 +5556,43 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     return "You " + s + ".";
   }
 
+  // V3.5. What changed against the template, in the two ways Strong asks
+  // about: the numbers in sets it already had, and its shape (sets or
+  // exercises added, removed or reordered).
+  const pickVals = (st) => ({ w: Number(st.w) || 0, r: Number(st.r) || 0, d: Number(st.d) || 0, t: Number(st.t) || 0 });
+  const sameVals = (x, y, kind) => kind === "duration" ? x.t === y.t
+    : kind === "distance_time" ? x.d === y.d && x.t === y.t : x.w === y.w && x.r === y.r;
+  function templateDiff(a) {
+    if (!a.fromTile || !Array.isArray(a.tmpl)) return null;
+    const byName = new Map(a.ex.map((x) => [x.name.toLowerCase(), x]));
+    let valSets = 0, setDelta = 0;
+    for (const t of a.tmpl) {
+      const x = byName.get(t.name.toLowerCase());
+      if (!x) continue;
+      setDelta += x.sets.length - t.sets;
+      x.sets.slice(0, t.sets).forEach((st, i) => {
+        const old = t.vals && t.vals[i] ? pickVals(t.vals[i]) : null;
+        if (!old || !sameVals(pickVals(st), old, x.kind)) valSets++;
+      });
+    }
+    const was = new Set(a.tmpl.map((t) => t.name.toLowerCase()));
+    const added = a.ex.filter((x) => !was.has(x.name.toLowerCase())).map((x) => x.name);
+    const dropped = a.tmpl.filter((t) => !byName.has(t.name.toLowerCase())).map((t) => t.name);
+    const shape = shapeChange(a) !== null;
+    const list = (xs) => xs.length <= 2 ? xs.join(" and ") : xs.slice(0, -1).join(", ") + " and " + xs[xs.length - 1];
+    const bits = [];
+    if (added.length) bits.push(`Adds ${list(added)}`);
+    if (dropped.length) bits.push(`Removes ${list(dropped)}`);
+    if (setDelta > 0) bits.push(`Adds ${setDelta} set${setDelta === 1 ? "" : "s"}`);
+    if (setDelta < 0) bits.push(`Removes ${-setDelta} set${setDelta === -1 ? "" : "s"}`);
+    if (shape && !bits.length) bits.push("Changes the order");
+    return { valSets, shape, shapeWords: bits.join(", ") + "." };
+  }
+
+
   async function commitFinish(a) {
     stopTicking();
-    const change = shapeChange(a);
+    const diff = templateDiff(a);
     const label = a.label;
     const mode = a.mode || state.mode;
     const res = await syncLift(true);
@@ -5543,20 +5604,26 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     // hostage on a screen someone is trying to leave.
     if (res.offline || res.error) {
       state.lift.msg = "Saved on this phone. It will upload by itself.";
-      state.lift.offer = null;
       state.view = "exercise";
       state.lift.loaded = false;
       render();
       return;
     }
     const prs = Number(res.pr_count) || 0;
-    const items = a.ex.map((x) => ({ exercise: x.name, kind: x.kind, sets: x.sets.length }));
+    // Two ways to write the template back. "Values only" keeps its shape and
+    // takes today's numbers for the sets it has; "template and values"
+    // becomes exactly what was done.
+    const valuesOnly = (a.tmpl || []).map((t) => {
+      const x = a.ex.find((y) => y.name.toLowerCase() === t.name.toLowerCase());
+      return { exercise: t.name, kind: t.kind, sets: t.sets,
+               vals: Array.from({ length: t.sets }, (_, i) =>
+                 x && x.sets[i] ? pickVals(x.sets[i]) : (t.vals && t.vals[i] ? pickVals(t.vals[i]) : pickVals({}))) };
+    });
+    const asDone = a.ex.map((x) => ({ exercise: x.name, kind: x.kind, sets: x.sets.length,
+                                      vals: x.sets.map(pickVals) }));
     state.lift.active = null;
     saveLocal(mode);
     state.lift.msg = prs ? `Logged. ${prs} personal record${prs === 1 ? "" : "s"}.` : "Logged.";
-    // V3.4. Changing the template is rare, so it is offered, not asked:
-    // one small grey line under "Logged", gone when you leave the page.
-    state.lift.offer = change && label ? { label, mode, items, change } : null;
     // Back to the page the workout belongs to. It used to set a view name
     // nothing rendered, which dropped you on the home screen instead.
     state.view = "exercise";
@@ -5564,6 +5631,33 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     render();
     refresh();                       // the board now owes you Train minutes
 
+    // V3.5. Then, only if something changed, the template question, as
+    // Strong asks it. Same sets: new numbers or keep. Different sets: the
+    // numbers alone, everything, or keep.
+    if (diff && label && (diff.valSets || diff.shape)) {
+      const saveT = (items, done) => async () => {
+        const r = await call("app_template_save", { p_code: state.code, p_person: state.meId,
+          p_label: label, p_mode: mode, p_items: items });
+        state.lift.msg = r.error ? r.error : done;
+        await loadLift(); render();
+      };
+      const n = diff.valSets;
+      // With no numbers changed, "values only" would do nothing Keep does
+      // not, so it is not offered.
+      const buttons = n ? [
+        { label: "Update Values Only", kind: "go",
+          sub: `Updates values for ${n} set${n === 1 ? "" : "s"}.`,
+          run: saveT(valuesOnly, `\u201c${label}\u201d values updated.`) },
+      ] : [];
+      if (diff.shape) buttons.push({ label: "Update Template and Values", kind: "bad", sub: diff.shapeWords,
+          run: saveT(asDone, `\u201c${label}\u201d updated.`) });
+      buttons.push({ label: "Keep Original Template", kind: "quiet" });
+      openModal({
+        title: "Update Template",
+        body: "You\u2019ve made changes from your original template. Would you like to update it?",
+        buttons,
+      });
+    }
   }
 
   /* ---------- Goals: The ONE Thing over the 12 Week Year -------------
@@ -5646,22 +5740,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   }
   const newGoal = () => ({ id: uuid(), title: "", kpi: "", kpi_now: null, kpi_target: null, kpi_log: {}, tactics: [] });
 
-  // How to use it. Said once, plainly, on the page.
-  const HOWTO = [
-    ["Start with Someday", "Write where you want your life to go. Then work down to now, asking each time: “Based on my Someday goal, what's the ONE Thing I can do in the next 3 years, 12 weeks, this week, today, so that I'm on track?”"],
-    ["Set up to three 12-week goals", "Results you can finish in twelve weeks, written as outcomes: “Lose 8 lb,” not “get fit.” Fewer is better. Star the ONE goal that matters most."],
-    ["Give each goal one KPI", "The number that proves the goal moved: pounds, hours, books. Log it once a week."],
-    ["List the tactics", "The actions you control that move the KPI. Make each one specific (“Lift 45 min”, not “exercise”) and say how often: every day, 3× a week, or one week only."],
-    ["Tick the day you do it", "Each tactic has a box for each day. Your score is tactics done ÷ tactics due. Your standard (85% to start) wins the week. Score the actions, not the result: the actions are what a week can decide."],
-    ["Block time for your ONE Thing", "Put today's ONE Thing on the calendar first and protect it like an appointment. Keller suggests up to four hours a day; start with what you can protect."],
-    ["Review every week", "Fifteen minutes, same time each week. Score last week, log the KPIs, write this week's ONE Thing. Under your standard? Name what got in the way, then fix it or cut a tactic."],
-    ["Week 13: review and reset", "Look back over the twelve weeks, keep what worked, and start the next twelve."],
-  ];
-  const howtoList = () => `<ol class="ghow">${HOWTO.map(([h, b]) =>
-    `<li><b>${h}.</b> ${b}</li>`).join("")}</ol>
-    <p class="hint" style="margin-top:10px">Adapted from <i>The ONE Thing</i> by Gary Keller with
-      Jay Papasan, and <i>The 12 Week Year</i> by Brian P. Moran and Michael Lennington.</p>`;
-
   // The worked example: a whole plan four weeks in, on a Thursday. It is
   // drawn by the same code as your own plan, read-only.
   const EXAMPLE = (() => {
@@ -5693,7 +5771,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
   async function openGoals() {
     state.goals = { loaded: false, today: todayISO(), cycle: null, sel: 1, edit: null, err: null,
-                    help: null, ex: null };
+                    ex: false, guide: {}, twelve: false };
     const res = await call("app_cycle", { p_code: state.code, p_person: state.meId });
     const G = state.goals;
     if (res.error) G.err = res.error;
@@ -5738,8 +5816,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       goals = EXAMPLE.goals.map((x) => ({ id: uuid(), title: x.title, kpi: x.kpi, kpi_now: x.kpi_now,
         kpi_target: x.kpi_target, kpi_log: {}, tactics: x.tactics.map((t) => ({ id: uuid(), title: t.title,
           times: t.times, daily: t.times === 7, week: null, marks: [] })) }));
-      one = goals[0].id;
     }
+    one = goals[0].id;              // V3.5. The first goal is the ONE until you star another.
     G.cycle = { id: uuid(), start_date: monday,
                 vision: fromExample ? EXAMPLE.vision : prev ? prev.vision : "",
                 three_year: fromExample ? EXAMPLE.three_year : prev ? prev.three_year || "" : "",
@@ -5750,151 +5828,98 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     pushGoals();
   }
 
-  /* The four parts of the page. Each takes the plan and where "now" is,
-     so the example can be drawn with them too (ro: read-only). */
-  function cascadeCard(C) {
-    const doc = C.doc, G = state.goals || {};
-    const run = C.cur >= 1 && C.cur <= 12, wk = Math.min(12, Math.max(1, C.cur));
-    const one = doc.goals.find((g) => g.id === doc.one_goal);
-    const f = doc.focus || {};
-    const rows = [
-      ["vision", "Someday", doc.vision, "Where your life is headed"],
-      ["three_year", "3 years", doc.three_year, "What must be true in 3 years"],
-      ["one", "12 weeks", one ? one.title : "", "Star your ONE goal"],
-      ["fw", run ? "This week" : "Week 1", f["w" + wk], "This week's ONE Thing"],
-    ].concat(run ? [["fd", "Today", f[`w${wk}d${C.dow}`], "Today's ONE Thing"]] : []);
-    const cell = ([k, , v, ph]) => {
-      if (C.ro) return `<span class="cval${v ? "" : " cnil"}">${k === "one" && v ? "★ " : ""}${v ? esc(v) : ph}</span>`;
-      if (k === "one") {
-        const named = doc.goals.filter((g) => g.title.trim());
-        return named.length ? `<label class="cval csel${v ? "" : " cnil"}">${v ? "★ " + esc(v) : ph}
-            <select data-cone aria-label="Your ONE goal for these twelve weeks">
-              <option value="">None</option>${named.map((g) =>
-              `<option value="${g.id}" ${g.id === doc.one_goal ? "selected" : ""}>${esc(g.title)}</option>`).join("")}
-            </select></label>`
-          : `<span class="cval cnil">Add a goal below, then star it</span>`;
-      }
-      if (G.edit === "c:" + k) {
-        const big = k === "vision" || k === "three_year";
-        return big
-          ? `<textarea class="field cin" data-cf="${k}" rows="2" maxlength="${k === "vision" ? 2000 : 1000}"
-               placeholder="${ph}">${esc(v || "")}</textarea>`
-          : `<input class="field cin" data-cf="${k}" maxlength="200" enterkeyhint="done"
-               placeholder="${ph}" value="${esc(v || "")}">`;
-      }
-      return `<button type="button" class="cval${v ? "" : " cnil"}" data-cedit="${k}">${v ? esc(v) : ph}</button>`;
-    };
+  /* V3.5. Goals as four steps, top to bottom, each answering Keller's
+     focusing question for a shorter stretch of time:
+
+       1  Someday         where your life is going
+       2  This 12 weeks   your ONE goal (starred), and at most two more,
+                          each with the number that proves it (KPI)
+       3  This week       the week's ONE Thing, and Moran's scorecard:
+                          tactics down the side, the days across
+       4  Today           the ONE Thing, with a button that starts on it
+
+     Each step carries its question, and folded under it, how to answer
+     it with an example of great beside one of not great. Keller's 5-year,
+     1-year and month levels are deleted: four steps is what a phone holds.
+     A "3 years" line written in V3.4 is still shown under Someday until
+     it is cleared, so nothing typed is lost. */
+  const GUIDE = {
+    someday: {
+      ask: "What’s the ONE Thing I want to do someday?",
+      how: "Write it as if it is already true, in a few sentences: your health, your work, the people you love. Big enough to pull you, and yours, not anyone else’s. Everything below should serve it. Read it every Monday.",
+      great: "“At 70 I hike, lift and play on the floor with my grandchildren. I write every morning, have published two books, and am home for dinner most nights.”",
+      notgreat: "“Be successful.” (No picture, nothing to aim at.) · “Lose 10 pounds by Friday.” (A task, not a someday.)",
+    },
+    goals: {
+      ask: "Based on my someday, what’s the ONE result I can finish in the next 12 weeks?",
+      how: "One finished result with a number, so on week 12 you will know whether it happened. Star it: that is your ONE goal. Give it a KPI, the number that proves it is moving, and log it once a week. Add up to two more goals only if they truly serve the first; fewer is stronger.",
+      great: "★ “Lose 8 lb.” KPI: Weight, 184 → 176, logged every Monday. · “Finish the book draft.” KPI: Chapters, 3 → 12.",
+      notgreat: "“Get healthier.” (No finish line.) · “Get fit, grow the business and read more.” (Three goals in one; none will get done.)",
+    },
+    week: {
+      ask: "What will I do this week, and how often, to move the goal?",
+      how: "Tactics are actions you control, each with a rhythm: every day, 1–6 times a week, or one week only. Tap the day you did one. The score is done ÷ due, and your standard (85% to start) wins the week: score the actions, not the result. Write the week’s ONE Thing on Monday, and at the end of the week ask what got in the way, then fix it or cut a tactic.",
+      great: "“Lift 45 min” 3× a week. · “In bed by 10 pm” every day. · “Book the physio” in week 2 only.",
+      notgreat: "“Exercise more.” (No rhythm; it can never be ticked.) · “Be disciplined.” (A wish, not an action.)",
+    },
+    today: {
+      ask: "What’s the ONE Thing I can do today such that by doing it everything else will be easier or unnecessary?",
+      how: "Usually one of this week’s tactics, made concrete. Do it first, before messages. Keller’s advice is to block time for it early, up to four hours, and guard the block. Tap ▶ to start a focus session on it.",
+      great: "“Lift at 6 am: squat, bench, row, 45 minutes.” · “Draft the opening of chapter 6, 800 words, before 9.”",
+      notgreat: "“Clear my inbox.” (Busy, not the ONE Thing.) · “Health stuff.” (Too vague to start.)",
+    },
+  };
+  function guide(key) {
+    const g = GUIDE[key], open = ((state.goals || {}).guide || {})[key];
     return `
-      <section class="card casc${C.ro ? " ro" : ""}">
-        <p class="eyebrow">Goal setting to the now</p>
-        ${rows.map((r) => `<div class="crow${r[0] === "fd" ? " now" : ""}">
-          <span class="clab">${r[1]}</span>${cell(r)}</div>`).join("")}
-        <p class="cq">What's the ONE Thing I can do such that by doing it everything else
-          will be easier or unnecessary?</p>
-      </section>`;
+      <button type="button" class="gguide" data-guide="${key}" aria-expanded="${!!open}">
+        ${open ? "Hide how &amp; example" : "How &amp; example"} <i aria-hidden="true">${open ? "▴" : "▾"}</i></button>
+      ${open ? `<div class="gguideb">
+        <p>${g.how}</p>
+        <p class="gex good"><b>Great</b> ${g.great}</p>
+        <p class="gex bad"><b>Not great</b> ${g.notgreat}</p>
+      </div>` : ""}`;
+  }
+  const gStep = (C, n, title, right, key, body) => `
+    <section class="card gstep${C.ro ? " ro" : ""}">
+      <div class="gsh"><span class="gsn">${n}</span><h2>${title}</h2>${right || ""}</div>
+      <p class="gask">${GUIDE[key].ask}</p>
+      ${body}
+      ${C.ro ? "" : guide(key)}
+    </section>`;
+  // One line of the plan: tap it to write, tap away to keep it.
+  function gText(C, k, v, ph, big) {
+    const G = state.goals || {};
+    if (C.ro) return `<p class="gvtext${v ? "" : " cnil"}">${v ? esc(v) : ph}</p>`;
+    if (G.edit === "c:" + k) return big
+      ? `<textarea class="field cin" data-cf="${k}" id="gcf-${k}" rows="3" maxlength="${k === "vision" ? 2000 : 1000}"
+           placeholder="${ph}">${esc(v || "")}</textarea>`
+      : `<input class="field cin" data-cf="${k}" id="gcf-${k}" maxlength="200" enterkeyhint="done"
+           placeholder="${ph}" value="${esc(v || "")}">`;
+    return `<button type="button" class="cval gtap${v ? "" : " cnil"}" data-cedit="${k}">${v ? esc(v) : ph}</button>`;
   }
 
-  function scoreCard(C) {
-    const doc = C.doc, w = C.w, pre = C.cur < 1, open = Math.min(12, Math.max(1, C.cur));
-    const T = weekTally(doc, w), win = goalWin();
-    const per = doc.goals.map((g, i) => ({ i: i + 1, p: goalTally(g, w).pct }));
-    const DAYS = ["M", "T", "W", "T", "F", "S", "S"];
-    const DNAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-    const locked = C.ro || pre || w > open;
-    const rows = doc.goals.map((g, gi) => {
-      const due = g.tactics.filter((t) => dueIn(t, w)), gp = goalTally(g, w).pct;
-      return `
-        <tbody>
-          <tr class="scgh"><th colspan="7"><span class="gnum xs">${gi + 1}</span>${
-            g.id === doc.one_goal ? `<span class="cstar">★</span>` : ""}${
-            g.title ? esc(g.title) : `<span style="color:var(--muted)">Untitled goal</span>`}</th>
-            <td class="${gp !== null && gp >= win ? "win" : ""}">${gp === null ? "–" : gp + "%"}</td></tr>
-          ${due.length ? due.map((t) => {
-            const n = timesOf(t), k = ticksIn(t, w);
-            // The name on its own line, the week under it: on a phone the
-            // name needs the width, and the seven days line up with the header.
-            return `<tr class="sctr"><th class="sct" colspan="7" scope="row">${esc(t.title)}<small>${freqWord(t)}</small></th>
-              <td class="scn${Math.min(n, k) >= n ? " full" : ""}">${Math.min(n, k)}/${n}</td></tr>
-              <tr class="scdr">${DAYS.map((L, j) => {
-                const d = j + 1, on = hasMark(t, w, d);
-                const future = locked || (w === C.cur && d > C.dow);
-                return `<td><button type="button" class="scc${on ? " on" : ""}${!C.ro && w === C.cur && d === C.dow ? " today" : ""}"
-                  ${C.ro ? "" : `data-gday="${t.id}:${d}"`} aria-pressed="${on}" ${future ? "disabled" : ""}
-                  aria-label="${esc(t.title)}, ${DNAMES[j]}"></button></td>`;
-              }).join("")}<td></td></tr>`;
-          }).join("") : `<tr><td colspan="8" class="scnone">${g.tactics.length
-              ? `Nothing due in week ${w}.` : "No tactics yet. Add them in the plan below."}</td></tr>`}
-        </tbody>`;
-    }).join("");
-    const head = C.ro
-      ? `<div class="sc-ro"><b>Week ${w} of 12</b><span>${esc(weekSpan(doc.start_date, w))}</span></div>`
-      : dayNav({ ids: ["gPrev", "gNext", "gToday"], unit: "week", todayWord: "this week",
-                 atToday: pre || w >= open,
-                 label: pre ? `Starts ${esc(shortDay(doc.start_date))}` : `Week ${w} of 12` });
-    return `
-      <section class="card scard${C.ro ? " ro" : ""}">
-        ${head}
-        <div class="sc-top">
-          <b class="big" style="color:${T.pct !== null && T.pct >= win ? "var(--work)" : "var(--ink)"}">${
-            T.pct === null ? "–" : T.pct + "%"}</b>
-          ${per.length > 1 ? `<div class="sc-per">${per.map((x) =>
-            `<span class="${x.p !== null && x.p >= win ? "win" : ""}">${x.i} · ${x.p === null ? "–" : x.p + "%"}</span>`).join("")}</div>` : ""}
-        </div>
-        <p class="sc-of">${T.due ? `${T.done} of ${T.due} done` : "Nothing planned"}${C.ro ? "" : ` · ${esc(weekSpan(doc.start_date, w))}`} ·
-          ${C.ro ? `${win}% wins the week` : `<button type="button" class="linkbtn" data-edit="goal" data-metric="goals">${win}% wins the week</button>`}</p>
-        <table class="sc">
-          <colgroup><col span="7"><col class="scs"></colgroup>
-          <thead><tr>${DAYS.map((L, j) =>
-            `<th class="${!C.ro && w === C.cur && j + 1 === C.dow ? "today" : ""}">${L}</th>`).join("")}<th></th></tr></thead>
-          ${rows}
-        </table>
-      </section>`;
+  // 1 · Someday
+  function gStepSomeday(C) {
+    const d = C.doc, G = state.goals || {};
+    const three = (d.three_year || "").trim() || G.edit === "c:three_year";
+    return gStep(C, 1, "Someday", "", "someday", `
+      ${gText(C, "vision", d.vision, "Write your someday", true)}
+      ${three ? `<div class="gsub2"><span class="clab">In 3 years</span>
+        ${gText(C, "three_year", d.three_year, "What must be true in 3 years", true)}</div>` : ""}`);
   }
 
-  function resultsCard(C) {
-    const doc = C.doc, G = state.goals || {}, win = goalWin();
-    const pre = C.cur < 1, open = pre ? 0 : Math.min(12, C.cur);
-    const W = Array.from({ length: 12 }, (_, k) => k + 1);
-    const pctCell = (p, i) => i > open ? `<td class="fut">·</td>`
-      : `<td class="${p !== null && p >= win ? "win" : ""}${i === C.w ? " curc" : ""}">${p === null ? "–" : p}</td>`;
-    const kCell = (g, i) => {
-      if (i > open) return `<td class="fut">·</td>`;
-      const v = (g.kpi_log || {})[i], has = v !== undefined && v !== null;
-      if (C.ro) return `<td class="${i === C.w ? "curc" : ""}">${has ? fmtNum(v) : "–"}</td>`;
-      if (G.kedit === `${g.id}:${i}`) return `<td class="curc"><input class="kin" data-kin="${g.id}:${i}"
-          inputmode="decimal" enterkeyhint="done" value="${has ? v : ""}" aria-label="${esc(g.kpi || "KPI")}, week ${i}"></td>`;
-      return `<td class="${i === C.w ? "curc" : ""}"><button type="button" class="kb${has ? "" : " nil"}" data-kw="${g.id}:${i}"
-          aria-label="${esc(g.kpi || "KPI")}, week ${i}${has ? ": " + v : ""}">${has ? fmtNum(v) : "+"}</button></td>`;
-    };
+  // 2 · This 12 weeks
+  function goalEditHTML(d, g, n) {
+    const isOne = g.id === d.one_goal;
     return `
-      <section class="card${C.ro ? " ro" : ""}">
-        <p class="eyebrow">Twelve weeks</p>
-        <div class="rs-wrap"><table class="rs">
-          <thead><tr><th></th>${W.map((i) => `<th class="${i === C.w ? "cur" : ""}">W${i}</th>`).join("")}</tr></thead>
-          <tbody>
-            <tr class="rss"><th scope="row">Score %</th>${W.map((i) => pctCell(weekTally(doc, i).pct, i)).join("")}</tr>
-            ${doc.goals.map((g, gi) => `
-              <tr class="rsg"><th scope="row"><span class="gnum xs">${gi + 1}</span>score</th>${W.map((i) =>
-                pctCell(goalTally(g, i).pct, i)).join("")}</tr>
-              ${g.kpi ? `<tr class="rsk"><th scope="row">${esc(g.kpi)}${g.kpi_target !== null && g.kpi_target !== undefined
-                ? ` <small>→ ${fmtNum(g.kpi_target)}</small>` : ""}</th>${W.map((i) => kCell(g, i)).join("")}</tr>` : ""}`).join("")}
-          </tbody></table></div>
-        ${C.ro ? "" : `<p class="hint" style="margin-top:8px">Tap a KPI cell to log that week's number.</p>`}
-      </section>`;
-  }
-
-  function planCard(C) {
-    const doc = C.doc, G = state.goals, open = Math.min(12, Math.max(1, C.cur));
-    const goal = (g, n) => {
-      const isOne = g.id === doc.one_goal;
-      if (G.edit === "g:" + g.id) return `
         <div class="pedit">
           <div class="ghead"><span class="gnum">${n}</span>
-            <input class="field gtitle" data-gf="title" data-g="${g.id}" maxlength="200"
-              value="${esc(g.title)}" placeholder="The result, e.g. Lose 8 lb" aria-label="Goal">
+            <input class="field gtitle" data-gf="title" data-g="${g.id}" id="gt-${g.id}" maxlength="200"
+              value="${esc(g.title)}" placeholder="${isOne ? "Your ONE result, e.g. Lose 8 lb" : "The result, e.g. Read 4 books"}" aria-label="Goal">
             <button type="button" class="gstar${isOne ? " on" : ""}" data-gstar="${g.id}" aria-pressed="${isOne}"
               aria-label="${isOne ? "Your ONE goal" : "Make this your ONE goal"}">★</button></div>
-          <label class="glab">KPI · the number this goal moves</label>
+          <label class="glab">KPI · the number that proves it</label>
           <div class="gkpirow">
             <input class="field" data-gf="kpi" data-g="${g.id}" maxlength="80" value="${esc(g.kpi)}"
               placeholder="e.g. Weight, lb" aria-label="KPI name">
@@ -5919,35 +5944,162 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             <button type="button" class="btn tok" data-gdone="${g.id}" style="background:var(--work)">Done</button>
           </div>
         </div>`;
+  }
+  function gStepGoals(C) {
+    const d = C.doc, G = state.goals || {}, open = Math.min(12, Math.max(1, C.cur));
+    const line = (g) => {
+      const n = d.goals.indexOf(g) + 1;
+      if (!C.ro && G.edit === "g:" + g.id) return goalEditHTML(d, g, n);
+      const isOne = g.id === d.one_goal;
       const now = kpiLatest(g, open), tgt = g.kpi_target, start = g.kpi_now;
-      const span = tgt !== null && tgt !== undefined && start !== null && start !== undefined && Number(tgt) !== Number(start)
+      const span = tgt !== null && tgt !== undefined && start !== null && start !== undefined && now !== null
+        && Number(tgt) !== Number(start)
         ? Math.max(0, Math.min(100, (Number(now) - Number(start)) / (Number(tgt) - Number(start)) * 100)) : null;
+      const lv = (g.kpi_log || {})[open], has = lv !== undefined && lv !== null;
+      const klog = C.ro || C.cur < 1 || C.cur > 12 ? ""
+        : G.kedit === `${g.id}:${open}`
+          ? `<input class="kin" data-kin="${g.id}:${open}" id="gkin" inputmode="decimal" enterkeyhint="done"
+               value="${has ? lv : ""}" aria-label="${esc(g.kpi)}, week ${open}">`
+          : `<button type="button" class="kb${has ? "" : " nil"}" data-kw="${g.id}:${open}"
+               aria-label="${esc(g.kpi)}, week ${open}${has ? ": " + lv : ""}">${has ? fmtNum(lv) : "+ log it"}</button>`;
       return `
-        <div class="prow">
-          <span class="gnum">${n}</span>
-          <div class="pmain">
-            <div class="pt">${isOne ? `<span class="cstar">★</span>` : ""}${g.title ? esc(g.title)
-              : `<span style="color:var(--muted)">Untitled goal</span>`}</div>
-            ${g.kpi ? `<div class="pk"><span>${esc(g.kpi)}</span><b>${fmtNum(now)} / ${fmtNum(tgt)}</b></div>
-              ${span !== null ? `<div class="gkbar"><i style="width:${span}%"></i></div>` : ""}`
-              : `<div class="pk"><span>No KPI yet</span></div>`}
-            <div class="pk"><span>${g.tactics.length} tactic${g.tactics.length === 1 ? "" : "s"}</span></div>
-          </div>
-          <button type="button" class="linkbtn" data-gedit="${g.id}">Edit</button>
+        <div class="gline2${isOne ? " one" : ""}">
+          <div class="ghead">${isOne ? `<span class="gstar on" aria-label="Your ONE goal">★</span>` : `<span class="gnum">${n}</span>`}
+            <h3>${g.title ? esc(g.title) : `<span style="color:var(--muted)">${isOne ? "Your ONE goal" : "Untitled goal"}</span>`}</h3>
+            ${C.ro ? "" : `<button type="button" class="linkbtn" data-gedit="${g.id}">Edit</button>`}</div>
+          ${g.kpi ? `<div class="gkpi"><span>${esc(g.kpi)}</span><b>${fmtNum(now)} / ${fmtNum(tgt)}</b></div>
+            ${span !== null ? `<div class="gkbar"><i style="width:${span}%"></i></div>` : ""}
+            ${klog ? `<div class="gklog"><span>Week ${open}</span>${klog}</div>` : ""}`
+          : C.ro ? "" : `<button type="button" class="linkbtn gnokpi" data-gedit="${g.id}">+ The number that proves it</button>`}
         </div>`;
     };
-    return `
-      <section class="card plan">
-        <p class="eyebrow">The plan · up to three goals</p>
-        ${doc.goals.map((g, i) => goal(g, i + 1)).join("")}
-        ${doc.goals.length < 3 ? `<button type="button" class="btn-quiet gadd" id="gAdd">+ Add a goal</button>` : ""}
-      </section>`;
+    const ones = d.goals.filter((g) => g.id === d.one_goal), rest = d.goals.filter((g) => g.id !== d.one_goal);
+    const right = `<span class="gsr">${C.cur < 1 ? "starts " + esc(shortDay(d.start_date))
+      : C.cur > 12 ? "complete" : `week ${C.cur} of 12`}</span>`;
+    return gStep(C, 2, "This 12 weeks", right, "goals",
+      ones.map(line).join("")
+      + (rest.length ? (ones.length ? `<p class="galso">Also, only if it serves the ONE</p>` : "") + rest.map(line).join("") : "")
+      + (!C.ro && d.goals.length && !d.one_goal && !(G.edit || "").startsWith("g:")
+          ? `<p class="hint" style="margin-top:8px">Tap Edit, then ★, to mark your ONE goal.</p>` : "")
+      + (!C.ro && d.goals.length < 3 ? `<button type="button" class="linkbtn gadd2" id="gAdd">${d.goals.length
+          ? "+ Add another goal (optional)" : "+ Write your ONE goal"}</button>` : ""));
   }
 
-  // The example, drawn with the real parts. Thursday of week 4.
+  // 3 · This week: the week's ONE Thing, the score, and the scorecard.
+  function scTable(C) {
+    const d = C.doc, w = C.w, pre = C.cur < 1, open = Math.min(12, Math.max(1, C.cur)), win = goalWin();
+    const DAYS = ["M", "T", "W", "T", "F", "S", "S"];
+    const DNAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const locked = C.ro || pre || w > open;
+    if (!d.goals.some((g) => g.tactics.length)) return `<p class="hint" style="margin-top:12px">${C.ro ? ""
+      : "No tactics yet. Tap Edit on a goal in step 2 and add the actions that move it."}</p>`;
+    const rows = d.goals.map((g, gi) => {
+      const due = g.tactics.filter((t) => dueIn(t, w)), gp = goalTally(g, w).pct;
+      return `
+        <tbody>
+          <tr class="scgh"><th colspan="7">${g.id === d.one_goal ? `<span class="cstar">★</span>`
+            : `<span class="gnum xs">${gi + 1}</span>`}${
+            g.title ? esc(g.title) : `<span style="color:var(--muted)">Untitled goal</span>`}</th>
+            <td class="${gp !== null && gp >= win ? "win" : ""}">${gp === null ? "–" : gp + "%"}</td></tr>
+          ${due.length ? due.map((t) => {
+            const n = timesOf(t), k = ticksIn(t, w);
+            return `<tr class="sctr"><th class="sct" colspan="7" scope="row">${esc(t.title)}<small>${freqWord(t)}</small></th>
+              <td class="scn${Math.min(n, k) >= n ? " full" : ""}">${Math.min(n, k)}/${n}</td></tr>
+              <tr class="scdr">${DAYS.map((L, j) => {
+                const dd = j + 1, on = hasMark(t, w, dd);
+                const future = locked || (w === C.cur && dd > C.dow);
+                return `<td><button type="button" class="scc${on ? " on" : ""}${!C.ro && w === C.cur && dd === C.dow ? " today" : ""}"
+                  ${C.ro ? "" : `data-gday="${t.id}:${dd}"`} aria-pressed="${on}" ${future ? "disabled" : ""}
+                  aria-label="${esc(t.title)}, ${DNAMES[j]}"></button></td>`;
+              }).join("")}<td></td></tr>`;
+          }).join("") : `<tr><td colspan="8" class="scnone">${g.tactics.length
+              ? `Nothing due in week ${w}.` : "No tactics yet."}</td></tr>`}
+        </tbody>`;
+    }).join("");
+    return `
+      <table class="sc">
+        <colgroup><col span="7"><col class="scs"></colgroup>
+        <thead><tr>${DAYS.map((L, j) =>
+          `<th class="${!C.ro && w === C.cur && j + 1 === C.dow ? "today" : ""}">${L}</th>`).join("")}<th></th></tr></thead>
+        ${rows}
+      </table>`;
+  }
+  function rsTable(C) {
+    const d = C.doc, G = state.goals || {}, win = goalWin();
+    const pre = C.cur < 1, open = pre ? 0 : Math.min(12, C.cur);
+    const W = Array.from({ length: 12 }, (_, k) => k + 1);
+    const pctCell = (p, i) => i > open ? `<td class="fut">·</td>`
+      : `<td class="${p !== null && p >= win ? "win" : ""}${i === C.w ? " curc" : ""}">${p === null ? "–" : p}</td>`;
+    const kCell = (g, i) => {
+      if (i > open) return `<td class="fut">·</td>`;
+      const v = (g.kpi_log || {})[i], has = v !== undefined && v !== null;
+      if (C.ro) return `<td class="${i === C.w ? "curc" : ""}">${has ? fmtNum(v) : "–"}</td>`;
+      // ":t" keeps the table's cell apart from the same week's line in step 2.
+      if (G.kedit === `${g.id}:${i}:t`) return `<td class="curc"><input class="kin" data-kin="${g.id}:${i}:t" id="gkint"
+          inputmode="decimal" enterkeyhint="done" value="${has ? v : ""}" aria-label="${esc(g.kpi || "KPI")}, week ${i}"></td>`;
+      return `<td class="${i === C.w ? "curc" : ""}"><button type="button" class="kb${has ? "" : " nil"}" data-kw="${g.id}:${i}:t"
+          aria-label="${esc(g.kpi || "KPI")}, week ${i}${has ? ": " + v : ""}">${has ? fmtNum(v) : "+"}</button></td>`;
+    };
+    return `
+        <div class="rs-wrap"><table class="rs">
+          <thead><tr><th></th>${W.map((i) => `<th class="${i === C.w ? "cur" : ""}">W${i}</th>`).join("")}</tr></thead>
+          <tbody>
+            <tr class="rss"><th scope="row">Score %</th>${W.map((i) => pctCell(weekTally(d, i).pct, i)).join("")}</tr>
+            ${d.goals.map((g, gi) => `
+              <tr class="rsg"><th scope="row">${g.id === d.one_goal ? "★ " : `${gi + 1} · `}score</th>${W.map((i) =>
+                pctCell(goalTally(g, i).pct, i)).join("")}</tr>
+              ${g.kpi ? `<tr class="rsk"><th scope="row">${esc(g.kpi)}${g.kpi_target !== null && g.kpi_target !== undefined
+                ? ` <small>→ ${fmtNum(g.kpi_target)}</small>` : ""}</th>${W.map((i) => kCell(g, i)).join("")}</tr>` : ""}`).join("")}
+          </tbody></table></div>`;
+  }
+  function gStepWeek(C) {
+    const d = C.doc, G = state.goals || {}, w = C.w, pre = C.cur < 1;
+    const open = Math.min(12, Math.max(1, C.cur)), win = goalWin(), T = weekTally(d, w);
+    const head = C.ro
+      ? `<div class="sc-ro"><b>Week ${w} of 12</b><span>${esc(weekSpan(d.start_date, w))}</span></div>`
+      : dayNav({ ids: ["gPrev", "gNext", "gToday"], unit: "week", todayWord: "this week",
+                 atToday: pre || w >= open,
+                 label: pre ? `Starts ${esc(shortDay(d.start_date))}` : `Week ${w} · ${esc(weekSpan(d.start_date, w))}` });
+    const fw = (d.focus || {})["w" + w] || "";
+    const canFw = !C.ro && w === open && C.cur <= 12;
+    const twelve = C.ro || !!G.twelve;
+    return gStep(C, 3, "This week", "", "week", `
+      ${head}
+      <div class="gsub2"><span class="clab">This week’s ONE Thing</span>
+        ${canFw || C.ro ? gText(C, "fw", fw, "The ONE Thing for this week", false)
+          : `<p class="gvtext${fw ? "" : " cnil"}">${fw ? esc(fw) : "–"}</p>`}</div>
+      <div class="gscore">
+        <b style="color:${T.pct !== null && T.pct >= win ? "var(--work)" : "var(--ink)"}">${T.pct === null ? "–" : T.pct + "%"}</b>
+        <span>${T.due ? `${T.done} of ${T.due} done` : "Nothing planned"} · ${C.ro ? `${win}% wins the week`
+          : `<button type="button" class="linkbtn" data-edit="goal" data-metric="goals">${win}% wins the week</button>`}</span>
+      </div>
+      ${scTable(C)}
+      ${C.ro ? "" : `<button type="button" class="gguide" id="gTwelve" aria-expanded="${twelve}">
+        ${twelve ? "Hide the twelve weeks" : "The twelve weeks, and your KPI"} <i aria-hidden="true">${twelve ? "▴" : "▾"}</i></button>`}
+      ${twelve ? rsTable(C) : ""}`);
+  }
+
+  // 4 · Today's ONE Thing
+  function gStepToday(C) {
+    const d = C.doc, run = C.cur >= 1 && C.cur <= 12;
+    const v = (d.focus || {})[`w${Math.min(12, Math.max(1, C.cur))}d${C.dow}`] || "";
+    const body = !run
+      ? `<p class="hint">${C.cur < 1 ? `Your twelve weeks start ${esc(shortDay(d.start_date))}.` : "These twelve weeks are done."}</p>`
+      : C.ro ? `<p class="gvtext">${esc(v)}</p>`
+      : `<div class="gone">
+          <input class="field" id="gOneIn" maxlength="200" autocomplete="off" enterkeyhint="done"
+            value="${esc(v)}" placeholder="The ONE Thing, today" aria-label="Today's ONE Thing">
+          <button type="button" class="dplay" id="gOneGo" aria-label="Start a focus session on it">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></button>
+        </div>`;
+    return gStep(C, 4, "Today’s ONE Thing", "", "today", body);
+  }
+
+  // The example, drawn by the same four steps, read-only: a plan four
+  // weeks in, on a Thursday.
   const exampleParts = () => {
     const C = { doc: EXAMPLE, cur: 4, w: 4, dow: 4, ro: true };
-    return cascadeCard(C) + scoreCard(C) + resultsCard(C);
+    return gStepSomeday(C) + gStepGoals(C) + gStepWeek(C) + gStepToday(C);
   };
 
   function goalsView() {
@@ -5958,37 +6110,32 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       </div>
       <header class="masthead">
         <h1>Goals</h1>
-        <p class="sub">The ONE Thing, twelve weeks at a time.</p>
+        <p class="sub">From someday to right now, in four steps.</p>
       </header>`;
     const foot = `<p class="ver">v${APP_VERSION}</p>`;
     if (!G.loaded) return head + `<p class="loading">Opening…</p>` + foot;
     const mon = mondayOf(G.today), next = shiftISO(mon, 7);
-    const howCard = (openIt) => `
+    const exCard = `
       <section class="card ghowcard">
-        <button type="button" class="foldbtn" id="gHow" aria-expanded="${openIt}">
-          <span class="caret">${openIt ? "▾" : "▸"}</span>
-          <h2>How it works</h2></button>
-        ${openIt ? howtoList() : ""}
-      </section>`;
-    const exCard = (openIt) => `
-      <section class="card ghowcard">
-        <button type="button" class="foldbtn" id="gEx" aria-expanded="${openIt}">
-          <span class="caret">${openIt ? "▾" : "▸"}</span>
-          <h2>See an example</h2></button>
-        ${openIt ? `<p class="hint" style="margin-top:8px">A plan four weeks in, on a Thursday.
-          Read only.</p>` : ""}
+        <button type="button" class="foldbtn" id="gEx" aria-expanded="${!!G.ex}">
+          <span class="caret">${G.ex ? "▾" : "▸"}</span>
+          <h2>See a whole plan, filled in</h2></button>
+        ${G.ex ? `<p class="hint" style="margin-top:8px">Four weeks in, on a Thursday. Read only.</p>` : ""}
       </section>
-      ${openIt ? `<div class="exwrap">${exampleParts()}</div>` : ""}`;
+      ${G.ex ? `<div class="exwrap">${exampleParts()}</div>` : ""}`;
 
     if (!G.cycle) return head + `
       <section class="card">
         <p class="eyebrow">The ONE Thing · The 12 Week Year</p>
         <h2 style="margin:4px 0 0;font-family:var(--display);font-weight:500;font-size:22px">
-          A year's work in twelve weeks, aimed at one thing.</h2>
-        <p class="hint" style="margin-top:6px">Write where you are going, from Someday down to today.
-          Set up to three goals, each with one number to move and the actions that move it. Tick
-          the days you do them: <button type="button" class="linkbtn" data-edit="goal" data-metric="goals"
-          style="font-size:inherit">${goalWin()}%</button> of the plan wins the week.</p>
+          One direction, twelve weeks, one thing today.</h2>
+        <ol class="gfour">
+          <li><b>Someday.</b> The life you are building, in a few sentences.</li>
+          <li><b>This 12 weeks.</b> Your ONE goal, and the number that proves it.</li>
+          <li><b>This week.</b> The actions that move it. <button type="button" class="linkbtn" data-edit="goal"
+            data-metric="goals" style="font-size:inherit">${goalWin()}%</button> done wins the week.</li>
+          <li><b>Today.</b> The ONE Thing that makes the rest easier. Do it first.</li>
+        </ol>
         <div class="gstart">
           <button class="btn" data-gstart="${mon}">Start this week · ${esc(shortDay(mon))}</button>
           <button class="btn-quiet" data-gstart="${next}">Start next Monday · ${esc(shortDay(next))}</button>
@@ -5996,8 +6143,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         </div>
         ${G.err ? `<p class="terr">${esc(G.err)}</p>` : ""}
       </section>
-      ${howCard(G.help !== false)}
-      ${exCard(G.ex !== false)}` + foot;
+      ${exCard}` + foot;
 
     const doc = G.cycle, cur = curWeek(), over = cur > 12;
     const C = { doc, cur, w: G.sel, dow: dowOf(G.today), ro: false };
@@ -6014,9 +6160,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <button class="btn" id="gNew2" style="width:100%;margin-top:12px;background:var(--work)">
           Start the next 12 weeks</button>
       </section>`;
-    return head + overCard + cascadeCard(C) + scoreCard(C) + resultsCard(C) + planCard(C) +
-      (G.err ? `<p class="terr">${esc(G.err)}</p>` : "") +
-      howCard(!!G.help) + exCard(!!G.ex) +
+    return head + overCard + gStepSomeday(C) + gStepGoals(C) + gStepWeek(C) + gStepToday(C) +
+      (G.err ? `<p class="terr">${esc(G.err)}</p>` : "") + exCard +
       `<button type="button" class="linkbtn gnew" id="gNew">Start a new 12 weeks</button>` + foot;
   }
 
@@ -6028,9 +6173,14 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const G = state.goals;
     if (!G) return;
     const doc = G.cycle;
-    on("gHow", "click", () => { G.help = !(G.cycle ? !!G.help : G.help !== false); render(); });
-    on("gEx", "click", () => { G.ex = !(G.cycle ? !!G.ex : G.ex !== false); render();
+    document.querySelectorAll("[data-guide]").forEach((el) =>
+      el.addEventListener("click", () => {
+        G.guide = Object.assign({}, G.guide, { [el.dataset.guide]: !(G.guide || {})[el.dataset.guide] });
+        render();
+      }));
+    on("gEx", "click", () => { G.ex = !G.ex; render();
       if (G.ex) document.querySelector(".exwrap")?.scrollIntoView({ block: "start", behavior: "smooth" }); });
+    on("gTwelve", "click", () => { G.twelve = !G.twelve; render(); });
     document.querySelectorAll("[data-gstart]").forEach((el) =>
       el.addEventListener("click", () => startCycle(el.dataset.gstart)));
     document.querySelectorAll("[data-gexample]").forEach((el) =>
@@ -6094,8 +6244,29 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       });
       el.addEventListener("blur", () => setTimeout(() => { if (el.isConnected) done(); }, 0));
     });
-    document.querySelectorAll("[data-cone]").forEach((el) =>
-      el.addEventListener("change", () => { doc.one_goal = el.value || null; render(); saveGoals(); }));
+    // Today's ONE Thing: always a line to type in, and ▶ to start on it.
+    // It is filed under today, so tomorrow opens blank without a sweep.
+    on("gOneIn", "input", (e) => {
+      const v = e.target.value.slice(0, 200), k = focusKey("fd");
+      doc.focus = doc.focus || {};
+      if (v.trim()) doc.focus[k] = v; else delete doc.focus[k];
+      saveGoals();
+    });
+    on("gOneIn", "keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); e.target.blur(); } });
+    on("gOneGo", "click", async () => {
+      const f = document.getElementById("gOneIn");
+      const text = ((f && f.value) || "").trim();
+      if (!text) { if (f) f.focus(); return; }
+      doc.focus = doc.focus || {};
+      doc.focus[focusKey("fd")] = text.slice(0, 200);
+      saveGoals(); await flushGoals();
+      loadWorkLocal();
+      state.work.focus = { label: text.slice(0, 120), task_id: null };
+      saveWorkLocal();
+      if (!state.work.run) workGo();
+      state.goals = null;
+      openExercise("work");
+    });
 
     // ---- KPI, week by week ----
     const rs = document.querySelector(".card:not(.ro) .rs-wrap");
@@ -6205,7 +6376,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
      it cannot close it. Stacked, full-width buttons in the order of how
      often each is the right answer — the Strong pattern, because it works.
      ------------------------------------------------------------------ */
-  function openModal({ title, body, mark, buttons }) {
+  function openModal({ title, body, mark, buttons, row }) {
     closeModal();
     const wrap = document.createElement("div");
     wrap.className = "modal";
@@ -6217,7 +6388,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         ${mark ? `<div class="mmark" aria-hidden="true">${mark}</div>` : ""}
         <h3>${esc(title)}</h3>
         ${body ? `<p>${esc(body)}</p>` : ""}
-        <div class="mbtns">${buttons.map((b, i) => `
+        <div class="mbtns${row ? " row" : ""}">${buttons.map((b, i) => `
           <button type="button" class="mbtn ${b.kind || "quiet"}" data-mb="${i}">
             ${esc(b.label)}${b.sub ? `<small>${esc(b.sub)}</small>` : ""}</button>`).join("")}
         </div>
@@ -6333,9 +6504,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       call("app_tasks", { p_code: state.code, p_person: state.meId }),
       call("app_cycle", { p_code: state.code, p_person: state.meId }),
     ]);
-    const tasks = ((a && a.tasks) || []).filter((x) => !x.parent_id && !x.done)
-      .sort((x, y) => (x.position - y.position) || ((x.quadrant || 1) - (y.quadrant || 1)))
-      .map((x, i) => ({ label: x.title, task_id: x.id, tag: "#" + (i + 1) }));
+    // Do first, then Decide, then Delegate; Not-to-do is not work to focus on.
+    const tasks = ((a && a.tasks) || []).filter((x) => !x.parent_id && !x.done && (x.quadrant || 1) !== 4)
+      .sort((x, y) => ((x.quadrant || 1) - (y.quadrant || 1)) || (x.position - y.position))
+      .map((x) => ({ label: x.title, task_id: x.id, tag: ["", "Do", "Decide", "Delegate"][x.quadrant || 1] }));
     const cy = b && b.cycle;
     const tactics = cy ? cy.goals.flatMap((g) => g.tactics.map((t) => ({ label: t.title, tag: g.title }))) : [];
     // V3.4. Today's ONE Thing comes first: it is what the time is for.
@@ -6701,9 +6873,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
       ${resumeBanner()}
       ${(k === "train" || k === "cardio") && state.lift.msg && !state.lift.active
-        ? `<p class="flash" role="status">${esc(state.lift.msg)}${state.lift.offer ? `
-            <span class="tmoffer">${esc(state.lift.offer.change)}
-              <button type="button" class="linkbtn" id="tmplUpd">Update template</button></span>` : ""}</p>` : ""}
+        ? `<p class="flash" role="status">${esc(state.lift.msg)}</p>` : ""}
       ${(k === "train" || k === "cardio") ? firstCard(k) : ""}
       ${k === "work" ? workCard() : logCard(k)}
       ${editRowHTML()}
@@ -6775,18 +6945,18 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       ? { id: ae.id, v: ae.value, dirty: ae.value !== ae.defaultValue,
           s: ae.selectionStart, e: ae.selectionEnd } : null;
 
-    const bar = tabBar();
+    const bar = "";
     const v = state.view;
-    if (v === "sleep")         { app.innerHTML = netBar + sleepView() + bar;  wireExercise(); wireTabs(); }
-    else if (v === "tasks")    { app.innerHTML = netBar + tasksView() + bar;  wireTasks();    wireTabs(); }
-    else if (v === "goals")    { app.innerHTML = netBar + goalsView() + bar;  wireGoals();    wireTabs(); }
-    else if (v === "exercise") { app.innerHTML = netBar + metricView() + bar; wireExercise(); wireTabs(); }
+    if (v === "sleep")         { app.innerHTML = netBar + sleepView() + bar;  wireExercise(); wireGo(); }
+    else if (v === "tasks")    { app.innerHTML = netBar + tasksView() + bar;  wireTasks();    wireGo(); }
+    else if (v === "goals")    { app.innerHTML = netBar + goalsView() + bar;  wireGoals();    wireGo(); }
+    else if (v === "exercise") { app.innerHTML = netBar + metricView() + bar; wireExercise(); wireGo(); }
     else if (v === "session")  { app.innerHTML = netBar + sessionView();  wireLift(); }
     else if (v === "detail")   { app.innerHTML = netBar + detailView();   wireLift(); }
     else {
       app.innerHTML = netBar + boardView() + bar;
       wire();
-      wireHome(); wireTabs();
+      wireHome(); wireGo();
     }
     wireNet();
     // One sheet for every standard and one for the home dials, on any page.
