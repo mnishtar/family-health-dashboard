@@ -183,17 +183,17 @@ input[type=number] { -moz-appearance:textfield; }
   letter-spacing:-.04em; padding:2px 0 4px; border-radius:12px; caret-color:currentColor; }
 .bigedit::placeholder { color:var(--line-strong); }
 .bigedit:focus { outline:none; background:var(--surface-2); }
-/* V3.5. Rest and Rise: a big time, four nudges, Now. */
+/* V3.6. Rest and Rise: a big time that is its own picker, and Now. */
 .tclock { display:flex; flex-direction:column; align-items:center; }
+.tpk { position:relative; display:inline-block; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.tpk .tover { position:absolute; inset:0; width:100%; height:100%; opacity:0; border:none; padding:0; margin:0;
+  font-size:16px; cursor:pointer; -webkit-appearance:none; appearance:none; background:transparent; color:transparent; }
 .tbig { font-family:var(--mono); font-size:clamp(52px, 17vw, 72px); font-weight:500; letter-spacing:-.03em;
-  line-height:1.05; }
-.tbig small { font-size:.36em; margin-left:6px; letter-spacing:0; color:var(--muted); font-weight:600; }
+  line-height:1.05; border-bottom:2px dashed color-mix(in oklab, currentColor 30%, transparent); padding:0 4px; }
+.tpk small { font-size:.36em; margin-left:6px; letter-spacing:0; color:var(--muted); font-weight:600; }
 .tbig.unset { opacity:.32; }
-.tnudge { display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; width:100%; margin-top:14px; }
-.tnudge button { border:1px solid var(--line-strong); background:var(--surface); border-radius:12px;
-  padding:12px 0; font-family:var(--mono); font-size:16px; font-weight:500; color:var(--ink); cursor:pointer;
-  touch-action:manipulation; }
-.tnudge button:active { background:var(--surface-2); transform:scale(.97); }
+.dtime { color:var(--ink); border-bottom:2px dashed color-mix(in oklab, var(--ink) 16%, transparent); }
+.dtime small { font-size:.4em; margin-left:4px; }
 /* ---------- the pyramid ----------------------------------------------
    Four rows of one, two, three and four. Each row is a grid of N equal
    columns inset by (4-N) half-columns, so the rows centre on each other
@@ -335,7 +335,7 @@ input[type=number] { -moz-appearance:textfield; }
 .tl .tsubin { margin-left:70px; width:calc(100% - 70px); }
 .tl .tebar { padding-left:36px; }
 .tquick .field { width:100%; box-sizing:border-box; font-size:16px; padding:13px 14px; }
-.tbuckets { display:grid; grid-template-columns:repeat(4, 1fr); gap:6px; margin-top:8px; }
+.tbuckets { display:grid; grid-template-columns:repeat(3, 1fr); gap:6px; margin-top:8px; }
 .tbk { border:1.5px solid var(--line); background:var(--surface); border-radius:10px; padding:9px 0;
   font-family:inherit; font-size:13.5px; font-weight:600; color:var(--ink-2); cursor:pointer; }
 .tbk.q1 { --qc:var(--work); } .tbk.q2 { --qc:var(--accent); }
@@ -513,23 +513,41 @@ input[type=number] { -moz-appearance:textfield; }
   font-size:14px; line-height:1.45; color:var(--ink-2); }
 .ghow b { color:var(--ink); }
 .ghowcard .foldbtn h2 { font-size:16px; }
-/* ---------- V3.5: Do capped, Not-to-do folded ---------------------------- */
+/* ---------- V3.6: Do capped by "do today", two quiet lists, swipe ------ */
 .tbk small { font-family:var(--mono); font-size:11px; font-weight:500; opacity:.8; }
 .tbk.full { opacity:.45; }
 .tqhint.warn { color:#b3422a; }
-.tlim { margin-left:auto; border:1px solid var(--qc); background:none; color:var(--qc); border-radius:99px;
-  font-family:var(--mono); font-size:12px; padding:2px 9px; cursor:pointer; }
-.tdo .tgh span { flex:1; }
+.tdo .tgh em.tdocount { font-size:14px; }
+.tdo .tgh em.tdocount.over { color:#b3422a; }
+.tlim { border:none; background:none; color:var(--muted); font-family:inherit; font-size:12.5px;
+  padding:2px 0 2px 8px; cursor:pointer; text-decoration:underline; text-decoration-color:var(--line-strong);
+  text-underline-offset:3px; }
+.tgroup.q2 .tgh, .tgroup.q3 .tgh { border-bottom-width:1px; }
+.tgroup.q2 .tgh b, .tgroup.q3 .tgh b { font-family:inherit; font-size:12px; font-weight:700; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--muted); }
+.tgroup.q2, .tgroup.q3 { margin-top:22px; }
 .tempties { list-style:none; margin:0; padding:0; }
 .tslot { display:flex; align-items:center; gap:10px; min-height:46px; border-bottom:1px dashed var(--line); }
 .tslot .trank { color:var(--line-strong); }
 .tslotb { flex:1; height:40px; border:none; background:none; cursor:text; }
-.tnot { margin-top:22px; }
-.tnot .foldbtn h2 { font-size:16px; color:var(--muted); }
-.tnoth { margin:6px 2px 4px; font-size:12.5px; color:var(--muted); }
-.tnotx .tt { color:var(--ink-2); cursor:default; }
-.tnotmark { flex:none; width:24px; text-align:center; font-size:12px; color:var(--muted); }
 .tebar .tbuckets.sm { margin:0 0 10px; }
+.tm.wait .tt { color:var(--muted); }
+.tm.wait .tck { opacity:.5; }
+.twaitl { margin-top:2px; }
+/* The row slides left over its actions. */
+.tm { position:relative; overflow:hidden; }
+.tm > .tr { position:relative; z-index:1; background:var(--ground); touch-action:pan-y;
+  transition:transform .22s cubic-bezier(.2,.8,.2,1); }
+.tm.swiping > .tr { transition:none; }
+.tm.swiped > .tr { transform:translateX(calc(-1 * var(--sww, 200px))); }
+.tsw { position:absolute; top:0; right:0; height:50px; display:flex; align-items:center; gap:8px; padding:0 4px 0 10px; }
+.tswt { border:none; background:none; color:var(--accent); font-family:inherit; font-size:15px; font-weight:500;
+  padding:8px 4px; cursor:pointer; }
+.tswc { width:38px; height:38px; border-radius:50%; border:none; display:grid; place-items:center; color:#fff;
+  cursor:pointer; padding:0; }
+.tswc svg { width:19px; height:19px; fill:none; stroke:currentColor; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+.tswc.b { background:#4f6bed; } .tswc.r { background:#e5484d; } .tswc.o { background:#f0a030; }
+.tschp { padding-top:4px; }
 
 /* ---------- V3.4: Goals --------------------------------------------------- */
 .casc .eyebrow { margin-bottom:4px; }
@@ -665,6 +683,41 @@ table.rs { border-collapse:separate; border-spacing:0; font-variant-numeric:tabu
 .gfour b { color:var(--ink); }
 .gdone2 { display:block; margin-top:8px; }
 
+/* V3.6. The ladder: three rungs on one rail. */
+.gladder { position:relative; margin-top:10px; padding-left:18px; }
+.gladder::before { content:""; position:absolute; left:4px; top:8px; bottom:10px; width:2px; border-radius:2px;
+  background:linear-gradient(var(--work), color-mix(in oklab, var(--work) 25%, var(--line))); }
+.grung { position:relative; padding:4px 0 12px; }
+.grung::before { content:""; position:absolute; left:-18px; top:9px; width:10px; height:10px; border-radius:50%;
+  background:var(--surface); border:2px solid var(--work); }
+.grl { display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--work); }
+.grq { display:inline; margin-left:8px; font-size:12px; color:var(--muted); }
+.grung .gvtext, .grung .cval { margin-top:3px; }
+.gtrack { margin:10px 0 0; font-size:12.5px; line-height:1.45; color:var(--muted); text-align:center; }
+.xcard { background:var(--surface); }
+.xsub { margin:4px 0 8px; font-size:13px; color:var(--muted); }
+.xgoal { border-top:1px solid var(--line); padding:12px 0 10px; }
+.xgh { display:flex; align-items:baseline; gap:6px; }
+.xgh b { font-family:var(--display); font-weight:500; font-size:17px; color:var(--ink); }
+.xgh em { margin-left:auto; font-style:normal; font-family:var(--mono); font-size:13px; color:var(--muted); }
+.xgh em.win { color:var(--work); font-weight:600; }
+.xrow { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:2px 10px; margin-top:8px; }
+.xlab { font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-2); }
+.xlab small { font-weight:500; letter-spacing:0; text-transform:none; color:var(--muted); margin-left:4px; font-size:11.5px; }
+.xval { font-family:var(--mono); font-size:12.5px; color:var(--ink-2); text-align:right; margin-left:auto; }
+.xlog { display:grid; grid-template-columns:repeat(3, 1fr); gap:6px; margin-top:6px; }
+.xlog span { display:flex; flex-direction:column; align-items:center; padding:5px 0; border-radius:8px; background:var(--surface-2);
+  font-family:var(--mono); font-size:13px; color:var(--ink); }
+.xlog small { font-family:inherit; font-size:10px; color:var(--muted); }
+.xtac { list-style:none; margin:4px 0 0; padding:0; }
+.xtac li { display:flex; align-items:baseline; justify-content:space-between; gap:10px; padding:5px 0;
+  border-bottom:1px dashed var(--line); font-size:14px; color:var(--ink); }
+.xtac li small { color:var(--muted); font-size:12px; margin-left:4px; }
+.xtac b { font-family:var(--mono); font-weight:500; font-size:13px; color:var(--muted); }
+.xtac b.full { color:var(--work); }
+.xweek { margin-top:12px; padding:12px; border-radius:12px; background:var(--work-soft); }
+.xweek p { margin:0; font-size:13.5px; line-height:1.5; color:var(--ink-2); }
+.xweek p + p { margin-top:8px; }
 .gsub2 { margin-top:12px; }
 .gsub2 .clab { display:block; margin-bottom:4px; }
 .gstep .gvtext { margin-top:4px; }
@@ -731,20 +784,24 @@ table.rs { border-collapse:separate; border-spacing:0; font-variant-numeric:tabu
 .hfamline i { font-style:normal; color:var(--muted); font-size:16px; }
 .hadd { margin-top:14px; }
 
-/* ---------- V3.5: your dashboard, as three labelled lines of links ----- */
-.drows { margin-top:8px; }
-.drow { display:flex; flex-direction:column; gap:2px; padding:9px 0 8px; border-top:1px solid color-mix(in oklab, var(--hc) 14%, var(--line)); }
-.dname { flex:none; font-size:10.5px; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
-  color:var(--muted); }
-.dlinks { min-width:0; display:flex; flex-wrap:wrap; gap:2px clamp(12px, 4.4vw, 18px); }
-.dlink { border:none; background:none; padding:4px 0; font-family:inherit; font-size:clamp(13.5px, 3.9vw, 14.5px); color:var(--ink-2);
-  cursor:pointer; white-space:nowrap; text-decoration:underline; text-decoration-color:var(--line-strong);
-  text-underline-offset:4px; }
-.dlink b { font-family:var(--mono); font-weight:500; font-size:13.5px; color:var(--muted); margin-left:3px; }
-.dlink.on b { color:var(--hc, var(--accent)); }
-.dlink:active { opacity:.6; }
-.dsoon { margin:6px 0 0; font-size:12px; color:var(--muted); }
-
+/* ---------- V3.6: your dashboard, three rows of three ---------------- */
+.mydash { padding:8px 14px 6px; }
+.mstreak { margin:0 0 2px; font-size:12px; color:var(--muted); text-align:right; }
+.mrow { display:grid; grid-template-columns:clamp(62px, 21vw, 84px) 1fr; align-items:center;
+  border-top:1px solid var(--line); padding:6px 0; }
+.mrow:first-of-type { border-top:none; }
+.mcat { font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted);
+  line-height:1.25; }
+.mcells { display:grid; grid-template-columns:repeat(3, 1fr); }
+.mcell { display:flex; flex-direction:column; align-items:flex-start; gap:1px; min-width:0; border:none;
+  background:none; padding:6px 4px; border-radius:10px; font-family:inherit; cursor:pointer; text-align:left;
+  -webkit-tap-highlight-color:transparent; }
+.mcell b { font-family:var(--mono); font-weight:500; font-size:clamp(15px, 4.6vw, 18px); letter-spacing:-.03em;
+  color:var(--ink); white-space:nowrap; }
+.mcell span { font-size:clamp(11px, 3.2vw, 12px); color:var(--muted); white-space:nowrap; overflow:hidden;
+  text-overflow:ellipsis; max-width:100%; }
+.mcell.nil b { color:var(--line-strong); }
+.mcell:active { background:var(--surface-2); }
 
 /* ---------- V3.3: a day with no time, and the matrix view -------------- */
 .twhen { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-top:10px; }
@@ -765,25 +822,6 @@ table.rs { border-collapse:separate; border-spacing:0; font-variant-numeric:tabu
 .sany .tm.q3 { --qc:var(--swim); } .sany .tm.q4 { --qc:var(--muted); }
 .sany .tr { min-height:44px; }
 .sany .tt { cursor:default; padding:9px 0; }
-.mx { display:grid; grid-template-columns:16px 1fr 1fr; grid-template-rows:auto auto auto; gap:6px; }
-.mx .axis { font-size:9.5px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--muted);
-  display:flex; align-items:center; justify-content:center; }
-.mx .ax-u  { grid-column:2; grid-row:1; } .mx .ax-nu { grid-column:3; grid-row:1; }
-.mx .ax-i, .mx .ax-ni { writing-mode:vertical-rl; transform:rotate(180deg); }
-.mx .ax-i  { grid-column:1; grid-row:2; } .mx .ax-ni { grid-column:1; grid-row:3; }
-.mcell { min-width:0; min-height:150px; background:var(--surface); border:1px solid var(--line); border-radius:14px;
-  padding:10px 10px 12px; border-top:3px solid var(--qc); }
-.mcell.q1 { --qc:var(--work); grid-column:2; grid-row:2; } .mcell.q2 { --qc:var(--accent); grid-column:3; grid-row:2; }
-.mcell.q3 { --qc:var(--swim); grid-column:2; grid-row:3; } .mcell.q4 { --qc:var(--muted); grid-column:3; grid-row:3; }
-.mch { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:6px; }
-.mch b { font-family:var(--display); font-weight:500; font-size:17px; }
-.mch em { font-style:normal; font-family:var(--mono); font-size:12px; color:var(--qc); }
-.mlist { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px; }
-.mlist li { display:flex; align-items:flex-start; gap:7px; }
-.mlist .tck { margin-top:1px; }
-.mtt { flex:1; min-width:0; border:none; background:none; padding:0; text-align:left; font-family:inherit;
-  font-size:14px; line-height:1.3; color:var(--ink); cursor:pointer; overflow-wrap:anywhere; }
-.mempty { margin:0; font-size:12px; color:var(--muted); line-height:1.35; }
 
 /* The epigraph. Set in the display face, indented from the rule, quiet
    enough that it introduces the page rather than competing with it. */
@@ -1287,6 +1325,27 @@ table.rs { border-collapse:separate; border-spacing:0; font-variant-numeric:tabu
   color:var(--muted); cursor:pointer; padding:6px 10px; text-decoration:underline dotted;
   text-decoration-color:var(--line-strong); text-underline-offset:3px; }
 
+/* ---------- V3.6: quick actions on the dials ---------------------------- */
+.dtaskin { margin-top:8px; width:64%; border:none; border-bottom:1.5px dashed var(--line-strong); background:none;
+  text-align:center; font-family:inherit; font-size:16px; color:var(--ink); padding:6px 0; border-radius:0; }
+.dtaskin:focus { outline:none; border-bottom:1.5px solid var(--work); }
+.dtaskin::placeholder { color:var(--muted); }
+.hflist { max-height:min(46vh, 340px); }
+.cqchips { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+.cqc { border:1.5px solid var(--line); background:var(--surface); border-radius:99px; padding:8px 14px;
+  font-family:inherit; font-size:14px; font-weight:600; color:var(--ink-2); cursor:pointer; }
+.cqc.on { border-color:var(--swim); color:var(--swim); background:var(--swim-soft); }
+.cqother { width:100%; box-sizing:border-box; margin-top:10px; font-size:16px; }
+.cqrow { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px; }
+.cqf { display:flex; flex-direction:column; gap:4px; }
+.cqf > span:first-child { font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.cqin { display:flex; align-items:baseline; gap:6px; border-bottom:2px solid var(--swim); padding-bottom:2px; }
+.cqin input { flex:1; min-width:0; width:100%; border:none; background:none; font-family:var(--mono); font-size:28px;
+  font-weight:500; color:var(--ink); padding:0; }
+.cqin input:focus { outline:none; }
+.cqin em { font-style:normal; font-size:13px; color:var(--muted); }
+.cqin .unitchip { border:1px solid var(--line-strong); background:none; border-radius:8px; padding:2px 7px; font-size:12px; cursor:pointer; }
+
 /* ---------- V3.4: one sheet for standards and for choosing dials -------- */
 .sheetbg { position:fixed; inset:0; z-index:44; background:rgba(10,14,12,.36); animation:mfade .14s ease both; }
 .stdsheet { position:fixed; z-index:45; left:12px; right:12px; top:calc(env(safe-area-inset-top, 0px) + 56px);
@@ -1378,7 +1437,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "3.5";
+  const APP_VERSION = "3.6";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -1490,10 +1549,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     // are the same kind of miss.
     rest:   { key:"rest_time",  label:"Rest",   unit:"time", color:"var(--sleep)", soft:"var(--sleep-soft)", time:true, night:true, lower:true },
     rise:   { key:"rise_time",  label:"Rise",   unit:"time", color:"var(--sleep)", soft:"var(--sleep-soft)", time:true, lower:true },
-    sleep:  { key:"sleep_items",label:"Sleep Score", unit:"%", color:"var(--sleep)", soft:"var(--sleep-soft)", bits:true, night:true },
+    sleep:  { key:"sleep_items",label:"Recovery", unit:"%", color:"var(--sleep)", soft:"var(--sleep-soft)", bits:true, night:true },
     // V2.8. Deep work, in minutes, filled by pomodoros. Shaped like Train
     // on purpose: a number you can type, a target, a week and a month.
-    work:   { key:"work_min",   label:"Work Score", unit:"minutes", color:"var(--work)", soft:"var(--work-soft)" },
+    work:   { key:"work_min",   label:"Focus", unit:"minutes", color:"var(--work)", soft:"var(--work-soft)" },
   };
 
   /* ---------- the twelve habits --------------------------------------
@@ -1655,18 +1714,18 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
      typed, shown and scored against its standard:
        count  a whole number        Steps, Tasks done
        min    minutes               Train, Cardio, Work
-       pct    a percent             Sleep Score, Goals
+       pct    a percent             Recovery, Goals
        time   a clock, lower wins   Rise, Rest
      `key` is the metric the standard is stored under on the server.
      ------------------------------------------------------------------ */
   const STD = {
-    steps:  { label:"Step Score",  kind:"count", def:8000, key:"steps",      unit:"steps", short:"Steps" },
+    steps:  { label:"Steps",       kind:"count", def:8000, key:"steps",      unit:"steps", short:"Steps" },
     train:  { label:"Train",       kind:"min",   def:40,   key:"train_min" },
     cardio: { label:"Cardio",      kind:"min",   def:30,   key:"cardio_min" },
-    sleep:  { label:"Sleep Score", kind:"pct",   def:80,   key:"sleep_pct", short:"Sleep" },
+    sleep:  { label:"Recovery",    kind:"pct",   def:80,   key:"sleep_pct", short:"Sleep" },
     rise:   { label:"Rise",        kind:"time",  def:360,  key:"rise_time" },
     rest:   { label:"Rest",        kind:"time",  def:1350, key:"rest_time" },
-    work:   { label:"Work Score",  kind:"min",   def:180,  key:"work_min",  short:"Work" },
+    work:   { label:"Focus",       kind:"min",   def:180,  key:"work_min",  short:"Focus" },
     goals:  { label:"Goals",       kind:"pct",   def:85,   key:"goal_pct" },
     tasks:  { label:"Tasks",       kind:"count", def:5,    key:"tasks_done", unit:"done" },
   };
@@ -2386,39 +2445,47 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   // Written to be read in a chat, not on a dashboard: the standings first,
   // who is missing second, the link last. Asterisks are WhatsApp bold.
   function dailyMessage() {
-    // V3.4. Four things per person and nothing else: Step Score, Train
-    // and Cardio minutes, and the streak. Everyone who has any of the four
-    // gets one line, best Step Score first. The family's name and the
-    // date head it; the link closes it, because the link is how anyone
-    // reading gets into the app.
+    // V3.6. Back to the V3.3 post, as asked: a tick for everyone who met
+    // their step standard, a hollow square for everyone else who logged,
+    // and a closing line naming who has not logged at all. That last line
+    // is the one that gets people moving; V3.4 dropped it.
     //
     // The day is the FAMILY's, whatever day the roster is showing, so a
     // post sent the morning after is yesterday complete in every zone.
+    const done = state.people.filter(banyLog);
+    const missing = state.people.filter((p) => !banyLog(p));
+    const hit = state.people.filter(bdone);
     const past = !!state.boardDay;
     const day = new Date(famDayISO() + "T00:00:00Z").toLocaleDateString(undefined,
       { timeZone:"UTC", weekday:"short", month:"short", day:"numeric" });
+    const lines = [
+      `*${state.group.name}* \u00b7 ${day}`,
+      `${done.length}/${state.people.length} logged \u00b7 ${hit.length} hit their steps`,
+      "",
+    ];
     // Percent of each person's own standard, so ten different bodies are
     // compared on effort, not on one number some of them can never reach.
     const pctOf = (p) => {
       const t = target(p, "steps");
-      return t > 0 && bval(p, "steps") > 0 ? Math.round(bval(p, "steps") / t * 100) : null;
+      return t > 0 ? Math.round(bval(p, "steps") / t * 100) : null;
     };
-    // A streak is a today fact: yesterday's post cannot know it.
-    const streakOf = (p) => !past && p.streak > 1 ? p.streak : 0;
-    const rows = state.people.filter((p) => pctOf(p) !== null || bval(p, "train") > 0
-      || bval(p, "cardio") > 0 || streakOf(p));
-    rows.sort((a, b) => (pctOf(b) ?? -1) - (pctOf(a) ?? -1));
-
-    const lines = [`*${state.group.name}* · ${day}`, ""];
-    for (const p of rows) {
+    const sorted = [...done].sort((a, b) => (pctOf(b) ?? -1) - (pctOf(a) ?? -1));
+    for (const p of sorted) {
       const bits = [];
-      if (pctOf(p) !== null)     bits.push(`Step Score ${pctOf(p)}%`);
-      if (bval(p, "train") > 0)  bits.push(`Train ${hm(bval(p, "train"))}`);
-      if (bval(p, "cardio") > 0) bits.push(`Cardio ${hm(bval(p, "cardio"))}`);
-      if (streakOf(p))           bits.push(`${streakOf(p)}-day streak`);
-      lines.push(`*${p.name}* — ${bits.join(" · ")}`);
+      const pc = pctOf(p);
+      if (pc !== null && bval(p, "steps") > 0) bits.push(pc + "% steps");
+      else if (bval(p, "steps") > 0)           bits.push(num(bval(p, "steps")) + " steps");
+      if (bval(p, "train") > 0)  bits.push(hm(bval(p, "train")) + " train");
+      if (bval(p, "cardio") > 0) bits.push(hm(bval(p, "cardio")) + " cardio");
+      const wm = Number(board(p).work_min) || 0;
+      if (wm > 0) bits.push(hm(wm) + " focus");
+      // A streak is a today fact: yesterday's post cannot know it.
+      const streak = !past && p.streak > 1 ? `  (${p.streak}-day streak)` : "";
+      lines.push(`${bdone(p) ? "\u2705" : "\u25ab\ufe0f"} ${p.name} \u2014 ${bits.join(" \u00b7 ") || "logged"}${streak}`);
     }
-    if (!rows.length) lines.push("Nothing logged yet.");
+    if (missing.length) {
+      lines.push("", `${past ? "Nothing logged" : "Still to log"}: ${missing.map((p) => p.name).join(", ")}`);
+    }
     lines.push("", `${location.origin}${location.pathname}?g=${state.code}`);
     return lines.join("\n");
   }
@@ -2851,9 +2918,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
      V2.8. Someone could not find how to log yesterday's steps. The arrows
      were bare 19px glyphs in grey: they read as punctuation, not buttons.
      Now they are round, filled, thumb-sized buttons with a drawn chevron,
-     and the label under the date says what to do next — "‹ earlier days"
-     on today, a "Back to today" button on any other day. Same two-line
-     block either way, so nothing on the page jumps when you step.
+     and any day but today carries a "Back to today" button under its date.
+     V3.6: the "‹ earlier days" hint under Today is gone; the arrows say it.
      ------------------------------------------------------------------ */
   const CHEV = (d) => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${
     d < 0 ? "M14.5 5.5 8 12l6.5 6.5" : "M9.5 5.5 16 12l-6.5 6.5"}"/></svg>`;
@@ -2864,8 +2930,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <button type="button" class="dnav" id="${ids[0]}" aria-label="Previous ${unit}">${CHEV(-1)}</button>
         <div class="dlabel">
           <span>${label}</span>
-          ${atToday
-            ? `<small>${openNext ? `&lsaquo; earlier · later &rsaquo;` : `&lsaquo; earlier ${unit}s`}</small>`
+          ${atToday ? ""
             : `<button type="button" class="dtoday" id="${ids[2]}">Back to ${todayWord} &rsaquo;</button>`}
         </div>
         <button type="button" class="dnav" id="${ids[1]}" aria-label="Next ${unit}"
@@ -3742,42 +3807,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     wireTemplate();
     wireWork();
 
-    // Rest and Rise: three scroll columns, the middle row wins.
-    //
-    // V3.5. The nudges. Each tap moves the time and shows it at once; the
-    // save waits for a pause in tapping, so four quick taps are one write.
-    {
-      const btns = document.querySelectorAll("[data-nudge]");
-      let timer = null, gen = 0;
-      btns.forEach((el) => el.addEventListener("click", () => {
-        const k = state.seg, iso = entryDay(), m = me() || {};
-        const met = M[k];
-        const cur = state.tLocal && state.tLocal.k === k && state.tLocal.iso === iso ? state.tLocal.v
-          : (iso === todayISO() ? rawVal(m, k) : (dayRecord(k).logged ? dayRecord(k).value : null));
-        const start = cur !== null && cur !== undefined ? cur
-          : (hasTarget(m, k) ? target(m, k) : (met.night ? 22 * 60 : 7 * 60));
-        let v = ((Math.round(start) + Number(el.dataset.nudge)) % 1440 + 1440) % 1440;
-        // The 5am rule: a bedtime after midnight belongs to the evening.
-        if (k === "rest" && v < 5 * 60) v += 1440;
-        state.tLocal = { k, iso, v };
-        const big = document.getElementById("tBig");
-        if (big) { big.innerHTML = tParts(v); big.classList.remove("unset"); }
-        const hint = document.getElementById("hint");
-        if (hint) hint.textContent = "Saving\u2026";
-        const mine = ++gen;
-        clearTimeout(timer);
-        timer = setTimeout(async () => {
-          const res = await call("app_log", { p_code: state.code, p_person: state.meId,
-            p_value: v, p_metric: met.key, p_date: nightDay(k), p_tz: deviceTZ() });
-          if (mine !== gen) return;                 // still tapping: the next one saves
-          if (res.error) { state.msg = res.error; state.msgKind = "bad"; }
-          if (iso === todayISO() && !res.error) m[k] = v;
-          state.tLocal = null;
-          await loadHistory();
-          await refresh();
-        }, 650);
-      }));
-    }
+    // Rest and Rise. V3.6: the time is a native time input; a change
+    // saves it, for the day the page is showing.
+    wireTimePicks((k) => nightDay(k), async () => { await loadHistory(); await refresh(); });
 
     on("clearDay", "click", async () => {
       const k = state.seg;
@@ -4120,8 +4152,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     // the same nine numbers in the same order, small, so the whole family
     // fits in the space one card used to take. Columns read down.
     const othersTable = ordered.some((p) => p.id === state.meId) && ordered.length > 1;
-    const FAB = { steps:"Stp", train:"Trn", cardio:"Crd", sleep:"Slp", rise:"Rise", rest:"Rest",
-                  work:"Wrk", goals:"Gls", tasks:"Tsk" };
+    const FAB = { steps:"Stp", train:"Trn", cardio:"Crd", sleep:"Rec", rise:"Rise", rest:"Rest",
+                  work:"Foc", goals:"Gls", tasks:"Tsk" };
     const tiny = (k, v) => {
       if (v === null || v === undefined) return "\u2013";
       const x = Number(v);
@@ -4155,33 +4187,23 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             }).join("")}</tr>`;
         }).join("")}</tbody></table></div>`;
     };
-    // V3.5. Your own card is your dashboard: one labelled line per pillar,
-    // and every number on it is the link to its page. It stays in view
-    // with the family folded, because it is how you get anywhere; the tab
-    // bar that used to do that job is gone.
+    // V3.6. Your dashboard, redrawn: three rows, one per category, three
+    // numbers each with its full name under it. No avatar, no header, no
+    // underlines, no "coming soon": the numbers are the interface, and
+    // every one opens its page.
     const meDash = (p) => {
       const c = famCells(p);
-      const initials = p.name.trim().split(/\s+/).slice(0, 2).map((w) => (w[0] || "").toUpperCase()).join("");
-      const NAMES = { steps: "Steps", train: "Train", cardio: "Cardio", sleep: "Score", rise: "Rise", rest: "Rest",
-                      work: "Work", goals: "Goals", tasks: "Tasks" };
-      const link = (k) => {
+      const cell = (k) => {
         const v = c[k], nil = v === null || v === undefined;
-        return `<button type="button" class="dlink${nil ? "" : " on"}" data-go="${k}"
-          aria-label="${esc(STD[k].label)}${nil ? "" : ": " + stdWords(k, v)}">${NAMES[k]} <b>${nil ? "\u2013" : stdWords(k, v)}</b></button>`;
+        return `<button type="button" class="mcell${nil ? " nil" : ""}" data-go="${k}"
+          aria-label="${esc(STD[k].label)}${nil ? ", not logged" : ": " + stdWords(k, v)}. Open">
+          <b>${nil ? "\u2013" : stdWords(k, v)}</b><span>${esc(STD[k].label)}</span></button>`;
       };
-      return `<div class="fcard me mydash" style="--hc:hsl(${p.hue} 58% 42%)">
-        <div class="fhead">
-          <span class="dot" aria-hidden="true"
-            style="background:color-mix(in oklab, hsl(${p.hue} 62% 48%) 16%, var(--surface));
-                   color:color-mix(in oklab, hsl(${p.hue} 62% 48%) 78%, var(--ink))">${esc(initials)}</span>
-          <button class="tapedit" data-edit="name" data-person="${p.id}">${esc(p.name)}</button>
-          <em class="fyou">you</em>
-          ${p.streak > 1 && !state.boardDay ? `<span class="fstreak">${p.streak}-day streak</span>` : ""}
-        </div>
-        <div class="drows">${STD_GROUPS.map(([g, ks]) => `
-          <div class="drow"><span class="dname">${esc(g)}</span><div class="dlinks">${ks.map(link).join("")}</div></div>`).join("")}
-          <p class="dsoon">Meditation &middot; Diet &mdash; coming</p>
-        </div>
+      return `<div class="mydash" style="--hc:hsl(${p.hue} 58% 42%)">
+        ${p.streak > 1 && !state.boardDay ? `<p class="mstreak">${p.streak}-day streak</p>` : ""}
+        ${STD_GROUPS.map(([g, ks]) => `
+          <div class="mrow"><span class="mcat">${esc(g)}</span>
+            <div class="mcells">${ks.map(cell).join("")}</div></div>`).join("")}
       </div>`;
     };
     const roster = state.people.length === 0
@@ -4216,7 +4238,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           </div>`;
         }).join("")}${othersTable && boardOpen() ? famTable(ordered.filter((p) => p.id !== state.meId)) : ""}</div>`;
 
-    // V3.3. The opening screen is the Step Score, large, and nothing
+    // V3.3. The opening screen is the Steps dial, large, and nothing
     // else that asks for attention. Swipe for Work and Sleep. The family,
     // the post and adding people are one folded line underneath.
     return `
@@ -4231,7 +4253,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       ${m ? homeDials(m) : `
         <section class="card hfirst">
           <h2>Who are you?</h2>
-          <p class="hint">Pick your name, or add it, and your Step Score appears here.</p>
+          <p class="hint">Pick your name, or add it, and your dials appear here.</p>
           <div class="whoami" style="margin-top:12px">
             <select id="who" aria-label="Which family member are you"
               ${state.people.length === 0 ? "disabled" : ""}>${whoOptions}</select>
@@ -4298,19 +4320,20 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   // under it (tap it to change it). Where a number can be typed, the
   // middle IS the input, as the step count always was.
   function homeDials(m) {
-    const keys = myDials();
-    const i = Math.min(state.dialIdx || 0, keys.length - 1);
-    // A loop: a copy of the last dial sits before the first and a
-    // copy of the first after the last. Land on a copy and the strip jumps,
-    // unseen, to the real one, so a swipe never hits a wall.
-    const order = [keys[2], keys[0], keys[1], keys[2], keys[0]];
+    const keys = myDials(), n = keys.length;
+    const i = Math.min(state.dialIdx || 0, n - 1);
+    // A loop: a copy of the last dial sits before the first and a copy of
+    // the first after the last. Land on a copy and the strip jumps, unseen,
+    // to the real one, so a swipe never hits a wall. V3.6: one dial is
+    // just the dial, with nothing to swipe to.
+    const order = n > 1 ? [keys[n - 1], ...keys, keys[0]] : keys;
     return `
-      <div class="dials" id="dials" aria-roledescription="carousel">
-        ${order.map((k, n) => dialSlide(m, k, n === 0 || n === 4)).join("")}
+      <div class="dials${n > 1 ? "" : " one"}" id="dials" data-n="${n}" aria-roledescription="carousel">
+        ${order.map((k, j) => dialSlide(m, k, n > 1 && (j === 0 || j === n + 1))).join("")}
       </div>
-      <div class="ddots" role="tablist" aria-label="Your dials">${keys.map((k, n) => `
-        <button type="button" class="ddot${n === i ? " on" : ""}" data-dot="${n}" role="tab"
-          aria-selected="${n === i}" aria-label="${esc(STD[k].label)}"></button>`).join("")}</div>
+      ${n > 1 ? `<div class="ddots" role="tablist" aria-label="Your dials">${keys.map((k, j) => `
+        <button type="button" class="ddot${j === i ? " on" : ""}" data-dot="${j}" role="tab"
+          aria-selected="${j === i}" aria-label="${esc(STD[k].label)}"></button>`).join("")}</div>` : ""}
       <button type="button" class="dedit" id="dialEdit">Change dials</button>`;
   }
   const ofWords = (k, std) => STD[k].kind === "time" ? `by ${clockWords(std)}`
@@ -4348,6 +4371,16 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             : `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg>`}</button>`;
     }
 
+    if (k === "cardio") {
+      // V3.6. Cardio is an activity, a distance and a time: one tap opens
+      // all three. The value it shows is today's minutes.
+      centre = `<button type="button" class="dval dgo${v === null ? " dnone" : ""}" ${clone ? 'tabindex="-1"' : 'data-cardioq="1"'}
+          aria-label="${v === null ? "Log cardio" : `Cardio ${stdWords(k, v)}. Log more`}">${v === null ? "Log" : stdWords(k, v)}</button>`;
+    }
+    if (k === "tasks") {
+      extra = `<input class="dtaskin" ${clone ? 'tabindex="-1" readonly' : 'data-dtask="1" id="dial-taskin"'}
+          type="text" maxlength="200" enterkeyhint="done" autocomplete="off" placeholder="+ Add a task" aria-label="Add a task">`;
+    }
     if (!centre) {
       if (S.kind === "count" && k !== "tasks" || S.kind === "min") {
         // Typed. Shown formatted, edited raw.
@@ -4359,14 +4392,14 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             value="${esc(shown)}" data-raw="${raw}" data-show="${esc(shown)}"
             aria-label="${esc(S.label)} today${S.kind === "min" ? ", in minutes" : ""}, tap to type">`;
       } else if (S.kind === "time") {
-        // V3.5. A clock dial has no wheel. Not logged yet: one tap on Now
-        // records this minute (with Undo). Logged: the time, which opens
-        // the page, where four nudges move it.
+        // V3.5. Not logged yet: one tap on Now records this minute (with
+        // Undo).
+        // V3.6: logged, the time is the phone's time wheel, right here.
         centre = v === null
           ? `<button type="button" class="dval dnow" ${clone ? 'tabindex="-1"' : `data-dialnow="${k}"`}
                aria-label="${esc(S.label)}: record now">Now</button>`
-          : `<button type="button" class="dval dgo" ${go(page)} ${clone ? 'tabindex="-1"' : ""}
-               aria-label="${esc(S.label)} ${clockWords(v)}. Open to adjust">${clockWords(v)}</button>`;
+          : timePick(k, v, { cls: "dval dtime", inert: clone,
+                             label: `${S.label} ${clockWords(v)}. Tap to change` });
       } else {
         // Made on its own page (the pyramid, the week's tactics, the list):
         // the centre is the way in.
@@ -4402,25 +4435,28 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   function wireHome() {
     const box = document.getElementById("dials");
     if (box) {
-      // Strip positions: 0 copy of Sleep · 1 Steps · 2 Work · 3 Sleep ·
-      // 4 copy of Steps. Put it back where it was before this render, then
-      // follow the swipe; landing on a copy jumps to the real dial.
+      // Strip positions: 0 a copy of the last dial · 1..n the dials ·
+      // n+1 a copy of the first. Put it back where it was before this
+      // render, then follow the swipe; landing on a copy jumps to the real
+      // dial. One dial has no copies and nothing to follow.
+      const n = Number(box.dataset.n) || 1, off = n > 1 ? 1 : 0;
       const W = () => Math.max(1, box.clientWidth);
       const jump = (pos) => {
         box.style.scrollSnapType = "none";
         box.scrollLeft = pos * W();
         requestAnimationFrame(() => { box.style.scrollSnapType = ""; });
       };
-      jump((state.dialIdx || 0) + 1);
+      jump(Math.min(state.dialIdx || 0, n - 1) + off);
       const mark = (n) => {
         state.dialIdx = n;
         document.querySelectorAll("[data-dot]").forEach((d, k) => {
           d.classList.toggle("on", k === n); d.setAttribute("aria-selected", String(k === n)); });
       };
       const settle = () => {
+        if (n < 2) return;
         let pos = Math.round(box.scrollLeft / W());
-        if (pos === 0) { pos = 3; jump(3); }
-        if (pos === 4) { pos = 1; jump(1); }
+        if (pos === 0) { pos = n; jump(n); }
+        if (pos === n + 1) { pos = 1; jump(1); }
         mark(pos - 1);
       };
       let t = null;
@@ -4428,7 +4464,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       document.querySelectorAll("[data-dot]").forEach((d) =>
         d.addEventListener("click", () => {
           mark(Number(d.dataset.dot));
-          box.scrollTo({ left: (state.dialIdx + 1) * W(), behavior: "smooth" });
+          box.scrollTo({ left: (state.dialIdx + off) * W(), behavior: "smooth" });
         }));
     }
     // A typed dial: tap the number, type, leave. Steps take a count; Train,
@@ -4453,6 +4489,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         await refresh();
       });
     });
+    // A logged clock dial: tap the time, turn the wheel.
+    wireTimePicks((k) => { const m = me() || {};
+      return M[k].night ? (m.rest_day || todayISO()) : (m.their_date || todayISO()); }, () => refresh());
     // A clock dial: Now records this minute, the way the page's Now does.
     document.querySelectorAll("[data-dialnow]").forEach((el) =>
       el.addEventListener("click", async () => {
@@ -4468,13 +4507,62 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     // The play button starts, pauses and continues without leaving home.
     // It stops the tap there, so the dial underneath does not also open
     // the Work page.
-    on("homeWorkGo", "click", (e) => {
+    // V3.6: idle, it first asks what the session is for (your goals, or
+    // what you type), and picking one starts it.
+    on("homeWorkGo", "click", async (e) => {
       e.stopPropagation();
       if (!state.work) loadWorkLocal();
       const r = state.work.run;
-      if (!r) workGo(); else if (r.pausedAt) workResume(); else workHold();
+      if (!r) {
+        state.homeSheet = "focus"; state.work.pickQ = ""; state.work.pickData = null; render();
+        document.getElementById("hfIn")?.focus();
+        await loadFocusData();
+        const l = document.getElementById("hfList");
+        if (l && state.homeSheet === "focus") { l.innerHTML = focusItems(); wireHomeSheet(); }
+        return;
+      }
+      if (r.pausedAt) workResume(); else workHold();
       render();
     });
+    // Cardio: one tap opens the activity, distance and time.
+    document.querySelectorAll("[data-cardioq]").forEach((el) =>
+      el.addEventListener("click", () => {
+        state.homeSheet = "cardio";
+        state.cq = { act: (cardioActs()[0] || "Walk"), other: "", dist: "", min: "", err: "" };
+        render();
+        loadCardioActs();
+      }));
+    // Tasks: type straight into the dial. Return adds it to Do, or to
+    // Decide when Do is full, and keeps the line for the next one.
+    document.querySelectorAll("[data-dtask]").forEach((f) =>
+      f.addEventListener("keydown", async (e) => {
+        if (e.key !== "Enter") return;
+        e.preventDefault();
+        const title = (f.value || "").trim().slice(0, 200);
+        if (!title) { f.blur(); return; }
+        // The list as the server has it, so a phone that never opened Tasks
+        // still knows how full Do is; the copy on the phone if offline.
+        let list = [];
+        try { list = JSON.parse(localStorage.getItem(taskCacheKey()) || "[]"); } catch {}
+        f.value = "";
+        const fresh = await call("app_tasks", { p_code: state.code, p_person: state.meId });
+        if (!fresh.error && Array.isArray(fresh.tasks)) list = fresh.tasks;
+        if (!Array.isArray(list)) list = [];
+        const today = todayISO();
+        const activeDo = list.filter((x) => !x.parent_id && !x.done && (x.quadrant || 1) === 1
+          && !(x.sched_date && x.sched_date > today)).length;
+        const q = activeDo < doLimit() ? 1 : 2;
+        const pos = Math.max(-1, ...list.filter((x) => !x.parent_id && !x.done && (x.quadrant || 1) === q)
+          .map((x) => Number(x.position) || 0)) + 1;
+        const x = { id: uuid(), parent_id: null, quadrant: q, title, done: false, position: pos,
+                    sched_date: null, sched_start: null, sched_min: null };
+        f.value = "";
+        const res = await call("app_task_save", { p_code: state.code, p_person: state.meId, p_task: taskPayload(x) });
+        if (res.error) { f.value = title; dialSay("tasks", res.offline ? "No signal. Not saved yet." : res.error); return; }
+        list.push(x);
+        try { localStorage.setItem(taskCacheKey(), JSON.stringify(list)); } catch {}
+        dialSay("tasks", q === 1 ? "Added to Do." : "Do is full. Added to Decide.");
+      }));
     clearInterval(homeTick); homeTick = null;
     const run = state.work && state.work.run;
     if (run && !run.pausedAt) homeTick = setInterval(async () => {
@@ -4488,14 +4576,223 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     }, 1000);
   }
 
+  // One wiring for every tap-to-change time, on the page and on the dial.
+  // Some phones fire `change` as the wheel turns, so a save waits for the
+  // wheel to rest; the last value wins.
+  function wireTimePicks(dayFor, after) {
+    document.querySelectorAll("[data-tpick]").forEach((f) => {
+      const k = f.dataset.tpick, met = M[k];
+      f.addEventListener("click", () => { try { f.showPicker && f.showPicker(); } catch {} });
+      let timer = null, gen = 0;
+      const save = () => {
+        const mm = /^(\d{1,2}):(\d{2})/.exec(f.value || "");
+        if (!mm) return;
+        let v = Number(mm[1]) * 60 + Number(mm[2]);
+        // The 5am rule: a bedtime after midnight belongs to the evening.
+        if (k === "rest" && v < 5 * 60) v += 1440;
+        const box = f.closest(".tpk"), shown = box && box.querySelector(".tpkv");
+        if (shown) shown.innerHTML = tParts(v);
+        if (box) box.classList.remove("unset");
+        const iso = dayFor(k);
+        state.tLocal = { k, iso, v };
+        const mine = ++gen;
+        clearTimeout(timer);
+        timer = setTimeout(async () => {
+          const res = await call("app_log", { p_code: state.code, p_person: state.meId,
+            p_value: v, p_metric: met.key, p_date: iso, p_tz: deviceTZ() });
+          if (mine !== gen) return;
+          state.tLocal = null;
+          if (res.error) { state.msg = res.offline ? "No signal. Not saved yet." : res.error; state.msgKind = "bad"; }
+          else {
+            const m = me();
+            if (m && iso === dayFor(k) && (state.view === "board" || entryDay() === todayISO())) m[k] = v;
+            if (state.view === "board") dialSay(k, `${met.label} ${clockWords(v)} saved.`);
+          }
+          await after();
+        }, 700);
+      };
+      f.addEventListener("change", save);
+      f.addEventListener("input", save);
+    });
+  }
+
   // V3.5. The tab bar is deleted. Every page is reached from the links
   // on the home screen (and the dials), and every page has its way back.
   function wireGo() {
     document.querySelectorAll("[data-go]").forEach((el) => {
-      el.addEventListener("click", () => openExercise(el.dataset.go));
+      el.addEventListener("click", () => { state.homeSheet = null; openExercise(el.dataset.go); });
       if (el.getAttribute("role") === "button") el.addEventListener("keydown", (e) => {
         if ((e.key === "Enter" || e.key === " ") && e.target === el) { e.preventDefault(); el.click(); } });
     });
+  }
+
+  /* ---------- V3.6: the home sheets ----------------------------------
+     Two short sheets that float over the dials, so the common thing is
+     done without leaving home: what a focus session is for, and a cardio
+     activity with its distance and time.
+     ------------------------------------------------------------------ */
+  const cardioKey = () => "fhd.cardioActs." + (state.meId || "anon");
+  function cardioActs() {
+    let saved = [];
+    try { saved = JSON.parse(localStorage.getItem(cardioKey()) || "[]"); } catch {}
+    const out = [];
+    for (const a of (Array.isArray(saved) ? saved : []).concat(["Walk", "Run", "Cycle", "Swim"]))
+      if (a && !out.some((b) => b.toLowerCase() === String(a).toLowerCase())) out.push(String(a));
+    return out.slice(0, 6);
+  }
+  function rememberCardio(names) {
+    let saved = [];
+    try { saved = JSON.parse(localStorage.getItem(cardioKey()) || "[]"); } catch {}
+    const list = names.concat(Array.isArray(saved) ? saved : [])
+      .filter((a, i, xs) => a && xs.findIndex((b) => String(b).toLowerCase() === String(a).toLowerCase()) === i).slice(0, 8);
+    try { localStorage.setItem(cardioKey(), JSON.stringify(list)); } catch {}
+  }
+  // Your own cardio tiles, most recent first, so your activities lead.
+  async function loadCardioActs() {
+    const res = await call("app_lift_home", { p_code: state.code, p_person: state.meId, p_limit: 5, p_mode: "cardio" });
+    if (res.error) return;
+    const names = (res.labels || []).slice().sort((a, b) => String(b.last_date || "").localeCompare(String(a.last_date || "")))
+      .map((l) => l.label);
+    if (!names.length) return;
+    let saved = [];
+    try { saved = JSON.parse(localStorage.getItem(cardioKey()) || "[]"); } catch {}
+    rememberCardio((Array.isArray(saved) ? saved : []).concat(names));
+    if (state.homeSheet === "cardio") {
+      const keep = state.cq;
+      if (keep && !cardioActs().includes(keep.act)) keep.act = cardioActs()[0];
+      const box = document.getElementById("cqChips");
+      if (box) { box.outerHTML = cqChips(); wireHomeSheet(); }
+    }
+  }
+  const cqChips = () => {
+    const q = state.cq || {};
+    return `<div class="cqchips" id="cqChips" role="group" aria-label="Activity">${cardioActs().map((a) => `
+      <button type="button" class="cqc${!q.other && q.act === a ? " on" : ""}" data-cqa="${esc(a)}"
+        aria-pressed="${!q.other && q.act === a}">${esc(a)}</button>`).join("")}</div>`;
+  };
+  function homeSheet() {
+    if (state.view !== "board" || !state.homeSheet) return "";
+    if (state.homeSheet === "focus") {
+      if (!state.work) loadWorkLocal();
+      const w = state.work;
+      return `
+        <div class="sheetbg" id="hsBg"></div>
+        <div class="stdsheet hsheet" role="dialog" aria-label="Start a focus session">
+          <p class="eyebrow">Focus · ${w.len} min</p>
+          <h3>What is this session for?</h3>
+          <input class="field" id="hfIn" maxlength="120" autocomplete="off" enterkeyhint="go"
+            placeholder="Type it, or pick a goal" value="${esc(w.pickQ || "")}" aria-label="What this session is for">
+          <div class="flist hflist" id="hfList">${w.pickData ? focusItems() : `<p class="loading">Loading your goals…</p>`}</div>
+          <div class="stdbtns"><button type="button" class="btn-quiet" id="hsCancel">Cancel</button></div>
+        </div>`;
+    }
+    const q = state.cq || {};
+    return `
+      <div class="sheetbg" id="hsBg"></div>
+      <div class="stdsheet hsheet" role="dialog" aria-label="Log cardio">
+        <p class="eyebrow">Cardio · today</p>
+        <h3>Log an activity</h3>
+        ${cqChips()}
+        <input class="field cqother" id="cqOther" maxlength="40" autocomplete="off" placeholder="Or type one"
+          value="${esc(q.other || "")}" aria-label="Other activity">
+        <div class="cqrow">
+          <label class="cqf"><span>Distance</span>
+            <span class="cqin"><input id="cqDist" inputmode="decimal" autocomplete="off" placeholder="0"
+              value="${esc(q.dist || "")}" aria-label="Distance in ${esc(units.d)}">
+            <button type="button" class="unitchip" id="cqUnit" aria-label="Distance unit, now ${esc(units.d)}">${esc(units.d)}</button></span></label>
+          <label class="cqf"><span>Time</span>
+            <span class="cqin"><input id="cqMin" inputmode="text" autocomplete="off" placeholder="30"
+              value="${esc(q.min || "")}" aria-label="Minutes"><em>min</em></span></label>
+        </div>
+        <p class="hint${q.err ? " bad" : ""}" id="cqHint">${q.err ? esc(q.err) : "Distance is optional. 45, 1:30 or 1h 30m all work."}</p>
+        <div class="stdbtns">
+          <button type="button" class="btn-quiet" id="hsCancel">Cancel</button>
+          <button type="button" class="btn" id="cqSave" style="background:var(--swim)">Save</button>
+        </div>
+      </div>`;
+  }
+  function wireHomeSheet() {
+    const close = () => { state.homeSheet = null; render(); };
+    const bg = document.getElementById("hsBg");
+    if (bg && !bg.dataset.w) { bg.dataset.w = "1"; bg.addEventListener("click", close); }
+    const cancel = document.getElementById("hsCancel");
+    if (cancel && !cancel.dataset.w) { cancel.dataset.w = "1"; cancel.addEventListener("click", close); }
+    if (state.homeSheet === "focus") {
+      const w = state.work;
+      const start = (label) => {
+        w.focus = label ? { label: label.slice(0, 120), task_id: null } : null;
+        saveWorkLocal();
+        state.homeSheet = null;
+        workGo();
+        render();
+      };
+      document.querySelectorAll("#hfList [data-flabel]").forEach((el) => {
+        if (el.dataset.w) return; el.dataset.w = "1";
+        el.addEventListener("click", () => start(el.dataset.flabel));
+      });
+      const f = document.getElementById("hfIn");
+      if (f && !f.dataset.w) {
+        f.dataset.w = "1";
+        f.addEventListener("input", () => {
+          w.pickQ = f.value;
+          const l = document.getElementById("hfList");
+          if (l && w.pickData) { l.innerHTML = focusItems(); wireHomeSheet(); }
+        });
+        f.addEventListener("keydown", (e) => {
+          if (e.key !== "Enter") return;
+          e.preventDefault();
+          const typed = (f.value || "").trim();
+          const first = document.querySelector("#hfList [data-flabel]");
+          if (typed) start(typed); else if (first) first.click();
+        });
+      }
+      return;
+    }
+    if (state.homeSheet !== "cardio") return;
+    const q = state.cq;
+    const grab = () => {
+      q.other = (document.getElementById("cqOther") || {}).value || "";
+      q.dist = (document.getElementById("cqDist") || {}).value || "";
+      q.min = (document.getElementById("cqMin") || {}).value || "";
+    };
+    document.querySelectorAll("[data-cqa]").forEach((el) => {
+      if (el.dataset.w) return; el.dataset.w = "1";
+      el.addEventListener("click", () => { grab(); q.act = el.dataset.cqa; q.other = ""; render();
+        document.getElementById("cqMin")?.focus(); });
+    });
+    const unit = document.getElementById("cqUnit");
+    if (unit && !unit.dataset.w) {
+      unit.dataset.w = "1";
+      unit.addEventListener("click", () => {
+        grab(); units.d = units.d === "mi" ? "km" : units.d === "km" ? "m" : "mi"; render(); });
+    }
+    const saveBtn = document.getElementById("cqSave");
+    if (saveBtn && !saveBtn.dataset.w) {
+      saveBtn.dataset.w = "1";
+      saveBtn.addEventListener("click", async () => {
+        grab();
+        const name = (q.other.trim() || q.act || "").slice(0, 40);
+        const min = parseMinutes(q.min);
+        const dv = parseFloat(String(q.dist).replace(",", "."));
+        const dist = dv > 0 ? Math.round(dIn(dv)) : 0;
+        if (!name) { q.err = "Pick or type an activity."; render(); return; }
+        if (!min || min <= 0 || min > 600) { q.err = min > 600 ? "Ten hours at most." : "Type the time, like 30 or 1h 15m."; render(); return; }
+        saveBtn.disabled = true;
+        const m = me() || {};
+        const res = await call("app_lift_save", {
+          p_code: state.code, p_person: state.meId, p_session: uuid(), p_label: name, p_note: null,
+          p_date: m.their_date || todayISO(), p_duration: min,
+          p_sets: [{ position: 0, set_index: 0, exercise: name, kind: dist ? "distance_time" : "duration",
+                     weight: 0, reps: 0, distance: dist, seconds: min * 60 }],
+          p_finished: true, p_mode: "cardio", p_tz: deviceTZ(), p_claim: true });
+        if (res.error) { q.err = res.offline ? "No signal. Try again in a moment." : res.error; render(); return; }
+        rememberCardio([name]);
+        state.homeSheet = null;
+        render();
+        dialSay("cardio", `${name}${dist ? " · " + distWords(dist) : ""} · ${hm(min)} logged.`);
+        await refresh();
+      });
+    }
   }
 
   /* ---------- Exercise: one pillar, three numbers ---------------------
@@ -4589,6 +4886,18 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const b = ((Math.round(min) % 1440) + 1440) % 1440, h = Math.floor(b / 60);
     return `${h % 12 || 12}:${pad(b % 60)}<small>${h < 12 ? "am" : "pm"}</small>`;
   }
+  // V3.6. A time you tap to change: the reading drawn large, with the
+  // phone's own time input laid invisibly over it. On a phone that input
+  // opens the system wheel; on a computer showPicker() opens its clock.
+  const hhmmOf = (min) => { const b = ((Math.round(min) % 1440) + 1440) % 1440;
+    return `${pad(Math.floor(b / 60))}:${pad(b % 60)}`; };
+  function timePick(k, min, { id = "", cls = "", color = "", label = "", inert = false } = {}) {
+    return `<label class="tpk ${cls}" ${id ? `id="${id}"` : ""} ${color ? `style="color:${color}"` : ""}>
+        <span class="tpkv">${tParts(min)}</span>
+        ${inert ? "" : `<input type="time" class="tover" data-tpick="${k}" value="${hhmmOf(min)}"
+          aria-label="${esc(label)}">`}
+      </label>`;
+  }
   function timeCard(k, iso, isToday, m, rec, goal) {
     const met = M[k];
     const local = state.tLocal && state.tLocal.k === k && state.tLocal.iso === iso ? state.tLocal.v : null;
@@ -4599,20 +4908,18 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         ${dayNav({ label: isToday ? (met.night ? "Tonight" : "Today") : esc(fullDate(iso)), atToday: isToday, unit: "day", todayWord: met.night ? "tonight" : "today" })}
 
         ${(() => {
-          // V3.5. No wheel. One big time, Now for the usual case, and four
-          // nudges for the rest: nothing to scroll means nothing to stick.
-          // Unset, it shows your target faintly, so a nudge starts there.
+          // V3.6. The big time IS the picker: tap it and the phone's own
+          // time wheel opens, the one the Clock app uses. Now covers the
+          // usual case in one tap. Unset, it shows your standard faintly,
+          // so the wheel opens there.
           const base = has ? v : (hasTarget(m, k) ? goal : (met.night ? 22 * 60 : 7 * 60));
           return `
         <div class="domino tclock" style="padding-top:8px">
-          <b class="tbig${has ? "" : " unset"}" id="tBig" style="color:${met.color}">${tParts(base)}</b>
+          ${timePick(k, base, { id: "tBig", cls: "tbig" + (has ? "" : " unset"), color: met.color,
+                                label: `${met.label}${has ? " " + clockWords(v) : ""}. Tap to set the time` })}
           <button type="button" class="of" data-edit="goal" data-metric="${k}">${
             hasTarget(m, k) ? `standard <b>${clockWords(goal)}</b>`
                             : `set a ${esc(met.label.toLowerCase())} target`}</button>
-          <div class="tnudge" role="group" aria-label="Adjust">
-            ${[-15, -5, 5, 15].map((d) => `<button type="button" data-nudge="${d}"
-              aria-label="${Math.abs(d)} minutes ${d < 0 ? "earlier" : "later"}">${d < 0 ? "\u2212" : "+"}${Math.abs(d)}</button>`).join("")}
-          </div>
         </div>`; })()}
 
         <button class="btn" id="stampNow"
@@ -4624,8 +4931,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
         <p class="hint dshint ${state.msgKind || ""}" id="hint"
            style="text-align:center">${state.msg ? esc(state.msg)
-          : has ? "Saved. Nudge to adjust."
-                : "Tap Now, or nudge from your target."}</p>
+          : has ? "Saved. Tap the time to change it."
+                : "Tap Now, or tap the time to pick it."}</p>
       </section>`;
   }
 
@@ -4747,7 +5054,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       </div>
 
       <header class="masthead">
-        <h1>Sleep Score</h1>
+        <h1>Recovery</h1>
         <blockquote class="epi">Sleep is probably the single most effective
           thing you can do to reset your body and health.
           <cite>Dr. Matthew Walker</cite></blockquote>
@@ -4812,29 +5119,26 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   }
 
   /* ---------- Tasks: today's few, then the rest ----------------------
-     V3.5. Eisenhower's four boxes, named for what you do with them:
-       Do         urgent and important. Today. Capped at your Tasks
-                  standard, so a standard of 3 means three, numbered.
-       Decide     important, not urgent. Give it a day.
-       Delegate   urgent, not important. Hand it off.
-       Not-to-do  what you have decided not to do. Folded away, no boxes.
-     The page opens with the cursor in the line, so a task can be typed
-     the moment Tasks is tapped. Return adds it to the box you used last.
+     V3.6. Three of Eisenhower's boxes, as plain lists:
+       Do         today, numbered, capped at your "do today" number
+       Decide     important, not urgent: it waits for a day
+       Delegate   someone else's to do
+     Not-to-do is gone (its few lines stay hidden, never shown as work).
 
-     Tap a task to rename it, move it, give it a day, a time and a length,
-     add steps, start a focus session on it, or delete it. Tick it and it
-     drops to Done, which Clear empties for good. Drag the grip to order
-     a box. Schedule is a day as an hour grid: tap a task, then a time.
+     The page opens with the cursor in the line. Tap a task and the cursor
+     is already in a new step under it. Swipe a task left for Today,
+     Tomorrow, Delete and Schedule. Tomorrow takes it out of today and
+     brings it back to the top of Do in the morning: a task dated after
+     today waits, dimmed, and does not take a place in Do.
      ------------------------------------------------------------------ */
   const QUADS = [
-    { q:1, name:"Do",        tag:"today",         hint:"Urgent and important. Today, and only this many." },
-    { q:2, name:"Decide",    tag:"give it a day", hint:"Important, not urgent. Give it a day." },
-    { q:3, name:"Delegate",  tag:"hand it off",   hint:"Urgent, not important. Hand it to someone." },
-    { q:4, name:"Not-to-do", tag:"",              hint:"Things you have decided not to do. Nothing to tick." },
+    { q:1, name:"Do",       tag:"today",          hint:"Urgent and important. Today, and only this many." },
+    { q:2, name:"Decide",   tag:"",               hint:"Important, not urgent." },
+    { q:3, name:"Delegate", tag:"",               hint:"Someone else's to do." },
   ];
-  // Do holds as many as your Tasks standard: one number, set in one place.
+  const waiting = (x) => !!x.sched_date && x.sched_date > todayISO();
   const doLimit = () => Math.max(1, Math.min(20, Math.round(stdOf(me(), "tasks")) || 5));
-  const doCount = () => openIn(1).length;
+  const doCount = () => activeIn(1).length;
   const doFull = () => doCount() >= doLimit();
   const taskCacheKey = () => "fhd.tasks." + (state.meId || "anon");
   const SCH_FROM = 6, SCH_TO = 24, SCH_H = 56;          // 6am to midnight, 56px an hour
@@ -4844,6 +5148,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   };
   const TLENS = [15, 30, 45, 60, 90, 120, 180];
 
+  let pointerDown = false;
+  window.addEventListener("pointerdown", () => { pointerDown = true; }, true);
+  window.addEventListener("pointerup", () => { pointerDown = false; }, true);
+  window.addEventListener("pointercancel", () => { pointerDown = false; }, true);
   async function openTasks() {
     // V2.8 kept each person's PIN in plain text on the phone. The PIN is
     // gone, so its digits should not outlive it there.
@@ -4858,7 +5166,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const keep = state.tasks || {};
     state.tasks = { list: Array.isArray(cached) ? cached : [], loaded: true, err: null,
                     tab: keep.tab === "sched" ? "sched" : "list",
-                    bucket: keep.bucket || 1, edit: null, subFor: null, doneOpen: false, notOpen: false,
+                    bucket: [1, 2, 3].includes(keep.bucket) ? keep.bucket : 1, edit: null, swiped: null, schFor: null, doneOpen: false,
                     day: todayISO(), arm: null, sel: null, added: new Set() };
     render();
     if (state.tasks.tab === "list") document.getElementById("tQuickIn")?.focus();
@@ -4874,9 +5182,15 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     try { localStorage.setItem(taskCacheKey(), JSON.stringify(t.list)); } catch {}
     // Never pull the line out from under someone typing in it.
     const f = document.getElementById("tQuickIn");
+    // V3.6: nor out from under a finger: leaving the line by starting a
+    // swipe or a drag repaints only once the finger lifts.
     if (f && document.activeElement === f) {
       t.stale = true;
-      f.addEventListener("blur", () => { if (t.stale && state.tasks === t) { t.stale = false; render(); } }, { once: true });
+      const go = () => { if (t.stale && state.tasks === t) { t.stale = false; render(); } };
+      f.addEventListener("blur", () => {
+        if (pointerDown) window.addEventListener("pointerup", () => setTimeout(go, 0), { once: true });
+        else go();
+      }, { once: true });
     } else render();
   }
   const taskCall = async (fn, args) => {
@@ -4889,26 +5203,70 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   const mains = (q) => state.tasks.list.filter((x) => !x.parent_id && (x.quadrant || 1) === q)
     .sort((a, b) => a.position - b.position);
   const openIn = (q) => mains(q).filter((x) => !x.done);
-  // Everything there is to act on, in box order. Not-to-do is not that.
+  // Open and for today: not waiting on a later day.
+  const activeIn = (q) => openIn(q).filter((x) => !waiting(x));
+  // Everything there is to act on, in box order. A hidden Not-to-do is not.
   const actionable = () => [1, 2, 3].flatMap((q) => openIn(q));
   const taskPayload = (x) => ({ id: x.id, parent_id: x.parent_id || null, quadrant: x.quadrant || 1,
     title: x.title, done: !!x.done, position: x.position,
     sched_date: x.sched_date || null, sched_start: x.sched_start ?? null, sched_min: x.sched_min ?? null });
   const hhmm = (m) => `${pad(Math.floor(m / 60))}:${pad(m % 60)}`;
 
-  function taskRow(x, rank) {
-    const t = state.tasks, subs = kids(x.id), ed = t.edit === x.id;
-    // V3.3. A day with no time reads as the day alone: "Today", "Tue".
-    const dayWord = (d) => d === todayISO() ? "Today" : d === shiftISO(todayISO(), 1) ? "Tomorrow"
-      : shortDay(d).replace(/,.*$/, "");
-    const when = !x.sched_date ? ""
-      : x.sched_start === null || x.sched_start === undefined ? dayWord(x.sched_date)
-      : x.sched_date === todayISO() ? clockOf(x.sched_start) : `${dayWord(x.sched_date)} ${clockOf(x.sched_start)}`;
+  const SW_ICON = {
+    tomorrow: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="13" height="14" rx="3"/><path d="M9 12h11M16.5 8.5 20 12l-3.5 3.5"/></svg>`,
+    delete:   `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 7h15M9.5 7V5h5v2M6.5 7l1 12.5h9l1-12.5M10.5 10.5v6M13.5 10.5v6"/></svg>`,
+    schedule: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14" rx="3"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4M8 13.5h2M11 13.5h2M14 13.5h2M8 16.5h2M11 16.5h2"/></svg>`,
+  };
+  const dayWord = (d) => d === todayISO() ? "Today" : d === shiftISO(todayISO(), 1) ? "Tomorrow"
+    : shortDay(d).replace(/,.*$/, "");
+  function whenWords(x) {
+    if (!x.sched_date) return "";
+    const timed = x.sched_start !== null && x.sched_start !== undefined;
+    if (!timed) return dayWord(x.sched_date);
+    return x.sched_date === todayISO() ? clockOf(x.sched_start) : `${dayWord(x.sched_date)} ${clockOf(x.sched_start)}`;
+  }
+  // The day and time a task is given, opened from Schedule on the swipe.
+  function schedPanel(x) {
     const timed = x.sched_start !== null && x.sched_start !== undefined;
     const later = x.sched_date && x.sched_date > shiftISO(todayISO(), 1);
     return `
-      <li class="tm${ed ? " editing" : ""}" data-id="${x.id}">
-        <div class="tr">
+      <div class="tebar tschp">
+        <div class="twhen" role="group" aria-label="Which day">
+          <span>Day</span>
+          <button type="button" class="tday${x.sched_date === todayISO() ? " on" : ""}" data-tday="${x.id}:${todayISO()}">Today</button>
+          <button type="button" class="tday${x.sched_date === shiftISO(todayISO(), 1) ? " on" : ""}" data-tday="${x.id}:${shiftISO(todayISO(), 1)}">Tomorrow</button>
+          <label class="tday tpick${later ? " on" : ""}">${later ? esc(shortDay(x.sched_date)) : "Pick…"}
+            <input type="date" data-tdate="${x.id}" min="${todayISO()}" value="${x.sched_date || ""}" aria-label="Pick a day"></label>
+          ${x.sched_date ? `<button type="button" class="tday" data-tday="${x.id}:" aria-label="No day">&times;</button>` : ""}
+        </div>
+        <div class="twhen" role="group" aria-label="What time">
+          <span>Time</span>
+          <label class="tday tpick${timed ? " on" : ""}">${timed ? clockOf(x.sched_start) : "Set…"}
+            <input type="time" step="900" data-ttime="${x.id}" value="${timed ? hhmm(x.sched_start) : ""}" aria-label="Start time"></label>
+          ${timed ? `<label class="tday tpick on">${hm(x.sched_min || 30)}
+              <select data-tlen="${x.id}" aria-label="How long">${TLENS.map((n) =>
+                `<option value="${n}" ${(x.sched_min || 30) === n ? "selected" : ""}>${hm(n)}</option>`).join("")}</select></label>
+            <button type="button" class="tday" data-tnotime="${x.id}" aria-label="No time">&times;</button>` : ""}
+        </div>
+        <div class="terow"><button type="button" class="btn tok" data-tschdone="${x.id}">Done</button></div>
+      </div>`;
+  }
+
+  function taskRow(x, rank) {
+    const t = state.tasks, subs = kids(x.id), ed = t.edit === x.id;
+    const when = whenWords(x), wait = waiting(x);
+    const inDo = (x.quadrant || 1) === 1 && !wait;
+    const sw = t.swiped === x.id && !ed;
+    return `
+      <li class="tm${ed ? " editing" : ""}${wait ? " wait" : ""}${sw ? " swiped" : ""}" data-id="${x.id}"
+        style="--sww:${inDo ? 156 : 212}px">
+        ${ed ? "" : `<div class="tsw" role="group" aria-label="Actions for ${esc(x.title)}">
+          ${inDo ? "" : `<button type="button" class="tswt" data-tsw="today:${x.id}">Today</button>`}
+          <button type="button" class="tswc b" data-tsw="tomorrow:${x.id}" aria-label="Tomorrow">${SW_ICON.tomorrow}</button>
+          <button type="button" class="tswc r" data-tsw="delete:${x.id}" aria-label="Delete">${SW_ICON.delete}</button>
+          <button type="button" class="tswc o" data-tsw="schedule:${x.id}" aria-label="Schedule">${SW_ICON.schedule}</button>
+        </div>`}
+        <div class="tr" data-swipe="${ed ? "" : x.id}">
           ${rank ? `<span class="trank" aria-hidden="true">${rank}</span>` : ""}
           <button type="button" class="tck" data-tdone="${x.id}" aria-pressed="false"
             aria-label="Done: ${esc(x.title)}"></button>
@@ -4917,52 +5275,27 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
                : `<button type="button" class="tt" data-tedit="${x.id}">${esc(x.title)}${
                    subs.length ? ` <small class="tsubn">${subs.filter((c) => c.done).length}/${subs.length}</small>` : ""}</button>`}
           ${when && !ed ? `<span class="tsch">${esc(when)}</span>` : ""}
-          <span class="tdrag" data-drag="${x.id}" aria-label="Drag to reorder ${esc(x.title)}">
-            <svg viewBox="0 0 10 16" aria-hidden="true"><circle cx="3" cy="3" r="1.3"/><circle cx="7" cy="3" r="1.3"/><circle cx="3" cy="8" r="1.3"/><circle cx="7" cy="8" r="1.3"/><circle cx="3" cy="13" r="1.3"/><circle cx="7" cy="13" r="1.3"/></svg></span>
+          ${wait ? "" : `<span class="tdrag" data-drag="${x.id}" aria-label="Drag to reorder ${esc(x.title)}">
+            <svg viewBox="0 0 10 16" aria-hidden="true"><circle cx="3" cy="3" r="1.3"/><circle cx="7" cy="3" r="1.3"/><circle cx="3" cy="8" r="1.3"/><circle cx="7" cy="8" r="1.3"/><circle cx="3" cy="13" r="1.3"/><circle cx="7" cy="13" r="1.3"/></svg></span>`}
         </div>
-        ${subs.length && (ed || t.subFor === x.id) ? `<ul class="ts">${subs.map((c) => `
+        ${subs.length && ed ? `<ul class="ts">${subs.map((c) => `
           <li class="tsx${c.done ? " done" : ""}">
             <button type="button" class="tck sm" data-tdone="${c.id}" aria-pressed="${!!c.done}"
               aria-label="${c.done ? "Not done" : "Done"}: ${esc(c.title)}"></button>
-            ${t.edit === c.id
-              ? `<input class="tedit sm" data-tetitle="${c.id}" maxlength="200" value="${esc(c.title)}" aria-label="Step name">
-                 <button type="button" class="tx" data-tdel="${c.id}" aria-label="Delete ${esc(c.title)}">&times;</button>`
-              : `<span class="tt sm">${esc(c.title)}</span>
-                 <button type="button" class="tx" data-tdel="${c.id}" aria-label="Delete ${esc(c.title)}">&times;</button>`}
+            <span class="tt sm">${esc(c.title)}</span>
+            <button type="button" class="tx" data-tdel="${c.id}" aria-label="Delete ${esc(c.title)}">&times;</button>
           </li>`).join("")}</ul>` : ""}
-        ${t.subFor === x.id ? `
-          <input class="tsubin" data-tsubnew="${x.id}" maxlength="200" enterkeyhint="done"
-            autocomplete="off" placeholder="Add a step" aria-label="New step under ${esc(x.title)}">` : ""}
         ${ed ? `
+          <input class="tsubin" data-tsubnew="${x.id}" maxlength="200" enterkeyhint="done"
+            autocomplete="off" placeholder="Add a step" aria-label="New step under ${esc(x.title)}">
           <div class="tebar">
             <div class="tbuckets sm" role="group" aria-label="Move to">${QUADS.map((Q) => `
               <button type="button" class="tbk q${Q.q}${(x.quadrant || 1) === Q.q ? " on" : ""}${
                 Q.q === 1 && (x.quadrant || 1) !== 1 && doFull() ? " full" : ""}"
                 data-tmove="${x.id}:${Q.q}">${Q.name}</button>`).join("")}</div>
-            <div class="twhen" role="group" aria-label="Which day">
-              <span>Day</span>
-              <button type="button" class="tday${x.sched_date === todayISO() ? " on" : ""}" data-tday="${x.id}:${todayISO()}">Today</button>
-              <button type="button" class="tday${x.sched_date === shiftISO(todayISO(), 1) ? " on" : ""}" data-tday="${x.id}:${shiftISO(todayISO(), 1)}">Tomorrow</button>
-              <label class="tday tpick${later ? " on" : ""}">${later ? esc(shortDay(x.sched_date)) : "Pick…"}
-                <input type="date" data-tdate="${x.id}" min="${todayISO()}" value="${x.sched_date || ""}" aria-label="Pick a day"></label>
-              ${x.sched_date ? `<button type="button" class="tday" data-tday="${x.id}:" aria-label="No day">&times;</button>` : ""}
-            </div>
-            <div class="twhen" role="group" aria-label="What time">
-              <span>Time</span>
-              <label class="tday tpick${timed ? " on" : ""}">${timed ? clockOf(x.sched_start) : "Set…"}
-                <input type="time" step="900" data-ttime="${x.id}" value="${timed ? hhmm(x.sched_start) : ""}" aria-label="Start time"></label>
-              ${timed ? `<label class="tday tpick on">${hm(x.sched_min || 30)}
-                  <select data-tlen="${x.id}" aria-label="How long">${TLENS.map((n) =>
-                    `<option value="${n}" ${(x.sched_min || 30) === n ? "selected" : ""}>${hm(n)}</option>`).join("")}</select></label>
-                <button type="button" class="tday" data-tnotime="${x.id}" aria-label="No time">&times;</button>` : ""}
-            </div>
-            <div class="terow">
-              <button type="button" class="linkbtn" data-tsubopen="${x.id}">+ Step</button>
-              <button type="button" class="linkbtn" data-tfocus="${x.id}">Focus</button>
-              <button type="button" class="linkbtn tdel" data-tdel="${x.id}">Delete</button>
-              <button type="button" class="btn tok" data-tok="${x.id}">Done</button>
-            </div>
+            <div class="terow"><button type="button" class="btn tok" data-tok="${x.id}">Done</button></div>
           </div>` : ""}
+        ${t.schFor === x.id && !ed ? schedPanel(x) : ""}
       </li>`;
   }
 
@@ -4970,17 +5303,18 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const t = state.tasks;
     const lim = doLimit(), full = doFull();
     if (t.bucket === 1 && full) t.bucket = 2;
+    if (![1, 2, 3].includes(t.bucket)) t.bucket = full ? 2 : 1;
     const B = QUADS.find((Q) => Q.q === t.bucket) || QUADS[1];
     const done = t.list.filter((x) => !x.parent_id && x.done && (x.quadrant || 1) !== 4)
       .sort((a, b) => (a.quadrant || 1) - (b.quadrant || 1) || a.position - b.position);
-    const not = mains(4);
-    const doList = openIn(1);
+    const doList = activeIn(1), doWait = openIn(1).filter(waiting);
     const group = (Q) => {
       const open = openIn(Q.q);
+      const order = open.filter((x) => !waiting(x)).concat(open.filter(waiting));
       return `
         <section class="tgroup q${Q.q}">
-          <header class="tgh"><b>${Q.name}</b><span>${Q.tag}</span><em>${open.length || ""}</em></header>
-          ${open.length ? `<ul class="tl" data-tgroup="${Q.q}">${open.map((x) => taskRow(x)).join("")}</ul>` : ""}
+          <header class="tgh"><b>${Q.name}</b><span></span><em>${open.length || ""}</em></header>
+          ${order.length ? `<ul class="tl" data-tgroup="${Q.q}">${order.map((x) => taskRow(x)).join("")}</ul>` : ""}
         </section>`;
     };
     return `
@@ -4992,34 +5326,22 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             data-tbk="${Q.q}" ${Q.q === 1 && full ? 'aria-disabled="true"' : ""}>${Q.name}${
             Q.q === 1 ? ` <small>${doList.length}/${lim}</small>` : ""}</button>`).join("")}</div>
         <p class="tqhint" id="tqHint">${full
-          ? `Do is full. Finish or move one first. Return adds to <b>${B.name}</b>.`
-          : `Type, then tap a box. Return adds to <b>${B.name}</b>.`}</p>
+          ? `Do is full. Return adds to <b>${B.name}</b>.`
+          : `Return adds to <b>${B.name}</b>. Swipe a task left for more.`}</p>
       </div>
 
       <section class="tgroup q1 tdo">
-        <header class="tgh"><b>Do</b><span>today</span>
+        <header class="tgh"><b>Do</b><em class="tdocount${doList.length > lim ? " over" : ""}">${doList.length}/${lim}</em><span></span>
           <button type="button" class="tlim" data-edit="goal" data-metric="tasks"
-            aria-label="Do holds ${lim}, your Tasks standard. Change it">${doList.length}/${lim}</button></header>
+            aria-label="Do today: ${lim}. Change it">do today ${lim}</button></header>
         <ul class="tl" data-tgroup="1">${doList.map((x, n) => taskRow(x, n + 1)).join("")}</ul>
         ${doList.length < lim ? `<ul class="tl tempties">${Array.from({ length: lim - doList.length }, (_, k) => `
           <li class="tslot"><span class="trank">${doList.length + k + 1}</span>
             <button type="button" class="tslotb" data-tslot="1" aria-label="Add to Do"></button></li>`).join("")}</ul>` : ""}
+        ${doWait.length ? `<ul class="tl twaitl">${doWait.map((x) => taskRow(x)).join("")}</ul>` : ""}
       </section>
       ${group(QUADS[1])}
       ${group(QUADS[2])}
-
-      ${not.length ? `
-        <section class="tnot">
-          <button type="button" class="foldbtn" id="tNotFold" aria-expanded="${!!t.notOpen}">
-            <span class="caret">${t.notOpen ? "▾" : "▸"}</span><h2>Not-to-do · ${not.length}</h2></button>
-          ${t.notOpen ? `<p class="tnoth">${QUADS[3].hint}</p>
-            <ul class="tl">${not.map((x) => `
-            <li class="tm tnotx"><div class="tr">
-              <span class="tnotmark" aria-hidden="true">✕</span>
-              <span class="tt">${esc(x.title)}</span>
-              <button type="button" class="tx" data-tdel="${x.id}" aria-label="Remove ${esc(x.title)}">&times;</button>
-            </div></li>`).join("")}</ul>` : ""}
-        </section>` : ""}
 
       ${done.length ? `
         <section class="tdone">
@@ -5040,7 +5362,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   function schedView() {
     const t = state.tasks, day = t.day, isToday = day === todayISO();
     const rankOf = new Map(actionable().map((x, i) => [x.id, i]));
-    const onDay = state.tasks.list.filter((x) => !x.parent_id && x.sched_date === day);
+    const onDay = state.tasks.list.filter((x) => !x.parent_id && x.sched_date === day && (x.quadrant || 1) !== 4);
     const placed = onDay.filter((x) => x.sched_start !== null && x.sched_start !== undefined)
       .sort((a, b) => a.sched_start - b.sched_start);
     const anytime = onDay.filter((x) => x.sched_start === null || x.sched_start === undefined)
@@ -5103,7 +5425,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             <button type="button" data-sadj="len:15">+ 15m</button>
           </div>
           <div class="sact">
-            <button type="button" class="btn workgo" data-tfocus="${sel.id}">Focus on this</button>
             <button type="button" class="btn-quiet" data-sanytime="${sel.id}">Anytime</button>
             <button type="button" class="btn-quiet" data-sunplace="${sel.id}">Off the day</button>
             <button type="button" class="btn-quiet" id="sClose" aria-label="Close">&times;</button>
@@ -5119,8 +5440,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       </div>
       <header class="masthead">
         <h1>Tasks</h1>
-        <p class="sub stdline"><b style="color:var(--ink)">${Number((me() || {}).tasks_done) || 0}</b> done today ·
-          <button type="button" class="linkbtn" data-edit="goal" data-metric="tasks">standard ${stdOf(me(), "tasks")}</button></p>
+        <p class="sub stdline"><b style="color:var(--ink)">${Number((me() || {}).tasks_done) || 0}</b> done today</p>
       </header>`;
     if (!t.loaded) return head + `<p class="loading">Opening…</p>`;
     return head + `
@@ -5154,7 +5474,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
     document.querySelectorAll("[data-ttab]").forEach((el) =>
       el.addEventListener("click", () => {
-        t.tab = el.dataset.ttab; t.edit = null; t.subFor = null; t.sel = null; t.arm = null;
+        t.tab = el.dataset.ttab; t.edit = null; t.swiped = null; t.schFor = null; t.sel = null; t.arm = null;
         render();
         if (t.tab === "sched" && t.day === todayISO())
           document.querySelector(".snow")?.scrollIntoView({ block: "center" });
@@ -5178,8 +5498,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         quick.focus();
         return;
       }
-      // A Not-to-do is a one-off decision; the next line goes back to work.
-      t.bucket = q === 4 ? (doFull() ? 2 : 1) : q;
+      t.bucket = q;
       if (title) { addMain(q, title); quick.value = ""; t.draft = ""; }
       t.stale = false;
       render();
@@ -5216,7 +5535,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         // A task brought back from Done goes to the bottom of its box, or
         // to Decide when Do is already full.
         if (!x.parent_id && !x.done) {
-          if ((x.quadrant || 1) === 1 && openIn(1).filter((y) => y.id !== x.id).length >= doLimit()) {
+          if ((x.quadrant || 1) === 1 && !waiting(x) && activeIn(1).filter((y) => y.id !== x.id).length >= doLimit()) {
             x.quadrant = 2; kids(x.id).forEach((c) => { c.quadrant = 2; });
           }
           x.position = lastIn(x.quadrant || 1, x.id);
@@ -5237,12 +5556,15 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         }
       }));
 
-    // ---- editing in place ----
+    // ---- tap a task: the cursor is already in a new step under it ----
+    // (The name above it is an input too; tap it to rename.)
     document.querySelectorAll("[data-tedit]").forEach((el) =>
       el.addEventListener("click", () => {
-        t.edit = el.dataset.tedit; t.subFor = null; render();
-        const f = document.querySelector(`[data-tetitle="${t.edit}"]`);
-        if (f) { f.focus(); f.setSelectionRange(f.value.length, f.value.length); }
+        if (swipeJustEnded) return;
+        if (t.swiped) { t.swiped = null; render(); return; }
+        if (t.edit && t.edit !== el.dataset.tedit) keepTitle(t.edit) && save(find(t.edit));
+        t.edit = el.dataset.tedit; t.schFor = null; render();
+        document.querySelector(`[data-tsubnew="${t.edit}"]`)?.focus();
       }));
     const keepTitle = (id) => {
       const x = find(id), f = document.querySelector(`[data-tetitle="${id}"]`);
@@ -5260,8 +5582,22 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       });
       if (el.classList.contains("sm")) el.addEventListener("change", () => finishEdit(el.dataset.tetitle));
     });
-    document.querySelectorAll("[data-tok]").forEach((el) =>
-      el.addEventListener("click", () => finishEdit(el.dataset.tok)));
+    document.querySelectorAll("[data-tok]").forEach((el) => {
+      el.addEventListener("pointerdown", (e) => e.preventDefault());
+      el.addEventListener("click", () => {
+        const f = document.querySelector(`[data-tsubnew="${el.dataset.tok}"]`);
+        const typed = f && (f.value || "").trim();
+        if (typed) {
+          const parent = find(el.dataset.tok);
+          if (parent) {
+            const x = { id: uuid(), parent_id: parent.id, quadrant: parent.quadrant || 1, title: typed.slice(0, 200),
+                        done: false, position: nextPos((y) => y.parent_id === parent.id) };
+            t.list.push(x); if (parent.done) parent.done = false; save(x);
+          }
+        }
+        finishEdit(el.dataset.tok);
+      });
+    });
     // ---- moving to another box; Do takes only what fits ----
     document.querySelectorAll("[data-tmove]").forEach((el) => {
       el.addEventListener("pointerdown", (e) => e.preventDefault());
@@ -5276,7 +5612,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         x.quadrant = q;
         kids(x.id).forEach((c) => { c.quadrant = q; });
         x.position = lastIn(q, x.id);
-        if (q === 4) { x.sched_date = null; x.sched_start = null; x.sched_min = null; }
         t.err = null; t.edit = null; render(); save(x);
       });
     });
@@ -5327,52 +5662,122 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       el.addEventListener("change", () => change(el.dataset.tlen, (x) => { x.sched_min = Number(el.value) || 30; })));
     document.querySelectorAll("[data-tnotime]").forEach((el) =>
       el.addEventListener("click", () => change(el.dataset.tnotime, (x) => { x.sched_start = null; x.sched_min = null; })));
-    document.querySelectorAll("[data-tfocus]").forEach((el) =>
-      el.addEventListener("click", () => {
-        const x = find(el.dataset.tfocus);
-        if (!x) return;
-        keepTitle(x.id);
-        loadWorkLocal();
-        state.work.focus = { label: x.title, task_id: x.id };
-        if (!state.work.run && x.sched_min) state.work.len = Math.max(5, Math.min(180, x.sched_min));
-        saveWorkLocal();
-        state.tasks = null;
-        openExercise("work");
-      }));
-
-    // ---- steps: one tap opens a line, return keeps it open ----
-    document.querySelectorAll("[data-tsubopen]").forEach((el) =>
-      el.addEventListener("click", () => {
-        keepTitle(el.dataset.tsubopen);
-        t.subFor = el.dataset.tsubopen; t.edit = null; render();
-        document.querySelector(`[data-tsubnew="${t.subFor}"]`)?.focus();
-      }));
+    // ---- steps: return adds one and keeps the line; return on an empty
+    // line closes the task ----
     document.querySelectorAll("[data-tsubnew]").forEach((el) => {
       const pid = el.dataset.tsubnew;
       const commit = (again) => {
         const title = (el.value || "").trim();
         el.value = "";
+        keepTitle(pid);
         if (title) {
           const parent = find(pid);
           if (parent) {
-            const x = { id: uuid(), parent_id: pid, quadrant: 1, title: title.slice(0, 200),
+            const x = { id: uuid(), parent_id: pid, quadrant: parent.quadrant || 1, title: title.slice(0, 200),
                         done: false, position: nextPos((y) => y.parent_id === pid) };
             t.list.push(x);
             if (parent.done) parent.done = false;
             save(x).then((res) => { if (res.error) { t.list = t.list.filter((y) => y.id !== x.id); render(); } });
           }
         }
-        if (!again) t.subFor = null;
+        if (!again) return title;
         render();
-        if (again) document.querySelector(`[data-tsubnew="${pid}"]`)?.focus();
+        document.querySelector(`[data-tsubnew="${pid}"]`)?.focus();
+        return title;
       };
       el.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") { e.preventDefault(); commit(true); }
-        if (e.key === "Escape") { t.subFor = null; render(); }
+        if (e.key === "Enter") {
+          e.preventDefault();
+          if (!(el.value || "").trim()) finishEdit(pid); else commit(true);
+        }
+        if (e.key === "Escape") finishEdit(pid);
       });
+      // Leaving the line keeps what was typed, and the task stays open.
       el.addEventListener("blur", () => setTimeout(() => {
-        if (el.isConnected && document.activeElement !== el && t.subFor === pid) commit(false); }, 0));
+        if (el.isConnected && (el.value || "").trim() && t.edit === pid) { commit(false); render(); } }, 0));
     });
+
+    // ---- swipe left: Today, Tomorrow, Delete, Schedule ----
+    let swipeJustEnded = false;
+    document.querySelectorAll("[data-swipe]").forEach((row) => {
+      const id = row.dataset.swipe;
+      if (!id) return;
+      const li = row.closest("li.tm"), acts = li.querySelector(".tsw");
+      let x0 = 0, y0 = 0, dx = 0, on = false, live = false, pid = null;
+      const width = () => (acts ? acts.offsetWidth : 200);
+      row.addEventListener("pointerdown", (e) => {
+        if (e.target.closest("[data-drag], [data-tdone], input")) return;
+        x0 = e.clientX; y0 = e.clientY; dx = 0; on = true; live = false; pid = e.pointerId;
+      });
+      row.addEventListener("pointermove", (e) => {
+        if (!on || e.pointerId !== pid) return;
+        const mx = e.clientX - x0, my = e.clientY - y0;
+        if (!live) {
+          if (Math.abs(my) > 10 && Math.abs(my) > Math.abs(mx)) { on = false; return; }
+          if (Math.abs(mx) < 10) return;
+          live = true; li.classList.add("swiping");
+          try { row.setPointerCapture(pid); } catch {}
+        }
+        const base = li.classList.contains("swiped") ? -width() : 0;
+        dx = Math.max(-width() - 30, Math.min(0, base + mx));
+        row.style.transform = `translateX(${dx}px)`;
+      });
+      const end = () => {
+        if (!on) return;
+        on = false;
+        if (!live) return;
+        li.classList.remove("swiping");
+        row.style.transform = "";
+        swipeJustEnded = true; setTimeout(() => { swipeJustEnded = false; }, 60);
+        const open = dx < -width() * 0.35;
+        t.swiped = open ? id : (t.swiped === id ? null : t.swiped);
+        if (open && t.edit) { keepTitle(t.edit) && save(find(t.edit)); t.edit = null; }
+        render();
+      };
+      row.addEventListener("pointerup", end);
+      row.addEventListener("pointercancel", end);
+    });
+    // A keyboard reaches the actions too: focusing one opens the row.
+    document.querySelectorAll("[data-tsw]").forEach((el) => {
+      el.addEventListener("focus", () => { const li = el.closest("li.tm"); if (li) li.classList.add("swiped"); });
+      el.addEventListener("click", async () => {
+        const [act, id] = el.dataset.tsw.split(":");
+        const x = find(id);
+        t.swiped = null;
+        if (!x) { render(); return; }
+        const toBox = (q) => { x.quadrant = q; kids(x.id).forEach((c) => { c.quadrant = q; }); };
+        if (act === "today") {
+          if (!((x.quadrant || 1) === 1 && !waiting(x)) && doFull()) {
+            t.err = `Do holds ${doLimit()}. Finish or move one first.`; render(); return;
+          }
+          toBox(1);
+          if (waiting(x)) { x.sched_date = null; x.sched_start = null; x.sched_min = null; }
+          x.position = lastIn(1, x.id);
+          t.err = null; render(); save(x);
+        } else if (act === "tomorrow") {
+          toBox(1);
+          x.sched_date = shiftISO(todayISO(), 1); x.sched_start = null; x.sched_min = null;
+          // Top of Do when it comes back.
+          x.position = Math.min(0, ...mains(1).filter((y) => y.id !== x.id).map((y) => y.position)) - 1;
+          t.err = null; render(); save(x);
+        } else if (act === "delete") {
+          t.list = t.list.filter((y) => y.id !== id && y.parent_id !== id);
+          if (t.edit === id) t.edit = null;
+          render(); cacheTasks();
+          await taskCall("app_task_delete", { p_id: id });
+        } else if (act === "schedule") {
+          t.schFor = id; t.edit = null; render();
+        }
+      });
+    });
+    // A tap anywhere else closes an open row.
+    if (t.swiped) document.addEventListener("pointerdown", function close(e) {
+      document.removeEventListener("pointerdown", close, true);
+      if (e.target.closest(".tsw") || !state.tasks || !state.tasks.swiped) return;
+      if (!e.target.closest("li.swiped")) { state.tasks.swiped = null; render(); }
+    }, true);
+    document.querySelectorAll("[data-tschdone]").forEach((el) =>
+      el.addEventListener("click", () => { t.schFor = null; render(); }));
 
     // ---- order inside a box: drag the grip ----
     document.querySelectorAll("[data-drag]").forEach((grip) =>
@@ -5400,8 +5805,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         window.addEventListener("pointerup", up);
         window.addEventListener("pointercancel", up);
       }));
-
-    on("tNotFold", "click", () => { t.notOpen = !t.notOpen; render(); });
 
     // ---- done: fold and clear ----
     on("tDoneFold", "click", () => { t.doneOpen = !t.doneOpen; render(); });
@@ -5751,9 +6154,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     return {
       id: "example", start_date: "2026-01-05",
       vision: "Healthy and strong into my eighties, with a family that is too.",
-      three_year: "Lean and fit, running a 10K every spring, sleeping seven hours.",
+      three_year: "Lean and strong, running a 10K every spring, sleeping seven hours a night.",
+      one_year: "Down 15 lb and running my first 10K by October.",
       one_goal: "ex-g1",
-      focus: { w4: "Lift Monday, Wednesday and Friday at 6 am.", w4d4: "Pack the gym bag tonight for a 6 am lift." },
+      focus: { w4: "Lift Monday, Wednesday and Friday at 6 am." },
       goals: [
         g("ex-g1", "Lose 8 lb", "Weight, lb", 184, 176, [183, 182, 181.5, 181], [
           tac("Lift 45 min", 3, ["135", "13", "135", "13"]),
@@ -5780,6 +6184,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     if (G.cycle) {
       G.cycle.focus = G.cycle.focus || {};
       G.cycle.three_year = G.cycle.three_year || "";
+      G.cycle.one_year = G.cycle.one_year || "";
       G.cycle.goals.forEach((g) => {
         g.kpi_log = g.kpi_log || {};
         g.tactics.forEach((t) => {
@@ -5807,7 +6212,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   function saveGoals() { clearTimeout(goalTimer); goalTimer = setTimeout(pushGoals, 600); }
   async function flushGoals() { if (goalTimer) { clearTimeout(goalTimer); await pushGoals(); } }
 
-  // A new twelve weeks keeps Someday and three years: those outlive it.
+  // A new twelve weeks keeps Someday, 3 years and this year: they outlive it.
   // From the example, it takes the example's plan, with no ticks or logs.
   function startCycle(monday, fromExample) {
     const G = state.goals, prev = G.cycle;
@@ -5821,6 +6226,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     G.cycle = { id: uuid(), start_date: monday,
                 vision: fromExample ? EXAMPLE.vision : prev ? prev.vision : "",
                 three_year: fromExample ? EXAMPLE.three_year : prev ? prev.three_year || "" : "",
+                one_year: fromExample ? EXAMPLE.one_year : prev ? prev.one_year || "" : "",
                 one_goal: one, focus: {}, goals };
     G.sel = lastOpen();
     G.edit = fromExample ? null : "g:" + goals[0].id;
@@ -5828,45 +6234,37 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     pushGoals();
   }
 
-  /* V3.5. Goals as four steps, top to bottom, each answering Keller's
+  /* V3.6. Goals as three steps, top to bottom, each answering Keller's
      focusing question for a shorter stretch of time:
 
-       1  Someday         where your life is going
-       2  This 12 weeks   your ONE goal (starred), and at most two more,
-                          each with the number that proves it (KPI)
-       3  This week       the week's ONE Thing, and Moran's scorecard:
-                          tactics down the side, the days across
-       4  Today           the ONE Thing, with a button that starts on it
+       1  Someday to this year   Keller's ladder, climbed Moran's way:
+                                 Someday, 3 years, this year
+       2  This 12 weeks          up to three goals (one starred is ideal),
+                                 each with its KPI: the result, logged weekly
+       3  This week              the tactics: the actions you control, ticked
+                                 daily, scored against your standard
 
-     Each step carries its question, and folded under it, how to answer
-     it with an example of great beside one of not great. Keller's 5-year,
-     1-year and month levels are deleted: four steps is what a phone holds.
-     A "3 years" line written in V3.4 is still shown under Someday until
-     it is cleared, so nothing typed is lost. */
+     The V3.5 "Today" step is deleted: it duplicated the week's tactics and
+     the Focus timer. What is tracked, and when, is said once, plainly:
+     tactics every day, each KPI once a week. */
   const GUIDE = {
-    someday: {
-      ask: "What’s the ONE Thing I want to do someday?",
-      how: "Write it as if it is already true, in a few sentences: your health, your work, the people you love. Big enough to pull you, and yours, not anyone else’s. Everything below should serve it. Read it every Monday.",
-      great: "“At 70 I hike, lift and play on the floor with my grandchildren. I write every morning, have published two books, and am home for dinner most nights.”",
-      notgreat: "“Be successful.” (No picture, nothing to aim at.) · “Lose 10 pounds by Friday.” (A task, not a someday.)",
+    ladder: {
+      ask: "Where is your life going, and what has to be true on the way?",
+      how: "Three lines, each answering the focusing question for a shorter span. <b>Someday:</b> what’s the ONE thing I want most? <b>3 years:</b> based on that, what has to be true by then? <b>This year:</b> based on that, what’s the ONE thing I must finish by December? Write each as if it is already done. Each line should obviously serve the one above it. This is your why: on the hard weeks it is what makes the 12 weeks worth it.",
+      great: "<b>Someday</b> “At 75 I hike, lift and play on the floor with my grandchildren.” <b>3 years</b> “Lean and strong, running a 10K every spring, sleeping 7 hours.” <b>This year</b> “Down 15 lb and running my first 10K by October.”",
+      notgreat: "“Be healthy.” (No picture, nothing to aim at.) · “Go to the gym more this year.” (No finish line: on December 31 you can’t say whether it happened.)",
     },
     goals: {
-      ask: "Based on my someday, what’s the ONE result I can finish in the next 12 weeks?",
-      how: "One finished result with a number, so on week 12 you will know whether it happened. Star it: that is your ONE goal. Give it a KPI, the number that proves it is moving, and log it once a week. Add up to two more goals only if they truly serve the first; fewer is stronger.",
-      great: "★ “Lose 8 lb.” KPI: Weight, 184 → 176, logged every Monday. · “Finish the book draft.” KPI: Chapters, 3 → 12.",
-      notgreat: "“Get healthier.” (No finish line.) · “Get fit, grow the business and read more.” (Three goals in one; none will get done.)",
+      ask: "Based on this year, what results can I finish in the next 12 weeks?",
+      how: "Up to three goals. One is ideal, so star the one that matters most: it gets your best hours. Each goal is a finished result with a number. Give each one a <b>KPI</b>: the result you measure but can’t directly control, like your weight, chapters written or money saved. Log it once a week, on the same day. The actions you <i>do</i> control are the tactics, in step 3.",
+      great: "★ “Lose 8 lb.” KPI: Weight, 184 → 176, logged Monday mornings. · “Sleep 7 hours.” KPI: Average sleep, 6.2 → 7 h. · “Read 4 books.” KPI: Books finished, 0 → 4.",
+      notgreat: "“Get healthier.” (No finish line.) · KPI: “Go to the gym.” (That’s an action, so it’s a tactic. A KPI is a result.) · Five goals at once. (Twelve weeks holds three at most.)",
     },
     week: {
-      ask: "What will I do this week, and how often, to move the goal?",
-      how: "Tactics are actions you control, each with a rhythm: every day, 1–6 times a week, or one week only. Tap the day you did one. The score is done ÷ due, and your standard (85% to start) wins the week: score the actions, not the result. Write the week’s ONE Thing on Monday, and at the end of the week ask what got in the way, then fix it or cut a tactic.",
-      great: "“Lift 45 min” 3× a week. · “In bed by 10 pm” every day. · “Book the physio” in week 2 only.",
-      notgreat: "“Exercise more.” (No rhythm; it can never be ticked.) · “Be disciplined.” (A wish, not an action.)",
-    },
-    today: {
-      ask: "What’s the ONE Thing I can do today such that by doing it everything else will be easier or unnecessary?",
-      how: "Usually one of this week’s tactics, made concrete. Do it first, before messages. Keller’s advice is to block time for it early, up to four hours, and guard the block. Tap ▶ to start a focus session on it.",
-      great: "“Lift at 6 am: squat, bench, row, 45 minutes.” · “Draft the opening of chapter 6, 800 words, before 9.”",
-      notgreat: "“Clear my inbox.” (Busy, not the ONE Thing.) · “Health stuff.” (Too vague to start.)",
+      ask: "What will I do this week, and how often, to move each goal?",
+      how: "Tactics are actions you control, each with a rhythm: every day, a number of times a week, or one week only. Each day, tick what you did. Your score is tactics done ÷ tactics due, and your standard (85% to start) wins the week. Score the actions, not the result: win the weeks and the KPIs follow. If a KPI hasn’t moved after three or four winning weeks, change the tactics, not the goal.",
+      great: "For “Lose 8 lb”: Lift 45 min, 3× a week · Walk 8,000 steps, every day · Protein at every meal, every day.",
+      notgreat: "“Exercise more.” (No rhythm, so it can never be ticked.) · “Lose 2 lb this week.” (A result, not an action. The KPI tracks that.)",
     },
   };
   function guide(key) {
@@ -5899,14 +6297,18 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     return `<button type="button" class="cval gtap${v ? "" : " cnil"}" data-cedit="${k}">${v ? esc(v) : ph}</button>`;
   }
 
-  // 1 · Someday
-  function gStepSomeday(C) {
-    const d = C.doc, G = state.goals || {};
-    const three = (d.three_year || "").trim() || G.edit === "c:three_year";
-    return gStep(C, 1, "Someday", "", "someday", `
-      ${gText(C, "vision", d.vision, "Write your someday", true)}
-      ${three ? `<div class="gsub2"><span class="clab">In 3 years</span>
-        ${gText(C, "three_year", d.three_year, "What must be true in 3 years", true)}</div>` : ""}`);
+  // 1 · Someday, 3 years, this year: a ladder, each rung serving the one above.
+  function gStepLadder(C) {
+    const d = C.doc;
+    const rung = (k, label, q, ph) => `
+      <div class="grung"><span class="grl">${label}</span><small class="grq">${q}</small>
+        ${gText(C, k, d[k], ph, true)}</div>`;
+    return gStep(C, 1, "Someday to this year", "", "ladder", `
+      <div class="gladder">
+        ${rung("vision", "Someday", "The ONE thing I want most", "Write your someday")}
+        ${rung("three_year", "In 3 years", "What has to be true by then", "What must be true in 3 years")}
+        ${rung("one_year", "This year", "The ONE thing to finish by December", "What you will finish this year")}
+      </div>`);
   }
 
   // 2 · This 12 weeks
@@ -6073,33 +6475,53 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <span>${T.due ? `${T.done} of ${T.due} done` : "Nothing planned"} · ${C.ro ? `${win}% wins the week`
           : `<button type="button" class="linkbtn" data-edit="goal" data-metric="goals">${win}% wins the week</button>`}</span>
       </div>
+      <p class="gtrack">Tick each tactic on the day you do it. Log each KPI once a week, in step 2.</p>
       ${scTable(C)}
       ${C.ro ? "" : `<button type="button" class="gguide" id="gTwelve" aria-expanded="${twelve}">
         ${twelve ? "Hide the twelve weeks" : "The twelve weeks, and your KPI"} <i aria-hidden="true">${twelve ? "▴" : "▾"}</i></button>`}
       ${twelve ? rsTable(C) : ""}`);
   }
 
-  // 4 · Today's ONE Thing
-  function gStepToday(C) {
-    const d = C.doc, run = C.cur >= 1 && C.cur <= 12;
-    const v = (d.focus || {})[`w${Math.min(12, Math.max(1, C.cur))}d${C.dow}`] || "";
-    const body = !run
-      ? `<p class="hint">${C.cur < 1 ? `Your twelve weeks start ${esc(shortDay(d.start_date))}.` : "These twelve weeks are done."}</p>`
-      : C.ro ? `<p class="gvtext">${esc(v)}</p>`
-      : `<div class="gone">
-          <input class="field" id="gOneIn" maxlength="200" autocomplete="off" enterkeyhint="done"
-            value="${esc(v)}" placeholder="The ONE Thing, today" aria-label="Today's ONE Thing">
-          <button type="button" class="dplay" id="gOneGo" aria-label="Start a focus session on it">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></button>
-        </div>`;
-    return gStep(C, 4, "Today’s ONE Thing", "", "today", body);
-  }
-
-  // The example, drawn by the same four steps, read-only: a plan four
-  // weeks in, on a Thursday.
+  // V3.6. The example, made for reading rather than drawn as a copy of
+  // the page: three goals side by side, each with the KPI logged week by
+  // week and the tactics ticked in week 3, then how that week scored.
   const exampleParts = () => {
-    const C = { doc: EXAMPLE, cur: 4, w: 4, dow: 4, ro: true };
-    return gStepSomeday(C) + gStepGoals(C) + gStepWeek(C) + gStepToday(C);
+    const d = EXAMPLE, w = 3, win = goalWin(), T = weekTally(d, w);
+    const freq = (t) => t.times === 7 ? "every day" : `${t.times}× a week`;
+    const goal = (g) => {
+      const log = [1, 2, 3].map((i) => g.kpi_log[i]);
+      const gp = goalTally(g, w).pct;
+      return `
+        <div class="xgoal${g.id === d.one_goal ? " one" : ""}">
+          <div class="xgh">${g.id === d.one_goal ? `<span class="cstar">★</span>` : ""}<b>${esc(g.title)}</b>
+            <em class="${gp >= win ? "win" : ""}">${gp}%</em></div>
+          <div class="xrow"><span class="xlab">KPI <small>result · log weekly</small></span>
+            <span class="xval">${esc(g.kpi)} · ${fmtNum(g.kpi_now)} → ${fmtNum(g.kpi_target)}</span></div>
+          <div class="xlog">${log.map((v, i) => `<span><small>W${i + 1}</small>${fmtNum(v)}</span>`).join("")}</div>
+          <div class="xrow"><span class="xlab">Tactics <small>actions · tick daily</small></span></div>
+          <ul class="xtac">${g.tactics.map((t) => {
+            const n = timesOf(t), k = Math.min(n, ticksIn(t, w));
+            return `<li><span>${esc(t.title)} <small>${freq(t)}</small></span><b class="${k >= n ? "full" : ""}">${k}/${n}</b></li>`;
+          }).join("")}</ul>
+        </div>`;
+    };
+    return `
+      <section class="card xcard">
+        <p class="eyebrow">An example · week 3 of 12</p>
+        <div class="gladder ro">
+          <div class="grung"><span class="grl">Someday</span><p class="gvtext">${esc(d.vision)}</p></div>
+          <div class="grung"><span class="grl">In 3 years</span><p class="gvtext">${esc(d.three_year)}</p></div>
+          <div class="grung"><span class="grl">This year</span><p class="gvtext">${esc(d.one_year)}</p></div>
+        </div>
+        <p class="xsub">Three goals for these 12 weeks. The starred one gets the best hours.</p>
+        ${d.goals.map(goal).join("")}
+        <div class="xweek">
+          <p><b>How week 3 scored.</b> ${T.done} of ${T.due} tactics done = <b>${T.pct}%</b>.
+            ${T.pct >= win ? `At or above ${win}%, so the week is won.` : `Under ${win}%, so the week is lost: ask what got in the way, then fix it or cut a tactic.`}</p>
+          <p><b>What gets tracked, and when.</b> Every day: tick the tactics you did. Once a week, same day:
+            write each KPI’s number. The score is only the tactics. The KPIs show whether the tactics are the right ones.</p>
+        </div>
+      </section>`;
   };
 
   function goalsView() {
@@ -6110,7 +6532,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       </div>
       <header class="masthead">
         <h1>Goals</h1>
-        <p class="sub">From someday to right now, in four steps.</p>
+        <p class="sub">From someday to this week, in three steps.</p>
       </header>`;
     const foot = `<p class="ver">v${APP_VERSION}</p>`;
     if (!G.loaded) return head + `<p class="loading">Opening…</p>` + foot;
@@ -6119,8 +6541,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       <section class="card ghowcard">
         <button type="button" class="foldbtn" id="gEx" aria-expanded="${!!G.ex}">
           <span class="caret">${G.ex ? "▾" : "▸"}</span>
-          <h2>See a whole plan, filled in</h2></button>
-        ${G.ex ? `<p class="hint" style="margin-top:8px">Four weeks in, on a Thursday. Read only.</p>` : ""}
+          <h2>See an example with three goals</h2></button>
       </section>
       ${G.ex ? `<div class="exwrap">${exampleParts()}</div>` : ""}`;
 
@@ -6128,13 +6549,12 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       <section class="card">
         <p class="eyebrow">The ONE Thing · The 12 Week Year</p>
         <h2 style="margin:4px 0 0;font-family:var(--display);font-weight:500;font-size:22px">
-          One direction, twelve weeks, one thing today.</h2>
+          One direction, twelve weeks, won one week at a time.</h2>
         <ol class="gfour">
-          <li><b>Someday.</b> The life you are building, in a few sentences.</li>
-          <li><b>This 12 weeks.</b> Your ONE goal, and the number that proves it.</li>
-          <li><b>This week.</b> The actions that move it. <button type="button" class="linkbtn" data-edit="goal"
+          <li><b>Someday to this year.</b> Where your life is going, then 3 years, then this year.</li>
+          <li><b>This 12 weeks.</b> Up to three goals, each with a KPI: the result, logged weekly.</li>
+          <li><b>This week.</b> The actions that move them, ticked daily. <button type="button" class="linkbtn" data-edit="goal"
             data-metric="goals" style="font-size:inherit">${goalWin()}%</button> done wins the week.</li>
-          <li><b>Today.</b> The ONE Thing that makes the rest easier. Do it first.</li>
         </ol>
         <div class="gstart">
           <button class="btn" data-gstart="${mon}">Start this week · ${esc(shortDay(mon))}</button>
@@ -6160,7 +6580,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <button class="btn" id="gNew2" style="width:100%;margin-top:12px;background:var(--work)">
           Start the next 12 weeks</button>
       </section>`;
-    return head + overCard + gStepSomeday(C) + gStepGoals(C) + gStepWeek(C) + gStepToday(C) +
+    return head + overCard + gStepLadder(C) + gStepGoals(C) + gStepWeek(C) +
       (G.err ? `<p class="terr">${esc(G.err)}</p>` : "") + exCard +
       `<button type="button" class="linkbtn gnew" id="gNew">Start a new 12 weeks</button>` + foot;
   }
@@ -6189,7 +6609,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       const mon = mondayOf(G.today), next = shiftISO(mon, 7);
       openModal({
         title: "Start a new 12 weeks?",
-        body: "This plan is kept. Someday and 3 years carry over; the goals start fresh.",
+        body: "This plan is kept. Someday, 3 years and this year carry over; the goals start fresh.",
         buttons: [
           { label: `Start this week · ${shortDay(mon)}`, kind: "go", run: () => startCycle(mon) },
           { label: `Start next Monday · ${shortDay(next)}`, kind: "quiet", run: () => startCycle(next) },
@@ -6229,7 +6649,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     document.querySelectorAll("[data-cf]").forEach((el) => {
       const k = el.dataset.cf;
       el.addEventListener("input", () => {
-        if (k === "vision" || k === "three_year") doc[k] = el.value.slice(0, k === "vision" ? 2000 : 1000);
+        if (k === "vision" || k === "three_year" || k === "one_year") doc[k] = el.value.slice(0, k === "vision" ? 2000 : 1000);
         else {
           const v = el.value.slice(0, 200);
           doc.focus = doc.focus || {};
@@ -6243,29 +6663,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         if (e.key === "Escape") done();
       });
       el.addEventListener("blur", () => setTimeout(() => { if (el.isConnected) done(); }, 0));
-    });
-    // Today's ONE Thing: always a line to type in, and ▶ to start on it.
-    // It is filed under today, so tomorrow opens blank without a sweep.
-    on("gOneIn", "input", (e) => {
-      const v = e.target.value.slice(0, 200), k = focusKey("fd");
-      doc.focus = doc.focus || {};
-      if (v.trim()) doc.focus[k] = v; else delete doc.focus[k];
-      saveGoals();
-    });
-    on("gOneIn", "keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); e.target.blur(); } });
-    on("gOneGo", "click", async () => {
-      const f = document.getElementById("gOneIn");
-      const text = ((f && f.value) || "").trim();
-      if (!text) { if (f) f.focus(); return; }
-      doc.focus = doc.focus || {};
-      doc.focus[focusKey("fd")] = text.slice(0, 200);
-      saveGoals(); await flushGoals();
-      loadWorkLocal();
-      state.work.focus = { label: text.slice(0, 120), task_id: null };
-      saveWorkLocal();
-      if (!state.work.run) workGo();
-      state.goals = null;
-      openExercise("work");
     });
 
     // ---- KPI, week by week ----
@@ -6460,8 +6857,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     return `${t(start)} – ${t(end)}`;
   }
 
-  /* What the session is for. Recent labels first, then open tasks in box
-     order, then this twelve weeks' tactics. Typing names a new one. */
+  /* What the session is for: this twelve weeks' goals and tactics, then
+     recent labels. Typing names a new one. */
   const recentKey = () => "fhd.focusRecent." + (state.meId || "anon");
   const getRecent = () => { try { return JSON.parse(localStorage.getItem(recentKey()) || "[]"); } catch { return []; } };
   function pushRecent(f) {
@@ -6475,15 +6872,15 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const item = (x) => `<button type="button" class="fitem${w.focus && w.focus.label === x.label ? " on" : ""}"
       data-flabel="${esc(x.label)}" data-ftask="${x.task_id || ""}">${esc(x.label)}${x.tag ? `<small>${esc(x.tag)}</small>` : ""}</button>`;
     const sec = (name, xs) => xs.length ? `<p class="eyebrow">${name}</p>${xs.map(item).join("")}` : "";
-    const recent = getRecent().filter(hit);
-    const tasks = (d.tasks || []).filter(hit);
     const tactics = (d.tactics || []).filter(hit);
+    const recent = getRecent().filter((x) => !x.task_id).filter(hit)
+      .filter((x) => !tactics.some((y) => y.label === x.label));
     const typed = (w.pickQ || "").trim();
-    return (typed && ![...recent, ...tasks, ...tactics].some((x) => x.label.toLowerCase() === typed.toLowerCase())
+    return (typed && ![...recent, ...tactics].some((x) => x.label.toLowerCase() === typed.toLowerCase())
         ? `<button type="button" class="fitem fnew" data-flabel="${esc(typed.slice(0, 120))}" data-ftask="">Focus on “${esc(typed.slice(0, 120))}”</button>` : "")
-      + sec("Recent", recent) + sec("Tasks", tasks) + sec("Goals", tactics)
-      + (!recent.length && !tasks.length && !tactics.length && !typed
-          ? `<p class="hint">Add tasks or goal tactics, or type what this session is for.</p>` : "");
+      + sec("Goals", tactics) + sec("Recent", recent)
+      + (!recent.length && !tactics.length && !typed
+          ? `<p class="hint">Type what this session is for, or set goals to pick from.</p>` : "");
   }
   function focusPicker() {
     const w = state.work;
@@ -6498,24 +6895,23 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         </div>
       </div>`;
   }
+  // V3.6. What a focus session can be for: your goals and their tactics,
+  // or whatever you type. Tasks are no longer offered here.
   async function loadFocusData() {
     const w = state.work;
-    const [a, b] = await Promise.all([
-      call("app_tasks", { p_code: state.code, p_person: state.meId }),
-      call("app_cycle", { p_code: state.code, p_person: state.meId }),
-    ]);
-    // Do first, then Decide, then Delegate; Not-to-do is not work to focus on.
-    const tasks = ((a && a.tasks) || []).filter((x) => !x.parent_id && !x.done && (x.quadrant || 1) !== 4)
-      .sort((x, y) => ((x.quadrant || 1) - (y.quadrant || 1)) || (x.position - y.position))
-      .map((x) => ({ label: x.title, task_id: x.id, tag: ["", "Do", "Decide", "Delegate"][x.quadrant || 1] }));
+    const b = await call("app_cycle", { p_code: state.code, p_person: state.meId });
     const cy = b && b.cycle;
-    const tactics = cy ? cy.goals.flatMap((g) => g.tactics.map((t) => ({ label: t.title, tag: g.title }))) : [];
-    // V3.4. Today's ONE Thing comes first: it is what the time is for.
-    if (cy && b.today) {
-      const wk = weekOf(cy, b.today), one = wk >= 1 && wk <= 12 && (cy.focus || {})[`w${wk}d${dowOf(b.today)}`];
-      if (one) tactics.unshift({ label: String(one).slice(0, 120), tag: "Today's ONE Thing" });
+    const tactics = [];
+    if (cy) {
+      const wk = b.today ? weekOf(cy, b.today) : 0;
+      const one = wk >= 1 && wk <= 12 && (cy.focus || {})["w" + wk];
+      if (one) tactics.push({ label: String(one).slice(0, 120), tag: "This week's ONE Thing" });
+      (cy.goals || []).forEach((g) => {
+        if (g.title) tactics.push({ label: String(g.title).slice(0, 120), tag: g.id === cy.one_goal ? "★ ONE goal" : "Goal" });
+        (g.tactics || []).forEach((t) => tactics.push({ label: String(t.title).slice(0, 120), tag: g.title || "Goal" }));
+      });
     }
-    w.pickData = { tasks, tactics };
+    w.pickData = { tactics };
   }
 
   // V3.2. The day's total is itself the input, as the step count is: tap
@@ -6555,7 +6951,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     w.adjust = false;
     w.run = { id: uuid(), startedAt: Date.now(), pausedAt: null, pausedMs: 0,
               len: w.len, date: todayISO(),
-              label: w.focus ? w.focus.label : null, task: w.focus ? w.focus.task_id : null };
+              label: w.focus ? w.focus.label : null, task: null };
     if (w.focus) pushRecent(w.focus);
     saveWorkLocal();
   }
@@ -6591,7 +6987,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
         ${today ? `
         <button type="button" class="focusbtn" id="workFocus" aria-expanded="${!!w.pick}">
-          Focus${f ? ` · <span>${esc(f.label)}</span>` : ""} <i aria-hidden="true">&rsaquo;</i></button>
+          ${f ? `On · <span>${esc(f.label)}</span>` : "What are you focusing on?"} <i aria-hidden="true">&rsaquo;</i></button>
 
         ${w.pick ? focusPicker() : `
         <div class="ring${running ? " run" : ""}${r && r.pausedAt ? " paused" : ""}">
@@ -6961,8 +7357,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     wireNet();
     // One sheet for every standard and one for the home dials, on any page.
     if (v !== "session" && v !== "detail") {
-      app.insertAdjacentHTML("beforeend", stdSheet() + dialSheet());
+      app.insertAdjacentHTML("beforeend", stdSheet() + dialSheet() + homeSheet());
       wireStd();
+      wireHomeSheet();
     }
 
     if (keep) {
@@ -7055,7 +7452,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   /* ---------- what tapping a day means --------------------------------
      V2.7. Two bugs lived here, both from one line: `k !== "steps"` meant
      "open the workout". That was written when Steps, Train and Cardio
-     were the only charts. Sleep Score, Rest and Rise arrived later and
+     were the only charts. Recovery, Rest and Rise arrived later and
      fell into the workout branch, so tapping Tuesday on the Rest chart
      opened Tuesday's WORKOUT. Meanwhile the month grid never opened
      anything, on any metric.
@@ -7202,10 +7599,12 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     await refresh();
   }
 
-  /* ---------- V3.4: choosing the three home dials ---------------------- */
+  /* ---------- V3.4: choosing the home dials ---------------------------
+     V3.6. One to five, in the order you tap them. */
   const DIAL_KEYS = Object.keys(STD);
-  const okDials = (d) => Array.isArray(d) && d.length === 3 && new Set(d).size === 3 &&
-    d.every((k) => STD[k]);
+  const DIAL_MAX = 5;
+  const okDials = (d) => Array.isArray(d) && d.length >= 1 && d.length <= DIAL_MAX &&
+    new Set(d).size === d.length && d.every((k) => STD[k]);
   function myDials() {
     const m = me();
     if (m && okDials(m.dials)) return m.dials.slice();
@@ -7218,13 +7617,12 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   function dialSheet() {
     const pick = state.dialPick;
     if (!pick) return "";
-    const left = 3 - pick.length;
     return `
       <div class="sheetbg" id="dialBg"></div>
-      <div class="stdsheet dpick" role="dialog" aria-label="Choose your three dials">
+      <div class="stdsheet dpick" role="dialog" aria-label="Choose your dials">
         <p class="eyebrow">Home screen</p>
-        <h3>Your three dials</h3>
-        <p class="hint" style="margin-top:4px">Tap three, in the order you want them.</p>
+        <h3>Your dials</h3>
+        <p class="hint" style="margin-top:4px">Tap one to five, in the order you want them.</p>
         ${STD_GROUPS.map(([g, ks]) => `
           <p class="dpg">${esc(g)}</p>
           <div class="dpgrid">${ks.map((k) => {
@@ -7234,8 +7632,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           }).join("")}</div>`).join("")}
         <div class="stdbtns">
           <button type="button" class="btn-quiet" id="dialCancel">Cancel</button>
-          <button type="button" class="btn" id="dialSave" ${left ? "disabled" : ""}>${
-            left ? `Pick ${left} more` : "Save"}</button>
+          <button type="button" class="btn" id="dialSave" ${pick.length ? "" : "disabled"}>${
+            pick.length ? `Save ${pick.length}` : "Pick at least one"}</button>
         </div>
       </div>`;
   }
@@ -7275,8 +7673,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         const k = el.dataset.dpk, p = state.dialPick;
         const at = p.indexOf(k);
         if (at >= 0) p.splice(at, 1);
-        else if (p.length < 3) p.push(k);
-        else { p.pop(); p.push(k); }        // a fourth tap swaps out the last pick
+        else if (p.length < DIAL_MAX) p.push(k);
+        else { p.pop(); p.push(k); }        // a sixth tap swaps out the last pick
         render();
       }));
     on("dialSave", "click", () => { if (okDials(state.dialPick)) saveDials(state.dialPick); });
