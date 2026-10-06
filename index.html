@@ -40,6 +40,7 @@
   --warn:#8a4a12; --warn-soft:#f6ecdf;
   --sleep:#4f5bd5; --sleep-soft:#e4e6fb;
   --work:#a4640a;  --work-soft:#f7ead3;
+  --diet:#4f7d14;  --diet-soft:#e6f0d6;
   --shadow:0 1px 2px rgba(9,26,21,.05), 0 8px 24px -16px rgba(9,26,21,.25);
   --display:"Newsreader",Georgia,serif;
   --body:"Public Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -57,6 +58,7 @@
     --warn:#e0a86a; --warn-soft:#2a2318;
     --sleep:#8d97ec; --sleep-soft:#20244a;
     --work:#e2a64a;  --work-soft:#3a2c14;
+    --diet:#94c454;  --diet-soft:#26321a;
     --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
     color-scheme: dark;
   }
@@ -267,6 +269,24 @@ input[type=number] { -moz-appearance:textfield; }
 .fitem small { margin-left:auto; font-size:11px; color:var(--muted); white-space:nowrap; }
 .fitem.on { color:var(--work); font-weight:600; }
 .fnew { color:var(--work); }
+/* V4.1. A recent focus, opened: Start, minutes already done, delete. */
+.fitem i { margin-left:auto; font-style:normal; color:var(--muted); font-size:18px; line-height:1; }
+.frow.open .fitem { border-bottom:none; color:var(--work); font-weight:600; }
+.fopen { display:flex; align-items:center; gap:8px; padding:4px 0 12px; border-bottom:1px solid var(--line); }
+.fstart { display:inline-flex; align-items:center; gap:4px; border:none; border-radius:999px; background:var(--work);
+  color:#fff; font:600 14px/1 inherit; font-family:inherit; padding:9px 13px 9px 10px; cursor:pointer; }
+.fstart svg { width:16px; height:16px; fill:currentColor; }
+.fmins { display:inline-flex; align-items:center; gap:4px; flex:1; min-width:0; }
+.fminin { width:64px; min-width:0; box-sizing:border-box; font-size:16px; text-align:center; padding:8px 4px;
+  border:1.5px solid var(--line-strong); border-radius:10px; background:var(--surface); color:var(--ink); font-family:var(--mono); }
+.fminin:focus { outline:none; border-color:var(--work); }
+.fmins em { font-style:normal; font-size:12.5px; color:var(--muted); }
+.flog { border:none; background:none; color:var(--work); font:600 14px inherit; font-family:inherit; padding:8px 4px; cursor:pointer; }
+.fdel { flex:none; width:38px; height:38px; display:grid; place-items:center; border:none; border-radius:10px;
+  background:color-mix(in oklab, #b3422a 9%, var(--surface)); color:#b3422a; cursor:pointer; padding:0; }
+.fdel svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+.fmsg { margin:6px 2px 0; font-size:12.5px; color:var(--work); }
+.fmsg.bad { color:#b3422a; }
 .fbtm { display:flex; justify-content:space-between; margin-top:10px; }
 .sesslist li em b { font-weight:600; color:var(--ink-2); }
 /* V3.2. The day's total, typed or timed, as one quiet line. */
@@ -322,7 +342,6 @@ input[type=number] { -moz-appearance:textfield; }
 /* ---------- Tasks: one list, four boxes ---------------------------------- */
 .tseg { display:flex; width:100%; margin:0 0 14px; }
 .tseg button { flex:1; font-size:13.5px; padding:8px 0; }
-.tquick { position:sticky; top:0; z-index:5; background:var(--ground); padding:4px 0 10px; }
 /* V3.4. One list, one colour. */
 .stray, .sany, .sgrid, .ssheet, .tdone { --qc:var(--work); }
 .trank { flex:none; width:20px; font-family:var(--mono); font-size:13px; font-weight:600; color:var(--qc);
@@ -334,15 +353,18 @@ input[type=number] { -moz-appearance:textfield; }
 .tl .ts { margin-left:36px; }
 .tl .tsubin { margin-left:70px; width:calc(100% - 70px); }
 .tl .tebar { padding-left:36px; }
-.tquick .field { width:100%; box-sizing:border-box; font-size:16px; padding:13px 14px; }
-.tbuckets { display:grid; grid-template-columns:repeat(3, 1fr); gap:6px; margin-top:8px; }
-.tbk { border:1.5px solid var(--line); background:var(--surface); border-radius:10px; padding:9px 0;
-  font-family:inherit; font-size:13.5px; font-weight:600; color:var(--ink-2); cursor:pointer; }
-.tbk.q1 { --qc:var(--work); } .tbk.q2 { --qc:var(--accent); }
-.tbk.q3 { --qc:var(--swim); } .tbk.q4 { --qc:var(--muted); }
-.tbk.on { border-color:var(--qc); color:var(--qc); background:color-mix(in oklab, var(--qc) 9%, var(--surface)); }
-.tbuckets.sm .tbk { padding:7px 0; font-size:12.5px; }
+/* V4.1. No line at the top: a + on each section is how a task is added. */
+.tgh { align-items:center; }
+.tplus { flex:none; width:32px; height:32px; border-radius:50%; border:1.5px solid var(--qc);
+  background:color-mix(in oklab, var(--qc) 8%, var(--surface)); color:var(--qc); cursor:pointer;
+  display:grid; place-items:center; padding:0; margin-left:4px; }
+.tplus svg { width:16px; height:16px; stroke:currentColor; stroke-width:2.4; stroke-linecap:round; fill:none; }
+.tplus.on { background:var(--qc); color:#fff; }
+.tplus[aria-disabled="true"] { opacity:.4; }
+.tnew { display:flex; align-items:center; gap:10px; min-height:50px; border-bottom:1px solid var(--line); }
+.tnew .field { flex:1; font-size:16px; padding:10px 12px; border-color:var(--qc); }
 .tqhint { margin:7px 2px 0; font-size:12px; color:var(--muted); }
+.tswhint { margin:18px 2px 0; font-size:12px; color:var(--muted); text-align:center; }
 .tgroup { margin-top:16px; }
 .tgroup.q1 { --qc:var(--work); } .tgroup.q2 { --qc:var(--accent); }
 .tgroup.q3 { --qc:var(--swim); } .tgroup.q4 { --qc:var(--muted); }
@@ -514,8 +536,6 @@ input[type=number] { -moz-appearance:textfield; }
 .ghow b { color:var(--ink); }
 .ghowcard .foldbtn h2 { font-size:16px; }
 /* ---------- V3.6: Do capped by "do today", two quiet lists, swipe ------ */
-.tbk small { font-family:var(--mono); font-size:11px; font-weight:500; opacity:.8; }
-.tbk.full { opacity:.45; }
 .tqhint.warn { color:#b3422a; }
 .tdo .tgh em.tdocount { font-size:14px; }
 .tdo .tgh em.tdocount.over { color:#b3422a; }
@@ -695,6 +715,24 @@ table.rs { border-collapse:separate; border-spacing:0; font-variant-numeric:tabu
 
 /* V3.7. The Goals ring, and lead against lag. */
 .gring { display:flex; justify-content:center; margin:4px 0 14px; }
+/* V4.1. Three goals, three rings, the week's score above them. */
+.grings { margin:2px 0 16px; text-align:center; }
+.gwk { display:flex; flex-wrap:wrap; justify-content:center; align-items:baseline; gap:2px 8px; margin-bottom:12px; }
+.gwkl { width:100%; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.gwkv { font-family:var(--display); font-weight:500; font-size:40px; line-height:1.05; font-variant-numeric:tabular-nums; }
+.gwk .dof { font-size:13px; }
+.gwks { width:100%; font-size:12.5px; color:var(--muted); }
+.grow3 { display:grid; grid-template-columns:repeat(var(--n), minmax(0, 1fr)); gap:10px; max-width:420px; margin:0 auto; }
+.gr1 { border:none; background:none; padding:0; font:inherit; color:inherit; cursor:pointer; display:flex;
+  flex-direction:column; align-items:center; gap:6px; min-width:0; }
+.gr1d { position:relative; width:min(100%, 112px); aspect-ratio:1/1; display:block; }
+.gr1d .dring { width:100%; height:100%; }
+.gr1d .dtrack, .gr1d .dfill { stroke-width:9; }
+.gr1d b { position:absolute; inset:0; display:grid; place-items:center; font-family:var(--display); font-weight:500;
+  font-size:clamp(18px, 5.6vw, 24px); font-variant-numeric:tabular-nums; }
+.gr1t { font-size:12.5px; line-height:1.25; color:var(--ink-2); max-width:100%; overflow:hidden; display:-webkit-box;
+  -webkit-line-clamp:2; -webkit-box-orient:vertical; word-break:break-word; }
+.gr1t i { font-style:normal; color:var(--work); margin-right:2px; }
 .gdial { width:min(230px, 62vw); }
 .gdial .dval { font-size:clamp(34px, 11vw, 46px); }
 .gll { display:grid; grid-template-columns:auto 1fr auto; align-items:baseline; gap:8px; margin-top:6px; }
@@ -813,6 +851,58 @@ table.rs { border-collapse:separate; border-spacing:0; font-variant-numeric:tabu
 .hfamline em { flex:1; font-style:normal; font-size:12.5px; color:var(--muted); }
 .hfamline i { font-style:normal; color:var(--muted); font-size:16px; }
 .hadd { margin-top:14px; }
+
+/* ---------- V4.1: Diet ------------------------------------------------ */
+.dsec h2 { font-size:22px; }
+.dsh { display:flex; align-items:baseline; gap:10px; }
+.dss { font-size:12px; color:var(--muted); }
+.dofx { margin-left:auto; border:none; background:none; font:inherit; font-size:13px; color:var(--muted); cursor:pointer;
+  text-decoration:underline; text-decoration-color:var(--line-strong); text-underline-offset:3px; padding:2px 0; }
+.dofx b { color:var(--dc); font-weight:600; }
+.dsec .domino .of b { color:var(--dc); }
+.domino .big small { font-size:24px; color:var(--muted); margin-left:2px; }
+.ddlist { margin-top:14px; }
+.ddrow { display:flex; align-items:center; gap:12px; padding:10px 0; border-top:1px solid var(--line); }
+.ddsw { flex:none; width:12px; height:34px; border-radius:6px; }
+.ddt { flex:1; min-width:0; display:flex; flex-direction:column; line-height:1.25; }
+.ddt b { font-weight:600; font-size:15px; }
+.ddt small { font-size:12px; color:var(--muted); }
+.ddbx { flex:none; display:flex; flex-wrap:wrap; justify-content:flex-end; gap:5px; max-width:62%; }
+.ddb { width:32px; height:32px; border-radius:9px; border:2px solid var(--line-strong); background:var(--surface);
+  cursor:pointer; padding:0; position:relative; }
+.ddb.on { background:var(--dc); border-color:var(--dc); }
+.ddb.on::after { content:""; position:absolute; left:10px; top:4px; width:8px; height:15px; border:solid #fff;
+  border-width:0 3px 3px 0; transform:rotate(45deg); }
+.ddsup { margin:16px 0 2px; }
+.dbig { display:flex; align-items:baseline; justify-content:center; gap:6px; margin:10px auto 4px; }
+.dbigb { border:none; background:none; cursor:pointer; padding:0; font:inherit; color:inherit; width:100%; }
+.dbig b, .dbigin { font-family:var(--mono); font-size:52px; line-height:1.05; font-weight:500; font-variant-numeric:tabular-nums; }
+.dbigin { width:5.4ch; text-align:center; border:none; border-bottom:2px solid var(--dc); background:none; color:var(--ink); padding:0; }
+.dbigin:focus { outline:none; }
+.dunit { font-size:15px; color:var(--muted); }
+.dchips { display:flex; justify-content:center; gap:8px; margin-top:6px; }
+.dchip { border:1.5px solid var(--dc); color:var(--dc); background:color-mix(in oklab, var(--dc) 8%, var(--surface));
+  border-radius:999px; padding:8px 16px; font:600 14px/1 var(--body); cursor:pointer; font-variant-numeric:tabular-nums; }
+.dcalc { display:block; margin:14px auto 0; color:var(--dc); }
+.dmsgx { text-align:center; }
+.calc { margin-top:12px; padding-top:12px; border-top:1px solid var(--line); }
+.cbrow { display:flex; gap:10px; margin-bottom:10px; align-items:flex-end; }
+.cbf { display:flex; flex-direction:column; gap:4px; min-width:0; flex:1; }
+.cbf > span { font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+.cbf .field { width:100%; min-width:0; box-sizing:border-box; font-size:16px; padding:10px; }
+.cbsex { flex:1; }
+.cbsex .range { display:flex; width:100%; }
+.cbsex .range button { flex:1; padding:9px 0; font-size:14px; }
+.copts { display:flex; flex-direction:column; gap:8px; margin-top:4px; }
+.copt { display:flex; align-items:center; gap:10px; width:100%; text-align:left; border:1.5px solid var(--line-strong);
+  background:var(--surface); border-radius:12px; padding:11px 14px; cursor:pointer; font:inherit; color:inherit; }
+.copt span { flex:1; display:flex; flex-direction:column; line-height:1.3; }
+.copt b { font-weight:600; }
+.copt small { font-size:12px; color:var(--muted); }
+.copt em { font-style:normal; font-family:var(--mono); font-size:19px; font-weight:500; color:var(--dc); white-space:nowrap; }
+.copt em small { font-family:var(--body); font-size:12px; color:var(--muted); margin-left:3px; }
+.copt.on { border-color:var(--dc); background:color-mix(in oklab, var(--dc) 9%, var(--surface)); }
+.cnote { margin:10px 2px 0; font-size:12px; color:var(--muted); line-height:1.45; }
 
 /* ---------- V3.6: your dashboard, three rows of three ---------------- */
 .mydash { padding:8px 14px 6px; }
@@ -1430,12 +1520,14 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 .fcard.me + .fcard { border-top-color:color-mix(in oklab, var(--hc) 20%, var(--line)); }
 
 /* Everyone else: one row each, nine small numbers, one header. */
-.ftab { border-top:1px solid var(--line); padding:8px 8px 6px 10px; }
-.ftbl { width:100%; border-collapse:collapse; table-layout:fixed; font-variant-numeric:tabular-nums; }
+.ftab { border-top:1px solid var(--line); padding:8px 8px 6px 10px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+/* V4.1. Twelve columns no longer fit a phone at a readable size: the
+   table keeps a floor per column and slides sideways, names pinned. */
+.ftbl { width:100%; min-width:480px; border-collapse:collapse; table-layout:fixed; font-variant-numeric:tabular-nums; }
 .ftbl th, .ftbl td { padding:0 1px; text-align:center; white-space:nowrap; overflow:hidden; text-overflow:clip; }
 .ftbl thead th { font-size:8.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
   color:var(--muted); padding:0 0 5px; }
-.ftbl th.fn { width:21%; text-align:left; padding:0; }
+.ftbl th.fn { width:78px; text-align:left; padding:0; position:sticky; left:0; z-index:1; background:var(--surface); }
 .ftbl tbody td { font-family:var(--mono); font-size:clamp(8.5px, 2.6vw, 10.5px); letter-spacing:-.04em; color:var(--ink); height:30px;
   border-top:1px solid var(--line); }
 .ftbl tbody th { border-top:1px solid var(--line); }
@@ -1470,7 +1562,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "3.7";
+  const APP_VERSION = "4.1";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -1761,16 +1853,23 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     work:   { label:"Focus",       kind:"min",   def:180,  key:"work_min",  short:"Focus" },
     goals:  { label:"Goals",       kind:"pct",   def:85,   key:"goal_pct" },
     tasks:  { label:"Tasks",       kind:"count", def:5,    key:"tasks_done", unit:"done" },
+    // V4.1. Diet. Longevity is servings ticked of the Daily Dozen; Protein
+    // and Calories are typed totals.
+    dd:      { label:"Longevity",  kind:"count", def:23,   key:"dd_items",   unit:"servings" },
+    protein: { label:"Protein",    kind:"count", def:60,   key:"protein_g",  unit:"g" },
+    kcal:    { label:"Calories",   kind:"count", def:2000, key:"kcal",       unit:"kcal" },
   };
   const STD_GROUPS = [
     ["Exercise",   ["steps", "train", "cardio"]],
     ["Sleep",      ["sleep", "rise", "rest"]],
     ["Great Work", ["work", "goals", "tasks"]],
+    ["Diet",       ["dd", "protein", "kcal"]],
   ];
   const DIAL_DEFAULT = ["steps", "work", "sleep"];
   const STD_FIELD = { steps:"steps_target", train:"train_target", cardio:"cardio_target",
     sleep:"sleep_target", rise:"rise_target", rest:"rest_target", work:"work_target",
-    goals:"goal_target", tasks:"tasks_target" };
+    goals:"goal_target", tasks:"tasks_target",
+    dd:"dd_target", protein:"protein_target", kcal:"kcal_target" };
   // This person's standard, or the default when none was ever set.
   function stdOf(p, k) {
     const v = p ? p[STD_FIELD[k]] : null;
@@ -1790,6 +1889,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       case "rest":   return n(p.rest);
       case "goals":  return n(p.goal_pct);
       case "tasks":  return Number(p.tasks_done) || 0;
+      case "dd":      return p.dd_items === null || p.dd_items === undefined ? null : ddCount(p.dd_items);
+      case "protein": return n(p.protein_g);
+      case "kcal":    return n(p.kcal);
     }
     return null;
   }
@@ -1797,6 +1899,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   // on or before the standard is 100, and an hour late is 0.
   function stdPct(k, v, std) {
     if (v === null || v === undefined) return null;
+    // V4.1. Calories aim at a number, not past it: within 10% either side
+    // is on target, and going over falls away as fast as falling short.
+    if (k === "kcal" && std > 0 && Number(v) > std)
+      return kcalHit(v, std) ? 100 : Math.max(0, Math.round(100 - (Number(v) / std - 1.1) * 300));
     if (STD[k].kind === "time") return Math.max(0, Math.min(100, 100 - (Number(v) - std) / 60 * 100));
     return std > 0 ? Math.max(0, Math.round(Number(v) / std * 100)) : (Number(v) > 0 ? 100 : 0);
   }
@@ -1807,8 +1913,13 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     if (kind === "time") return clockWords(v);
     if (kind === "pct")  return Math.round(Number(v)) + "%";
     if (kind === "min")  return hm(v);
+    if (k === "protein") return num(Math.round(Number(v))) + " g";
     return num(Math.round(Number(v)));
   }
+  // V4.1. On target, for the two numbers the family sees only as a tick.
+  const kcalHit = (v, std) => v !== null && v !== undefined && std > 0 && Math.abs(Number(v) - std) <= std * 0.1;
+  const dietHit = (k, v, std) => v === null || v === undefined ? false
+    : k === "kcal" ? kcalHit(v, std) : Number(v) >= std;
 
   // The five pillars, in the order they will always appear. Four are dark
   // and unclickable until they are measured; showing them anyway is the
@@ -3999,6 +4110,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   async function openExercise(seg) {
     if (!state.meId) return;
     stopTicking();
+    // V4.1. Longevity, Protein and Calories share one page.
+    if (seg === "dd" || seg === "protein" || seg === "kcal") return openDiet(seg);
     state.seg  = seg || "steps";
     state.mode = state.seg === "cardio" ? "cardio" : "lift";
     state.entryDate = null;
@@ -4186,6 +4299,13 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           : Math.round(Number(bd.items_pts) / Math.max(1, scoreMax()) * 100),
         rise: n(bd.rise), rest: n(bd.rest),
         work: pos(bd.work_min), goals: n(bd.goal_pct), tasks: pos(bd.tasks_done),
+        // V4.1. Longevity is a count anyone can see. Protein and Calories
+        // are yours: everyone else sees a tick when you are on target.
+        dd: bd.dd_items === null || bd.dd_items === undefined ? null : ddCount(bd.dd_items),
+        protein: p.id === state.meId ? n(bd.protein_g)
+          : dietHit("protein", n(bd.protein_g), stdOf(p, "protein")) ? true : null,
+        kcal: p.id === state.meId ? n(bd.kcal)
+          : dietHit("kcal", n(bd.kcal), stdOf(p, "kcal")) ? true : null,
       };
     };
     const ordered = state.people.slice().sort((a, b) =>
@@ -4195,9 +4315,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     // fits in the space one card used to take. Columns read down.
     const othersTable = ordered.some((p) => p.id === state.meId) && ordered.length > 1;
     const FAB = { steps:"Stp", train:"Trn", cardio:"Crd", sleep:"Rec", rise:"Rise", rest:"Rest",
-                  work:"Foc", goals:"Gls", tasks:"Tsk" };
+                  work:"Foc", goals:"Gls", tasks:"Tsk", dd:"Lng", protein:"Pro", kcal:"Cal" };
     const tiny = (k, v) => {
       if (v === null || v === undefined) return "\u2013";
+      if (v === true) return "\u2713";
       const x = Number(v);
       switch (STD[k].kind) {
         case "count": return k === "steps"
@@ -4264,7 +4385,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             return see
               ? `<button type="button" class="fcell" data-see="${p.id}" data-m="${k === "train" ? "lift" : "cardio"}"
                    aria-label="See ${esc(p.name)}'s ${k === "train" ? "workout" : "cardio"}"><b>${stdWords(k, v)}</b><span>${label}</span></button>`
-              : `<div class="fcell${nil ? " nil" : ""}"><b>${nil ? "–" : stdWords(k, v)}</b><span>${label}</span></div>`;
+              : `<div class="fcell${nil ? " nil" : ""}"${v === true ? ` aria-label="${label}: on target"` : ""}><b>${nil ? "–" : v === true ? "\u2713" : stdWords(k, v)}</b><span>${label}</span></div>`;
           };
           return `<div class="fcard${isMe ? " me" : ""}" style="--hc:hsl(${p.hue} 58% 42%)">
             <div class="fhead">
@@ -4380,7 +4501,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   }
   const ofWords = (k, std) => STD[k].kind === "time" ? `by ${clockWords(std)}`
     : STD[k].kind === "min" ? `of ${hm(std)}` : STD[k].kind === "pct" ? `of ${Math.round(std)}%`
-    : `of ${num(Math.round(std))}${k === "tasks" ? " done" : ""}`;
+    : `of ${num(Math.round(std))}${k === "tasks" ? " done" : k === "protein" ? " g" : k === "kcal" ? " kcal" : ""}`;
   function dialSlide(m, k, clone) {
     // A copy is drawn exactly like the real dial but is inert: no ids, no
     // handlers, hidden from screen readers. It is only ever seen mid-swipe.
@@ -4421,6 +4542,13 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     }
     if (k === "sleep" && v === null) {
       extra = `<button type="button" class="dsame" ${clone ? 'tabindex="-1"' : 'data-dialsame="1"'}>Same as last night</button>`;
+    }
+    if (k === "dd") {
+      // V4.1. The Daily Dozen is ticked on its page; the dial is the way
+      // in, and on an empty day it offers yesterday, as Recovery does.
+      centre = `<button type="button" class="dval dgo${v === null ? " dnone" : ""}" ${go(page)} ${clone ? 'tabindex="-1"' : ""}>${
+        v === null ? "–" : v}</button>`;
+      if (!v) extra = `<button type="button" class="dsame" ${clone ? 'tabindex="-1"' : 'data-ddsame="1"'}>Same as yesterday</button>`;
     }
     if (k === "tasks") {
       extra = `<input class="dtaskin" ${clone ? 'tabindex="-1" readonly' : 'data-dtask="1" id="dial-taskin"'}
@@ -4543,6 +4671,16 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         const r = await copyLastNight(m.rest_day || todayISO());
         if (r.err) { el.disabled = false; dialSay("sleep", r.err); return; }
         if (me()) me().items = r.mask;
+        await refresh();
+      }));
+    // Longevity: one tap copies the last logged day, with Undo.
+    document.querySelectorAll("[data-ddsame]").forEach((el) =>
+      el.addEventListener("click", async (e) => {
+        e.stopPropagation();
+        el.disabled = true;
+        const r = await copyLastDozen(todayISO());
+        if (r.err) { el.disabled = false; dialSay("dd", r.err); return; }
+        if (me()) me().dd_items = r.mask;
         await refresh();
       }));
     // A logged clock dial: tap the time, turn the wheel.
@@ -4775,24 +4913,24 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         workGo();
         render();
       };
-      document.querySelectorAll("#hfList [data-flabel]").forEach((el) => {
-        if (el.dataset.w) return; el.dataset.w = "1";
-        el.addEventListener("click", () => start(el.dataset.flabel));
-      });
+      const list = document.getElementById("hfList");
+      if (list && !list.dataset.w) { list.dataset.w = "1"; wireFocusList("hfList", start); }
       const f = document.getElementById("hfIn");
       if (f && !f.dataset.w) {
         f.dataset.w = "1";
         f.addEventListener("input", () => {
-          w.pickQ = f.value;
+          w.pickQ = f.value; w.fopen = null;
           const l = document.getElementById("hfList");
-          if (l) { l.innerHTML = focusItems(); wireHomeSheet(); }
+          if (l) { l.innerHTML = focusItems(); wireFocusList("hfList", start); }
         });
+        // Return is still the fast way: start what is typed, or the top
+        // recent one.
         f.addEventListener("keydown", (e) => {
           if (e.key !== "Enter") return;
           e.preventDefault();
           const typed = (f.value || "").trim();
           const first = document.querySelector("#hfList [data-flabel]");
-          if (typed) start(typed); else if (first) first.click();
+          if (typed) start(typed); else if (first) start(first.dataset.flabel);
         });
       }
       return;
@@ -5134,6 +5272,365 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     return { ok: true, mask: got.mask };
   }
 
+  /* ---------- V4.1: Diet ----------------------------------------------
+     Three things, one page. Longevity is Dr. Michael Greger's Daily Dozen:
+     a box per serving, stored as one integer a day like the sleep habits.
+     His twelfth item, Exercise, is left out because Steps and Cardio
+     already count it, so a full day is 23 servings. Vitamin B12 is a tick
+     of its own and never counts as a serving. Protein and Calories are
+     typed totals with a standard each, and a calculator that turns your
+     weight (and, for calories, height, age and activity) into the
+     standard. Those body numbers stay on this phone; only the standard
+     you pick is saved.
+     ------------------------------------------------------------------ */
+  const DD = [
+    { t:"Beans",                  n:3, sub:"½ cup cooked, or ¼ cup hummus",     c:"#7a3b2a" },
+    { t:"Berries",                n:1, sub:"½ cup fresh or frozen",             c:"#3b62b0" },
+    { t:"Other fruits",           n:3, sub:"1 medium fruit, or ¼ cup dried",    c:"#d0473f" },
+    { t:"Cruciferous vegetables", n:1, sub:"½ cup chopped",                     c:"#6aa84f" },
+    { t:"Greens",                 n:2, sub:"1 cup raw, or ½ cup cooked",        c:"#2f6b3a" },
+    { t:"Other vegetables",       n:2, sub:"½ cup",                             c:"#e07b39" },
+    { t:"Flaxseeds",              n:1, sub:"1 tablespoon ground",               c:"#8a5a2b" },
+    { t:"Nuts and seeds",         n:1, sub:"¼ cup, or 2 tbsp nut butter",       c:"#a0673a" },
+    { t:"Herbs and spices",       n:1, sub:"¼ teaspoon turmeric",               c:"#e0a030" },
+    { t:"Whole grains",           n:3, sub:"½ cup cooked, or 1 slice of bread", c:"#d9a520" },
+    { t:"Beverages",              n:5, sub:"1 glass (12 oz)",                   c:"#3a9a9e" },
+  ];
+  // Bit positions: each food's boxes in turn, 0 to 22. B12 is bit 23.
+  (() => { let at = 0; for (const f of DD) { f.at = at; at += f.n; } })();
+  const DD_MAX = DD.reduce((a, f) => a + f.n, 0);       // 23
+  const DD_B12 = 23;
+  const bitOn = (mask, b) => Math.floor(Number(mask || 0) / 2 ** b) % 2 === 1;
+  const flipBit = (mask, b) => Number(mask || 0) + (bitOn(mask, b) ? -1 : 1) * 2 ** b;
+  function ddCount(mask) {
+    let n = 0;
+    for (let b = 0; b < DD_MAX; b++) if (bitOn(mask, b)) n++;
+    return n;
+  }
+
+  // The day's three values: today's from the state already loaded, any
+  // other day's fetched when that day is opened.
+  function dietVals() {
+    const D = state.diet || {}, m = me() || {};
+    if ((D.day || todayISO()) === todayISO())
+      return { dd: m.dd_items ?? null, protein: m.protein_g ?? null, kcal: m.kcal ?? null };
+    return D.vals || { dd: null, protein: null, kcal: null };
+  }
+  async function loadDietDay() {
+    const D = state.diet;
+    if (!D || D.day === todayISO()) return;
+    const day = D.day;
+    const get = (metric) => call("app_history", { p_code: state.code, p_person: state.meId,
+      p_days: 1, p_metric: metric, p_today: day });
+    const [a, b, c] = await Promise.all([get("dd_items"), get("protein_g"), get("kcal")]);
+    if (state.diet !== D || D.day !== day) return;
+    const v = (r) => { const x = r && !r.error && (r.days || [])[0]; return x && x.logged ? Number(x.value) : null; };
+    D.vals = { dd: v(a), protein: v(b), kcal: v(c) };
+    D.err = a.error || b.error || c.error ? "Could not load that day." : null;
+  }
+  // Write one of the three for the day on screen, shown at once.
+  async function saveDiet(metric, value) {
+    const D = state.diet, day = D.day, isToday = day === todayISO();
+    const field = { dd_items: "dd", protein_g: "protein", kcal: "kcal" }[metric];
+    const m = me();
+    if (isToday && m) m[metric] = value; else { D.vals = D.vals || {}; D.vals[field] = value; }
+    render();
+    const res = await call("app_log", { p_code: state.code, p_person: state.meId,
+      p_value: value, p_metric: metric, p_date: day, p_tz: deviceTZ() });
+    if (res.error) { D.msg = res.offline ? "No signal. Not saved yet." : res.error; D.msgFor = field; }
+    else if (D.msgFor === field) D.msg = null;
+    await refresh();
+    if (!isToday) await loadDietDay();
+    if (state.view === "diet") render();
+  }
+  // Most days look like the one before. One tap copies the last logged
+  // Daily Dozen onto this day (with Undo); offered only on an empty day.
+  async function copyLastDozen(iso) {
+    const res = await call("app_history", { p_code: state.code, p_person: state.meId,
+      p_days: 14, p_metric: "dd_items", p_today: shiftISO(iso, -1) });
+    if (res.error) return { err: res.offline ? "No signal. Try again in a moment." : res.error };
+    const hit = (res.days || []).filter((d) => d.date < iso && d.logged && Number(d.value) > 0)
+      .sort((a, b) => (a.date < b.date ? 1 : -1))[0];
+    if (!hit) return { err: "No earlier day to copy yet." };
+    const w = await call("app_log", { p_code: state.code, p_person: state.meId,
+      p_value: Number(hit.value), p_metric: "dd_items", p_date: iso, p_tz: deviceTZ() });
+    if (w.error) return { err: w.offline ? "No signal. Not saved yet." : w.error };
+    armUndo({ key: "dd_items", date: iso, words: `Longevity: ${shortDay(hit.date).replace(/,.*$/, "")} copied` });
+    return { ok: true, mask: Number(hit.value) };
+  }
+
+  /* The calculators. Mifflin-St Jeor (1990) for resting energy, times a
+     standard activity factor, for maintenance; then −500 kcal a day to
+     lose fat, +250 to build muscle. Protein: 0.8 g per kg (the RDA) for
+     general health, 1.6 g per kg to build muscle, where Morton et al.'s
+     2018 meta-analysis found gains level off. Weight is in pounds and
+     height in feet and inches; the maths is done in kg and cm. */
+  const ACTIVITY = [
+    { f:1.2,   t:"Mostly sitting" },
+    { f:1.375, t:"Light: exercise 1–3 days a week" },
+    { f:1.55,  t:"Moderate: 3–5 days a week" },
+    { f:1.725, t:"Very active: 6–7 days a week" },
+    { f:1.9,   t:"Extra: hard training or a physical job" },
+  ];
+  const LB_KG = 0.45359237;
+  const bodyKey = () => "fhd.body." + (state.meId || "anon");
+  function getBody() {
+    let b = {};
+    try { b = JSON.parse(localStorage.getItem(bodyKey()) || "{}") || {}; } catch {}
+    return Object.assign({ sex: "", age: "", ft: "", inch: "", lb: "", act: 2 }, b);
+  }
+  function putBody(b) { try { localStorage.setItem(bodyKey(), JSON.stringify(b)); } catch {} }
+  const round5 = (x) => Math.round(x / 5) * 5;
+  const round50 = (x) => Math.round(x / 50) * 50;
+  function proteinOptions(b) {
+    const lb = Number(b.lb);
+    if (!(lb >= 50 && lb <= 700)) return null;
+    const kg = lb * LB_KG;
+    return [
+      { v: round5(kg * 0.8), t: "General health", d: "0.36 g per lb (0.8 g/kg)" },
+      { v: round5(kg * 1.6), t: "Build muscle",   d: "0.73 g per lb (1.6 g/kg)" },
+    ];
+  }
+  function kcalOptions(b) {
+    const lb = Number(b.lb), age = Number(b.age), inch = Number(b.ft) * 12 + Number(b.inch || 0);
+    if (!(b.sex === "m" || b.sex === "f") || !(lb >= 50 && lb <= 700) || !(age >= 13 && age <= 110)
+        || !(inch >= 48 && inch <= 96)) return null;
+    const kg = lb * LB_KG, cm = inch * 2.54;
+    const bmr = 10 * kg + 6.25 * cm - 5 * age + (b.sex === "m" ? 5 : -161);
+    const tdee = bmr * (ACTIVITY[b.act] || ACTIVITY[2]).f;
+    const floor = b.sex === "m" ? 1500 : 1200;
+    return { bmr: Math.round(bmr), floor, list: [
+      { v: round50(tdee - 500), t: "Lose fat",     d: "500 under, about 1 lb a week" },
+      { v: round50(tdee),       t: "Maintain",     d: "what your day burns" },
+      { v: round50(tdee + 250), t: "Build muscle", d: "250 over, a lean gain" },
+    ] };
+  }
+  function calcPanel(which) {
+    const b = getBody(), m = me() || {};
+    const cur = stdOf(m, which);
+    const field = (id, val, ph, label, w) => `<label class="cbf"${w ? ` style="flex:${w}"` : ""}><span>${label}</span>
+      <input class="field" id="${id}" inputmode="numeric" pattern="[0-9]*" autocomplete="off" value="${esc(val)}" placeholder="${ph}"></label>`;
+    const opts = which === "protein" ? proteinOptions(b) : (kcalOptions(b) || {}).list;
+    const k = which === "protein" ? null : kcalOptions(b);
+    return `
+      <div class="calc" id="calc">
+        ${which === "kcal" ? `<div class="cbrow"><div class="cbf cbsex"><span>Body</span><div class="range" role="group" aria-label="Body">
+            <button type="button" data-csex="m" aria-pressed="${b.sex === "m"}">Male</button>
+            <button type="button" data-csex="f" aria-pressed="${b.sex === "f"}">Female</button></div></div></div>
+          <div class="cbrow">${field("cAge", b.age, "35", "Age", 1)}${field("cFt", b.ft, "5", "Feet", 1)}${field("cIn", b.inch, "10", "Inches", 1)}${field("cLb", b.lb, "170", "Pounds", 1.2)}</div>
+          <div class="cbrow"><label class="cbf"><span>Activity</span>
+            <select class="field" id="cAct">${ACTIVITY.map((a, i) =>
+              `<option value="${i}"${Number(b.act) === i ? " selected" : ""}>${esc(a.t)}</option>`).join("")}</select></label></div>`
+          : `<div class="cbrow">${field("cLb", b.lb, "170", "Your weight, pounds", 1)}</div>`}
+        <div class="copts" id="cOpts">${opts ? opts.map((o) => `
+          <button type="button" class="copt${Math.round(cur) === o.v ? " on" : ""}" data-cset="${o.v}" data-cfor="${which}">
+            <span><b>${esc(o.t)}</b><small>${esc(o.d)}</small></span>
+            <em>${num(o.v)}<small>${which === "protein" ? "g" : "kcal"}</small></em></button>`).join("")
+          : `<p class="hint">${which === "protein" ? "Type your weight to see your target."
+              : "Fill in all five to see your three targets."}</p>`}</div>
+        ${k && k.list[0].v < k.floor ? `<p class="hint bad">Lose fat comes out under ${num(k.floor)} kcal. Below that, ask a clinician first.</p>` : ""}
+        <p class="cnote">${which === "protein"
+          ? "Protein: 0.8 g/kg is the RDA; 1.6 g/kg is where muscle gains level off (Morton 2018)."
+          : `Mifflin-St Jeor × your activity. Resting: ${k ? num(k.bmr) + " kcal" : "–"}. An estimate: adjust by what the scale does over 2–3 weeks.`}
+          Your body numbers stay on this phone.</p>
+      </div>`;
+  }
+
+  function dietView() {
+    const D = state.diet || (state.diet = { day: todayISO() });
+    const m = me() || {}, iso = D.day || todayISO(), isToday = iso === todayISO();
+    const V = dietVals();
+    const mask = Number(V.dd || 0);
+    const count = V.dd === null ? null : ddCount(mask);
+    const sDd = stdOf(m, "dd"), sP = stdOf(m, "protein"), sK = stdOf(m, "kcal");
+    const msg = (f) => D.msg && D.msgFor === f ? `<p class="hint bad dmsgx" role="status">${esc(D.msg)}</p>` : "";
+    const big = (f, v, unit, std) => {
+      const editing = D.edit === f;
+      const col = v === null ? "var(--muted)" : dialColor(stdPct(f, v, std));
+      return editing
+        ? `<div class="dbig"><input class="dbigin" id="dIn-${f}" inputmode="numeric" pattern="[0-9]*" enterkeyhint="done"
+             autocomplete="off" value="${v === null ? "" : Math.round(v)}" placeholder="0" aria-label="${f === "protein" ? "Protein, grams" : "Calories"}">
+             <span class="dunit">${unit}</span></div>`
+        : `<button type="button" class="dbig dbigb" data-dedit="${f}" aria-label="${v === null ? "Nothing yet" : num(Math.round(v)) + " " + unit}. Tap to type the day's total">
+             <b style="color:${col}">${v === null ? "0" : num(Math.round(v))}</b><span class="dunit">${unit}</span></button>`;
+    };
+    const chips = (f, list) => `<div class="dchips" role="group" aria-label="Add">${list.map((d) =>
+      `<button type="button" class="dchip" data-dadd="${f}:${d}">+${num(d)}${f === "protein" ? " g" : ""}</button>`).join("")}</div>`;
+    const row = (f) => `
+      <div class="ddrow">
+        <span class="ddsw" style="background:${f.c}" aria-hidden="true"></span>
+        <span class="ddt"><b>${esc(f.t)}</b><small>${esc(f.sub)}</small></span>
+        <span class="ddbx">${Array.from({ length: f.n }, (_, j) => {
+          const b = f.at + j, on = bitOn(mask, b);
+          return `<button type="button" class="ddb${on ? " on" : ""}" data-ddb="${b}" aria-pressed="${on}"
+            aria-label="${esc(f.t)}, serving ${j + 1} of ${f.n}"></button>`; }).join("")}</span>
+      </div>`;
+    return `
+      <div class="topbar">
+        <button class="backlink" id="back">&larr; ${esc(state.group.name)}</button>
+      </div>
+      <header class="masthead">
+        <h1>Diet</h1>
+        <p class="sub">Longevity, Protein, Calories.</p>
+      </header>
+
+      <section class="card">
+        ${dayNav({ ids: ["ddPrev", "ddNext", "ddToday"], label: isToday ? "Today" : esc(fullDate(iso)), atToday: isToday })}
+        ${D.err ? `<p class="hint bad" style="text-align:center">${esc(D.err)}</p>` : ""}
+      </section>
+
+      <section class="card dsec" id="diet-dd" style="--dc:var(--diet)">
+        <div class="dsh"><h2>Longevity</h2><span class="dss">the Daily Dozen</span></div>
+        <div class="domino" style="padding-top:6px">
+          <b class="big" style="color:${count === null ? "var(--muted)" : dialColor(stdPct("dd", count, sDd))}">${count === null ? 0 : count}<small>/${DD_MAX}</small></b>
+          <button type="button" class="of" data-edit="goal" data-metric="dd" style="display:block;margin:4px auto 0">standard <b>${sDd}</b> servings</button>
+        </div>
+        ${mask ? "" : `<button type="button" class="btn" id="ddSame" style="width:100%;margin-top:12px;background:var(--diet)">Same as yesterday</button>
+          <p class="hint dshint" style="text-align:center">${D.msg && D.msgFor === "dd" ? esc(D.msg)
+            : "One tap copies your last day. Then tap any box that changed."}</p>`}
+        <div class="ddlist">${DD.map(row).join("")}</div>
+        <p class="eyebrow ddsup">Supplement</p>
+        <div class="ddrow">
+          <span class="ddsw" style="background:#c8463c" aria-hidden="true"></span>
+          <span class="ddt"><b>Vitamin B12</b><small>not a serving, so it never counts</small></span>
+          <span class="ddbx"><button type="button" class="ddb${bitOn(mask, DD_B12) ? " on" : ""}" data-ddb="${DD_B12}"
+            aria-pressed="${bitOn(mask, DD_B12)}" aria-label="Vitamin B12"></button></span>
+        </div>
+        ${mask ? msg("dd") : ""}
+      </section>
+
+      <section class="card dsec" id="diet-protein" style="--dc:var(--diet)">
+        <div class="dsh"><h2>Protein</h2>
+          <button type="button" class="of dofx" data-edit="goal" data-metric="protein">of <b>${num(sP)} g</b></button></div>
+        ${big("protein", V.protein, "g", sP)}
+        ${chips("protein", [10, 25])}
+        ${msg("protein")}
+        <button type="button" class="linkbtn dcalc" data-dcalc="protein" aria-expanded="${D.calc === "protein"}">${D.calc === "protein" ? "Close the calculator" : "Calculate my target"}</button>
+        ${D.calc === "protein" ? calcPanel("protein") : ""}
+      </section>
+
+      <section class="card dsec" id="diet-kcal" style="--dc:var(--diet)">
+        <div class="dsh"><h2>Calories</h2>
+          <button type="button" class="of dofx" data-edit="goal" data-metric="kcal">of <b>${num(sK)}</b></button></div>
+        ${big("kcal", V.kcal, "kcal", sK)}
+        ${chips("kcal", [100, 250])}
+        ${msg("kcal")}
+        <button type="button" class="linkbtn dcalc" data-dcalc="kcal" aria-expanded="${D.calc === "kcal"}">${D.calc === "kcal" ? "Close the calculator" : "Calculate my target"}</button>
+        ${D.calc === "kcal" ? calcPanel("kcal") : ""}
+      </section>
+      <p class="ver">v${APP_VERSION}</p>`;
+  }
+
+  async function openDiet(seg) {
+    state.diet = { day: todayISO(), vals: null, calc: null, edit: null, msg: null };
+    state.view = "diet";
+    render();
+    const el = seg && seg !== "dd" ? document.getElementById("diet-" + seg) : null;
+    if (el) el.scrollIntoView({ block: "start" }); else window.scrollTo(0, 0);
+  }
+
+  function wireDiet() {
+    const D = state.diet;
+    on("back", "click", () => { state.view = "board"; state.diet = null; render(); refresh(); });
+    if (!D) return;
+    const go = async (iso) => { D.day = iso; D.vals = null; D.edit = null; D.msg = null; render(); await loadDietDay(); render(); };
+    on("ddPrev", "click", () => go(shiftISO(D.day, -1)));
+    on("ddNext", "click", () => { if (D.day < todayISO()) go(shiftISO(D.day, 1)); });
+    on("ddToday", "click", () => go(todayISO()));
+    document.querySelectorAll("[data-ddb]").forEach((el) =>
+      el.addEventListener("click", () => {
+        const V = dietVals();
+        saveDiet("dd_items", flipBit(V.dd || 0, Number(el.dataset.ddb)));
+      }));
+    on("ddSame", "click", async (e) => {
+      e.target.disabled = true;
+      const iso = D.day;
+      const r = await copyLastDozen(iso);
+      if (r.err) { D.msg = r.err; D.msgFor = "dd"; e.target.disabled = false; render(); return; }
+      if (iso === todayISO()) { const m = me(); if (m) m.dd_items = r.mask; }
+      else { D.vals = D.vals || {}; D.vals.dd = r.mask; }
+      D.msg = null;
+      render();
+      await refresh(); if (iso !== todayISO()) await loadDietDay();
+      if (state.view === "diet") render();
+    });
+    const metricOf = (f) => (f === "protein" ? "protein_g" : "kcal");
+    document.querySelectorAll("[data-dedit]").forEach((el) =>
+      el.addEventListener("click", () => {
+        D.edit = el.dataset.dedit; render();
+        const f = document.getElementById("dIn-" + D.edit);
+        if (f) { f.focus(); f.select(); }
+      }));
+    document.querySelectorAll(".dbigin").forEach((f) => {
+      const field = f.id.replace("dIn-", "");
+      let done = false;
+      const commit = () => {
+        if (done) return; done = true;
+        const raw = (f.value || "").replace(/[^0-9]/g, "");
+        D.edit = null;
+        const cur = dietVals()[field];
+        if (raw === "" || Number(raw) === (cur === null ? null : Math.round(cur))) { render(); return; }
+        saveDiet(metricOf(field), Number(raw));
+      };
+      f.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); f.blur(); } });
+      f.addEventListener("blur", commit);
+    });
+    document.querySelectorAll("[data-dadd]").forEach((el) =>
+      el.addEventListener("click", () => {
+        const [field, d] = el.dataset.dadd.split(":");
+        const cur = Number(dietVals()[field] || 0);
+        saveDiet(metricOf(field), cur + Number(d));
+      }));
+    document.querySelectorAll("[data-dcalc]").forEach((el) =>
+      el.addEventListener("click", () => {
+        D.calc = D.calc === el.dataset.dcalc ? null : el.dataset.dcalc; render();
+        if (D.calc) document.getElementById("calc")?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      }));
+    // The calculator redraws its answers as you type, without a repaint
+    // that would take the keyboard away.
+    const redrawCalc = () => {
+      const box = document.getElementById("calc");
+      if (!box) return;
+      const tmp = document.createElement("div");
+      tmp.innerHTML = calcPanel(D.calc);
+      const fresh = tmp.querySelector("#cOpts"), old = box.querySelector("#cOpts");
+      if (fresh && old) old.replaceWith(fresh);
+      const nb = tmp.querySelector(".hint.bad"), ob = box.querySelector(".hint.bad");
+      if (ob) ob.remove();
+      if (nb) box.querySelector("#cOpts").after(nb);
+      const nn = tmp.querySelector(".cnote"), on2 = box.querySelector(".cnote");
+      if (nn && on2) on2.replaceWith(nn);
+      wireCalcSet();
+    };
+    const bind = (id, key) => {
+      const f = document.getElementById(id);
+      if (!f) return;
+      f.addEventListener("input", () => {
+        const b = getBody(); b[key] = f.tagName === "SELECT" ? Number(f.value) : f.value.replace(/[^0-9]/g, "").slice(0, 3);
+        putBody(b); redrawCalc();
+      });
+      if (f.tagName === "SELECT") f.addEventListener("change", () => { const b = getBody(); b[key] = Number(f.value); putBody(b); redrawCalc(); });
+    };
+    bind("cAge", "age"); bind("cLb", "lb"); bind("cFt", "ft"); bind("cIn", "inch"); bind("cAct", "act");
+    document.querySelectorAll("[data-csex]").forEach((el) =>
+      el.addEventListener("click", () => { const b = getBody(); b.sex = el.dataset.csex; putBody(b);
+        document.querySelectorAll("[data-csex]").forEach((x) => x.setAttribute("aria-pressed", String(x === el)));
+        redrawCalc(); }));
+    function wireCalcSet() {
+      document.querySelectorAll("[data-cset]").forEach((el) =>
+        el.addEventListener("click", async () => {
+          const k = el.dataset.cfor, v = Number(el.dataset.cset);
+          const m = me(); if (m) m[STD_FIELD[k]] = v;
+          D.calc = null; D.msg = null; render();
+          const res = await call("app_set_goal", { p_code: state.code, p_person: state.meId, p_target: v, p_metric: STD[k].key });
+          if (res.error) { D.msg = res.offline ? "No signal. Not saved yet." : res.error; D.msgFor = k; }
+          await refresh();
+          if (state.view === "diet") render();
+        }));
+    }
+    wireCalcSet();
+  }
+
   function sleepView() {
     const m = me() || {};
     const iso = entryDay();
@@ -5267,19 +5764,17 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     // gone, so its digits should not outlive it there.
     try { Object.keys(localStorage).filter((k) => k.startsWith("fhd.pin."))
             .forEach((k) => localStorage.removeItem(k)); } catch {}
-    // V3.5. The page opens ready to write: drawn at once from the copy kept
-    // on the phone, with the cursor already in the line. A phone raises its
-    // keyboard only for a focus made inside the tap itself, which is why
-    // this happens before anything waits on the network.
+    // V3.5. The page is drawn at once from the copy kept on the phone,
+    // before anything waits on the network. V4.1: no line waits at the top
+    // any more; a + on each section opens one.
     let cached = [];
     try { cached = JSON.parse(localStorage.getItem(taskCacheKey()) || "[]"); } catch {}
     const keep = state.tasks || {};
     state.tasks = { list: Array.isArray(cached) ? cached : [], loaded: true, err: null,
                     tab: keep.tab === "sched" ? "sched" : "list",
-                    bucket: [1, 2, 3].includes(keep.bucket) ? keep.bucket : 1, edit: null, swiped: null, schFor: null, doneOpen: false,
+                    adding: null, draft: "", addMsg: null, edit: null, swiped: null, schFor: null, doneOpen: false,
                     day: todayISO(), arm: null, sel: null, added: new Set() };
     render();
-    if (state.tasks.tab === "list") document.getElementById("tQuickIn")?.focus();
     const res = await call("app_tasks", { p_code: state.code, p_person: state.meId });
     const t = state.tasks;
     if (!t || state.view !== "tasks") return;
@@ -5291,7 +5786,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     t.list = fresh.concat(t.list.filter((x) => t.added.has(x.id) && !seen.has(x.id)));
     try { localStorage.setItem(taskCacheKey(), JSON.stringify(t.list)); } catch {}
     // Never pull the line out from under someone typing in it.
-    const f = document.getElementById("tQuickIn");
+    const f = document.getElementById("tAddIn");
     // V3.6: nor out from under a finger: leaving the line by starting a
     // swipe or a drag repaints only once the finger lifts.
     if (f && document.activeElement === f) {
@@ -5412,38 +5907,37 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   function listView() {
     const t = state.tasks;
     const lim = doLimit(), full = doFull();
-    if (t.bucket === 1 && full) t.bucket = 2;
-    if (![1, 2, 3].includes(t.bucket)) t.bucket = full ? 2 : 1;
-    const B = QUADS.find((Q) => Q.q === t.bucket) || QUADS[1];
     const done = t.list.filter((x) => !x.parent_id && x.done && (x.quadrant || 1) !== 4)
       .sort((a, b) => (a.quadrant || 1) - (b.quadrant || 1) || a.position - b.position);
     const doList = activeIn(1), doWait = openIn(1).filter(waiting);
+    // V4.1. The way in is a + on each section. Tap it, type, Return: the
+    // line stays open for the next one, and closes when you leave it empty.
+    const plus = (Q) => `<button type="button" class="tplus${t.adding === Q.q ? " on" : ""}" data-tplus="${Q.q}"
+        aria-label="Add a task to ${Q.name}" aria-expanded="${t.adding === Q.q}"
+        ${Q.q === 1 && full ? 'aria-disabled="true"' : ""}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>`;
+    const adder = (Q) => t.adding !== Q.q ? "" : `
+        <div class="tnew"><input class="field" id="tAddIn" data-tq="${Q.q}" maxlength="200" enterkeyhint="done"
+          autocomplete="off" placeholder="New task in ${Q.name}" aria-label="New task in ${Q.name}"
+          value="${esc(t.draft || "")}"></div>
+        ${t.addMsg ? `<p class="tqhint warn" id="tqHint">${t.addMsg}</p>` : ""}`;
     const group = (Q) => {
       const open = openIn(Q.q);
       const order = open.filter((x) => !waiting(x)).concat(open.filter(waiting));
       return `
         <section class="tgroup q${Q.q}">
-          <header class="tgh"><b>${Q.name}</b><span></span><em>${open.length || ""}</em></header>
+          <header class="tgh"><b>${Q.name}</b><span></span><em>${open.length || ""}</em>${plus(Q)}</header>
+          ${adder(Q)}
           ${order.length ? `<ul class="tl" data-tgroup="${Q.q}">${order.map((x) => taskRow(x)).join("")}</ul>` : ""}
         </section>`;
     };
+    const anyOpen = actionable().length > 0;
     return `
-      <div class="tquick">
-        <input class="field" id="tQuickIn" maxlength="200" enterkeyhint="done" autocomplete="off"
-          placeholder="Add a task" aria-label="New task" value="${esc(t.draft || "")}">
-        <div class="tbuckets" role="group" aria-label="Add it to">${QUADS.map((Q) => `
-          <button type="button" class="tbk q${Q.q}${t.bucket === Q.q ? " on" : ""}${Q.q === 1 && full ? " full" : ""}"
-            data-tbk="${Q.q}" ${Q.q === 1 && full ? 'aria-disabled="true"' : ""}>${Q.name}${
-            Q.q === 1 ? ` <small>${doList.length}/${lim}</small>` : ""}</button>`).join("")}</div>
-        <p class="tqhint" id="tqHint">${full
-          ? `Do is full. Return adds to <b>${B.name}</b>.`
-          : `Return adds to <b>${B.name}</b>. Swipe a task right to move it, left for more.`}</p>
-      </div>
-
       <section class="tgroup q1 tdo">
         <header class="tgh"><b>Do</b><em class="tdocount${doList.length > lim ? " over" : ""}">${doList.length}/${lim}</em><span></span>
           <button type="button" class="tlim" data-edit="goal" data-metric="tasks"
-            aria-label="Do today: ${lim}. Change it">do today ${lim}</button></header>
+            aria-label="Do today: ${lim}. Change it">do today ${lim}</button>${plus(QUADS[0])}</header>
+        ${adder(QUADS[0])}
+        ${t.addMsg && t.adding !== 1 && t.msgQ === 1 ? `<p class="tqhint warn" id="tqHint">${t.addMsg}</p>` : ""}
         <ul class="tl" data-tgroup="1">${doList.map((x, n) => taskRow(x, n + 1)).join("")}</ul>
         ${doList.length < lim ? `<ul class="tl tempties">${Array.from({ length: lim - doList.length }, (_, k) => `
           <li class="tslot"><span class="trank">${doList.length + k + 1}</span>
@@ -5452,6 +5946,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       </section>
       ${group(QUADS[1])}
       ${group(QUADS[2])}
+      ${anyOpen ? `<p class="tswhint">Swipe a task right to move it, left for more.</p>` : ""}
 
       ${done.length ? `
         <section class="tdone">
@@ -5590,8 +6085,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           document.querySelector(".snow")?.scrollIntoView({ block: "center" });
       }));
 
-    // ---- adding: one line, one tap ----
-    const quick = document.getElementById("tQuickIn");
+    // ---- adding: a + on each section ----
     const addMain = (q, title) => {
       const x = { id: uuid(), parent_id: null, quadrant: q, title: title.slice(0, 200), done: false,
                   position: lastIn(q), sched_date: null, sched_start: null, sched_min: null };
@@ -5599,36 +6093,63 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       t.added.add(x.id);
       save(x).then((res) => { if (res.error) { t.list = t.list.filter((y) => y.id !== x.id); cacheTasks(); render(); } });
     };
-    const quickAdd = (q) => {
-      const title = (quick.value || "").trim();
-      if (q === 1 && doFull()) {
-        // Full means full. Say so where the eye already is; keep the words.
-        const h = document.getElementById("tqHint");
-        if (h) { h.innerHTML = `Do holds ${doLimit()}. Finish or move one, or tap Decide.`; h.classList.add("warn"); }
-        quick.focus();
-        return;
-      }
-      t.bucket = q;
-      if (title) { addMain(q, title); quick.value = ""; t.draft = ""; }
-      t.stale = false;
+    const doFullMsg = () => `Do holds ${doLimit()}. Finish or move one, or add it to Decide.`;
+    // Open a section's line. Called inside the tap, so the phone raises
+    // its keyboard.
+    const openAdder = (q) => {
+      if (q === 1 && doFull()) { t.adding = null; t.addMsg = doFullMsg(); t.msgQ = 1; render(); return; }
+      if (t.adding !== q) t.draft = "";
+      t.adding = q; t.addMsg = null; t.msgQ = null; t.edit = null; t.swiped = null;
       render();
-      document.getElementById("tQuickIn")?.focus();
+      const f = document.getElementById("tAddIn");
+      if (f) { f.focus(); f.scrollIntoView({ block: "nearest" }); }
     };
-    // What is typed survives a re-render (a tick elsewhere, a refresh).
-    if (quick) quick.addEventListener("input", () => { t.draft = quick.value; });
-    if (quick) quick.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") { e.preventDefault(); quickAdd(t.bucket); }
-    });
-    document.querySelectorAll("[data-tbk]").forEach((el) => {
-      // Keep the keyboard up: the tap must not take focus from the line.
-      el.addEventListener("pointerdown", (e) => e.preventDefault());
-      el.addEventListener("click", () => quickAdd(Number(el.dataset.tbk)));
-    });
-    document.querySelectorAll("[data-tslot]").forEach((el) =>
+    document.querySelectorAll("[data-tplus]").forEach((el) =>
       el.addEventListener("click", () => {
-        t.bucket = 1; render();
-        const f = document.getElementById("tQuickIn"); if (f) { f.focus(); f.scrollIntoView({ block: "center" }); }
+        const q = Number(el.dataset.tplus);
+        if (t.adding === q) { t.adding = null; t.draft = ""; t.addMsg = null; render(); return; }
+        openAdder(q);
       }));
+    const line = document.getElementById("tAddIn");
+    if (line) {
+      const q = Number(line.dataset.tq);
+      // What is typed survives a re-render (a tick elsewhere, a refresh).
+      line.addEventListener("input", () => { t.draft = line.value; });
+      line.addEventListener("keydown", (e) => {
+        if (e.key !== "Enter") return;
+        e.preventDefault();
+        const title = (line.value || "").trim();
+        if (!title) { t.adding = null; t.addMsg = null; render(); return; }
+        if (q === 1 && doFull()) {
+          // Full means full. Say so where the eye already is; keep the words.
+          t.addMsg = doFullMsg(); render();
+          document.getElementById("tAddIn")?.focus();
+          return;
+        }
+        // Emptied before the repaint, which carries a focused line's text over.
+        addMain(q, title); line.value = ""; t.draft = ""; t.addMsg = null; t.stale = false;
+        if (q === 1 && doFull()) { t.adding = null; render(); return; }
+        render();
+        document.getElementById("tAddIn")?.focus();
+      });
+      // Leave an empty line and it folds away. A written one stays open,
+      // so nothing typed is ever lost to a stray tap.
+      line.addEventListener("blur", () => {
+        setTimeout(() => {
+          if (state.tasks !== t || t.adding !== q || (t.draft || "").trim()) return;
+          // A repaint replaces the line; that is not leaving it.
+          if (!line.isConnected) return;
+          const ae = document.activeElement;
+          if (ae && ae.id === "tAddIn") return;
+          if (ae && ae.dataset && ae.dataset.tplus) return;
+          t.adding = null; t.addMsg = null;
+          if (pointerDown) window.addEventListener("pointerup", () => setTimeout(render, 0), { once: true });
+          else render();
+        }, 0);
+      });
+    }
+    document.querySelectorAll("[data-tslot]").forEach((el) =>
+      el.addEventListener("click", () => openAdder(1)));
 
     // ---- ticking ----
     document.querySelectorAll("[data-tdone]").forEach((el) =>
@@ -6483,7 +7004,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       // result, the KPI you log once a week.
       const lead = C.cur >= 1 ? goalTally(g, open).pct : null, win = goalWin();
       return `
-        <div class="gline2${isOne ? " one" : ""}">
+        <div class="gline2${isOne ? " one" : ""}" id="gl-${g.id}">
           <div class="ghead">${isOne ? `<span class="gstar on" aria-label="Your ONE goal">★</span>` : `<span class="gnum">${n}</span>`}
             <h3>${g.title ? esc(g.title) : `<span style="color:var(--muted)">${isOne ? "Your ONE goal" : "Untitled goal"}</span>`}</h3>
             ${C.ro ? "" : `<button type="button" class="linkbtn" data-gedit="${g.id}">Edit</button>`}</div>
@@ -6605,9 +7126,32 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   // V3.7. The Goals dial, carried onto its page: the same ring as home.
   // One number, as Moran scores it: every tactic done ÷ every tactic due
   // this week, across all the goals. Each goal's own lead % is on its line.
+  // V4.1. One ring per goal, each its lead % this week, with the week's
+  // execution score (all tactics together) as one number above them. A
+  // ring is a way in: tap it to go to that goal.
   function gRing(C) {
     const d = C.doc, win = goalWin(), run = C.cur >= 1 && C.cur <= 12;
     const T = run ? weekTally(d, C.cur) : { pct: null, done: 0, due: 0 };
+    const goals = d.goals.filter((g) => g.id === d.one_goal).concat(d.goals.filter((g) => g.id !== d.one_goal));
+    const when = run ? `week ${C.cur} of 12${T.due ? ` · ${T.done}/${T.due} done` : ""}`
+      : C.cur < 1 ? "starts " + esc(shortDay(d.start_date)) : "twelve weeks done";
+    if (goals.length) return `
+      <section class="grings" aria-label="This week, goal by goal">
+        <div class="gwk">
+          <span class="gwkl">This week</span>
+          <b class="gwkv" style="color:${T.pct === null ? "var(--muted)" : dialColor(stdPct("goals", T.pct, win))}">${T.pct === null ? "–" : T.pct + "%"}</b>
+          <button type="button" class="dof" data-edit="goal" data-metric="goals">of ${win}%</button>
+          <span class="gwks">${when}</span>
+        </div>
+        <div class="grow3" style="--n:${goals.length}">${goals.map((g) => {
+          const p = run ? goalTally(g, C.cur).pct : null;
+          const one = g.id === d.one_goal;
+          return `<button type="button" class="gr1" data-gjump="${g.id}"
+              aria-label="${esc(g.title || "Untitled goal")}: ${p === null ? "nothing due" : p + "%"} this week. Go to it">
+            <span class="gr1d">${dialRing(stdPct("goals", p, win))}<b>${p === null ? "–" : p + "%"}</b></span>
+            <span class="gr1t">${one ? `<i aria-hidden="true">★</i>` : ""}${esc(g.title || "Untitled")}</span>
+          </button>`; }).join("")}</div>
+      </section>`;
     return `
       <section class="gring" aria-label="This week's score">
         <div class="dial gdial">
@@ -6739,6 +7283,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const G = state.goals;
     if (!G) return;
     const doc = G.cycle;
+    document.querySelectorAll("[data-gjump]").forEach((el) =>
+      el.addEventListener("click", () =>
+        document.getElementById("gl-" + el.dataset.gjump)?.scrollIntoView({ block: "center", behavior: "smooth" })));
     document.querySelectorAll("[data-guide]").forEach((el) =>
       el.addEventListener("click", () => {
         G.guide = Object.assign({}, G.guide, { [el.dataset.guide]: !(G.guide || {})[el.dataset.guide] });
@@ -7011,17 +7558,80 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const list = [f].concat(getRecent().filter((x) => x.label !== f.label)).slice(0, 5);
     try { localStorage.setItem(recentKey(), JSON.stringify(list)); } catch {}
   }
+  function dropRecent(label) {
+    try { localStorage.setItem(recentKey(), JSON.stringify(getRecent().filter((x) => x.label !== label))); } catch {}
+  }
+  // V4.1. A recent focus opens in place when tapped: Start it, give it
+  // minutes you already did (typed, like "45" or "1:20"), or delete it.
+  // Nothing is hidden behind a gesture.
   function focusItems() {
     const w = state.work, q = (w.pickQ || "").trim().toLowerCase();
     const hit = (x) => !q || x.label.toLowerCase().includes(q);
-    const item = (x) => `<button type="button" class="fitem${w.focus && w.focus.label === x.label ? " on" : ""}"
-      data-flabel="${esc(x.label)}" data-ftask="">${esc(x.label)}</button>`;
+    const item = (x) => {
+      const open = w.fopen === x.label;
+      return `<div class="frow${open ? " open" : ""}">
+        <button type="button" class="fitem${w.focus && w.focus.label === x.label ? " on" : ""}"
+          data-flabel="${esc(x.label)}" data-ftask="" aria-expanded="${open}">${esc(x.label)}<i aria-hidden="true">${open ? "&#8963;" : "&rsaquo;"}</i></button>
+        ${open ? `<div class="fopen">
+          <button type="button" class="fstart" data-fstart="${esc(x.label)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg>Start</button>
+          <span class="fmins"><input class="fminin" id="fMinIn" data-fmin="${esc(x.label)}" inputmode="text" enterkeyhint="done"
+            autocomplete="off" placeholder="0" aria-label="Minutes already done on ${esc(x.label)}"><em>min</em>
+            <button type="button" class="flog" data-flog="${esc(x.label)}">Add</button></span>
+          <button type="button" class="fdel" data-fdel="${esc(x.label)}" aria-label="Delete ${esc(x.label)} from Recent">${SW_ICON.delete}</button>
+        </div>${w.fmsg ? `<p class="fmsg${w.fmsgBad ? " bad" : ""}" role="status">${esc(w.fmsg)}</p>` : ""}` : ""}
+      </div>`;
+    };
     const recent = getRecent().filter((x) => x && x.label).filter(hit);
     const typed = (w.pickQ || "").trim();
     return (typed && !recent.some((x) => x.label.toLowerCase() === typed.toLowerCase())
         ? `<button type="button" class="fitem fnew" data-flabel="${esc(typed.slice(0, 120))}" data-ftask="">Focus on “${esc(typed.slice(0, 120))}”</button>` : "")
       + (recent.length ? `<p class="eyebrow">Recent</p>${recent.map(item).join("")}` : "")
       + (!recent.length && !typed ? `<p class="hint">Type what this session is for.</p>` : "");
+  }
+  // One set of handlers for both pickers (the home sheet and the Focus
+  // page): `listId` is where the list lives, `start` begins a session.
+  function wireFocusList(listId, start, pickNew) {
+    const w = state.work, box = document.getElementById(listId);
+    if (!box) return;
+    const redraw = () => { box.innerHTML = focusItems(); wireFocusList(listId, start, pickNew); };
+    box.querySelectorAll(".frow [data-flabel]").forEach((el) =>
+      el.addEventListener("click", () => {
+        w.fopen = w.fopen === el.dataset.flabel ? null : el.dataset.flabel; w.fmsg = null;
+        redraw();
+      }));
+    box.querySelectorAll(".fnew[data-flabel]").forEach((el) =>
+      el.addEventListener("click", () => (pickNew || start)(el.dataset.flabel)));
+    box.querySelectorAll("[data-fstart]").forEach((el) =>
+      el.addEventListener("click", () => { w.fopen = null; start(el.dataset.fstart); }));
+    box.querySelectorAll("[data-fdel]").forEach((el) =>
+      el.addEventListener("click", () => {
+        dropRecent(el.dataset.fdel);
+        if (w.focus && w.focus.label === el.dataset.fdel && !w.run) { w.focus = null; saveWorkLocal(); }
+        w.fopen = null; w.fmsg = null; redraw();
+      }));
+    const logIt = async (label) => {
+      const f = box.querySelector("[data-fmin]");
+      const mins = parseMinutes(f ? f.value : "");
+      if (!mins || mins < 1 || mins > 600) {
+        w.fmsg = "Type the minutes, like 45 or 1:20."; w.fmsgBad = true; redraw();
+        box.querySelector("[data-fmin]")?.focus(); return;
+      }
+      pushRecent({ label, task_id: null });
+      w.fmsg = `${hm(mins)} added to ${label}.`; w.fmsgBad = false;
+      const m = me();
+      if (m) m.work_min = (Number(m.work_min) || 0) + mins;
+      redraw();
+      const res = await logWork(uuid(), mins, null, todayISO(), label, null);
+      if (res && res.error && !OFFLINE_RX.test(res.error)) {
+        if (m) m.work_min = Math.max(0, (Number(m.work_min) || 0) - mins);
+        w.fmsg = res.error; w.fmsgBad = true;
+      }
+      if (document.getElementById(listId)) redraw();
+    };
+    box.querySelectorAll("[data-flog]").forEach((el) =>
+      el.addEventListener("click", () => logIt(el.dataset.flog)));
+    box.querySelectorAll("[data-fmin]").forEach((el) =>
+      el.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); logIt(el.dataset.fmin); } }));
   }
   function focusPicker() {
     const w = state.work;
@@ -7275,23 +7885,28 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       w.pick = !w.pick; w.pickQ = ""; render();
       if (w.pick) document.getElementById("fSearch")?.focus();
     });
-    const choose = (f) => { w.focus = f; w.pick = false; saveWorkLocal(); render(); };
-    function wirePick() {
-      document.querySelectorAll("[data-flabel]").forEach((el) =>
-        el.addEventListener("click", () => choose({ label: el.dataset.flabel, task_id: el.dataset.ftask || null })));
-    }
-    wirePick();
+    const choose = (f) => { w.focus = f; w.pick = false; w.fopen = null; w.fmsg = null; saveWorkLocal(); render(); };
+    // V4.1. Start from the list starts the session, as it does on the dial.
+    const startWith = (label) => {
+      w.focus = { label: label.slice(0, 120), task_id: null }; w.pick = false; w.fopen = null; w.fmsg = null;
+      saveWorkLocal();
+      if (!w.run) workGo();
+      render();
+    };
+    const pickNew = (label) => choose({ label: label.slice(0, 120), task_id: null });
+    wireFocusList("fList", startWith, pickNew);
     on("fSearch", "input", (e) => {
-      w.pickQ = e.target.value;
+      w.pickQ = e.target.value; w.fopen = null;
       const l = document.getElementById("fList");
-      if (l) { l.innerHTML = focusItems(); wirePick(); }
+      if (l) { l.innerHTML = focusItems(); wireFocusList("fList", startWith, pickNew); }
     });
     on("fSearch", "keydown", (e) => {
       if (e.key !== "Enter") return;
       e.preventDefault();
       const first = document.querySelector("#fList [data-flabel]");
       const typed = (w.pickQ || "").trim();
-      if (first) first.click(); else if (typed) choose({ label: typed.slice(0, 120), task_id: null });
+      if (typed) choose({ label: typed.slice(0, 120), task_id: null });
+      else if (first) choose({ label: first.dataset.flabel, task_id: null });
     });
     on("fNone", "click", () => choose(null));
     on("fClose", "click", () => { w.pick = false; render(); });
@@ -7469,6 +8084,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     if (v === "sleep")         { app.innerHTML = netBar + sleepView() + bar;  wireExercise(); wireGo(); }
     else if (v === "tasks")    { app.innerHTML = netBar + tasksView() + bar;  wireTasks();    wireGo(); }
     else if (v === "goals")    { app.innerHTML = netBar + goalsView() + bar;  wireGoals();    wireGo(); }
+    else if (v === "diet")     { app.innerHTML = netBar + dietView() + bar;   wireDiet();     wireGo(); }
     else if (v === "exercise") { app.innerHTML = netBar + metricView() + bar; wireExercise(); wireGo(); }
     else if (v === "session")  { app.innerHTML = netBar + sessionView();  wireLift(); }
     else if (v === "detail")   { app.innerHTML = netBar + detailView();   wireLift(); }
@@ -7659,7 +8275,11 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       ? (hasTarget(m, k) ? target(m, k) : S.def) : stdOf(m, k);
     const seed = state.editDraft !== null && state.editDraft !== undefined ? state.editDraft
       : S.kind === "time" ? clockInput(cur) : S.kind === "min" ? hm(cur).replace(/ /g, " ") : String(Math.round(cur));
-    const hint = { count: k === "tasks" ? "Tasks to finish each day." : "Steps each day.",
+    const hint = { count: k === "tasks" ? "Tasks to finish each day."
+                        : k === "dd" ? "Daily Dozen servings each day, out of 23."
+                        : k === "protein" ? "Grams of protein each day. The calculator on the Diet page can work it out."
+                        : k === "kcal" ? "Calories each day. Within 10% either side counts as on target."
+                        : "Steps each day.",
                    min: "Minutes each day. 45, 1:30 or 1h 30m all work.",
                    pct: k === "goals" ? "The share of the week's tactics that wins the week."
                                       : "The share of the sleep pyramid to hold each night.",
@@ -7701,6 +8321,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const v = Number(t.replace(/[^0-9]/g, ""));
     if (!v) return { err: "Enter a number above zero." };
     if (S.kind === "pct" && v > 100) return { err: "A percent is 100 at most." };
+    if (k === "dd" && v > 23) return { err: "The Daily Dozen has 23 servings." };
     return { v };
   }
   async function saveStd() {
@@ -7813,6 +8434,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       disarmUndo();
       await call("app_unlog", { p_code: state.code, p_person: state.meId,
                                 p_metric: u.key, p_date: u.date });
+      if (state.view === "diet") { await refresh(); await loadDietDay(); render(); return; }
       await loadHistory();
       await refresh();
     });
