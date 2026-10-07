@@ -364,6 +364,19 @@ input[type=number] { -moz-appearance:textfield; }
 .tnew { display:flex; align-items:center; gap:10px; min-height:50px; border-bottom:1px solid var(--line); }
 .tnew .field { flex:1; font-size:16px; padding:10px 12px; border-color:var(--qc); }
 .tqhint { margin:7px 2px 0; font-size:12px; color:var(--muted); }
+.tmore { display:none; flex:none; width:30px; height:30px; border:none; border-radius:8px; background:none;
+  color:var(--muted); font-size:18px; line-height:1; cursor:pointer; padding:0; }
+.tmore.on { display:block; background:var(--surface-2); color:var(--ink); }
+@media (hover:hover) and (pointer:fine) {
+  .tm:hover .tmore, .tmore:focus-visible { display:block; }
+  .tswhint { display:none; }
+}
+.tmorep { display:flex; flex-wrap:wrap; align-items:center; gap:6px; padding:4px 0 12px 36px; }
+.tmorep .tswq { position:static; }
+.tmsep { width:1px; height:22px; background:var(--line); margin:0 4px; }
+.tmb { border:1px solid var(--line-strong); background:var(--surface); border-radius:999px; padding:6px 12px;
+  font:600 13px/1 var(--body); color:var(--ink-2); cursor:pointer; }
+.tmb.bad { color:#b3422a; border-color:color-mix(in oklab, #b3422a 40%, var(--line)); }
 .tswhint { margin:18px 2px 0; font-size:12px; color:var(--muted); text-align:center; }
 .tgroup { margin-top:16px; }
 .tgroup.q1 { --qc:var(--work); } .tgroup.q2 { --qc:var(--accent); }
@@ -675,6 +688,21 @@ table.rs { border-collapse:separate; border-spacing:0; font-variant-numeric:tabu
 
 /* ---------- V3.5: Goals as four steps ------------------------------------ */
 .gstep { padding-top:16px; }
+/* V4.2. Steps fold; the 12-week overview. */
+button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inherit; color:inherit; text-align:left; cursor:pointer; }
+.gcar { font-style:normal; color:var(--muted); font-size:13px; margin-left:4px; }
+.gsum { margin:8px 0 0; font-size:14px; color:var(--ink-2); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.gover { padding-top:16px; }
+.gover .gsh h2 { flex:1; margin:0; font-family:var(--display); font-weight:500; font-size:20px; }
+.gover .rs-wrap { margin-top:8px; }
+.rs thead th small { display:block; font-weight:500; font-size:9.5px; color:var(--muted); letter-spacing:0; }
+.rs td.t3 { background:color-mix(in oklab, var(--work) 16%, transparent); }
+.rs td.t2 { background:color-mix(in oklab, #d9a520 14%, transparent); }
+.rs td.t1 { background:color-mix(in oklab, #c8463c 10%, transparent); }
+.rsn { border:none; background:none; padding:0; font:inherit; color:inherit; text-align:left; cursor:pointer;
+  display:block; max-width:104px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.rs thead th:first-child { position:sticky; left:0; z-index:2; background:var(--surface); box-shadow:1px 0 0 var(--line); }
+.rsn i { font-style:normal; color:var(--muted); font-size:10px; margin-left:4px; }
 .gsh { display:flex; align-items:center; gap:10px; }
 .gsh h2 { flex:1; margin:0; font-family:var(--display); font-weight:500; font-size:20px; }
 .gsn { flex:none; width:24px; height:24px; border-radius:50%; display:grid; place-items:center; background:var(--work);
@@ -904,6 +932,52 @@ table.rs { border-collapse:separate; border-spacing:0; font-variant-numeric:tabu
 .copt.on { border-color:var(--dc); background:color-mix(in oklab, var(--dc) 9%, var(--surface)); }
 .cnote { margin:10px 2px 0; font-size:12px; color:var(--muted); line-height:1.45; }
 
+/* ---------- V4.2: Focus, two cards ------------------------------------- */
+.dtimer { display:flex; align-items:center; gap:10px; }
+.dpm { width:34px; height:34px; border-radius:50%; border:1.5px solid var(--line-strong); background:var(--surface);
+  color:var(--ink-2); font:500 20px/1 var(--body); cursor:pointer; padding:0; display:grid; place-items:center; }
+.worklog .wday { display:flex; align-items:baseline; justify-content:center; gap:8px; margin:10px 0 6px; }
+.worklog .wday b { font-family:var(--mono); font-size:34px; font-weight:500; color:var(--work); }
+.worklog .wday span { color:var(--muted); font-size:14px; }
+.worklog .sesslist { margin-top:8px; }
+.wplus { display:block; margin:12px auto 2px; color:var(--work); }
+.wadd { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:12px; }
+.wadd #waLabel { flex:1 1 100%; font-size:16px; }
+.wamin { display:inline-flex; align-items:center; gap:4px; }
+.wamin .field { width:80px; font-size:16px; text-align:center; }
+.wamin em { font-style:normal; color:var(--muted); font-size:13px; }
+.wadd .btn { background:var(--work); padding:9px 16px; }
+
+/* ---------- V4.2: supplements, weight -------------------------------- */
+.ddsuprow { border-top:1px solid var(--line); }
+.sups { margin:2px 0 0 24px; }
+.supsh { display:flex; align-items:baseline; justify-content:space-between; margin:6px 0 2px; }
+.spls { list-style:none; margin:0; padding:0; }
+.spl { display:flex; align-items:center; gap:10px; min-height:40px; border-bottom:1px solid var(--line); }
+.spn { flex:1; min-width:0; font-size:14.5px; }
+.spn small { margin-left:8px; font-size:12.5px; color:var(--muted); }
+.spi { flex:none; width:26px; height:26px; border-radius:50%; border:1.5px solid var(--line-strong); background:var(--surface);
+  color:var(--ink-2); font:italic 600 14px/1 var(--display); cursor:pointer; padding:0; }
+.spi.on { border-color:var(--dc); color:var(--dc); }
+.spcard { list-style:none; background:var(--surface-2); border-radius:10px; padding:10px 12px; margin:6px 0 8px; font-size:13px; line-height:1.45; }
+.spcard p { margin:0 0 6px; }
+.spcard p:last-child { margin:0; }
+.spsrc { color:var(--muted); font-size:12px; }
+.spsrc a { color:var(--dc); }
+.spadd { flex:1; text-align:left; border:none; background:none; padding:8px 0; font:inherit; font-size:14.5px; color:var(--dc); cursor:pointer; }
+.sadd { display:flex; gap:8px; margin:10px 0 4px; }
+.sadd .field { min-width:0; flex:1; font-size:16px; padding:9px 10px; }
+.sadd .btn { flex:none; padding:9px 14px; }
+.sugh { margin:14px 0 2px; }
+.wsub { text-align:center; font-size:13px; color:var(--muted); margin:2px 0 10px; }
+.wsub b { color:var(--ink-2); font-weight:600; }
+.wchart { width:100%; height:auto; display:block; margin-top:6px; }
+.wline { fill:none; stroke:var(--diet); stroke-width:2.2; stroke-linejoin:round; stroke-linecap:round; }
+.wdot { fill:var(--surface); stroke:var(--diet); stroke-width:2; }
+.wgoal { stroke:var(--muted); stroke-width:1; stroke-dasharray:4 4; }
+.wax { display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-top:2px; }
+.wgl { color:var(--ink-2); }
+
 /* ---------- V3.6: your dashboard, three rows of three ---------------- */
 .mydash { padding:8px 14px 6px; }
 .mstreak { margin:0 0 2px; font-size:12px; color:var(--muted); text-align:right; }
@@ -1037,6 +1111,15 @@ table.rs { border-collapse:separate; border-spacing:0; font-variant-numeric:tabu
 .pback p { margin:0; font-size:14px; line-height:1.5; color:var(--ink-2); }
 .pbackrow { display:flex; gap:9px; margin-top:4px; }
 .pbackrow .btn { flex:1; }
+.devrow { margin-top:2px; font-family:var(--mono); font-size:11px; font-variant-numeric:tabular-nums; }
+.devrow .late { color:var(--sleep); font-weight:600; }
+.devrow .early, .devrow .on { color:var(--muted); }
+.sessday { margin:6px 0 0; font-size:13px; color:var(--muted); }
+.hd.kindtog { border:none; background:none; font:inherit; color:var(--accent); cursor:pointer; padding:0;
+  text-decoration:underline dotted; text-underline-offset:3px; }
+.hd.kindtog i { font-style:normal; margin-left:3px; font-size:10px; }
+.bigtap { border:none; background:none; cursor:pointer; padding:0; font:inherit; color:inherit; display:block; margin:0 auto; }
+.bigplus { display:block; font-size:12.5px; font-weight:600; margin-top:4px; }
 .sessdate { margin-top:9px; border:1px solid var(--line); border-radius:999px;
   background:var(--surface); font-family:inherit; font-size:12.5px; color:var(--ink-2);
   padding:5px 12px; cursor:pointer; }
@@ -1252,6 +1335,7 @@ table.rs { border-collapse:separate; border-spacing:0; font-variant-numeric:tabu
   text-transform:uppercase; color:var(--muted); opacity:.75; pointer-events:none; }
 .devax.up { top:6px; }
 .devax.dn { bottom:26px; }
+.chart.dev:has(.devrow) .devax.dn { bottom:46px; }
 .install { display:flex; align-items:flex-start; gap:10px; padding:12px 14px;
   border:1px solid var(--line); border-radius:12px; background:var(--soft);
   font-size:13px; color:var(--ink-2); }
@@ -1562,7 +1646,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "4.1";
+  const APP_VERSION = "4.2";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -1853,23 +1937,26 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     work:   { label:"Focus",       kind:"min",   def:180,  key:"work_min",  short:"Focus" },
     goals:  { label:"Goals",       kind:"pct",   def:85,   key:"goal_pct" },
     tasks:  { label:"Tasks",       kind:"count", def:5,    key:"tasks_done", unit:"done" },
-    // V4.1. Diet. Longevity is servings ticked of the Daily Dozen; Protein
-    // and Calories are typed totals.
-    dd:      { label:"Longevity",  kind:"count", def:23,   key:"dd_items",   unit:"servings" },
-    protein: { label:"Protein",    kind:"count", def:60,   key:"protein_g",  unit:"g" },
-    kcal:    { label:"Calories",   kind:"count", def:2000, key:"kcal",       unit:"kcal" },
+    // V4.1. Diet. V4.2: Longevity is the 25-box Daily Dozen; Macros is
+    // protein grams (its standard), with calories kept under it; Weight is
+    // the latest weigh-in, its standard a goal weight. Calories has a
+    // standard of its own but is not a dial or a cell.
+    dd:      { label:"Longevity",  kind:"count", def:25,   key:"dd_items",   unit:"boxes" },
+    macros:  { label:"Macros",     kind:"count", def:60,   key:"protein_g",  unit:"g" },
+    weight:  { label:"Weight",     kind:"weight", def:0,   key:"weight_lb",  unit:"lb" },
+    kcal:    { label:"Calories",   kind:"count", def:2000, key:"kcal",       unit:"kcal", hidden:true },
   };
   const STD_GROUPS = [
     ["Exercise",   ["steps", "train", "cardio"]],
     ["Sleep",      ["sleep", "rise", "rest"]],
     ["Great Work", ["work", "goals", "tasks"]],
-    ["Diet",       ["dd", "protein", "kcal"]],
+    ["Diet",       ["dd", "macros", "weight"]],
   ];
   const DIAL_DEFAULT = ["steps", "work", "sleep"];
   const STD_FIELD = { steps:"steps_target", train:"train_target", cardio:"cardio_target",
     sleep:"sleep_target", rise:"rise_target", rest:"rest_target", work:"work_target",
     goals:"goal_target", tasks:"tasks_target",
-    dd:"dd_target", protein:"protein_target", kcal:"kcal_target" };
+    dd:"dd_target", macros:"protein_target", kcal:"kcal_target", weight:"weight_target" };
   // This person's standard, or the default when none was ever set.
   function stdOf(p, k) {
     const v = p ? p[STD_FIELD[k]] : null;
@@ -1890,8 +1977,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       case "goals":  return n(p.goal_pct);
       case "tasks":  return Number(p.tasks_done) || 0;
       case "dd":      return p.dd_items === null || p.dd_items === undefined ? null : ddCount(p.dd_items);
-      case "protein": return n(p.protein_g);
+      case "macros":  return n(p.protein_g);
       case "kcal":    return n(p.kcal);
+      case "weight":  return n(p.weight);
     }
     return null;
   }
@@ -1901,6 +1989,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     if (v === null || v === undefined) return null;
     // V4.1. Calories aim at a number, not past it: within 10% either side
     // is on target, and going over falls away as fast as falling short.
+    // V4.2. Weight: full at the goal, falling away 5 points per 1% off it.
+    if (k === "weight") return std > 0 ? Math.max(0, Math.round(100 - Math.abs(Number(v) - std) / std * 500)) : null;
     if (k === "kcal" && std > 0 && Number(v) > std)
       return kcalHit(v, std) ? 100 : Math.max(0, Math.round(100 - (Number(v) / std - 1.1) * 300));
     if (STD[k].kind === "time") return Math.max(0, Math.min(100, 100 - (Number(v) - std) / 60 * 100));
@@ -1913,13 +2003,14 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     if (kind === "time") return clockWords(v);
     if (kind === "pct")  return Math.round(Number(v)) + "%";
     if (kind === "min")  return hm(v);
-    if (k === "protein") return num(Math.round(Number(v))) + " g";
+    if (k === "macros") return num(Math.round(Number(v))) + " g";
+    if (kind === "weight") return (Math.round(Number(v) * 10) / 10).toFixed(1);
     return num(Math.round(Number(v)));
   }
   // V4.1. On target, for the two numbers the family sees only as a tick.
   const kcalHit = (v, std) => v !== null && v !== undefined && std > 0 && Math.abs(Number(v) - std) <= std * 0.1;
   const dietHit = (k, v, std) => v === null || v === undefined ? false
-    : k === "kcal" ? kcalHit(v, std) : Number(v) >= std;
+    : k === "kcal" ? kcalHit(v, std) : Number(v) >= std;   // macros: protein met
 
   // The five pillars, in the order they will always appear. Four are dark
   // and unclickable until they are measured; showing them anyway is the
@@ -1999,8 +2090,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   // The family board folds. Default open, because it is the reason the app
   // exists; remembered per phone, because on your own phone you may already
   // know what everyone did.
+  // V4.2. One fold for your dashboard and the family's together, so home
+  // can be just the dials. Open until you fold it; remembered per phone.
   function boardOpen() {
-    try { return localStorage.getItem("fhd.board") === "open"; } catch { return false; }
+    try { return localStorage.getItem("fhd.board") !== "shut"; } catch { return true; }
   }
 
   /* ---------- data ------------------------------------------------- */
@@ -2335,6 +2428,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             ${bars}${goalLine}
           </svg>
           <div class="axis">${axis}</div>
+          ${dev && !strip ? `<div class="axis devrow" aria-label="Minutes from your standard">${pts.map((p) => {
+            const on = p.logged || p.value > 0, d = on ? Math.round(p.value - goal) : null;
+            return `<span style="width:${slot}%" class="${d === null ? "" : d > 0 ? "late" : d < 0 ? "early" : "on"}">${
+              d === null ? "" : d === 0 ? "0" : (d > 0 ? "+" : "\u2212") + Math.abs(d) + "m"}</span>`; }).join("")}</div>` : ""}
         </div>`;
 
     if (strip) return `<div class="strip">${svg}</div>`;
@@ -3386,12 +3483,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
                  style="font-size:11px;color:var(--muted)">edit</button>`}
           <span id="sessTotals">${totalsWords(a)}</span>
         </div>
-        <!-- V1.7. The escape hatch. The bar you tapped chose the day; this
-             corrects it — for a midnight session filed under tomorrow, or
-             a mistapped bar. Without it the only fix is delete and redo. -->
-        <button type="button" class="sessdate" id="sessDate">
-          ${a.date === todayISO() ? "Today" : esc(fullDate(a.date))}
-          <span>change</span></button>
+        <!-- V4.2. The "Today · change" line is deleted, as asked. A workout
+             files under the day it was started; to log a past day, tap
+             that day's bar on the chart, which starts one there. -->
+        ${a.date === todayISO() ? "" : `<p class="sessday">${esc(fullDate(a.date))}</p>`}
       </header>
 
       <div id="blocks">${blocks}</div>
@@ -3461,13 +3556,11 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       ? `<button type="button" class="unitchip" data-cycle="d"
            aria-label="Distance unit, now ${esc(units.d)}">${esc(units.d)}</button>`
       : "";
-    const picker = `
-      <div class="kindmini" role="group" aria-label="What ${esc(x.name)} records">
-        ${KINDS.map(([kk, lbl]) =>
-          `<button type="button" data-exkind="${i}:${kk}"
-            aria-pressed="${kind === kk}">${lbl}</button>`).join("")}
-        ${unitChip}
-      </div>`;
+    // V4.2. The reps/time switch is the column header itself: tap "reps"
+    // and the exercise records time; tap "time" and it is reps again.
+    const other = (KINDS.find(([kk]) => kk !== kind) || KINDS[0])[0];
+    const otherWord = (KINDS.find(([kk]) => kk === other) || [, ""])[1];
+    const picker = unitChip ? `<div class="kindmini">${unitChip}</div>` : "";
 
     const field = (s, j, f, ph, label) => {
       const val = f === "w" ? (s.w ? wShow(s.w) : "")
@@ -3505,11 +3598,14 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           <button class="xbtn" data-delex="${i}" aria-label="Remove ${esc(x.name)}">&times;</button>
         </div>
         <div class="setgrid${cls}">
-          <span class="hd">#</span><span class="hd">Prev</span>${cols.map((c) =>
+          <span class="hd">#</span><span class="hd">Prev</span>${cols.map((c, ci) =>
             (c === units.w || c === units.d)
               ? `<button class="hd unit" data-cycle="${c === units.w ? "w" : "d"}"
                    aria-label="Change unit">${esc(c)}</button>`
-              : `<span class="hd">${esc(c)}</span>`).join("")}
+              : ci === cols.length - 1
+                ? `<button type="button" class="hd kindtog" data-exkind="${i}:${other}"
+                     aria-label="${esc(x.name)} records ${esc(c)}. Tap to record ${esc(otherWord)}">${esc(c)}<i aria-hidden="true">&#8644;</i></button>`
+                : `<span class="hd">${esc(c)}</span>`).join("")}
           <span class="hd"></span><span class="hd"></span>
           ${rows}
         </div>
@@ -3791,18 +3887,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         paintTotals();
       });
 
-      // One tap steps the session back a day; it wraps round to today
-      // after a fortnight, because anything older than that is a bar on
-      // the chart, not a button you should press fourteen times.
-      on("sessDate", "click", () => {
-        const back = Math.round((new Date(todayISO() + "T00:00:00Z") -
-                                 new Date(a.date + "T00:00:00Z")) / 86400000);
-        a.date = back >= 13 ? todayISO() : shiftISO(a.date, -1);
-        saveLocal();
-        queueSync();
-        render();
-      });
-
       // Tapping the unit in a column header cycles it. Putting the switch
       // on the header means you can go metric mid-swim without leaving
       // the session to find a setting.
@@ -3910,6 +3994,18 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   // to be on the board, and the log that used to be its own screen.
   function wireExercise() {
     wireLift();
+    document.querySelectorAll("[data-cdel]").forEach((el) =>
+      el.addEventListener("click", async () => {
+        el.disabled = true;
+        const res = await call("app_lift_delete", { p_code: state.code, p_person: state.meId, p_session: el.dataset.cdel });
+        if (res.error) { el.disabled = false; state.lift.msg = res.offline ? "No signal. Not deleted yet." : res.error; render(); return; }
+        state.lift.sessions = (state.lift.sessions || []).filter((x) => x.id !== el.dataset.cdel);
+        render(); await loadHistory(); await refresh(); await loadLift(); render();
+      }));
+    on("cardioUntyped", "click", async () => {
+      await call("app_unlog", { p_code: state.code, p_person: state.meId, p_metric: "cardio_min", p_date: entryDay() });
+      await loadHistory(); await refresh(); render();
+    });
 
     // A day at a time, from the log box itself. The graph can still jump
     // you to any day; this is for "yesterday", which is most of them.
@@ -3934,6 +4030,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         await loadMonth();
       }
       render();
+      // V4.2. Focus lists that day's sessions; Cardio that day's activities.
+      if (state.seg === "work") { await loadWorkSessions(); render(); }
     };
     on("dPrev", "click", () => stepDay(-1));
     on("dNext", "click", () => stepDay(1));
@@ -4111,7 +4209,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     if (!state.meId) return;
     stopTicking();
     // V4.1. Longevity, Protein and Calories share one page.
-    if (seg === "dd" || seg === "protein" || seg === "kcal") return openDiet(seg);
+    if (seg === "dd" || seg === "macros" || seg === "weight") return openDiet(seg);
     state.seg  = seg || "steps";
     state.mode = state.seg === "cardio" ? "cardio" : "lift";
     state.entryDate = null;
@@ -4302,10 +4400,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         // V4.1. Longevity is a count anyone can see. Protein and Calories
         // are yours: everyone else sees a tick when you are on target.
         dd: bd.dd_items === null || bd.dd_items === undefined ? null : ddCount(bd.dd_items),
-        protein: p.id === state.meId ? n(bd.protein_g)
-          : dietHit("protein", n(bd.protein_g), stdOf(p, "protein")) ? true : null,
-        kcal: p.id === state.meId ? n(bd.kcal)
-          : dietHit("kcal", n(bd.kcal), stdOf(p, "kcal")) ? true : null,
+        macros: p.id === state.meId ? n(bd.protein_g)
+          : dietHit("macros", n(bd.protein_g), stdOf(p, "macros")) ? true : null,
+        // Your latest weigh-in; for everyone else a tick on a weigh-in day.
+        weight: p.id === state.meId ? n(p.weight) : bd.weighed ? true : null,
       };
     };
     const ordered = state.people.slice().sort((a, b) =>
@@ -4315,7 +4413,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     // fits in the space one card used to take. Columns read down.
     const othersTable = ordered.some((p) => p.id === state.meId) && ordered.length > 1;
     const FAB = { steps:"Stp", train:"Trn", cardio:"Crd", sleep:"Rec", rise:"Rise", rest:"Rest",
-                  work:"Foc", goals:"Gls", tasks:"Tsk", dd:"Lng", protein:"Pro", kcal:"Cal" };
+                  work:"Foc", goals:"Gls", tasks:"Tsk", dd:"Lng", macros:"Mac", weight:"Wt" };
     const tiny = (k, v) => {
       if (v === null || v === undefined) return "\u2013";
       if (v === true) return "\u2713";
@@ -4432,14 +4530,14 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
       <section class="hfam">
         <button class="hfamline" id="foldBoard" aria-expanded="${boardOpen()}">
-          <span>${state.boardDay ? "The family" : "The family today"}</span>
-          <em>${state.people.length ? `${logged}/${state.people.length} logged` : ""}</em>
+          <span>Dashboard</span>
+          <em>${state.people.length ? `you and the family · ${logged}/${state.people.length} logged` : ""}</em>
           <i aria-hidden="true">${boardOpen() ? "\u25b4" : "\u203a"}</i></button>
         ${boardOpen() ? dayNav({ ids: ["bPrev", "bNext", "bToday"], cls: "famnav",
                      atToday: famDayISO() >= familyISO(),
                      label: state.boardBusy ? "\u2026"
                        : famDayISO() === familyISO() ? "Today" : esc(fullDate(famDayISO())) }) : ""}
-        ${boardOpen() || m ? roster : ""}
+        ${boardOpen() ? roster : ""}
         ${boardOpen() ? `
           ${state.boardBusy ? "" : `
             <button class="btn" id="waShare" style="width:100%;margin-top:14px">${state.boardDay
@@ -4501,7 +4599,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   }
   const ofWords = (k, std) => STD[k].kind === "time" ? `by ${clockWords(std)}`
     : STD[k].kind === "min" ? `of ${hm(std)}` : STD[k].kind === "pct" ? `of ${Math.round(std)}%`
-    : `of ${num(Math.round(std))}${k === "tasks" ? " done" : k === "protein" ? " g" : k === "kcal" ? " kcal" : ""}`;
+    : STD[k].kind === "weight" ? (std > 0 ? `goal ${(Math.round(std * 10) / 10).toFixed(1)}` : "set a goal")
+    : `of ${num(Math.round(std))}${k === "tasks" ? " done" : k === "macros" ? " g" : k === "kcal" ? " kcal" : ""}`;
   function dialSlide(m, k, clone) {
     // A copy is drawn exactly like the real dial but is inert: no ids, no
     // handlers, hidden from screen readers. It is only ever seen mid-swipe.
@@ -4524,9 +4623,14 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           <circle cx="60" cy="60" r="52" class="dtrack"></circle>
           <circle cx="60" cy="60" r="52" class="dfill${r.pausedAt ? " paused" : ""}" ${clone ? "" : 'id="homeWorkRing"'}
             style="stroke:var(--work)" stroke-dasharray="${DIAL_C}" stroke-dashoffset="${(DIAL_C * (1 - f)).toFixed(2)}"></circle></svg>`;
-        centre = `<b class="dval" ${clone ? "" : 'id="homeWorkClock"'}>${mmssMs(workLeft(r))}</b>
-          <span class="dsub">${r.pausedAt ? "Paused" : r.label ? esc(r.label) : "Focus"}</span>`;
       }
+      // V4.2. The centre is the timer, idle or running, with − and + to
+      // change its length. The ring (idle) and the line under it are the
+      // day against your standard.
+      const pm = (d, lbl) => `<button type="button" class="dpm" ${clone ? 'tabindex="-1"' : `data-dwork="${d}"`} aria-label="${lbl}">${d < 0 ? "&minus;" : "+"}</button>`;
+      centre = `<span class="dtimer">${pm(-WORK_STEP, `${WORK_STEP} minutes less`)}<b class="dval" ${clone ? "" : 'id="homeWorkClock"'}>${
+          r ? mmssMs(workLeft(r)) : `${state.work.len}:00`}</b>${pm(WORK_STEP, `${WORK_STEP} minutes more`)}</span>
+        ${r ? `<span class="dsub">${r.pausedAt ? "Paused" : r.label ? esc(r.label) : "Focus"}</span>` : ""}`;
       extra = `<button type="button" class="dplay${r && !r.pausedAt ? " on" : ""}" ${clone ? 'tabindex="-1"' : 'id="homeWorkGo"'}
           aria-label="${!r ? `Start a ${state.work.len}-minute session` : r.pausedAt ? "Continue" : "Pause"}">${
           r && !r.pausedAt
@@ -4550,17 +4654,21 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         v === null ? "–" : v}</button>`;
       if (!v) extra = `<button type="button" class="dsame" ${clone ? 'tabindex="-1"' : 'data-ddsame="1"'}>Same as yesterday</button>`;
     }
+    // V4.2. Macros is protein; calories ride along underneath. Weight shows
+    // its four-week trend.
+    if (k === "macros" && m.kcal != null) extra = `<span class="dsub">${num(Math.round(Number(m.kcal)))} kcal</span>`;
+    if (k === "weight") { const tr = weightTrend(m); if (tr) extra = `<span class="dsub">${tr}</span>`; }
     if (k === "tasks") {
       extra = `<input class="dtaskin" ${clone ? 'tabindex="-1" readonly' : 'data-dtask="1" id="dial-taskin"'}
           type="text" maxlength="200" enterkeyhint="done" autocomplete="off" placeholder="+ Add a task" aria-label="Add a task">`;
     }
     if (!centre) {
-      if (S.kind === "count" && k !== "tasks" || S.kind === "min") {
+      if (S.kind === "count" && k !== "tasks" || S.kind === "min" || S.kind === "weight") {
         // Typed. Shown formatted, edited raw.
-        const raw = v === null ? "" : String(Math.round(v));
+        const raw = v === null ? "" : S.kind === "weight" ? String(Math.round(v * 10) / 10) : String(Math.round(v));
         const shown = v === null ? "" : stdWords(k, v);
         centre = `<input class="dnum${S.kind === "min" ? " dmin" : ""}" ${clone ? 'tabindex="-1" readonly' : `data-dial="${k}" id="dial-${k}"`}
-            type="text" inputmode="${S.kind === "min" ? "text" : "numeric"}" ${S.kind === "min" ? "" : 'pattern="[0-9]*"'}
+            type="text" inputmode="${S.kind === "min" ? "text" : S.kind === "weight" ? "decimal" : "numeric"}" ${S.kind === "min" || S.kind === "weight" ? "" : 'pattern="[0-9]*"'}
             autocomplete="off" enterkeyhint="done" placeholder="0"
             value="${esc(shown)}" data-raw="${raw}" data-show="${esc(shown)}"
             aria-label="${esc(S.label)} today${S.kind === "min" ? ", in minutes" : ""}, tap to type">`;
@@ -4589,7 +4697,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           ${ring}
           <div class="dcore">
             ${centre}
-            <button type="button" class="dof" ${clone ? 'tabindex="-1"' : `data-edit="goal" data-metric="${k}"`}>${ofWords(k, std)}</button>
+            <button type="button" class="dof" ${clone ? 'tabindex="-1"' : `data-edit="goal" data-metric="${k}"`}>${
+              k === "work" ? `${hm(v || 0)} of ${hm(std)} today` : ofWords(k, std)}</button>
             ${extra}
           </div>
         </div>
@@ -4651,7 +4760,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       f.addEventListener("blur", async () => {
         const txt = (f.value || "").trim();
         const digits = txt.replace(/[^0-9]/g, "");
-        const v = S.kind === "min" ? parseMinutes(txt) : digits === "" ? null : Number(digits);
+        const v = S.kind === "min" ? parseMinutes(txt)
+          : S.kind === "weight" ? (Number.isFinite(parseFloat(txt.replace(",", "."))) ? Math.round(parseFloat(txt.replace(",", ".")) * 10) / 10 : null)
+          : digits === "" ? null : Number(digits);
         if (v === null || String(v) === (f.dataset.raw || "")) { f.value = f.dataset.show || ""; return; }
         if (S.kind === "min" && v > 1440) { f.value = f.dataset.show || ""; dialSay(k, "A day has 1,440 minutes."); return; }
         f.value = stdWords(k, v);
@@ -4703,6 +4814,17 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     // the Work page.
     // V3.6: idle, it first asks what the session is for (your goals, or
     // what you type), and picking one starts it.
+    document.querySelectorAll("[data-dwork]").forEach((el) =>
+      el.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (!state.work) loadWorkLocal();
+        const w = state.work, d = Number(el.dataset.dwork);
+        if (w.run) {
+          const floor = Math.ceil(workElapsed(w.run) / 60000) + 1;
+          w.run.len = Math.max(floor, Math.min(WORK_MAX, w.run.len + d));
+        } else w.len = Math.max(WORK_MIN, Math.min(WORK_MAX, w.len + d));
+        saveWorkLocal(); render();
+      }));
     on("homeWorkGo", "click", async (e) => {
       e.stopPropagation();
       if (!state.work) loadWorkLocal();
@@ -5045,16 +5167,28 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const iso = entryDay(), isToday = iso === todayISO(), rec = dayRecord(k);
     const shown = isToday ? val(m, k) : rec.value, has = shown > 0;
     const goal = target(m, k);
+    // V4.2. The number is the sum of the day's activities, listed under it,
+    // each with an ×. Tap the number to add one. Nothing can be typed that
+    // disagrees with the list, so deleting always moves it.
+    const acts = (state.lift.sessions || []).filter((x) => x.entry_date === iso && (x.mode || "cardio") === "cardio");
+    const sum = acts.reduce((a, x) => a + Number(x.duration_min || 0), 0);
+    const extra = state.lift.loaded && shown > sum ? shown - sum : 0;
     return `
       <section class="card">
         ${dayNav({ label: isToday ? "Today" : esc(fullDate(iso)), atToday: isToday, unit: "day" })}
         <div class="domino" style="padding-top:10px">
-          <b class="big" style="color:${met.color}">${has ? hm(shown) : "0m"}</b>
+          <button type="button" class="bigtap" data-cardioq="1" id="cardioLog" aria-label="${has ? `${hm(shown)} of cardio. ` : ""}Add an activity">
+            <b class="big" style="color:${has ? met.color : "var(--muted)"}">${has ? hm(shown) : "0m"}</b>
+            <span class="bigplus" style="color:${met.color}">+ add</span></button>
           <button type="button" class="of" data-edit="goal" data-metric="${k}">${goal
             ? `of <b>${hm(goal)}</b>` : "set a cardio target"}</button>
         </div>
-        <button type="button" class="btn" data-cardioq="1" id="cardioLog"
-          style="width:100%;margin-top:14px;background:${met.color}">Log an activity</button>
+        ${acts.length || extra ? `<ul class="sesslist cacts">${acts.map((x) => `
+          <li><span>${hm(x.duration_min)}</span>
+            <em><b>${esc(x.label || "Cardio")}</b>${Number(x.distance) > 0 ? ` · ${esc(distWords(x.distance))}` : ""}</em>
+            <button type="button" data-cdel="${x.id}" aria-label="Delete ${esc(x.label || "this activity")}">&times;</button></li>`).join("")}${extra ? `
+          <li><span>${hm(extra)}</span><em>Typed in an earlier version</em>
+            <button type="button" id="cardioUntyped" aria-label="Delete the typed minutes">&times;</button></li>` : ""}</ul>` : ""}
       </section>`;
   }
 
@@ -5272,16 +5406,13 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     return { ok: true, mask: got.mask };
   }
 
-  /* ---------- V4.1: Diet ----------------------------------------------
-     Three things, one page. Longevity is Dr. Michael Greger's Daily Dozen:
-     a box per serving, stored as one integer a day like the sleep habits.
-     His twelfth item, Exercise, is left out because Steps and Cardio
-     already count it, so a full day is 23 servings. Vitamin B12 is a tick
-     of its own and never counts as a serving. Protein and Calories are
-     typed totals with a standard each, and a calculator that turns your
-     weight (and, for calories, height, age and activity) into the
-     standard. Those body numbers stay on this phone; only the standard
-     you pick is saved.
+  /* ---------- V4.2: Diet, three habits --------------------------------
+     Longevity is Dr. Michael Greger's Daily Dozen, true to his list: 23
+     food servings and his Exercise, plus one box for your supplements.
+     25 boxes, one integer a day (bits 0-22 foods, 23 supplements, 24
+     exercise). Macros is protein first, calories under it. Weight is a
+     weigh-in with body fat: the result the other two answer to. Body
+     numbers for the calculators stay on this phone.
      ------------------------------------------------------------------ */
   const DD = [
     { t:"Beans",                  n:3, sub:"½ cup cooked, or ¼ cup hummus",     c:"#7a3b2a" },
@@ -5296,10 +5427,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     { t:"Whole grains",           n:3, sub:"½ cup cooked, or 1 slice of bread", c:"#d9a520" },
     { t:"Beverages",              n:5, sub:"1 glass (12 oz)",                   c:"#3a9a9e" },
   ];
-  // Bit positions: each food's boxes in turn, 0 to 22. B12 is bit 23.
   (() => { let at = 0; for (const f of DD) { f.at = at; at += f.n; } })();
-  const DD_MAX = DD.reduce((a, f) => a + f.n, 0);       // 23
-  const DD_B12 = 23;
+  const DD_EXERCISE = { t:"Exercise", n:1, at:24, sub:"90 min moderate, or 40 min vigorous", c:"#4b5563" };
+  const DD_SUPPS = 23;
+  const DD_MAX = 25;
   const bitOn = (mask, b) => Math.floor(Number(mask || 0) / 2 ** b) % 2 === 1;
   const flipBit = (mask, b) => Number(mask || 0) + (bitOn(mask, b) ? -1 : 1) * 2 ** b;
   function ddCount(mask) {
@@ -5308,8 +5439,34 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     return n;
   }
 
-  // The day's three values: today's from the state already loaded, any
-  // other day's fetched when that day is opened.
+  /* Supplements worth knowing about. General information from the NIH
+     Office of Dietary Supplements and the ISSN, not advice: the page says
+     so, and says to check with a clinician. */
+  const SUPP_INFO = {
+    "Vitamin B12": { why: "Found almost only in animal foods, and needed for nerves and blood. Advised for vegans and for adults over 50.",
+      dose: "RDA 2.4 mcg a day. Tablets are absorbed poorly at high doses (about 2% of 500 mcg), so doses far above the RDA are normal. No upper limit is set.",
+      src: "NIH Office of Dietary Supplements", url: "https://ods.od.nih.gov/factsheets/VitaminB12-HealthProfessional/" },
+    "Vitamin D3": { why: "Bone and muscle health. Few foods have much, and many people get little sun.",
+      dose: "RDA 600 IU (15 mcg) to age 70, 800 IU (20 mcg) after. Upper limit 4,000 IU (100 mcg) a day unless a clinician advises more.",
+      src: "NIH Office of Dietary Supplements", url: "https://ods.od.nih.gov/factsheets/VitaminD-HealthProfessional/" },
+    "Magnesium": { why: "Muscle, nerve and heart function. Many diets fall short.",
+      dose: "RDA 310–320 mg (women) and 400–420 mg (men), from all sources. From supplements, 350 mg a day at most; more often causes diarrhea.",
+      src: "NIH Office of Dietary Supplements", url: "https://ods.od.nih.gov/factsheets/Magnesium-HealthProfessional/" },
+    "Omega-3 (algae or fish oil)": { why: "EPA and DHA, the long-chain fats in oily fish. Algal oil is the plant source.",
+      dose: "No recommended amount is set for EPA and DHA. The FDA advises no more than 5 g a day of EPA and DHA combined from supplements.",
+      src: "NIH Office of Dietary Supplements", url: "https://ods.od.nih.gov/factsheets/Omega3FattyAcids-HealthProfessional/" },
+    "Multivitamin": { why: "A backstop for gaps in the diet, not a substitute for it.",
+      dose: "One a day, as labelled. Add up what your other supplements already give (vitamin D, vitamin A, iron) so the total stays sensible.",
+      src: "NIH Office of Dietary Supplements", url: "https://ods.od.nih.gov/" },
+    "Creatine": { why: "Strength and muscle with training; the most studied sports supplement.",
+      dose: "3–5 g a day. Safe in healthy adults in studies up to 5 years; expect 1–2 kg of water weight in the first week.",
+      src: "ISSN position stand, 2007", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC2048496/" },
+  };
+  const suppInfo = (name) => SUPP_INFO[Object.keys(SUPP_INFO).find((k) => k.toLowerCase() === String(name || "").trim().toLowerCase())];
+  const mySupps = () => { const m = me() || {}; return Array.isArray(m.supps) ? m.supps : []; };
+
+  // The day's values: today's from the state already loaded, any other
+  // day's fetched when that day is opened.
   function dietVals() {
     const D = state.diet || {}, m = me() || {};
     if ((D.day || todayISO()) === todayISO())
@@ -5328,7 +5485,15 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     D.vals = { dd: v(a), protein: v(b), kcal: v(c) };
     D.err = a.error || b.error || c.error ? "Could not load that day." : null;
   }
-  // Write one of the three for the day on screen, shown at once.
+  async function loadWeightHist() {
+    const D = state.diet;
+    const [w, f] = await Promise.all(["weight_lb", "bodyfat_pct"].map((metric) => call("app_history",
+      { p_code: state.code, p_person: state.meId, p_days: 84, p_metric: metric, p_today: todayISO() })));
+    if (state.diet !== D) return;
+    const pts = (r) => (r && !r.error ? r.days || [] : []).filter((x) => x.logged).map((x) => ({ date: x.date, v: Number(x.value) }));
+    D.wh = pts(w); D.fh = pts(f);
+  }
+  // Write one value for the day on screen, shown at once.
   async function saveDiet(metric, value) {
     const D = state.diet, day = D.day, isToday = day === todayISO();
     const field = { dd_items: "dd", protein_g: "protein", kcal: "kcal" }[metric];
@@ -5341,6 +5506,18 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     else if (D.msgFor === field) D.msg = null;
     await refresh();
     if (!isToday) await loadDietDay();
+    if (state.view === "diet") render();
+  }
+  async function saveWeigh(metric, value) {
+    const D = state.diet, m = me();
+    const field = metric === "weight_lb" ? "weight" : "bodyfat";
+    if (m) { m[field] = value; if (field === "weight") m.weight_date = todayISO(); }
+    render();
+    const res = await call("app_log", { p_code: state.code, p_person: state.meId,
+      p_value: value, p_metric: metric, p_date: todayISO(), p_tz: deviceTZ() });
+    if (res.error) { D.msg = res.offline ? "No signal. Not saved yet." : res.error; D.msgFor = field; }
+    else if (D.msgFor === field) D.msg = null;
+    await refresh(); await loadWeightHist();
     if (state.view === "diet") render();
   }
   // Most days look like the one before. One tap copies the last logged
@@ -5363,8 +5540,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
      standard activity factor, for maintenance; then −500 kcal a day to
      lose fat, +250 to build muscle. Protein: 0.8 g per kg (the RDA) for
      general health, 1.6 g per kg to build muscle, where Morton et al.'s
-     2018 meta-analysis found gains level off. Weight is in pounds and
-     height in feet and inches; the maths is done in kg and cm. */
+     2018 meta-analysis found gains level off. Pounds and feet in, kg and
+     cm inside. Your last weigh-in fills the weight if none was typed. */
   const ACTIVITY = [
     { f:1.2,   t:"Mostly sitting" },
     { f:1.375, t:"Light: exercise 1–3 days a week" },
@@ -5377,7 +5554,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   function getBody() {
     let b = {};
     try { b = JSON.parse(localStorage.getItem(bodyKey()) || "{}") || {}; } catch {}
-    return Object.assign({ sex: "", age: "", ft: "", inch: "", lb: "", act: 2 }, b);
+    b = Object.assign({ sex: "", age: "", ft: "", inch: "", lb: "", act: 2 }, b);
+    const m = me() || {};
+    if (!b.lb && Number(m.weight) > 0) b.lb = String(Math.round(Number(m.weight)));
+    return b;
   }
   function putBody(b) { try { localStorage.setItem(bodyKey(), JSON.stringify(b)); } catch {} }
   const round5 = (x) => Math.round(x / 5) * 5;
@@ -5405,9 +5585,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       { v: round50(tdee + 250), t: "Build muscle", d: "250 over, a lean gain" },
     ] };
   }
+  const calcStd = (which) => (which === "protein" ? "macros" : "kcal");
   function calcPanel(which) {
     const b = getBody(), m = me() || {};
-    const cur = stdOf(m, which);
+    const cur = stdOf(m, calcStd(which));
     const field = (id, val, ph, label, w) => `<label class="cbf"${w ? ` style="flex:${w}"` : ""}><span>${label}</span>
       <input class="field" id="${id}" inputmode="numeric" pattern="[0-9]*" autocomplete="off" value="${esc(val)}" placeholder="${ph}"></label>`;
     const opts = which === "protein" ? proteinOptions(b) : (kcalOptions(b) || {}).list;
@@ -5431,23 +5612,101 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         ${k && k.list[0].v < k.floor ? `<p class="hint bad">Lose fat comes out under ${num(k.floor)} kcal. Below that, ask a clinician first.</p>` : ""}
         <p class="cnote">${which === "protein"
           ? "Protein: 0.8 g/kg is the RDA; 1.6 g/kg is where muscle gains level off (Morton 2018)."
-          : `Mifflin-St Jeor × your activity. Resting: ${k ? num(k.bmr) + " kcal" : "–"}. An estimate: adjust by what the scale does over 2–3 weeks.`}
+          : `Mifflin-St Jeor × your activity. Resting: ${k ? num(k.bmr) + " kcal" : "–"}. An estimate: adjust by what Weight does over 2–3 weeks.`}
           Your body numbers stay on this phone.</p>
       </div>`;
   }
 
+  const DIET_PAGE = { dd: "Longevity", macros: "Macros", weight: "Weight" };
   function dietView() {
-    const D = state.diet || (state.diet = { day: todayISO() });
-    const m = me() || {}, iso = D.day || todayISO(), isToday = iso === todayISO();
-    const V = dietVals();
-    const mask = Number(V.dd || 0);
-    const count = V.dd === null ? null : ddCount(mask);
-    const sDd = stdOf(m, "dd"), sP = stdOf(m, "protein"), sK = stdOf(m, "kcal");
-    const msg = (f) => D.msg && D.msgFor === f ? `<p class="hint bad dmsgx" role="status">${esc(D.msg)}</p>` : "";
-    const big = (f, v, unit, std) => {
-      const editing = D.edit === f;
-      const col = v === null ? "var(--muted)" : dialColor(stdPct(f, v, std));
-      return editing
+    const D = state.diet || (state.diet = { day: todayISO(), page: "dd" });
+    const head = `
+      <div class="topbar">
+        <button class="backlink" id="back">&larr; ${esc(state.group.name)}</button>
+      </div>
+      <header class="masthead">
+        <h1>${DIET_PAGE[D.page] || "Longevity"}</h1>
+        <p class="sub">${D.page === "macros" ? "Protein first, calories with it."
+          : D.page === "weight" ? "The result your eating answers to. Weigh in once a week, same time of day."
+          : "Dr. Greger&rsquo;s Daily Dozen: the foods and the habit he recommends every day."}</p>
+      </header>`;
+    return head + (D.page === "macros" ? macrosBody(D) : D.page === "weight" ? weightBody(D) : longevityBody(D))
+      + `<p class="ver">v${APP_VERSION}</p>`;
+  }
+  const dietMsg = (D, f) => D.msg && D.msgFor === f ? `<p class="hint bad dmsgx" role="status">${esc(D.msg)}</p>` : "";
+  const dietDayNav = (D) => {
+    const iso = D.day || todayISO(), isToday = iso === todayISO();
+    return `<section class="card">
+        ${dayNav({ ids: ["ddPrev", "ddNext", "ddToday"], label: isToday ? "Today" : esc(fullDate(iso)), atToday: isToday })}
+        ${D.err ? `<p class="hint bad" style="text-align:center">${esc(D.err)}</p>` : ""}
+      </section>`;
+  };
+
+  function longevityBody(D) {
+    const m = me() || {}, V = dietVals();
+    const mask = Number(V.dd || 0), count = V.dd === null ? null : ddCount(mask), std = stdOf(m, "dd");
+    const box = (b, label) => `<button type="button" class="ddb${bitOn(mask, b) ? " on" : ""}" data-ddb="${b}"
+        aria-pressed="${bitOn(mask, b)}" aria-label="${esc(label)}"></button>`;
+    const row = (f) => `
+      <div class="ddrow">
+        <span class="ddsw" style="background:${f.c}" aria-hidden="true"></span>
+        <span class="ddt"><b>${esc(f.t)}</b><small>${esc(f.sub)}</small></span>
+        <span class="ddbx">${Array.from({ length: f.n }, (_, j) => box(f.at + j, `${f.t}, ${f.n > 1 ? `serving ${j + 1} of ${f.n}` : "done"}`)).join("")}</span>
+      </div>`;
+    const S = mySupps(), info = D.info;
+    const suppLine = (x, i) => {
+      const inf = suppInfo(x.n);
+      return `<li class="spl">
+          <span class="spn">${esc(x.n)}${x.d ? `<small>${esc(x.d)}</small>` : ""}</span>
+          ${inf ? `<button type="button" class="spi${info === x.n ? " on" : ""}" data-sinfo="${esc(x.n)}" aria-expanded="${info === x.n}" aria-label="About ${esc(x.n)}">i</button>` : ""}
+          ${D.sedit ? `<button type="button" class="tx" data-sdel="${i}" aria-label="Remove ${esc(x.n)}">&times;</button>` : ""}
+        </li>${info === x.n && inf ? suppCard(x.n, inf) : ""}`;
+    };
+    const suggest = Object.keys(SUPP_INFO).filter((n) => !S.some((x) => x.n.toLowerCase() === n.toLowerCase()));
+    return dietDayNav(D) + `
+      <section class="card dsec" id="diet-dd" style="--dc:var(--diet)">
+        <div class="domino" style="padding-top:2px">
+          <b class="big" style="color:${count === null ? "var(--muted)" : dialColor(stdPct("dd", count, std))}">${count === null ? 0 : count}<small>/${DD_MAX}</small></b>
+          <button type="button" class="of" data-edit="goal" data-metric="dd" style="display:block;margin:4px auto 0">standard <b>${std}</b></button>
+        </div>
+        ${mask ? "" : `<button type="button" class="btn" id="ddSame" style="width:100%;margin-top:12px;background:var(--diet)">Same as yesterday</button>
+          <p class="hint dshint" style="text-align:center">${D.msg && D.msgFor === "dd" ? esc(D.msg)
+            : "One tap copies your last day. Then tap any box that changed."}</p>`}
+        <div class="ddlist">${DD.map(row).join("")}${row(DD_EXERCISE)}</div>
+        <div class="ddrow ddsuprow">
+          <span class="ddsw" style="background:#c8463c" aria-hidden="true"></span>
+          <span class="ddt"><b>Supplements</b><small>${S.length ? "everything on your list, taken" : "add what you take below"}</small></span>
+          <span class="ddbx">${box(DD_SUPPS, "Supplements, taken")}</span>
+        </div>
+        <div class="sups">
+          <div class="supsh"><span class="eyebrow">Your supplements</span>
+            <button type="button" class="linkbtn" id="sEdit">${D.sedit ? "Done" : S.length ? "Edit" : "Add"}</button></div>
+          ${S.length ? `<ul class="spls">${S.map(suppLine).join("")}</ul>` : D.sedit ? "" : `<p class="hint">None yet. Tap Add to list what you take.</p>`}
+          ${D.sedit ? `
+            <div class="sadd">
+              <input class="field" id="sName" maxlength="40" autocomplete="off" placeholder="Name" aria-label="Supplement name" value="${esc(D.sname || "")}">
+              <input class="field" id="sDose" maxlength="40" autocomplete="off" placeholder="Dose (optional)" aria-label="Dose" value="${esc(D.sdose || "")}">
+              <button type="button" class="btn" id="sAdd" style="background:var(--diet)">Add</button>
+            </div>
+            ${suggest.length ? `<p class="eyebrow sugh">Worth considering</p>
+              <ul class="spls sugs">${suggest.map((n) => `<li class="spl">
+                <button type="button" class="spadd" data-spick="${esc(n)}">+ ${esc(n)}</button>
+                <button type="button" class="spi${info === n ? " on" : ""}" data-sinfo="${esc(n)}" aria-expanded="${info === n}" aria-label="About ${esc(n)}">i</button>
+              </li>${info === n ? suppCard(n, SUPP_INFO[n]) : ""}`).join("")}</ul>` : ""}` : ""}
+          ${dietMsg(D, "supps")}
+        </div>
+      </section>`;
+  }
+  const suppCard = (name, inf) => `<li class="spcard" role="note">
+      <p>${esc(inf.why)}</p><p><b>Typical:</b> ${esc(inf.dose)}</p>
+      <p class="spsrc">${esc(inf.src)} &middot; <a href="${inf.url}" target="_blank" rel="noopener">source</a>.
+        General information, not medical advice: check with your clinician, especially if you take medicines or have kidney disease.</p></li>`;
+
+  function macrosBody(D) {
+    const m = me() || {}, V = dietVals(), sP = stdOf(m, "macros"), sK = stdOf(m, "kcal");
+    const big = (f, v, unit, std, k) => {
+      const col = v === null ? "var(--muted)" : dialColor(stdPct(k, v, std));
+      return D.edit === f
         ? `<div class="dbig"><input class="dbigin" id="dIn-${f}" inputmode="numeric" pattern="[0-9]*" enterkeyhint="done"
              autocomplete="off" value="${v === null ? "" : Math.round(v)}" placeholder="0" aria-label="${f === "protein" ? "Protein, grams" : "Calories"}">
              <span class="dunit">${unit}</span></div>`
@@ -5456,77 +5715,81 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     };
     const chips = (f, list) => `<div class="dchips" role="group" aria-label="Add">${list.map((d) =>
       `<button type="button" class="dchip" data-dadd="${f}:${d}">+${num(d)}${f === "protein" ? " g" : ""}</button>`).join("")}</div>`;
-    const row = (f) => `
-      <div class="ddrow">
-        <span class="ddsw" style="background:${f.c}" aria-hidden="true"></span>
-        <span class="ddt"><b>${esc(f.t)}</b><small>${esc(f.sub)}</small></span>
-        <span class="ddbx">${Array.from({ length: f.n }, (_, j) => {
-          const b = f.at + j, on = bitOn(mask, b);
-          return `<button type="button" class="ddb${on ? " on" : ""}" data-ddb="${b}" aria-pressed="${on}"
-            aria-label="${esc(f.t)}, serving ${j + 1} of ${f.n}"></button>`; }).join("")}</span>
-      </div>`;
-    return `
-      <div class="topbar">
-        <button class="backlink" id="back">&larr; ${esc(state.group.name)}</button>
-      </div>
-      <header class="masthead">
-        <h1>Diet</h1>
-        <p class="sub">Longevity, Protein, Calories.</p>
-      </header>
-
-      <section class="card">
-        ${dayNav({ ids: ["ddPrev", "ddNext", "ddToday"], label: isToday ? "Today" : esc(fullDate(iso)), atToday: isToday })}
-        ${D.err ? `<p class="hint bad" style="text-align:center">${esc(D.err)}</p>` : ""}
-      </section>
-
-      <section class="card dsec" id="diet-dd" style="--dc:var(--diet)">
-        <div class="dsh"><h2>Longevity</h2><span class="dss">the Daily Dozen</span></div>
-        <div class="domino" style="padding-top:6px">
-          <b class="big" style="color:${count === null ? "var(--muted)" : dialColor(stdPct("dd", count, sDd))}">${count === null ? 0 : count}<small>/${DD_MAX}</small></b>
-          <button type="button" class="of" data-edit="goal" data-metric="dd" style="display:block;margin:4px auto 0">standard <b>${sDd}</b> servings</button>
-        </div>
-        ${mask ? "" : `<button type="button" class="btn" id="ddSame" style="width:100%;margin-top:12px;background:var(--diet)">Same as yesterday</button>
-          <p class="hint dshint" style="text-align:center">${D.msg && D.msgFor === "dd" ? esc(D.msg)
-            : "One tap copies your last day. Then tap any box that changed."}</p>`}
-        <div class="ddlist">${DD.map(row).join("")}</div>
-        <p class="eyebrow ddsup">Supplement</p>
-        <div class="ddrow">
-          <span class="ddsw" style="background:#c8463c" aria-hidden="true"></span>
-          <span class="ddt"><b>Vitamin B12</b><small>not a serving, so it never counts</small></span>
-          <span class="ddbx"><button type="button" class="ddb${bitOn(mask, DD_B12) ? " on" : ""}" data-ddb="${DD_B12}"
-            aria-pressed="${bitOn(mask, DD_B12)}" aria-label="Vitamin B12"></button></span>
-        </div>
-        ${mask ? msg("dd") : ""}
-      </section>
-
+    return dietDayNav(D) + `
       <section class="card dsec" id="diet-protein" style="--dc:var(--diet)">
         <div class="dsh"><h2>Protein</h2>
-          <button type="button" class="of dofx" data-edit="goal" data-metric="protein">of <b>${num(sP)} g</b></button></div>
-        ${big("protein", V.protein, "g", sP)}
+          <button type="button" class="of dofx" data-edit="goal" data-metric="macros">of <b>${num(sP)} g</b></button></div>
+        ${big("protein", V.protein, "g", sP, "macros")}
         ${chips("protein", [10, 25])}
-        ${msg("protein")}
+        ${dietMsg(D, "protein")}
         <button type="button" class="linkbtn dcalc" data-dcalc="protein" aria-expanded="${D.calc === "protein"}">${D.calc === "protein" ? "Close the calculator" : "Calculate my target"}</button>
         ${D.calc === "protein" ? calcPanel("protein") : ""}
       </section>
-
       <section class="card dsec" id="diet-kcal" style="--dc:var(--diet)">
         <div class="dsh"><h2>Calories</h2>
           <button type="button" class="of dofx" data-edit="goal" data-metric="kcal">of <b>${num(sK)}</b></button></div>
-        ${big("kcal", V.kcal, "kcal", sK)}
+        ${big("kcal", V.kcal, "kcal", sK, "kcal")}
         ${chips("kcal", [100, 250])}
-        ${msg("kcal")}
+        ${dietMsg(D, "kcal")}
         <button type="button" class="linkbtn dcalc" data-dcalc="kcal" aria-expanded="${D.calc === "kcal"}">${D.calc === "kcal" ? "Close the calculator" : "Calculate my target"}</button>
         ${D.calc === "kcal" ? calcPanel("kcal") : ""}
+      </section>`;
+  }
+
+  const lb1 = (v) => (Math.round(Number(v) * 10) / 10).toFixed(1);
+  function weightTrend(m) {
+    if (m.weight == null || m.weight_4w == null) return null;
+    const d = Math.round((Number(m.weight) - Number(m.weight_4w)) * 10) / 10;
+    return (d > 0 ? "+" : d < 0 ? "−" : "±") + Math.abs(d).toFixed(1) + " lb in 4 weeks";
+  }
+  function weightChart(pts, goal) {
+    if (pts.length < 2) return `<p class="hint" style="text-align:center">${pts.length ? "One weigh-in so far. The line starts with the second." : "Your weigh-ins over 12 weeks appear here."}</p>`;
+    const W = 320, H = 120, pad = 8;
+    const t0 = new Date(shiftISO(todayISO(), -83) + "T00:00:00Z").getTime(), t1 = new Date(todayISO() + "T00:00:00Z").getTime();
+    const vs = pts.map((p) => p.v).concat(goal > 0 ? [goal] : []);
+    const lo = Math.min(...vs) - 1, hi = Math.max(...vs) + 1;
+    const x = (d) => pad + (new Date(d + "T00:00:00Z").getTime() - t0) / Math.max(1, t1 - t0) * (W - 2 * pad);
+    const y = (v) => pad + (hi - v) / Math.max(0.1, hi - lo) * (H - 2 * pad);
+    const line = pts.map((p, i) => `${i ? "L" : "M"}${x(p.date).toFixed(1)} ${y(p.v).toFixed(1)}`).join(" ");
+    return `<svg class="wchart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Weigh-ins over 12 weeks, from ${lb1(pts[0].v)} to ${lb1(pts.at(-1).v)} lb">
+      ${goal > 0 ? `<line x1="${pad}" x2="${W - pad}" y1="${y(goal).toFixed(1)}" y2="${y(goal).toFixed(1)}" class="wgoal"/>` : ""}
+      <path d="${line}" class="wline"/>
+      ${pts.map((p) => `<circle cx="${x(p.date).toFixed(1)}" cy="${y(p.v).toFixed(1)}" r="3" class="wdot"/>`).join("")}
+    </svg>
+    <div class="wax"><span>12 weeks ago</span>${goal > 0 ? `<span class="wgl">goal ${lb1(goal)}</span>` : ""}<span>today</span></div>`;
+  }
+  function weightBody(D) {
+    const m = me() || {}, goal = stdOf(m, "weight");
+    const w = m.weight == null ? null : Number(m.weight), bf = m.bodyfat == null ? null : Number(m.bodyfat);
+    const today = m.weight_date === todayISO();
+    const tr = weightTrend(m);
+    const input = (f, v, unit, label) => D.edit === f
+      ? `<div class="dbig"><input class="dbigin" id="dIn-${f}" inputmode="decimal" enterkeyhint="done" autocomplete="off"
+           value="${v === null ? "" : f === "weight" ? lb1(v) : v}" placeholder="0" aria-label="${label}"><span class="dunit">${unit}</span></div>`
+      : `<button type="button" class="dbig dbigb" data-dedit="${f}" aria-label="${label}: ${v === null ? "none yet" : v}. Tap to weigh in">
+           <b style="color:${v === null ? "var(--muted)" : "var(--ink)"}">${v === null ? "–" : f === "weight" ? lb1(v) : lb1(v)}</b><span class="dunit">${unit}</span></button>`;
+    return `
+      <section class="card dsec" id="diet-weight" style="--dc:var(--diet)">
+        <div class="dsh"><h2>Weight</h2>
+          <button type="button" class="of dofx" data-edit="goal" data-metric="weight">${goal > 0 ? `goal <b>${lb1(goal)} lb</b>` : "set a goal"}</button></div>
+        ${input("weight", w, "lb", "Weight in pounds")}
+        <p class="wsub">${w === null ? "Tap to log your first weigh-in." : today ? "Weighed in today." : `Last weigh-in ${esc(shortDay(m.weight_date))}. Tap to log today's.`}${tr ? ` <b>${tr}</b>` : ""}</p>
+        ${dietMsg(D, "weight")}
+        ${weightChart(D.wh || [], goal)}
       </section>
-      <p class="ver">v${APP_VERSION}</p>`;
+      <section class="card dsec" id="diet-bodyfat" style="--dc:var(--diet)">
+        <div class="dsh"><h2>Body fat</h2><span class="dss">optional, from a scale or scan</span></div>
+        ${input("bodyfat", bf, "%", "Body fat percent")}
+        ${dietMsg(D, "bodyfat")}
+        <p class="cnote" style="text-align:center">Your weight and body fat show only on your own phone. The family sees a tick on days you weigh in.</p>
+      </section>`;
   }
 
   async function openDiet(seg) {
-    state.diet = { day: todayISO(), vals: null, calc: null, edit: null, msg: null };
+    state.diet = { day: todayISO(), page: DIET_PAGE[seg] ? seg : "dd", vals: null, calc: null, edit: null, msg: null };
     state.view = "diet";
-    render();
-    const el = seg && seg !== "dd" ? document.getElementById("diet-" + seg) : null;
-    if (el) el.scrollIntoView({ block: "start" }); else window.scrollTo(0, 0);
+    render(); window.scrollTo(0, 0);
+    if (state.diet.page === "weight") { await loadWeightHist(); if (state.view === "diet") render(); }
   }
 
   function wireDiet() {
@@ -5538,10 +5801,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     on("ddNext", "click", () => { if (D.day < todayISO()) go(shiftISO(D.day, 1)); });
     on("ddToday", "click", () => go(todayISO()));
     document.querySelectorAll("[data-ddb]").forEach((el) =>
-      el.addEventListener("click", () => {
-        const V = dietVals();
-        saveDiet("dd_items", flipBit(V.dd || 0, Number(el.dataset.ddb)));
-      }));
+      el.addEventListener("click", () => saveDiet("dd_items", flipBit(dietVals().dd || 0, Number(el.dataset.ddb)))));
     on("ddSame", "click", async (e) => {
       e.target.disabled = true;
       const iso = D.day;
@@ -5549,12 +5809,38 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       if (r.err) { D.msg = r.err; D.msgFor = "dd"; e.target.disabled = false; render(); return; }
       if (iso === todayISO()) { const m = me(); if (m) m.dd_items = r.mask; }
       else { D.vals = D.vals || {}; D.vals.dd = r.mask; }
-      D.msg = null;
-      render();
+      D.msg = null; render();
       await refresh(); if (iso !== todayISO()) await loadDietDay();
       if (state.view === "diet") render();
     });
-    const metricOf = (f) => (f === "protein" ? "protein_g" : "kcal");
+    // Supplements: your own list, a name and a dose each.
+    const saveSupps = async (list) => {
+      const m = me(); if (m) m.supps = list;
+      render();
+      const res = await call("app_set_supps", { p_code: state.code, p_person: state.meId, p_supps: list });
+      if (res.error) { D.msg = res.offline ? "No signal. Not saved yet." : res.error; D.msgFor = "supps"; render(); }
+    };
+    on("sEdit", "click", () => { D.sedit = !D.sedit; D.info = null; render(); if (D.sedit) document.getElementById("sName")?.focus(); });
+    document.querySelectorAll("[data-sinfo]").forEach((el) =>
+      el.addEventListener("click", () => { D.info = D.info === el.dataset.sinfo ? null : el.dataset.sinfo; render(); }));
+    document.querySelectorAll("[data-sdel]").forEach((el) =>
+      el.addEventListener("click", () => saveSupps(mySupps().filter((_, i) => i !== Number(el.dataset.sdel)))));
+    const add = (n, d) => {
+      n = String(n || "").trim().slice(0, 40); d = String(d || "").trim().slice(0, 40);
+      if (!n) { document.getElementById("sName")?.focus(); return; }
+      if (mySupps().some((x) => x.n.toLowerCase() === n.toLowerCase())) { D.msg = `${n} is already on your list.`; D.msgFor = "supps"; render(); return; }
+      if (mySupps().length >= 12) { D.msg = "Up to twelve supplements."; D.msgFor = "supps"; render(); return; }
+      D.sname = ""; D.sdose = ""; D.msg = null;
+      saveSupps(mySupps().concat([{ n, d }]));
+    };
+    on("sName", "input", (e) => { D.sname = e.target.value; });
+    on("sDose", "input", (e) => { D.sdose = e.target.value; });
+    on("sAdd", "click", () => add(D.sname, D.sdose));
+    ["sName", "sDose"].forEach((id) => on(id, "keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); add(D.sname, D.sdose); } }));
+    document.querySelectorAll("[data-spick]").forEach((el) =>
+      el.addEventListener("click", () => add(el.dataset.spick, "")));
+    // Macros: type the total, or the chips add.
+    const metricOf = (f) => ({ protein: "protein_g", kcal: "kcal", weight: "weight_lb", bodyfat: "bodyfat_pct" })[f];
     document.querySelectorAll("[data-dedit]").forEach((el) =>
       el.addEventListener("click", () => {
         D.edit = el.dataset.dedit; render();
@@ -5566,8 +5852,15 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       let done = false;
       const commit = () => {
         if (done) return; done = true;
-        const raw = (f.value || "").replace(/[^0-9]/g, "");
         D.edit = null;
+        if (field === "weight" || field === "bodyfat") {
+          const v = parseFloat(String(f.value || "").replace(",", "."));
+          const m = me() || {}, cur = field === "weight" ? m.weight : m.bodyfat;
+          if (!Number.isFinite(v) || (cur != null && Math.abs(v - Number(cur)) < 0.05 && m.weight_date === todayISO())) { render(); return; }
+          saveWeigh(metricOf(field), Math.round(v * 10) / 10);
+          return;
+        }
+        const raw = (f.value || "").replace(/[^0-9]/g, "");
         const cur = dietVals()[field];
         if (raw === "" || Number(raw) === (cur === null ? null : Math.round(cur))) { render(); return; }
         saveDiet(metricOf(field), Number(raw));
@@ -5578,8 +5871,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     document.querySelectorAll("[data-dadd]").forEach((el) =>
       el.addEventListener("click", () => {
         const [field, d] = el.dataset.dadd.split(":");
-        const cur = Number(dietVals()[field] || 0);
-        saveDiet(metricOf(field), cur + Number(d));
+        saveDiet(metricOf(field), Number(dietVals()[field] || 0) + Number(d));
       }));
     document.querySelectorAll("[data-dcalc]").forEach((el) =>
       el.addEventListener("click", () => {
@@ -5619,11 +5911,11 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     function wireCalcSet() {
       document.querySelectorAll("[data-cset]").forEach((el) =>
         el.addEventListener("click", async () => {
-          const k = el.dataset.cfor, v = Number(el.dataset.cset);
+          const k = calcStd(el.dataset.cfor), v = Number(el.dataset.cset);
           const m = me(); if (m) m[STD_FIELD[k]] = v;
           D.calc = null; D.msg = null; render();
           const res = await call("app_set_goal", { p_code: state.code, p_person: state.meId, p_target: v, p_metric: STD[k].key });
-          if (res.error) { D.msg = res.offline ? "No signal. Not saved yet." : res.error; D.msgFor = k; }
+          if (res.error) { D.msg = res.offline ? "No signal. Not saved yet." : res.error; D.msgFor = el.dataset.cfor; }
           await refresh();
           if (state.view === "diet") render();
         }));
@@ -5658,9 +5950,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
       <header class="masthead">
         <h1>Recovery</h1>
-        <blockquote class="epi">Sleep is probably the single most effective
-          thing you can do to reset your body and health.
-          <cite>Dr. Matthew Walker</cite></blockquote>
+        <p class="sub">The habits that protect your sleep&rsquo;s quality and length, so your body recovers.
+          Tick the ones you held tonight; the score is the share held.</p>
       </header>
 
       <section class="card">
@@ -5884,6 +6175,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
                : `<button type="button" class="tt" data-tedit="${x.id}">${esc(x.title)}${
                    subs.length ? ` <small class="tsubn">${subs.filter((c) => c.done).length}/${subs.length}</small>` : ""}</button>`}
           ${when && !ed ? `<span class="tsch">${esc(when)}</span>` : ""}
+          ${ed ? "" : `<button type="button" class="tmore${t.more === x.id ? " on" : ""}" data-tmore="${x.id}"
+            aria-expanded="${t.more === x.id}" aria-label="Move or schedule ${esc(x.title)}">&#8943;</button>`}
           ${wait ? "" : `<span class="tdrag" data-drag="${x.id}" aria-label="Drag to reorder ${esc(x.title)}">
             <svg viewBox="0 0 10 16" aria-hidden="true"><circle cx="3" cy="3" r="1.3"/><circle cx="7" cy="3" r="1.3"/><circle cx="3" cy="8" r="1.3"/><circle cx="7" cy="8" r="1.3"/><circle cx="3" cy="13" r="1.3"/><circle cx="7" cy="13" r="1.3"/></svg></span>`}
         </div>
@@ -5899,6 +6192,16 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             autocomplete="off" placeholder="Add a step" aria-label="New step under ${esc(x.title)}">
           <div class="tebar">
             <div class="terow"><button type="button" class="btn tok" data-tok="${x.id}">Done</button></div>
+          </div>` : ""}
+        ${t.more === x.id && !ed ? `
+          <div class="tmorep" role="group" aria-label="Move or schedule ${esc(x.title)}">
+            ${QUADS.map((Q) => `<button type="button" class="tswq q${Q.q}${q === Q.q ? " on" : ""}" data-tswq="${x.id}:${Q.q}"
+              ${q === Q.q ? 'aria-current="true"' : ""}>${Q.name}</button>`).join("")}
+            <span class="tmsep" aria-hidden="true"></span>
+            ${inDo ? "" : `<button type="button" class="tmb" data-tsw="today:${x.id}">Today</button>`}
+            <button type="button" class="tmb" data-tsw="tomorrow:${x.id}">Tomorrow</button>
+            <button type="button" class="tmb" data-tsw="schedule:${x.id}">Schedule</button>
+            <button type="button" class="tmb bad" data-tsw="delete:${x.id}">Delete</button>
           </div>` : ""}
         ${t.schFor === x.id && !ed ? schedPanel(x) : ""}
       </li>`;
@@ -6358,9 +6661,18 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       row.addEventListener("pointercancel", end);
     });
     // A keyboard reaches the actions too: focusing one opens the row.
+    // V4.2. On a computer, where there is no swipe: the ⋯ on a task opens
+    // the same moves and actions in a row under it.
+    document.querySelectorAll("[data-tmore]").forEach((el) =>
+      el.addEventListener("click", (e) => {
+        e.stopPropagation();
+        t.more = t.more === el.dataset.tmore ? null : el.dataset.tmore; t.swiped = null; t.schFor = null;
+        render();
+      }));
     document.querySelectorAll("[data-tsw]").forEach((el) => {
-      el.addEventListener("focus", () => { const li = el.closest("li.tm"); if (li) li.classList.add("swiped"); });
+      el.addEventListener("focus", () => { if (el.closest(".tmorep")) return; const li = el.closest("li.tm"); if (li) li.classList.add("swiped"); });
       el.addEventListener("click", async () => {
+        t.more = null;
         const [act, id] = el.dataset.tsw.split(":");
         const x = find(id);
         t.swiped = null;
@@ -6392,8 +6704,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     });
     // V3.7. Swipe right: Do, Decide, Delegate. Do takes only what fits.
     document.querySelectorAll("[data-tswq]").forEach((el) => {
-      el.addEventListener("focus", () => { const li = el.closest("li.tm"); if (li) li.classList.add("swipedr"); });
+      el.addEventListener("focus", () => { if (el.closest(".tmorep")) return; const li = el.closest("li.tm"); if (li) li.classList.add("swipedr"); });
       el.addEventListener("click", () => {
+        t.more = null;
         const [id, qs] = el.dataset.tswq.split(":"), q = Number(qs);
         const x = find(id);
         t.swiped = null;
@@ -6913,13 +7226,25 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <p class="gex bad"><b>Not great</b> ${g.notgreat}</p>
       </div>` : ""}`;
   }
-  const gStep = (C, n, title, right, key, body) => `
-    <section class="card gstep${C.ro ? " ro" : ""}">
-      <div class="gsh"><span class="gsn">${n}</span><h2>${title}</h2>${right || ""}</div>
+  // V4.2. Every step folds, and the phone remembers which. Folded, a step
+  // is its title and one line of what it holds, so the page reads as an
+  // outline you open where you are working.
+  const gFoldKey = "fhd.gfold";
+  function gFolds() { try { return JSON.parse(localStorage.getItem(gFoldKey) || "{}") || {}; } catch { return {}; } }
+  function gFolded(key, dflt) { const f = gFolds(); return key in f ? !!f[key] : !!dflt; }
+  const gStep = (C, n, title, right, key, body, summary, dflt) => {
+    const shut = !C.ro && gFolded(key, dflt);
+    return `
+    <section class="card gstep${C.ro ? " ro" : ""}${shut ? " shut" : ""}">
+      ${C.ro ? `<div class="gsh"><span class="gsn">${n}</span><h2>${title}</h2>${right || ""}</div>`
+        : `<button type="button" class="gsh gfold" data-gfold="${key}" aria-expanded="${!shut}">
+            <span class="gsn">${n}</span><h2>${title}</h2>${right || ""}<i class="gcar" aria-hidden="true">${shut ? "\u25b8" : "\u25be"}</i></button>`}
+      ${shut ? (summary ? `<p class="gsum">${summary}</p>` : "") : `
       <p class="gask">${GUIDE[key].ask}</p>
       ${body}
-      ${C.ro ? "" : guide(key)}
+      ${C.ro ? "" : guide(key)}`}
     </section>`;
+  };
   // One line of the plan: tap it to write, tap away to keep it.
   function gText(C, k, v, ph, big) {
     const G = state.goals || {};
@@ -6943,7 +7268,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         ${rung("vision", "Someday", "The ONE thing I want most", "Write your someday")}
         ${rung("three_year", "In 3 years", "What has to be true by then", "What must be true in 3 years")}
         ${rung("one_year", "This year", "The ONE thing to finish by December", "What you will finish this year")}
-      </div>`);
+      </div>`, d.one_year ? `This year: ${esc(d.one_year)}` : d.vision ? `Someday: ${esc(d.vision)}` : "Not written yet",
+      !!(d.vision && d.one_year));
   }
 
   // 2 · This 12 weeks
@@ -7025,7 +7351,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       + (!C.ro && d.goals.length && !d.one_goal && !(G.edit || "").startsWith("g:")
           ? `<p class="hint" style="margin-top:8px">Tap Edit, then ★, to mark your ONE goal.</p>` : "")
       + (!C.ro && d.goals.length < 3 ? `<button type="button" class="linkbtn gadd2" id="gAdd">${d.goals.length
-          ? "+ Add another goal (optional)" : "+ Write your ONE goal"}</button>` : ""));
+          ? "+ Add another goal (optional)" : "+ Write your ONE goal"}</button>` : ""),
+      ones.concat(rest).map((g) => esc(g.title || "Untitled")).join(" &middot; ") || "No goals yet", false);
   }
 
   // 3 · This week: the week's ONE Thing, the score, and the scorecard.
@@ -7071,8 +7398,12 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const d = C.doc, G = state.goals || {}, win = goalWin();
     const pre = C.cur < 1, open = pre ? 0 : Math.min(12, C.cur);
     const W = Array.from({ length: 12 }, (_, k) => k + 1);
+    const goals = d.goals.filter((g) => g.id === d.one_goal).concat(d.goals.filter((g) => g.id !== d.one_goal));
+    const md = (iso) => { const x = new Date(iso + "T00:00:00Z"); return `${x.getUTCMonth() + 1}/${x.getUTCDate()}`; };
+    // V4.2. Each cell is tinted by how the week went against your standard.
+    const tint = (p) => p === null ? "" : p >= win ? " t3" : p >= win - 25 ? " t2" : " t1";
     const pctCell = (p, i) => i > open ? `<td class="fut">·</td>`
-      : `<td class="${p !== null && p >= win ? "win" : ""}${i === C.w ? " curc" : ""}">${p === null ? "–" : p}</td>`;
+      : `<td class="${p !== null && p >= win ? "win" : ""}${tint(p)}${i === C.w ? " curc" : ""}">${p === null ? "–" : p}</td>`;
     const kCell = (g, i) => {
       if (i > open) return `<td class="fut">·</td>`;
       const v = (g.kpi_log || {})[i], has = v !== undefined && v !== null;
@@ -7085,14 +7416,18 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     };
     return `
         <div class="rs-wrap"><table class="rs">
-          <thead><tr><th></th>${W.map((i) => `<th class="${i === C.w ? "cur" : ""}">W${i}</th>`).join("")}</tr></thead>
+          <thead><tr><th></th>${W.map((i) => `<th class="${i === C.w ? "cur" : ""}">W${i}<small>${md(shiftISO(d.start_date, (i - 1) * 7))}</small></th>`).join("")}</tr></thead>
           <tbody>
-            <tr class="rss"><th scope="row">Week score %</th>${W.map((i) => pctCell(weekTally(d, i).pct, i)).join("")}</tr>
-            ${d.goals.map((g, gi) => `
-              <tr class="rsg"><th scope="row">${g.id === d.one_goal ? "★ " : `${gi + 1} · `}lead %</th>${W.map((i) =>
+            ${goals.map((g, gi) => {
+              const kOpen = C.ro || !!(G.kopen || {})[g.id];
+              const name = `${g.id === d.one_goal ? "★ " : ""}${esc(g.title || `Goal ${gi + 1}`)}`;
+              return `
+              <tr class="rsg"><th scope="row">${C.ro || !g.kpi ? name
+                : `<button type="button" class="rsn" data-kopen="${g.id}" aria-expanded="${kOpen}">${name}<i aria-hidden="true">${kOpen ? "\u25be" : "\u25b8"}</i></button>`}</th>${W.map((i) =>
                 pctCell(goalTally(g, i).pct, i)).join("")}</tr>
-              ${g.kpi ? `<tr class="rsk"><th scope="row">Lag · ${esc(g.kpi)}${g.kpi_target !== null && g.kpi_target !== undefined
-                ? ` <small>→ ${fmtNum(g.kpi_target)}</small>` : ""}</th>${W.map((i) => kCell(g, i)).join("")}</tr>` : ""}`).join("")}
+              ${g.kpi && kOpen ? `<tr class="rsk"><th scope="row">${esc(g.kpi)}${g.kpi_target !== null && g.kpi_target !== undefined
+                ? ` <small>→ ${fmtNum(g.kpi_target)}</small>` : ""}</th>${W.map((i) => kCell(g, i)).join("")}</tr>` : ""}`; }).join("")}
+            <tr class="rss"><th scope="row">Week</th>${W.map((i) => pctCell(weekTally(d, i).pct, i)).join("")}</tr>
           </tbody></table></div>`;
   }
   function gStepWeek(C) {
@@ -7105,7 +7440,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
                  label: pre ? `Starts ${esc(shortDay(d.start_date))}` : `Week ${w} · ${esc(weekSpan(d.start_date, w))}` });
     const fw = (d.focus || {})["w" + w] || "";
     const canFw = !C.ro && w === open && C.cur <= 12;
-    const twelve = C.ro || !!G.twelve;
     return gStep(C, 3, "This week", "", "week", `
       ${head}
       <div class="gsub2"><span class="clab">This week’s ONE Thing</span>
@@ -7118,9 +7452,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       </div>`}
       <p class="gtrack">Lead: tick each tactic on the day you do it. Lag: log each result once a week, in step 2.</p>
       ${scTable(C)}
-      ${C.ro ? "" : `<button type="button" class="gguide" id="gTwelve" aria-expanded="${twelve}">
-        ${twelve ? "Hide the twelve weeks" : "The twelve weeks: lead and lag"} <i aria-hidden="true">${twelve ? "▴" : "▾"}</i></button>`}
-      ${twelve ? rsTable(C) : ""}`);
+      ${C.ro ? rsTable(C) : ""}`,
+      `Week ${w}: ${T.pct === null ? "nothing due" : `${T.pct}% · ${T.done} of ${T.due} done`}`, false);
   }
 
   // V3.7. The Goals dial, carried onto its page: the same ring as home.
@@ -7270,7 +7603,15 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <button class="btn" id="gNew2" style="width:100%;margin-top:12px;background:var(--work)">
           Start the next 12 weeks</button>
       </section>`;
-    return head + overCard + gRing(C) + gStepLadder(C) + gStepGoals(C) + gStepWeek(C) +
+    const ov = !gFolded("over", false);
+    const overview = !doc.goals.length ? "" : `
+      <section class="card gover${ov ? "" : " shut"}">
+        <button type="button" class="gsh gfold" data-gfold="over" aria-expanded="${ov}">
+          <h2>The 12 weeks</h2><span class="gsr">${esc(shortDay(doc.start_date))} – ${esc(shortDay(shiftISO(doc.start_date, 83)))}</span>
+          <i class="gcar" aria-hidden="true">${ov ? "\u25be" : "\u25b8"}</i></button>
+        ${ov ? `<p class="gask">Lead % each week, goal by goal. Tap a goal to see its lag beside it.</p>${rsTable(C)}` : ""}
+      </section>`;
+    return head + overCard + gRing(C) + overview + gStepLadder(C) + gStepGoals(C) + gStepWeek(C) +
       (G.err ? `<p class="terr">${esc(G.err)}</p>` : "") + exCard +
       `<button type="button" class="linkbtn gnew" id="gNew">Start a new 12 weeks</button>` + foot;
   }
@@ -7293,7 +7634,18 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       }));
     on("gEx", "click", () => { G.ex = !G.ex; render();
       if (G.ex) document.querySelector(".exwrap")?.scrollIntoView({ block: "start", behavior: "smooth" }); });
-    on("gTwelve", "click", () => { G.twelve = !G.twelve; render(); });
+    document.querySelectorAll("[data-gfold]").forEach((el) =>
+      el.addEventListener("click", () => {
+        const f = gFolds(), k = el.dataset.gfold;
+        f[k] = el.getAttribute("aria-expanded") === "true";
+        try { localStorage.setItem(gFoldKey, JSON.stringify(f)); } catch {}
+        render();
+      }));
+    document.querySelectorAll("[data-kopen]").forEach((el) =>
+      el.addEventListener("click", () => {
+        G.kopen = Object.assign({}, G.kopen, { [el.dataset.kopen]: !(G.kopen || {})[el.dataset.kopen] });
+        render();
+      }));
     document.querySelectorAll("[data-gstart]").forEach((el) =>
       el.addEventListener("click", () => startCycle(el.dataset.gstart)));
     document.querySelectorAll("[data-gexample]").forEach((el) =>
@@ -7641,30 +7993,14 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           placeholder="Type what this is for" value="${esc(w.pickQ || "")}" aria-label="Focus">
         <div class="flist" id="fList">${focusItems()}</div>
         <div class="fbtm">
-          ${w.focus ? `<button type="button" class="linkbtn" id="fNone">No focus</button>` : "<span></span>"}
+          ${w.startAfter ? `<button type="button" class="linkbtn" id="fNone">Start without a label</button>`
+            : w.focus ? `<button type="button" class="linkbtn" id="fNone">No focus</button>` : "<span></span>"}
           <button type="button" class="linkbtn" id="fClose">Close</button>
         </div>
       </div>`;
   }
   // V3.7. What a focus session is for: what you type, or one you used
   // recently. Nothing is linked: not tasks (V3.6), not goals (V3.7).
-  // V3.2. The day's total is itself the input, as the step count is: tap
-  // it, type minutes, done. A typed total outranks the timer for that day
-  // (the server's rule for every metric); "Use timed" hands it back.
-  function workTotalLine(done, goal, typed, big) {
-    const w = state.work;
-    const timed = (w.sessions || []).reduce((a, x) => a + Number(x.minutes || 0), 0);
-    return `
-      <div class="wtotal${big ? " big" : ""}">
-        ${w.editTotal
-          ? `<input class="wtotin" id="workTotalIn" inputmode="numeric" enterkeyhint="done" autocomplete="off"
-               value="${done || ""}" placeholder="0" aria-label="Minutes of deep work"><span class="wunit">min</span>`
-          : `<button type="button" class="wtot" id="workTotal" aria-label="Total ${hm(done)}, tap to type it">${hm(done)}</button>`}
-        <span class="wof">of <button type="button" class="linkbtn" data-edit="goal" data-metric="work">${hm(goal)}</button></span>
-      </div>
-      ${typed && !w.editTotal ? `<p class="wtyped">Typed · <button type="button" class="linkbtn" id="workUntype">use timed${
-        timed ? ` (${hm(timed)})` : ""}</button></p>` : ""}`;
-  }
   // "80", "1:20", "1h 20m", "1h" and "90m" all mean what they say.
   function parseMinutes(v) {
     const t = String(v || "").trim().toLowerCase();
@@ -7698,31 +8034,30 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     saveWorkLocal();
   }
 
+  // V4.2. Two cards, nothing else. The timer: what it is for, the length
+  // with − and + always there, Start. The day: its total against your
+  // standard, every session (timed or added by hand) with an ×, and
+  // "+ Add a session" for one done without the timer. The total is the
+  // sessions, so "typed" and "timed" are gone.
   function workCard() {
     if (!state.work) loadWorkLocal();
     const w = state.work, r = w.run;
     const m = me() || {};
     const today = entryDay() === todayISO();
-    const done = Number(today ? m.work_min : dayRecord("work").value) || 0;
-    const pomos = today ? Number(m.work_pomos) || 0 : null;
-    const goal = Number(m.work_target) || 180;
+    const goal = stdOf(m, "work");
     const running = !!r && !r.pausedAt;
-
-    // The ring: while a session runs it is the session; otherwise it is
-    // the day against the standard. Circumference of r=46 is 289.03.
     const C = 289.03;
-    const frac = r ? 1 - workLeft(r) / (r.len * 60000) : Math.min(1, done / goal);
+    const frac = r ? 1 - workLeft(r) / (r.len * 60000) : 0;
     const centre = r ? mmssMs(workLeft(r)) : `${w.len}:00`;
     const f = w.focus;
-
-    return `
+    const sessions = w.sessDay === entryDay() ? w.sessions || [] : [];
+    const sum = sessions.reduce((a, x) => a + Number(x.minutes || 0), 0);
+    const total = Number(today ? m.work_min : dayRecord("work").value) || 0;
+    const extra = w.sessDay === entryDay() && total > sum ? total - sum : 0;
+    const timer = !today ? "" : `
       <section class="card workcard">
-        ${dayNav({ label: today ? "Today" : esc(fullDate(entryDay())), atToday: today, unit: "day" })}
-
-        ${today ? `
         <button type="button" class="focusbtn" id="workFocus" aria-expanded="${!!w.pick}">
           ${f ? `On · <span>${esc(f.label)}</span>` : "What are you focusing on?"} <i aria-hidden="true">&rsaquo;</i></button>
-
         ${w.pick ? focusPicker() : `
         <div class="ring${running ? " run" : ""}${r && r.pausedAt ? " paused" : ""}">
           <svg viewBox="0 0 100 100" aria-hidden="true">
@@ -7732,36 +8067,44 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           </svg>
           <div class="rin">
             <div class="radj">
-              ${w.adjust ? `<button type="button" class="rpm" id="workMinus" aria-label="${WORK_STEP} minutes less">&minus;</button>` : ""}
-              <button type="button" class="rclock" id="workClockBtn"
-                aria-label="${w.adjust ? "Done changing the length" : "Change the length"}"><b id="workClock">${centre}</b></button>
-              ${w.adjust ? `<button type="button" class="rpm" id="workPlus" aria-label="${WORK_STEP} minutes more">+</button>` : ""}
+              <button type="button" class="rpm" id="workMinus" aria-label="${WORK_STEP} minutes less">&minus;</button>
+              <b class="rclock" id="workClock">${centre}</b>
+              <button type="button" class="rpm" id="workPlus" aria-label="${WORK_STEP} minutes more">+</button>
             </div>
-            <span class="rsub" id="workRange">${w.adjust ? workRange() : r ? (r.pausedAt ? "Paused" : "") : "tap to change"}</span>
+            <span class="rsub" id="workRange">${r && r.pausedAt ? "Paused" : workRange()}</span>
           </div>
         </div>
-
         <div class="workbtns">
           ${!r ? `<button class="btn workgo" id="workStart">Start</button>`
           : running ? `<button class="btn-quiet workline" id="workPause">Pause</button>`
           : `<button class="btn workgo" id="workContinue">Continue</button>
              <button class="btn-quiet workline" id="workEnd">End</button>`}
         </div>`}
-
-        ${workTotalLine(done, goal, m.work_typed)}
+      </section>`;
+    return timer + `
+      <section class="card worklog">
+        ${dayNav({ label: today ? "Today" : esc(fullDate(entryDay())), atToday: today, unit: "day" })}
+        <div class="wday"><b>${hm(total)}</b><span>of <button type="button" class="linkbtn" data-edit="goal" data-metric="work">${hm(goal)}</button></span></div>
         ${state.msg ? `<p class="hint dshint ${state.msgKind || ""}" style="text-align:center;margin-top:4px">${esc(state.msg)}</p>` : ""}
-        ${(w.sessions || []).length ? `
-          <button type="button" class="wfold" id="workFold" aria-expanded="${!!w.sessOpen}">
-            ${w.sessions.length === 1 ? "1 session" : `${w.sessions.length} sessions`}
-            <i aria-hidden="true">${w.sessOpen ? "\u25b4" : "\u25be"}</i></button>
-          ${w.sessOpen ? `<ul class="sesslist">${w.sessions.map((x) => `
-            <li><span>${hm(x.minutes)}</span>
-              <em>${x.label ? `<b>${esc(x.label)}</b> · ` : ""}${x.started_at ? new Date(x.started_at).toLocaleTimeString([],
-                { hour:"numeric", minute:"2-digit" }) : ""}</em>
-              <button type="button" data-wdel="${x.id}" aria-label="Remove this session">&times;</button>
-            </li>`).join("")}</ul>` : ""}` : ""}
-        ` : `
-        <div class="wpast">${workTotalLine(done, goal, false, true)}</div>`}
+        ${sessions.length || extra ? `<ul class="sesslist">${sessions.map((x) => `
+          <li><span>${hm(x.minutes)}</span>
+            <em>${x.label ? `<b>${esc(x.label)}</b>` : "Focus"}${x.started_at ? ` · ${new Date(x.started_at).toLocaleTimeString([],
+              { hour:"numeric", minute:"2-digit" })}` : " · added"}</em>
+            <button type="button" data-wdel="${x.id}" aria-label="Delete this session">&times;</button>
+          </li>`).join("")}${extra ? `
+          <li><span>${hm(extra)}</span><em>Typed in an earlier version</em>
+            <button type="button" id="workUntyped" aria-label="Delete the typed minutes">&times;</button></li>` : ""}</ul>`
+          : `<p class="hint" style="text-align:center">No sessions ${today ? "yet today" : "that day"}.</p>`}
+        ${w.adding ? `
+          <div class="wadd">
+            <input class="field" id="waLabel" maxlength="120" autocomplete="off" list="waRecent" placeholder="What it was for" value="${esc(w.addLabel || "")}" aria-label="What the session was for">
+            <datalist id="waRecent">${getRecent().filter((x) => x && x.label).map((x) => `<option value="${esc(x.label)}">`).join("")}</datalist>
+            <span class="wamin"><input class="field" id="waMin" inputmode="text" autocomplete="off" enterkeyhint="done" placeholder="45" value="${esc(w.addMin || "")}" aria-label="Minutes"><em>min</em></span>
+            <button type="button" class="btn" id="waSave">Add</button>
+            <button type="button" class="linkbtn" id="waCancel">Cancel</button>
+          </div>
+          ${w.addErr ? `<p class="hint bad">${esc(w.addErr)}</p>` : ""}`
+          : `<button type="button" class="linkbtn wplus" id="waOpen">+ Add a session</button>`}
       </section>`;
   }
 
@@ -7820,8 +8163,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   }
   async function loadWorkSessions() {
     if (!state.work) loadWorkLocal();
-    const res = await call("app_work_day", { p_code: state.code, p_person: state.meId });
+    const day = state.view === "exercise" && state.seg === "work" ? entryDay() : todayISO();
+    const res = await call("app_work_day", { p_code: state.code, p_person: state.meId, p_date: day });
     state.work.sessions = (res && res.sessions) || [];
+    state.work.sessDay = day;
   }
   function startWorkTick() {
     stopWorkTick();
@@ -7830,7 +8175,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       const el = document.getElementById("workClock");
       if (!r || !el || state.seg !== "work") return stopWorkTick();
       el.textContent = mmssMs(workLeft(r));
-      if (state.work.adjust) { const rg = document.getElementById("workRange"); if (rg) rg.textContent = workRange(); }
+      { const rg = document.getElementById("workRange"); if (rg && !r.pausedAt) rg.textContent = workRange(); }
       const fill = document.querySelector(".ring .rfill");
       if (fill) fill.setAttribute("stroke-dashoffset",
         (289.03 * (workLeft(r) / (r.len * 60000))).toFixed(2));
@@ -7870,7 +8215,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
     // Tap the time to change it; tap again to put it away. − and + step
     // by five minutes. Mid-session they move the end, never before now.
-    on("workClockBtn", "click", () => { w.adjust = !w.adjust; render(); });
     const step = (d) => {
       if (w.run) {
         const floor = Math.ceil(workElapsed(w.run) / 60000) + 1;
@@ -7885,7 +8229,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       w.pick = !w.pick; w.pickQ = ""; render();
       if (w.pick) document.getElementById("fSearch")?.focus();
     });
-    const choose = (f) => { w.focus = f; w.pick = false; w.fopen = null; w.fmsg = null; saveWorkLocal(); render(); };
+    // V4.2. Start asks what the session is for first; picking starts it.
+    const choose = (f) => { w.focus = f; w.pick = false; w.fopen = null; w.fmsg = null; saveWorkLocal();
+      if (w.startAfter && !w.run) { w.startAfter = false; workGo(); }
+      render(); };
     // V4.1. Start from the list starts the session, as it does on the dial.
     const startWith = (label) => {
       w.focus = { label: label.slice(0, 120), task_id: null }; w.pick = false; w.fopen = null; w.fmsg = null;
@@ -7909,9 +8256,13 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       else if (first) choose({ label: first.dataset.flabel, task_id: null });
     });
     on("fNone", "click", () => choose(null));
-    on("fClose", "click", () => { w.pick = false; render(); });
+    on("fClose", "click", () => { w.pick = false; w.startAfter = false; render(); });
 
-    on("workStart", "click", () => { workGo(); render(); });
+    on("workStart", "click", () => {
+      if (w.focus) { workGo(); render(); return; }
+      w.pick = true; w.startAfter = true; w.pickQ = ""; render();
+      document.getElementById("fSearch")?.focus();
+    });
     on("workPause", "click", () => { workHold(); stopWorkTick(); render(); });
     on("workContinue", "click", () => { workResume(); render(); });
     on("workEnd", "click", () => {
@@ -7940,35 +8291,29 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         ],
       });
     });
-    on("workFold", "click", () => { w.sessOpen = !w.sessOpen; render(); });
-    on("workTotal", "click", () => {
-      w.editTotal = true; render();
-      const f = document.getElementById("workTotalIn");
-      if (f) { f.focus(); f.select(); }
-    });
-    const commitTotal = async (el) => {
-      if (!w.editTotal) return;
-      w.editTotal = false;
-      const v = parseMinutes(el.value);
-      if (v === null) { render(); return; }
-      const today = entryDay() === todayISO();
-      const res = await call("app_log", { p_code: state.code, p_person: state.meId,
-        p_value: v, p_metric: "work_min", p_date: today ? null : entryDay(), p_tz: deviceTZ() });
-      state.msg = res.error ? res.error : null;
-      state.msgKind = res.error ? "bad" : null;
-      await loadHistory();
-      await refresh();
+    // A session done without the timer: what it was for, and minutes.
+    on("waOpen", "click", () => { w.adding = true; w.addErr = null; render(); document.getElementById("waLabel")?.focus(); });
+    on("waCancel", "click", () => { w.adding = false; w.addLabel = ""; w.addMin = ""; w.addErr = null; render(); });
+    on("waLabel", "input", (e) => { w.addLabel = e.target.value; });
+    on("waMin", "input", (e) => { w.addMin = e.target.value; });
+    const addSession = async () => {
+      const mins = parseMinutes(w.addMin || "");
+      if (!mins || mins < 1 || mins > 600) { w.addErr = "Type the minutes, like 45 or 1:20."; render(); document.getElementById("waMin")?.focus(); return; }
+      const label = (w.addLabel || "").trim().slice(0, 120);
+      if (label) pushRecent({ label, task_id: null });
+      w.adding = false; w.addLabel = ""; w.addMin = ""; w.addErr = null;
+      const res = await logWork(uuid(), mins, null, entryDay(), label || null, null);
+      const bad = res && res.error && !OFFLINE_RX.test(res.error);
+      state.msg = bad ? res.error : `Added ${hm(mins)}${label ? ` · ${label}` : ""}.`;
+      state.msgKind = bad ? "bad" : "ok";
+      render();
     };
-    on("workTotalIn", "keydown", (e) => {
-      if (e.key === "Enter") { e.preventDefault(); commitTotal(e.target); }
-      if (e.key === "Escape") { w.editTotal = false; render(); }
-    });
-    on("workTotalIn", "blur", (e) => { const el = e.target;
-      setTimeout(() => { if (el.isConnected) commitTotal(el); }, 0); });
-    on("workUntype", "click", async () => {
-      await call("app_unlog", { p_code: state.code, p_person: state.meId,
-        p_metric: "work_min", p_date: todayISO() });
-      await loadHistory(); await refresh();
+    on("waSave", "click", addSession);
+    on("waMin", "keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); addSession(); } });
+    on("waLabel", "keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); document.getElementById("waMin")?.focus(); } });
+    on("workUntyped", "click", async () => {
+      await call("app_unlog", { p_code: state.code, p_person: state.meId, p_metric: "work_min", p_date: entryDay() });
+      await loadWorkSessions(); await loadHistory(); await refresh();
     });
     document.querySelectorAll("[data-wdel]").forEach((el) =>
       el.addEventListener("click", async () => {
@@ -8274,12 +8619,14 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const cur = k === "rise" || k === "rest"
       ? (hasTarget(m, k) ? target(m, k) : S.def) : stdOf(m, k);
     const seed = state.editDraft !== null && state.editDraft !== undefined ? state.editDraft
-      : S.kind === "time" ? clockInput(cur) : S.kind === "min" ? hm(cur).replace(/ /g, " ") : String(Math.round(cur));
+      : S.kind === "time" ? clockInput(cur) : S.kind === "min" ? hm(cur).replace(/ /g, " ")
+      : S.kind === "weight" ? (cur > 0 ? String(Math.round(cur * 10) / 10) : "") : String(Math.round(cur));
     const hint = { count: k === "tasks" ? "Tasks to finish each day."
-                        : k === "dd" ? "Daily Dozen servings each day, out of 23."
-                        : k === "protein" ? "Grams of protein each day. The calculator on the Diet page can work it out."
+                        : k === "dd" ? "Daily Dozen boxes each day, out of 25."
+                        : k === "macros" ? "Grams of protein each day. The calculator on the Macros page can work it out."
                         : k === "kcal" ? "Calories each day. Within 10% either side counts as on target."
                         : "Steps each day.",
+                   weight: "Your goal weight, in pounds.",
                    min: "Minutes each day. 45, 1:30 or 1h 30m all work.",
                    pct: k === "goals" ? "The share of the week's tactics that wins the week."
                                       : "The share of the sleep pyramid to hold each night.",
@@ -8287,14 +8634,15 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     return `
       <div class="sheetbg" id="stdBg"></div>
       <div class="stdsheet" role="dialog" aria-label="${esc(S.label)} standard">
-        <p class="eyebrow">Your daily standard</p>
-        <h3>${esc(S.label)}</h3>
+        <p class="eyebrow">${S.kind === "weight" ? "Your goal" : "Your daily standard"}</p>
+        <h3>${k === "macros" ? "Protein" : esc(S.label)}</h3>
         <div class="stdrow">
           <input id="stdVal" class="stdin" autocomplete="off" enterkeyhint="done"
             ${S.kind === "time" ? 'type="time"' : S.kind === "min" ? 'type="text" inputmode="text"'
+              : S.kind === "weight" ? 'type="text" inputmode="decimal"'
               : 'type="text" inputmode="numeric" pattern="[0-9]*"'}
             value="${esc(seed)}" aria-label="${esc(S.label)} standard">
-          ${S.kind === "pct" ? `<span class="stdu">%</span>` : S.kind === "count" ? `<span class="stdu">${esc(S.unit || "")}</span>` : ""}
+          ${S.kind === "pct" ? `<span class="stdu">%</span>` : S.kind === "count" || S.kind === "weight" ? `<span class="stdu">${esc(S.unit || "")}</span>` : ""}
         </div>
         <p class="hint" id="stdHint">${esc(hint)}</p>
         <div class="stdbtns">
@@ -8314,6 +8662,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       if (k === "rest" && hh < 5) v += 1440;
       return { v };
     }
+    if (S.kind === "weight") {
+      const v = parseFloat(t.replace(",", "."));
+      return v >= 50 && v <= 1000 ? { v: Math.round(v * 10) / 10 } : { err: "Type a weight in pounds, like 175." };
+    }
     if (S.kind === "min") {
       const v = parseMinutes(t);
       return v && v > 0 && v <= 1440 ? { v } : { err: "Type minutes, like 45 or 1h 30m." };
@@ -8321,7 +8673,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const v = Number(t.replace(/[^0-9]/g, ""));
     if (!v) return { err: "Enter a number above zero." };
     if (S.kind === "pct" && v > 100) return { err: "A percent is 100 at most." };
-    if (k === "dd" && v > 23) return { err: "The Daily Dozen has 23 servings." };
+    if (k === "dd" && v > 25) return { err: "The Daily Dozen has 25 boxes." };
     return { v };
   }
   async function saveStd() {
@@ -8347,15 +8699,19 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
   /* ---------- V3.4: choosing the home dials ---------------------------
      V3.6. One to five, in the order you tap them. */
-  const DIAL_KEYS = Object.keys(STD);
+  // V4.2. Only what the dashboard shows can be a dial (not Calories, which
+  // lives under Macros). A V4.1 phone may still say protein or kcal.
+  const DIAL_KEYS = STD_GROUPS.flatMap(([, ks]) => ks);
   const DIAL_MAX = 5;
   const okDials = (d) => Array.isArray(d) && d.length >= 1 && d.length <= DIAL_MAX &&
-    new Set(d).size === d.length && d.every((k) => STD[k]);
+    new Set(d).size === d.length && d.every((k) => DIAL_KEYS.includes(k));
+  const fixDials = (d) => Array.isArray(d)
+    ? d.map((k) => (k === "protein" || k === "kcal" ? "macros" : k)).filter((k, i, a) => a.indexOf(k) === i) : d;
   function myDials() {
     const m = me();
-    if (m && okDials(m.dials)) return m.dials.slice();
+    if (m && okDials(fixDials(m.dials))) return fixDials(m.dials);
     try {
-      const d = JSON.parse(localStorage.getItem("fhd.dials." + state.meId) || "null");
+      const d = fixDials(JSON.parse(localStorage.getItem("fhd.dials." + state.meId) || "null"));
       if (okDials(d)) return d;
     } catch {}
     return DIAL_DEFAULT.slice();
