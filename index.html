@@ -692,9 +692,6 @@ table.rs { border-collapse:separate; border-spacing:0; font-variant-numeric:tabu
 button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inherit; color:inherit; text-align:left; cursor:pointer; }
 .gcar { font-style:normal; color:var(--muted); font-size:13px; margin-left:4px; }
 .gsum { margin:8px 0 0; font-size:14px; color:var(--ink-2); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.gover { padding-top:16px; }
-.gover .gsh h2 { flex:1; margin:0; font-family:var(--display); font-weight:500; font-size:20px; }
-.gover .rs-wrap { margin-top:8px; }
 .rs thead th small { display:block; font-weight:500; font-size:9.5px; color:var(--muted); letter-spacing:0; }
 .rs td.t3 { background:color-mix(in oklab, var(--work) 16%, transparent); }
 .rs td.t2 { background:color-mix(in oklab, #d9a520 14%, transparent); }
@@ -742,27 +739,12 @@ button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inh
 .gdone2 { display:block; margin-top:8px; }
 
 /* V3.7. The Goals ring, and lead against lag. */
-.gring { display:flex; justify-content:center; margin:4px 0 14px; }
 /* V4.1. Three goals, three rings, the week's score above them. */
-.grings { margin:2px 0 16px; text-align:center; }
 .gwk { display:flex; flex-wrap:wrap; justify-content:center; align-items:baseline; gap:2px 8px; margin-bottom:12px; }
 .gwkl { width:100%; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
 .gwkv { font-family:var(--display); font-weight:500; font-size:40px; line-height:1.05; font-variant-numeric:tabular-nums; }
 .gwk .dof { font-size:13px; }
 .gwks { width:100%; font-size:12.5px; color:var(--muted); }
-.grow3 { display:grid; grid-template-columns:repeat(var(--n), minmax(0, 1fr)); gap:10px; max-width:420px; margin:0 auto; }
-.gr1 { border:none; background:none; padding:0; font:inherit; color:inherit; cursor:pointer; display:flex;
-  flex-direction:column; align-items:center; gap:6px; min-width:0; }
-.gr1d { position:relative; width:min(100%, 112px); aspect-ratio:1/1; display:block; }
-.gr1d .dring { width:100%; height:100%; }
-.gr1d .dtrack, .gr1d .dfill { stroke-width:9; }
-.gr1d b { position:absolute; inset:0; display:grid; place-items:center; font-family:var(--display); font-weight:500;
-  font-size:clamp(18px, 5.6vw, 24px); font-variant-numeric:tabular-nums; }
-.gr1t { font-size:12.5px; line-height:1.25; color:var(--ink-2); max-width:100%; overflow:hidden; display:-webkit-box;
-  -webkit-line-clamp:2; -webkit-box-orient:vertical; word-break:break-word; }
-.gr1t i { font-style:normal; color:var(--work); margin-right:2px; }
-.gdial { width:min(230px, 62vw); }
-.gdial .dval { font-size:clamp(34px, 11vw, 46px); }
 .gll { display:grid; grid-template-columns:auto 1fr auto; align-items:baseline; gap:8px; margin-top:6px; }
 .gtag { display:inline-block; font-style:normal; font-size:9.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
   border-radius:5px; padding:2px 5px; }
@@ -828,8 +810,73 @@ button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inh
   border:1.5px solid var(--work); border-radius:6px; padding:2px 6px; background:var(--surface); color:var(--ink); }
 .gnokpi { display:block; margin-top:6px; font-size:12.5px; }
 .gstep .daynav { margin-top:4px; }
-.gstep .rs-wrap { margin-top:10px; }
 .gstep .sc-ro { margin-top:4px; }
+
+/* V4.4. One Goals card: the week, a strip of twelve, a row per goal. */
+.gcard { padding-top:18px; }
+.gstrip { display:grid; grid-template-columns:repeat(6, minmax(0, 1fr)); gap:4px; margin:2px 0 14px; }
+.gsw { display:flex; flex-direction:column; align-items:center; gap:1px; min-width:0; padding:6px 0 5px; border-radius:8px;
+  border:1.5px solid transparent; background:var(--surface-2); font:inherit; color:var(--ink); cursor:pointer; }
+.gsw b { font-family:var(--mono); font-weight:500; font-size:13px; line-height:1.2; font-variant-numeric:tabular-nums; }
+.gsw small { font-size:10px; font-weight:700; letter-spacing:.04em; color:var(--muted); }
+.gsw em { font-style:normal; font-size:10px; color:var(--muted); white-space:nowrap; }
+.gsw.fut { background:none; border-color:var(--line); cursor:default; opacity:.7; }
+.gsw.fut b { color:var(--muted); }
+.gsw.t3, .gmini .t3 { background:color-mix(in oklab, var(--work) 18%, var(--surface)); }
+.gsw.t2, .gmini .t2 { background:color-mix(in oklab, #d9a520 16%, var(--surface)); }
+.gsw.t1, .gmini .t1 { background:color-mix(in oklab, #c8463c 12%, var(--surface)); }
+.gsw.cur small { color:var(--work); }
+.gsw.sel { border-color:var(--ink); }
+.glead, .grh { display:grid; grid-template-columns:minmax(0, 1fr) 44px 92px 14px; align-items:baseline; gap:8px; }
+.glead { padding:0 0 6px; border-bottom:1px solid var(--line); font-size:10px; font-weight:700; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--muted); }
+.glead span:nth-child(2), .glead span:nth-child(3) { text-align:right; }
+.grow { border-bottom:1px solid var(--line); }
+.grh { width:100%; padding:12px 0; border:none; background:none; font:inherit; color:inherit; text-align:left; cursor:pointer; }
+.grn { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:15px; color:var(--ink); }
+.grn i { font-style:normal; color:var(--work); margin-right:5px; }
+.grld { font-family:var(--mono); font-weight:500; font-size:14px; text-align:right; color:var(--ink); }
+.grld.win { color:var(--work); font-weight:600; }
+.grk { font-family:var(--mono); font-size:13px; text-align:right; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.grk small { color:var(--muted); font-size:11.5px; margin-left:3px; }
+.grh .gcar { margin:0; text-align:right; }
+.grow.open { padding-bottom:12px; }
+.grow.open .gline2 { padding-top:0; border-top:none; }
+.ghead.gin { justify-content:flex-end; margin:-6px 0 2px; }
+.gmini::before { content:"By week"; grid-column:1 / -1; font-size:10px; font-weight:700; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--muted); }
+.gmini { display:grid; grid-template-columns:repeat(12, minmax(0, 1fr)); gap:3px; margin-top:10px; }
+.gmini span { padding:4px 0; border-radius:6px; background:var(--surface-2); text-align:center; font-family:var(--mono);
+  font-size:10.5px; color:var(--ink-2); }
+.gmini span.fut { background:none; color:var(--muted); }
+.gstart2 { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:6px; margin:14px 0 0;
+  font-size:12.5px; color:var(--muted); }
+.gstart2 .linkbtn { font-size:12.5px; }
+.gsdate { width:auto; padding:6px 8px; font-size:16px; }
+.gpick { display:flex; align-items:center; justify-content:center; gap:8px; font-size:13px; color:var(--muted); }
+.gpick .field, .gpick input { width:auto; padding:6px 8px; font-size:16px; }
+.gcard .gguide { display:flex; margin:10px auto 0; }
+
+/* V4.4. Weight unit; body fat ranges, pictured. */
+.wunits { margin-left:auto; }
+.wunits button { padding:3px 10px; font-size:12.5px; }
+.dsh .wunits + .dofx { margin-left:0; }
+.bfi { display:flex; align-items:center; gap:6px; margin:6px auto 0; font-size:13px; }
+.bfi i { width:16px; height:16px; border-radius:50%; border:1.5px solid currentColor; display:grid; place-items:center;
+  font-style:normal; font-family:Georgia, serif; font-weight:700; font-size:10.5px; line-height:1; }
+.bfg { margin-top:10px; padding:12px 10px 4px; border-radius:14px; background:var(--surface-2); }
+.bfh { margin:0 0 4px; font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.bfrow { display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); gap:4px; margin-bottom:12px; }
+.bff { margin:0; display:flex; flex-direction:column; align-items:center; gap:4px; padding:6px 0 6px; border-radius:10px; min-width:0; }
+.bff svg { width:100%; max-width:46px; height:auto; fill:color-mix(in oklab, var(--ink) 32%, var(--surface-2));
+  stroke:color-mix(in oklab, var(--ink) 32%, var(--surface-2)); stroke-linecap:round; }
+.bff figcaption { display:flex; flex-direction:column; align-items:center; text-align:center; line-height:1.2; }
+.bff b { font-size:10.5px; font-weight:600; color:var(--ink-2); }
+.bff span { font-family:var(--mono); font-size:10px; color:var(--muted); }
+.bff.on { background:color-mix(in oklab, var(--diet) 14%, var(--surface)); }
+.bff.on svg { fill:var(--diet); stroke:var(--diet); }
+.bff.on b { color:var(--ink); }
+.bfg .cnote { margin:0 0 8px; text-align:left; }
 
 /* ---------- V3.3: the opening screen ------------------------------------ */
 .hbar { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:2px 0 6px; }
@@ -949,6 +996,22 @@ button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inh
 .copt.on { border-color:var(--dc); background:color-mix(in oklab, var(--dc) 9%, var(--surface)); }
 .cnote { margin:10px 2px 0; font-size:12px; color:var(--muted); line-height:1.45; }
 
+/* ---------- V4.4: the Focus page is the dial ------------------------------ */
+.wpage { display:flex; flex-direction:column; align-items:center; }
+.wpage .wnav { width:100%; }
+.wpage .focusbtn { margin-top:2px; }
+.wdial { margin:6px auto 0; }
+.wpaused { display:flex; align-items:center; gap:14px; }
+.wpaused .dplay { margin-top:10px; }
+.wend { margin-top:10px; color:var(--muted); }
+.wlines { list-style:none; margin:14px 0 0; padding:0; width:100%; }
+.wlines li { display:flex; align-items:center; gap:10px; min-height:44px; border-top:1px solid var(--line); }
+.wlines li:last-child { border-bottom:1px solid var(--line); }
+.wlines span { flex:1; min-width:0; font-size:15px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.wlines small { margin-left:8px; font-size:12px; color:var(--muted); }
+.wlines b { font-family:var(--mono); font-weight:500; font-size:14px; color:var(--work); }
+.wlines button { border:none; background:none; color:var(--muted); font-size:20px; line-height:1; padding:6px 4px; cursor:pointer; }
+.wpage .wadd { width:100%; }
 /* ---------- V4.2: Focus, two cards ------------------------------------- */
 .dtimer { display:flex; align-items:center; gap:10px; }
 .dpm { width:34px; height:34px; border-radius:50%; border:1.5px solid var(--line-strong); background:var(--surface);
@@ -1663,7 +1726,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "4.3";
+  const APP_VERSION = "4.4";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -2021,7 +2084,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     if (kind === "pct")  return Math.round(Number(v)) + "%";
     if (kind === "min")  return hm(v);
     if (k === "macros") return num(Math.round(Number(v))) + " g";
-    if (kind === "weight") return (Math.round(Number(v) * 10) / 10).toFixed(1);
+    if (kind === "weight") return lb1(wOut(v));
     return num(Math.round(Number(v)));
   }
   // V4.1. On target, for the two numbers the family sees only as a tick.
@@ -4546,6 +4609,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         case "min": { const m = Math.round(x), h = Math.floor(m / 60), r = m % 60;
           return h ? (r ? `${h}h${pad(r)}` : `${h}h`) : `${r}m`; }
         case "pct": return Math.round(x) + "%";
+        case "weight": return String(Math.round(wOut(x)));
         case "time": { const m = ((Math.round(x) % 1440) + 1440) % 1440, h = Math.floor(m / 60);
           return `${h % 12 || 12}:${pad(m % 60)}`; }
       }
@@ -4721,8 +4785,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   }
   const ofWords = (k, std) => STD[k].kind === "time" ? `by ${clockWords(std)}`
     : STD[k].kind === "min" ? `of ${hm(std)}` : STD[k].kind === "pct" ? `of ${Math.round(std)}%`
-    : STD[k].kind === "weight" ? (std > 0 ? `goal ${(Math.round(std * 10) / 10).toFixed(1)}` : "set a goal")
-    : `of ${num(Math.round(std))}${k === "tasks" ? " done" : k === "macros" ? " g" : k === "kcal" ? " kcal" : ""}`;
+    : STD[k].kind === "weight" ? (std > 0 ? `goal ${lb1(wOut(std))} ${units.w}` : "set a goal")
+    // V4.4. The unit after the standard: of 8,000 steps, of 131 g. The
+    // Daily Dozen is a count of 25 and needs no word.
+    : `of ${num(Math.round(std))}${STD[k].unit && k !== "dd" ? " " + STD[k].unit : ""}`;
   function dialSlide(m, k, clone) {
     // A copy is drawn exactly like the real dial but is inert: no ids, no
     // handlers, hidden from screen readers. It is only ever seen mid-swipe.
@@ -4776,9 +4842,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         v === null ? "–" : v}</button>`;
       if (!v) extra = `<button type="button" class="dsame" ${clone ? 'tabindex="-1"' : 'data-ddsame="1"'}>Same as yesterday</button>`;
     }
-    // V4.2. Macros is protein; calories ride along underneath. Weight shows
-    // its four-week trend.
-    if (k === "macros" && m.kcal != null) extra = `<span class="dsub">${num(Math.round(Number(m.kcal)))} kcal</span>`;
+    // V4.2. Weight shows its four-week trend. V4.4: Macros is protein
+    // alone on the dial; calories live on the Macros page.
     if (k === "weight") { const tr = weightTrend(m); if (tr) extra = `<span class="dsub">${tr}</span>`; }
     if (k === "tasks") {
       extra = `<input class="dtaskin" ${clone ? 'tabindex="-1" readonly' : 'data-dtask="1" id="dial-taskin"'}
@@ -4787,7 +4852,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     if (!centre) {
       if (S.kind === "count" && k !== "tasks" || S.kind === "min" || S.kind === "weight") {
         // Typed. Shown formatted, edited raw.
-        const raw = v === null ? "" : S.kind === "weight" ? String(Math.round(v * 10) / 10) : String(Math.round(v));
+        const raw = v === null ? "" : S.kind === "weight" ? String(Math.round(wOut(v) * 10) / 10) : String(Math.round(v));
         const shown = v === null ? "" : stdWords(k, v);
         centre = `<input class="dnum${S.kind === "min" ? " dmin" : ""}" ${clone ? 'tabindex="-1" readonly' : `data-dial="${k}" id="dial-${k}"`}
             type="text" inputmode="${S.kind === "min" ? "text" : S.kind === "weight" ? "decimal" : "numeric"}" ${S.kind === "min" || S.kind === "weight" ? "" : 'pattern="[0-9]*"'}
@@ -4887,10 +4952,12 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           : digits === "" ? null : Number(digits);
         if (v === null || String(v) === (f.dataset.raw || "")) { f.value = f.dataset.show || ""; return; }
         if (S.kind === "min" && v > 1440) { f.value = f.dataset.show || ""; dialSay(k, "A day has 1,440 minutes."); return; }
-        f.value = stdWords(k, v);
+        // V4.4. Weight is typed in your unit and kept in pounds.
+        const val = S.kind === "weight" ? wToLb(v) : v;
+        f.value = stdWords(k, val);
         f.dataset.raw = String(v);
         const res = await call("app_log", { p_code: state.code, p_person: state.meId,
-          p_value: v, p_metric: S.key, p_date: null, p_tz: deviceTZ() });
+          p_value: val, p_metric: S.key, p_date: null, p_tz: deviceTZ() });
         dialSay(k, res.error ? (res.offline ? "No signal. Not saved yet." : res.error) : "Saved.");
         await refresh();
       });
@@ -5447,6 +5514,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       }
       return `${clockWords(avg)} average this week`;
     }
+    // V4.4. Minutes read as hours: 15h 30m, not 930 minutes.
+    if (met.unit === "minutes" || met.unit === "min") return `${hm(Math.round(sum))} this week`;
     return `${num(Math.round(sum))} ${met.unit} this week`;
   }
 
@@ -5859,21 +5928,29 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   }
 
   const lb1 = (v) => (Math.round(Number(v) * 10) / 10).toFixed(1);
+  // V4.4. Weight in lb or kg, your choice (the same setting as Train's).
+  // Kept in pounds either way; a kilo typed is kept to the hundredth so it
+  // reads back exactly as typed.
+  const w1 = (lb) => lb1(wOut(lb));
+  function wToLb(v) { return units.w === "kg" ? Math.round(Number(v) * LB_PER_KG * 100) / 100 : Math.round(Number(v) * 10) / 10; }
+  const wName = () => units.w === "kg" ? "kilograms" : "pounds";
   function weightTrend(m) {
     if (m.weight == null || m.weight_4w == null) return null;
-    const d = Math.round((Number(m.weight) - Number(m.weight_4w)) * 10) / 10;
-    return (d > 0 ? "+" : d < 0 ? "−" : "±") + Math.abs(d).toFixed(1) + " lb in 4 weeks";
+    const d = Math.round(wOut(Number(m.weight) - Number(m.weight_4w)) * 10) / 10;
+    return (d > 0 ? "+" : d < 0 ? "−" : "±") + Math.abs(d).toFixed(1) + ` ${units.w} in 4 weeks`;
   }
   function weightChart(pts, goal) {
+    pts = pts.map((p) => ({ date: p.date, v: wOut(p.v) }));
+    goal = goal > 0 ? wOut(goal) : 0;
     if (pts.length < 2) return `<p class="hint" style="text-align:center">${pts.length ? "One weigh-in so far. The line starts with the second." : "Your weigh-ins over 12 weeks appear here."}</p>`;
     const W = 320, H = 120, pad = 8;
     const t0 = new Date(shiftISO(todayISO(), -83) + "T00:00:00Z").getTime(), t1 = new Date(todayISO() + "T00:00:00Z").getTime();
     const vs = pts.map((p) => p.v).concat(goal > 0 ? [goal] : []);
-    const lo = Math.min(...vs) - 1, hi = Math.max(...vs) + 1;
+    const pad1 = units.w === "kg" ? 0.5 : 1, lo = Math.min(...vs) - pad1, hi = Math.max(...vs) + pad1;
     const x = (d) => pad + (new Date(d + "T00:00:00Z").getTime() - t0) / Math.max(1, t1 - t0) * (W - 2 * pad);
     const y = (v) => pad + (hi - v) / Math.max(0.1, hi - lo) * (H - 2 * pad);
     const line = pts.map((p, i) => `${i ? "L" : "M"}${x(p.date).toFixed(1)} ${y(p.v).toFixed(1)}`).join(" ");
-    return `<svg class="wchart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Weigh-ins over 12 weeks, from ${lb1(pts[0].v)} to ${lb1(pts.at(-1).v)} lb">
+    return `<svg class="wchart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Weigh-ins over 12 weeks, from ${lb1(pts[0].v)} to ${lb1(pts.at(-1).v)} ${units.w}">
       ${goal > 0 ? `<line x1="${pad}" x2="${W - pad}" y1="${y(goal).toFixed(1)}" y2="${y(goal).toFixed(1)}" class="wgoal"/>` : ""}
       <path d="${line}" class="wline"/>
       ${pts.map((p) => `<circle cx="${x(p.date).toFixed(1)}" cy="${y(p.v).toFixed(1)}" r="3" class="wdot"/>`).join("")}
@@ -5887,24 +5964,69 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const tr = weightTrend(m);
     const input = (f, v, unit, label) => D.edit === f
       ? `<div class="dbig"><input class="dbigin" id="dIn-${f}" inputmode="decimal" enterkeyhint="done" autocomplete="off"
-           value="${v === null ? "" : f === "weight" ? lb1(v) : v}" placeholder="0" aria-label="${label}"><span class="dunit">${unit}</span></div>`
-      : `<button type="button" class="dbig dbigb" data-dedit="${f}" aria-label="${label}: ${v === null ? "none yet" : v}. Tap to weigh in">
-           <b style="color:${v === null ? "var(--muted)" : "var(--ink)"}">${v === null ? "–" : f === "weight" ? lb1(v) : lb1(v)}</b><span class="dunit">${unit}</span></button>`;
+           value="${v === null ? "" : f === "weight" ? w1(v) : v}" placeholder="0" aria-label="${label}"><span class="dunit">${unit}</span></div>`
+      : `<button type="button" class="dbig dbigb" data-dedit="${f}" aria-label="${label}: ${v === null ? "none yet" : f === "weight" ? w1(v) : v}. Tap to weigh in">
+           <b style="color:${v === null ? "var(--muted)" : "var(--ink)"}">${v === null ? "–" : f === "weight" ? w1(v) : lb1(v)}</b><span class="dunit">${unit}</span></button>`;
     return `
       <section class="card dsec" id="diet-weight" style="--dc:var(--diet)">
         <div class="dsh"><h2>Weight</h2>
-          <button type="button" class="of dofx" data-edit="goal" data-metric="weight">${goal > 0 ? `goal <b>${lb1(goal)} lb</b>` : "set a goal"}</button></div>
-        ${input("weight", w, "lb", "Weight in pounds")}
-        <p class="wsub">${w === null ? "Tap to log your first weigh-in." : today ? "Weighed in today." : `Last weigh-in ${esc(shortDay(m.weight_date))}. Tap to log today's.`}${tr ? ` <b>${tr}</b>` : ""}</p>
+          <div class="range wunits" role="group" aria-label="Weight unit">${["lb", "kg"].map((u) =>
+            `<button type="button" data-wu="${u}" aria-pressed="${units.w === u}">${u}</button>`).join("")}</div>
+          <button type="button" class="of dofx" data-edit="goal" data-metric="weight">${goal > 0 ? `goal <b>${w1(goal)} ${units.w}</b>` : "set a goal"}</button></div>
+        ${input("weight", w, units.w, `Weight in ${wName()}`)}
+        <p class="wsub">${w === null ? "Tap to log your first weigh-in." : today ? "Weighed in today." : `Last weigh-in ${esc(shortDay(m.weight_date))}. Tap to log today's.`}${tr ? ` <b style="white-space:nowrap">${tr}</b>` : ""}</p>
         ${dietMsg(D, "weight")}
         ${weightChart(D.wh || [], goal)}
       </section>
       <section class="card dsec" id="diet-bodyfat" style="--dc:var(--diet)">
         <div class="dsh"><h2>Body fat</h2><span class="dss">optional, from a scale or scan</span></div>
         ${input("bodyfat", bf, "%", "Body fat percent")}
+        <button type="button" class="linkbtn bfi" id="bfInfo" aria-expanded="${!!D.bfi}"><i aria-hidden="true">i</i>${D.bfi ? "Hide the ranges" : "What the ranges look like"}</button>
+        ${D.bfi ? bodyFatGuide(bf) : ""}
         ${dietMsg(D, "bodyfat")}
         <p class="cnote" style="text-align:center">Your weight and body fat show only on your own phone. Your tribe sees a tick on days you weigh in.</p>
       </section>`;
+  }
+
+  /* V4.4. Body fat, pictured. The five ranges are the American Council on
+     Exercise's (essential, athletes, fitness, average, obese), for women
+     and for men. The figures are drawn here, simple and original: one
+     shape that widens at the waist and hips as the percent rises. They
+     are a guide to the ranges, not a picture of anyone. */
+  const BF = {
+    w: [["Essential", 10, 13], ["Athletes", 14, 20], ["Fitness", 21, 24], ["Average", 25, 31], ["Obese", 32, null]],
+    m: [["Essential", 2, 5], ["Athletes", 6, 13], ["Fitness", 14, 17], ["Average", 18, 24], ["Obese", 25, null]],
+  };
+  function bfFigure(sex, f) {
+    const W = sex === "w";
+    const sh = (W ? 11.5 : 14) + f * 0.6;
+    const wa = (W ? [7, 8.2, 9.8, 12.2, 16] : [8, 9.4, 11.2, 14, 18])[f];
+    const hp = (W ? [10.5, 11.8, 13.4, 15.6, 18.5] : [9.6, 10.4, 11.6, 13.4, 16.2])[f];
+    const arm = 3.6 + f * 1.3, leg = 5.6 + f * 1.8, c = 30;
+    const P = (x, y) => `${x.toFixed(1)} ${y.toFixed(1)}`;
+    return `<svg viewBox="0 0 60 120" aria-hidden="true">
+      <circle cx="30" cy="11" r="${7.2 + f * 0.25}"/>
+      <line x1="${c - sh + 2}" y1="27" x2="${c - sh - 2 - f}" y2="64" stroke-width="${arm}"/>
+      <line x1="${c + sh - 2}" y1="27" x2="${c + sh + 2 + f}" y2="64" stroke-width="${arm}"/>
+      <line x1="${c - hp * 0.48}" y1="70" x2="${c - hp * 0.42 - 1}" y2="114" stroke-width="${leg}"/>
+      <line x1="${c + hp * 0.48}" y1="70" x2="${c + hp * 0.42 + 1}" y2="114" stroke-width="${leg}"/>
+      <path d="M${P(c - sh, 26)} Q${P(c - sh - 0.5, 42)} ${P(c - wa, 54)} Q${P(c - hp - 1.5, 62)} ${P(c - hp, 74)}
+        L${P(c + hp, 74)} Q${P(c + hp + 1.5, 62)} ${P(c + wa, 54)} Q${P(c + sh + 0.5, 42)} ${P(c + sh, 26)}
+        Q${P(c, 19)} ${P(c - sh, 26)}Z"/>
+    </svg>`;
+  }
+  function bodyFatGuide(bf) {
+    const row = (sex, title) => {
+      // The range whose floor you are at or above (below essential reads as essential).
+      const hit = bf === null ? -1 : Math.max(0, BF[sex].reduce((h, [, lo], i) => bf >= lo ? i : h, -1));
+      return `<p class="bfh">${title}</p><div class="bfrow">${BF[sex].map(([name, lo, hi], i) => `
+        <figure class="bff${i === hit ? " on" : ""}">${bfFigure(sex, i)}
+          <figcaption><b>${name}</b><span>${hi === null ? `${lo}%+` : `${lo}–${hi}%`}</span></figcaption></figure>`).join("")}</div>`;
+    };
+    return `<div class="bfg" id="bfGuide">
+      ${row("w", "Women")}${row("m", "Men")}
+      <p class="cnote">Ranges from the American Council on Exercise. A guide, not a diagnosis: the same percent looks different on different frames, and home scales can read several points off.${bf !== null ? " Yours is highlighted." : ""}</p>
+    </div>`;
   }
 
   async function openDiet(seg) {
@@ -5963,6 +6085,11 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       el.addEventListener("click", () => add(el.dataset.spick, "")));
     // Macros: type the total, or the chips add.
     const metricOf = (f) => ({ protein: "protein_g", kcal: "kcal", weight: "weight_lb", bodyfat: "bodyfat_pct" })[f];
+    // V4.4. Weight in lb or kg; body fat ranges, pictured.
+    document.querySelectorAll("[data-wu]").forEach((el) =>
+      el.addEventListener("click", () => { units.w = el.dataset.wu; render(); }));
+    on("bfInfo", "click", () => { D.bfi = !D.bfi; render();
+      if (D.bfi) document.getElementById("bfGuide")?.scrollIntoView({ block: "nearest", behavior: "smooth" }); });
     document.querySelectorAll("[data-dedit]").forEach((el) =>
       el.addEventListener("click", () => {
         D.edit = el.dataset.dedit; render();
@@ -5978,8 +6105,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         if (field === "weight" || field === "bodyfat") {
           const v = parseFloat(String(f.value || "").replace(",", "."));
           const m = me() || {}, cur = field === "weight" ? m.weight : m.bodyfat;
-          if (!Number.isFinite(v) || (cur != null && Math.abs(v - Number(cur)) < 0.05 && m.weight_date === todayISO())) { render(); return; }
-          saveWeigh(metricOf(field), Math.round(v * 10) / 10);
+          const shown = cur == null ? null : field === "weight" ? wOut(cur) : Number(cur);
+          if (!Number.isFinite(v) || (shown != null && Math.abs(v - shown) < 0.05 && m.weight_date === todayISO())) { render(); return; }
+          saveWeigh(metricOf(field), field === "weight" ? wToLb(v) : Math.round(v * 10) / 10);
           return;
         }
         const raw = (f.value || "").replace(/[^0-9]/g, "");
@@ -7326,7 +7454,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     },
     goals: {
       ask: "Based on this year, what results can I finish in the next 12 weeks?",
-      how: "Up to three goals. One is ideal, so star the one that matters most: it gets your best hours. Each goal is a finished result with a number, and it is measured two ways. <b>Lag</b> is the result itself, which you can’t directly control: your weight, chapters written, money saved. Log it once a week, on the same day. <b>Lead</b> is the actions that produce it, which you do control: your tactics, in step 3. The app works the lead out from your ticks, so there is nothing extra to type.",
+      how: "Up to three goals. One is ideal, so star the one that matters most: it gets your best hours. Each goal is a finished result with a number, and it is measured two ways. <b>Lag</b> is the result itself, which you can’t directly control: your weight, chapters written, money saved. Log it once a week, on the same day. <b>Lead</b> is the actions that produce it, which you do control: your tactics, in This week. The app works the lead out from your ticks, so there is nothing extra to type.",
       great: "★ “Lose 8 lb.” Lag: Weight, 184 → 176, logged Monday mornings. Lead: Lift 3× a week, walk 8,000 steps daily. · “Read 4 books.” Lag: Books finished, 0 → 4. Lead: Read 20 minutes daily.",
       notgreat: "“Get healthier.” (No finish line, so no lag to log.) · Lag: “Go to the gym.” (That’s an action, so it’s lead, a tactic. The lag is what the gym changes.) · Five goals at once. (Twelve weeks holds three at most.)",
     },
@@ -7358,9 +7486,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const shut = !C.ro && gFolded(key, dflt);
     return `
     <section class="card gstep${C.ro ? " ro" : ""}${shut ? " shut" : ""}">
-      ${C.ro ? `<div class="gsh"><span class="gsn">${n}</span><h2>${title}</h2>${right || ""}</div>`
+      ${C.ro ? `<div class="gsh">${n ? `<span class="gsn">${n}</span>` : ""}<h2>${title}</h2>${right || ""}</div>`
         : `<button type="button" class="gsh gfold" data-gfold="${key}" aria-expanded="${!shut}">
-            <span class="gsn">${n}</span><h2>${title}</h2>${right || ""}<i class="gcar" aria-hidden="true">${shut ? "\u25b8" : "\u25be"}</i></button>`}
+            ${n ? `<span class="gsn">${n}</span>` : ""}<h2>${title}</h2>${right || ""}<i class="gcar" aria-hidden="true">${shut ? "\u25b8" : "\u25be"}</i></button>`}
       ${shut ? (summary ? `<p class="gsum">${summary}</p>` : "") : `
       <p class="gask">${GUIDE[key].ask}</p>
       ${body}
@@ -7385,13 +7513,13 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const rung = (k, label, q, ph) => `
       <div class="grung"><span class="grl">${label}</span><small class="grq">${q}</small>
         ${gText(C, k, d[k], ph, true)}</div>`;
-    return gStep(C, 1, "Someday to this year", "", "ladder", `
+    return gStep(C, null, "Someday \u00b7 3 years \u00b7 this year", "", "ladder", `
       <div class="gladder">
         ${rung("vision", "Someday", "The ONE thing I want most", "Write your someday")}
         ${rung("three_year", "In 3 years", "What has to be true by then", "What must be true in 3 years")}
         ${rung("one_year", "This year", "The ONE thing to finish by December", "What you will finish this year")}
       </div>`, d.one_year ? `This year: ${esc(d.one_year)}` : d.vision ? `Someday: ${esc(d.vision)}` : "Not written yet",
-      !!(d.vision && d.one_year));
+      true);
   }
 
   // 2 · This 12 weeks
@@ -7430,9 +7558,70 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           </div>
         </div>`;
   }
-  function gStepGoals(C) {
+  // V4.4. One card for the twelve weeks: the week's score, a strip of the
+  // twelve weeks with their Mondays, and one row per goal (★ name, this
+  // week's lead, its lag). Tap a goal to open it: edit, log this week's
+  // lag, and its own twelve weeks. Rings, the grid and step 2 were three
+  // views of the same goals; this is one.
+  function goalsCard(C) {
+    const d = C.doc, G = state.goals || {}, win = goalWin(), run = C.cur >= 1 && C.cur <= 12;
+    const open = C.cur < 1 ? 0 : Math.min(12, C.cur);
+    const T = run ? weekTally(d, C.cur) : { pct: null, done: 0, due: 0 };
+    const md = (iso) => { const x = new Date(iso + "T00:00:00Z");
+      return `${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][x.getUTCMonth()]} ${x.getUTCDate()}`; };
+    const tint = (p) => p === null ? "" : p >= win ? " t3" : p >= win - 25 ? " t2" : " t1";
+    const goals = d.goals.filter((g) => g.id === d.one_goal).concat(d.goals.filter((g) => g.id !== d.one_goal));
+    const when = run ? `week ${C.cur} of 12` : C.cur < 1 ? "starts " + esc(shortDay(d.start_date)) : "twelve weeks done";
+    const strip = `<div class="gstrip" role="group" aria-label="The twelve weeks">${Array.from({ length: 12 }, (_, k) => {
+      const i = k + 1, fut = i > open, p = fut ? null : weekTally(d, i).pct;
+      return `<button type="button" class="gsw${fut ? " fut" : ""}${tint(p)}${i === C.w ? " sel" : ""}${i === C.cur ? " cur" : ""}"
+          ${fut ? "disabled" : `data-gweek="${i}"`} aria-label="Week ${i}, ${md(shiftISO(d.start_date, k * 7))}${fut ? "" : `: ${p === null ? "nothing due" : p + "%"}`}">
+          <b>${fut || p === null ? "\u00b7" : p}</b><small>W${i}</small><em>${md(shiftISO(d.start_date, k * 7))}</em></button>`;
+    }).join("")}</div>`;
+    const row = (g) => {
+      const isOne = g.id === d.one_goal, lead = run ? goalTally(g, C.cur).pct : null;
+      const now = kpiLatest(g, Math.max(1, open)), opened = G.gopen === g.id || G.edit === "g:" + g.id;
+      return `
+        <div class="grow${opened ? " open" : ""}">
+          <button type="button" class="grh" data-gopen="${g.id}" aria-expanded="${opened}">
+            <span class="grn">${isOne ? `<i aria-hidden="true">\u2605</i>` : ""}${g.title ? esc(g.title) : `<span style="color:var(--muted)">Untitled goal</span>`}</span>
+            <b class="grld${lead !== null && lead >= win ? " win" : ""}">${lead === null ? "\u2013" : lead + "%"}</b>
+            <span class="grk">${g.kpi ? `${fmtNum(now)}<small>\u2192 ${fmtNum(g.kpi_target)}</small>` : ""}</span>
+            <i class="gcar" aria-hidden="true">${opened ? "\u25be" : "\u25b8"}</i></button>
+          ${opened ? goalLineHTML(C, g, true) + `
+            <div class="gmini" aria-label="${esc(g.title || "This goal")}, lead by week">${Array.from({ length: 12 }, (_, k) => {
+              const i = k + 1, fut = i > open, p = fut ? null : goalTally(g, i).pct;
+              return `<span class="${fut ? "fut" : ""}${tint(p)}">${fut || p === null ? "\u00b7" : p}</span>`; }).join("")}</div>` : ""}
+        </div>`;
+    };
+    return `
+      <section class="card gcard">
+        <div class="gwk">
+          <span class="gwkl">This week</span>
+          <b class="gwkv" style="color:${T.pct === null ? "var(--muted)" : dialColor(stdPct("goals", T.pct, win))}">${T.pct === null ? "\u2013" : T.pct + "%"}</b>
+          <button type="button" class="dof" data-edit="goal" data-metric="goals">of ${win}%</button>
+          <span class="gwks">${when}${T.due ? ` \u00b7 ${T.done}/${T.due} done` : ""}</span>
+        </div>
+        ${strip}
+        <div class="glead"><span>Goal</span><span>Lead</span><span>Lag</span><span></span></div>
+        ${goals.map(row).join("")}
+        ${d.goals.length && !d.one_goal && !(G.edit || "").startsWith("g:")
+          ? `<p class="hint" style="margin-top:8px">Open a goal, tap Edit, then \u2605, to mark your ONE goal.</p>` : ""}
+        ${d.goals.length < 3 ? `<button type="button" class="linkbtn gadd2" id="gAdd">${d.goals.length
+          ? "+ Add a goal (three at most)" : "+ Write your ONE goal"}</button>` : ""}
+        <p class="gstart2">${G.restart ? `Week 1 starts on <input type="date" class="field gsdate" id="gStartIn" value="${esc(d.start_date)}" aria-label="The Monday week 1 starts">
+            <button type="button" class="linkbtn" id="gStartDone">Done</button>`
+          : `Started ${esc(shortDay(d.start_date))} \u00b7 <button type="button" class="linkbtn" id="gStartEdit">change</button>`}</p>
+        ${G.restart ? `<p class="hint">Any day picks its week; it starts on the Monday. Ticks stay on their week number.</p>` : ""}
+        ${C.ro ? "" : guide("goals")}
+      </section>`;
+  }
+
+  // One goal, in full: its title and Edit, lead, lag with this week's log.
+  // V4.4: shared by the Goals card (open row) and the example.
+  function goalLineHTML(C, g, inRow) {
     const d = C.doc, G = state.goals || {}, open = Math.min(12, Math.max(1, C.cur));
-    const line = (g) => {
+    {
       const n = d.goals.indexOf(g) + 1;
       if (!C.ro && G.edit === "g:" + g.id) return goalEditHTML(d, g, n);
       const isOne = g.id === d.one_goal;
@@ -7453,9 +7642,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       const lead = C.cur >= 1 ? goalTally(g, open).pct : null, win = goalWin();
       return `
         <div class="gline2${isOne ? " one" : ""}" id="gl-${g.id}">
-          <div class="ghead">${isOne ? `<span class="gstar on" aria-label="Your ONE goal">★</span>` : `<span class="gnum">${n}</span>`}
+          ${inRow ? (C.ro ? "" : `<div class="ghead gin"><button type="button" class="linkbtn" data-gedit="${g.id}">Edit</button></div>`) : `<div class="ghead">${isOne ? `<span class="gstar on" aria-label="Your ONE goal">★</span>` : `<span class="gnum">${n}</span>`}
             <h3>${g.title ? esc(g.title) : `<span style="color:var(--muted)">${isOne ? "Your ONE goal" : "Untitled goal"}</span>`}</h3>
-            ${C.ro ? "" : `<button type="button" class="linkbtn" data-gedit="${g.id}">Edit</button>`}</div>
+            ${C.ro ? "" : `<button type="button" class="linkbtn" data-gedit="${g.id}">Edit</button>`}</div>`}
           <div class="gll"><span class="gtag lead">Lead</span><span class="gln">Tactics done this week</span>
             <b class="${lead !== null && lead >= win ? "win" : ""}">${g.tactics.length ? (lead === null ? "–" : lead + "%") : "–"}</b></div>
           ${g.kpi ? `<div class="gll"><span class="gtag lag">Lag</span><span class="gln">${esc(g.kpi)}</span><b>${fmtNum(now)} <small>→ ${fmtNum(tgt)}</small></b></div>
@@ -7463,20 +7652,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             ${klog ? `<div class="gklog"><span>Week ${open}</span>${klog}</div>` : ""}`
           : C.ro ? "" : `<div class="gll"><span class="gtag lag">Lag</span><button type="button" class="linkbtn gnokpi" data-gedit="${g.id}">+ The result you will log weekly</button></div>`}
         </div>`;
-    };
-    const ones = d.goals.filter((g) => g.id === d.one_goal), rest = d.goals.filter((g) => g.id !== d.one_goal);
-    const right = `<span class="gsr">${C.cur < 1 ? "starts " + esc(shortDay(d.start_date))
-      : C.cur > 12 ? "complete" : `week ${C.cur} of 12`}</span>`;
-    return gStep(C, 2, "This 12 weeks", right, "goals",
-      ones.map(line).join("")
-      + (rest.length ? (ones.length ? `<p class="galso">Also, only if it serves the ONE</p>` : "") + rest.map(line).join("") : "")
-      + (!C.ro && d.goals.length && !d.one_goal && !(G.edit || "").startsWith("g:")
-          ? `<p class="hint" style="margin-top:8px">Tap Edit, then ★, to mark your ONE goal.</p>` : "")
-      + (!C.ro && d.goals.length < 3 ? `<button type="button" class="linkbtn gadd2" id="gAdd">${d.goals.length
-          ? "+ Add another goal (optional)" : "+ Write your ONE goal"}</button>` : ""),
-      ones.concat(rest).map((g) => esc(g.title || "Untitled")).join(" &middot; ") || "No goals yet", false);
+    }
   }
-
   // 3 · This week: the week's ONE Thing, the score, and the scorecard.
   function scTable(C) {
     const d = C.doc, w = C.w, pre = C.cur < 1, open = Math.min(12, Math.max(1, C.cur)), win = goalWin();
@@ -7484,7 +7661,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const DNAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     const locked = C.ro || pre || w > open;
     if (!d.goals.some((g) => g.tactics.length)) return `<p class="hint" style="margin-top:12px">${C.ro ? ""
-      : "No tactics yet. Tap Edit on a goal in step 2 and add the actions that move it."}</p>`;
+      : "No tactics yet. Open a goal above, tap Edit, and add the actions that move it."}</p>`;
     const rows = d.goals.map((g, gi) => {
       const due = g.tactics.filter((t) => dueIn(t, w)), gp = goalTally(g, w).pct;
       return `
@@ -7516,42 +7693,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         ${rows}
       </table>`;
   }
-  function rsTable(C) {
-    const d = C.doc, G = state.goals || {}, win = goalWin();
-    const pre = C.cur < 1, open = pre ? 0 : Math.min(12, C.cur);
-    const W = Array.from({ length: 12 }, (_, k) => k + 1);
-    const goals = d.goals.filter((g) => g.id === d.one_goal).concat(d.goals.filter((g) => g.id !== d.one_goal));
-    const md = (iso) => { const x = new Date(iso + "T00:00:00Z"); return `${x.getUTCMonth() + 1}/${x.getUTCDate()}`; };
-    // V4.2. Each cell is tinted by how the week went against your standard.
-    const tint = (p) => p === null ? "" : p >= win ? " t3" : p >= win - 25 ? " t2" : " t1";
-    const pctCell = (p, i) => i > open ? `<td class="fut">·</td>`
-      : `<td class="${p !== null && p >= win ? "win" : ""}${tint(p)}${i === C.w ? " curc" : ""}">${p === null ? "–" : p}</td>`;
-    const kCell = (g, i) => {
-      if (i > open) return `<td class="fut">·</td>`;
-      const v = (g.kpi_log || {})[i], has = v !== undefined && v !== null;
-      if (C.ro) return `<td class="${i === C.w ? "curc" : ""}">${has ? fmtNum(v) : "–"}</td>`;
-      // ":t" keeps the table's cell apart from the same week's line in step 2.
-      if (G.kedit === `${g.id}:${i}:t`) return `<td class="curc"><input class="kin" data-kin="${g.id}:${i}:t" id="gkint"
-          inputmode="decimal" enterkeyhint="done" value="${has ? v : ""}" aria-label="${esc(g.kpi || "KPI")}, week ${i}"></td>`;
-      return `<td class="${i === C.w ? "curc" : ""}"><button type="button" class="kb${has ? "" : " nil"}" data-kw="${g.id}:${i}:t"
-          aria-label="${esc(g.kpi || "KPI")}, week ${i}${has ? ": " + v : ""}">${has ? fmtNum(v) : "+"}</button></td>`;
-    };
-    return `
-        <div class="rs-wrap"><table class="rs">
-          <thead><tr><th></th>${W.map((i) => `<th class="${i === C.w ? "cur" : ""}">W${i}<small>${md(shiftISO(d.start_date, (i - 1) * 7))}</small></th>`).join("")}</tr></thead>
-          <tbody>
-            ${goals.map((g, gi) => {
-              const kOpen = C.ro || !!(G.kopen || {})[g.id];
-              const name = `${g.id === d.one_goal ? "★ " : ""}${esc(g.title || `Goal ${gi + 1}`)}`;
-              return `
-              <tr class="rsg"><th scope="row">${C.ro || !g.kpi ? name
-                : `<button type="button" class="rsn" data-kopen="${g.id}" aria-expanded="${kOpen}">${name}<i aria-hidden="true">${kOpen ? "\u25be" : "\u25b8"}</i></button>`}</th>${W.map((i) =>
-                pctCell(goalTally(g, i).pct, i)).join("")}</tr>
-              ${g.kpi && kOpen ? `<tr class="rsk"><th scope="row">${esc(g.kpi)}${g.kpi_target !== null && g.kpi_target !== undefined
-                ? ` <small>→ ${fmtNum(g.kpi_target)}</small>` : ""}</th>${W.map((i) => kCell(g, i)).join("")}</tr>` : ""}`; }).join("")}
-            <tr class="rss"><th scope="row">Week</th>${W.map((i) => pctCell(weekTally(d, i).pct, i)).join("")}</tr>
-          </tbody></table></div>`;
-  }
   function gStepWeek(C) {
     const d = C.doc, G = state.goals || {}, w = C.w, pre = C.cur < 1;
     const open = Math.min(12, Math.max(1, C.cur)), win = goalWin(), T = weekTally(d, w);
@@ -7562,7 +7703,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
                  label: pre ? `Starts ${esc(shortDay(d.start_date))}` : `Week ${w} · ${esc(weekSpan(d.start_date, w))}` });
     const fw = (d.focus || {})["w" + w] || "";
     const canFw = !C.ro && w === open && C.cur <= 12;
-    return gStep(C, 3, "This week", "", "week", `
+    return gStep(C, null, "This week", "", "week", `
       ${head}
       <div class="gsub2"><span class="clab">This week’s ONE Thing</span>
         ${canFw || C.ro ? gText(C, "fw", fw, "The ONE Thing for this week", false)
@@ -7572,53 +7713,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <span>${T.due ? `${T.done} of ${T.due} done` : "Nothing planned"} · ${C.ro ? `${win}% wins the week`
           : `<button type="button" class="linkbtn" data-edit="goal" data-metric="goals">${win}% wins the week</button>`}</span>
       </div>`}
-      <p class="gtrack">Lead: tick each tactic on the day you do it. Lag: log each result once a week, in step 2.</p>
+      <p class="gtrack">Lead: tick each tactic on the day you do it. Lag: log each result once a week: open its goal above.</p>
       ${scTable(C)}
-      ${C.ro ? rsTable(C) : ""}`,
+      `,
       `Week ${w}: ${T.pct === null ? "nothing due" : `${T.pct}% · ${T.done} of ${T.due} done`}`, false);
-  }
-
-  // V3.7. The Goals dial, carried onto its page: the same ring as home.
-  // One number, as Moran scores it: every tactic done ÷ every tactic due
-  // this week, across all the goals. Each goal's own lead % is on its line.
-  // V4.1. One ring per goal, each its lead % this week, with the week's
-  // execution score (all tactics together) as one number above them. A
-  // ring is a way in: tap it to go to that goal.
-  function gRing(C) {
-    const d = C.doc, win = goalWin(), run = C.cur >= 1 && C.cur <= 12;
-    const T = run ? weekTally(d, C.cur) : { pct: null, done: 0, due: 0 };
-    const goals = d.goals.filter((g) => g.id === d.one_goal).concat(d.goals.filter((g) => g.id !== d.one_goal));
-    const when = run ? `week ${C.cur} of 12${T.due ? ` · ${T.done}/${T.due} done` : ""}`
-      : C.cur < 1 ? "starts " + esc(shortDay(d.start_date)) : "twelve weeks done";
-    if (goals.length) return `
-      <section class="grings" aria-label="This week, goal by goal">
-        <div class="gwk">
-          <span class="gwkl">This week</span>
-          <b class="gwkv" style="color:${T.pct === null ? "var(--muted)" : dialColor(stdPct("goals", T.pct, win))}">${T.pct === null ? "–" : T.pct + "%"}</b>
-          <button type="button" class="dof" data-edit="goal" data-metric="goals">of ${win}%</button>
-          <span class="gwks">${when}</span>
-        </div>
-        <div class="grow3" style="--n:${goals.length}">${goals.map((g) => {
-          const p = run ? goalTally(g, C.cur).pct : null;
-          const one = g.id === d.one_goal;
-          return `<button type="button" class="gr1" data-gjump="${g.id}"
-              aria-label="${esc(g.title || "Untitled goal")}: ${p === null ? "nothing due" : p + "%"} this week. Go to it">
-            <span class="gr1d">${dialRing(stdPct("goals", p, win))}<b>${p === null ? "–" : p + "%"}</b></span>
-            <span class="gr1t">${one ? `<i aria-hidden="true">★</i>` : ""}${esc(g.title || "Untitled")}</span>
-          </button>`; }).join("")}</div>
-      </section>`;
-    return `
-      <section class="gring" aria-label="This week's score">
-        <div class="dial gdial">
-          ${dialRing(stdPct("goals", T.pct, win))}
-          <div class="dcore">
-            <b class="dval">${T.pct === null ? "–" : T.pct + "%"}</b>
-            <button type="button" class="dof" data-edit="goal" data-metric="goals">of ${win}%</button>
-            <span class="dsub">${run ? `week ${C.cur} of 12${T.due ? ` · ${T.done}/${T.due} done` : ""}`
-              : C.cur < 1 ? "starts " + esc(shortDay(d.start_date)) : "twelve weeks done"}</span>
-          </div>
-        </div>
-      </section>`;
   }
 
   // V3.6. The example, made for reading rather than drawn as a copy of
@@ -7677,7 +7775,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       </div>
       <header class="masthead">
         <h1>Goals</h1>
-        <p class="sub">From someday to this week, in three steps.</p>
+        <p class="sub">Twelve weeks, won one week at a time.</p>
       </header>`;
     const foot = `<p class="ver">v${APP_VERSION}</p>`;
     if (!G.loaded) return head + `<p class="loading">Opening…</p>` + foot;
@@ -7704,6 +7802,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <div class="gstart">
           <button class="btn" data-gstart="${mon}">Start this week · ${esc(shortDay(mon))}</button>
           <button class="btn-quiet" data-gstart="${next}">Start next Monday · ${esc(shortDay(next))}</button>
+          <label class="gpick">Or pick the week: <input type="date" class="field gsdate" id="gStartPick" aria-label="A day in the week to start"></label>
           <button class="btn-quiet" data-gexample="${mon}">Start from the example</button>
         </div>
         ${G.err ? `<p class="terr">${esc(G.err)}</p>` : ""}
@@ -7725,15 +7824,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <button class="btn" id="gNew2" style="width:100%;margin-top:12px;background:var(--work)">
           Start the next 12 weeks</button>
       </section>`;
-    const ov = !gFolded("over", false);
-    const overview = !doc.goals.length ? "" : `
-      <section class="card gover${ov ? "" : " shut"}">
-        <button type="button" class="gsh gfold" data-gfold="over" aria-expanded="${ov}">
-          <h2>The 12 weeks</h2><span class="gsr">${esc(shortDay(doc.start_date))} – ${esc(shortDay(shiftISO(doc.start_date, 83)))}</span>
-          <i class="gcar" aria-hidden="true">${ov ? "\u25be" : "\u25b8"}</i></button>
-        ${ov ? `<p class="gask">Lead % each week, goal by goal. Tap a goal to see its lag beside it.</p>${rsTable(C)}` : ""}
-      </section>`;
-    return head + overCard + gRing(C) + overview + gStepLadder(C) + gStepGoals(C) + gStepWeek(C) +
+    return head + overCard + goalsCard(C) + gStepWeek(C) + gStepLadder(C) +
       (G.err ? `<p class="terr">${esc(G.err)}</p>` : "") + exCard +
       `<button type="button" class="linkbtn gnew" id="gNew">Start a new 12 weeks</button>` + foot;
   }
@@ -7746,9 +7837,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const G = state.goals;
     if (!G) return;
     const doc = G.cycle;
-    document.querySelectorAll("[data-gjump]").forEach((el) =>
-      el.addEventListener("click", () =>
-        document.getElementById("gl-" + el.dataset.gjump)?.scrollIntoView({ block: "center", behavior: "smooth" })));
     document.querySelectorAll("[data-guide]").forEach((el) =>
       el.addEventListener("click", () => {
         G.guide = Object.assign({}, G.guide, { [el.dataset.guide]: !(G.guide || {})[el.dataset.guide] });
@@ -7763,13 +7851,23 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         try { localStorage.setItem(gFoldKey, JSON.stringify(f)); } catch {}
         render();
       }));
-    document.querySelectorAll("[data-kopen]").forEach((el) =>
-      el.addEventListener("click", () => {
-        G.kopen = Object.assign({}, G.kopen, { [el.dataset.kopen]: !(G.kopen || {})[el.dataset.kopen] });
-        render();
-      }));
     document.querySelectorAll("[data-gstart]").forEach((el) =>
       el.addEventListener("click", () => startCycle(el.dataset.gstart)));
+    // V4.4. Any week: the day picked snaps to its Monday.
+    on("gStartPick", "change", (e) => { if (e.target.value) startCycle(mondayOf(e.target.value)); });
+    on("gStartEdit", "click", () => { G.restart = true; render(); });
+    on("gStartDone", "click", () => { G.restart = false; render(); });
+    on("gStartIn", "change", (e) => {
+      if (!e.target.value || !G.cycle) return;
+      G.cycle.start_date = mondayOf(e.target.value);
+      G.sel = lastOpen(); G.restart = false;
+      render(); saveGoals();
+    });
+    document.querySelectorAll("[data-gweek]").forEach((el) =>
+      el.addEventListener("click", () => { G.sel = Number(el.dataset.gweek); render();
+        document.querySelector(".gstep .daynav")?.scrollIntoView({ block: "center", behavior: "smooth" }); }));
+    document.querySelectorAll("[data-gopen]").forEach((el) =>
+      el.addEventListener("click", () => { G.gopen = G.gopen === el.dataset.gopen ? null : el.dataset.gopen; render(); }));
     document.querySelectorAll("[data-gexample]").forEach((el) =>
       el.addEventListener("click", () => startCycle(el.dataset.gexample, true)));
     const askNew = () => {
@@ -7833,11 +7931,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     });
 
     // ---- KPI, week by week ----
-    const rs = document.querySelector(".card:not(.ro) .rs-wrap");
-    if (rs) {
-      const c = rs.querySelector("th.cur");
-      if (c) rs.scrollLeft = Math.max(0, c.offsetLeft - rs.clientWidth / 2);
-    }
     document.querySelectorAll("[data-kw]").forEach((el) =>
       el.addEventListener("click", () => {
         G.kedit = el.dataset.kw; render();
@@ -8156,11 +8249,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     saveWorkLocal();
   }
 
-  // V4.2. Two cards, nothing else. The timer: what it is for, the length
-  // with − and + always there, Start. The day: its total against your
-  // standard, every session (timed or added by hand) with an ×, and
-  // "+ Add a session" for one done without the timer. The total is the
-  // sessions, so "typed" and "timed" are gone.
+  // V4.4. The Focus page is the dial: the same one as home, bigger, with
+  // the day's sessions as quiet lines under it. One ring (the session
+  // while it runs, the day against your standard when idle), one total,
+  // one list. Nothing is said twice.
   function workCard() {
     if (!state.work) loadWorkLocal();
     const w = state.work, r = w.run;
@@ -8168,55 +8260,44 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const today = entryDay() === todayISO();
     const goal = stdOf(m, "work");
     const running = !!r && !r.pausedAt;
-    const C = 289.03;
-    const frac = r ? 1 - workLeft(r) / (r.len * 60000) : 0;
-    const centre = r ? mmssMs(workLeft(r)) : `${w.len}:00`;
-    const f = w.focus;
     const sessions = w.sessDay === entryDay() ? w.sessions || [] : [];
     const sum = sessions.reduce((a, x) => a + Number(x.minutes || 0), 0);
     const total = Number(today ? m.work_min : dayRecord("work").value) || 0;
     const extra = w.sessDay === entryDay() && total > sum ? total - sum : 0;
-    const timer = !today ? "" : `
-      <section class="card workcard">
-        <button type="button" class="focusbtn" id="workFocus" aria-expanded="${!!w.pick}">
-          ${f ? `On · <span>${esc(f.label)}</span>` : "What are you focusing on?"} <i aria-hidden="true">&rsaquo;</i></button>
-        ${w.pick ? focusPicker() : `
-        <div class="ring${running ? " run" : ""}${r && r.pausedAt ? " paused" : ""}">
-          <svg viewBox="0 0 100 100" aria-hidden="true">
-            <circle cx="50" cy="50" r="46" class="rtrack"></circle>
-            <circle cx="50" cy="50" r="46" class="rfill"
-              stroke-dasharray="${C}" stroke-dashoffset="${(C * (1 - frac)).toFixed(2)}"></circle>
-          </svg>
-          <div class="rin">
-            <div class="radj">
-              <button type="button" class="rpm" id="workMinus" aria-label="${WORK_STEP} minutes less">&minus;</button>
-              <b class="rclock" id="workClock">${centre}</b>
-              <button type="button" class="rpm" id="workPlus" aria-label="${WORK_STEP} minutes more">+</button>
-            </div>
-            <span class="rsub" id="workRange">${r && r.pausedAt ? "Paused" : workRange()}</span>
-          </div>
-        </div>
-        <div class="workbtns">
-          ${!r ? `<button class="btn workgo" id="workStart">Start</button>`
-          : running ? `<button class="btn-quiet workline" id="workPause">Pause</button>`
-          : `<button class="btn workgo" id="workContinue">Continue</button>
-             <button class="btn-quiet workline" id="workEnd">End</button>`}
-        </div>`}
-      </section>`;
-    return timer + `
-      <section class="card worklog">
-        ${dayNav({ label: today ? "Today" : esc(fullDate(entryDay())), atToday: today, unit: "day" })}
-        <div class="wday"><b>${hm(total)}</b><span>of <button type="button" class="linkbtn" data-edit="goal" data-metric="work">${hm(goal)}</button></span></div>
-        ${state.msg ? `<p class="hint dshint ${state.msgKind || ""}" style="text-align:center;margin-top:4px">${esc(state.msg)}</p>` : ""}
-        ${sessions.length || extra ? `<ul class="sesslist">${sessions.map((x) => `
-          <li><span>${hm(x.minutes)}</span>
-            <em>${x.label ? `<b>${esc(x.label)}</b>` : "Focus"}${x.started_at ? ` · ${new Date(x.started_at).toLocaleTimeString([],
-              { hour:"numeric", minute:"2-digit" })}` : " · added"}</em>
-            <button type="button" data-wdel="${x.id}" aria-label="Delete this session">&times;</button>
-          </li>`).join("")}${extra ? `
-          <li><span>${hm(extra)}</span><em>Typed in an earlier version</em>
-            <button type="button" id="workUntyped" aria-label="Delete the typed minutes">&times;</button></li>` : ""}</ul>`
-          : `<p class="hint" style="text-align:center">No sessions ${today ? "yet today" : "that day"}.</p>`}
+    const f = w.focus;
+    const dayPct = stdPct("work", total, goal);
+    const ring = r && today
+      ? `<svg class="dring" viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="60" cy="60" r="52" class="dtrack"></circle>
+          <circle cx="60" cy="60" r="52" class="dfill${r.pausedAt ? " paused" : ""}" id="workRing"
+            style="stroke:var(--work)" stroke-dasharray="${DIAL_C}" stroke-dashoffset="${(DIAL_C * (1 - workLeft(r) / (r.len * 60000))).toFixed(2)}"></circle></svg>`
+      : dialRing(dayPct);
+    const pm = (id, d, lbl) => `<button type="button" class="dpm" id="${id}" aria-label="${lbl}">${d < 0 ? "&minus;" : "+"}</button>`;
+    const core = today
+      ? `<span class="dtimer">${pm("workMinus", -1, `${WORK_STEP} minutes less`)}<b class="dval" id="workClock">${
+            r ? mmssMs(workLeft(r)) : `${w.len}:00`}</b>${pm("workPlus", 1, `${WORK_STEP} minutes more`)}</span>
+         <span class="dsub" id="workRange">${r ? (r.pausedAt ? "Paused" : `ends ${workRange().split(" – ")[1] || ""}`) : ""}</span>
+         <button type="button" class="dof" data-edit="goal" data-metric="work">${hm(total)} of ${hm(goal)} today</button>
+         ${!r ? `<button type="button" class="dplay" id="workStart" aria-label="Start a ${w.len}-minute session"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></button>`
+           : running ? `<button type="button" class="dplay on" id="workPause" aria-label="Pause"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="5" width="3.6" height="14" rx="1"/><rect x="13.9" y="5" width="3.6" height="14" rx="1"/></svg></button>`
+           : `<span class="wpaused"><button type="button" class="dplay" id="workContinue" aria-label="Continue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></button>
+              <button type="button" class="linkbtn wend" id="workEnd">End</button></span>`}`
+      : `<b class="dval">${hm(total)}</b>
+         <button type="button" class="dof" data-edit="goal" data-metric="work">of ${hm(goal)}</button>`;
+    return `
+      <section class="wpage">
+        ${dayNav({ label: today ? "Today" : esc(fullDate(entryDay())), atToday: today, unit: "day", cls: "wnav" })}
+        ${today ? `<button type="button" class="focusbtn" id="workFocus" aria-expanded="${!!w.pick}">
+          ${f ? `On · <span>${esc(f.label)}</span>` : "What are you focusing on?"} <i aria-hidden="true">&rsaquo;</i></button>` : ""}
+        ${w.pick && today ? focusPicker() : `<div class="dial wdial">${ring}<div class="dcore">${core}</div></div>`}
+        ${state.msg ? `<p class="hint dshint ${state.msgKind || ""}" style="text-align:center">${esc(state.msg)}</p>` : ""}
+        ${sessions.length || extra ? `<ul class="wlines">${sessions.map((x) => `
+          <li><span>${x.label ? esc(x.label) : "Focus"}${x.started_at ? `<small>${new Date(x.started_at).toLocaleTimeString([],
+              { hour:"numeric", minute:"2-digit" })}</small>` : `<small>added</small>`}</span>
+            <b>${hm(x.minutes)}</b>
+            <button type="button" data-wdel="${x.id}" aria-label="Delete this session">&times;</button></li>`).join("")}${extra ? `
+          <li><span>Typed earlier<small>older version</small></span><b>${hm(extra)}</b>
+            <button type="button" id="workUntyped" aria-label="Delete the typed minutes">&times;</button></li>` : ""}</ul>` : ""}
         ${w.adding ? `
           <div class="wadd">
             <input class="field" id="waLabel" maxlength="120" autocomplete="off" list="waRecent" placeholder="What it was for" value="${esc(w.addLabel || "")}" aria-label="What the session was for">
@@ -8226,7 +8307,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             <button type="button" class="linkbtn" id="waCancel">Cancel</button>
           </div>
           ${w.addErr ? `<p class="hint bad">${esc(w.addErr)}</p>` : ""}`
-          : `<button type="button" class="linkbtn wplus" id="waOpen">+ Add a session</button>`}
+          : `<button type="button" class="linkbtn wplus" id="waOpen">+ Add</button>`}
       </section>`;
   }
 
@@ -8297,10 +8378,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       const el = document.getElementById("workClock");
       if (!r || !el || state.seg !== "work") return stopWorkTick();
       el.textContent = mmssMs(workLeft(r));
-      { const rg = document.getElementById("workRange"); if (rg && !r.pausedAt) rg.textContent = workRange(); }
-      const fill = document.querySelector(".ring .rfill");
-      if (fill) fill.setAttribute("stroke-dashoffset",
-        (289.03 * (workLeft(r) / (r.len * 60000))).toFixed(2));
+      { const rg = document.getElementById("workRange"); if (rg && !r.pausedAt) rg.textContent = `ends ${workRange().split(" – ")[1] || ""}`; }
+      const fill = document.getElementById("workRing");
+      if (fill) fill.setAttribute("stroke-dashoffset", (DIAL_C * (1 - workLeft(r) / (r.len * 60000))).toFixed(2));
       if (workLeft(r) <= 0) { stopWorkTick(); if (await checkWork()) render(); }
     }, 1000);
   }
@@ -8743,13 +8823,13 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       ? (hasTarget(m, k) ? target(m, k) : S.def) : stdOf(m, k);
     const seed = state.editDraft !== null && state.editDraft !== undefined ? state.editDraft
       : S.kind === "time" ? clockInput(cur) : S.kind === "min" ? hm(cur).replace(/ /g, " ")
-      : S.kind === "weight" ? (cur > 0 ? String(Math.round(cur * 10) / 10) : "") : String(Math.round(cur));
+      : S.kind === "weight" ? (cur > 0 ? String(Math.round(wOut(cur) * 10) / 10) : "") : String(Math.round(cur));
     const hint = { count: k === "tasks" ? "Tasks to finish each day."
                         : k === "dd" ? "Daily Dozen boxes each day, out of 25."
                         : k === "macros" ? "Grams of protein each day. The calculator on the Macros page can work it out."
                         : k === "kcal" ? "Calories each day. Within 10% either side counts as on target."
                         : "Steps each day.",
-                   weight: "Your goal weight, in pounds.",
+                   weight: `Your goal weight, in ${wName()}.`,
                    min: "Minutes each day. 45, 1:30 or 1h 30m all work.",
                    pct: k === "goals" ? "The share of the week's tactics that wins the week."
                                       : "The share of the sleep pyramid to hold each night.",
@@ -8765,7 +8845,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
               : S.kind === "weight" ? 'type="text" inputmode="decimal"'
               : 'type="text" inputmode="numeric" pattern="[0-9]*"'}
             value="${esc(seed)}" aria-label="${esc(S.label)} standard">
-          ${S.kind === "pct" ? `<span class="stdu">%</span>` : S.kind === "count" || S.kind === "weight" ? `<span class="stdu">${esc(S.unit || "")}</span>` : ""}
+          ${S.kind === "pct" ? `<span class="stdu">%</span>` : S.kind === "weight" ? `<span class="stdu">${units.w}</span>` : S.kind === "count" ? `<span class="stdu">${esc(S.unit || "")}</span>` : ""}
         </div>
         <p class="hint" id="stdHint">${esc(hint)}</p>
         <div class="stdbtns">
@@ -8786,8 +8866,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       return { v };
     }
     if (S.kind === "weight") {
-      const v = parseFloat(t.replace(",", "."));
-      return v >= 50 && v <= 1000 ? { v: Math.round(v * 10) / 10 } : { err: "Type a weight in pounds, like 175." };
+      const v = parseFloat(t.replace(",", ".")), lb = Number.isFinite(v) ? wToLb(v) : NaN;
+      return lb >= 50 && lb <= 1000 ? { v: lb } : { err: units.w === "kg" ? "Type a weight in kilograms, like 80." : "Type a weight in pounds, like 175." };
     }
     if (S.kind === "min") {
       const v = parseMinutes(t);
