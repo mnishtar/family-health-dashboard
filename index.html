@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Family Step Check-In</title>
+<title>Tribes</title>
 
 <!-- ===================================================================
      YOUR TWO SETTINGS. Nothing else in this file needs editing.
@@ -21,7 +21,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Steps">
+<meta name="apple-mobile-web-app-title" content="Tribes">
 <link rel="apple-touch-icon" href="data:image/png;base64,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">
 <link rel="icon" href="data:image/png;base64,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">
 
@@ -834,6 +834,23 @@ button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inh
 /* ---------- V3.3: the opening screen ------------------------------------ */
 .hbar { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:2px 0 6px; }
 .hbar b { font-family:var(--display); font-weight:500; font-size:17px; color:var(--ink-2); }
+/* ---------- V4.3: Tribes ------------------------------------------------ */
+.tgoal { display:flex; align-items:baseline; gap:8px; width:100%; margin:-2px 0 4px; padding:0; border:none; background:none;
+  font:inherit; font-size:13.5px; color:var(--ink-2); text-align:left; cursor:pointer; }
+.tgoal span { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.tgoal em { flex:none; font-style:normal; font-family:var(--mono); font-size:12px; color:var(--accent); }
+.tgoal.none { color:var(--accent); }
+.tlab { display:block; margin:12px 0 4px; font-size:12px; font-weight:600; color:var(--ink-2); }
+.tstart .field, .tsheet .field { width:100%; box-sizing:border-box; font-size:16px; }
+.tsec { margin:18px 0 0; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.tifthen { display:grid; grid-template-columns:auto 1fr; column-gap:10px; align-items:center; margin-top:4px; }
+.tifthen .tlab { margin:8px 0 0; }
+.tifthen .field { margin-top:8px; }
+.tifh { margin-top:6px; }
+.tsent h3 { margin:4px 0 4px; font-family:var(--display); font-weight:500; font-size:22px; }
+.tsent p { margin:4px 0 0; color:var(--ink-2); }
+.tsent .tset { font-size:12px; color:var(--muted); margin-top:10px; }
+.tsheet { max-height:88vh; overflow:auto; }
 .hwho { position:relative; display:inline-flex; align-items:center; }
 .hwho select { appearance:none; -webkit-appearance:none; border:none; background:none; font-family:inherit;
   font-size:14px; font-weight:600; color:var(--ink); padding:6px 18px 6px 6px; cursor:pointer; }
@@ -1646,7 +1663,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "4.2";
+  const APP_VERSION = "4.3";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -2644,7 +2661,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <div class="section-head">
           <button class="foldbtn" id="foldFam" aria-expanded="${open}">
             <span class="caret">${open ? "\u25be" : "\u25b8"}</span>
-            <h2>The family</h2></button>
+            <h2>The tribe</h2></button>
           <span class="eyebrow">${logged === null ? "7-day trend"
             : `${logged}/${rows.length} logged`}</span>
         </div>
@@ -2718,8 +2735,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       else if (bval(p, "steps") > 0)           bits.push(num(bval(p, "steps")) + " steps");
       if (bval(p, "train") > 0)  bits.push(hm(bval(p, "train")) + " train");
       if (bval(p, "cardio") > 0) bits.push(hm(bval(p, "cardio")) + " cardio");
-      const wm = Number(board(p).work_min) || 0;
-      if (wm > 0) bits.push(hm(wm) + " focus");
+      // V4.3. Exercise only: steps, train, cardio. Nothing else is posted.
       // A streak is a today fact: yesterday's post cannot know it.
       const streak = !past && p.streak > 1 ? `  (${p.streak}-day streak)` : "";
       lines.push(`${bdone(p) ? "\u2705" : "\u25ab\ufe0f"} ${p.name} \u2014 ${bits.join(" \u00b7 ") || "logged"}${streak}`);
@@ -2727,6 +2743,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     if (missing.length) {
       lines.push("", `${past ? "Nothing logged" : "Still to log"}: ${missing.map((p) => p.name).join(", ")}`);
     }
+    // V4.3. The reason, under every update.
+    const g = state.group || {}, n = goalDays();
+    if (g.goal) lines.push("", `\ud83c\udfaf ${g.goal}${n !== null && n >= 0 ? ` \u00b7 ${n === 0 ? "today" : n === 1 ? "1 day to go" : num(n) + " days to go"}` : ""}`);
     lines.push("", `${location.origin}${location.pathname}?g=${state.code}`);
     return lines.join("\n");
   }
@@ -4176,7 +4195,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const res = await call("app_log", { p_code:state.code, p_person:state.meId,
       p_value:Number(raw), p_metric:M[k].key,
       p_date:state.entryDate || null, p_tz:deviceTZ() });
-    state.msg = res.error ? res.error : "Saved. Your family can see it.";
+    state.msg = res.error ? res.error : "Saved. Your tribe can see it.";
     state.msgKind = res.error ? "bad" : "ok";
     if (!res.error) state.entryDate = null;
     if (state.range === "month") await loadMonth(true);
@@ -4236,26 +4255,36 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   }
 
   /* ---------- views ------------------------------------------------ */
+  // V4.3. Tribes. Start one (a name and the goal you share), or open the
+  // link someone sent you. A tribe is private: only people with its link
+  // can see it.
   function landing() {
+    const L = state.land || {};
     return `
       <header class="masthead">
-        <h1>Family Health Dashboard</h1>
-        <p class="sub">One number a day. Everyone sees how everyone is doing.
-          No accounts, no passwords &mdash; a family shares one link.</p>
+        <h1>Tribes</h1>
+        <p class="sub">Habits, side by side, toward one goal your tribe shares.
+          No accounts: a tribe shares one private link.</p>
       </header>
 
-      <section class="card">
-        <h2>I have a code</h2>
-        <input class="field" id="code" placeholder="ABC123" autocapitalize="characters"
-               autocomplete="off" style="margin-top:12px;text-align:center;
-               font-family:var(--mono);font-size:20px;letter-spacing:.25em">
-        <button class="btn" id="open" style="width:100%;margin-top:10px">Open my family</button>
-      </section>
-
-      <section class="card">
-        <h2>Start a new group</h2>
-        <input class="field" id="gname" placeholder="The Nishtars" style="margin-top:12px">
-        <select class="field" id="gtz" style="margin-top:10px">
+      <section class="card tstart">
+        <h2>Start a tribe</h2>
+        <label class="tlab" for="gname">Tribe name</label>
+        <input class="field" id="gname" maxlength="60" placeholder="Flabs to Abs" value="${esc(L.name || "")}">
+        <p class="tsec">Your common goal</p>
+        <label class="tlab" for="ggoal">We will</label>
+        <input class="field" id="ggoal" maxlength="120" placeholder="climb a mountain in Europe" value="${esc(L.goal || "")}">
+        <label class="tlab" for="gby">By</label>
+        <input class="field" id="gby" type="date" value="${esc(L.by || "")}">
+        <div class="tifthen">
+          <label class="tlab" for="gwhen">When</label>
+          <input class="field" id="gwhen" maxlength="120" placeholder="we wake up each day" value="${esc(L.when || "")}">
+          <label class="tlab" for="gthen">we will</label>
+          <input class="field" id="gthen" maxlength="120" placeholder="hit our steps and train" value="${esc(L.then || "")}">
+        </div>
+        <p class="hint tifh">An if-then plan: the moment, and what you will do in it. Plans written this way get done more often.</p>
+        <label class="tlab" for="gtz">Time zone</label>
+        <select class="field" id="gtz">
           <option value="America/New_York">Eastern (US)</option>
           <option value="America/Chicago">Central (US)</option>
           <option value="America/Denver">Mountain (US)</option>
@@ -4265,16 +4294,108 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           <option value="Asia/Dubai">Dubai</option>
           <option value="Asia/Kolkata">India</option>
         </select>
-        <button class="btn-quiet" id="create" style="width:100%;margin-top:10px;padding:13px">
-          Create the group</button>
+        <button class="btn" id="create" style="width:100%;margin-top:14px">Create the tribe</button>
+      </section>
+
+      <section class="card">
+        <h2>Joining a tribe?</h2>
+        <p class="hint" style="margin-top:6px">Open the link they sent you, or type its code.</p>
+        <input class="field" id="code" placeholder="ABC123" autocapitalize="characters"
+               autocomplete="off" style="margin-top:10px;text-align:center;
+               font-family:var(--mono);font-size:20px;letter-spacing:.25em">
+        <button class="btn-quiet" id="open" style="width:100%;margin-top:10px;padding:13px">Open the tribe</button>
       </section>
 
       <p class="hint ${state.msg ? "bad" : ""}" id="msg">${esc(state.msg || "")}</p>
 
-      <p class="note">Anyone holding a group&rsquo;s link can see and log for that
-        group. Share it the way you would share a house key.</p>
+      <p class="note">Anyone holding a tribe&rsquo;s link can see it and join it.
+        Share it the way you would share a house key.</p>
 
       <p class="ver">v${APP_VERSION}</p>`;
+  }
+
+  /* ---------- V4.3: the tribe's goal ------------------------------------ */
+  // Days from the tribe's today to the goal date. Null without a date.
+  function goalDays() {
+    const g = state.group || {};
+    if (!g.goal_by) return null;
+    const a = new Date(familyISO() + "T00:00:00Z"), b = new Date(g.goal_by + "T00:00:00Z");
+    return Math.round((b - a) / 86400000);
+  }
+  const daysWords = (n) => n === null ? "" : n > 1 ? `${num(n)} days` : n === 1 ? "1 day" : n === 0 ? "today" : "date passed";
+  const byWords = (iso) => new Date(iso + "T00:00:00Z").toLocaleDateString(undefined,
+    { timeZone: "UTC", month: "long", day: "numeric", year: "numeric" });
+  function goalLine() {
+    const g = state.group || {}, n = goalDays();
+    return g.goal
+      ? `<button type="button" class="tgoal" id="tribeGoal" aria-label="Our goal: ${esc(g.goal)}. Open">
+           <span>${esc(g.goal)}</span>${n !== null ? `<em>${daysWords(n)}</em>` : ""}</button>`
+      : `<button type="button" class="tgoal none" id="tribeGoal">+ Set your tribe&rsquo;s goal</button>`;
+  }
+  function tribeSheet() {
+    if (!state.tribeSheet) return "";
+    const g = state.group || {}, T = state.tribeSheet, n = goalDays();
+    const sentence = g.goal ? `<div class="tsent">
+        <p class="eyebrow">Our goal${n !== null ? ` &middot; ${daysWords(n)}` : ""}</p>
+        <h3>${esc(g.goal)}</h3>
+        ${g.goal_by ? `<p>by ${esc(byWords(g.goal_by))}</p>` : ""}
+        ${g.goal_when || g.goal_then ? `<p>When ${esc(g.goal_when || "…")}, we will ${esc(g.goal_then || "…")}.</p>` : ""}
+        <p class="tset">${g.goal_set_by ? `Set by ${esc(g.goal_set_by)}` : "Set when the tribe began"}${
+          g.goal_set_at ? ` &middot; ${esc(shortDay(String(g.goal_set_at).slice(0, 10)))}` : ""}</p>
+      </div>` : "";
+    return `
+      <div class="sheetbg" id="tsBg"></div>
+      <div class="stdsheet tsheet" role="dialog" aria-label="Your tribe">
+        ${T.edit ? `
+          <p class="eyebrow">Your tribe</p>
+          <label class="tlab" for="tsName">Tribe name</label>
+          <input class="field" id="tsName" maxlength="60" value="${esc(T.name)}">
+          <label class="tlab" for="tsGoal">We will</label>
+          <input class="field" id="tsGoal" maxlength="120" placeholder="climb a mountain in Europe" value="${esc(T.goal)}">
+          <label class="tlab" for="tsBy">By</label>
+          <input class="field" id="tsBy" type="date" value="${esc(T.by)}">
+          <label class="tlab" for="tsWhen">When</label>
+          <input class="field" id="tsWhen" maxlength="120" placeholder="we wake up each day" value="${esc(T.when)}">
+          <label class="tlab" for="tsThen">we will</label>
+          <input class="field" id="tsThen" maxlength="120" placeholder="hit our steps and train" value="${esc(T.then)}">
+          <p class="hint ${T.err ? "bad" : ""}" id="tsHint">${esc(T.err || "Everyone in the tribe sees this, and your name goes beside it.")}</p>
+          <div class="stdbtns">
+            <button type="button" class="btn-quiet" id="tsCancel">Cancel</button>
+            <button type="button" class="btn" id="tsSave">Save</button>
+          </div>`
+        : `${sentence || `<p class="eyebrow">Your tribe</p><h3>No goal yet</h3>
+             <p class="hint">One goal you all work toward, with a date and an if-then plan.</p>`}
+          <div class="stdbtns">
+            <button type="button" class="btn-quiet" id="tsCancel">Close</button>
+            <button type="button" class="btn" id="tsEdit">${g.goal ? "Edit" : "Set the goal"}</button>
+          </div>`}
+      </div>`;
+  }
+  function wireTribeSheet() {
+    on("tribeGoal", "click", () => { state.tribeSheet = { edit: !(state.group || {}).goal }; seedTribe(); render();
+      if (state.tribeSheet.edit) document.getElementById("tsGoal")?.focus(); });
+    if (!state.tribeSheet) return;
+    const close = () => { state.tribeSheet = null; render(); };
+    on("tsBg", "click", close); on("tsCancel", "click", close);
+    on("tsEdit", "click", () => { state.tribeSheet.edit = true; seedTribe(); render(); document.getElementById("tsGoal")?.focus(); });
+    const T = state.tribeSheet;
+    [["tsName", "name"], ["tsGoal", "goal"], ["tsBy", "by"], ["tsWhen", "when"], ["tsThen", "then"]].forEach(([id, k]) =>
+      on(id, "input", (e) => { T[k] = e.target.value; }));
+    on("tsSave", "click", async (e) => {
+      e.target.disabled = true;
+      const res = await call("app_set_tribe", { p_code: state.code, p_person: state.meId || null,
+        p_name: (T.name || "").trim(), p_goal: (T.goal || "").trim(), p_by: T.by || null,
+        p_when: (T.when || "").trim(), p_then: (T.then || "").trim() });
+      if (res.error) { T.err = res.offline ? "No signal. Try again in a moment." : res.error; e.target.disabled = false; render(); return; }
+      state.tribeSheet = null;
+      await refresh(); render();
+    });
+  }
+  function seedTribe() {
+    const g = state.group || {}, T = state.tribeSheet;
+    if (!T || T.seeded) return;
+    Object.assign(T, { name: g.name || "", goal: g.goal || "", by: g.goal_by || "", when: g.goal_when || "",
+                       then: g.goal_then || "", seeded: true });
   }
 
   /* ---------- the board: a glance, not a dashboard -------------------
@@ -4505,9 +4626,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     return `
       <div class="hbar">
         <b>${esc(state.group.name)}</b>
-        ${m ? `<label class="hwho"><select id="who" aria-label="Which family member are you">${whoOptions}</select>
+        ${m ? `<label class="hwho"><select id="who" aria-label="Who are you">${whoOptions}</select>
           <i aria-hidden="true">&#9662;</i></label>` : ""}
       </div>
+      ${goalLine()}
 
       ${editRowHTML()}
 
@@ -4516,7 +4638,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           <h2>Who are you?</h2>
           <p class="hint">Pick your name, or add it, and your dials appear here.</p>
           <div class="whoami" style="margin-top:12px">
-            <select id="who" aria-label="Which family member are you"
+            <select id="who" aria-label="Who are you"
               ${state.people.length === 0 ? "disabled" : ""}>${whoOptions}</select>
             <button class="linkbtn" id="addBtn">${state.adding ? "Never mind" : "Add someone"}</button>
           </div>
@@ -4531,7 +4653,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       <section class="hfam">
         <button class="hfamline" id="foldBoard" aria-expanded="${boardOpen()}">
           <span>Dashboard</span>
-          <em>${state.people.length ? `you and the family · ${logged}/${state.people.length} logged` : ""}</em>
+          <em>${state.people.length ? `you and the tribe · ${logged}/${state.people.length} logged` : ""}</em>
           <i aria-hidden="true">${boardOpen() ? "\u25b4" : "\u203a"}</i></button>
         ${boardOpen() ? dayNav({ ids: ["bPrev", "bNext", "bToday"], cls: "famnav",
                      atToday: famDayISO() >= familyISO(),
@@ -5781,7 +5903,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <div class="dsh"><h2>Body fat</h2><span class="dss">optional, from a scale or scan</span></div>
         ${input("bodyfat", bf, "%", "Body fat percent")}
         ${dietMsg(D, "bodyfat")}
-        <p class="cnote" style="text-align:center">Your weight and body fat show only on your own phone. The family sees a tick on days you weigh in.</p>
+        <p class="cnote" style="text-align:center">Your weight and body fat show only on your own phone. Your tribe sees a tick on days you weigh in.</p>
       </section>`;
   }
 
@@ -8441,7 +8563,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     wireNet();
     // One sheet for every standard and one for the home dials, on any page.
     if (v !== "session" && v !== "detail") {
-      app.insertAdjacentHTML("beforeend", stdSheet() + dialSheet() + homeSheet());
+      app.insertAdjacentHTML("beforeend", stdSheet() + dialSheet() + homeSheet() + tribeSheet());
+      wireTribeSheet();
       wireStd();
       wireHomeSheet();
     }
@@ -8805,18 +8928,26 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     /* landing */
     on("open", "click", () => {
       const c = (document.getElementById("code").value || "").trim().toUpperCase();
-      if (!c) { state.msg = "Enter the code your family sent you."; render(); return; }
+      if (!c) { state.msg = "Enter the code your tribe sent you."; render(); return; }
       location.search = "?g=" + encodeURIComponent(c);
     });
     on("code", "keydown", (e) => { if (e.key === "Enter") document.getElementById("open").click(); });
 
+    // What is typed survives a repaint (a message, a failed create).
+    state.land = state.land || {};
+    [["gname", "name"], ["ggoal", "goal"], ["gby", "by"], ["gwhen", "when"], ["gthen", "then"]].forEach(([id, k]) =>
+      on(id, "input", (e) => { state.land[k] = e.target.value; }));
     on("create", "click", async (e) => {
-      const name = (document.getElementById("gname").value || "").trim();
+      const L = state.land, name = (L.name || "").trim();
       const tz = document.getElementById("gtz").value;
-      if (!name) { state.msg = "Give the group a name."; render(); return; }
+      if (!name) { state.msg = "Give your tribe a name."; render(); document.getElementById("gname")?.focus(); return; }
       e.target.disabled = true;
       const res = await call("app_create_group", { p_name: name, p_timezone: tz });
       if (res.error) { state.msg = res.error; e.target.disabled = false; render(); return; }
+      if ((L.goal || "").trim() || L.by || (L.when || "").trim() || (L.then || "").trim()) {
+        await call("app_set_tribe", { p_code: res.code, p_person: null, p_name: name, p_goal: (L.goal || "").trim(),
+          p_by: L.by || null, p_when: (L.when || "").trim(), p_then: (L.then || "").trim() });
+      }
       location.search = "?g=" + res.code;
     });
 
