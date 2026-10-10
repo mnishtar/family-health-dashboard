@@ -812,50 +812,59 @@ button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inh
 .gstep .daynav { margin-top:4px; }
 .gstep .sc-ro { margin-top:4px; }
 
-/* V4.4. One Goals card: the week, a strip of twelve, a row per goal. */
-.gcard { padding-top:18px; }
-.gstrip { display:grid; grid-template-columns:repeat(6, minmax(0, 1fr)); gap:4px; margin:2px 0 14px; }
-.gsw { display:flex; flex-direction:column; align-items:center; gap:1px; min-width:0; padding:6px 0 5px; border-radius:8px;
-  border:1.5px solid transparent; background:var(--surface-2); font:inherit; color:var(--ink); cursor:pointer; }
-.gsw b { font-family:var(--mono); font-weight:500; font-size:13px; line-height:1.2; font-variant-numeric:tabular-nums; }
-.gsw small { font-size:10px; font-weight:700; letter-spacing:.04em; color:var(--muted); }
-.gsw em { font-style:normal; font-size:10px; color:var(--muted); white-space:nowrap; }
-.gsw.fut { background:none; border-color:var(--line); cursor:default; opacity:.7; }
-.gsw.fut b { color:var(--muted); }
-.gsw.t3, .gmini .t3 { background:color-mix(in oklab, var(--work) 18%, var(--surface)); }
-.gsw.t2, .gmini .t2 { background:color-mix(in oklab, #d9a520 16%, var(--surface)); }
-.gsw.t1, .gmini .t1 { background:color-mix(in oklab, #c8463c 12%, var(--surface)); }
-.gsw.cur small { color:var(--work); }
-.gsw.sel { border-color:var(--ink); }
-.glead, .grh { display:grid; grid-template-columns:minmax(0, 1fr) 44px 92px 14px; align-items:baseline; gap:8px; }
-.glead { padding:0 0 6px; border-bottom:1px solid var(--line); font-size:10px; font-weight:700; letter-spacing:.08em;
-  text-transform:uppercase; color:var(--muted); }
-.glead span:nth-child(2), .glead span:nth-child(3) { text-align:right; }
-.grow { border-bottom:1px solid var(--line); }
-.grh { width:100%; padding:12px 0; border:none; background:none; font:inherit; color:inherit; text-align:left; cursor:pointer; }
-.grn { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:15px; color:var(--ink); }
-.grn i { font-style:normal; color:var(--work); margin-right:5px; }
-.grld { font-family:var(--mono); font-weight:500; font-size:14px; text-align:right; color:var(--ink); }
-.grld.win { color:var(--work); font-weight:600; }
-.grk { font-family:var(--mono); font-size:13px; text-align:right; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.grk small { color:var(--muted); font-size:11.5px; margin-left:3px; }
-.grh .gcar { margin:0; text-align:right; }
-.grow.open { padding-bottom:12px; }
-.grow.open .gline2 { padding-top:0; border-top:none; }
-.ghead.gin { justify-content:flex-end; margin:-6px 0 2px; }
-.gmini::before { content:"By week"; grid-column:1 / -1; font-size:10px; font-weight:700; letter-spacing:.08em;
-  text-transform:uppercase; color:var(--muted); }
-.gmini { display:grid; grid-template-columns:repeat(12, minmax(0, 1fr)); gap:3px; margin-top:10px; }
-.gmini span { padding:4px 0; border-radius:6px; background:var(--surface-2); text-align:center; font-family:var(--mono);
-  font-size:10.5px; color:var(--ink-2); }
-.gmini span.fut { background:none; color:var(--muted); }
-.gstart2 { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:6px; margin:14px 0 0;
+/* V4.5. Goals: rings on top, then a card per goal with its twelve weeks. */
+.grings { margin:2px 0 16px; text-align:center; }
+.dial.gslide { display:flex; flex-direction:column; justify-content:center; gap:14px; text-align:center; }
+.gslide .gwk { margin:0; }
+.gslide .gwkv { font-size:44px; }
+.gslide .grow3 { width:100%; gap:8px; }
+.gslide .gr1d { width:min(100%, 88px); }
+.grow3 { display:grid; grid-template-columns:repeat(var(--n), minmax(0, 1fr)); gap:10px; max-width:420px; margin:0 auto; }
+.gr1 { border:none; background:none; padding:0; font:inherit; color:inherit; cursor:pointer; display:flex;
+  flex-direction:column; align-items:center; gap:6px; min-width:0; }
+.gr1d { position:relative; width:min(100%, 112px); aspect-ratio:1/1; display:block; }
+.gr1d .dring { width:100%; height:100%; }
+.gr1d .dtrack, .gr1d .dfill { stroke-width:9; }
+.gr1d b { position:absolute; inset:0; display:grid; place-items:center; font-family:var(--display); font-weight:500;
+  font-size:clamp(18px, 5.6vw, 24px); font-variant-numeric:tabular-nums; }
+.gr1t { font-size:12.5px; line-height:1.25; color:var(--ink-2); max-width:100%; overflow:hidden; display:-webkit-box;
+  -webkit-line-clamp:2; -webkit-box-orient:vertical; word-break:break-word; }
+.gr1t i { font-style:normal; color:var(--work); margin-right:2px; }
+.gdial { width:min(230px, 62vw); }
+.gdial .dval { font-size:clamp(34px, 11vw, 46px); }
+.gstart2 { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:6px; margin:12px 0 0;
   font-size:12.5px; color:var(--muted); }
 .gstart2 .linkbtn { font-size:12.5px; }
 .gsdate { width:auto; padding:6px 8px; font-size:16px; }
 .gpick { display:flex; align-items:center; justify-content:center; gap:8px; font-size:13px; color:var(--muted); }
 .gpick .field, .gpick input { width:auto; padding:6px 8px; font-size:16px; }
-.gcard .gguide { display:flex; margin:10px auto 0; }
+.gcard3 { padding-top:14px; }
+.gcard3 .gline2 { padding:0 0 4px; border-top:none; }
+.gcard3 .gline2 h3 { font-size:18px; color:var(--ink); }
+.rs.gg tbody th { min-width:52px; }
+.rs.gg td, .rs.gg th { padding:6px 5px; }
+.rs.gg td { min-width:38px; }
+.rs.gg thead th small { display:block; font-weight:500; font-size:9.5px; color:var(--muted); letter-spacing:0; }
+.rs.gg td.curc { box-shadow:inset 0 0 0 1.5px var(--ink); border-radius:6px; }
+.gplanb { display:flex; align-items:baseline; gap:8px; width:100%; margin-top:10px; padding:10px 0 2px; border:none;
+  border-top:1px solid var(--line); background:none; font:inherit; color:var(--ink); text-align:left; cursor:pointer; }
+.gplanb span { flex:1; font-size:14px; font-weight:600; }
+.gplanb small { font-weight:500; color:var(--muted); margin-left:6px; font-size:12px; }
+.gplanb em { font-style:normal; font-size:12px; color:var(--muted); }
+.gplanb i { font-style:normal; color:var(--muted); font-size:12px; }
+.gplan { padding:4px 0 2px; }
+.gplh { margin:12px 0 2px; font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--work); }
+.gplh small { margin-left:6px; font-weight:500; letter-spacing:0; text-transform:none; color:var(--muted); font-size:11.5px; }
+.gpl { padding:6px 0; border-bottom:1px dashed var(--line); }
+.gpk { display:block; font-size:13px; font-weight:600; color:var(--ink-2); }
+.gpk small { margin-left:6px; font-weight:400; font-style:italic; color:var(--muted); }
+.gpl .gtap { font-size:14.5px; }
+.gpl .cnil { font-size:13.5px; }
+.gaddc { margin:0 0 4px; text-align:center; width:100%; }
+.gonehint { text-align:center; margin:-4px 0 8px; }
+.gguidew { display:flex; justify-content:center; margin:-6px 0 14px; }
+.gguidew .gguideb { text-align:left; }
+.gguidew { flex-direction:column; align-items:center; }
 
 /* V4.4. Weight unit; body fat ranges, pictured. */
 .wunits { margin-left:auto; }
@@ -877,6 +886,65 @@ button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inh
 .bff.on svg { fill:var(--diet); stroke:var(--diet); }
 .bff.on b { color:var(--ink); }
 .bfg .cnote { margin:0 0 8px; text-align:left; }
+
+/* ---------- V4.5: Atoms ------------------------------------------------ */
+.tstreak { display:flex; align-items:center; gap:6px; width:100%; margin:0 0 4px; padding:0; border:none; background:none;
+  font:inherit; font-size:13px; color:var(--muted); text-align:left; cursor:pointer; }
+.tstreak svg { width:15px; height:15px; flex:none; fill:var(--line-strong); }
+.tstreak.lit svg { fill:#e39a35; }
+.tstreak b { font-weight:600; color:var(--ink-2); }
+.tstreak span::before { content:"\00b7"; margin-right:6px; }
+.tsinfo { margin:2px 0 8px; padding:10px 12px; border-radius:10px; background:var(--surface-2); font-size:13px; line-height:1.45; color:var(--ink-2); }
+
+.vbadge { position:absolute; top:4%; right:2%; display:inline-flex; align-items:center; gap:3px; padding:5px 9px 5px 7px;
+  border-radius:12px; background:linear-gradient(160deg, #f6d38f, #eea94d); color:#2a1d08; box-shadow:0 4px 12px rgba(160,100,20,.25); }
+.vbadge svg { width:14px; height:14px; fill:currentColor; }
+.vbadge b { font-family:var(--mono); font-size:13px; font-weight:600; }
+.vbadge.zero { opacity:.75; }
+.astrip { display:flex; align-items:center; gap:10px; margin:-6px 0 14px; }
+.asent { flex:1; min-width:0; border:none; background:none; padding:0; text-align:left; cursor:pointer;
+  font-family:var(--display); font-size:16px; line-height:1.35; color:var(--ink); }
+.asent u { text-decoration:none; background-image:linear-gradient(90deg, #eea94d, #c86ad8); background-size:100% 1.5px;
+  background-repeat:no-repeat; background-position:0 100%; }
+.asent.nil { color:var(--muted); font-size:14.5px; }
+.asent.nil b { color:var(--ink); font-family:var(--sans, inherit); font-weight:600; }
+.asent.big { font-size:21px; margin:6px 0 10px; cursor:default; }
+.astats { display:flex; flex-direction:column; gap:4px; flex:none; }
+.astat { display:flex; align-items:center; gap:4px; font-size:12px; color:var(--muted); }
+.astat svg { width:14px; height:14px; fill:#e39a35; }
+.astat b { font-family:var(--mono); font-size:14px; color:var(--ink); font-weight:600; }
+.astat small { font-size:11px; }
+.aedit .alab { display:block; margin:12px 0 4px; font-size:12px; font-weight:600; color:var(--ink-2); }
+.achips { display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; }
+.achip { border:1px solid var(--line); background:var(--surface); border-radius:999px; padding:6px 11px; font:inherit;
+  font-size:13px; color:var(--ink-2); cursor:pointer; }
+.achip.on { border-color:#e39a35; color:var(--ink); background:color-mix(in oklab, #eea94d 14%, var(--surface)); }
+.aedit .terow { margin-top:12px; }
+.acard .ahead { display:flex; align-items:center; gap:12px; }
+.abig { display:inline-flex; align-items:center; gap:4px; padding:10px 14px 10px 11px; border-radius:18px;
+  background:linear-gradient(160deg, #f6d38f, #eea94d); color:#2a1d08; }
+.abig svg { width:22px; height:22px; fill:currentColor; }
+.abig b { font-family:var(--mono); font-size:26px; font-weight:600; line-height:1; }
+.awho { font-size:14px; color:var(--ink-2); line-height:1.35; }
+.awho b { color:var(--ink); }
+.awho small { display:block; margin-top:3px; font-size:12px; color:var(--muted); }
+.hexes { display:flex; flex-wrap:wrap; justify-content:center; gap:10px 14px; margin:16px 0 4px; }
+.hex { position:relative; width:58px; height:58px; display:inline-grid; place-items:center; }
+.hex svg { position:absolute; inset:0; width:100%; height:100%; fill:var(--surface-2); stroke:var(--line); stroke-width:2; }
+.hex b { position:relative; font-family:var(--display); font-style:italic; font-weight:600; font-size:17px; color:var(--muted); }
+.hex.on svg { fill:#f1bf62; stroke:#e39a35; }
+.hex.on b { color:#3a2606; }
+.hex.big { width:96px; height:96px; }
+.hex.big b { font-size:30px; }
+.amore { display:block; margin:6px auto 10px; font-size:12.5px; }
+.heat { display:grid; grid-template-columns:repeat(26, minmax(0, 1fr)); gap:2px; }
+.hcol { display:grid; grid-template-rows:repeat(7, 1fr); gap:2px; }
+.hcol i { display:block; aspect-ratio:1/1; border-radius:2px; background:var(--surface-2); }
+.hcol i.on { background:#eea94d; }
+.hcol i.fut { background:none; }
+.hcol i.now { box-shadow:inset 0 0 0 1.5px var(--ink); }
+.heatax { display:flex; justify-content:space-between; margin-top:4px; font-size:10.5px; color:var(--muted); }
+.mmark .hex { margin:0 auto; }
 
 /* ---------- V3.3: the opening screen ------------------------------------ */
 .hbar { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:2px 0 6px; }
@@ -954,6 +1022,10 @@ button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inh
 .dsec .domino .of b { color:var(--dc); }
 .domino .big small { font-size:24px; color:var(--muted); margin-left:2px; }
 .ddlist { margin-top:14px; }
+.spi.ddi { display:inline-grid; place-items:center; width:18px; height:18px; padding:0; margin-left:6px; vertical-align:1px; font-size:10.5px; }
+.ddex { margin:-4px 0 8px 26px; padding:8px 12px; border-radius:10px; background:var(--surface-2); font-size:13px;
+  line-height:1.5; color:var(--ink-2); }
+.ddex small { display:block; margin-top:4px; font-size:11.5px; color:var(--muted); }
 .ddrow { display:flex; align-items:center; gap:12px; padding:10px 0; border-top:1px solid var(--line); }
 .ddsw { flex:none; width:12px; height:34px; border-radius:6px; }
 .ddt { flex:1; min-width:0; display:flex; flex-direction:column; line-height:1.25; }
@@ -1726,7 +1798,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "4.4";
+  const APP_VERSION = "4.5";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -2203,7 +2275,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
     if (!state.people.some((p) => p.id === state.meId)) state.meId = loadMe();
     if (!state.people.some((p) => p.id === state.meId)) state.meId = null;
-    await loadHistory();
+    await Promise.all([loadHistory(), loadVotes(true), loadTribeStreak()]);
     // If the family block is open on the page you are looking at, it is
     // showing numbers that just changed. Refetch it here rather than in
     // each caller, so no path can leave it stale.
@@ -2807,6 +2879,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       lines.push("", `${past ? "Nothing logged" : "Still to log"}: ${missing.map((p) => p.name).join(", ")}`);
     }
     // V4.3. The reason, under every update.
+    // V4.5. The tribe streak, only as good news.
+    const T = state.tstreak;
+    if (!past && T && T.days >= 2) lines.push("", `\ud83d\udd25 Tribe streak: ${num(T.days)} days`);
     const g = state.group || {}, n = goalDays();
     if (g.goal) lines.push("", `\ud83c\udfaf ${g.goal}${n !== null && n >= 0 ? ` \u00b7 ${n === 0 ? "today" : n === 1 ? "1 day to go" : num(n) + " days to go"}` : ""}`);
     lines.push("", `${location.origin}${location.pathname}?g=${state.code}`);
@@ -4395,6 +4470,23 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
            <span>${esc(g.goal)}</span>${n !== null ? `<em>${daysWords(n)}</em>` : ""}</button>`
       : `<button type="button" class="tgoal none" id="tribeGoal">+ Set your tribe&rsquo;s goal</button>`;
   }
+  // V4.5. The tribe streak: days in a row everyone logged their steps.
+  // Quiet by design: a count, never names. Tap it for what it means.
+  async function loadTribeStreak() {
+    const res = await call("app_tribe_streak", { p_code: state.code });
+    if (res && !res.error && typeof res.days === "number") state.tstreak = res;
+  }
+  function streakLine() {
+    const T = state.tstreak;
+    if (!T || !T.today_total || state.people.length < 2) return "";
+    const all = T.today_done >= T.today_total;
+    const words = T.days > 0
+      ? `<b>${num(T.days)}-day tribe streak</b><span>${all ? "everyone\u2019s steps are in" : `${T.today_done} of ${T.today_total} steps in today`}</span>`
+      : `<b>Tribe streak</b><span>${all ? "everyone\u2019s steps are in" : `${T.today_done} of ${T.today_total} steps in today`}</span>`;
+    return `<button type="button" class="tstreak${T.days > 0 ? " lit" : ""}" id="tStreak" aria-expanded="${!!state.tstreakInfo}">
+        ${I_FLAME}${words}</button>
+      ${state.tstreakInfo ? `<p class="tsinfo">Days in a row that everyone in the tribe logged their steps. Today counts once everyone\u2019s in, and doesn\u2019t break the run until it\u2019s over. Anyone who hasn\u2019t logged anything for a week is paused until they log again${T.paused ? ` (${T.paused} paused now)` : ""}.</p>` : ""}`;
+  }
   function tribeSheet() {
     if (!state.tribeSheet) return "";
     const g = state.group || {}, T = state.tribeSheet, n = goalDays();
@@ -4435,6 +4527,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       </div>`;
   }
   function wireTribeSheet() {
+    on("tStreak", "click", () => { state.tstreakInfo = !state.tstreakInfo; render(); });
     on("tribeGoal", "click", () => { state.tribeSheet = { edit: !(state.group || {}).goal }; seedTribe(); render();
       if (state.tribeSheet.edit) document.getElementById("tsGoal")?.focus(); });
     if (!state.tribeSheet) return;
@@ -4694,6 +4787,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           <i aria-hidden="true">&#9662;</i></label>` : ""}
       </div>
       ${goalLine()}
+      ${streakLine()}
 
       ${editRowHTML()}
 
@@ -4789,6 +4883,182 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     // V4.4. The unit after the standard: of 8,000 steps, of 131 g. The
     // Daily Dozen is a count of 25 and needs no word.
     : `of ${num(Math.round(std))}${STD[k].unit && k !== "dd" ? " " + STD[k].unit : ""}`;
+  /* ---------- V4.5: Atoms ---------------------------------------------
+     James Clear's habit app, the parts that make a habit stick, laid over
+     every activity rather than added as a second app:
+       * the habit sentence: "I will [action] [time or place] so that I
+         can become [identity]", with a two-minute version to start;
+       * votes: every day you log a habit is a vote for the person you are
+         becoming. The count sits on its dial; the run of days beside it;
+       * milestones at 1, 3, 5, 10, 21 … 2,000 votes, celebrated once;
+       * a calendar of the last 26 weeks.
+     A vote is logging at all, not hitting the standard: the two-minute
+     rule says showing up is the habit. The dial already scores the rest.
+     ------------------------------------------------------------------ */
+  const MILES = [1, 3, 5, 10, 21, 30, 50, 75, 100, 150, 200, 250, 300, 400, 500, 600, 750, 1000, 1500, 2000];
+  const ATOM_HOW = {
+    steps: ["walk 10 minutes", "take the stairs", "walk after every meal"],
+    train: ["put on my gym clothes", "do 10 push-ups", "lift for 20 minutes"],
+    cardio: ["put on my running shoes", "walk briskly for 10 minutes", "bike for 15 minutes"],
+    sleep: ["put my phone outside the bedroom", "dim the lights", "read in bed for 5 minutes"],
+    rise: ["get up at the first alarm", "open the curtains", "drink a glass of water"],
+    rest: ["be in bed by 10:30", "start winding down", "put my phone away"],
+    work: ["do one 25-minute session", "close every other tab", "write the first sentence"],
+    tasks: ["write tomorrow's three tasks", "finish one task before email", "do my top task first"],
+    dd: ["eat one serving of berries", "add greens to lunch", "have a spoon of flaxseed"],
+    macros: ["have protein at breakfast", "log my protein after dinner", "keep a protein snack handy"],
+    weight: ["step on the scale", "weigh in after waking", "log my weight"],
+  };
+  const ATOM_WHEN = ["when I wake up", "after breakfast", "after work", "after dinner", "before bed"];
+  const ATOM_WHO = {
+    steps: "someone who moves every day", train: "strong", cardio: "fit", sleep: "well rested",
+    rise: "an early riser", rest: "someone who protects sleep", work: "someone who does deep work",
+    tasks: "someone who finishes what matters", dd: "someone who eats for a long life",
+    macros: "strong", weight: "healthy",
+  };
+  const ATOM_KEYS = Object.keys(ATOM_HOW);
+  const I_BOLT = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.2 2 4.5 13.6h6.3L9.9 22l8.6-11.7h-6.4z"/></svg>`;
+  const I_FLAME = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.3 2c.6 3.4 5.7 5.6 5.7 11.3A6 6 0 0 1 6 13.6c0-2.6 1.4-4.5 2.7-5.6.1 2 1 3.3 2.6 3.8-.5-3.4-.2-6.6 1-9.8z"/></svg>`;
+  const myAtoms = () => { const a = (me() || {}).atoms; return a && typeof a === "object" ? a : {}; };
+  const votesOf = (k) => state.votes && state.votes.votes ? state.votes.votes[k] || { total: 0, streak: 0, best: 0, days: [] } : null;
+  const nextMile = (n) => MILES.find((x) => x > n) || null;
+  const atomWho = (k) => (myAtoms()[k] || {}).who || "";
+  function hexBadge(n, on, big) {
+    return `<span class="hex${on ? " on" : ""}${big ? " big" : ""}"><svg viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M50 4 90 27v46L50 96 10 73V27z"/></svg><b>${num(n)}</b></span>`;
+  }
+  async function loadVotes(celebrate) {
+    if (!state.meId) return;
+    const res = await call("app_votes", { p_code: state.code, p_person: state.meId });
+    if (!res || res.error || !res.votes) return;
+    const before = state.votes && state.votes.votes, who = state.meId;
+    state.votes = { today: res.today, votes: res.votes, for: who };
+    if (!celebrate || !before || state.votesFor !== who) { state.votesFor = who; return; }
+    // A milestone crossed since the last look, celebrated once.
+    for (const k of ATOM_KEYS) {
+      const a = (before[k] || {}).total || 0, b = (res.votes[k] || {}).total || 0;
+      const hit = MILES.filter((x) => x > a && x <= b).pop();
+      // A beat later, so the dial shows the new count first and the key
+      // that saved the number cannot press the button that appears.
+      if (hit) { setTimeout(() => celebrateMile(k, hit), 400); break; }
+    }
+  }
+  function celebrateMile(k, n) {
+    const who = atomWho(k), nx = nextMile(n);
+    openModal({
+      mark: hexBadge(n, true, true),
+      title: `${num(n)} ${n === 1 ? "vote" : "votes"}`,
+      body: `${STD[k].label}: ${num(n)} ${n === 1 ? "day" : "days"} logged, each a vote for ${who ? who : "the person you are becoming"}.${nx ? ` Next badge at ${num(nx)}.` : ""}`,
+      buttons: [{ label: "Keep going", kind: "go" }],
+    });
+  }
+  // The badge on each dial: votes so far.
+  function voteBadge(k, clone) {
+    const v = votesOf(k);
+    if (!v || !ATOM_HOW[k]) return "";
+    return `<span class="vbadge${v.total ? "" : " zero"}" ${clone ? "" : `title="${num(v.total)} votes"`} aria-label="${num(v.total)} votes">${I_BOLT}<b>${num(v.total)}</b></span>`;
+  }
+  // The strip under a habit's title: its sentence, its votes, its run.
+  function atomsStrip(k) {
+    if (!ATOM_HOW[k] || !state.meId) return "";
+    const A = myAtoms()[k], v = votesOf(k);
+    if (state.atomEdit === k) return atomsEditor(k, A);
+    const stats = v ? `<span class="astat">${I_BOLT}<b>${num(v.total)}</b><small>votes</small></span>
+        ${k === "weight" ? "" : `<span class="astat fl">${I_FLAME}<b>${num(v.streak)}</b><small>in a row</small></span>`}` : "";
+    return `<section class="astrip">
+        <button type="button" class="asent${A ? "" : " nil"}" id="atomOpen">${A
+          ? `I will <u>${esc(A.how)}</u>${A.when ? `, <u>${esc(A.when)}</u>` : ""}${A.who ? ` so that I can become <u>${esc(A.who)}</u>` : ""}.`
+          : `<b>Make it a habit.</b> I will <u>action</u>, <u>time or place</u> so that I can become <u>who I want to be</u>.`}</button>
+        <div class="astats">${stats}</div>
+      </section>`;
+  }
+  function atomsEditor(k, A) {
+    const D = state.atomDraft || (state.atomDraft = { how: A ? A.how : "", when: A ? A.when : "", who: A ? A.who : "" });
+    const chips = (f, list) => `<div class="achips">${list.map((x) =>
+      `<button type="button" class="achip${D[f] === x ? " on" : ""}" data-achip="${f}" data-v="${esc(x)}">${esc(x)}</button>`).join("")}</div>`;
+    const whos = [ATOM_WHO[k], "healthy", "disciplined"].filter((x, i, a) => a.indexOf(x) === i);
+    return `<section class="card aedit">
+        <p class="eyebrow">Define your habit</p>
+        <p class="asent big">I will <u>${esc(D.how || "action")}</u>, <u>${esc(D.when || "time or place")}</u> so that I can become <u>${esc(D.who || "who I want to be")}</u>.</p>
+        <label class="alab" for="aHow">The two-minute version of what you want to do</label>
+        <input class="field" id="aHow" maxlength="120" autocomplete="off" enterkeyhint="next" value="${esc(D.how)}" placeholder="e.g. ${esc(ATOM_HOW[k][0])}">
+        ${chips("how", ATOM_HOW[k])}
+        <label class="alab" for="aWhen">When or where</label>
+        <input class="field" id="aWhen" maxlength="120" autocomplete="off" enterkeyhint="next" value="${esc(D.when)}" placeholder="e.g. after dinner">
+        ${chips("when", ATOM_WHEN)}
+        <label class="alab" for="aWho">So that I can become</label>
+        <input class="field" id="aWho" maxlength="120" autocomplete="off" enterkeyhint="done" value="${esc(D.who)}" placeholder="e.g. ${esc(ATOM_WHO[k])}">
+        ${chips("who", whos)}
+        <p class="hint">Start smaller than feels useful: a habit has to be established before it can be improved.</p>
+        <div class="terow">
+          ${A ? `<button type="button" class="linkbtn gdel" id="aDel">Remove</button>` : `<button type="button" class="linkbtn" id="aCancel">Cancel</button>`}
+          <button type="button" class="btn tok" id="aSave">Save</button>
+        </div>
+      </section>`;
+  }
+  // Votes, milestones and the calendar, at the foot of a habit's page.
+  function atomsCard(k) {
+    const v = votesOf(k);
+    if (!ATOM_HOW[k] || !v) return "";
+    const nx = nextMile(v.total), got = MILES.filter((x) => x <= v.total);
+    const show = state.atomAll === k ? MILES : got.slice(-1).concat(MILES.filter((x) => x > v.total).slice(0, got.length ? 2 : 3));
+    // 26 weeks, Monday to Sunday down, oldest week on the left.
+    const today = state.votes.today || todayISO(), mon = mondayOf(today), have = new Set(v.days || []);
+    const cols = Array.from({ length: 26 }, (_, w) => {
+      const start = shiftISO(mon, (w - 25) * 7);
+      return `<span class="hcol">${Array.from({ length: 7 }, (_, d) => {
+        const iso = shiftISO(start, d);
+        return `<i class="${iso > today ? "fut" : have.has(iso) ? "on" : ""}${iso === today ? " now" : ""}"></i>`; }).join("")}</span>`;
+    }).join("");
+    const who = atomWho(k);
+    return `<section class="card acard">
+        <div class="ahead"><span class="abig">${I_BOLT}<b>${num(v.total)}</b></span>
+          <span class="awho">${v.total === 1 ? "vote" : "votes"} for ${who ? `<b>${esc(who)}</b>` : "the person you are becoming"}
+            <small>${k === "weight" ? "every weigh-in counts" : `${num(v.streak)} in a row · best ${num(v.best || 0)}`}${nx ? ` · next badge at ${num(nx)}` : ""}</small></span></div>
+        <div class="hexes">${show.map((x) => hexBadge(x, x <= v.total)).join("")}</div>
+        <button type="button" class="linkbtn amore" id="atomAll">${state.atomAll === k ? "Fewer badges" : "All badges"}</button>
+        <div class="heat" aria-label="Days logged, last 26 weeks">${cols}</div>
+        <div class="heatax"><span>${esc(shortDay(shiftISO(mon, -175)))}</span><span>today</span></div>
+      </section>`;
+  }
+  // The habit a page is about, if it is one.
+  const pageHabit = () => state.view === "diet" ? (state.diet || {}).page
+    : state.view === "exercise" || state.view === "sleep" || state.view === "tasks" ? state.seg : null;
+  function injectAtoms() {
+    const k = pageHabit();
+    if (!k || !ATOM_HOW[k]) return;
+    if (k !== state.atomEditFor) { state.atomEdit = null; state.atomDraft = null; state.atomEditFor = k; }
+    app.querySelector("header.masthead")?.insertAdjacentHTML("afterend", atomsStrip(k));
+    const foot = app.querySelector("p.ver");
+    if (foot) foot.insertAdjacentHTML("beforebegin", atomsCard(k));
+    on("atomOpen", "click", () => { state.atomEdit = k; state.atomDraft = null; render();
+      document.getElementById("aHow")?.focus(); });
+    on("atomAll", "click", () => { state.atomAll = state.atomAll === k ? null : k; render(); });
+    const D = state.atomDraft;
+    [["aHow", "how"], ["aWhen", "when"], ["aWho", "who"]].forEach(([id, f]) =>
+      on(id, "input", (e) => { D[f] = e.target.value; const s0 = app.querySelector(".aedit .asent");
+        if (s0) s0.innerHTML = `I will <u>${esc(D.how || "action")}</u>, <u>${esc(D.when || "time or place")}</u> so that I can become <u>${esc(D.who || "who I want to be")}</u>.`; }));
+    app.querySelectorAll("[data-achip]").forEach((el) =>
+      el.addEventListener("click", () => { D[el.dataset.achip] = el.dataset.v; render(); }));
+    const close = () => { state.atomEdit = null; state.atomDraft = null; render(); };
+    on("aCancel", "click", close);
+    const save = async (how, when, who) => {
+      const m = me();
+      const prev = m ? m.atoms : null;
+      if (m) { m.atoms = Object.assign({}, m.atoms); if (how) m.atoms[k] = { how, when, who }; else delete m.atoms[k]; }
+      close();
+      const res = await call("app_set_atoms", { p_code: state.code, p_person: state.meId, p_key: k,
+        p_how: how, p_when: when, p_who: who });
+      if (res.error) { if (m) m.atoms = prev; state.msg = res.offline ? "No signal. Not saved yet." : res.error; render(); }
+    };
+    on("aSave", "click", () => {
+      const how = (D.how || "").trim();
+      if (!how) { document.getElementById("aHow")?.focus(); return; }
+      save(how, (D.when || "").trim(), (D.who || "").trim());
+    });
+    on("aDel", "click", () => save("", "", ""));
+  }
+
   function dialSlide(m, k, clone) {
     // A copy is drawn exactly like the real dial but is inert: no ids, no
     // handlers, hidden from screen readers. It is only ever seen mid-swipe.
@@ -4845,6 +5115,35 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     // V4.2. Weight shows its four-week trend. V4.4: Macros is protein
     // alone on the dial; calories live on the Macros page.
     if (k === "weight") { const tr = weightTrend(m); if (tr) extra = `<span class="dsub">${tr}</span>`; }
+    // V4.5. Goals on home: the week's score, then one small ring per goal.
+    let gbody = "";
+    if (k === "goals") {
+      const hc = state.homeCycle;
+      if (!hc && !state.homeCycleLoading && !clone) setTimeout(loadHomeCycle, 0);
+      const cy = hc && hc.cycle, win = std;
+      if (cy && cy.goals.length) {
+        const cw = weekOf(cy, hc.today), run = cw >= 1 && cw <= 12;
+        const T = run ? weekTally(cy, cw) : { pct: null, done: 0, due: 0 };
+        const gs = goalOrder(cy);
+        gbody = `<div class="dial gslide">
+          <div class="gwk">
+            <b class="gwkv" style="color:${T.pct === null ? "var(--muted)" : dialColor(stdPct("goals", T.pct, win))}">${T.pct === null ? "\u2013" : T.pct + "%"}</b>
+            <button type="button" class="dof" ${clone ? 'tabindex="-1"' : 'data-edit="goal" data-metric="goals"'}>of ${win}%</button>
+            <span class="gwks">${run ? `week ${cw} of 12${T.due ? ` \u00b7 ${T.done}/${T.due} done` : ""}` : cw < 1 ? "starts " + esc(shortDay(cy.start_date)) : "twelve weeks done"}</span>
+          </div>
+          <div class="grow3" style="--n:${gs.length}">${gs.map((g) => {
+            const p = run ? goalTally(g, cw).pct : null;
+            return `<button type="button" class="gr1" ${go("goals")} ${clone ? 'tabindex="-1"' : ""}
+                aria-label="${esc(g.title || "Untitled goal")}: ${p === null ? "nothing due" : p + "%"} this week">
+              <span class="gr1d">${dialRing(stdPct("goals", p, win))}<b>${p === null ? "\u2013" : p + "%"}</b></span>
+              <span class="gr1t">${g.id === cy.one_goal ? `<i aria-hidden="true">\u2605</i>` : ""}${esc(g.title || "Untitled")}</span>
+            </button>`; }).join("")}</div>
+        </div>`;
+      } else if (hc && !hc.err) {
+        centre = `<button type="button" class="dval dgo dnone" ${go(page)} ${clone ? 'tabindex="-1"' : ""}>\u2013</button>`;
+        extra = `<button type="button" class="dsame" ${go(page)} ${clone ? 'tabindex="-1"' : ""}>Set your goals</button>`;
+      }
+    }
     if (k === "tasks") {
       extra = `<input class="dtaskin" ${clone ? 'tabindex="-1" readonly' : 'data-dtask="1" id="dial-taskin"'}
           type="text" maxlength="200" enterkeyhint="done" autocomplete="off" placeholder="+ Add a task" aria-label="Add a task">`;
@@ -4880,15 +5179,16 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     return `
       <section class="slide${clone ? " clone" : ""}" ${clone ? 'aria-hidden="true" inert' : `aria-label="${esc(S.label)}"`}>
         <button type="button" class="slab" ${go(page)} ${clone ? 'tabindex="-1"' : ""}>${esc(S.label)}<i aria-hidden="true">&rsaquo;</i></button>
-        <div class="dial">
+        ${gbody || `<div class="dial">
           ${ring}
+          ${voteBadge(k, clone)}
           <div class="dcore">
             ${centre}
             <button type="button" class="dof" ${clone ? 'tabindex="-1"' : `data-edit="goal" data-metric="${k}"`}>${
               k === "work" ? `${hm(v || 0)} of ${hm(std)} today` : ofWords(k, std)}</button>
             ${extra}
           </div>
-        </div>
+        </div>`}
         <p class="dmsg" ${clone ? "" : `id="dmsg-${k}"`} role="status">${msg}</p>
       </section>`;
   }
@@ -5619,6 +5919,22 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     { t:"Beverages",              n:5, sub:"1 glass (12 oz)",                   c:"#3a9a9e" },
   ];
   (() => { let at = 0; for (const f of DD) { f.at = at; at += f.n; } })();
+  // V4.5. Up to five examples per box, from the Daily Dozen's own lists.
+  const DD_EX = {
+    "Beans": ["Black beans", "Chickpeas or hummus", "Lentils", "Edamame", "Tofu or tempeh"],
+    "Berries": ["Blueberries", "Strawberries", "Raspberries", "Blackberries", "Cherries"],
+    "Other fruits": ["Apples", "Bananas", "Oranges", "Mangoes", "Kiwis"],
+    "Cruciferous vegetables": ["Broccoli", "Brussels sprouts", "Cauliflower", "Cabbage", "Kale"],
+    "Greens": ["Spinach", "Arugula", "Romaine", "Swiss chard", "Collard greens"],
+    "Other vegetables": ["Carrots", "Beets", "Bell peppers", "Mushrooms", "Sweet potatoes"],
+    "Flaxseeds": ["Stirred into oatmeal", "Blended into a smoothie", "On a salad", "In soup", "Baked into muffins"],
+    "Nuts and seeds": ["Walnuts", "Almonds", "Chia seeds", "Pumpkin seeds", "Almond butter"],
+    "Herbs and spices": ["Turmeric, with black pepper", "Cinnamon", "Ginger", "Garlic", "Cumin"],
+    "Whole grains": ["Oats", "Brown rice", "Quinoa", "Whole-wheat pasta", "Barley"],
+    "Beverages": ["Water", "Green tea", "Hibiscus tea", "Coffee", "Herbal tea"],
+    "Exercise": ["Brisk walking", "Cycling", "Swimming", "Dancing", "Jogging"],
+    "Supplements": ["Vitamin B12", "Vitamin D", "Algae omega-3", "Iodine, if you don't use iodized salt"],
+  };
   const DD_EXERCISE = { t:"Exercise", n:1, at:24, sub:"90 min moderate, or 40 min vigorous", c:"#4b5563" };
   const DD_SUPPS = 23;
   const DD_MAX = 25;
@@ -5838,12 +6154,14 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const mask = Number(V.dd || 0), count = V.dd === null ? null : ddCount(mask), std = stdOf(m, "dd");
     const box = (b, label) => `<button type="button" class="ddb${bitOn(mask, b) ? " on" : ""}" data-ddb="${b}"
         aria-pressed="${bitOn(mask, b)}" aria-label="${esc(label)}"></button>`;
+    const exI = (t) => `<button type="button" class="spi ddi${D.ddi === t ? " on" : ""}" data-ddi="${esc(t)}" aria-expanded="${D.ddi === t}" aria-label="Examples of ${esc(t)}">i</button>`;
+    const exBox = (t) => D.ddi === t ? `<p class="ddex" role="note">${DD_EX[t].map(esc).join(" \u00b7 ")}</p>` : "";
     const row = (f) => `
       <div class="ddrow">
         <span class="ddsw" style="background:${f.c}" aria-hidden="true"></span>
-        <span class="ddt"><b>${esc(f.t)}</b><small>${esc(f.sub)}</small></span>
+        <span class="ddt"><b>${esc(f.t)}${exI(f.t)}</b><small>${esc(f.sub)}</small></span>
         <span class="ddbx">${Array.from({ length: f.n }, (_, j) => box(f.at + j, `${f.t}, ${f.n > 1 ? `serving ${j + 1} of ${f.n}` : "done"}`)).join("")}</span>
-      </div>`;
+      </div>${exBox(f.t)}`;
     const S = mySupps(), info = D.info;
     const suppLine = (x, i) => {
       const inf = suppInfo(x.n);
@@ -5866,9 +6184,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <div class="ddlist">${DD.map(row).join("")}${row(DD_EXERCISE)}</div>
         <div class="ddrow ddsuprow">
           <span class="ddsw" style="background:#c8463c" aria-hidden="true"></span>
-          <span class="ddt"><b>Supplements</b><small>${S.length ? "everything on your list, taken" : "add what you take below"}</small></span>
+          <span class="ddt"><b>Supplements${exI("Supplements")}</b><small>${S.length ? "everything on your list, taken" : "add what you take below"}</small></span>
           <span class="ddbx">${box(DD_SUPPS, "Supplements, taken")}</span>
-        </div>
+        </div>${D.ddi === "Supplements" ? `<p class="ddex" role="note">${DD_EX.Supplements.map(esc).join(" \u00b7 ")}<small>What Dr. Greger suggests alongside the Dozen. Check with your clinician.</small></p>` : ""}
         <div class="sups">
           <div class="supsh"><span class="eyebrow">Your supplements</span>
             <button type="button" class="linkbtn" id="sEdit">${D.sedit ? "Done" : S.length ? "Edit" : "Add"}</button></div>
@@ -6065,6 +6383,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       if (res.error) { D.msg = res.offline ? "No signal. Not saved yet." : res.error; D.msgFor = "supps"; render(); }
     };
     on("sEdit", "click", () => { D.sedit = !D.sedit; D.info = null; render(); if (D.sedit) document.getElementById("sName")?.focus(); });
+    document.querySelectorAll("[data-ddi]").forEach((el) =>
+      el.addEventListener("click", () => { D.ddi = D.ddi === el.dataset.ddi ? null : el.dataset.ddi; render(); }));
     document.querySelectorAll("[data-sinfo]").forEach((el) =>
       el.addEventListener("click", () => { D.info = D.info === el.dataset.sinfo ? null : el.dataset.sinfo; render(); }));
     document.querySelectorAll("[data-sdel]").forEach((el) =>
@@ -7371,6 +7691,29 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     };
   })();
 
+  function normCycle(c) {
+    if (!c) return null;
+    c.focus = c.focus || {};
+    c.three_year = c.three_year || "";
+    c.one_year = c.one_year || "";
+    c.goals.forEach((g) => {
+      g.kpi_log = g.kpi_log || {};
+      g.plan = g.plan || {};
+      g.tactics.forEach((t) => {
+        t.times = timesOf(t); t.daily = t.times === 7;
+        t.marks = (t.marks || []).map((m) => [Number(m[0]), Number(m[1])]); });
+    });
+    return c;
+  }
+  // V4.5. Home's Goals slide needs the plan too: fetched once, quietly, and
+  // handed back fresh by the Goals page when you leave it.
+  async function loadHomeCycle() {
+    state.homeCycleLoading = true;
+    const res = await call("app_cycle", { p_code: state.code, p_person: state.meId });
+    state.homeCycleLoading = false;
+    state.homeCycle = res.error ? { err: true } : { cycle: normCycle(res.cycle), today: res.today || todayISO() };
+    if (state.view === "board") render();
+  }
   async function openGoals() {
     state.goals = { loaded: false, today: todayISO(), cycle: null, sel: 1, edit: null, err: null,
                     ex: false, guide: {}, twelve: false };
@@ -7378,18 +7721,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const G = state.goals;
     if (res.error) G.err = res.error;
     G.today = res.today || todayISO();
-    G.cycle = res.cycle || null;
-    if (G.cycle) {
-      G.cycle.focus = G.cycle.focus || {};
-      G.cycle.three_year = G.cycle.three_year || "";
-      G.cycle.one_year = G.cycle.one_year || "";
-      G.cycle.goals.forEach((g) => {
-        g.kpi_log = g.kpi_log || {};
-        g.tactics.forEach((t) => {
-          t.times = timesOf(t); t.daily = t.times === 7;
-          t.marks = (t.marks || []).map((m) => [Number(m[0]), Number(m[1])]); });
-      });
-    }
+    G.cycle = normCycle(res.cycle);
     G.sel = lastOpen();
     G.loaded = true;
     render();
@@ -7558,68 +7890,121 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           </div>
         </div>`;
   }
-  // V4.4. One card for the twelve weeks: the week's score, a strip of the
-  // twelve weeks with their Mondays, and one row per goal (★ name, this
-  // week's lead, its lag). Tap a goal to open it: edit, log this week's
-  // lag, and its own twelve weeks. Rings, the grid and step 2 were three
-  // views of the same goals; this is one.
-  function goalsCard(C) {
+  // V4.5. The Goals page, condensed the other way: nothing hidden behind a
+  // tap. On top, the week's score and one ring per goal (tap a ring to go
+  // to its goal). Then one card per goal: its lead and lag this week, and
+  // the twelve weeks as two rows, Lead % and Lag, scrolled to this week.
+  // Each goal folds out a game plan (Ultralearning).
+  const goalOrder = (d) => d.goals.filter((g) => g.id === d.one_goal).concat(d.goals.filter((g) => g.id !== d.one_goal));
+  function gRing(C) {
     const d = C.doc, G = state.goals || {}, win = goalWin(), run = C.cur >= 1 && C.cur <= 12;
-    const open = C.cur < 1 ? 0 : Math.min(12, C.cur);
     const T = run ? weekTally(d, C.cur) : { pct: null, done: 0, due: 0 };
-    const md = (iso) => { const x = new Date(iso + "T00:00:00Z");
-      return `${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][x.getUTCMonth()]} ${x.getUTCDate()}`; };
-    const tint = (p) => p === null ? "" : p >= win ? " t3" : p >= win - 25 ? " t2" : " t1";
-    const goals = d.goals.filter((g) => g.id === d.one_goal).concat(d.goals.filter((g) => g.id !== d.one_goal));
-    const when = run ? `week ${C.cur} of 12` : C.cur < 1 ? "starts " + esc(shortDay(d.start_date)) : "twelve weeks done";
-    const strip = `<div class="gstrip" role="group" aria-label="The twelve weeks">${Array.from({ length: 12 }, (_, k) => {
-      const i = k + 1, fut = i > open, p = fut ? null : weekTally(d, i).pct;
-      return `<button type="button" class="gsw${fut ? " fut" : ""}${tint(p)}${i === C.w ? " sel" : ""}${i === C.cur ? " cur" : ""}"
-          ${fut ? "disabled" : `data-gweek="${i}"`} aria-label="Week ${i}, ${md(shiftISO(d.start_date, k * 7))}${fut ? "" : `: ${p === null ? "nothing due" : p + "%"}`}">
-          <b>${fut || p === null ? "\u00b7" : p}</b><small>W${i}</small><em>${md(shiftISO(d.start_date, k * 7))}</em></button>`;
-    }).join("")}</div>`;
-    const row = (g) => {
-      const isOne = g.id === d.one_goal, lead = run ? goalTally(g, C.cur).pct : null;
-      const now = kpiLatest(g, Math.max(1, open)), opened = G.gopen === g.id || G.edit === "g:" + g.id;
-      return `
-        <div class="grow${opened ? " open" : ""}">
-          <button type="button" class="grh" data-gopen="${g.id}" aria-expanded="${opened}">
-            <span class="grn">${isOne ? `<i aria-hidden="true">\u2605</i>` : ""}${g.title ? esc(g.title) : `<span style="color:var(--muted)">Untitled goal</span>`}</span>
-            <b class="grld${lead !== null && lead >= win ? " win" : ""}">${lead === null ? "\u2013" : lead + "%"}</b>
-            <span class="grk">${g.kpi ? `${fmtNum(now)}<small>\u2192 ${fmtNum(g.kpi_target)}</small>` : ""}</span>
-            <i class="gcar" aria-hidden="true">${opened ? "\u25be" : "\u25b8"}</i></button>
-          ${opened ? goalLineHTML(C, g, true) + `
-            <div class="gmini" aria-label="${esc(g.title || "This goal")}, lead by week">${Array.from({ length: 12 }, (_, k) => {
-              const i = k + 1, fut = i > open, p = fut ? null : goalTally(g, i).pct;
-              return `<span class="${fut ? "fut" : ""}${tint(p)}">${fut || p === null ? "\u00b7" : p}</span>`; }).join("")}</div>` : ""}
-        </div>`;
-    };
-    return `
-      <section class="card gcard">
-        <div class="gwk">
-          <span class="gwkl">This week</span>
-          <b class="gwkv" style="color:${T.pct === null ? "var(--muted)" : dialColor(stdPct("goals", T.pct, win))}">${T.pct === null ? "\u2013" : T.pct + "%"}</b>
-          <button type="button" class="dof" data-edit="goal" data-metric="goals">of ${win}%</button>
-          <span class="gwks">${when}${T.due ? ` \u00b7 ${T.done}/${T.due} done` : ""}</span>
-        </div>
-        ${strip}
-        <div class="glead"><span>Goal</span><span>Lead</span><span>Lag</span><span></span></div>
-        ${goals.map(row).join("")}
-        ${d.goals.length && !d.one_goal && !(G.edit || "").startsWith("g:")
-          ? `<p class="hint" style="margin-top:8px">Open a goal, tap Edit, then \u2605, to mark your ONE goal.</p>` : ""}
-        ${d.goals.length < 3 ? `<button type="button" class="linkbtn gadd2" id="gAdd">${d.goals.length
-          ? "+ Add a goal (three at most)" : "+ Write your ONE goal"}</button>` : ""}
+    const goals = goalOrder(d);
+    const when = run ? `week ${C.cur} of 12${T.due ? ` · ${T.done}/${T.due} done` : ""}`
+      : C.cur < 1 ? "starts " + esc(shortDay(d.start_date)) : "twelve weeks done";
+    const start = C.ro ? "" : `
         <p class="gstart2">${G.restart ? `Week 1 starts on <input type="date" class="field gsdate" id="gStartIn" value="${esc(d.start_date)}" aria-label="The Monday week 1 starts">
             <button type="button" class="linkbtn" id="gStartDone">Done</button>`
-          : `Started ${esc(shortDay(d.start_date))} \u00b7 <button type="button" class="linkbtn" id="gStartEdit">change</button>`}</p>
-        ${G.restart ? `<p class="hint">Any day picks its week; it starts on the Monday. Ticks stay on their week number.</p>` : ""}
-        ${C.ro ? "" : guide("goals")}
+          : `${esc(shortDay(d.start_date))} – ${esc(shortDay(shiftISO(d.start_date, 83)))} · <button type="button" class="linkbtn" id="gStartEdit">change start</button>`}</p>
+        ${G.restart ? `<p class="hint" style="text-align:center">Any day picks its week; it starts on the Monday. Ticks stay on their week number.</p>` : ""}`;
+    return `
+      <section class="grings" aria-label="This week, goal by goal">
+        <div class="gwk">
+          <span class="gwkl">This week</span>
+          <b class="gwkv" style="color:${T.pct === null ? "var(--muted)" : dialColor(stdPct("goals", T.pct, win))}">${T.pct === null ? "–" : T.pct + "%"}</b>
+          <button type="button" class="dof" data-edit="goal" data-metric="goals">of ${win}%</button>
+          <span class="gwks">${when}</span>
+        </div>
+        ${goals.length ? `<div class="grow3" style="--n:${goals.length}">${goals.map((g) => {
+          const p = run ? goalTally(g, C.cur).pct : null;
+          return `<button type="button" class="gr1" data-gjump="${g.id}"
+              aria-label="${esc(g.title || "Untitled goal")}: ${p === null ? "nothing due" : p + "%"} this week. Go to it">
+            <span class="gr1d">${dialRing(stdPct("goals", p, win))}<b>${p === null ? "–" : p + "%"}</b></span>
+            <span class="gr1t">${g.id === d.one_goal ? `<i aria-hidden="true">★</i>` : ""}${esc(g.title || "Untitled")}</span>
+          </button>`; }).join("")}</div>` : ""}
+        ${start}
+      </section>`;
+  }
+  // The twelve weeks of one goal: Lead % (worked out from the ticks) and
+  // Lag (the number you log), each cell tinted against your standard.
+  function gGrid(C, g) {
+    const d = C.doc, G = state.goals || {}, win = goalWin();
+    const open = C.cur < 1 ? 0 : Math.min(12, C.cur);
+    const W = Array.from({ length: 12 }, (_, k) => k + 1);
+    const md = (iso) => { const x = new Date(iso + "T00:00:00Z"); return `${x.getUTCMonth() + 1}/${x.getUTCDate()}`; };
+    const tint = (p) => p === null ? "" : p >= win ? " t3" : p >= win - 25 ? " t2" : " t1";
+    const lead = (i) => { if (i > open) return `<td class="fut">·</td>`;
+      const p = goalTally(g, i).pct;
+      return `<td class="${p !== null && p >= win ? "win" : ""}${tint(p)}${i === C.cur ? " curc" : ""}">${p === null ? "–" : p}</td>`; };
+    const lag = (i) => {
+      if (i > open) return `<td class="fut">·</td>`;
+      const v = (g.kpi_log || {})[i], has = v !== undefined && v !== null, cc = i === C.cur ? "curc" : "";
+      if (C.ro) return `<td class="${cc}">${has ? fmtNum(v) : "–"}</td>`;
+      if (G.kedit === `${g.id}:${i}:t`) return `<td class="curc"><input class="kin" data-kin="${g.id}:${i}:t" id="gkint"
+          inputmode="decimal" enterkeyhint="done" value="${has ? v : ""}" aria-label="${esc(g.kpi || "Lag")}, week ${i}"></td>`;
+      return `<td class="${cc}"><button type="button" class="kb${has ? "" : " nil"}" data-kw="${g.id}:${i}:t"
+          aria-label="${esc(g.kpi || "Lag")}, week ${i}${has ? ": " + v : ""}">${has ? fmtNum(v) : "+"}</button></td>`;
+    };
+    return `
+      <div class="rs-wrap"><table class="rs gg">
+        <thead><tr><th></th>${W.map((i) => `<th class="${i === C.cur ? "cur" : ""}">W${i}<small>${md(shiftISO(d.start_date, (i - 1) * 7))}</small></th>`).join("")}</tr></thead>
+        <tbody>
+          <tr><th scope="row"><i class="gtag lead">Lead</i></th>${W.map(lead).join("")}</tr>
+          ${g.kpi ? `<tr><th scope="row"><i class="gtag lag">Lag</i></th>${W.map(lag).join("")}</tr>` : ""}
+        </tbody></table></div>`;
+  }
+  // V4.5. Scott Young's Ultralearning, as a game plan for one goal: first
+  // the map (Why, What, How), then a line for each of the other eight
+  // principles. All optional; a blank line shows the question.
+  const PLAN_MAP = [
+    ["why", "Why", "Why do you want this? What will it let you do?"],
+    ["what", "What", "What has to be learned: the ideas, the facts, the skills?"],
+    ["how", "How", "How have others done it? Your main resources, and what you will skip."],
+  ];
+  const PLAN_RULES = [
+    ["focus", "Focus", "Sharpen your knife", "When and where will you work on it, undistracted?"],
+    ["directness", "Directness", "Go straight ahead", "How will you practise the real thing, in the real setting?"],
+    ["drill", "Drill", "Attack your weakest point", "What is your weakest link, and how will you drill it?"],
+    ["retrieval", "Retrieval", "Test to learn", "How will you test yourself instead of rereading?"],
+    ["feedback", "Feedback", "Don’t dodge the punches", "Where will fast, honest feedback come from?"],
+    ["retention", "Retention", "Don’t fill a leaky bucket", "How will you keep it: spacing, repetition, overlearning?"],
+    ["intuition", "Intuition", "Dig deep before building up", "How will you understand why it works, not only how?"],
+    ["experimentation", "Experimentation", "Explore outside your comfort zone", "What will you try that you have not tried before?"],
+  ];
+  function gPlan(C, g) {
+    const G = state.goals || {}, P = g.plan || {}, open = G.plan === g.id;
+    const n = PLAN_MAP.concat(PLAN_RULES).filter(([k]) => (P[k] || "").trim()).length;
+    const line = (k, label, q, tag) => {
+      const v = P[k] || "", ed = !C.ro && G.edit === `p:${g.id}:${k}`;
+      return `<div class="gpl"><span class="gpk">${label}${tag ? `<small>${tag}</small>` : ""}</span>
+        ${ed ? `<textarea class="field cin" data-gpf="${g.id}:${k}" rows="2" maxlength="1000" placeholder="${esc(q)}">${esc(v)}</textarea>`
+          : C.ro ? `<p class="gvtext${v ? "" : " cnil"}">${v ? esc(v) : esc(q)}</p>`
+          : `<button type="button" class="cval gtap${v ? "" : " cnil"}" data-gpe="${g.id}:${k}">${v ? esc(v) : esc(q)}</button>`}</div>`;
+    };
+    return `
+      <button type="button" class="gplanb" data-gplan="${g.id}" aria-expanded="${open}">
+        <span>Game plan <small>Ultralearning</small></span><em>${n ? `${n} of 11` : "not started"}</em><i aria-hidden="true">${open ? "▾" : "▸"}</i></button>
+      ${open ? `<div class="gplan">
+        <p class="gplh">1 · Metalearning <small>First draw a map</small></p>
+        ${PLAN_MAP.map(([k, l, q]) => line(k, l, q)).join("")}
+        <p class="gplh">2–9 · The other eight principles</p>
+        ${PLAN_RULES.map(([k, l, t, q]) => line(k, l, q, t)).join("")}
+        <p class="gfoot2">From Scott Young, <i>Ultralearning</i> (2019).</p>
+      </div>` : ""}`;
+  }
+  function goalCard(C, g) {
+    const G = state.goals || {};
+    const editing = !C.ro && G.edit === "g:" + g.id;
+    return `
+      <section class="card gcard3${g.id === C.doc.one_goal ? " one" : ""}">
+        ${goalLineHTML(C, g)}
+        ${editing ? "" : gGrid(C, g) + gPlan(C, g)}
       </section>`;
   }
 
   // One goal, in full: its title and Edit, lead, lag with this week's log.
   // V4.4: shared by the Goals card (open row) and the example.
-  function goalLineHTML(C, g, inRow) {
+  function goalLineHTML(C, g) {
     const d = C.doc, G = state.goals || {}, open = Math.min(12, Math.max(1, C.cur));
     {
       const n = d.goals.indexOf(g) + 1;
@@ -7629,27 +8014,21 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       const span = tgt !== null && tgt !== undefined && start !== null && start !== undefined && now !== null
         && Number(tgt) !== Number(start)
         ? Math.max(0, Math.min(100, (Number(now) - Number(start)) / (Number(tgt) - Number(start)) * 100)) : null;
-      const lv = (g.kpi_log || {})[open], has = lv !== undefined && lv !== null;
-      const klog = C.ro || C.cur < 1 || C.cur > 12 ? ""
-        : G.kedit === `${g.id}:${open}`
-          ? `<input class="kin" data-kin="${g.id}:${open}" id="gkin" inputmode="decimal" enterkeyhint="done"
-               value="${has ? lv : ""}" aria-label="${esc(g.kpi)}, week ${open}">`
-          : `<button type="button" class="kb${has ? "" : " nil"}" data-kw="${g.id}:${open}"
-               aria-label="${esc(g.kpi)}, week ${open}${has ? ": " + lv : ""}">${has ? fmtNum(lv) : "+ log it"}</button>`;
+      // V4.5: the week's lag is typed in the grid below, not here.
       // V3.7. Moran's two measures, named. Lead: the actions, this goal's
       // tactics done ÷ due this week, worked out from the ticks. Lag: the
       // result, the KPI you log once a week.
       const lead = C.cur >= 1 ? goalTally(g, open).pct : null, win = goalWin();
       return `
         <div class="gline2${isOne ? " one" : ""}" id="gl-${g.id}">
-          ${inRow ? (C.ro ? "" : `<div class="ghead gin"><button type="button" class="linkbtn" data-gedit="${g.id}">Edit</button></div>`) : `<div class="ghead">${isOne ? `<span class="gstar on" aria-label="Your ONE goal">★</span>` : `<span class="gnum">${n}</span>`}
+          <div class="ghead">${isOne ? `<span class="gstar on" aria-label="Your ONE goal">★</span>` : `<span class="gnum">${n}</span>`}
             <h3>${g.title ? esc(g.title) : `<span style="color:var(--muted)">${isOne ? "Your ONE goal" : "Untitled goal"}</span>`}</h3>
-            ${C.ro ? "" : `<button type="button" class="linkbtn" data-gedit="${g.id}">Edit</button>`}</div>`}
+            ${C.ro ? "" : `<button type="button" class="linkbtn" data-gedit="${g.id}">Edit</button>`}</div>
           <div class="gll"><span class="gtag lead">Lead</span><span class="gln">Tactics done this week</span>
             <b class="${lead !== null && lead >= win ? "win" : ""}">${g.tactics.length ? (lead === null ? "–" : lead + "%") : "–"}</b></div>
           ${g.kpi ? `<div class="gll"><span class="gtag lag">Lag</span><span class="gln">${esc(g.kpi)}</span><b>${fmtNum(now)} <small>→ ${fmtNum(tgt)}</small></b></div>
             ${span !== null ? `<div class="gkbar"><i style="width:${span}%"></i></div>` : ""}
-            ${klog ? `<div class="gklog"><span>Week ${open}</span>${klog}</div>` : ""}`
+`
           : C.ro ? "" : `<div class="gll"><span class="gtag lag">Lag</span><button type="button" class="linkbtn gnokpi" data-gedit="${g.id}">+ The result you will log weekly</button></div>`}
         </div>`;
     }
@@ -7661,7 +8040,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const DNAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     const locked = C.ro || pre || w > open;
     if (!d.goals.some((g) => g.tactics.length)) return `<p class="hint" style="margin-top:12px">${C.ro ? ""
-      : "No tactics yet. Open a goal above, tap Edit, and add the actions that move it."}</p>`;
+      : "No tactics yet. Tap Edit on a goal above and add the actions that move it."}</p>`;
     const rows = d.goals.map((g, gi) => {
       const due = g.tactics.filter((t) => dueIn(t, w)), gp = goalTally(g, w).pct;
       return `
@@ -7713,7 +8092,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <span>${T.due ? `${T.done} of ${T.due} done` : "Nothing planned"} · ${C.ro ? `${win}% wins the week`
           : `<button type="button" class="linkbtn" data-edit="goal" data-metric="goals">${win}% wins the week</button>`}</span>
       </div>`}
-      <p class="gtrack">Lead: tick each tactic on the day you do it. Lag: log each result once a week: open its goal above.</p>
+      <p class="gtrack">Lead: tick each tactic on the day you do it. Lag: log each result once a week in its goal’s Lag row.</p>
       ${scTable(C)}
       `,
       `Week ${w}: ${T.pct === null ? "nothing due" : `${T.pct}% · ${T.done} of ${T.due} done`}`, false);
@@ -7824,7 +8203,12 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <button class="btn" id="gNew2" style="width:100%;margin-top:12px;background:var(--work)">
           Start the next 12 weeks</button>
       </section>`;
-    return head + overCard + goalsCard(C) + gStepWeek(C) + gStepLadder(C) +
+    const gl = doc.goals.length;
+    const goalCards = goalOrder(doc).map((g) => goalCard(C, g)).join("") + `
+      ${gl && !doc.one_goal && !(G.edit || "").startsWith("g:") ? `<p class="hint gonehint">Tap Edit on a goal, then ★, to mark your ONE goal.</p>` : ""}
+      ${gl < 3 ? `<button type="button" class="linkbtn gadd2 gaddc" id="gAdd">${gl ? "+ Add a goal (three at most)" : "+ Write your ONE goal"}</button>` : ""}
+      <div class="gguidew">${guide("goals")}</div>`;
+    return head + overCard + gRing(C) + goalCards + gStepWeek(C) + gStepLadder(C) +
       (G.err ? `<p class="terr">${esc(G.err)}</p>` : "") + exCard +
       `<button type="button" class="linkbtn gnew" id="gNew">Start a new 12 weeks</button>` + foot;
   }
@@ -7832,6 +8216,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   function wireGoals() {
     on("back", "click", async () => {
       await flushGoals();
+      const G0 = state.goals;
+      if (G0 && G0.loaded && !G0.err) state.homeCycle = { cycle: G0.cycle, today: G0.today };
       state.view = "board"; state.goals = null; render(); refresh();
     });
     const G = state.goals;
@@ -7863,11 +8249,40 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       G.sel = lastOpen(); G.restart = false;
       render(); saveGoals();
     });
-    document.querySelectorAll("[data-gweek]").forEach((el) =>
-      el.addEventListener("click", () => { G.sel = Number(el.dataset.gweek); render();
-        document.querySelector(".gstep .daynav")?.scrollIntoView({ block: "center", behavior: "smooth" }); }));
-    document.querySelectorAll("[data-gopen]").forEach((el) =>
-      el.addEventListener("click", () => { G.gopen = G.gopen === el.dataset.gopen ? null : el.dataset.gopen; render(); }));
+    // V4.5. A ring takes you to its goal; each goal's twelve weeks open on
+    // this week; the game plan folds out, one line at a time.
+    document.querySelectorAll("[data-gjump]").forEach((el) =>
+      el.addEventListener("click", () =>
+        document.getElementById("gl-" + el.dataset.gjump)?.closest(".card")?.scrollIntoView({ block: "start", behavior: "smooth" })));
+    document.querySelectorAll(".gcard3 .rs-wrap").forEach((w) => {
+      const c = w.querySelector("th.cur");
+      if (c) w.scrollLeft = Math.max(0, c.offsetLeft - w.clientWidth + c.offsetWidth * 2.5);
+    });
+    document.querySelectorAll("[data-gplan]").forEach((el) =>
+      el.addEventListener("click", () => { G.plan = G.plan === el.dataset.gplan ? null : el.dataset.gplan; G.edit = null; render(); }));
+    document.querySelectorAll("[data-gpe]").forEach((el) =>
+      el.addEventListener("click", () => {
+        G.edit = "p:" + el.dataset.gpe; render();
+        const f = document.querySelector(`[data-gpf="${el.dataset.gpe}"]`);
+        if (f) { f.focus(); f.setSelectionRange(f.value.length, f.value.length); }
+      }));
+    document.querySelectorAll("[data-gpf]").forEach((el) => {
+      const [gid, k] = el.dataset.gpf.split(":");
+      el.addEventListener("input", () => {
+        const g = doc.goals.find((x) => x.id === gid);
+        if (!g) return;
+        g.plan = Object.assign({}, g.plan);
+        const v = el.value.slice(0, 1000);
+        if (v.trim()) g.plan[k] = v; else delete g.plan[k];
+        saveGoals();
+      });
+      const done = () => { if (G.edit === "p:" + el.dataset.gpf) { G.edit = null; render(); } };
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); done(); }
+        if (e.key === "Escape") done();
+      });
+      el.addEventListener("blur", () => setTimeout(() => { if (el.isConnected) done(); }, 0));
+    });
     document.querySelectorAll("[data-gexample]").forEach((el) =>
       el.addEventListener("click", () => startCycle(el.dataset.gexample, true)));
     const askNew = () => {
@@ -8640,6 +9055,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       wire();
       wireHome(); wireGo();
     }
+    if (v === "sleep" || v === "tasks" || v === "diet" || v === "exercise") injectAtoms();
     wireNet();
     // One sheet for every standard and one for the home dials, on any page.
     if (v !== "session" && v !== "detail") {
