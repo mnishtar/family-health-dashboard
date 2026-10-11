@@ -887,20 +887,56 @@ button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inh
 .bff.on b { color:var(--ink); }
 .bfg .cnote { margin:0 0 8px; text-align:left; }
 
-/* ---------- V4.5: Atoms ------------------------------------------------ */
-.tstreak { display:flex; align-items:center; gap:6px; width:100%; margin:0 0 4px; padding:0; border:none; background:none;
-  font:inherit; font-size:13px; color:var(--muted); text-align:left; cursor:pointer; }
-.tstreak svg { width:15px; height:15px; flex:none; fill:var(--line-strong); }
-.tstreak.lit svg { fill:#e39a35; }
-.tstreak b { font-weight:600; color:var(--ink-2); }
-.tstreak span::before { content:"\00b7"; margin-right:6px; }
-.tsinfo { margin:2px 0 8px; padding:10px 12px; border-radius:10px; background:var(--surface-2); font-size:13px; line-height:1.45; color:var(--ink-2); }
+/* V4.6. The secondary number on Macros and Weight: there, but quiet. */
+.dsec.dmini { padding-top:12px; padding-bottom:12px; }
+.dsec.dmini .dsh h2 { font-size:16px; color:var(--ink-2); }
+.dsec.dmini .dbig b, .dsec.dmini .dbigin { font-size:28px; }
+.dsec.dmini .dbig { margin:4px 0; }
+.dsec.dmini .dunit { font-size:13px; }
+.dsec.dmini .dchip { padding:4px 10px; font-size:12px; }
+.dsec.dmini .dcalc, .dsec.dmini .bfi { font-size:12.5px; }
+#diet-dd .daynav, #diet-protein .daynav { margin:-4px 0 8px; }
 
-.vbadge { position:absolute; top:4%; right:2%; display:inline-flex; align-items:center; gap:3px; padding:5px 9px 5px 7px;
-  border-radius:12px; background:linear-gradient(160deg, #f6d38f, #eea94d); color:#2a1d08; box-shadow:0 4px 12px rgba(160,100,20,.25); }
-.vbadge svg { width:14px; height:14px; fill:currentColor; }
-.vbadge b { font-family:var(--mono); font-size:13px; font-weight:600; }
-.vbadge.zero { opacity:.75; }
+/* V4.6. Train: daily exercise targets. */
+.xtg { margin-top:16px; }
+.xtl { list-style:none; margin:6px 0 0; padding:0; }
+.xtr { padding:10px 0; border-top:1px solid var(--line); }
+.xtr:first-child { border-top:none; }
+.xth { display:flex; align-items:baseline; gap:8px; }
+.xth b { flex:1; font-weight:600; font-size:15px; color:var(--ink); }
+.xth span { font-family:var(--mono); font-size:15px; color:var(--ink); }
+.xth span.win { color:var(--train); font-weight:600; }
+.xth small { color:var(--muted); font-size:12px; }
+.xtbar { height:6px; border-radius:3px; background:var(--surface-2); margin-top:6px; overflow:hidden; }
+.xtbar i { display:block; height:100%; background:var(--train); border-radius:3px; }
+.xtwk { display:flex; align-items:center; gap:3px; margin-top:6px; }
+.xtwk i { width:14px; height:14px; border-radius:3px; background:var(--surface-2); }
+.xtwk i.full { background:var(--train); }
+.xtwk small { margin-left:6px; font-size:11px; color:var(--muted); }
+.xtadd { display:grid; grid-template-columns:auto minmax(0, 1fr) auto; gap:8px; margin-top:8px; }
+.xtadd #xtName { grid-column:1 / -1; }
+.xtadd select { width:auto; }
+
+/* V4.6. Focus: one-tap activity chips; the day's sessions under History. */
+.fchips { display:flex; flex-wrap:wrap; justify-content:center; gap:6px; margin:10px 0 6px; }
+.fchip { display:inline-flex; align-items:center; border:1px solid var(--line); border-radius:999px; background:var(--surface);
+  font:inherit; font-size:13.5px; color:var(--ink-2); }
+.fchip button { border:none; background:none; font:inherit; color:inherit; padding:7px 13px; cursor:pointer; }
+.fchip .fx { padding:7px 10px 7px 0; color:var(--muted); }
+.fchip.on { border-color:var(--work); background:var(--work-soft); color:var(--ink); }
+button.fchip { padding:7px 13px; cursor:pointer; }
+.fchip.fadd { color:var(--work); }
+.fnewf { display:flex; gap:8px; margin:0 0 8px; }
+.fnewf .field { flex:1; min-width:0; }
+.fon { text-align:center; margin:2px 0 6px; font-size:14px; color:var(--muted); }
+.fon b { color:var(--work); font-weight:600; }
+.whist { margin-top:22px; }
+.whh { margin:0 0 4px; font-family:var(--display); font-weight:500; font-size:20px; }
+.whh small { font-family:inherit; font-size:13px; color:var(--muted); margin-left:6px; }
+.whnone { margin:4px 0 0; }
+
+/* ---------- V4.5: Atoms ------------------------------------------------ */
+
 .astrip { display:flex; align-items:center; gap:10px; margin:-6px 0 14px; }
 .asent { flex:1; min-width:0; border:none; background:none; padding:0; text-align:left; cursor:pointer;
   font-family:var(--display); font-size:16px; line-height:1.35; color:var(--ink); }
@@ -940,7 +976,12 @@ button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inh
 .heat { display:grid; grid-template-columns:repeat(26, minmax(0, 1fr)); gap:2px; }
 .hcol { display:grid; grid-template-rows:repeat(7, 1fr); gap:2px; }
 .hcol i { display:block; aspect-ratio:1/1; border-radius:2px; background:var(--surface-2); }
-.hcol i.on { background:#eea94d; }
+.hcol i.full { background:#eea94d; }
+.heat.tap i[data-hday] { cursor:pointer; }
+.hcol i.sel { box-shadow:inset 0 0 0 1.5px #b86f12; }
+.hkey { display:inline-flex; align-items:center; gap:4px; }
+.hkey i { display:inline-block; width:9px; height:9px; border-radius:2px; background:color-mix(in oklab, #eea94d 45%, var(--surface-2)); }
+.hkey i.full { background:#eea94d; margin-left:6px; }
 .hcol i.fut { background:none; }
 .hcol i.now { box-shadow:inset 0 0 0 1.5px var(--ink); }
 .heatax { display:flex; justify-content:space-between; margin-top:4px; font-size:10.5px; color:var(--muted); }
@@ -950,10 +991,10 @@ button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inh
 .hbar { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:2px 0 6px; }
 .hbar b { font-family:var(--display); font-weight:500; font-size:17px; color:var(--ink-2); }
 /* ---------- V4.3: Tribes ------------------------------------------------ */
-.tgoal { display:flex; align-items:baseline; gap:8px; width:100%; margin:-2px 0 4px; padding:0; border:none; background:none;
-  font:inherit; font-size:13.5px; color:var(--ink-2); text-align:left; cursor:pointer; }
+.tgoal { display:flex; align-items:baseline; gap:8px; width:100%; margin:-4px 0 2px; padding:0; border:none; background:none;
+  font:inherit; font-size:13px; color:var(--muted); text-align:left; cursor:pointer; }
 .tgoal span { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.tgoal em { flex:none; font-style:normal; font-family:var(--mono); font-size:12px; color:var(--accent); }
+.tgoal em { flex:none; font-style:normal; font-family:var(--mono); font-size:11.5px; color:var(--muted); }
 .tgoal.none { color:var(--accent); }
 .tlab { display:block; margin:12px 0 4px; font-size:12px; font-weight:600; color:var(--ink-2); }
 .tstart .field, .tsheet .field { width:100%; box-sizing:border-box; font-size:16px; }
@@ -1798,7 +1839,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "4.5";
+  const APP_VERSION = "4.6";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -2275,7 +2316,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
     if (!state.people.some((p) => p.id === state.meId)) state.meId = loadMe();
     if (!state.people.some((p) => p.id === state.meId)) state.meId = null;
-    await Promise.all([loadHistory(), loadVotes(true), loadTribeStreak()]);
+    await Promise.all([loadHistory(), loadVotes(true)]);
     // If the family block is open on the page you are looking at, it is
     // showing numbers that just changed. Refetch it here rather than in
     // each caller, so no path can leave it stale.
@@ -2879,9 +2920,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       lines.push("", `${past ? "Nothing logged" : "Still to log"}: ${missing.map((p) => p.name).join(", ")}`);
     }
     // V4.3. The reason, under every update.
-    // V4.5. The tribe streak, only as good news.
-    const T = state.tstreak;
-    if (!past && T && T.days >= 2) lines.push("", `\ud83d\udd25 Tribe streak: ${num(T.days)} days`);
     const g = state.group || {}, n = goalDays();
     if (g.goal) lines.push("", `\ud83c\udfaf ${g.goal}${n !== null && n >= 0 ? ` \u00b7 ${n === 0 ? "today" : n === 1 ? "1 day to go" : num(n) + " days to go"}` : ""}`);
     lines.push("", `${location.origin}${location.pathname}?g=${state.code}`);
@@ -3128,6 +3166,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     state.lift.sessions = res.sessions || [];
     if ((res.exercises || []).length) cacheExercises(res.exercises);
     state.lift.loaded = true;
+    if (state.mode === "lift") await loadExTargets();
     await recoverLift();
   }
 
@@ -3433,6 +3472,84 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     if (res.error) { state.lift.msg = res.error; render(); return; }
     await loadLift();
     await startSession(t.label);
+  }
+
+  /* V4.6. Daily exercise targets, for the things you do every day rather
+     than as a workout: 100 jumping jacks, a 3-minute plank. A target is a
+     name, reps or time, and a number. Progress comes from what you log in
+     Train, so nothing new is logged: the reps and seconds of every
+     finished session that day, matched by the exercise's name. */
+  async function loadExTargets() {
+    const res = await call("app_ex_progress", { p_code: state.code, p_person: state.meId });
+    if (res && !res.error && Array.isArray(res.targets)) state.ext = { today: res.today || todayISO(), targets: res.targets };
+  }
+  const secWords = (x) => { x = Math.round(Number(x) || 0); const m = Math.floor(x / 60), r = x % 60;
+    return m ? `${m}:${pad(r)}` : `${r}s`; };
+  function parseSecs(v) {
+    const t = String(v || "").trim().toLowerCase();
+    let m = t.match(/^(\d+):(\d{1,2})$/); if (m) return Number(m[1]) * 60 + Number(m[2]);
+    m = t.match(/^(\d+)\s*s(ec)?$/); if (m) return Number(m[1]);
+    m = t.match(/^(\d+(?:\.\d+)?)\s*(m|min)?$/); if (m) return Math.round(Number(m[1]) * 60);
+    return null;
+  }
+  function exTargetsCard() {
+    const X = state.ext, ed = state.extEdit;
+    if (!X) return "";
+    const T = X.targets || [], today = X.today;
+    const fmt = (t, v) => t.kind === "time" ? secWords(v) : num(Math.round(v));
+    const row = (t, i) => {
+      const days = t.days || {}, v = Number(days[today] || 0), p = Math.min(100, Math.round(v / Math.max(1, t.t) * 100));
+      const week = Array.from({ length: 7 }, (_, j) => { const iso = shiftISO(today, j - 6), x = Number(days[iso] || 0),
+        q = Math.min(100, Math.round(x / Math.max(1, t.t) * 100));
+        return `<i class="${q >= 100 ? "full" : ""}"${x && q < 100 ? ` style="background:color-mix(in oklab, var(--train) ${Math.round(22 + q * 0.5)}%, var(--surface-2))"` : ""} title="${esc(shortDay(iso))}"></i>`; }).join("");
+      return `<li class="xtr">
+          <div class="xth"><b>${esc(t.n)}</b><span class="${p >= 100 ? "win" : ""}">${fmt(t, v)}<small> / ${fmt(t, t.t)}${t.kind === "time" ? "" : " reps"}</small></span>
+            ${ed ? `<button type="button" class="tx" data-xtdel="${i}" aria-label="Remove ${esc(t.n)}">&times;</button>` : ""}</div>
+          <div class="xtbar"><i style="width:${p}%"></i></div>
+          <div class="xtwk" aria-label="Last 7 days">${week}<small>last 7 days</small></div>
+        </li>`;
+    };
+    const names = (state.lift.exercises || []).map((e) => e.name).filter(Boolean);
+    return `<section class="card xtg">
+        <div class="dsh"><h2>Daily targets</h2>${T.length ? `<button type="button" class="linkbtn" id="xtEdit">${ed ? "Done" : "Edit"}</button>` : ""}</div>
+        ${T.length ? `<ul class="xtl">${T.map(row).join("")}</ul>` : ed ? "" : `<p class="hint">For what you do every day, outside a workout: 100 jumping jacks, a 3-minute plank. Log it in any workout below and it counts here.</p>`}
+        ${ed || !T.length ? (ed ? `<form class="xtadd" id="xtForm">
+            <input class="field" id="xtName" maxlength="60" list="xtNames" autocomplete="off" placeholder="Exercise, e.g. Plank" aria-label="Exercise">
+            <datalist id="xtNames">${names.map((n) => `<option value="${esc(n)}">`).join("")}</datalist>
+            <select class="field" id="xtKind" aria-label="Count in"><option value="reps">reps</option><option value="time">time</option></select>
+            <input class="field" id="xtVal" inputmode="text" autocomplete="off" placeholder="100" aria-label="Daily target">
+            <button type="submit" class="btn" style="background:var(--train)">Add</button>
+          </form>${state.extMsg ? `<p class="hint bad">${esc(state.extMsg)}</p>` : `<p class="hint">Time as 3 (minutes), 1:30 or 90s.</p>`}`
+          : `<button type="button" class="linkbtn" id="xtEdit">+ Add a daily target</button>`) : ""}
+      </section>`;
+  }
+  function wireExTargets() {
+    on("xtEdit", "click", () => { state.extEdit = !state.extEdit; state.extMsg = null; render();
+      if (state.extEdit) document.getElementById("xtName")?.focus(); });
+    const save = async (list) => {
+      const prev = state.ext.targets;
+      state.ext.targets = list; render();
+      const res = await call("app_set_ex_targets", { p_code: state.code, p_person: state.meId,
+        p_targets: list.map((t) => ({ n: t.n, kind: t.kind, t: t.t })) });
+      if (res.error) { state.ext.targets = prev; state.extMsg = res.offline ? "No signal. Not saved yet." : res.error; render(); return; }
+      await loadExTargets(); render();
+    };
+    document.querySelectorAll("[data-xtdel]").forEach((el) =>
+      el.addEventListener("click", () => save(state.ext.targets.filter((_, i) => i !== Number(el.dataset.xtdel)))));
+    on("xtKind", "change", (e) => { const v = document.getElementById("xtVal"); if (v) v.placeholder = e.target.value === "time" ? "3:00" : "100"; });
+    on("xtForm", "submit", (e) => {
+      e.preventDefault();
+      const n = (document.getElementById("xtName").value || "").trim().slice(0, 60);
+      const kind = document.getElementById("xtKind").value === "time" ? "time" : "reps";
+      const raw = document.getElementById("xtVal").value;
+      const t = kind === "time" ? parseSecs(raw) : Number(String(raw).replace(/[^0-9]/g, ""));
+      if (!n) { state.extMsg = "Name the exercise."; render(); return; }
+      if (!t || t < 1) { state.extMsg = kind === "time" ? "Type a time, like 3, 1:30 or 90s." : "Type how many reps."; render(); return; }
+      if (state.ext.targets.some((x) => x.n.toLowerCase() === n.toLowerCase())) { state.extMsg = `${n} already has a target.`; render(); return; }
+      if (state.ext.targets.length >= 6) { state.extMsg = "Up to six targets."; render(); return; }
+      state.extMsg = null;
+      save(state.ext.targets.concat([{ n, kind, t, days: {} }]));
+    });
   }
 
   function liftTiles() {
@@ -4150,6 +4267,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   // Exercise carries both halves: the steps entry and week charts that used
   // to be on the board, and the log that used to be its own screen.
   function wireExercise() {
+    wireExTargets();
     wireLift();
     document.querySelectorAll("[data-cdel]").forEach((el) =>
       el.addEventListener("click", async () => {
@@ -4190,6 +4308,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       // V4.2. Focus lists that day's sessions; Cardio that day's activities.
       if (state.seg === "work") { await loadWorkSessions(); render(); }
     };
+    // V4.6. The calendar at the foot jumps to any day it shows.
+    state.goDay = (iso) => stepDay(Math.round((new Date(iso + "T00:00:00Z") - new Date(entryDay() + "T00:00:00Z")) / 86400000));
     on("dPrev", "click", () => stepDay(-1));
     on("dNext", "click", () => stepDay(1));
     on("dToday", "click", () => stepDay(Math.round(
@@ -4379,6 +4499,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
                : state.seg === "tasks" ? "tasks"
                : state.seg === "goals" ? "goals" : "exercise";
     render();                 // paint immediately; the list can arrive after
+    window.scrollTo(0, 0);    // V4.6. Every page opens at its top.
     if (state.seg === "tasks") { await openTasks(); return; }
     if (state.seg === "goals") { await openGoals(); return; }
     if (state.seg === "work")  {
@@ -4470,23 +4591,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
            <span>${esc(g.goal)}</span>${n !== null ? `<em>${daysWords(n)}</em>` : ""}</button>`
       : `<button type="button" class="tgoal none" id="tribeGoal">+ Set your tribe&rsquo;s goal</button>`;
   }
-  // V4.5. The tribe streak: days in a row everyone logged their steps.
-  // Quiet by design: a count, never names. Tap it for what it means.
-  async function loadTribeStreak() {
-    const res = await call("app_tribe_streak", { p_code: state.code });
-    if (res && !res.error && typeof res.days === "number") state.tstreak = res;
-  }
-  function streakLine() {
-    const T = state.tstreak;
-    if (!T || !T.today_total || state.people.length < 2) return "";
-    const all = T.today_done >= T.today_total;
-    const words = T.days > 0
-      ? `<b>${num(T.days)}-day tribe streak</b><span>${all ? "everyone\u2019s steps are in" : `${T.today_done} of ${T.today_total} steps in today`}</span>`
-      : `<b>Tribe streak</b><span>${all ? "everyone\u2019s steps are in" : `${T.today_done} of ${T.today_total} steps in today`}</span>`;
-    return `<button type="button" class="tstreak${T.days > 0 ? " lit" : ""}" id="tStreak" aria-expanded="${!!state.tstreakInfo}">
-        ${I_FLAME}${words}</button>
-      ${state.tstreakInfo ? `<p class="tsinfo">Days in a row that everyone in the tribe logged their steps. Today counts once everyone\u2019s in, and doesn\u2019t break the run until it\u2019s over. Anyone who hasn\u2019t logged anything for a week is paused until they log again${T.paused ? ` (${T.paused} paused now)` : ""}.</p>` : ""}`;
-  }
   function tribeSheet() {
     if (!state.tribeSheet) return "";
     const g = state.group || {}, T = state.tribeSheet, n = goalDays();
@@ -4527,7 +4631,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       </div>`;
   }
   function wireTribeSheet() {
-    on("tStreak", "click", () => { state.tstreakInfo = !state.tstreakInfo; render(); });
     on("tribeGoal", "click", () => { state.tribeSheet = { edit: !(state.group || {}).goal }; seedTribe(); render();
       if (state.tribeSheet.edit) document.getElementById("tsGoal")?.focus(); });
     if (!state.tribeSheet) return;
@@ -4787,7 +4890,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           <i aria-hidden="true">&#9662;</i></label>` : ""}
       </div>
       ${goalLine()}
-      ${streakLine()}
 
       ${editRowHTML()}
 
@@ -4952,24 +5054,16 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       buttons: [{ label: "Keep going", kind: "go" }],
     });
   }
-  // The badge on each dial: votes so far.
-  function voteBadge(k, clone) {
-    const v = votesOf(k);
-    if (!v || !ATOM_HOW[k]) return "";
-    return `<span class="vbadge${v.total ? "" : " zero"}" ${clone ? "" : `title="${num(v.total)} votes"`} aria-label="${num(v.total)} votes">${I_BOLT}<b>${num(v.total)}</b></span>`;
-  }
   // The strip under a habit's title: its sentence, its votes, its run.
   function atomsStrip(k) {
     if (!ATOM_HOW[k] || !state.meId) return "";
-    const A = myAtoms()[k], v = votesOf(k);
+    const A = myAtoms()[k];
     if (state.atomEdit === k) return atomsEditor(k, A);
-    const stats = v ? `<span class="astat">${I_BOLT}<b>${num(v.total)}</b><small>votes</small></span>
-        ${k === "weight" ? "" : `<span class="astat fl">${I_FLAME}<b>${num(v.streak)}</b><small>in a row</small></span>`}` : "";
+    // V4.6. The sentence alone: votes live in the card at the foot.
     return `<section class="astrip">
         <button type="button" class="asent${A ? "" : " nil"}" id="atomOpen">${A
           ? `I will <u>${esc(A.how)}</u>${A.when ? `, <u>${esc(A.when)}</u>` : ""}${A.who ? ` so that I can become <u>${esc(A.who)}</u>` : ""}.`
           : `<b>Make it a habit.</b> I will <u>action</u>, <u>time or place</u> so that I can become <u>who I want to be</u>.`}</button>
-        <div class="astats">${stats}</div>
       </section>`;
   }
   function atomsEditor(k, A) {
@@ -5002,13 +5096,29 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     if (!ATOM_HOW[k] || !v) return "";
     const nx = nextMile(v.total), got = MILES.filter((x) => x <= v.total);
     const show = state.atomAll === k ? MILES : got.slice(-1).concat(MILES.filter((x) => x > v.total).slice(0, got.length ? 2 : 3));
-    // 26 weeks, Monday to Sunday down, oldest week on the left.
-    const today = state.votes.today || todayISO(), mon = mondayOf(today), have = new Set(v.days || []);
+    // 26 weeks, Monday to Sunday down, oldest week on the left. V4.6: each
+    // day shaded by how far it got toward your standard: full colour at or
+    // past it, paler the further short. Tap a day to open it above.
+    const today = state.votes.today || todayISO(), mon = mondayOf(today);
+    const days = v.days && !Array.isArray(v.days) ? v.days : {};
+    const m = me() || {}, std = k === "rise" || k === "rest" ? (hasTarget(m, k) ? target(m, k) : STD[k].def) : stdOf(m, k);
+    const pctOn = (raw) => {
+      const val = k === "dd" ? ddCount(raw) : k === "sleep" ? scorePct(raw) : Number(raw);
+      const p = stdPct(k, val, std);
+      return p === null ? 100 : Math.max(0, Math.min(100, p));
+    };
+    const tappable = !!state.goDay;
+    const sel = entryDay();
     const cols = Array.from({ length: 26 }, (_, w) => {
       const start = shiftISO(mon, (w - 25) * 7);
       return `<span class="hcol">${Array.from({ length: 7 }, (_, d) => {
-        const iso = shiftISO(start, d);
-        return `<i class="${iso > today ? "fut" : have.has(iso) ? "on" : ""}${iso === today ? " now" : ""}"></i>`; }).join("")}</span>`;
+        const iso = shiftISO(start, d), has = Object.prototype.hasOwnProperty.call(days, iso);
+        if (iso > today) return `<i class="fut"></i>`;
+        const p = has ? pctOn(days[iso]) : 0;
+        const shade = !has ? "" : p >= 100 ? " full" : "";
+        const st = has && p < 100 ? ` style="background:color-mix(in oklab, #eea94d ${Math.round(22 + p * 0.5)}%, var(--surface-2))"` : "";
+        return `<i class="${shade.trim()}${iso === today ? " now" : ""}${tappable && iso === sel && state.view !== "tasks" ? " sel" : ""}"${st}${
+          tappable ? ` data-hday="${iso}" role="button" aria-label="${esc(shortDay(iso))}${has ? `, ${p}% of your standard` : ", nothing logged"}"` : ""}></i>`; }).join("")}</span>`;
     }).join("");
     const who = atomWho(k);
     return `<section class="card acard">
@@ -5017,8 +5127,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             <small>${k === "weight" ? "every weigh-in counts" : `${num(v.streak)} in a row · best ${num(v.best || 0)}`}${nx ? ` · next badge at ${num(nx)}` : ""}</small></span></div>
         <div class="hexes">${show.map((x) => hexBadge(x, x <= v.total)).join("")}</div>
         <button type="button" class="linkbtn amore" id="atomAll">${state.atomAll === k ? "Fewer badges" : "All badges"}</button>
-        <div class="heat" aria-label="Days logged, last 26 weeks">${cols}</div>
-        <div class="heatax"><span>${esc(shortDay(shiftISO(mon, -175)))}</span><span>today</span></div>
+        <div class="heat${tappable ? " tap" : ""}" aria-label="Days logged, last 26 weeks">${cols}</div>
+        <div class="heatax"><span>${esc(shortDay(shiftISO(mon, -175)))}</span><span class="hkey"><i></i>below standard <i class="full"></i>met</span><span>today</span></div>
       </section>`;
   }
   // The habit a page is about, if it is one.
@@ -5034,6 +5144,12 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     on("atomOpen", "click", () => { state.atomEdit = k; state.atomDraft = null; render();
       document.getElementById("aHow")?.focus(); });
     on("atomAll", "click", () => { state.atomAll = state.atomAll === k ? null : k; render(); });
+    app.querySelector(".heat.tap")?.addEventListener("click", async (e) => {
+      const iso = e.target && e.target.dataset ? e.target.dataset.hday : null;
+      if (!iso || !state.goDay) return;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      await state.goDay(iso);
+    });
     const D = state.atomDraft;
     [["aHow", "how"], ["aWhen", "when"], ["aWho", "who"]].forEach(([id, f]) =>
       on(id, "input", (e) => { D[f] = e.target.value; const s0 = app.querySelector(".aedit .asent");
@@ -5181,7 +5297,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <button type="button" class="slab" ${go(page)} ${clone ? 'tabindex="-1"' : ""}>${esc(S.label)}<i aria-hidden="true">&rsaquo;</i></button>
         ${gbody || `<div class="dial">
           ${ring}
-          ${voteBadge(k, clone)}
           <div class="dcore">
             ${centre}
             <button type="button" class="dof" ${clone ? 'tabindex="-1"' : `data-edit="goal" data-metric="${k}"`}>${
@@ -6141,12 +6256,12 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       + `<p class="ver">v${APP_VERSION}</p>`;
   }
   const dietMsg = (D, f) => D.msg && D.msgFor === f ? `<p class="hint bad dmsgx" role="status">${esc(D.msg)}</p>` : "";
+  // V4.6. The day's back and forward sit inside the card with the day's
+  // number, as on every other habit, not in a card of their own.
   const dietDayNav = (D) => {
     const iso = D.day || todayISO(), isToday = iso === todayISO();
-    return `<section class="card">
-        ${dayNav({ ids: ["ddPrev", "ddNext", "ddToday"], label: isToday ? "Today" : esc(fullDate(iso)), atToday: isToday })}
-        ${D.err ? `<p class="hint bad" style="text-align:center">${esc(D.err)}</p>` : ""}
-      </section>`;
+    return `${dayNav({ ids: ["ddPrev", "ddNext", "ddToday"], label: isToday ? "Today" : esc(fullDate(iso)), atToday: isToday })}
+        ${D.err ? `<p class="hint bad" style="text-align:center">${esc(D.err)}</p>` : ""}`;
   };
 
   function longevityBody(D) {
@@ -6172,8 +6287,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         </li>${info === x.n && inf ? suppCard(x.n, inf) : ""}`;
     };
     const suggest = Object.keys(SUPP_INFO).filter((n) => !S.some((x) => x.n.toLowerCase() === n.toLowerCase()));
-    return dietDayNav(D) + `
+    return `
       <section class="card dsec" id="diet-dd" style="--dc:var(--diet)">
+        ${dietDayNav(D)}
         <div class="domino" style="padding-top:2px">
           <b class="big" style="color:${count === null ? "var(--muted)" : dialColor(stdPct("dd", count, std))}">${count === null ? 0 : count}<small>/${DD_MAX}</small></b>
           <button type="button" class="of" data-edit="goal" data-metric="dd" style="display:block;margin:4px auto 0">standard <b>${std}</b></button>
@@ -6224,8 +6340,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     };
     const chips = (f, list) => `<div class="dchips" role="group" aria-label="Add">${list.map((d) =>
       `<button type="button" class="dchip" data-dadd="${f}:${d}">+${num(d)}${f === "protein" ? " g" : ""}</button>`).join("")}</div>`;
-    return dietDayNav(D) + `
+    return `
       <section class="card dsec" id="diet-protein" style="--dc:var(--diet)">
+        ${dietDayNav(D)}
         <div class="dsh"><h2>Protein</h2>
           <button type="button" class="of dofx" data-edit="goal" data-metric="macros">of <b>${num(sP)} g</b></button></div>
         ${big("protein", V.protein, "g", sP, "macros")}
@@ -6234,8 +6351,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <button type="button" class="linkbtn dcalc" data-dcalc="protein" aria-expanded="${D.calc === "protein"}">${D.calc === "protein" ? "Close the calculator" : "Calculate my target"}</button>
         ${D.calc === "protein" ? calcPanel("protein") : ""}
       </section>
-      <section class="card dsec" id="diet-kcal" style="--dc:var(--diet)">
-        <div class="dsh"><h2>Calories</h2>
+      <section class="card dsec dmini" id="diet-kcal" style="--dc:var(--diet)">
+        <div class="dsh"><h2>Calories</h2><span class="dss">optional</span>
           <button type="button" class="of dofx" data-edit="goal" data-metric="kcal">of <b>${num(sK)}</b></button></div>
         ${big("kcal", V.kcal, "kcal", sK, "kcal")}
         ${chips("kcal", [100, 250])}
@@ -6296,7 +6413,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         ${dietMsg(D, "weight")}
         ${weightChart(D.wh || [], goal)}
       </section>
-      <section class="card dsec" id="diet-bodyfat" style="--dc:var(--diet)">
+      <section class="card dsec dmini" id="diet-bodyfat" style="--dc:var(--diet)">
         <div class="dsh"><h2>Body fat</h2><span class="dss">optional, from a scale or scan</span></div>
         ${input("bodyfat", bf, "%", "Body fat percent")}
         <button type="button" class="linkbtn bfi" id="bfInfo" aria-expanded="${!!D.bfi}"><i aria-hidden="true">i</i>${D.bfi ? "Hide the ranges" : "What the ranges look like"}</button>
@@ -6359,6 +6476,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     on("back", "click", () => { state.view = "board"; state.diet = null; render(); refresh(); });
     if (!D) return;
     const go = async (iso) => { D.day = iso; D.vals = null; D.edit = null; D.msg = null; render(); await loadDietDay(); render(); };
+    if (D.page !== "weight") state.goDay = go;
     on("ddPrev", "click", () => go(shiftISO(D.day, -1)));
     on("ddNext", "click", () => { if (D.day < todayISO()) go(shiftISO(D.day, 1)); });
     on("ddToday", "click", () => go(todayISO()));
@@ -6580,8 +6698,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           hold it. Tap the corner to read what it means.</p>
       </section>
 
-      ${graphCard("sleep")}
-      ${famBlock()}
 
       <p class="ver">v${APP_VERSION}</p>`;
   }
@@ -7715,6 +7831,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     if (state.view === "board") render();
   }
   async function openGoals() {
+    window.scrollTo(0, 0);
     state.goals = { loaded: false, today: todayISO(), cycle: null, sel: 1, edit: null, err: null,
                     ex: false, guide: {}, twelve: false };
     const res = await call("app_cycle", { p_code: state.code, p_person: state.meId });
@@ -7915,13 +8032,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           <button type="button" class="dof" data-edit="goal" data-metric="goals">of ${win}%</button>
           <span class="gwks">${when}</span>
         </div>
-        ${goals.length ? `<div class="grow3" style="--n:${goals.length}">${goals.map((g) => {
-          const p = run ? goalTally(g, C.cur).pct : null;
-          return `<button type="button" class="gr1" data-gjump="${g.id}"
-              aria-label="${esc(g.title || "Untitled goal")}: ${p === null ? "nothing due" : p + "%"} this week. Go to it">
-            <span class="gr1d">${dialRing(stdPct("goals", p, win))}<b>${p === null ? "–" : p + "%"}</b></span>
-            <span class="gr1t">${g.id === d.one_goal ? `<i aria-hidden="true">★</i>` : ""}${esc(g.title || "Untitled")}</span>
-          </button>`; }).join("")}</div>` : ""}
+        <!-- V4.6. No rings here: each goal's card shows its own lead %. The
+             rings live on home's Goals dial. -->
         ${start}
       </section>`;
   }
@@ -8543,6 +8655,24 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   function dropRecent(label) {
     try { localStorage.setItem(recentKey(), JSON.stringify(getRecent().filter((x) => x.label !== label))); } catch {}
   }
+  // V4.6. What you are focusing on, as one tap: your recent activities as
+  // chips, alphabetical so they never move under your thumb. Tap one to
+  // focus on it (tap again to clear); + adds a new one and lets you
+  // remove old ones. Start never stops to ask.
+  function focusChips() {
+    const w = state.work, r = w.run, cur = r ? r.label : w.focus ? w.focus.label : null;
+    const list = getRecent().filter((x) => x && x.label).map((x) => x.label);
+    if (cur && !list.includes(cur)) list.push(cur);
+    list.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
+    if (r) return `<p class="fon">${cur ? `On \u00b7 <b>${esc(cur)}</b>` : "Focusing"}</p>`;
+    return `<div class="fchips" role="group" aria-label="What are you focusing on?">
+        ${list.map((l) => `<span class="fchip${l === cur ? " on" : ""}"><button type="button" data-fchip="${esc(l)}" aria-pressed="${l === cur}">${esc(l)}</button>${
+          w.chipEdit ? `<button type="button" class="fx" data-fchipdel="${esc(l)}" aria-label="Remove ${esc(l)}">&times;</button>` : ""}</span>`).join("")}
+        <button type="button" class="fchip fadd${w.chipEdit ? " on" : ""}" id="fChipAdd" aria-expanded="${!!w.chipEdit}" aria-label="Add or remove activities">${w.chipEdit ? "Done" : list.length ? "+" : "+ What are you focusing on?"}</button>
+      </div>
+      ${w.chipEdit ? `<form class="fnewf" id="fChipForm"><input class="field" id="fChipIn" maxlength="120" autocomplete="off" enterkeyhint="done" placeholder="New activity, e.g. Grant draft" aria-label="New activity">
+        <button type="submit" class="btn">Add</button></form>` : ""}`;
+  }
   // V4.1. A recent focus opens in place when tapped: Start it, give it
   // minutes you already did (typed, like "45" or "1:20"), or delete it.
   // Nothing is hidden behind a gesture.
@@ -8702,17 +8832,20 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     return `
       <section class="wpage">
         ${dayNav({ label: today ? "Today" : esc(fullDate(entryDay())), atToday: today, unit: "day", cls: "wnav" })}
-        ${today ? `<button type="button" class="focusbtn" id="workFocus" aria-expanded="${!!w.pick}">
-          ${f ? `On · <span>${esc(f.label)}</span>` : "What are you focusing on?"} <i aria-hidden="true">&rsaquo;</i></button>` : ""}
-        ${w.pick && today ? focusPicker() : `<div class="dial wdial">${ring}<div class="dcore">${core}</div></div>`}
+        ${today ? focusChips() : ""}
+        <div class="dial wdial">${ring}<div class="dcore">${core}</div></div>
         ${state.msg ? `<p class="hint dshint ${state.msgKind || ""}" style="text-align:center">${esc(state.msg)}</p>` : ""}
+      </section>
+      <section class="whist">
+        <h2 class="whh">History <small>${today ? "today" : esc(shortDay(entryDay()))}</small></h2>
         ${sessions.length || extra ? `<ul class="wlines">${sessions.map((x) => `
           <li><span>${x.label ? esc(x.label) : "Focus"}${x.started_at ? `<small>${new Date(x.started_at).toLocaleTimeString([],
               { hour:"numeric", minute:"2-digit" })}</small>` : `<small>added</small>`}</span>
             <b>${hm(x.minutes)}</b>
             <button type="button" data-wdel="${x.id}" aria-label="Delete this session">&times;</button></li>`).join("")}${extra ? `
           <li><span>Typed earlier<small>older version</small></span><b>${hm(extra)}</b>
-            <button type="button" id="workUntyped" aria-label="Delete the typed minutes">&times;</button></li>` : ""}</ul>` : ""}
+            <button type="button" id="workUntyped" aria-label="Delete the typed minutes">&times;</button></li>` : ""}</ul>`
+          : `<p class="hint whnone">No sessions ${today ? "yet today" : "that day"}.</p>`}
         ${w.adding ? `
           <div class="wadd">
             <input class="field" id="waLabel" maxlength="120" autocomplete="off" list="waRecent" placeholder="What it was for" value="${esc(w.addLabel || "")}" aria-label="What the session was for">
@@ -8722,7 +8855,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             <button type="button" class="linkbtn" id="waCancel">Cancel</button>
           </div>
           ${w.addErr ? `<p class="hint bad">${esc(w.addErr)}</p>` : ""}`
-          : `<button type="button" class="linkbtn wplus" id="waOpen">+ Add</button>`}
+          : `<button type="button" class="linkbtn wplus" id="waOpen">+ Add minutes you did</button>`}
       </section>`;
   }
 
@@ -8842,9 +8975,26 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     on("workMinus", "click", () => step(-WORK_STEP));
     on("workPlus", "click", () => step(WORK_STEP));
 
-    on("workFocus", "click", async () => {
-      w.pick = !w.pick; w.pickQ = ""; render();
-      if (w.pick) document.getElementById("fSearch")?.focus();
+    // V4.6. The chips.
+    document.querySelectorAll("[data-fchip]").forEach((el) =>
+      el.addEventListener("click", () => {
+        const l = el.dataset.fchip;
+        w.focus = w.focus && w.focus.label === l ? null : { label: l, task_id: null };
+        saveWorkLocal(); render();
+      }));
+    document.querySelectorAll("[data-fchipdel]").forEach((el) =>
+      el.addEventListener("click", () => {
+        dropRecent(el.dataset.fchipdel);
+        if (w.focus && w.focus.label === el.dataset.fchipdel) { w.focus = null; saveWorkLocal(); }
+        render();
+      }));
+    on("fChipAdd", "click", () => { w.chipEdit = !w.chipEdit; render(); if (w.chipEdit) document.getElementById("fChipIn")?.focus(); });
+    on("fChipForm", "submit", (e) => {
+      e.preventDefault();
+      const v = (document.getElementById("fChipIn")?.value || "").trim().slice(0, 120);
+      if (!v) return;
+      w.focus = { label: v, task_id: null }; pushRecent(w.focus); w.chipEdit = false;
+      saveWorkLocal(); render();
     });
     // V4.2. Start asks what the session is for first; picking starts it.
     const choose = (f) => { w.focus = f; w.pick = false; w.fopen = null; w.fmsg = null; saveWorkLocal();
@@ -8875,11 +9025,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     on("fNone", "click", () => choose(null));
     on("fClose", "click", () => { w.pick = false; w.startAfter = false; render(); });
 
-    on("workStart", "click", () => {
-      if (w.focus) { workGo(); render(); return; }
-      w.pick = true; w.startAfter = true; w.pickQ = ""; render();
-      document.getElementById("fSearch")?.focus();
-    });
+    on("workStart", "click", () => { w.chipEdit = false; workGo(); render(); });
     on("workPause", "click", () => { workHold(); stopWorkTick(); render(); });
     on("workContinue", "click", () => { workResume(); render(); });
     on("workEnd", "click", () => {
@@ -8976,7 +9122,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
            repaint it WITHOUT rebuilding the card above it. Re-rendering
            the whole page under a finger that is still scrolling is what
            made the time wheel feel stuck. -->
-      <div id="graphSlot">${graphCard(k)}</div>
 
       ${k === "cardio" ? liftHistory() : ""}
       ${k !== "train" ? "" : `
@@ -8984,10 +9129,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
                 style="width:100%;margin-top:${isFirst() ? 10 : 22}px;${isFirst() ? "" : `background:${met.color}`}">
           Start an Empty Workout</button>
         ${liftTiles()}
+        ${exTargetsCard()}
         ${unitRow}
         ${liftHistory()}`}
-
-      ${famBlock()}
 
       <p class="ver">v${APP_VERSION}</p>`;
   }
@@ -9043,6 +9187,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
     const bar = "";
     const v = state.view;
+    state.goDay = null;
     if (v === "sleep")         { app.innerHTML = netBar + sleepView() + bar;  wireExercise(); wireGo(); }
     else if (v === "tasks")    { app.innerHTML = netBar + tasksView() + bar;  wireTasks();    wireGo(); }
     else if (v === "goals")    { app.innerHTML = netBar + goalsView() + bar;  wireGoals();    wireGo(); }
@@ -9321,11 +9466,12 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   // V4.2. Only what the dashboard shows can be a dial (not Calories, which
   // lives under Macros). A V4.1 phone may still say protein or kcal.
   const DIAL_KEYS = STD_GROUPS.flatMap(([, ks]) => ks);
-  const DIAL_MAX = 5;
+  // V4.6. Three at most: home is for what matters most today.
+  const DIAL_MAX = 3;
   const okDials = (d) => Array.isArray(d) && d.length >= 1 && d.length <= DIAL_MAX &&
     new Set(d).size === d.length && d.every((k) => DIAL_KEYS.includes(k));
   const fixDials = (d) => Array.isArray(d)
-    ? d.map((k) => (k === "protein" || k === "kcal" ? "macros" : k)).filter((k, i, a) => a.indexOf(k) === i) : d;
+    ? d.map((k) => (k === "protein" || k === "kcal" ? "macros" : k)).filter((k, i, a) => a.indexOf(k) === i).slice(0, DIAL_MAX) : d;
   function myDials() {
     const m = me();
     if (m && okDials(fixDials(m.dials))) return fixDials(m.dials);
@@ -9343,7 +9489,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       <div class="stdsheet dpick" role="dialog" aria-label="Choose your dials">
         <p class="eyebrow">Home screen</p>
         <h3>Your dials</h3>
-        <p class="hint" style="margin-top:4px">Tap one to five, in the order you want them.</p>
+        <p class="hint" style="margin-top:4px">Tap up to three, in the order you want them.</p>
         ${STD_GROUPS.map(([g, ks]) => `
           <p class="dpg">${esc(g)}</p>
           <div class="dpgrid">${ks.map((k) => {
