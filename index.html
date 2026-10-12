@@ -17,7 +17,7 @@
   const SUPABASE_ANON_KEY = "sb_publishable_PDVArZM_J7r02XO-Texedw_f8Y6ZEtG";
 </script>
 
-<meta name="theme-color" content="#075c48">
+<meta name="theme-color" content="#141414">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -27,46 +27,34 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Inter:wght@400;500;600&display=swap">
 
 <style>
 :root {
-  --ground:#f4f6f5; --surface:#ffffff; --surface-2:#eef2f0;
-  --ink:#16191b; --ink-2:#454d4a; --muted:#6b7370;
-  --line:#e2e6e3; --line-strong:#cfd6d2;
-  --accent:#075c48; --series:#0e8a6b; --soft:#d3ece4;
-  --train:#c2600f; --train-soft:#f6e3d2;
-  --swim:#1f6f9b;  --swim-soft:#d9e9f3;
-  --warn:#8a4a12; --warn-soft:#f6ecdf;
-  --sleep:#4f5bd5; --sleep-soft:#e4e6fb;
-  --work:#a4640a;  --work-soft:#f7ead3;
-  --diet:#4f7d14;  --diet-soft:#e6f0d6;
-  --shadow:0 1px 2px rgba(9,26,21,.05), 0 8px 24px -16px rgba(9,26,21,.25);
-  --display:"Newsreader",Georgia,serif;
-  --body:"Public Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
-  color-scheme: light;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --ground:#101312; --surface:#191d1c; --surface-2:#212725;
-    --ink:#f2f4f3; --ink-2:#c8d0cc; --muted:#97a19d;
-    --line:#2a302e; --line-strong:#3a423f;
-    --accent:#28a583; --series:#28a583; --soft:#1e3b34;
-    --train:#cf7a33; --train-soft:#3a2a1a;
-    --swim:#59a6cf;  --swim-soft:#16303e;
-    --warn:#e0a86a; --warn-soft:#2a2318;
-    --sleep:#8d97ec; --sleep-soft:#20244a;
-    --work:#e2a64a;  --work-soft:#3a2c14;
-    --diet:#94c454;  --diet-soft:#26321a;
-    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
-    color-scheme: dark;
-  }
+  /* V4.7. One premium dark theme, after jamesclear.com's restraint:
+     charcoal, warm ivory type, a single muted gold. Habit colours are
+     softened to sit quietly on it. Dark only, on every phone. */
+  --ground:#141414; --surface:#1c1b1a; --surface-2:#262422;
+  --ink:#f3ede2; --ink-2:#d3ccbf; --muted:#9b958b;
+  --line:#2e2c29; --line-strong:#423f3a;
+  --accent:#c9a45c; --series:#c9a45c; --soft:#2e2818;
+  --gold:#c9a45c; --sage:#93b08a; --steel:#8aa5bf;
+  --train:#cf8f5e; --train-soft:#33261b;
+  --swim:#7fa8c6;  --swim-soft:#1c2a33;
+  --warn:#e0ae72; --warn-soft:#2c2419;
+  --sleep:#a1a8de; --sleep-soft:#23253a;
+  --work:#d3ab62;  --work-soft:#30291a;
+  --diet:#9dbb7e;  --diet-soft:#232c1c;
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 10px 28px -18px rgba(0,0,0,.8);
+  --display:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --body:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Inter",ui-sans-serif,system-ui,-apple-system,sans-serif;
+  color-scheme: dark;
 }
 
 * { box-sizing:border-box; }
 body { margin:0; background:var(--ground); color:var(--ink);
-  font-family:var(--body); font-size:15px; line-height:1.5;
+  font-family:var(--body); font-size:15px; line-height:1.5; font-feature-settings:"tnum" 1;
   -webkit-font-smoothing:antialiased; }
 img { max-width:100%; }
 [hidden] { display:none !important; }
@@ -96,7 +84,7 @@ select, input, button { font-family:inherit; font-size:inherit; color:inherit; }
 
 .field { width:100%; border:1px solid var(--line-strong); background:var(--surface);
   border-radius:11px; padding:13px 15px; font-size:16px; }
-.btn { border:none; border-radius:11px; background:var(--accent); color:#fff;
+.btn { border:none; border-radius:11px; background:var(--accent); color:#17130c;
   font-weight:600; padding:13px 20px; cursor:pointer; white-space:nowrap; font-size:15px; }
 @media (prefers-color-scheme: dark) { .btn { color:#08120f; } }
 .btn:disabled { opacity:.4; cursor:default; }
@@ -222,7 +210,7 @@ input[type=number] { -moz-appearance:textfield; }
 .mbtn { border:none; border-radius:12px; padding:13px 14px; font-family:inherit;
   font-size:15px; font-weight:600; cursor:pointer; line-height:1.25; }
 .mbtn small { display:block; font-size:12px; font-weight:500; opacity:.85; margin-top:2px; }
-.mbtn.go    { background:var(--accent); color:#fff; }
+.mbtn.go    { background:var(--accent); color:#17130c; }
 .mbtn.bad   { background:var(--warn-soft); color:#b3422a; }
 .mbtn.quiet { background:var(--surface-2); color:var(--ink-2); }
 .mbtn.ok    { background:#4caf6e; color:#fff; }
@@ -274,7 +262,7 @@ input[type=number] { -moz-appearance:textfield; }
 .frow.open .fitem { border-bottom:none; color:var(--work); font-weight:600; }
 .fopen { display:flex; align-items:center; gap:8px; padding:4px 0 12px; border-bottom:1px solid var(--line); }
 .fstart { display:inline-flex; align-items:center; gap:4px; border:none; border-radius:999px; background:var(--work);
-  color:#fff; font:600 14px/1 inherit; font-family:inherit; padding:9px 13px 9px 10px; cursor:pointer; }
+  color:#17130c; font:600 14px/1 inherit; font-family:inherit; padding:9px 13px 9px 10px; cursor:pointer; }
 .fstart svg { width:16px; height:16px; fill:currentColor; }
 .fmins { display:inline-flex; align-items:center; gap:4px; flex:1; min-width:0; }
 .fminin { width:64px; min-width:0; box-sizing:border-box; font-size:16px; text-align:center; padding:8px 4px;
@@ -359,7 +347,7 @@ input[type=number] { -moz-appearance:textfield; }
   background:color-mix(in oklab, var(--qc) 8%, var(--surface)); color:var(--qc); cursor:pointer;
   display:grid; place-items:center; padding:0; margin-left:4px; }
 .tplus svg { width:16px; height:16px; stroke:currentColor; stroke-width:2.4; stroke-linecap:round; fill:none; }
-.tplus.on { background:var(--qc); color:#fff; }
+.tplus.on { background:var(--qc); color:#17130c; }
 .tplus[aria-disabled="true"] { opacity:.4; }
 .tnew { display:flex; align-items:center; gap:10px; min-height:50px; border-bottom:1px solid var(--line); }
 .tnew .field { flex:1; font-size:16px; padding:10px 12px; border-color:var(--qc); }
@@ -384,6 +372,9 @@ input[type=number] { -moz-appearance:textfield; }
 .tgh { display:flex; align-items:baseline; gap:8px; padding:0 2px 6px;
   border-bottom:2px solid var(--qc); }
 .tgh b { font-family:var(--display); font-weight:500; font-size:20px; color:var(--ink); }
+.tqf { display:inline-flex; align-items:baseline; gap:6px; border:none; background:none; padding:0; font:inherit; color:inherit; cursor:pointer; }
+.tqf i { font-style:normal; font-size:12px; color:var(--muted); width:10px; }
+.tgroup.shut { padding-bottom:4px; }
 .tgh span { flex:1; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
 .tgh em { font-style:normal; font-family:var(--mono); font-size:13px; color:var(--qc); }
 .tempty { margin:10px 2px 0; font-size:13px; color:var(--muted); }
@@ -398,7 +389,7 @@ input[type=number] { -moz-appearance:textfield; }
   background:none; padding:0; cursor:pointer; position:relative; }
 .tck[aria-pressed="true"] { background:var(--qc, var(--ink-2)); border-color:var(--qc, var(--ink-2)); }
 .tck[aria-pressed="true"]::after { content:"\2713"; position:absolute; inset:0; display:grid;
-  place-items:center; color:#fff; font-size:13px; font-weight:700; }
+  place-items:center; color:#17130c; font-size:13px; font-weight:700; }
 .tck.sm { width:19px; height:19px; border-width:1.5px; }
 .tt { flex:1; min-width:0; border:none; background:none; padding:12px 0; text-align:left;
   font-family:inherit; font-size:16.5px; line-height:1.3; color:var(--ink); cursor:text; overflow-wrap:anywhere; }
@@ -440,7 +431,7 @@ input[type=number] { -moz-appearance:textfield; }
 .schip.q1 { --qc:var(--work); } .schip.q2 { --qc:var(--accent); }
 .schip.q3 { --qc:var(--swim); } .schip.q4 { --qc:var(--muted); }
 .schip { border-left:4px solid var(--qc); }
-.schip.on { background:var(--qc); color:#fff; border-color:var(--qc); }
+.schip.on { background:var(--qc); color:#17130c; border-color:var(--qc); }
 .schip small { margin-left:6px; font-size:11px; opacity:.75; }
 .sarm { min-height:18px; margin:8px 2px 0; font-size:13px; color:var(--muted); }
 .sgrid { position:relative; margin:8px 0 24px 46px; border-left:1px solid var(--line); cursor:default; }
@@ -540,7 +531,7 @@ input[type=number] { -moz-appearance:textfield; }
 .gdays { display:grid; grid-template-columns:repeat(7, 1fr); gap:5px; margin:7px 0 2px; }
 .gday { height:34px; border-radius:9px; border:1.5px solid var(--line-strong); background:var(--surface);
   font-family:var(--mono); font-size:11px; color:var(--muted); cursor:pointer; padding:0; }
-.gday.on { background:var(--work); border-color:var(--work); color:#fff; }
+.gday.on { background:var(--work); border-color:var(--work); color:#17130c; }
 .gday.today { box-shadow:0 0 0 2px var(--work-soft); border-color:var(--work); }
 .gday:disabled { opacity:.35; cursor:default; }
 .gdaily .trow { align-items:baseline; }
@@ -580,13 +571,13 @@ input[type=number] { -moz-appearance:textfield; }
   opacity:0; }
 .tm.swipedr .tswl, .tm.pullr .tswl, .tswl:focus-within { opacity:1; }
 .tm.swipedr .tsw, .tm.pullr .tsw { opacity:0; pointer-events:none; }
-.tswq { border:none; border-radius:99px; padding:8px 12px; font-family:inherit; font-size:13.5px; font-weight:600; color:#fff;
+.tswq { border:none; border-radius:99px; padding:8px 12px; font-family:inherit; font-size:13.5px; font-weight:600; color:#17130c;
   cursor:pointer; background:var(--qc); }
 .tswq.q1 { --qc:var(--work); } .tswq.q2 { --qc:var(--accent); } .tswq.q3 { --qc:var(--swim); }
 .tswq.on { background:none; color:var(--qc); box-shadow:inset 0 0 0 1.5px var(--qc); }
 .tswt { border:none; background:none; color:var(--accent); font-family:inherit; font-size:15px; font-weight:500;
   padding:8px 4px; cursor:pointer; }
-.tswc { width:38px; height:38px; border-radius:50%; border:none; display:grid; place-items:center; color:#fff;
+.tswc { width:38px; height:38px; border-radius:50%; border:none; display:grid; place-items:center; color:#17130c;
   cursor:pointer; padding:0; }
 .tswc svg { width:19px; height:19px; fill:none; stroke:currentColor; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
 .tswc.b { background:#4f6bed; } .tswc.r { background:#e5484d; } .tswc.o { background:#f0a030; }
@@ -703,7 +694,7 @@ button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inh
 .gsh { display:flex; align-items:center; gap:10px; }
 .gsh h2 { flex:1; margin:0; font-family:var(--display); font-weight:500; font-size:20px; }
 .gsn { flex:none; width:24px; height:24px; border-radius:50%; display:grid; place-items:center; background:var(--work);
-  color:#fff; font-family:var(--mono); font-size:12.5px; font-weight:600; }
+  color:#17130c; font-family:var(--mono); font-size:12.5px; font-weight:600; }
 .gsr { font-size:12px; color:var(--muted); font-family:var(--mono); }
 .gask { margin:8px 0 10px; font-size:13.5px; color:var(--muted); font-style:italic; line-height:1.4; }
 .gguide { display:inline-flex; align-items:center; gap:5px; margin-top:12px; border:none; background:none; padding:4px 0;
@@ -839,6 +830,10 @@ button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inh
 .gpick { display:flex; align-items:center; justify-content:center; gap:8px; font-size:13px; color:var(--muted); }
 .gpick .field, .gpick input { width:auto; padding:6px 8px; font-size:16px; }
 .gcard3 { padding-top:14px; }
+.ulx .ulg { margin:6px 0 8px; font-family:var(--display); font-weight:500; font-size:19px; color:var(--ink); }
+.ulx .gvtext { font-size:14px; margin-top:2px; }
+.gcfold { display:block; width:100%; margin-top:8px; padding:8px 0 0; border:none; border-top:1px solid var(--line); background:none;
+  font:inherit; font-size:13px; color:var(--muted); text-align:left; cursor:pointer; }
 .gcard3 .gline2 { padding:0 0 4px; border-top:none; }
 .gcard3 .gline2 h3 { font-size:18px; color:var(--ink); }
 .rs.gg tbody th { min-width:52px; }
@@ -898,21 +893,24 @@ button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inh
 #diet-dd .daynav, #diet-protein .daynav { margin:-4px 0 8px; }
 
 /* V4.6. Train: daily exercise targets. */
-.xtg { margin-top:16px; }
+.xtg { margin-top:16px; --dc:var(--swim); }
 .xtl { list-style:none; margin:6px 0 0; padding:0; }
 .xtr { padding:10px 0; border-top:1px solid var(--line); }
 .xtr:first-child { border-top:none; }
 .xth { display:flex; align-items:baseline; gap:8px; }
 .xth b { flex:1; font-weight:600; font-size:15px; color:var(--ink); }
 .xth span { font-family:var(--mono); font-size:15px; color:var(--ink); }
-.xth span.win { color:var(--train); font-weight:600; }
+.xth span.win { color:var(--swim); font-weight:600; }
 .xth small { color:var(--muted); font-size:12px; }
 .xtbar { height:6px; border-radius:3px; background:var(--surface-2); margin-top:6px; overflow:hidden; }
-.xtbar i { display:block; height:100%; background:var(--train); border-radius:3px; }
+.xtbar i { display:block; height:100%; background:var(--swim); border-radius:3px; }
 .xtwk { display:flex; align-items:center; gap:3px; margin-top:6px; }
 .xtwk i { width:14px; height:14px; border-radius:3px; background:var(--surface-2); }
-.xtwk i.full { background:var(--train); }
+.xtwk i.full { background:var(--swim); }
 .xtwk small { margin-left:6px; font-size:11px; color:var(--muted); }
+.xtplus { display:flex; align-items:center; gap:6px; margin-top:8px; }
+.xtplus .dchip { border-color:var(--swim); color:var(--swim); }
+.xtundo { margin-left:auto; font-size:12.5px; }
 .xtadd { display:grid; grid-template-columns:auto minmax(0, 1fr) auto; gap:8px; margin-top:8px; }
 .xtadd #xtName { grid-column:1 / -1; }
 .xtadd select { width:auto; }
@@ -931,34 +929,91 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .fon { text-align:center; margin:2px 0 6px; font-size:14px; color:var(--muted); }
 .fon b { color:var(--work); font-weight:600; }
 .whist { margin-top:22px; }
-.whh { margin:0 0 4px; font-family:var(--display); font-weight:500; font-size:20px; }
+.hfchips { margin:6px 0 2px; }
+.hsheet .stdbtns { justify-content:space-between; }
+.whh { display:flex; align-items:baseline; gap:6px; margin:0 0 4px; padding:0; border:none; background:none; color:var(--ink);
+  font-family:var(--display); font-weight:500; font-size:20px; cursor:pointer; }
+.whh i { font-style:normal; font-family:var(--body); font-size:12px; color:var(--muted); }
 .whh small { font-family:inherit; font-size:13px; color:var(--muted); margin-left:6px; }
 .whnone { margin:4px 0 0; }
+
+/* V4.7. Goals on home: concentric rings. */
+.dial.gslide { gap:10px; }
+.cring { position:relative; width:min(210px, 56vw); aspect-ratio:1/1; margin:0 auto; padding:0; border:none; background:none; cursor:pointer; }
+.cring svg { width:100%; height:100%; transform:rotate(-90deg); }
+.cring .crt { fill:none; stroke-width:11; opacity:.18; }
+.cring .crf { fill:none; stroke-width:11; stroke-linecap:round; }
+.crc { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.crc b { font-family:var(--display); font-weight:500; font-size:30px; color:var(--ink); line-height:1; }
+.crc small { font-size:10px; color:var(--muted); margin-top:4px; white-space:nowrap; }
+.crl { list-style:none; margin:0 auto; padding:0; width:min(280px, 76vw); }
+.crl li { display:flex; align-items:center; gap:8px; padding:3px 0; font-size:13px; color:var(--ink-2); }
+.crl i { width:10px; height:10px; border-radius:50%; flex:none; }
+.crl span { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:left; }
+.crl b { font-family:var(--mono); font-weight:500; color:var(--ink); }
+
+/* V4.7. + Track more: the extras beside Protein and Weight. */
+.xmore { display:block; margin:-4px auto 0; font-size:13.5px; }
+.xpick { display:flex; flex-wrap:wrap; justify-content:center; gap:6px; margin-top:8px; }
+.xlist { list-style:none; margin:0; padding:0; }
+.xrow2 { display:flex; align-items:center; gap:8px; padding:9px 0; border-top:1px solid var(--line); }
+.xrow2:first-child { border-top:none; }
+.xrow2 .xl { flex:1; min-width:0; font-size:14.5px; color:var(--ink); }
+.xrow2 .xl small { margin-left:6px; font-size:11.5px; color:var(--muted); }
+.xrow2 .xv { border:none; background:none; padding:2px 0; font-family:var(--mono); font-size:16px; color:var(--ink); cursor:pointer; }
+.xrow2 .xv.nil { font-family:inherit; font-size:13px; color:var(--accent); }
+.xrow2 em { font-style:normal; font-size:12px; color:var(--muted); min-width:38px; }
+.xrow2 .xin { width:96px; text-align:right; font-family:var(--mono); padding:6px 8px; font-size:16px; }
+
+/* V4.7. The habit header: streak and i; the guide; a labelled calendar. */
+.astrip { align-items:flex-start; }
+.aside { display:flex; align-items:center; gap:8px; flex:none; padding-top:2px; }
+.astk { display:inline-flex; align-items:center; gap:3px; font-size:12px; color:var(--muted); }
+.astk svg { width:15px; height:15px; fill:var(--line-strong); }
+.astk.lit svg { fill:var(--gold, #d4a24c); }
+.astk b { font-family:var(--mono); font-size:15px; font-weight:600; color:var(--ink); }
+.spi.agi { width:24px; height:24px; font-size:12.5px; }
+.aguide { margin-top:-6px; }
+.aguide p { font-size:14px; line-height:1.55; color:var(--ink-2); margin:6px 0; }
+.agsecret { font-size:15px !important; color:var(--ink) !important; }
+.agex { margin:12px 0 4px; padding:14px; border-radius:14px; background:var(--surface-2); text-align:center; }
+.agex .asent.big { font-size:19px; text-align:center; margin:0 0 8px; }
+.agh { margin:16px 0 2px; font-size:15px; font-weight:600; color:var(--ink); }
+.agbec { display:flex; flex-direction:column; align-items:center; gap:4px; margin:8px 0; padding:10px; border-radius:12px; border:1px solid var(--line); text-align:center; font-size:14px; }
+.agbec span { color:var(--muted); }
+.agbec em { font-style:normal; font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:2px 8px; border-radius:999px; background:var(--surface-2); color:var(--muted); }
+.agbec b { color:var(--ink); }
+.agsrc { font-size:12px !important; color:var(--muted) !important; }
+.agdef { width:100%; margin-top:10px; }
+.heatwrap { display:grid; grid-template-columns:14px minmax(0, 1fr); column-gap:4px; row-gap:3px; }
+.heatmon { display:grid; grid-template-columns:repeat(26, minmax(0, 1fr)); gap:2px; font-size:9.5px; color:var(--muted); white-space:nowrap; }
+.heatmon span { overflow:visible; }
+.heatdow { display:grid; grid-template-rows:repeat(7, 1fr); gap:2px; font-size:9px; color:var(--muted); align-items:center; }
 
 /* ---------- V4.5: Atoms ------------------------------------------------ */
 
 .astrip { display:flex; align-items:center; gap:10px; margin:-6px 0 14px; }
 .asent { flex:1; min-width:0; border:none; background:none; padding:0; text-align:left; cursor:pointer;
   font-family:var(--display); font-size:16px; line-height:1.35; color:var(--ink); }
-.asent u { text-decoration:none; background-image:linear-gradient(90deg, #eea94d, #c86ad8); background-size:100% 1.5px;
+.asent u { text-decoration:none; background-image:linear-gradient(90deg, var(--gold), #e2c896); background-size:100% 1.5px;
   background-repeat:no-repeat; background-position:0 100%; }
 .asent.nil { color:var(--muted); font-size:14.5px; }
 .asent.nil b { color:var(--ink); font-family:var(--sans, inherit); font-weight:600; }
 .asent.big { font-size:21px; margin:6px 0 10px; cursor:default; }
 .astats { display:flex; flex-direction:column; gap:4px; flex:none; }
 .astat { display:flex; align-items:center; gap:4px; font-size:12px; color:var(--muted); }
-.astat svg { width:14px; height:14px; fill:#e39a35; }
+.astat svg { width:14px; height:14px; fill:#a8843f; }
 .astat b { font-family:var(--mono); font-size:14px; color:var(--ink); font-weight:600; }
 .astat small { font-size:11px; }
 .aedit .alab { display:block; margin:12px 0 4px; font-size:12px; font-weight:600; color:var(--ink-2); }
 .achips { display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; }
 .achip { border:1px solid var(--line); background:var(--surface); border-radius:999px; padding:6px 11px; font:inherit;
   font-size:13px; color:var(--ink-2); cursor:pointer; }
-.achip.on { border-color:#e39a35; color:var(--ink); background:color-mix(in oklab, #eea94d 14%, var(--surface)); }
+.achip.on { border-color:#a8843f; color:var(--ink); background:color-mix(in oklab, var(--gold) 14%, var(--surface)); }
 .aedit .terow { margin-top:12px; }
 .acard .ahead { display:flex; align-items:center; gap:12px; }
 .abig { display:inline-flex; align-items:center; gap:4px; padding:10px 14px 10px 11px; border-radius:18px;
-  background:linear-gradient(160deg, #f6d38f, #eea94d); color:#2a1d08; }
+  background:linear-gradient(160deg, #e2c389, var(--gold)); color:#2a1d08; }
 .abig svg { width:22px; height:22px; fill:currentColor; }
 .abig b { font-family:var(--mono); font-size:26px; font-weight:600; line-height:1; }
 .awho { font-size:14px; color:var(--ink-2); line-height:1.35; }
@@ -968,7 +1023,7 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .hex { position:relative; width:58px; height:58px; display:inline-grid; place-items:center; }
 .hex svg { position:absolute; inset:0; width:100%; height:100%; fill:var(--surface-2); stroke:var(--line); stroke-width:2; }
 .hex b { position:relative; font-family:var(--display); font-style:italic; font-weight:600; font-size:17px; color:var(--muted); }
-.hex.on svg { fill:#f1bf62; stroke:#e39a35; }
+.hex.on svg { fill:var(--gold); stroke:#a8843f; }
 .hex.on b { color:#3a2606; }
 .hex.big { width:96px; height:96px; }
 .hex.big b { font-size:30px; }
@@ -976,12 +1031,12 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .heat { display:grid; grid-template-columns:repeat(26, minmax(0, 1fr)); gap:2px; }
 .hcol { display:grid; grid-template-rows:repeat(7, 1fr); gap:2px; }
 .hcol i { display:block; aspect-ratio:1/1; border-radius:2px; background:var(--surface-2); }
-.hcol i.full { background:#eea94d; }
+.hcol i.full { background:var(--gold); }
 .heat.tap i[data-hday] { cursor:pointer; }
 .hcol i.sel { box-shadow:inset 0 0 0 1.5px #b86f12; }
 .hkey { display:inline-flex; align-items:center; gap:4px; }
-.hkey i { display:inline-block; width:9px; height:9px; border-radius:2px; background:color-mix(in oklab, #eea94d 45%, var(--surface-2)); }
-.hkey i.full { background:#eea94d; margin-left:6px; }
+.hkey i { display:inline-block; width:9px; height:9px; border-radius:2px; background:color-mix(in oklab, var(--gold) 45%, var(--surface-2)); }
+.hkey i.full { background:var(--gold); margin-left:6px; }
 .hcol i.fut { background:none; }
 .hcol i.now { box-shadow:inset 0 0 0 1.5px var(--ink); }
 .heatax { display:flex; justify-content:space-between; margin-top:4px; font-size:10.5px; color:var(--muted); }
@@ -1036,7 +1091,7 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .dval { font-family:var(--mono); font-size:clamp(38px, 12vw, 52px); font-weight:500; letter-spacing:-.03em; }
 .dsub { font-size:14px; color:var(--muted); max-width:70%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .dplay { margin-top:10px; width:52px; height:52px; border-radius:50%; border:none; background:var(--work);
-  color:#fff; display:grid; place-items:center; cursor:pointer; padding:0; box-shadow:0 4px 14px rgba(0,0,0,.12); }
+  color:#17130c; display:grid; place-items:center; cursor:pointer; padding:0; box-shadow:0 4px 14px rgba(0,0,0,.12); }
 .dplay svg { width:22px; height:22px; fill:currentColor; }
 .dplay.on { background:var(--surface); color:var(--work); border:2px solid var(--work); box-shadow:none; }
 .dfill.paused { opacity:.45; }
@@ -1307,6 +1362,8 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .devrow { margin-top:2px; font-family:var(--mono); font-size:11px; font-variant-numeric:tabular-nums; }
 .devrow .late { color:var(--sleep); font-weight:600; }
 .devrow .early, .devrow .on { color:var(--muted); }
+.sessdate { display:inline-flex; align-items:center; gap:8px; margin-top:8px; font-size:13px; color:var(--muted); }
+.sessdate .field { width:auto; padding:6px 8px; font-size:16px; }
 .sessday { margin:6px 0 0; font-size:13px; color:var(--muted); }
 .hd.kindtog { border:none; background:none; font:inherit; color:var(--accent); cursor:pointer; padding:0;
   text-decoration:underline dotted; text-underline-offset:3px; }
@@ -1422,7 +1479,7 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .pdot { flex:none; width:20px; height:20px; border-radius:50%;
   border:1.5px solid var(--line-strong); display:grid; place-items:center;
   color:transparent; font-size:11px; line-height:1; }
-.prow.done .pdot { background:var(--series); border-color:var(--series); color:#fff; }
+.prow.done .pdot { background:var(--series); border-color:var(--series); color:#17130c; }
 :root[data-theme="dark"] .prow.done .pdot { color:#08120f; }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .prow.done .pdot { color:#08120f; }
@@ -1624,7 +1681,7 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .setgrid input.on { border-color:transparent; background:var(--train-soft); }
 .tick { border:1px solid var(--line-strong); background:none; border-radius:9px;
   height:39px; cursor:pointer; color:var(--muted); font-size:15px; }
-.tick[aria-pressed="true"] { background:var(--accent); border-color:var(--accent); color:#fff; }
+.tick[aria-pressed="true"] { background:var(--accent); border-color:var(--accent); color:#17130c; }
 @media (prefers-color-scheme: dark) { .tick[aria-pressed="true"] { color:#08120f; } }
 .addset { width:100%; margin-top:9px; border:1px dashed var(--line-strong); background:none;
   border-radius:9px; padding:9px; color:var(--muted); font-family:inherit; font-size:13px;
@@ -1769,7 +1826,7 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .dpk i { font-style:normal; width:20px; height:20px; border-radius:50%; display:grid; place-items:center;
   font-family:var(--mono); font-size:11px; border:1.5px solid var(--line-strong); color:transparent; }
 .dpk.on { border-color:var(--accent); background:var(--soft); color:var(--ink); }
-.dpk.on i { background:var(--accent); border-color:var(--accent); color:#fff; }
+.dpk.on i { background:var(--accent); border-color:var(--accent); color:#17130c; }
 
 /* ---------- V3.4: the family, every number ------------------------------ */
 .fcard { padding:13px 14px 12px; border-top:1px solid var(--line); }
@@ -1839,7 +1896,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "4.6";
+  const APP_VERSION = "4.7";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -2135,7 +2192,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     // the latest weigh-in, its standard a goal weight. Calories has a
     // standard of its own but is not a dial or a cell.
     dd:      { label:"Longevity",  kind:"count", def:25,   key:"dd_items",   unit:"boxes" },
-    macros:  { label:"Macros",     kind:"count", def:60,   key:"protein_g",  unit:"g" },
+    macros:  { label:"Protein",    kind:"count", def:60,   key:"protein_g",  unit:"g" },
     weight:  { label:"Weight",     kind:"weight", def:0,   key:"weight_lb",  unit:"lb" },
     kcal:    { label:"Calories",   kind:"count", def:2000, key:"kcal",       unit:"kcal", hidden:true },
   };
@@ -3166,7 +3223,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     state.lift.sessions = res.sessions || [];
     if ((res.exercises || []).length) cacheExercises(res.exercises);
     state.lift.loaded = true;
-    if (state.mode === "lift") await loadExTargets();
+    if (state.mode === "cardio") await loadExTargets();
     await recoverLift();
   }
 
@@ -3501,26 +3558,29 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       const days = t.days || {}, v = Number(days[today] || 0), p = Math.min(100, Math.round(v / Math.max(1, t.t) * 100));
       const week = Array.from({ length: 7 }, (_, j) => { const iso = shiftISO(today, j - 6), x = Number(days[iso] || 0),
         q = Math.min(100, Math.round(x / Math.max(1, t.t) * 100));
-        return `<i class="${q >= 100 ? "full" : ""}"${x && q < 100 ? ` style="background:color-mix(in oklab, var(--train) ${Math.round(22 + q * 0.5)}%, var(--surface-2))"` : ""} title="${esc(shortDay(iso))}"></i>`; }).join("");
+        return `<i class="${q >= 100 ? "full" : ""}"${x && q < 100 ? ` style="background:color-mix(in oklab, var(--swim) ${Math.round(22 + q * 0.5)}%, var(--surface-2))"` : ""} title="${esc(shortDay(iso))}"></i>`; }).join("");
+      const steps = t.kind === "time" ? [[30, "+30s"], [60, "+1 min"]] : [[10, "+10"], [25, "+25"]];
       return `<li class="xtr">
           <div class="xth"><b>${esc(t.n)}</b><span class="${p >= 100 ? "win" : ""}">${fmt(t, v)}<small> / ${fmt(t, t.t)}${t.kind === "time" ? "" : " reps"}</small></span>
             ${ed ? `<button type="button" class="tx" data-xtdel="${i}" aria-label="Remove ${esc(t.n)}">&times;</button>` : ""}</div>
+          ${ed ? "" : `<div class="xtplus">${steps.map(([d, l]) => `<button type="button" class="dchip" data-xtadd="${esc(t.n)}:${d}">${l}</button>`).join("")}
+            ${state.extUndo && state.extUndo.n === t.n ? `<button type="button" class="linkbtn xtundo" data-xtadd="${esc(t.n)}:${-state.extUndo.d}">Undo</button>` : ""}</div>`}
           <div class="xtbar"><i style="width:${p}%"></i></div>
           <div class="xtwk" aria-label="Last 7 days">${week}<small>last 7 days</small></div>
         </li>`;
     };
     const names = (state.lift.exercises || []).map((e) => e.name).filter(Boolean);
     return `<section class="card xtg">
-        <div class="dsh"><h2>Daily targets</h2>${T.length ? `<button type="button" class="linkbtn" id="xtEdit">${ed ? "Done" : "Edit"}</button>` : ""}</div>
-        ${T.length ? `<ul class="xtl">${T.map(row).join("")}</ul>` : ed ? "" : `<p class="hint">For what you do every day, outside a workout: 100 jumping jacks, a 3-minute plank. Log it in any workout below and it counts here.</p>`}
+        <div class="dsh"><h2>Routines</h2>${T.length ? `<button type="button" class="linkbtn" id="xtEdit">${ed ? "Done" : "Edit"}</button>` : ""}</div>
+        ${T.length ? `<ul class="xtl">${T.map(row).join("")}</ul>` : ed ? "" : `<p class="hint">Little things you do every day, like 100 jumping jacks or a 3-minute plank: set a target, then tap + as you go. Timed ones count toward your Cardio minutes.</p>`}
         ${ed || !T.length ? (ed ? `<form class="xtadd" id="xtForm">
             <input class="field" id="xtName" maxlength="60" list="xtNames" autocomplete="off" placeholder="Exercise, e.g. Plank" aria-label="Exercise">
             <datalist id="xtNames">${names.map((n) => `<option value="${esc(n)}">`).join("")}</datalist>
             <select class="field" id="xtKind" aria-label="Count in"><option value="reps">reps</option><option value="time">time</option></select>
             <input class="field" id="xtVal" inputmode="text" autocomplete="off" placeholder="100" aria-label="Daily target">
-            <button type="submit" class="btn" style="background:var(--train)">Add</button>
+            <button type="submit" class="btn" style="background:var(--swim)">Add</button>
           </form>${state.extMsg ? `<p class="hint bad">${esc(state.extMsg)}</p>` : `<p class="hint">Time as 3 (minutes), 1:30 or 90s.</p>`}`
-          : `<button type="button" class="linkbtn" id="xtEdit">+ Add a daily target</button>`) : ""}
+          : `<button type="button" class="linkbtn" id="xtEdit">+ Add a routine</button>`) : ""}
       </section>`;
   }
   function wireExTargets() {
@@ -3536,6 +3596,21 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     };
     document.querySelectorAll("[data-xtdel]").forEach((el) =>
       el.addEventListener("click", () => save(state.ext.targets.filter((_, i) => i !== Number(el.dataset.xtdel)))));
+    // V4.7. The quick +: add reps or seconds for today; Undo takes the
+    // last one back.
+    document.querySelectorAll("[data-xtadd]").forEach((el) =>
+      el.addEventListener("click", async () => {
+        const i = el.dataset.xtadd.lastIndexOf(":"), n = el.dataset.xtadd.slice(0, i), d = Number(el.dataset.xtadd.slice(i + 1));
+        const t = state.ext.targets.find((x) => x.n === n);
+        if (!t) return;
+        const today = state.ext.today;
+        t.days = Object.assign({}, t.days, { [today]: Math.max(0, Number((t.days || {})[today] || 0) + d) });
+        state.extUndo = d > 0 ? { n, d } : null;
+        render();
+        const res = await call("app_routine_add", { p_code: state.code, p_person: state.meId, p_name: n, p_delta: d, p_date: null });
+        if (res.error) { state.extMsg = res.offline ? "No signal. Not saved yet." : res.error; await loadExTargets(); render(); return; }
+        if (t.kind === "time") { await refresh(); }
+      }));
     on("xtKind", "change", (e) => { const v = document.getElementById("xtVal"); if (v) v.placeholder = e.target.value === "time" ? "3:00" : "100"; });
     on("xtForm", "submit", (e) => {
       e.preventDefault();
@@ -3760,7 +3835,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <!-- V4.2. The "Today · change" line is deleted, as asked. A workout
              files under the day it was started; to log a past day, tap
              that day's bar on the chart, which starts one there. -->
-        ${a.date === todayISO() ? "" : `<p class="sessday">${esc(fullDate(a.date))}</p>`}
+        ${a.edit ? `<label class="sessdate">Date <input type="date" id="sessDate" class="field" value="${esc(a.date)}" max="${todayISO()}" aria-label="The day of this workout"></label>`
+          : a.date === todayISO() ? "" : `<p class="sessday">${esc(fullDate(a.date))}</p>`}
       </header>
 
       <div id="blocks">${blocks}</div>
@@ -4151,6 +4227,12 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         render();
         const f = document.getElementById("durIn");
         if (f) { f.focus(); f.select(); }
+      });
+      // V4.7. A workout from History can move to another day.
+      on("sessDate", "change", (e) => {
+        const v = e.target.value, a0 = A();
+        if (!a0 || !v || v > todayISO()) return;
+        a0.date = v; saveLocal(); queueSync();
       });
       on("durIn", "change", () => {
         const f = document.getElementById("durIn");
@@ -4793,7 +4875,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     // fits in the space one card used to take. Columns read down.
     const othersTable = ordered.some((p) => p.id === state.meId) && ordered.length > 1;
     const FAB = { steps:"Stp", train:"Trn", cardio:"Crd", sleep:"Rec", rise:"Rise", rest:"Rest",
-                  work:"Foc", goals:"Gls", tasks:"Tsk", dd:"Lng", macros:"Mac", weight:"Wt" };
+                  work:"Foc", goals:"Gls", tasks:"Tsk", dd:"Lng", macros:"Pro", weight:"Wt" };
     const tiny = (k, v) => {
       if (v === null || v === undefined) return "\u2013";
       if (v === true) return "\u2713";
@@ -4801,7 +4883,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       switch (STD[k].kind) {
         case "count": return k === "steps"
           ? (x >= 10000 ? Math.round(x / 1000) + "k" : x >= 1000 ? (x / 1000).toFixed(1).replace(/\.0$/, "") + "k" : String(Math.round(x)))
-          : String(Math.round(x));
+          : k === "dd" ? ddPct(x) + "%" : String(Math.round(x));
         case "min": { const m = Math.round(x), h = Math.floor(m / 60), r = m % 60;
           return h ? (r ? `${h}h${pad(r)}` : `${h}h`) : `${r}m`; }
         case "pct": return Math.round(x) + "%";
@@ -4948,7 +5030,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
      ------------------------------------------------------------------ */
   const DIAL_C = 326.73;                       // 2πr, r = 52
   const dialColor = (pct) => pct === null || pct === undefined ? "var(--line-strong)"
-    : `hsl(${Math.round(Math.max(0, Math.min(100, pct)) * 1.25)} 66% 43%)`;
+    : `hsl(${Math.round(Math.max(0, Math.min(100, pct)) * 1.05)} 38% 58%)`;
   function dialRing(pct) {
     const f = pct === null || pct === undefined ? 0 : Math.max(0, Math.min(100, pct)) / 100;
     return `<svg class="dring" viewBox="0 0 120 120" aria-hidden="true">
@@ -4984,7 +5066,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     : STD[k].kind === "weight" ? (std > 0 ? `goal ${lb1(wOut(std))} ${units.w}` : "set a goal")
     // V4.4. The unit after the standard: of 8,000 steps, of 131 g. The
     // Daily Dozen is a count of 25 and needs no word.
-    : `of ${num(Math.round(std))}${STD[k].unit && k !== "dd" ? " " + STD[k].unit : ""}`;
+    : k === "dd" ? `of ${ddPct(std)}%`
+    : `of ${num(Math.round(std))}${STD[k].unit ? " " + STD[k].unit : ""}`;
   /* ---------- V4.5: Atoms ---------------------------------------------
      James Clear's habit app, the parts that make a habit stick, laid over
      every activity rather than added as a second app:
@@ -5059,11 +5142,42 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     if (!ATOM_HOW[k] || !state.meId) return "";
     const A = myAtoms()[k];
     if (state.atomEdit === k) return atomsEditor(k, A);
-    // V4.6. The sentence alone: votes live in the card at the foot.
+    // V4.6: the sentence; votes live in the card at the foot. V4.7: the
+    // run of days beside it, and an i for how a good habit is built.
+    const v = votesOf(k);
+    const streak = v && k !== "weight" ? `<span class="astk${v.streak ? " lit" : ""}" aria-label="${num(v.streak)} days in a row">${I_FLAME}<b>${num(v.streak)}</b><small>${v.streak === 1 ? "day" : "days"}</small></span>` : "";
     return `<section class="astrip">
         <button type="button" class="asent${A ? "" : " nil"}" id="atomOpen">${A
           ? `I will <u>${esc(A.how)}</u>${A.when ? `, <u>${esc(A.when)}</u>` : ""}${A.who ? ` so that I can become <u>${esc(A.who)}</u>` : ""}.`
           : `<b>Make it a habit.</b> I will <u>action</u>, <u>time or place</u> so that I can become <u>who I want to be</u>.`}</button>
+        <div class="aside">${streak}<button type="button" class="spi agi${state.atomGuide ? " on" : ""}" id="atomGuide" aria-expanded="${!!state.atomGuide}" aria-label="How to build a habit">i</button></div>
+      </section>
+      ${state.atomGuide ? atomsGuide(k) : ""}`;
+  }
+  // V4.7. How a habit is built, under the i: the three parts, an example
+  // you can cycle, then two ways to start small (after Atomic Habits).
+  const GUIDE_EX = [
+    ["meditate for 5 minutes", "when I wake up", "a calm person"],
+    ["walk for 10 minutes", "after lunch", "someone who moves every day"],
+    ["read one page", "before bed", "a reader"],
+    ["drink a glass of water", "when I pour my coffee", "someone who takes care of their body"],
+    ["write one sentence", "at my desk at 8am", "a writer"],
+    ["do 10 push-ups", "after I brush my teeth", "strong"],
+  ];
+  function atomsGuide(k) {
+    const i = (state.atomGuideEx || 0) % GUIDE_EX.length, [h, w, who] = GUIDE_EX[i];
+    return `<section class="card aguide" id="aGuide">
+        <p class="agsecret">The secret to a habit that lasts: <b>an action</b>, <b>a time and place</b>, and, most of all, <b>an identity</b>.</p>
+        <div class="agex"><p class="asent big">I will <u>${esc(h)}</u>, <u>${esc(w)}</u> so that I can become <u>${esc(who)}</u>.</p>
+          <button type="button" class="linkbtn" id="agNext">Different example</button></div>
+        <h3 class="agh">Start with a gateway habit</h3>
+        <p>Map the big ambition from very hard to very easy, then start at the easy end. The small habit opens the door to the big one.</p>
+        <div class="agbec"><span>\u201cRead a book a week\u201d</span><em>becomes</em><b>\u201cRead one page a day\u201d</b></div>
+        <h3 class="agh">Use the two-minute rule</h3>
+        <p>\u201cWhen you start a new habit, it should take less than two minutes to do.\u201d The point is not two minutes of work: it is to master the art of showing up.</p>
+        <div class="agbec"><span>\u201cRun three miles\u201d</span><em>becomes</em><b>\u201cTie my running shoes\u201d</b></div>
+        <p class="agsrc">After James Clear, <i>Atomic Habits</i>.</p>
+        <button type="button" class="btn agdef" id="agDefine">Define your ${esc(STD[k].label.toLowerCase())} habit</button>
       </section>`;
   }
   function atomsEditor(k, A) {
@@ -5116,7 +5230,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         if (iso > today) return `<i class="fut"></i>`;
         const p = has ? pctOn(days[iso]) : 0;
         const shade = !has ? "" : p >= 100 ? " full" : "";
-        const st = has && p < 100 ? ` style="background:color-mix(in oklab, #eea94d ${Math.round(22 + p * 0.5)}%, var(--surface-2))"` : "";
+        const st = has && p < 100 ? ` style="background:color-mix(in oklab, var(--gold) ${Math.round(22 + p * 0.5)}%, var(--surface-2))"` : "";
         return `<i class="${shade.trim()}${iso === today ? " now" : ""}${tappable && iso === sel && state.view !== "tasks" ? " sel" : ""}"${st}${
           tappable ? ` data-hday="${iso}" role="button" aria-label="${esc(shortDay(iso))}${has ? `, ${p}% of your standard` : ", nothing logged"}"` : ""}></i>`; }).join("")}</span>`;
     }).join("");
@@ -5127,8 +5241,17 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             <small>${k === "weight" ? "every weigh-in counts" : `${num(v.streak)} in a row · best ${num(v.best || 0)}`}${nx ? ` · next badge at ${num(nx)}` : ""}</small></span></div>
         <div class="hexes">${show.map((x) => hexBadge(x, x <= v.total)).join("")}</div>
         <button type="button" class="linkbtn amore" id="atomAll">${state.atomAll === k ? "Fewer badges" : "All badges"}</button>
-        <div class="heat${tappable ? " tap" : ""}" aria-label="Days logged, last 26 weeks">${cols}</div>
-        <div class="heatax"><span>${esc(shortDay(shiftISO(mon, -175)))}</span><span class="hkey"><i></i>below standard <i class="full"></i>met</span><span>today</span></div>
+        <div class="heatwrap">
+          <span></span><div class="heatmon">${Array.from({ length: 26 }, (_, w) => {
+            // A month's name over the first week that holds its 1st.
+            const st = shiftISO(mon, (w - 25) * 7), en = shiftISO(st, 6);
+            const holds1 = (x) => { const a0 = shiftISO(mon, (x - 25) * 7), b0 = shiftISO(a0, 6); return b0.slice(0, 7) !== a0.slice(0, 7) || b0.slice(8) === "07"; };
+            const lab = holds1(w) ? en : w === 0 && !holds1(1) && !holds1(2) && !holds1(3) ? st : null;
+            return `<span>${lab ? new Date(lab + "T00:00:00Z").toLocaleDateString(undefined, { timeZone: "UTC", month: "short" }) : ""}</span>`; }).join("")}</div>
+          <div class="heatdow">${["M", "T", "W", "T", "F", "S", "S"].map((d) => `<span>${d}</span>`).join("")}</div>
+          <div class="heat${tappable ? " tap" : ""}" aria-label="Days logged, last 26 weeks">${cols}</div>
+        </div>
+        <div class="heatax"><span class="hkey"><i></i>below your standard <i class="full"></i>met it</span></div>
       </section>`;
   }
   // The habit a page is about, if it is one.
@@ -5137,13 +5260,17 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   function injectAtoms() {
     const k = pageHabit();
     if (!k || !ATOM_HOW[k]) return;
-    if (k !== state.atomEditFor) { state.atomEdit = null; state.atomDraft = null; state.atomEditFor = k; }
+    if (k !== state.atomEditFor) { state.atomEdit = null; state.atomDraft = null; state.atomGuide = false; state.atomEditFor = k; }
     app.querySelector("header.masthead")?.insertAdjacentHTML("afterend", atomsStrip(k));
     const foot = app.querySelector("p.ver");
     if (foot) foot.insertAdjacentHTML("beforebegin", atomsCard(k));
     on("atomOpen", "click", () => { state.atomEdit = k; state.atomDraft = null; render();
       document.getElementById("aHow")?.focus(); });
     on("atomAll", "click", () => { state.atomAll = state.atomAll === k ? null : k; render(); });
+    on("atomGuide", "click", () => { state.atomGuide = !state.atomGuide; render(); });
+    on("agNext", "click", () => { state.atomGuideEx = (state.atomGuideEx || 0) + 1; render(); });
+    on("agDefine", "click", () => { state.atomGuide = false; state.atomEdit = k; state.atomDraft = null; render();
+      document.getElementById("aHow")?.focus(); });
     app.querySelector(".heat.tap")?.addEventListener("click", async (e) => {
       const iso = e.target && e.target.dataset ? e.target.dataset.hday : null;
       if (!iso || !state.goDay) return;
@@ -5225,7 +5352,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       // V4.1. The Daily Dozen is ticked on its page; the dial is the way
       // in, and on an empty day it offers yesterday, as Recovery does.
       centre = `<button type="button" class="dval dgo${v === null ? " dnone" : ""}" ${go(page)} ${clone ? 'tabindex="-1"' : ""}>${
-        v === null ? "–" : v}</button>`;
+        v === null ? "–" : ddPct(v) + "%"}</button>`;
       if (!v) extra = `<button type="button" class="dsame" ${clone ? 'tabindex="-1"' : 'data-ddsame="1"'}>Same as yesterday</button>`;
     }
     // V4.2. Weight shows its four-week trend. V4.4: Macros is protein
@@ -5241,19 +5368,24 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         const cw = weekOf(cy, hc.today), run = cw >= 1 && cw <= 12;
         const T = run ? weekTally(cy, cw) : { pct: null, done: 0, due: 0 };
         const gs = goalOrder(cy);
+        // V4.7. Apple-style rings, one inside the other: the ONE goal
+        // outermost, each ring its lead this week. The centre is the ONE
+        // goal's number; the legend names the rings.
+        const RC = ["var(--gold)", "var(--sage)", "var(--steel)"];
+        const R = [54, 41, 28];
+        const rings = gs.map((g, i) => {
+          const p = run ? goalTally(g, cw).pct : null, c = 2 * Math.PI * R[i], f = Math.max(0, Math.min(1, (p || 0) / 100));
+          return `<circle cx="64" cy="64" r="${R[i]}" class="crt" style="stroke:${RC[i]}"></circle>
+            <circle cx="64" cy="64" r="${R[i]}" class="crf" style="stroke:${RC[i]}" stroke-dasharray="${c.toFixed(2)}" stroke-dashoffset="${(c * (1 - f)).toFixed(2)}"></circle>`;
+        }).join("");
+        const one = gs[0], op = run ? goalTally(one, cw).pct : null;
         gbody = `<div class="dial gslide">
-          <div class="gwk">
-            <b class="gwkv" style="color:${T.pct === null ? "var(--muted)" : dialColor(stdPct("goals", T.pct, win))}">${T.pct === null ? "\u2013" : T.pct + "%"}</b>
-            <button type="button" class="dof" ${clone ? 'tabindex="-1"' : 'data-edit="goal" data-metric="goals"'}>of ${win}%</button>
-            <span class="gwks">${run ? `week ${cw} of 12${T.due ? ` \u00b7 ${T.done}/${T.due} done` : ""}` : cw < 1 ? "starts " + esc(shortDay(cy.start_date)) : "twelve weeks done"}</span>
-          </div>
-          <div class="grow3" style="--n:${gs.length}">${gs.map((g) => {
-            const p = run ? goalTally(g, cw).pct : null;
-            return `<button type="button" class="gr1" ${go("goals")} ${clone ? 'tabindex="-1"' : ""}
-                aria-label="${esc(g.title || "Untitled goal")}: ${p === null ? "nothing due" : p + "%"} this week">
-              <span class="gr1d">${dialRing(stdPct("goals", p, win))}<b>${p === null ? "\u2013" : p + "%"}</b></span>
-              <span class="gr1t">${g.id === cy.one_goal ? `<i aria-hidden="true">\u2605</i>` : ""}${esc(g.title || "Untitled")}</span>
-            </button>`; }).join("")}</div>
+          <button type="button" class="cring" ${go("goals")} ${clone ? 'tabindex="-1"' : ""} aria-label="Goals this week">
+            <svg viewBox="0 0 128 128" aria-hidden="true">${rings}</svg>
+            <span class="crc"><b>${op === null ? "\u2013" : op + "%"}</b><small>${run ? `week ${cw} of 12` : cw < 1 ? "starts " + esc(shortDay(cy.start_date)) : "done"}</small></span>
+          </button>
+          <ul class="crl">${gs.map((g, i) => { const p = run ? goalTally(g, cw).pct : null;
+            return `<li><i style="background:${RC[i]}"></i><span>${g.id === cy.one_goal ? "\u2605 " : ""}${esc(g.title || "Untitled")}</span><b>${p === null ? "\u2013" : p + "%"}</b></li>`; }).join("")}</ul>
         </div>`;
       } else if (hc && !hc.err) {
         centre = `<button type="button" class="dval dgo dnone" ${go(page)} ${clone ? 'tabindex="-1"' : ""}>\u2013</button>`;
@@ -5435,7 +5567,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       const r = state.work.run;
       if (!r) {
         state.homeSheet = "focus"; state.work.pickQ = ""; render();
-        document.getElementById("hfIn")?.focus();
         return;
       }
       if (r.pausedAt) workResume(); else workHold();
@@ -5587,11 +5718,17 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <div class="sheetbg" id="hsBg"></div>
         <div class="stdsheet hsheet" role="dialog" aria-label="Start a focus session">
           <p class="eyebrow">Focus · ${w.len} min</p>
-          <h3>What is this session for?</h3>
-          <input class="field" id="hfIn" maxlength="120" autocomplete="off" enterkeyhint="go"
-            placeholder="Type it, or pick a recent one" value="${esc(w.pickQ || "")}" aria-label="What this session is for">
-          <div class="flist hflist" id="hfList">${focusItems()}</div>
-          <div class="stdbtns"><button type="button" class="btn-quiet" id="hsCancel">Cancel</button></div>
+          <h3>What are you focusing on?</h3>
+          ${(() => { const list = getRecent().filter((x) => x && x.label).map((x) => x.label)
+              .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
+            return list.length ? `<div class="fchips hfchips">${list.map((l) =>
+              `<span class="fchip"><button type="button" data-hfchip="${esc(l)}">${esc(l)}</button></span>`).join("")}</div>
+              <p class="hint" style="text-align:center;margin:2px 0 8px">Tap one to start.</p>` : ""; })()}
+          <form class="fnewf" id="hfForm"><input class="field" id="hfIn" maxlength="120" autocomplete="off" enterkeyhint="go"
+            placeholder="Something new" value="${esc(w.pickQ || "")}" aria-label="Something new to focus on">
+            <button type="submit" class="btn">Start</button></form>
+          <div class="stdbtns"><button type="button" class="btn-quiet" id="hsCancel">Cancel</button>
+            <button type="button" class="btn-quiet" id="hfPlain">Start without a label</button></div>
         </div>`;
     }
     const q = state.cq || {};
@@ -5639,26 +5776,23 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         workGo();
         render();
       };
-      const list = document.getElementById("hfList");
-      if (list && !list.dataset.w) { list.dataset.w = "1"; wireFocusList("hfList", start); }
-      const f = document.getElementById("hfIn");
-      if (f && !f.dataset.w) {
-        f.dataset.w = "1";
-        f.addEventListener("input", () => {
-          w.pickQ = f.value; w.fopen = null;
-          const l = document.getElementById("hfList");
-          if (l) { l.innerHTML = focusItems(); wireFocusList("hfList", start); }
-        });
-        // Return is still the fast way: start what is typed, or the top
-        // recent one.
-        f.addEventListener("keydown", (e) => {
-          if (e.key !== "Enter") return;
+      // V4.7. One tap on a recent activity starts it.
+      document.querySelectorAll("[data-hfchip]").forEach((el) => {
+        if (el.dataset.w) return; el.dataset.w = "1";
+        el.addEventListener("click", () => start(el.dataset.hfchip));
+      });
+      const ff = document.getElementById("hfForm");
+      if (ff && !ff.dataset.w) {
+        ff.dataset.w = "1";
+        ff.addEventListener("submit", (e) => {
           e.preventDefault();
-          const typed = (f.value || "").trim();
-          const first = document.querySelector("#hfList [data-flabel]");
-          if (typed) start(typed); else if (first) start(first.dataset.flabel);
+          const typed = (document.getElementById("hfIn").value || "").trim();
+          if (typed) { pushRecent({ label: typed.slice(0, 120), task_id: null }); start(typed); }
+          else document.getElementById("hfIn").focus();
         });
       }
+      const hp = document.getElementById("hfPlain");
+      if (hp && !hp.dataset.w) { hp.dataset.w = "1"; hp.addEventListener("click", () => start(null)); }
       return;
     }
     if (state.homeSheet !== "cardio") return;
@@ -5743,13 +5877,14 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
      ------------------------------------------------------------------ */
 
   const PAGE = {
-    steps:  { sub:"The keystone. One number a day.", verb:"steps" },
-    train:  { sub:"Lifting and yoga.",               verb:"minutes" },
-    cardio: { sub:"Swim, hike, run, or your own.", verb:"minutes" },
-    rest:   { sub:"What time you actually went to bed.",       verb:"time" },
-    rise:   { sub:"What time you actually got up.",            verb:"time" },
-    sleep:  { sub:"Twelve things that decide how well you sleep.", verb:"%" },
-    work:   { sub:"Deep work, one focused session at a time.", verb:"minutes" },
+    // V4.7. One line each.
+    steps:  { sub:"The keystone habit.", verb:"steps" },
+    train:  { sub:"Strength and mobility, minutes a day.", verb:"minutes" },
+    cardio: { sub:"Heart and lungs, minutes a day.", verb:"minutes" },
+    rest:   { sub:"In bed on time.",       verb:"time" },
+    rise:   { sub:"Up on time.",            verb:"time" },
+    sleep:  { sub:"The habits behind deep, restoring sleep.", verb:"%" },
+    work:   { sub:"Deep work, one session at a time.", verb:"minutes" },
   };
 
   /* ---------- the log box ---------------------------------------------
@@ -6055,6 +6190,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   const DD_MAX = 25;
   const bitOn = (mask, b) => Math.floor(Number(mask || 0) / 2 ** b) % 2 === 1;
   const flipBit = (mask, b) => Number(mask || 0) + (bitOn(mask, b) ? -1 : 1) * 2 ** b;
+  // V4.7. Longevity reads as a percent of the 25 boxes, like Recovery.
+  const ddPct = (n) => Math.round(Number(n || 0) / DD_MAX * 100);
   function ddCount(mask) {
     let n = 0;
     for (let b = 0; b < DD_MAX; b++) if (bitOn(mask, b)) n++;
@@ -6239,7 +6376,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       </div>`;
   }
 
-  const DIET_PAGE = { dd: "Longevity", macros: "Macros", weight: "Weight" };
+  const DIET_PAGE = { dd: "Longevity", macros: "Protein", weight: "Weight" };
   function dietView() {
     const D = state.diet || (state.diet = { day: todayISO(), page: "dd" });
     const head = `
@@ -6248,9 +6385,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       </div>
       <header class="masthead">
         <h1>${DIET_PAGE[D.page] || "Longevity"}</h1>
-        <p class="sub">${D.page === "macros" ? "Protein first, calories with it."
-          : D.page === "weight" ? "The result your eating answers to. Weigh in once a week, same time of day."
-          : "Dr. Greger&rsquo;s Daily Dozen: the foods and the habit he recommends every day."}</p>
+        <p class="sub">${D.page === "macros" ? "The building block of muscle."
+          : D.page === "weight" ? "Weigh in weekly, same time of day."
+          : "Dr. Greger&rsquo;s Daily Dozen, every day."}</p>
       </header>`;
     return head + (D.page === "macros" ? macrosBody(D) : D.page === "weight" ? weightBody(D) : longevityBody(D))
       + `<p class="ver">v${APP_VERSION}</p>`;
@@ -6291,8 +6428,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       <section class="card dsec" id="diet-dd" style="--dc:var(--diet)">
         ${dietDayNav(D)}
         <div class="domino" style="padding-top:2px">
-          <b class="big" style="color:${count === null ? "var(--muted)" : dialColor(stdPct("dd", count, std))}">${count === null ? 0 : count}<small>/${DD_MAX}</small></b>
-          <button type="button" class="of" data-edit="goal" data-metric="dd" style="display:block;margin:4px auto 0">standard <b>${std}</b></button>
+          <b class="big" style="color:${count === null ? "var(--muted)" : dialColor(stdPct("dd", count, std))}">${ddPct(count)}%</b>
+          <span class="of" style="text-decoration:none">${count === null ? 0 : count} of ${DD_MAX} boxes</span>
+          <button type="button" class="of" data-edit="goal" data-metric="dd" style="display:block;margin:4px auto 0">standard <b>${ddPct(std)}%</b></button>
         </div>
         ${mask ? "" : `<button type="button" class="btn" id="ddSame" style="width:100%;margin-top:12px;background:var(--diet)">Same as yesterday</button>
           <p class="hint dshint" style="text-align:center">${D.msg && D.msgFor === "dd" ? esc(D.msg)
@@ -6351,7 +6489,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <button type="button" class="linkbtn dcalc" data-dcalc="protein" aria-expanded="${D.calc === "protein"}">${D.calc === "protein" ? "Close the calculator" : "Calculate my target"}</button>
         ${D.calc === "protein" ? calcPanel("protein") : ""}
       </section>
-      <section class="card dsec dmini" id="diet-kcal" style="--dc:var(--diet)">
+      ${!extraOn("kcal") ? "" : `<section class="card dsec dmini" id="diet-kcal" style="--dc:var(--diet)">
         <div class="dsh"><h2>Calories</h2><span class="dss">optional</span>
           <button type="button" class="of dofx" data-edit="goal" data-metric="kcal">of <b>${num(sK)}</b></button></div>
         ${big("kcal", V.kcal, "kcal", sK, "kcal")}
@@ -6359,7 +6497,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         ${dietMsg(D, "kcal")}
         <button type="button" class="linkbtn dcalc" data-dcalc="kcal" aria-expanded="${D.calc === "kcal"}">${D.calc === "kcal" ? "Close the calculator" : "Calculate my target"}</button>
         ${D.calc === "kcal" ? calcPanel("kcal") : ""}
-      </section>`;
+      </section>`}
+      ${extrasCard(D, "macros")}`;
   }
 
   const lb1 = (v) => (Math.round(Number(v) * 10) / 10).toFixed(1);
@@ -6413,14 +6552,73 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         ${dietMsg(D, "weight")}
         ${weightChart(D.wh || [], goal)}
       </section>
-      <section class="card dsec dmini" id="diet-bodyfat" style="--dc:var(--diet)">
-        <div class="dsh"><h2>Body fat</h2><span class="dss">optional, from a scale or scan</span></div>
+      ${!extraOn("bodyfat_pct") ? "" : `<section class="card dsec dmini" id="diet-bodyfat" style="--dc:var(--diet)">
+        <div class="dsh"><h2>Body fat</h2><span class="dss">from a scale or scan</span></div>
         ${input("bodyfat", bf, "%", "Body fat percent")}
         <button type="button" class="linkbtn bfi" id="bfInfo" aria-expanded="${!!D.bfi}"><i aria-hidden="true">i</i>${D.bfi ? "Hide the ranges" : "What the ranges look like"}</button>
         ${D.bfi ? bodyFatGuide(bf) : ""}
         ${dietMsg(D, "bodyfat")}
-        <p class="cnote" style="text-align:center">Your weight and body fat show only on your own phone. Your tribe sees a tick on days you weigh in.</p>
-      </section>`;
+      </section>`}
+      ${extrasCard(D, "weight")}
+      <p class="cnote" style="text-align:center">These numbers show only on your own phone. Your tribe sees a tick on days you weigh in.</p>`;
+  }
+  /* V4.7. Protein and Weight open on their one number. Everything else is
+     an extra you choose under "+ Track more": the other macros beside
+     protein; body fat, waist, blood pressure and blood work beside weight.
+     Which ones you track is remembered on this phone; one with a number
+     logged shows on its own. */
+  const EXTRAS = {
+    macros: [["kcal", "Calories", "kcal", "day"], ["carbs_g", "Carbs", "g", "day"], ["fat_g", "Fat", "g", "day"], ["fiber_g", "Fiber", "g", "day"]],
+    weight: [["bodyfat_pct", "Body fat", "%", "last"], ["waist_in", "Waist", "in", "last"], ["bp", "Blood pressure", "mmHg", "last"],
+             ["ldl_mgdl", "LDL cholesterol", "mg/dL", "last"], ["hdl_mgdl", "HDL cholesterol", "mg/dL", "last"],
+             ["tg_mgdl", "Triglycerides", "mg/dL", "last"], ["apob_mgdl", "ApoB", "mg/dL", "last"],
+             ["a1c_pct", "HbA1c", "%", "last"], ["glucose_mgdl", "Fasting glucose", "mg/dL", "last"]],
+  };
+  const extraKey = () => "fhd.extras." + (state.meId || "anon");
+  function extraList() { try { return JSON.parse(localStorage.getItem(extraKey()) || "[]") || []; } catch { return []; } }
+  function extraOn(k) {
+    if (extraList().includes(k)) return true;
+    const D = state.diet || {};
+    if (D.xoff && D.xoff[k]) return false;
+    const m = me() || {};
+    if (k === "bodyfat_pct") return m.bodyfat != null;
+    if (k === "kcal") return dietVals().kcal != null;
+    return !!(D.xv && D.xv[k] && D.xv[k].v != null);
+  }
+  function extrasCard(D, page) {
+    const list = EXTRAS[page], on = list.filter(([k]) => k !== "kcal" && k !== "bodyfat_pct" && extraOn(k));
+    const row = ([k, label, unit, mode]) => {
+      const x = (D.xv || {})[k] || {}, ed = D.xedit === k;
+      const val = k === "bp" ? (x.v != null && x.v2 != null ? `${fmtNum(x.v)}/${fmtNum(x.v2)}` : null)
+        : x.v != null ? fmtNum(k === "waist_in" && units.w === "kg" ? Math.round(x.v * 2.54 * 10) / 10 : x.v) : null;
+      const u = k === "waist_in" && units.w === "kg" ? "cm" : unit;
+      return `<li class="xrow2">
+          <span class="xl">${esc(label)}${mode === "last" && x.date && val ? `<small>${x.date === todayISO() ? "today" : esc(shortDay(x.date))}</small>` : ""}</span>
+          ${ed ? `<input class="field xin" id="xIn" data-x="${k}" inputmode="${k === "bp" ? "text" : "decimal"}" enterkeyhint="done" autocomplete="off" placeholder="${k === "bp" ? "120/80" : "0"}" value="${esc(val || "")}" aria-label="${esc(label)}">`
+            : `<button type="button" class="xv${val ? "" : " nil"}" data-xedit="${k}">${val ? esc(val) : "+ log"}</button>`}
+          <em>${esc(u)}</em></li>`;
+    };
+    const pick = D.xpick === page;
+    return `${on.length ? `<section class="card dsec dmini xcard2" style="--dc:var(--diet)"><ul class="xlist">${on.map(row).join("")}</ul>
+        ${D.msg && D.msgFor === "extra" ? `<p class="hint bad">${esc(D.msg)}</p>` : ""}</section>` : ""}
+      <button type="button" class="linkbtn xmore" id="xMore" aria-expanded="${pick}">${pick ? "Done" : "+ Track more"}</button>
+      ${pick ? `<div class="xpick">${list.map(([k, label]) => `<button type="button" class="achip${extraOn(k) ? " on" : ""}" data-xpick="${k}" aria-pressed="${extraOn(k)}">${esc(label)}</button>`).join("")}</div>` : ""}`;
+  }
+  async function loadExtras() {
+    const D = state.diet;
+    if (!D || !EXTRAS[D.page]) return;
+    const ks = EXTRAS[D.page].filter(([k]) => k !== "kcal" && k !== "bodyfat_pct");
+    const day = D.page === "macros" ? D.day || todayISO() : todayISO();
+    const get = (metric, mode) => call("app_history", { p_code: state.code, p_person: state.meId,
+      p_days: mode === "day" ? 1 : 730, p_metric: metric, p_today: day });
+    const res = await Promise.all(ks.flatMap(([k, , , mode]) => k === "bp" ? [get("bp_sys", mode), get("bp_dia", mode)] : [get(k, mode)]));
+    if (state.diet !== D) return;
+    const last = (r) => { const xs = (r && !r.error ? r.days || [] : []).filter((x) => x.logged); return xs.length ? xs[xs.length - 1] : null; };
+    D.xv = {}; let i = 0;
+    for (const [k] of ks) {
+      if (k === "bp") { const a = last(res[i++]), b2 = last(res[i++]); D.xv.bp = { v: a ? Number(a.value) : null, v2: b2 ? Number(b2.value) : null, date: a ? a.date : null }; }
+      else { const a = last(res[i++]); D.xv[k] = { v: a ? Number(a.value) : null, date: a ? a.date : null }; }
+    }
   }
 
   /* V4.4. Body fat, pictured. The five ranges are the American Council on
@@ -6468,14 +6666,16 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     state.diet = { day: todayISO(), page: DIET_PAGE[seg] ? seg : "dd", vals: null, calc: null, edit: null, msg: null };
     state.view = "diet";
     render(); window.scrollTo(0, 0);
-    if (state.diet.page === "weight") { await loadWeightHist(); if (state.view === "diet") render(); }
+    if (state.diet.page === "weight") await loadWeightHist();
+    await loadExtras();
+    if (state.view === "diet") render();
   }
 
   function wireDiet() {
     const D = state.diet;
     on("back", "click", () => { state.view = "board"; state.diet = null; render(); refresh(); });
     if (!D) return;
-    const go = async (iso) => { D.day = iso; D.vals = null; D.edit = null; D.msg = null; render(); await loadDietDay(); render(); };
+    const go = async (iso) => { D.day = iso; D.vals = null; D.edit = null; D.msg = null; render(); await loadDietDay(); await loadExtras(); render(); };
     if (D.page !== "weight") state.goDay = go;
     on("ddPrev", "click", () => go(shiftISO(D.day, -1)));
     on("ddNext", "click", () => { if (D.day < todayISO()) go(shiftISO(D.day, 1)); });
@@ -6523,7 +6723,47 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       el.addEventListener("click", () => add(el.dataset.spick, "")));
     // Macros: type the total, or the chips add.
     const metricOf = (f) => ({ protein: "protein_g", kcal: "kcal", weight: "weight_lb", bodyfat: "bodyfat_pct" })[f];
-    // V4.4. Weight in lb or kg; body fat ranges, pictured.
+    // V4.7. + Track more, and the extras' numbers.
+    on("xMore", "click", () => { D.xpick = D.xpick === D.page ? null : D.page; render(); });
+    document.querySelectorAll("[data-xpick]").forEach((el) =>
+      el.addEventListener("click", () => {
+        const k = el.dataset.xpick, l = extraList(), was = extraOn(k);
+        const nl = was ? l.filter((x) => x !== k) : l.concat([k]);
+        try { localStorage.setItem(extraKey(), JSON.stringify(nl)); } catch {}
+        D.xoff = Object.assign({}, D.xoff, { [k]: was });
+        render();
+      }));
+    document.querySelectorAll("[data-xedit]").forEach((el) =>
+      el.addEventListener("click", () => { D.xedit = el.dataset.xedit; render(); const f = document.getElementById("xIn"); if (f) { f.focus(); f.select(); } }));
+    const xin = document.getElementById("xIn");
+    if (xin) {
+      let done = false;
+      const commit = async () => {
+        if (done) return; done = true;
+        const k = xin.dataset.x, raw = (xin.value || "").trim();
+        D.xedit = null;
+        if (!raw) { render(); return; }
+        const day = D.page === "macros" ? D.day || todayISO() : todayISO();
+        const send = async (metric, v) => call("app_log", { p_code: state.code, p_person: state.meId, p_value: v, p_metric: metric, p_date: day, p_tz: deviceTZ() });
+        let res;
+        if (k === "bp") {
+          const mm = raw.match(/^(\d{2,3})\s*[\/ ]\s*(\d{2,3})$/);
+          if (!mm) { D.msg = "Type it as 120/80."; D.msgFor = "extra"; render(); return; }
+          const a = await send("bp_sys", Number(mm[1])); res = a.error ? a : await send("bp_dia", Number(mm[2]));
+        } else {
+          let v = parseFloat(raw.replace(",", "."));
+          if (!Number.isFinite(v)) { D.msg = "Type a number."; D.msgFor = "extra"; render(); return; }
+          if (k === "waist_in" && units.w === "kg") v = Math.round(v / 2.54 * 100) / 100;
+          res = await send(k, v);
+        }
+        if (res.error) { D.msg = res.offline ? "No signal. Not saved yet." : res.error; D.msgFor = "extra"; }
+        else if (D.msgFor === "extra") D.msg = null;
+        await loadExtras(); render();
+      };
+      xin.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); xin.blur(); } });
+      xin.addEventListener("blur", commit);
+    }
+    // V4.6. Weight in lb or kg; body fat ranges, pictured.
     document.querySelectorAll("[data-wu]").forEach((el) =>
       el.addEventListener("click", () => { units.w = el.dataset.wu; render(); }));
     on("bfInfo", "click", () => { D.bfi = !D.bfi; render();
@@ -6638,8 +6878,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
       <header class="masthead">
         <h1>Recovery</h1>
-        <p class="sub">The habits that protect your sleep&rsquo;s quality and length, so your body recovers.
-          Tick the ones you held tonight; the score is the share held.</p>
+        <p class="sub">The habits behind deep, restoring sleep.</p>
       </header>
 
       <section class="card">
@@ -6647,7 +6886,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <div class="domino" style="padding-top:10px">
           <b class="big" style="color:var(--sleep)">${pct}%</b>
           <span class="of" style="text-decoration:none">${scorePts(mask)} of
-            ${scoreMax()} points \u00b7 ${bitsOn(mask)}/${HABITS.length} held</span>
+            ${scoreMax()} points \u00b7 ${bitsOn(mask)} of ${HABITS.length} done</span>
           <button type="button" class="of" data-edit="goal" data-metric="sleep"
             style="display:block;margin:4px auto 0">standard <b>${stdOf(m, "sleep")}%</b></button>
         </div>
@@ -6689,13 +6928,12 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             <div class="pbackrow">
               <button type="button" class="btn" id="flipHold"
                 style="background:var(--sleep)">${
-                ((mask >> state.flip) & 1) ? "Held tonight \u2713" : "Hold it tonight"}</button>
+                ((mask >> state.flip) & 1) ? "Done tonight \u2713" : "Mark done tonight"}</button>
               <button type="button" class="btn-quiet" id="flipShut">Close</button>
             </div>
           </div>` : ""}
 
-        <p class="hint" style="text-align:center;margin-top:12px">Tap a tile to
-          hold it. Tap the corner to read what it means.</p>
+        <p class="hint" style="text-align:center;margin-top:12px">Tap a habit you did tonight. Tap its corner to read why it matters.</p>
       </section>
 
 
@@ -6720,6 +6958,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     { q:2, name:"Decide",   tag:"",               hint:"Important, not urgent." },
     { q:3, name:"Delegate", tag:"",               hint:"Someone else's to do." },
   ];
+  // V4.7. Each list folds; the phone remembers which.
+  const qFolds = () => { try { return JSON.parse(localStorage.getItem("fhd.tqfold") || "{}") || {}; } catch { return {}; } };
+  const qShut = (q) => !!qFolds()[q];
+  const qFold = (Q) => `<button type="button" class="tqf" data-tqf="${Q.q}" aria-expanded="${!qShut(Q.q)}"><i aria-hidden="true">${qShut(Q.q) ? "\u25b8" : "\u25be"}</i><b>${Q.name}</b></button>`;
   const waiting = (x) => !!x.sched_date && x.sched_date > todayISO();
   const doLimit = () => Math.max(1, Math.min(20, Math.round(stdOf(me(), "tasks")) || 5));
   const doCount = () => activeIn(1).length;
@@ -6913,25 +7155,25 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       const open = openIn(Q.q);
       const order = open.filter((x) => !waiting(x)).concat(open.filter(waiting));
       return `
-        <section class="tgroup q${Q.q}">
-          <header class="tgh"><b>${Q.name}</b><span></span><em>${open.length || ""}</em>${plus(Q)}</header>
-          ${adder(Q)}
-          ${order.length ? `<ul class="tl" data-tgroup="${Q.q}">${order.map((x) => taskRow(x)).join("")}</ul>` : ""}
+        <section class="tgroup q${Q.q}${qShut(Q.q) ? " shut" : ""}">
+          <header class="tgh">${qFold(Q)}<span></span><em>${open.length || ""}</em>${qShut(Q.q) ? "" : plus(Q)}</header>
+          ${qShut(Q.q) ? "" : `${adder(Q)}
+          ${order.length ? `<ul class="tl" data-tgroup="${Q.q}">${order.map((x) => taskRow(x)).join("")}</ul>` : ""}`}
         </section>`;
     };
     const anyOpen = actionable().length > 0;
     return `
-      <section class="tgroup q1 tdo">
-        <header class="tgh"><b>Do</b><em class="tdocount${doList.length > lim ? " over" : ""}">${doList.length}/${lim}</em><span></span>
-          <button type="button" class="tlim" data-edit="goal" data-metric="tasks"
-            aria-label="Do today: ${lim}. Change it">do today ${lim}</button>${plus(QUADS[0])}</header>
-        ${adder(QUADS[0])}
+      <section class="tgroup q1 tdo${qShut(1) ? " shut" : ""}">
+        <header class="tgh">${qFold(QUADS[0])}<em class="tdocount${doList.length > lim ? " over" : ""}">${doList.length}/${lim}</em><span></span>
+          ${qShut(1) ? "" : `<button type="button" class="tlim" data-edit="goal" data-metric="tasks"
+            aria-label="Do today: ${lim}. Change it">do today ${lim}</button>${plus(QUADS[0])}`}</header>
+        ${qShut(1) ? "" : `${adder(QUADS[0])}
         ${t.addMsg && t.adding !== 1 && t.msgQ === 1 ? `<p class="tqhint warn" id="tqHint">${t.addMsg}</p>` : ""}
         <ul class="tl" data-tgroup="1">${doList.map((x, n) => taskRow(x, n + 1)).join("")}</ul>
         ${doList.length < lim ? `<ul class="tl tempties">${Array.from({ length: lim - doList.length }, (_, k) => `
           <li class="tslot"><span class="trank">${doList.length + k + 1}</span>
             <button type="button" class="tslotb" data-tslot="1" aria-label="Add to Do"></button></li>`).join("")}</ul>` : ""}
-        ${doWait.length ? `<ul class="tl twaitl">${doWait.map((x) => taskRow(x)).join("")}</ul>` : ""}
+        ${doWait.length ? `<ul class="tl twaitl">${doWait.map((x) => taskRow(x)).join("")}</ul>` : ""}`}
       </section>
       ${group(QUADS[1])}
       ${group(QUADS[2])}
@@ -7051,6 +7293,12 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     on("back", "click", () => { state.view = "board"; state.tasks = null; render(); refresh(); });
     const t = state.tasks;
     if (!t || !t.loaded) return;
+    document.querySelectorAll("[data-tqf]").forEach((el) =>
+      el.addEventListener("click", () => {
+        const f = qFolds(), q = el.dataset.tqf; f[q] = !f[q];
+        try { localStorage.setItem("fhd.tqfold", JSON.stringify(f)); } catch {}
+        render();
+      }));
     const find = (id) => t.list.find((x) => x.id === id);
     const cacheTasks = () => { try { localStorage.setItem(taskCacheKey(), JSON.stringify(t.list)); } catch {} };
     // Every save also refreshes the copy kept on the phone, so the next
@@ -8024,13 +8272,17 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             <button type="button" class="linkbtn" id="gStartDone">Done</button>`
           : `${esc(shortDay(d.start_date))} – ${esc(shortDay(shiftISO(d.start_date, 83)))} · <button type="button" class="linkbtn" id="gStartEdit">change start</button>`}</p>
         ${G.restart ? `<p class="hint" style="text-align:center">Any day picks its week; it starts on the Monday. Ticks stay on their week number.</p>` : ""}`;
+    // V4.7. The big number is your ONE goal's lead this week, and says so.
+    // The score across all goals lives in This week, below.
+    const one = d.goals.find((g) => g.id === d.one_goal) || goals[0];
+    const op = one && run ? goalTally(one, C.cur).pct : null;
     return `
-      <section class="grings" aria-label="This week, goal by goal">
+      <section class="grings" aria-label="Your ONE goal this week">
         <div class="gwk">
-          <span class="gwkl">This week</span>
-          <b class="gwkv" style="color:${T.pct === null ? "var(--muted)" : dialColor(stdPct("goals", T.pct, win))}">${T.pct === null ? "–" : T.pct + "%"}</b>
+          <span class="gwkl">${one ? `\u2605 ${esc(one.title || "Your ONE goal")} \u00b7 lead this week` : "This week"}</span>
+          <b class="gwkv" style="color:${op === null ? "var(--muted)" : dialColor(stdPct("goals", op, win))}">${op === null ? "\u2013" : op + "%"}</b>
           <button type="button" class="dof" data-edit="goal" data-metric="goals">of ${win}%</button>
-          <span class="gwks">${when}</span>
+          <span class="gwks">${run ? `week ${C.cur} of 12` : when}</span>
         </div>
         <!-- V4.6. No rings here: each goal's card shows its own lead %. The
              rings live on home's Goals dial. -->
@@ -8104,13 +8356,17 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <p class="gfoot2">From Scott Young, <i>Ultralearning</i> (2019).</p>
       </div>` : ""}`;
   }
+  // V4.7. A goal card folds to its title, lead and lag: the twelve-week
+  // grid and the game plan are for the weekly look, not the daily one.
   function goalCard(C, g) {
     const G = state.goals || {};
     const editing = !C.ro && G.edit === "g:" + g.id;
+    const shut = !C.ro && !editing && gFolded("goal:" + g.id, true);
     return `
-      <section class="card gcard3${g.id === C.doc.one_goal ? " one" : ""}">
+      <section class="card gcard3${g.id === C.doc.one_goal ? " one" : ""}${shut ? " shut" : ""}">
         ${goalLineHTML(C, g)}
-        ${editing ? "" : gGrid(C, g) + gPlan(C, g)}
+        ${editing ? "" : C.ro ? gGrid(C, g) + gPlan(C, g) : `<button type="button" class="gcfold" data-gfold="goal:${g.id}" aria-expanded="${!shut}">${shut ? "\u25b8 Twelve weeks and game plan" : "\u25be Fold"}</button>
+        ${shut ? "" : gGrid(C, g) + gPlan(C, g)}`}
       </section>`;
   }
 
@@ -8199,11 +8455,11 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       <div class="gsub2"><span class="clab">This week’s ONE Thing</span>
         ${canFw || C.ro ? gText(C, "fw", fw, "The ONE Thing for this week", false)
           : `<p class="gvtext${fw ? "" : " cnil"}">${fw ? esc(fw) : "–"}</p>`}</div>
-      ${!C.ro && w === C.cur ? "" : `<div class="gscore">
+      <div class="gscore">
         <b style="color:${T.pct !== null && T.pct >= win ? "var(--work)" : "var(--ink)"}">${T.pct === null ? "–" : T.pct + "%"}</b>
-        <span>${T.due ? `${T.done} of ${T.due} done` : "Nothing planned"} · ${C.ro ? `${win}% wins the week`
+        <span>all goals \u00b7 ${T.due ? `${T.done} of ${T.due} done` : "nothing planned"} \u00b7 ${C.ro ? `${win}% wins the week`
           : `<button type="button" class="linkbtn" data-edit="goal" data-metric="goals">${win}% wins the week</button>`}</span>
-      </div>`}
+      </div>
       <p class="gtrack">Lead: tick each tactic on the day you do it. Lag: log each result once a week in its goal’s Lag row.</p>
       ${scTable(C)}
       `,
@@ -8255,8 +8511,44 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           <p><b>What gets tracked, and when.</b> Every day: tick the tactics you did (lead). Once a week, same day:
             write each result (lag). The week’s score is only the lead.</p>
         </div>
-      </section>`;
+      </section>` + ulExample();
   };
+  // V4.7. A whole game plan, filled in, the way Scott Young would build it.
+  // The model is his own: in Ultralearning he describes spending about
+  // three months in each of four countries without speaking English (the
+  // "Year Without English", with Vat Jaiswal). Three months is one cycle
+  // here, so it maps onto a 12-week goal exactly.
+  const UL_EX = {
+    goal: "Hold a 30-minute conversation in Spanish",
+    lag: "Unbroken minutes of conversation with my tutor, 0 \u2192 30, tested every Sunday",
+    lead: ["Tutor call, 3\u00d7 a week (30 min)", "Flashcards, every day (20 min)", "Pronunciation drill, every day (10 min)"],
+    plan: [
+      ["Why", "", "Travel through Spain in the spring speaking only Spanish, and talk with people rather than at them."],
+      ["What", "", "Concepts: present, past and future tenses; gender. Facts: the 1,500 most common words. Procedures: listening at full speed, pronunciation."],
+      ["How", "", "Benchmark Scott Young's rule from his language year: no English from day one. Resources: an online tutor, a frequency-word deck, one phrasebook. Skip: grammar books read cover to cover."],
+      ["Focus", "Sharpen your knife", "7:00\u20137:45 every morning, phone in another room."],
+      ["Directness", "Go straight ahead", "Speak from week 1: three tutor calls a week, about my real life, not textbook dialogues."],
+      ["Drill", "Attack your weakest point", "The rolled r and the past tense: 10 minutes a day on each until they stop slowing me down."],
+      ["Retrieval", "Test to learn", "Cards both ways (Spanish to English and back); describe my day aloud with no notes."],
+      ["Feedback", "Don\u2019t dodge the punches", "My tutor corrects every mistake; I record one call a week and replay it."],
+      ["Retention", "Don\u2019t fill a leaky bucket", "Spaced repetition daily; each new word used in three sentences that week."],
+      ["Intuition", "Dig deep before building up", "Ask why a verb changes, not only how; learn the patterns behind the irregulars."],
+      ["Experimentation", "Explore outside your comfort zone", "Week 6: swap the textbook for podcasts. Week 9: one full day with no English at all."],
+    ],
+  };
+  function ulExample() {
+    return `<section class="card xcard ulx">
+        <p class="eyebrow">An example game plan \u00b7 Ultralearning</p>
+        <h3 class="ulg">\u2605 ${esc(UL_EX.goal)}</h3>
+        <div class="gll"><span class="gtag lag">Lag</span><span class="gln">${esc(UL_EX.lag)}</span><b></b></div>
+        <div class="gll"><span class="gtag lead">Lead</span><span class="gln">${UL_EX.lead.map(esc).join(" \u00b7 ")}</span><b></b></div>
+        <p class="gplh">1 \u00b7 Metalearning <small>First draw a map</small></p>
+        ${UL_EX.plan.slice(0, 3).map(([k, t, v]) => `<div class="gpl"><span class="gpk">${k}</span><p class="gvtext">${esc(v)}</p></div>`).join("")}
+        <p class="gplh">2\u20139 \u00b7 The other eight principles</p>
+        ${UL_EX.plan.slice(3).map(([k, t, v]) => `<div class="gpl"><span class="gpk">${k}<small>${esc(t)}</small></span><p class="gvtext">${esc(v)}</p></div>`).join("")}
+        <p class="gfoot2">Modelled on Scott Young's language year in <i>Ultralearning</i> (2019), where he learned a language in about three months per country.</p>
+      </section>`;
+  }
 
   function goalsView() {
     const G = state.goals || {};
@@ -8320,7 +8612,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       ${gl && !doc.one_goal && !(G.edit || "").startsWith("g:") ? `<p class="hint gonehint">Tap Edit on a goal, then ★, to mark your ONE goal.</p>` : ""}
       ${gl < 3 ? `<button type="button" class="linkbtn gadd2 gaddc" id="gAdd">${gl ? "+ Add a goal (three at most)" : "+ Write your ONE goal"}</button>` : ""}
       <div class="gguidew">${guide("goals")}</div>`;
-    return head + overCard + gRing(C) + goalCards + gStepWeek(C) + gStepLadder(C) +
+    // V4.7. This week, which you log daily, comes first; the goals and the
+    // ladder, which you look at weekly, fold under it.
+    return head + overCard + gRing(C) + gStepWeek(C) + goalCards + gStepLadder(C) +
       (G.err ? `<p class="terr">${esc(G.err)}</p>` : "") + exCard +
       `<button type="button" class="linkbtn gnew" id="gNew">Start a new 12 weeks</button>` + foot;
   }
@@ -8798,6 +9092,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   // the day's sessions as quiet lines under it. One ring (the session
   // while it runs, the day against your standard when idle), one total,
   // one list. Nothing is said twice.
+  // V4.7. Focus History folds, and stays as you left it.
+  const histShut = () => { try { return localStorage.getItem("fhd.whist") === "shut"; } catch { return false; } };
   function workCard() {
     if (!state.work) loadWorkLocal();
     const w = state.work, r = w.run;
@@ -8836,8 +9132,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <div class="dial wdial">${ring}<div class="dcore">${core}</div></div>
         ${state.msg ? `<p class="hint dshint ${state.msgKind || ""}" style="text-align:center">${esc(state.msg)}</p>` : ""}
       </section>
-      <section class="whist">
-        <h2 class="whh">History <small>${today ? "today" : esc(shortDay(entryDay()))}</small></h2>
+      <section class="whist${histShut() ? " shut" : ""}">
+        <button type="button" class="whh" id="whFold" aria-expanded="${!histShut()}"><i aria-hidden="true">${histShut() ? "\u25b8" : "\u25be"}</i>History <small>${today ? "today" : esc(shortDay(entryDay()))}${sessions.length ? ` \u00b7 ${sessions.length}` : ""}</small></button>
+        ${histShut() ? "" : `
         ${sessions.length || extra ? `<ul class="wlines">${sessions.map((x) => `
           <li><span>${x.label ? esc(x.label) : "Focus"}${x.started_at ? `<small>${new Date(x.started_at).toLocaleTimeString([],
               { hour:"numeric", minute:"2-digit" })}</small>` : `<small>added</small>`}</span>
@@ -8855,7 +9152,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             <button type="button" class="linkbtn" id="waCancel">Cancel</button>
           </div>
           ${w.addErr ? `<p class="hint bad">${esc(w.addErr)}</p>` : ""}`
-          : `<button type="button" class="linkbtn wplus" id="waOpen">+ Add minutes you did</button>`}
+          : `<button type="button" class="linkbtn wplus" id="waOpen">+ Add minutes you did</button>`}`}
       </section>`;
   }
 
@@ -9026,6 +9323,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     on("fClose", "click", () => { w.pick = false; w.startAfter = false; render(); });
 
     on("workStart", "click", () => { w.chipEdit = false; workGo(); render(); });
+    on("whFold", "click", () => { try { localStorage.setItem("fhd.whist", histShut() ? "open" : "shut"); } catch {} render(); });
     on("workPause", "click", () => { workHold(); stopWorkTick(); render(); });
     on("workContinue", "click", () => { workResume(); render(); });
     on("workEnd", "click", () => {
@@ -9123,13 +9421,12 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
            the whole page under a finger that is still scrolling is what
            made the time wheel feel stuck. -->
 
-      ${k === "cardio" ? liftHistory() : ""}
+      ${k === "cardio" ? exTargetsCard() + liftHistory() : ""}
       ${k !== "train" ? "" : `
         <button class="${isFirst() ? "btn-quiet firstempty" : "btn"}" id="startEmpty"
                 style="width:100%;margin-top:${isFirst() ? 10 : 22}px;${isFirst() ? "" : `background:${met.color}`}">
           Start an Empty Workout</button>
         ${liftTiles()}
-        ${exTargetsCard()}
         ${unitRow}
         ${liftHistory()}`}
 
@@ -9384,16 +9681,16 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       ? (hasTarget(m, k) ? target(m, k) : S.def) : stdOf(m, k);
     const seed = state.editDraft !== null && state.editDraft !== undefined ? state.editDraft
       : S.kind === "time" ? clockInput(cur) : S.kind === "min" ? hm(cur).replace(/ /g, " ")
-      : S.kind === "weight" ? (cur > 0 ? String(Math.round(wOut(cur) * 10) / 10) : "") : String(Math.round(cur));
+      : S.kind === "weight" ? (cur > 0 ? String(Math.round(wOut(cur) * 10) / 10) : "") : k === "dd" ? String(ddPct(cur)) : String(Math.round(cur));
     const hint = { count: k === "tasks" ? "Tasks to finish each day."
-                        : k === "dd" ? "Daily Dozen boxes each day, out of 25."
-                        : k === "macros" ? "Grams of protein each day. The calculator on the Macros page can work it out."
+                        : k === "dd" ? "The share of the Daily Dozen's 25 boxes to tick each day."
+                        : k === "macros" ? "Grams of protein each day. The calculator on the Protein page can work it out."
                         : k === "kcal" ? "Calories each day. Within 10% either side counts as on target."
                         : "Steps each day.",
                    weight: `Your goal weight, in ${wName()}.`,
                    min: "Minutes each day. 45, 1:30 or 1h 30m all work.",
                    pct: k === "goals" ? "The share of the week's tactics that wins the week."
-                                      : "The share of the sleep pyramid to hold each night.",
+                                      : "The share of the sleep habits to do each night.",
                    time: k === "rest" ? "In bed by this time." : "Up by this time." }[S.kind];
     return `
       <div class="sheetbg" id="stdBg"></div>
@@ -9406,7 +9703,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
               : S.kind === "weight" ? 'type="text" inputmode="decimal"'
               : 'type="text" inputmode="numeric" pattern="[0-9]*"'}
             value="${esc(seed)}" aria-label="${esc(S.label)} standard">
-          ${S.kind === "pct" ? `<span class="stdu">%</span>` : S.kind === "weight" ? `<span class="stdu">${units.w}</span>` : S.kind === "count" ? `<span class="stdu">${esc(S.unit || "")}</span>` : ""}
+          ${S.kind === "pct" || k === "dd" ? `<span class="stdu">%</span>` : S.kind === "weight" ? `<span class="stdu">${units.w}</span>` : S.kind === "count" ? `<span class="stdu">${esc(S.unit || "")}</span>` : ""}
         </div>
         <p class="hint" id="stdHint">${esc(hint)}</p>
         <div class="stdbtns">
@@ -9437,7 +9734,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const v = Number(t.replace(/[^0-9]/g, ""));
     if (!v) return { err: "Enter a number above zero." };
     if (S.kind === "pct" && v > 100) return { err: "A percent is 100 at most." };
-    if (k === "dd" && v > 25) return { err: "The Daily Dozen has 25 boxes." };
+    // V4.7. Typed as a percent, kept as boxes.
+    if (k === "dd") return v > 100 ? { err: "A percent is 100 at most." } : { v: Math.max(1, Math.round(v * DD_MAX / 100)) };
     return { v };
   }
   async function saveStd() {
