@@ -1970,6 +1970,11 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   color:var(--muted); font-size:18px; font-weight:600; cursor:pointer; padding:0; line-height:1; }
 .mplus.on { background:var(--gold); border-color:var(--gold); color:#1b160c; }
 .mhint { margin-top:12px; }
+/* V5.1.1. A block's length: tap it to say you did less. */
+.mamt { border:none; background:none; padding:0; font:inherit; color:inherit; cursor:pointer;
+  text-decoration:underline dotted; text-underline-offset:3px; }
+.mamt.short { color:var(--gold); text-decoration-style:solid; }
+.mamtin { display:inline-block; width:78px; padding:3px 8px; font-size:13px; margin-left:2px; vertical-align:baseline; }
 .medlist { list-style:none; margin:12px 0 6px; padding:0; display:flex; flex-direction:column; gap:12px; }
 .medrow { display:flex; flex-direction:column; gap:6px; padding-bottom:12px; border-bottom:1px solid var(--line); }
 .med2 { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
@@ -2017,7 +2022,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "5.1";
+  const APP_VERSION = "5.1.1";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -9706,7 +9711,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   /* ---------- V5.1: Meditation ------------------------------------------
      The first row on the dashboard, three habits:
        Attention   your ideal day, kept on time. Each block done by its
-                   deadline counts 1, done late counts 1/2; the + marks
+                   deadline counts 1, done late counts 1/2, done short
+                   (less than its length) halves it again; the + marks
                    quality and is shown, not scored.
        Reflection  three gratitudes and two lessons. Private: the tribe
                    sees only that you wrote.
@@ -9730,7 +9736,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     state.seg = MED_KEYS.includes(seg) ? seg : "attn";
     state.view = "med";
     state.entryDate = null;
-    state.medEdit = null; state.medMsg = null; state.medAdd = null; state.medSaved = null;
+    state.medEdit = null; state.medMsg = null; state.medAdd = null; state.medSaved = null; state.medAmt = null;
     render();
     window.scrollTo(0, 0);
     await flushSilPending();
@@ -9779,9 +9785,15 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const sched = (state.med && state.med.schedule) || [];
     const day = (state.med && state.med.day) || {};
     const n = day.n || sched.length, marks = day.marks || {};
-    let d = 0, l = 0;
-    for (const k in marks) { if (marks[k].s === "d") d++; else if (marks[k].s === "l") l++; }
-    return { n, d, l, pct: n && d + l ? Math.min(100, Math.round(100 * (d + 0.5 * l) / n)) : null };
+    // On time 1, late half; done short (h) halves it again.
+    let d = 0, l = 0, h = 0, pts = 0;
+    for (const k in marks) {
+      const x = marks[k]; if (x.s !== "d" && x.s !== "l") continue;
+      if (x.s === "d") d++; else l++;
+      if (x.h) h++;
+      pts += (x.s === "l" ? 0.5 : 1) * (x.h ? 0.5 : 1);
+    }
+    return { n, d, l, h, pct: n && d + l ? Math.min(100, Math.round(100 * pts / n)) : null };
   }
   const bySched = (a, b) => (a.t ?? 9999) - (b.t ?? 9999);
 
@@ -9820,6 +9832,17 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     { a: "Family time, phone away", d: 60, t: 19 * 60 + 30 },
     { a: "Read", d: 20, t: 21 * 60 + 30 },
   ];
+  // A block's length. Not done: plain text. Done: a button; tap to type
+  // what you actually did. Short shows "1h of 2h" in gold.
+  function amtHtml(b, mk) {
+    if (!mk) return hm(b.d);
+    if (state.medAmt === b.id) return `<input class="field mamtin" id="mAmtIn" data-mamtin="${esc(b.id)}" inputmode="text"
+      autocomplete="off" enterkeyhint="done" maxlength="8" placeholder="${hm(b.d)}" value="${mk.h ? hm(mk.m) : ""}"
+      aria-label="How long you did ${esc(b.a)}, planned ${hm(b.d)}">`;
+    return mk.h
+      ? `<button type="button" class="mamt short" data-mamt="${esc(b.id)}" aria-label="Did ${hm(mk.m)} of ${hm(b.d)}. Tap to change">${hm(mk.m)} of ${hm(b.d)}</button>`
+      : `<button type="button" class="mamt" data-mamt="${esc(b.id)}" aria-label="Planned ${hm(b.d)}. Tap if you did less">${hm(b.d)}</button>`;
+  }
   function attnView() {
     const m = me() || {};
     const sched = (state.med.schedule || []).slice().sort(bySched);
@@ -9843,7 +9866,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           <button type="button" class="mchk" data-mchk="${esc(b.id)}" aria-pressed="${!!mk}"
             aria-label="${esc(b.a)}${mk ? ", done. Tap to undo" : ", mark done"}">${mk ? "✓" : ""}</button>
           <div class="mbody"><b>${esc(b.a)}</b>
-            <small>${b.t !== null && b.t !== undefined ? `by ${clockWords(b.t)}` : "any time"}${b.d ? ` · ${hm(b.d)}` : ""}${over ? ` · <em>past due</em>` : ""}</small></div>
+            <small>${b.t !== null && b.t !== undefined ? `by ${clockWords(b.t)}` : "any time"}${b.d ? ` · ${amtHtml(b, mk)}` : ""}${over ? ` · <em>past due</em>` : ""}</small></div>
           ${mk ? `<button type="button" class="mst" data-mst="${esc(b.id)}" aria-label="${mk.s === "l" ? "Late. Tap for on time" : "On time. Tap for late"}">${mk.s === "l" ? "Late" : "On time"}</button>
             <button type="button" class="mplus${mk.p ? " on" : ""}" data-mplus="${esc(b.id)}" aria-pressed="${!!mk.p}" aria-label="Done with quality">+</button>` : ""}
         </li>`;
@@ -9854,11 +9877,11 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <div class="dial mdial">${dialRing(stdPct("attn", S.pct, std))}
           <div class="dcore"><b class="dval">${S.pct === null ? "–" : S.pct + "%"}</b>
             <button type="button" class="dof" data-edit="goal" data-metric="attn">of ${Math.round(std)}%</button>
-            <span class="dsub">${S.d + S.l} of ${S.n} done${S.l ? ` · ${S.l} late` : ""}</span></div></div>
+            <span class="dsub">${S.d + S.l} of ${S.n} done${S.l ? ` · ${S.l} late` : ""}${S.h ? ` · ${S.h} short` : ""}</span></div></div>
       </section>
       <section class="card">
         <ul class="mblks">${rows}</ul>
-        <p class="hint mhint">Tap the circle when a block is done. Done after its time counts half. Tap <b>+</b> when it was done well.</p>
+        <p class="hint mhint">Tap the circle when a block is done, <b>+</b> when done well. Did less? Tap its length and type what you did. Late or short counts half; both, a quarter.</p>
         <button type="button" class="linkbtn" id="mEditDay">Edit my ideal day</button>
       </section>`;
   }
@@ -10097,7 +10120,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       if (iso > todayISO()) return;
       await flushMedNow();
       state.entryDate = iso >= todayISO() ? null : iso;
-      state.medEdit = null; state.medAdd = null;
+      state.medEdit = null; state.medAdd = null; state.medAmt = null;
       render(); await loadMed(); render();
     };
     on("mPrev", "click", () => go(shiftISO(entryDay(), -1)));
@@ -10154,6 +10177,35 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     document.querySelectorAll("[data-mplus]").forEach((el) => el.addEventListener("click", () => {
       const M0 = marks(), x = M0[el.dataset.mplus]; if (!x) return;
       x.p = !x.p; render(); medSave({ marks: M0 }, 500); }));
+    // How long you actually did a block. Empty, or the full length or
+    // more: done in full. Less: short, which counts half.
+    document.querySelectorAll("[data-mamt]").forEach((el) => el.addEventListener("click", () => {
+      state.medAmt = el.dataset.mamt; render();
+      const i = document.getElementById("mAmtIn"); if (i) { i.focus(); i.select(); } }));
+    const amtIn = document.getElementById("mAmtIn");
+    if (amtIn) {
+      let done = false;
+      // The value is taken at once; the redraw can wait, so a tap that
+      // ended the typing (another block's circle, say) still lands.
+      const finish = (keep, draw) => {
+        if (done) return; done = true;
+        const id = amtIn.dataset.mamtin, M0 = marks(), x = M0[id];
+        const b = (state.med.schedule || []).find((y) => y.id === id);
+        state.medAmt = null;
+        if (keep && x && b && b.d) {
+          const raw = amtIn.value.trim(), v = raw ? parseMinutes(raw) : null;
+          if (!raw || (v !== null && v >= b.d)) { delete x.m; delete x.h; state.medMsg = null; medSave({ marks: M0 }, 0); }
+          else if (v !== null && v > 0) { x.m = Math.min(1440, v); x.h = true; state.medMsg = null; medSave({ marks: M0 }, 0); }
+          else state.medMsg = "Type a time, like 1h or 45.";
+        }
+        draw();
+      };
+      amtIn.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") { e.preventDefault(); finish(true, render); }
+        else if (e.key === "Escape") { e.preventDefault(); finish(false, render); }
+      });
+      amtIn.addEventListener("blur", () => finish(true, () => setTimeout(() => { if (amtIn.isConnected) render(); }, 0)));
+    }
 
     // Reflection: saved as you type.
     document.querySelectorAll("[data-mj]").forEach((el) => el.addEventListener("input", () => {
@@ -10471,7 +10523,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
                    weight: `Your goal weight, in ${wName()}.`,
                    min: "Minutes each day. 45, 1:30 or 1h 30m all work.",
                    pct: k === "goals" ? "The share of the week's tactics that wins the week."
-                      : k === "attn" ? "The share of your ideal day to keep, on time. Late counts half."
+                      : k === "attn" ? "The share of your ideal day to keep, on time and in full. Late or short counts half."
                                       : "The share of the sleep habits to do each night.",
                    time: k === "rest" ? "In bed by this time." : "Up by this time." }[S.kind];
     return `
