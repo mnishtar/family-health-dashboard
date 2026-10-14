@@ -893,24 +893,25 @@ button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inh
 #diet-dd .daynav, #diet-protein .daynav { margin:-4px 0 8px; }
 
 /* V4.6. Train: daily exercise targets. */
-.xtg { margin-top:16px; --dc:var(--swim); }
-.xtl { list-style:none; margin:6px 0 0; padding:0; }
-.xtr { padding:10px 0; border-top:1px solid var(--line); }
-.xtr:first-child { border-top:none; }
-.xth { display:flex; align-items:baseline; gap:8px; }
-.xth b { flex:1; font-weight:600; font-size:15px; color:var(--ink); }
-.xth span { font-family:var(--mono); font-size:15px; color:var(--ink); }
-.xth span.win { color:var(--swim); font-weight:600; }
-.xth small { color:var(--muted); font-size:12px; }
+/* V5.2. Daily targets inside the Cardio card. */
+.ctgs { margin-top:16px; padding-top:12px; border-top:1px solid var(--line); }
+.ctgs .dsh h3 { margin:0; font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.ctgl, .ctged { list-style:none; margin:6px 0 0; padding:0; }
+.ctg { display:grid; grid-template-columns:1fr auto; gap:4px 10px; width:100%; padding:10px 0; border:none; background:none;
+  color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
+.ctgl li + li .ctg { border-top:1px solid var(--line); }
+.ctgn { font-weight:600; font-size:15px; }
+.ctgv { font-family:var(--mono); font-size:15px; }
+.ctgv.win { color:var(--green-ink); font-weight:600; }
+.ctgv small { color:var(--muted); font-size:12px; }
+.ctg .xtbar { grid-column:1 / -1; margin-top:2px; }
+.ctged li { display:flex; align-items:center; gap:8px; padding:8px 0; border-top:1px solid var(--line); }
+.ctged li:first-child { border-top:none; }
+.ctged li span { flex:1; font-weight:600; }
+.ctged li small { color:var(--muted); }
+.cqtg { margin:8px 0 0; font-size:13px; color:var(--ink-2); }
 .xtbar { height:6px; border-radius:3px; background:var(--surface-2); margin-top:6px; overflow:hidden; }
 .xtbar i { display:block; height:100%; background:var(--swim); border-radius:3px; }
-.xtwk { display:flex; align-items:center; gap:3px; margin-top:6px; }
-.xtwk i { width:14px; height:14px; border-radius:3px; background:var(--surface-2); }
-.xtwk i.full { background:var(--swim); }
-.xtwk small { margin-left:6px; font-size:11px; color:var(--muted); }
-.xtplus { display:flex; align-items:center; gap:6px; margin-top:8px; }
-.xtplus .dchip { border-color:var(--swim); color:var(--swim); }
-.xtundo { margin-left:auto; font-size:12.5px; }
 .xtadd { display:grid; grid-template-columns:auto minmax(0, 1fr) auto; gap:8px; margin-top:8px; }
 .xtadd #xtName { grid-column:1 / -1; }
 .xtadd select { width:auto; }
@@ -1225,26 +1226,6 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .wgoal { stroke:var(--muted); stroke-width:1; stroke-dasharray:4 4; }
 .wax { display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-top:2px; }
 .wgl { color:var(--ink-2); }
-
-/* ---------- V3.6: your dashboard, three rows of three ---------------- */
-.mydash { padding:8px 14px 6px; }
-.mstreak { margin:0 0 2px; font-size:12px; color:var(--muted); text-align:right; }
-.mrow { display:grid; grid-template-columns:clamp(62px, 21vw, 84px) 1fr; align-items:center;
-  border-top:1px solid var(--line); padding:6px 0; }
-.mrow:first-of-type { border-top:none; }
-.mcat { font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted);
-  line-height:1.25; }
-.mcells { display:grid; grid-template-columns:repeat(3, 1fr); }
-.mcell { display:flex; flex-direction:column; align-items:flex-start; gap:1px; min-width:0; border:none;
-  background:none; padding:6px 4px; border-radius:10px; font-family:inherit; cursor:pointer; text-align:left;
-  -webkit-tap-highlight-color:transparent; }
-.mcell b { font-family:var(--mono); font-weight:500; font-size:clamp(15px, 4.6vw, 18px); letter-spacing:-.03em;
-  color:var(--ink); white-space:nowrap; }
-.mcell span { font-size:clamp(11px, 3.2vw, 12px); color:var(--muted); white-space:nowrap; overflow:hidden;
-  text-overflow:ellipsis; max-width:100%; }
-.mcell.nil b { color:var(--line-strong); }
-.mcell:active { background:var(--surface-2); }
-
 /* ---------- V3.3: a day with no time, and the matrix view -------------- */
 .twhen { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-top:10px; }
 .twhen > span { font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--muted);
@@ -1862,11 +1843,16 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 .ftbl thead th { font-size:8.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
   color:var(--muted); padding:0 0 5px; }
 .ftbl th.fn { width:78px; text-align:left; padding:0; position:sticky; left:0; z-index:1; background:var(--surface); }
+.ftbl thead th:not(.fn) { overflow:visible; }  /* V5.2. "ATT" lost its A when clipped. */
 .ftbl tbody td { font-family:var(--mono); font-size:clamp(8.5px, 2.6vw, 10.5px); letter-spacing:-.04em; color:var(--ink); height:30px;
   border-top:1px solid var(--line); }
 .ftbl tbody th { border-top:1px solid var(--line); }
 .ftbl tbody tr:first-child td, .ftbl tbody tr:first-child th { border-top:none; }
 .ftbl td.nil { color:var(--muted); opacity:.5; }
+/* V5.2. Your own row: first, lit, every number a door to its page. */
+.ftbl tr.me th, .ftbl tr.me td { background:color-mix(in oklab, var(--gold) 9%, var(--surface)); }
+.ftbl tr.me .ftn { font-weight:700; color:var(--ink); }
+.ftbl tr.me td.nil { opacity:.75; }
 .ftbl .g0 { box-shadow:inset 1px 0 0 color-mix(in oklab, var(--line) 60%, transparent); }
 .ftbl td.see button { font:inherit; color:inherit; background:none; border:none; padding:0; cursor:pointer;
   text-decoration:underline dotted; text-decoration-color:var(--line-strong); text-underline-offset:3px; }
@@ -1897,7 +1883,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 }
 /* Progress is green everywhere it means "met". */
 .hcol i.full, .hkey i.full, .xtwk i.full { background:var(--green); }
-.xth span.win, .gll b.win, .xgrid > b.win, .xgh em.win, .xtac b.full, .scgh td.win, .rs td.win { color:var(--green-ink); }
 .gbar.win .gt i { background:var(--green); }
 
 /* The habit calendar, a month at a time. */
@@ -1931,11 +1916,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   .tpk:hover .tpkv { opacity:.85; }
 }
 
-/* Routines: the day's total can be typed, or reset. */
-.xtnum { background:none; border:none; padding:0; font:inherit; color:inherit; cursor:pointer;
-  border-bottom:1px dashed var(--line-strong); }
-.xtsetin { width:96px; text-align:right; }
-.xtreset { font-size:12.5px; color:var(--muted); }
 
 /* Goals: tactics edited in place and dragged into order. */
 .gtedit li { gap:6px; }
@@ -1970,6 +1950,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   color:var(--muted); font-size:18px; font-weight:600; cursor:pointer; padding:0; line-height:1; }
 .mplus.on { background:var(--gold); border-color:var(--gold); color:#1b160c; }
 .mhint { margin-top:12px; }
+.mpts { flex:none; min-width:30px; text-align:right; font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums; }
+.msleep .mbody b { color:var(--ink-2); }
 /* V5.1.1. A block's length: tap it to say you did less. */
 .mamt { border:none; background:none; padding:0; font:inherit; color:inherit; cursor:pointer;
   text-decoration:underline dotted; text-underline-offset:3px; }
@@ -1986,24 +1968,88 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 .mjh { font-family:var(--display); font-weight:500; font-size:19px; margin:18px 0 8px; }
 .mjl { display:flex; flex-direction:column; gap:8px; }
 .mjin { width:100%; font-family:var(--body); font-size:15px; resize:vertical; line-height:1.45; }
+/* V5.2. Reflection lines you can add and remove. */
+.mjrow { display:flex; align-items:flex-start; gap:6px; }
+.mjrow .mjin { flex:1; min-width:0; }
+.mjx { flex:none; width:32px; height:40px; border:none; background:none; color:var(--muted); font-size:20px; cursor:pointer; padding:0; opacity:.55; }
+.mjx:hover, .mjx:focus-visible { opacity:1; }
+.mjadd { border:none; background:none; color:var(--muted); font:inherit; font-size:13px; padding:8px 0 0; cursor:pointer; }
+.mjadd:hover { color:var(--ink-2); }
+.mjcount { margin:18px 0 0; font-size:13px; color:var(--muted); }
+.mjcount.ok { color:var(--green-ink); font-weight:600; }
 .mpriv { display:flex; gap:8px; align-items:flex-start; margin:16px 0 0; color:var(--muted); font-size:12.5px; }
 .mpriv svg { flex:none; width:15px; height:15px; fill:currentColor; margin-top:1px; }
 .msaved { min-height:18px; margin:6px 0 0; font-size:12.5px; color:var(--muted); }
 .msaved.ok { color:var(--green-ink); }
 .msaved.bad { color:var(--warn); }
-.mbegin { width:100%; margin-top:14px; background:var(--green); color:#f2fbf5; }
-.msets { margin-top:16px; border-top:1px solid var(--line); }
-.msrow { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 0;
-  border-bottom:1px solid var(--line); font-size:12px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
-.msrow select { border:none; background:none; color:var(--ink-2); font:inherit; font-size:15px; font-weight:400;
-  letter-spacing:0; text-transform:none; text-align:right; cursor:pointer; color-scheme:dark; max-width:60%; }
-.msets .linkbtn { margin-top:12px; }
-.mprow { display:flex; align-items:center; justify-content:space-between; gap:12px; }
-.mprow > div { display:flex; flex-direction:column; align-items:flex-start; }
-.mprow > div b { font-family:var(--display); font-weight:500; font-size:19px; }
-.mpctl { display:flex; align-items:center; gap:14px; }
-.mpctl b { font-size:30px; font-weight:600; min-width:34px; text-align:center; font-variant-numeric:tabular-nums; }
-.mpctl b.win { color:var(--green-ink); }
+.mbegin { width:100%; margin-top:18px; background:var(--green); color:#f2fbf5; min-height:50px; border-radius:99px; letter-spacing:.06em; }
+/* V5.2. Silence: kinds of sitting, three rows, Begin. */
+.siltypes { display:flex; gap:8px; overflow-x:auto; padding:2px 2px 4px; margin:0 -2px; scrollbar-width:none; }
+.siltypes::-webkit-scrollbar { display:none; }
+.siltype { flex:none; min-width:84px; height:44px; padding:0 16px; border-radius:12px; border:1px solid var(--line-strong);
+  background:var(--surface-2); color:var(--ink-2); font:inherit; font-size:14px; font-weight:600; cursor:pointer; }
+.siltype.on { background:var(--green-soft); border-color:var(--green); color:var(--ink); }
+.siltype.silnew { min-width:44px; padding:0; font-size:20px; font-weight:400; color:var(--muted); background:none; border-style:dashed; }
+.silnewf { display:flex; gap:8px; align-items:center; margin-top:10px; }
+.silnewf .field { flex:1; min-width:0; }
+.silp { color:var(--ink-2); font-size:14px; margin:12px 0 0; }
+.silh { font-family:var(--display); font-weight:500; font-size:22px; margin:10px 0 0; }
+.silback { margin:0; padding:0; }
+.sillist { margin-top:14px; border-top:1px solid var(--line); }
+.silrow { display:flex; align-items:center; gap:12px; width:100%; padding:15px 2px; border:none; border-bottom:1px solid var(--line);
+  background:none; color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
+.silri { flex:none; width:22px; height:22px; color:var(--ink-2); }
+.silri svg { width:100%; height:100%; fill:currentColor; }
+.silrl { flex:1; font-size:12px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-2); }
+.silrv { color:var(--ink); font-size:15px; }
+.silrow i { font-style:normal; color:var(--muted); font-size:20px; line-height:1; }
+.silsum { margin:12px 0 4px; display:flex; align-items:baseline; gap:6px; justify-content:center; }
+.silsum b { font-size:28px; font-weight:600; font-variant-numeric:tabular-nums; }
+.silsum b.win { color:var(--green-ink); }
+/* The pickers. */
+.silact { position:fixed; left:12px; right:12px; bottom:calc(12px + env(safe-area-inset-bottom, 0px)); z-index:61;
+  max-width:520px; margin:0 auto; display:flex; flex-direction:column; gap:8px; animation:mrise .18s ease both; }
+.silopts { background:var(--surface); border-radius:14px; overflow:hidden; border:1px solid var(--line); }
+.silopt { display:block; width:100%; padding:15px; border:none; border-bottom:1px solid var(--line); background:none;
+  color:var(--ink); font:inherit; font-size:16px; cursor:pointer; text-align:center; }
+.silopts .silopt:last-child { border-bottom:none; }
+.silopt.on { color:var(--green-ink); font-weight:600; }
+.silopt.on::after { content:" \2713"; }
+.silcancel { background:var(--surface); border-radius:14px; border:1px solid var(--line); font-weight:600; color:var(--gold); }
+.silsheet { top:auto; bottom:calc(12px + env(safe-area-inset-bottom, 0px)); }
+.wheels { position:relative; display:flex; align-items:center; justify-content:center; gap:6px; height:200px; }
+.wsel { position:absolute; left:0; right:0; top:80px; height:40px; border-radius:10px; background:var(--surface-2); pointer-events:none; }
+.wheel { position:relative; width:64px; height:200px; overflow-y:auto; scroll-snap-type:y mandatory; scrollbar-width:none;
+  -webkit-mask-image:linear-gradient(transparent, #000 30%, #000 70%, transparent); mask-image:linear-gradient(transparent, #000 30%, #000 70%, transparent); }
+.wheel::-webkit-scrollbar { display:none; }
+.wpad { height:80px; }
+.witem { height:40px; line-height:40px; text-align:center; scroll-snap-align:center; font-size:20px; color:var(--muted); font-variant-numeric:tabular-nums; }
+.witem.on { color:var(--ink); font-weight:600; }
+.wlab { position:relative; font-size:15px; color:var(--ink-2); margin-right:10px; }
+/* The running sitting: the whole screen. */
+.silrun { position:fixed; inset:0; z-index:70; display:flex; flex-direction:column; color:#efe9dc;
+  background:radial-gradient(120% 80% at 50% 0%, #2a3a30 0%, #161a17 55%, #0f1110 100%); }
+.silrun::before { content:""; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(60% 40% at 50% 85%, rgba(63,154,100,.18), transparent 70%); animation:silbreathe 11s ease-in-out infinite alternate; }
+@keyframes silbreathe { from { opacity:.35; transform:scale(1); } to { opacity:1; transform:scale(1.08); } }
+.silbar { position:relative; display:flex; justify-content:space-between; padding:calc(14px + env(safe-area-inset-top, 0px)) 16px 0; }
+.silico { width:44px; height:44px; border-radius:50%; border:none; background:rgba(255,255,255,.08); color:#efe9dc;
+  font-size:26px; line-height:1; display:grid; place-items:center; cursor:pointer; padding:0; }
+.silico svg { width:22px; height:22px; fill:currentColor; }
+.silmid { position:relative; flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding-bottom:8vh; }
+.silmin { margin:0; font-size:11px; font-weight:600; letter-spacing:.16em; opacity:.75; }
+.silname { margin:0 0 22px; font-family:var(--display); font-weight:400; font-size:26px; color:#f6f1e6; }
+.silring { position:relative; width:min(62vw, 260px); aspect-ratio:1; }
+.silring > svg { width:100%; height:100%; transform:rotate(-90deg); overflow:visible; }
+.siltrack { fill:none; stroke:rgba(255,255,255,.14); stroke-width:1.6; }
+.silfill { fill:none; stroke:rgba(255,255,255,.55); stroke-width:1.6; stroke-linecap:round; transition:stroke-dashoffset .3s linear; }
+.sildot { fill:#f6f1e6; }
+.silpp { position:absolute; inset:0; margin:auto; width:84px; height:84px; border-radius:50%; border:none; background:none;
+  color:#f6f1e6; display:grid; place-items:center; cursor:pointer; }
+.silpp svg { width:44px; height:44px; fill:currentColor; }
+.silclock { margin-top:22px; font-size:17px; font-weight:500; letter-spacing:.06em; font-variant-numeric:tabular-nums; }
+.silsub { min-height:18px; font-size:13px; opacity:.7; }
+@media (prefers-reduced-motion: reduce) { .silrun::before { animation:none; } }
 .msess .eyebrow { margin-bottom:6px; }
 @media (prefers-reduced-motion: reduce) { .mchk, .mplus { transition:none; } }
 
@@ -2022,7 +2068,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "5.1.1";
+  const APP_VERSION = "5.2";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -3693,43 +3739,36 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     m = t.match(/^(\d+(?:\.\d+)?)\s*(m|min)?$/); if (m) return Math.round(Number(m[1]) * 60);
     return null;
   }
-  function exTargetsCard() {
+  // V5.2. Routines are Cardio activities. One with a daily number shows
+  // its progress here; tap it to log more. Logging happens in one place:
+  // the Cardio sheet, where every minute counts as cardio.
+  const routineOf = (name) => ((state.ext && state.ext.targets) || []).find((t) => t.n.toLowerCase() === String(name || "").toLowerCase());
+  const rFmt = (t, v) => t.kind === "time" ? secWords(v) : num(Math.round(v));
+  function cardioTargets() {
     const X = state.ext, ed = state.extEdit;
     if (!X) return "";
-    const T = X.targets || [], today = X.today;
-    const fmt = (t, v) => t.kind === "time" ? secWords(v) : num(Math.round(v));
-    const row = (t, i) => {
-      const days = t.days || {}, v = Number(days[today] || 0), p = Math.min(100, Math.round(v / Math.max(1, t.t) * 100));
-      const week = Array.from({ length: 7 }, (_, j) => { const iso = shiftISO(today, j - 6), x = Number(days[iso] || 0),
-        q = Math.min(100, Math.round(x / Math.max(1, t.t) * 100));
-        return `<i class="${q >= 100 ? "full" : ""}"${x && q < 100 ? ` style="background:color-mix(in oklab, var(--swim) ${Math.round(22 + q * 0.5)}%, var(--surface-2))"` : ""} title="${esc(shortDay(iso))}"></i>`; }).join("");
-      const steps = t.kind === "time" ? [[30, "+30s"], [60, "+1 min"]] : [[10, "+10"], [25, "+25"]];
-      return `<li class="xtr">
-          <div class="xth"><b>${esc(t.n)}</b>${state.extSet === t.n && !ed
-              ? `<span><input class="field xtsetin" id="xtSetIn" data-xtsetin="${esc(t.n)}" inputmode="${t.kind === "time" ? "text" : "numeric"}" autocomplete="off" enterkeyhint="done"
-                  value="${t.kind === "time" ? secWords(v) : Math.round(v)}" aria-label="Today's total for ${esc(t.n)}"></span>`
-              : `<span class="${p >= 100 ? "win" : ""}">${ed ? fmt(t, v) : `<button type="button" class="xtnum" data-xtset="${esc(t.n)}" aria-label="Change today's total for ${esc(t.n)}">${fmt(t, v)}</button>`}<small> / ${fmt(t, t.t)}${t.kind === "time" ? "" : " reps"}</small></span>`}
-            ${ed ? `<button type="button" class="tx" data-xtdel="${i}" aria-label="Remove ${esc(t.n)}">&times;</button>` : ""}</div>
-          ${ed ? "" : `<div class="xtplus">${steps.map(([d, l]) => `<button type="button" class="dchip" data-xtadd="${esc(t.n)}:${d}">${l}</button>`).join("")}
-            ${state.extUndo && state.extUndo.n === t.n ? `<button type="button" class="linkbtn xtundo" data-xtadd="${esc(t.n)}:${-state.extUndo.d}">Undo</button>` : ""}
-            ${v > 0 ? `<button type="button" class="linkbtn xtreset${state.extUndo && state.extUndo.n === t.n ? "" : " xtundo"}" data-xtadd="${esc(t.n)}:${-v}" aria-label="Reset today's ${esc(t.n)} to zero">Reset</button>` : ""}</div>`}
-          <div class="xtbar"><i style="width:${p}%"></i></div>
-          <div class="xtwk" aria-label="Last 7 days">${week}<small>last 7 days</small></div>
-        </li>`;
+    const T = (X.targets || []), today = X.today, shown = T.filter((t) => t.t > 0);
+    const row = (t) => {
+      const v = Number((t.days || {})[today] || 0), p = Math.min(100, Math.round(v / Math.max(1, t.t) * 100));
+      return `<li><button type="button" class="ctg" data-ctg="${esc(t.n)}" aria-label="${esc(t.n)}: ${rFmt(t, v)} of ${rFmt(t, t.t)}${t.kind === "time" ? "" : " reps"} today. Log more">
+          <span class="ctgn">${esc(t.n)}</span>
+          <span class="ctgv${p >= 100 ? " win" : ""}">${rFmt(t, v)}<small> / ${rFmt(t, t.t)}${t.kind === "time" ? "" : " reps"}</small></span>
+          <span class="xtbar"><i style="width:${p}%"></i></span></button></li>`;
     };
-    const names = (state.lift.exercises || []).map((e) => e.name).filter(Boolean);
-    return `<section class="card xtg">
-        <div class="dsh"><h2>Routines</h2>${T.length ? `<button type="button" class="linkbtn" id="xtEdit">${ed ? "Done" : "Edit"}</button>` : ""}</div>
-        ${T.length ? `<ul class="xtl">${T.map(row).join("")}</ul>` : ed ? "" : `<p class="hint">Little things you do every day, like 100 jumping jacks or a 3-minute plank: set a target, then tap + as you go. Timed ones count toward your Cardio minutes.</p>`}
-        ${ed || !T.length ? (ed ? `<form class="xtadd" id="xtForm">
-            <input class="field" id="xtName" maxlength="60" list="xtNames" autocomplete="off" placeholder="Exercise, e.g. Plank" aria-label="Exercise">
-            <datalist id="xtNames">${names.map((n) => `<option value="${esc(n)}">`).join("")}</datalist>
-            <select class="field" id="xtKind" aria-label="Count in"><option value="reps">reps</option><option value="time">time</option></select>
-            <input class="field" id="xtVal" inputmode="text" autocomplete="off" placeholder="100" aria-label="Daily target">
-            <button type="submit" class="btn" style="background:var(--swim)">Add</button>
-          </form>${state.extMsg ? `<p class="hint bad">${esc(state.extMsg)}</p>` : `<p class="hint">Time as 3 (minutes), 1:30 or 90s.</p>`}`
-          : `<button type="button" class="linkbtn" id="xtEdit">+ Add a routine</button>`) : ""}
-      </section>`;
+    const names = cardioActs();
+    return `<div class="ctgs">
+        <div class="dsh"><h3>Daily targets</h3><button type="button" class="linkbtn" id="xtEdit">${ed ? "Done" : shown.length ? "Edit" : "+ Add one"}</button></div>
+        ${ed ? `${T.length ? `<ul class="ctged">${T.map((t, i) => `<li><span>${esc(t.n)}</span><small>${t.t > 0 ? `${rFmt(t, t.t)}${t.kind === "time" ? "" : " reps"} a day` : "no target"}</small>
+              <button type="button" class="tx" data-xtdel="${i}" aria-label="Remove the target for ${esc(t.n)}">&times;</button></li>`).join("")}</ul>` : ""}
+            <form class="xtadd" id="xtForm">
+              <input class="field" id="xtName" maxlength="40" list="xtNames" autocomplete="off" placeholder="Activity, e.g. Plank" aria-label="Activity">
+              <datalist id="xtNames">${names.map((n) => `<option value="${esc(n)}">`).join("")}</datalist>
+              <select class="field" id="xtKind" aria-label="Count in"><option value="reps">reps</option><option value="time">time</option></select>
+              <input class="field" id="xtVal" inputmode="text" autocomplete="off" placeholder="100" aria-label="Daily target">
+              <button type="submit" class="btn" style="background:var(--swim)">Add</button>
+            </form>${state.extMsg ? `<p class="hint bad">${esc(state.extMsg)}</p>` : `<p class="hint">Like 100 jumping jacks or a 3-minute plank. Time as 3, 1:30 or 90s. Log it with + like any activity.</p>`}`
+          : shown.length ? `<ul class="ctgl">${shown.map(row).join("")}</ul>` : ""}
+      </div>`;
   }
   function wireExTargets() {
     on("xtEdit", "click", () => { state.extEdit = !state.extEdit; state.extMsg = null; render();
@@ -3744,46 +3783,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     };
     document.querySelectorAll("[data-xtdel]").forEach((el) =>
       el.addEventListener("click", () => save(state.ext.targets.filter((_, i) => i !== Number(el.dataset.xtdel)))));
-    // V4.7. The quick +: add reps or seconds for today; Undo takes the
-    // last one back.
-    document.querySelectorAll("[data-xtadd]").forEach((el) =>
-      el.addEventListener("click", () => {
-        const i = el.dataset.xtadd.lastIndexOf(":");
-        routineAdd(el.dataset.xtadd.slice(0, i), Number(el.dataset.xtadd.slice(i + 1)));
-      }));
-    async function routineAdd(n, d) {
-      const t = state.ext.targets.find((x) => x.n === n);
-      if (!t || !d) return;
-      const today = state.ext.today;
-      t.days = Object.assign({}, t.days, { [today]: Math.max(0, Number((t.days || {})[today] || 0) + d) });
-      state.extUndo = d > 0 ? { n, d } : null;
-      render();
-      const res = await call("app_routine_add", { p_code: state.code, p_person: state.meId, p_name: n, p_delta: d, p_date: null });
-      if (res.error) { state.extMsg = res.offline ? "No signal. Not saved yet." : res.error; await loadExTargets(); render(); return; }
-      if (t.kind === "time") { await refresh(); }
-    }
-    // V5.1. Tap the number to type the day's real total; Reset sets it to zero.
-    document.querySelectorAll("[data-xtset]").forEach((el) =>
-      el.addEventListener("click", () => { state.extSet = el.dataset.xtset; render();
-        const f = document.getElementById("xtSetIn"); if (f) { f.focus(); f.select(); } }));
-    const setIn = document.getElementById("xtSetIn");
-    if (setIn) {
-      const commit = () => {
-        if (state.extSet !== setIn.dataset.xtsetin) return;
-        const n = setIn.dataset.xtsetin, t = state.ext.targets.find((x) => x.n === n);
-        state.extSet = null;
-        if (!t) { render(); return; }
-        const cur = Number((t.days || {})[state.ext.today] || 0);
-        const want = t.kind === "time" ? parseSecs(setIn.value) : Number(String(setIn.value).replace(/[^0-9]/g, ""));
-        if (want === null || want === undefined || Number.isNaN(want) || want < 0 || want === cur) { render(); return; }
-        routineAdd(n, want - cur);
-      };
-      setIn.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") { e.preventDefault(); commit(); }
-        if (e.key === "Escape") { state.extSet = null; render(); }
-      });
-      setIn.addEventListener("blur", () => setTimeout(() => { if (setIn.isConnected) commit(); }, 0));
-    }
+    // V5.2. Tap a target to log that activity.
+    document.querySelectorAll("[data-ctg]").forEach((el) => el.addEventListener("click", () => openCardio(el.dataset.ctg)));
     on("xtKind", "change", (e) => { const v = document.getElementById("xtVal"); if (v) v.placeholder = e.target.value === "time" ? "3:00" : "100"; });
     on("xtForm", "submit", (e) => {
       e.preventDefault();
@@ -3793,8 +3794,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       const t = kind === "time" ? parseSecs(raw) : Number(String(raw).replace(/[^0-9]/g, ""));
       if (!n) { state.extMsg = "Name the exercise."; render(); return; }
       if (!t || t < 1) { state.extMsg = kind === "time" ? "Type a time, like 3, 1:30 or 90s." : "Type how many reps."; render(); return; }
+      // An activity already in the list just gains its daily number.
       if (state.ext.targets.some((x) => x.n.toLowerCase() === n.toLowerCase())) { state.extMsg = `${n} already has a target.`; render(); return; }
       if (state.ext.targets.length >= 6) { state.extMsg = "Up to six targets."; render(); return; }
+      rememberCardio(n);
       state.extMsg = null;
       save(state.ext.targets.concat([{ n, kind, t, days: {} }]));
     });
@@ -5050,7 +5053,6 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     // V3.4. Everyone but you, folded to one row each under one header:
     // the same nine numbers in the same order, small, so the whole family
     // fits in the space one card used to take. Columns read down.
-    const othersTable = ordered.some((p) => p.id === state.meId) && ordered.length > 1;
     const FAB = { steps:"Stp", train:"Trn", cardio:"Crd", sleep:"Rec", rise:"Rise", rest:"Rest",
                   work:"Foc", goals:"Gls", tasks:"Tsk", dd:"Lng", macros:"Pro", weight:"Wt",
                   attn:"Att", refl:"Ref", silence:"Sil" };
@@ -5077,11 +5079,14 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <thead><tr><th class="fn"><span class="sr">Name</span></th>${ks.map((k, i) =>
           `<th class="${i % 3 === 0 ? "g0" : ""}" title="${STD[k].label}">${FAB[k]}</th>`).join("")}</tr></thead>
         <tbody>${list.map((p) => {
-          const c = famCells(p);
-          return `<tr><th class="fn" scope="row" style="--hc:hsl(${p.hue} 58% 42%)">
+          const c = famCells(p), mine = p.id === state.meId;
+          return `<tr${mine ? ` class="me"` : ""}><th class="fn" scope="row" style="--hc:hsl(${p.hue} 58% 42%)">
               <button type="button" class="ftn" data-edit="name" data-person="${p.id}"><i aria-hidden="true"></i>${esc(p.name)}</button></th>
             ${ks.map((k, i) => {
               const v = c[k], nil = v === null || v === undefined, g = i % 3 === 0 ? " g0" : "";
+              // V5.2. Your own row opens your pages.
+              if (mine) return `<td class="see${nil ? " nil" : ""}${g}"><button type="button" data-go="${k}"
+                     aria-label="${esc(STD[k].label)}${nil ? ", not logged" : ": " + stdWords(k, v)}. Open">${tiny(k, v)}</button></td>`;
               return !nil && (k === "train" || k === "cardio")
                 ? `<td class="see${g}"><button type="button" data-see="${p.id}" data-m="${k === "train" ? "lift" : "cardio"}"
                      aria-label="See ${esc(p.name)}'s ${k === "train" ? "workout" : "cardio"}">${tiny(k, v)}</button></td>`
@@ -5089,30 +5094,14 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             }).join("")}</tr>`;
         }).join("")}</tbody></table></div>`;
     };
-    // V3.6. Your dashboard, redrawn: three rows, one per category, three
-    // numbers each with its full name under it. No avatar, no header, no
-    // underlines, no "coming soon": the numbers are the interface, and
-    // every one opens its page.
-    const meDash = (p) => {
-      const c = famCells(p);
-      const cell = (k) => {
-        const v = c[k], nil = v === null || v === undefined;
-        return `<button type="button" class="mcell${nil ? " nil" : ""}" data-go="${k}"
-          aria-label="${esc(STD[k].label)}${nil ? ", not logged" : ": " + stdWords(k, v)}. Open">
-          <b>${nil ? "\u2013" : stdWords(k, v)}</b><span>${esc(STD[k].label)}</span></button>`;
-      };
-      return `<div class="mydash" style="--hc:hsl(${p.hue} 58% 42%)">
-        ${p.streak > 1 && !state.boardDay ? `<p class="mstreak">${p.streak}-day streak</p>` : ""}
-        ${STD_GROUPS.map(([g, ks]) => `
-          <div class="mrow"><span class="mcat">${esc(g)}</span>
-            <div class="mcells">${ks.map(cell).join("")}</div></div>`).join("")}
-      </div>`;
-    };
     const roster = state.people.length === 0
       ? `<div class="dashed"><p class="note">Nobody has been added yet.
            Add the first name above.</p></div>`
-      : `<div class="roster">${ordered.filter((p) => !othersTable || p.id === state.meId).map((p) => {
-          if (p.id === state.meId) return meDash(p);
+      // V5.2. You are a row in the tribe's table, the first one, like
+      // everyone else: one way to read every number, yours included.
+      : ordered.some((p) => p.id === state.meId)
+      ? `<div class="roster">${famTable([ordered.find((p) => p.id === state.meId)].concat(ordered.filter((p) => p.id !== state.meId)))}</div>`
+      : `<div class="roster">${ordered.map((p) => {
           const c = famCells(p);
           const initials = p.name.trim().split(/\s+/).slice(0,2)
             .map((w) => (w[0] || "").toUpperCase()).join("");
@@ -5138,7 +5127,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             </div>
             <div class="fgrid">${STD_GROUPS.flatMap(([, ks]) => ks).map(cell).join("")}</div>
           </div>`;
-        }).join("")}${othersTable && boardOpen() ? famTable(ordered.filter((p) => p.id !== state.meId)) : ""}</div>`;
+        }).join("")}</div>`;
 
     // V3.3. The opening screen is the Steps dial, large, and nothing
     // else that asks for attention. Swipe for Work and Sleep. The family,
@@ -5905,6 +5894,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   function cardioActs() {
     const out = CARDIO_BASE.slice();
     for (const a of cardioOwn()) if (!out.some((b) => b.toLowerCase() === a.toLowerCase())) out.push(a);
+    // V5.2. Routines are activities too.
+    for (const t of ((state.ext && state.ext.targets) || [])) if (!out.some((b) => b.toLowerCase() === t.n.toLowerCase())) out.push(t.n);
     return out;
   }
   function rememberCardio(name) {
@@ -5913,13 +5904,15 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const own = cardioOwn().filter((a) => a.toLowerCase() !== name.toLowerCase());
     try { localStorage.setItem(cardioKey(), JSON.stringify(own.concat([name]).slice(-5))); } catch {}
   }
-  function openCardio() {
-    let last = null;
-    try { last = localStorage.getItem(cardioLastKey()); } catch {}
+  function openCardio(pick) {
+    let last = typeof pick === "string" ? pick : null;
+    if (!last) try { last = localStorage.getItem(cardioLastKey()); } catch {}
     state.homeSheet = "cardio";
-    state.cq = { act: last && cardioActs().includes(last) ? last : CARDIO_BASE[0], other: "", plus: false, dist: "", min: "", err: "" };
+    state.cq = { act: last && cardioActs().includes(last) ? last : CARDIO_BASE[0], other: "", plus: false, dist: "", min: "", reps: "", err: "" };
     render();
-    document.getElementById("cqMin")?.focus();
+    document.getElementById(routineOf(state.cq.act) && routineOf(state.cq.act).kind === "reps" ? "cqReps" : "cqMin")?.focus();
+    // From home the routines may not be loaded yet; they join the chips when they are.
+    if (!state.ext) loadExTargets().then(() => { if (state.homeSheet === "cardio") { state.cq.act = last && cardioActs().includes(last) ? last : state.cq.act; render(); } });
   }
   const cqChips = () => {
     const q = state.cq || {};
@@ -5961,16 +5954,27 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         ${cqChips()}
         ${q.plus ? `<input class="field cqother" id="cqOther" maxlength="40" autocomplete="off" enterkeyhint="next"
           placeholder="Your activity, e.g. Row" value="${esc(q.other || "")}" aria-label="Your own activity">` : ""}
+        ${(() => { const rt = !q.plus && routineOf(q.act);
+          if (!rt || !(rt.t > 0)) return "";
+          const v = Number((rt.days || {})[(state.ext || {}).today] || 0);
+          return `<p class="cqtg">Today ${rFmt(rt, v)} of ${rFmt(rt, rt.t)}${rt.kind === "time" ? "" : " reps"}</p>`; })()}
         <div class="cqrow">
-          <label class="cqf"><span>Distance</span>
+          ${(() => { const rt = !q.plus && routineOf(q.act);
+            if (rt && rt.kind === "reps") return `<label class="cqf"><span>Reps</span>
+              <span class="cqin"><input id="cqReps" inputmode="numeric" autocomplete="off" placeholder="100"
+                value="${esc(q.reps || "")}" aria-label="Reps"></span></label>`;
+            if (rt) return "";
+            return `<label class="cqf"><span>Distance</span>
             <span class="cqin"><input id="cqDist" inputmode="decimal" autocomplete="off" placeholder="0"
               value="${esc(q.dist || "")}" aria-label="Distance in ${esc(units.d)}">
-            <button type="button" class="unitchip" id="cqUnit" aria-label="Distance unit, now ${esc(units.d)}">${esc(units.d)}</button></span></label>
+            <button type="button" class="unitchip" id="cqUnit" aria-label="Distance unit, now ${esc(units.d)}">${esc(units.d)}</button></span></label>`; })()}
           <label class="cqf"><span>Time</span>
             <span class="cqin"><input id="cqMin" inputmode="text" autocomplete="off" placeholder="30"
               value="${esc(q.min || "")}" aria-label="Minutes"><em>min</em></span></label>
         </div>
-        <p class="hint${q.err ? " bad" : ""}" id="cqHint">${q.err ? esc(q.err) : "Distance is optional. 45, 1:30 or 1h 30m all work."}</p>
+        <p class="hint${q.err ? " bad" : ""}" id="cqHint">${q.err ? esc(q.err) : !q.plus && routineOf(q.act)
+          ? (routineOf(q.act).kind === "reps" ? "Reps count toward your target; the time counts as cardio." : "Time counts toward your target and as cardio. 3, 1:30 or 1h all work.")
+          : "Distance is optional. 45, 1:30 or 1h 30m all work."}</p>
         <div class="stdbtns">
           <button type="button" class="btn-quiet" id="hsCancel">Cancel</button>
           <button type="button" class="btn" id="cqSave" style="background:var(--swim)">Save</button>
@@ -5981,7 +5985,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     // Cardio: one tap, on the dial or the page, opens the card.
     document.querySelectorAll("[data-cardioq]").forEach((el) => {
       if (el.dataset.w) return; el.dataset.w = "1";
-      el.addEventListener("click", openCardio);
+      el.addEventListener("click", () => openCardio());
     });
     const close = () => { state.homeSheet = null; render(); };
     const bg = document.getElementById("hsBg");
@@ -6022,11 +6026,12 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       q.other = (document.getElementById("cqOther") || {}).value || "";
       q.dist = (document.getElementById("cqDist") || {}).value || "";
       q.min = (document.getElementById("cqMin") || {}).value || "";
+      q.reps = (document.getElementById("cqReps") || {}).value || "";
     };
     document.querySelectorAll("[data-cqa]").forEach((el) => {
       if (el.dataset.w) return; el.dataset.w = "1";
-      el.addEventListener("click", () => { grab(); q.act = el.dataset.cqa; q.other = ""; q.plus = false; render();
-        document.getElementById("cqMin")?.focus(); });
+      el.addEventListener("click", () => { grab(); q.act = el.dataset.cqa; q.other = ""; q.plus = false; q.err = ""; render();
+        const rt = routineOf(q.act); document.getElementById(rt && rt.kind === "reps" ? "cqReps" : "cqMin")?.focus(); });
     });
     const plus = document.getElementById("cqPlus");
     if (plus && !plus.dataset.w) {
@@ -6050,6 +6055,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         const dist = dv > 0 ? Math.round(dIn(dv)) : 0;
         if (!name) { q.err = q.plus ? "Type your activity." : "Pick an activity."; render(); return; }
         if (!min || min <= 0 || min > 600) { q.err = min > 600 ? "Ten hours at most." : "Type the time, like 30 or 1h 15m."; render(); return; }
+        const rt = !q.plus && routineOf(name);
+        const reps = rt && rt.kind === "reps" ? Math.min(1000, Math.max(0, Math.round(Number(String(q.reps).replace(/[^0-9]/g, "")) || 0))) : 0;
         saveBtn.disabled = true;
         const m = me() || {};
         const onPage = state.view === "exercise";
@@ -6057,13 +6064,14 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         const res = await call("app_lift_save", {
           p_code: state.code, p_person: state.meId, p_session: uuid(), p_label: name, p_note: null,
           p_date: day, p_duration: min,
-          p_sets: [{ position: 0, set_index: 0, exercise: name, kind: dist ? "distance_time" : "duration",
-                     weight: 0, reps: 0, distance: dist, seconds: min * 60 }],
+          p_sets: [{ position: 0, set_index: 0, exercise: name, kind: !rt && dist ? "distance_time" : "duration",
+                     weight: 0, reps, distance: rt ? 0 : dist, seconds: min * 60 }],
           p_finished: true, p_mode: "cardio", p_tz: deviceTZ(), p_claim: true });
         if (res.error) { q.err = res.offline ? "No signal. Try again in a moment." : res.error; render(); return; }
         rememberCardio(name);
         state.homeSheet = null;
-        const said = `${name}${dist ? " · " + distWords(dist) : ""} · ${hm(min)} logged.`;
+        const said = `${name}${reps ? " · " + num(reps) + " reps" : !rt && dist ? " · " + distWords(dist) : ""} · ${hm(min)} logged.`;
+        if (rt) loadExTargets().then(() => render());
         if (onPage) {
           state.lift.msg = said;
           render();
@@ -6145,10 +6153,12 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         </div>
         ${acts.length || extra ? `<ul class="sesslist cacts">${acts.map((x) => `
           <li><span>${hm(x.duration_min)}</span>
-            <em><b>${esc(x.label || "Cardio")}</b>${Number(x.distance) > 0 ? ` · ${esc(distWords(x.distance))}` : ""}</em>
+            <em><b>${esc(x.label || "Cardio")}</b>${Number(x.distance) > 0 ? ` · ${esc(distWords(x.distance))}` : ""}${(() => {
+              const r = Number(((x.exercises || [])[0] || {}).top_reps) || 0; return r ? ` · ${num(r)} reps` : ""; })()}</em>
             <button type="button" data-cdel="${x.id}" aria-label="Delete ${esc(x.label || "this activity")}">&times;</button></li>`).join("")}${extra ? `
           <li><span>${hm(extra)}</span><em>Typed in an earlier version</em>
             <button type="button" id="cardioUntyped" aria-label="Delete the typed minutes">&times;</button></li>` : ""}</ul>` : ""}
+        ${isToday ? cardioTargets() : ""}
       </section>`;
   }
 
@@ -9681,7 +9691,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
            the whole page under a finger that is still scrolling is what
            made the time wheel feel stuck. -->
 
-      ${k === "cardio" ? exTargetsCard() + liftHistory() : ""}
+      ${k === "cardio" ? liftHistory() : ""}
       ${k !== "train" ? "" : `
         <button class="${isFirst() ? "btn-quiet firstempty" : "btn"}" id="startEmpty"
                 style="width:100%;margin-top:${isFirst() ? 10 : 22}px;${isFirst() ? "" : `background:${met.color}`}">
@@ -9710,13 +9720,14 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   /* ---------- render + events -------------------------------------- */
   /* ---------- V5.1: Meditation ------------------------------------------
      The first row on the dashboard, three habits:
-       Attention   your ideal day, kept on time. Each block done by its
-                   deadline counts 1, done late counts 1/2, done short
-                   (less than its length) halves it again; the + marks
-                   quality and is shown, not scored.
-       Reflection  three gratitudes and two lessons. Private: the tribe
+       Attention   your ideal day, as points (V5.2): 4 a block (done,
+                   in full, on time, the + for quality) and 2 a day
+                   read from Sleep (Rise, Rest).
+       Reflection  good things and why, lessons, one change; each person
+                   keeps as many lines as they like. Private: the tribe
                    sees only that you wrote.
-       Silence     a timer with bells, and the day's prayers.
+       Silence     a calm timer with bells; sessions you name (Prayer…)
+                   count too.
      The day's detail lives in med_days; its four numbers are written to
      entries by the server, so dials, the board and votes read them like
      any other habit.
@@ -9724,8 +9735,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   const MED_KEYS = ["attn", "refl", "silence"];
   const MED_INFO = {
     attn:    { h: "Attention",  sub: "Your ideal day, kept on time." },
-    refl:    { h: "Reflection", sub: "What you are grateful for, and what today taught you." },
-    silence: { h: "Silence",    sub: "Sit. The bells keep time." },
+    refl:    { h: "Reflection", sub: "What went well and why, what you learned, what you will change." },
+    silence: { h: "Silence",    sub: "Sit in stillness. The bells keep the time." },
   };
   const I_LOCK = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V7.5a5 5 0 0 1 10 0V10h1.2c.7 0 1.3.6 1.3 1.3v8.4c0 .7-.6 1.3-1.3 1.3H5.8c-.7 0-1.3-.6-1.3-1.3v-8.4c0-.7.6-1.3 1.3-1.3zm2.2 0h5.6V7.5a2.8 2.8 0 0 0-5.6 0z"/></svg>`;
   const nowMin = () => { const d = new Date(); return d.getHours() * 60 + d.getMinutes(); };
@@ -9737,6 +9748,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     state.view = "med";
     state.entryDate = null;
     state.medEdit = null; state.medMsg = null; state.medAdd = null; state.medSaved = null; state.medAmt = null;
+    state.silSub = null; state.silPick = null; state.silNew = false;
     render();
     window.scrollTo(0, 0);
     await flushSilPending();
@@ -9750,7 +9762,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       state.medMsg = res && res.offline ? "No signal. Showing what was last loaded." : (res && res.error) || null;
       return;
     }
-    state.med = { date: res.date, today: res.today, schedule: res.schedule || [], day: res.day || {} };
+    state.med = { date: res.date, today: res.today, schedule: res.schedule || [], day: res.day || {},
+                  sleep: res.sleep || {}, rows: Object.assign({ g: 3, l: 2, c: 1 }, res.refl_rows || {}) };
   }
   const medReady = () => !!state.med && state.med.date === (entryDay() === todayISO() ? state.med.today : entryDay());
 
@@ -9785,17 +9798,30 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const sched = (state.med && state.med.schedule) || [];
     const day = (state.med && state.med.day) || {};
     const n = day.n || sched.length, marks = day.marks || {};
-    // On time 1, late half; done short (h) halves it again.
+    // V5.2. Four points a block: done, in full, on time, with quality.
+    // Two for the day, from Sleep: up by Rise, in bed by Rest.
     let d = 0, l = 0, h = 0, pts = 0;
     for (const k in marks) {
       const x = marks[k]; if (x.s !== "d" && x.s !== "l") continue;
       if (x.s === "d") d++; else l++;
       if (x.h) h++;
-      pts += (x.s === "l" ? 0.5 : 1) * (x.h ? 0.5 : 1);
+      pts += blockPts(x);
     }
-    return { n, d, l, h, pct: n && d + l ? Math.min(100, Math.round(100 * pts / n)) : null };
+    const sl = attnSleep(), sp = (sl.rise.ok ? 1 : 0) + (sl.rest.ok ? 1 : 0);
+    const max = 4 * n + 2;
+    return { n, d, l, h, sl, pts: pts + sp, max,
+             pct: n && (d + l || sp) ? Math.min(100, Math.round(100 * (pts + sp) / max)) : null };
   }
   const bySched = (a, b) => (a.t ?? 9999) - (b.t ?? 9999);
+  const blockPts = (x) => !x || (x.s !== "d" && x.s !== "l") ? 0
+    : 1 + (x.h ? 0 : 1) + (x.s === "d" ? 1 : 0) + (x.p ? 1 : 0);
+  // Rise and Rest for the Attention day, read from Sleep.
+  function attnSleep() {
+    const z = (state.med && state.med.sleep) || {};
+    const one = (v, t) => { const has = v !== null && v !== undefined;
+      return { v: has ? Number(v) : null, t: Number(t), ok: has && Number(v) <= Number(t) }; };
+    return { rise: one(z.rise, z.rise_t ?? 360), rest: one(z.rest, z.rest_t ?? 1350) };
+  }
 
   function medHead(k) {
     return `
@@ -9816,6 +9842,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
   function medView() {
     const k = state.seg;
+    if (k === "silence" && silRun() && medReady()) return silView();
     const body = !medReady() && !state.medMsg ? `<section class="card"><p class="hint" style="text-align:center">Loading…</p></section>`
       : k === "attn" ? attnView() : k === "refl" ? reflView() : silView();
     return `${medHead(k)}${body}
@@ -9860,6 +9887,16 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       </section>`;
     const S = attnScore(), std = stdOf(m, "attn"), marks = (state.med.day || {}).marks || {};
     const isToday = entryDay() === todayISO(), now = nowMin();
+    // Rise opens the day and Rest closes it. Both come from Sleep: tap to
+    // log or change them there.
+    const sleepRow = (k) => { const x = S.sl[k], lab = k === "rise" ? "Rise" : "Rest";
+      return `<li class="mblk msleep${x.ok ? " is-d" : ""}">
+          <button type="button" class="mchk" data-go="${k}" aria-label="${lab}${x.v === null ? ", not logged. Log it in Sleep" : x.ok ? ", on time" : ", late"}">${x.ok ? "✓" : ""}</button>
+          <div class="mbody"><b>${lab}</b>
+            <small>${k === "rise" ? "up" : "in bed"} by ${clockWords(x.t % 1440)}${x.v === null ? ` · <button type="button" class="mamt" data-go="${k}">log in Sleep</button>`
+              : ` · ${clockWords(x.v % 1440)}${x.ok ? "" : ` · <em>late</em>`}`}</small></div>
+          <span class="mpts" aria-label="${x.ok ? 1 : 0} of 1 point">${x.ok ? 1 : 0}/1</span>
+        </li>`; };
     const rows = sched.map((b) => {
       const mk = marks[b.id], over = isToday && !mk && b.t !== null && b.t !== undefined && now > b.t;
       return `<li class="mblk${mk ? " is-" + mk.s : ""}${over ? " over" : ""}">
@@ -9869,6 +9906,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             <small>${b.t !== null && b.t !== undefined ? `by ${clockWords(b.t)}` : "any time"}${b.d ? ` · ${amtHtml(b, mk)}` : ""}${over ? ` · <em>past due</em>` : ""}</small></div>
           ${mk ? `<button type="button" class="mst" data-mst="${esc(b.id)}" aria-label="${mk.s === "l" ? "Late. Tap for on time" : "On time. Tap for late"}">${mk.s === "l" ? "Late" : "On time"}</button>
             <button type="button" class="mplus${mk.p ? " on" : ""}" data-mplus="${esc(b.id)}" aria-pressed="${!!mk.p}" aria-label="Done with quality">+</button>` : ""}
+          <span class="mpts" aria-label="${blockPts(mk)} of 4 points">${blockPts(mk)}/4</span>
         </li>`;
     }).join("");
     return `
@@ -9877,11 +9915,11 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <div class="dial mdial">${dialRing(stdPct("attn", S.pct, std))}
           <div class="dcore"><b class="dval">${S.pct === null ? "–" : S.pct + "%"}</b>
             <button type="button" class="dof" data-edit="goal" data-metric="attn">of ${Math.round(std)}%</button>
-            <span class="dsub">${S.d + S.l} of ${S.n} done${S.l ? ` · ${S.l} late` : ""}${S.h ? ` · ${S.h} short` : ""}</span></div></div>
+            <span class="dsub">${S.pts} of ${S.max} points</span></div></div>
       </section>
       <section class="card">
-        <ul class="mblks">${rows}</ul>
-        <p class="hint mhint">Tap the circle when a block is done, <b>+</b> when done well. Did less? Tap its length and type what you did. Late or short counts half; both, a quarter.</p>
+        <ul class="mblks">${sleepRow("rise")}${rows}${sleepRow("rest")}</ul>
+        <p class="hint mhint">Each block is 4 points: done, in full, on time, done well (<b>+</b>). Did less? Tap its length and type what you did. Rise and Rest come from Sleep.</p>
         <button type="button" class="linkbtn" id="mEditDay">Edit my ideal day</button>
       </section>`;
   }
@@ -9910,38 +9948,81 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       </section>`;
   }
 
-  /* ---- Reflection ---- */
+  /* ---- Reflection ----
+     V5.2. Three kinds of line, each person keeping as many as they like:
+       Good things  what went well, and why (Seligman's "three good
+                    things": the why is the part that works).
+       Lessons      what today taught you (the Stoic evening review).
+       Change       one thing to do differently, as "When X, I will Y"
+                    (an implementation intention).
+     Done when every line you keep is written. Defaults 3, 2, 1. */
+  const REFL = [
+    { k: "g", h: "Good things", one: "Good thing", ph: ["What went well, and why", "And why", "And why"], area: false },
+    { k: "l", h: "Lessons", one: "Lesson", ph: ["Today taught me…", "And…"], area: true },
+    { k: "c", h: "Change", one: "Change", ph: ["When ___, I will ___"], area: false },
+  ];
   function reflView() {
-    const j = (state.med.day || {}).journal || {};
-    const g = Array.isArray(j.g) ? j.g : [], l = Array.isArray(j.l) ? j.l : [];
-    const line = (kind, i, ph, area) => area
-      ? `<textarea class="field mjin" id="mj-${kind}${i}" data-mj="${kind}:${i}" rows="2" maxlength="500" placeholder="${ph}" aria-label="${kind === "g" ? "Gratitude" : "Lesson"} ${i + 1}">${esc(kind === "g" ? g[i] || "" : l[i] || "")}</textarea>`
-      : `<input class="field mjin" id="mj-${kind}${i}" data-mj="${kind}:${i}" maxlength="500" placeholder="${ph}" value="${esc(kind === "g" ? g[i] || "" : l[i] || "")}" aria-label="${kind === "g" ? "Gratitude" : "Lesson"} ${i + 1}">`;
+    const j = (state.med.day || {}).journal || {}, R = state.med.rows || { g: 3, l: 2, c: 1 };
+    const total = R.g + R.l + R.c;
+    const lines = (x) => (Array.isArray(j[x.k]) ? j[x.k] : []);
+    let filled = 0;
+    const sec = (x) => {
+      const L = lines(x), n = R[x.k] || 0;
+      const row = (i) => {
+        const v = L[i] || "", ph = x.ph[Math.min(i, x.ph.length - 1)];
+        if (v.trim()) filled++;
+        const lab = `${x.one} ${i + 1}`;
+        const input = x.area
+          ? `<textarea class="field mjin" id="mj-${x.k}${i}" data-mj="${x.k}:${i}" rows="2" maxlength="500" placeholder="${ph}" aria-label="${lab}">${esc(v)}</textarea>`
+          : `<input class="field mjin" id="mj-${x.k}${i}" data-mj="${x.k}:${i}" maxlength="500" placeholder="${ph}" value="${esc(v)}" aria-label="${lab}">`;
+        return `<div class="mjrow">${input}${total > 1 ? `<button type="button" class="mjx" data-mjx="${x.k}:${i}" aria-label="Remove ${lab.toLowerCase()}">&times;</button>` : ""}</div>`;
+      };
+      return `<div class="mjsec">
+          <h2 class="mjh">${x.h}</h2>
+          ${n ? `<div class="mjl">${Array.from({ length: n }, (_, i) => row(i)).join("")}</div>` : ""}
+          ${n < 5 ? `<button type="button" class="mjadd" data-mjadd="${x.k}">+ ${n ? "Add a line" : `Add ${x.h === "Change" ? "a change" : "a " + x.one.toLowerCase()}`}</button>` : ""}
+        </div>`;
+    };
+    const body = REFL.map(sec).join("");
     return `
       <section class="card mjournal">
         ${medNav("day")}
-        <h2 class="mjh">Gratitude</h2>
-        <div class="mjl">${[0, 1, 2].map((i) => line("g", i, i === 0 ? "I am grateful for…" : "And…")).join("")}</div>
-        <h2 class="mjh">Lessons</h2>
-        <div class="mjl">${[0, 1].map((i) => line("l", i, i === 0 ? "Today taught me…" : "And…", true)).join("")}</div>
+        ${body}
+        <p class="mjcount${filled >= total ? " ok" : ""}">${filled >= total ? "Done for today" : `${filled} of ${total} written`}</p>
         <p class="mpriv">${I_LOCK}<span>Private. Your tribe sees only that you wrote today, never the words.</span></p>
         <p class="msaved${state.medSaved === "Saved" ? " ok" : ""}" id="mSaved" role="status">${esc(state.medSaved || "")}</p>
       </section>`;
   }
 
-  /* ---- Silence: the timer, the bells, the prayers ---- */
+  /* ---- Silence: the timer and the bells ---- */
   const BELLS = { none: "None", wood: "Wood block", bowl: "Bronze bowl", bells: "Gentle bells", chime: "Chime" };
   const EVERY = { 0: "None", 2: "Every 2 minutes", 5: "Every 5 minutes", 10: "Every 10 minutes", half: "Halfway" };
+  // A bell for a sitting: silent when that sitting is muted.
+  const rbell = (r, kind) => { if (!r || !r.muted) bell(kind); };
   const WARM = { 0: "None", 10: "10 seconds", 30: "30 seconds", 60: "1 minute" };
   const silKey = () => "fhd.sil." + (state.meId || "anon");
   const silRunKey = () => "fhd.silrun." + (state.meId || "anon");
   const silPendKey = () => "fhd.silpend." + (state.meId || "anon");
-  function silCfg() {
-    let c = null;
-    try { c = JSON.parse(localStorage.getItem(silKey()) || "null"); } catch {}
-    return Object.assign({ dur: 20, start: "wood", end: "bowl", int: "bells", every: 5, warm: 0 }, c || {});
+  // V5.2. Session types: Silence, plus any you name (Prayer, Breathwork…).
+  // Each keeps its own length, bells and warm-up, on this phone.
+  const SIL_DEF = { dur: 20, start: "wood", end: "bowl", int: "bells", every: 5, warm: 0 };
+  function silStore() {
+    let x = null;
+    try { x = JSON.parse(localStorage.getItem(silKey()) || "null"); } catch {}
+    if (x && x.dur !== undefined && !x.cfgs) x = { cur: "silence", types: [], cfgs: { silence: x } };  // V5.1 shape
+    x = Object.assign({ cur: "silence", types: [], cfgs: {} }, x || {});
+    x.types = (Array.isArray(x.types) ? x.types : []).filter((t) => t && t.id && t.name).slice(0, 5);
+    if (x.cur !== "silence" && !x.types.some((t) => t.id === x.cur)) x.cur = "silence";
+    return x;
   }
-  const silSaveCfg = (c) => { try { localStorage.setItem(silKey(), JSON.stringify(c)); } catch {} };
+  const silPut = (x) => { try { localStorage.setItem(silKey(), JSON.stringify(x)); } catch {} };
+  const silTypes = () => [{ id: "silence", name: "Silence" }].concat(silStore().types);
+  const silCur = () => { const x = silStore(); return silTypes().find((t) => t.id === x.cur) || silTypes()[0]; };
+  function silCfg() {
+    const x = silStore();
+    return Object.assign({}, SIL_DEF, x.cfgs[x.cur] || {});
+  }
+  const silSaveCfg = (c) => { const x = silStore(); x.cfgs[x.cur] = c; silPut(x); };
   function silRun() { try { return JSON.parse(localStorage.getItem(silRunKey()) || "null"); } catch { return null; } }
   function silSetRun(r) { try { r ? localStorage.setItem(silRunKey(), JSON.stringify(r)) : localStorage.removeItem(silRunKey()); } catch {} }
   // Milliseconds sat so far (warm-up excluded, pauses excluded).
@@ -9981,82 +10062,131 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       if (!on && silWake) { await silWake.release(); silWake = null; }
     } catch { silWake = null; }
   }
+  const I_HOUR = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h12v2h-1v3.2a4 4 0 0 1-1.6 3.2L13.2 12l2.2 1.6A4 4 0 0 1 17 16.8V20h1v2H6v-2h1v-3.2a4 4 0 0 1 1.6-3.2l2.2-1.6-2.2-1.6A4 4 0 0 1 7 7.2V4H6zm3 2v3.2c0 .6.3 1.2.8 1.6L12 10.6l2.2-1.8c.5-.4.8-1 .8-1.6V4zm3 9.4-2.2 1.8c-.5.4-.8 1-.8 1.6V20h6v-3.2c0-.6-.3-1.2-.8-1.6z"/></svg>`;
+  const I_WAVE = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 11h3.4l1.8-4 2.6 10 2.4-13 2.4 11 1.6-4H22v2h-4.6l-2.9 7-2.1-9.7-2.5 13.4L7 10.6 6.6 13H2z"/></svg>`;
+  const I_WARM = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9h-2a7 7 0 1 1-7-7z"/></svg>`;
+  const I_SPK = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>`;
+  const I_MUTE = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4zm12.3.3 1.4-1.4 2.1 2.1 2.1-2.1 1.4 1.4-2.1 2.1 2.1 2.1-1.4 1.4-2.1-2.1-2.1 2.1-1.4-1.4 2.1-2.1z"/></svg>`;
+  const I_PAUSE = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h3.5v16H7zm6.5 0H17v16h-3.5z"/></svg>`;
+  const I_PLAY = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg>`;
+  const durWords = (m) => { m = Math.round(m); const h = Math.floor(m / 60), r = m % 60;
+    return h ? `${h} hour${h > 1 ? "s" : ""}${r ? ` ${r} min` : ""}` : `${r} minutes`; };
+
+  // V5.2. The running sitting fills the screen: its name, a thin ring, a
+  // pause in the middle, the time left. Mute and end sit in the corners.
+  function silRunView(r) {
+    const len = r.dur * 60000, el = silElapsed(r), warmLeft = r.warm * 1000 - ((r.pausedAt || Date.now()) - r.startedAt - (r.pausedMs || 0));
+    const f = Math.max(0, Math.min(1, el / len));
+    return `
+      <div class="silrun" role="dialog" aria-label="${esc(r.label || "Silence")}, sitting">
+        <div class="silbar">
+          <button type="button" class="silico" id="silMute" aria-pressed="${!!r.muted}" aria-label="${r.muted ? "Bells off. Turn on" : "Bells on. Mute"}">${r.muted ? I_MUTE : I_SPK}</button>
+          <button type="button" class="silico" id="silEnd" aria-label="End this sitting">&times;</button>
+        </div>
+        <div class="silmid">
+          <p class="silmin">${esc(durWords(r.dur)).toUpperCase()}</p>
+          <h2 class="silname">${esc(r.label || "Silence")}</h2>
+          <div class="silring">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle cx="60" cy="60" r="52" class="siltrack"></circle>
+              <circle cx="60" cy="60" r="52" class="silfill" id="silRing" stroke-dasharray="${DIAL_C}" stroke-dashoffset="${(DIAL_C * f).toFixed(2)}"></circle>
+              <g id="silDot" transform="rotate(${(360 * f).toFixed(1)} 60 60)"><circle cx="112" cy="60" r="2.6" class="sildot"></circle></g>
+            </svg>
+            <button type="button" class="silpp" id="silPause" aria-label="${r.pausedAt ? "Continue" : "Pause"}">${r.pausedAt ? I_PLAY : I_PAUSE}</button>
+          </div>
+          <b class="silclock" id="silClock">${warmLeft > 0 ? mmssMs(warmLeft) : mmssMs(Math.max(0, len - el))}</b>
+          <span class="silsub" id="silSub">${r.pausedAt ? "Paused" : warmLeft > 0 ? "Settle in" : ""}</span>
+        </div>
+      </div>`;
+  }
+
   function silView() {
-    const c = silCfg(), r = silRun(), m = me() || {};
+    const r = silRun();
+    if (r) return silRunView(r);
+    const c = silCfg(), m = me() || {}, cur = silCur(), types = silTypes();
     const day = state.med.day || {}, isToday = entryDay() === todayISO();
     const sessions = Array.isArray(day.sessions) ? day.sessions : [];
     const total = sessions.reduce((a, x) => a + Number(x.min || 0), 0);
-    const std = stdOf(m, "silence"), pstd = stdOf(m, "prayers"), pr = Number(day.prayers || 0);
-    let ring, clock, sub;
-    if (r) {
-      const len = r.dur * 60000, el = silElapsed(r), warmLeft = r.warm * 1000 - ((r.pausedAt || Date.now()) - r.startedAt - (r.pausedMs || 0));
-      const f = Math.max(0, Math.min(1, 1 - el / len));
-      ring = `<svg class="dring" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" class="dtrack"></circle>
-        <circle cx="60" cy="60" r="52" class="dfill${r.pausedAt ? " paused" : ""}" id="silRing" style="stroke:var(--green)"
-          stroke-dasharray="${DIAL_C}" stroke-dashoffset="${(DIAL_C * (1 - f)).toFixed(2)}"></circle></svg>`;
-      clock = warmLeft > 0 ? mmssMs(warmLeft) : mmssMs(Math.max(0, len - el));
-      sub = r.pausedAt ? "Paused" : warmLeft > 0 ? "Settle in" : "Sitting";
-    } else {
-      ring = dialRing(stdPct("silence", total || null, std));
-      clock = `${c.dur}:00`;
-      sub = "";
-    }
-    const sel = (id, map, val, label) => `<label class="msrow"><span>${label}</span>
-        <select id="${id}" aria-label="${label}">${Object.entries(map).map(([v, t]) =>
-          `<option value="${v}"${String(v) === String(val) ? " selected" : ""}>${t}</option>`).join("")}</select></label>`;
+    const std = stdOf(m, "silence");
+    const row = (id, icon, label, value) => `<button type="button" class="silrow" id="${id}">
+        <span class="silri">${icon}</span><span class="silrl">${label}</span><span class="silrv">${value}</span><i aria-hidden="true">&rsaquo;</i></button>`;
+    const sub = state.silSub === "chimes";
+    const pickRow = (k, label, value) => `<button type="button" class="silrow" data-silpick="${k}">
+        <span class="silrl">${label}</span><span class="silrv">${value}</span><i aria-hidden="true">&rsaquo;</i></button>`;
+    const setup = sub ? `
+      <button type="button" class="backlink silback" id="silChimesBack">&larr; ${esc(cur.name)}</button>
+      <h2 class="silh">Chimes</h2>
+      <div class="sillist">
+        ${pickRow("start", "Starting bell", BELLS[c.start].toLowerCase())}
+        ${pickRow("end", "Ending bell", BELLS[c.end].toLowerCase())}
+      </div>
+      <div class="sillist">
+        ${pickRow("int", "Interval bell", BELLS[c.int].toLowerCase())}
+        ${pickRow("every", "Interval time", EVERY[c.every].toLowerCase())}
+      </div>
+      <p class="hint" style="margin-top:10px">Tap a bell to hear it.</p>` : `
+      <div class="siltypes" role="tablist" aria-label="Kind of sitting">
+        ${types.map((t) => `<button type="button" class="siltype${t.id === cur.id ? " on" : ""}" data-siltype="${esc(t.id)}" role="tab" aria-selected="${t.id === cur.id}">${esc(t.name)}</button>`).join("")}
+        ${types.length < 6 ? `<button type="button" class="siltype silnew" id="silNew" aria-label="Add a kind of sitting, like Prayer">+</button>` : ""}
+      </div>
+      ${state.silNew ? `<form class="silnewf" id="silNewF"><input class="field" id="silNewIn" maxlength="24" autocomplete="off" enterkeyhint="done" placeholder="Name it, e.g. Prayer" aria-label="Name of the new kind of sitting">
+          <button type="submit" class="btn">Add</button><button type="button" class="linkbtn" id="silNewX">Cancel</button></form>` : ""}
+      ${cur.id === "silence" ? "" : `<p class="silp">${esc(cur.name)}: your own kind of sitting. Its minutes count toward Silence.
+        <button type="button" class="linkbtn" id="silDelType">Remove</button></p>`}
+      <div class="sillist">
+        ${row("silDur", I_HOUR, "Duration", durWords(c.dur))}
+        ${row("silChimes", I_WAVE, "Chimes", BELLS[c.start].toLowerCase())}
+        ${row("silWarmRow", I_WARM, "Warm-up", WARM[c.warm].toLowerCase())}
+      </div>
+      ${isToday ? `<button type="button" class="btn mbegin" id="silBegin">Begin</button>` : ""}`;
     return `
-      <section class="card msil">
-        ${r ? "" : medNav("day")}
-        <div class="dial mdial">${ring}
-          <div class="dcore">
-            ${r ? "" : `<span class="dtimer"><button type="button" class="dpm" id="silMinus" aria-label="5 minutes less">&minus;</button>`}<b class="dval" id="silClock">${clock}</b>${r ? "" : `<button type="button" class="dpm" id="silPlus" aria-label="5 minutes more">+</button></span>`}
-            <span class="dsub" id="silSub">${sub}</span>
-            ${r ? "" : `<button type="button" class="dof" data-edit="goal" data-metric="silence">${total ? `${hm(total)} of ${hm(std)} today` : `standard ${hm(std)} a day`}</button>`}
-          </div>
-        </div>
-        ${r ? `<div class="mbtnrow">
-            <button type="button" class="btn" id="silPause">${r.pausedAt ? "Continue" : "Pause"}</button>
-            <button type="button" class="btn-quiet" id="silEnd">End</button></div>`
-          : isToday ? `<button type="button" class="btn mbegin" id="silBegin">Begin</button>` : ""}
-        ${r ? "" : `<div class="msets">
-          ${sel("silStart", BELLS, c.start, "Starting bell")}
-          ${sel("silEndBell", BELLS, c.end, "Ending bell")}
-          ${sel("silInt", BELLS, c.int, "Interval bell")}
-          ${sel("silEvery", EVERY, c.every, "Interval time")}
-          ${sel("silWarm", WARM, c.warm, "Warm-up")}
-          <button type="button" class="linkbtn" id="silTry">Hear the bells</button>
-        </div>`}
-      </section>
-      ${r ? "" : `
-      <section class="card mpray">
-        <div class="mprow">
-          <div><b>Prayers</b><button type="button" class="dof" data-edit="goal" data-metric="prayers">of ${Math.round(pstd)}</button></div>
-          <span class="mpctl">
-            <button type="button" class="dpm" data-pray="-1" aria-label="One less prayer" ${pr ? "" : "disabled"}>&minus;</button>
-            <b class="${pr >= pstd ? "win" : ""}">${pr}</b>
-            <button type="button" class="dpm" data-pray="1" aria-label="One more prayer">+</button>
-          </span>
-        </div>
-      </section>
+      <section class="card msil">${setup}</section>
       <section class="card msess">
-        <p class="eyebrow">${isToday ? "Today's sittings" : "Sittings"}</p>
+        ${medNav("day")}
+        <p class="silsum"><b class="${total >= std ? "win" : ""}">${hm(total)}</b> <button type="button" class="dof" data-edit="goal" data-metric="silence">of ${hm(std)}</button></p>
         ${sessions.length ? `<ul class="wlines">${sessions.map((x) => `
-          <li><span>Silence${x.at ? `<small>${new Date(x.at).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}</small>` : ""}</span>
+          <li><span>${esc(x.label || "Silence")}${x.at ? `<small>${new Date(x.at).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}</small>` : ""}</span>
             <b>${hm(x.min)}</b>
             <button type="button" data-msdel="${esc(x.id)}" aria-label="Delete this sitting">&times;</button></li>`).join("")}</ul>`
-          : `<p class="hint">None ${isToday ? "yet today" : "that day"}.</p>`}
+          : `<p class="hint">No sittings ${isToday ? "yet today" : "that day"}.</p>`}
         ${state.medAdd ? `<div class="wadd">
             <span class="wamin"><input class="field" id="msMin" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="20" aria-label="Minutes"><em>min</em></span>
             <button type="button" class="btn" id="msSave">Add</button>
             <button type="button" class="linkbtn" id="msCancel">Cancel</button></div>`
           : `<button type="button" class="linkbtn wplus" id="msOpen">+ Add minutes you sat</button>`}
-      </section>`}`;
+      </section>
+      ${silSheet(c)}`;
   }
 
-  async function logSitting(min, date, id) {
-    const x = { id: id || uuid(), min: Math.max(1, Math.round(min)), date: date || null };
+  // The pickers: a list for each bell (tap one to hear it), and a wheel
+  // of hours and minutes for the length.
+  function silSheet(c) {
+    const k = state.silPick;
+    if (!k) return "";
+    if (k === "dur") {
+      const col = (id, n, unit, val) => `<div class="wheel" id="${id}" tabindex="0" aria-label="${unit}" data-val="${val}">
+          <div class="wpad"></div>${Array.from({ length: n }, (_, i) => `<div class="witem" data-i="${i}">${i}</div>`).join("")}<div class="wpad"></div></div>`;
+      return `<div class="sheetbg" id="silBg"></div>
+        <div class="stdsheet silsheet" role="dialog" aria-label="Duration">
+          <div class="wheels"><div class="wsel" aria-hidden="true"></div>
+            ${col("wH", 5, "Hours", Math.floor(c.dur / 60))}<span class="wlab">hours</span>
+            ${col("wM", 60, "Minutes", c.dur % 60)}<span class="wlab">min</span></div>
+          <button type="button" class="btn" id="silPickDone" style="width:100%;margin-top:12px">Done</button>
+        </div>`;
+    }
+    const map = k === "every" ? EVERY : k === "warm" ? WARM : BELLS;
+    const cur = String(c[k]);
+    return `<div class="sheetbg" id="silBg"></div>
+      <div class="silact" role="dialog" aria-label="${{ start: "Starting bell", end: "Ending bell", int: "Interval bell", every: "Interval time", warm: "Warm-up" }[k]}">
+        <div class="silopts">${Object.entries(map).map(([v, t]) => `<button type="button" class="silopt${String(v) === cur ? " on" : ""}" data-silopt="${v}" aria-pressed="${String(v) === cur}">${t}</button>`).join("")}</div>
+        <button type="button" class="silopt silcancel" id="silPickDone">${map === BELLS ? "Done" : "Cancel"}</button>
+      </div>`;
+  }
+
+  async function logSitting(min, date, id, label) {
+    const x = { id: id || uuid(), min: Math.max(1, Math.round(min)), date: date || null, label: label || null };
     const res = await call("app_med_session", { p_code: state.code, p_person: state.meId,
-      p_date: x.date, p_id: x.id, p_min: x.min, p_delete: false });
+      p_date: x.date, p_id: x.id, p_min: x.min, p_delete: false, p_label: x.label });
     if (res.error && res.offline) {
       let q = [];
       try { q = JSON.parse(localStorage.getItem(silPendKey()) || "[]"); } catch {}
@@ -10071,7 +10201,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const left = [];
     for (const x of q) {
       const res = await call("app_med_session", { p_code: state.code, p_person: state.meId,
-        p_date: x.date, p_id: x.id, p_min: x.min, p_delete: false });
+        p_date: x.date, p_id: x.id, p_min: x.min, p_delete: false, p_label: x.label || null });
       if (res.error && res.offline) left.push(x);
     }
     try { localStorage.setItem(silPendKey(), JSON.stringify(left)); } catch {}
@@ -10082,9 +10212,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const r = silRun();
     if (!r || r.pausedAt || silElapsed(r) < r.dur * 60000) return false;
     silSetRun(null);
-    if (state.view === "med" && state.seg === "silence" && document.visibilityState === "visible") bell(r.end);
+    if (state.view === "med" && state.seg === "silence" && document.visibilityState === "visible") rbell(r, r.end);
     silLock(false);
-    const res = await logSitting(r.dur, r.date, r.id);
+    const res = await logSitting(r.dur, r.date, r.id, r.label);
     state.medMsg = res.error && !res.offline ? res.error : null;
     if (state.view === "med") { await loadMed(); }
     await refresh();
@@ -10099,17 +10229,19 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       const len = r.dur * 60000, el = silElapsed(r);
       const warmLeft = r.warm * 1000 - (Date.now() - r.startedAt - (r.pausedMs || 0));
       // The starting bell rings when the warm-up ends.
-      if (!r.rang0 && warmLeft <= 0) { r.rang0 = true; silSetRun(r); bell(r.start); }
+      if (!r.rang0 && warmLeft <= 0) { r.rang0 = true; silSetRun(r); rbell(r, r.start); }
       // Interval bells, never on the first or last moment.
       const every = r.every === "half" ? len / 2 : Number(r.every) * 60000;
       if (every > 0 && warmLeft <= 0) {
         const idx = Math.floor(el / every);
-        if (idx > (r.iv || 0) && el < len - 1500) { r.iv = idx; silSetRun(r); bell(r.int); }
+        if (idx > (r.iv || 0) && el < len - 1500) { r.iv = idx; silSetRun(r); rbell(r, r.int); }
       }
       const clk = document.getElementById("silClock"), ring = document.getElementById("silRing"), sub = document.getElementById("silSub");
       if (clk) clk.textContent = warmLeft > 0 ? mmssMs(warmLeft) : mmssMs(Math.max(0, len - el));
-      if (sub) sub.textContent = warmLeft > 0 ? "Settle in" : "Sitting";
-      if (ring) ring.setAttribute("stroke-dashoffset", (DIAL_C * Math.max(0, Math.min(1, el / len))).toFixed(2));
+      if (sub) sub.textContent = warmLeft > 0 ? "Settle in" : "";
+      const fr = Math.max(0, Math.min(1, el / len));
+      if (ring) ring.setAttribute("stroke-dashoffset", (DIAL_C * fr).toFixed(2));
+      document.getElementById("silDot")?.setAttribute("transform", `rotate(${(360 * fr).toFixed(1)} 60 60)`);
       if (el >= len) { clearInterval(silTick); silTick = null; if (await checkSil()) render(); }
     }, 250);
   }
@@ -10208,35 +10340,120 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     }
 
     // Reflection: saved as you type.
+    const jour = () => {
+      const j = day.journal = Object.assign({ g: [], l: [], c: [] }, day.journal || {});
+      for (const k of ["g", "l", "c"]) j[k] = (Array.isArray(j[k]) ? j[k] : []).slice();
+      return j;
+    };
+    const sendJ = (j, delay) => medSave({ journal: { g: j.g.map((x) => x || ""), l: j.l.map((x) => x || ""), c: j.c.map((x) => x || "") } }, delay);
+    const countLine = () => {
+      const R = state.med.rows, j = day.journal || {};
+      let f = 0, t = 0;
+      for (const k of ["g", "l", "c"]) for (let i = 0; i < (R[k] || 0); i++) { t++; if (String(((j[k] || [])[i]) || "").trim()) f++; }
+      const el = document.querySelector(".mjcount");
+      if (el) { el.textContent = f >= t ? "Done for today" : `${f} of ${t} written`; el.className = "mjcount" + (f >= t ? " ok" : ""); }
+    };
     document.querySelectorAll("[data-mj]").forEach((el) => el.addEventListener("input", () => {
       const [kind, i] = el.dataset.mj.split(":");
-      const j = day.journal = Object.assign({ g: [], l: [] }, day.journal || {});
-      j[kind] = (Array.isArray(j[kind]) ? j[kind] : []).slice();
+      const j = jour();
       j[kind][+i] = el.value.slice(0, 500);
       for (let x = 0; x < j[kind].length; x++) if (j[kind][x] === undefined) j[kind][x] = "";
       state.medSaved = "Saving…";
       const s = document.getElementById("mSaved"); if (s) { s.textContent = state.medSaved; s.className = "msaved"; }
-      medSave({ journal: { g: j.g.map((x) => x || ""), l: j.l.map((x) => x || "") } }, 900);
+      countLine();
+      sendJ(j, 900);
+    }));
+    // Add or remove a line. The count is yours for every day from now on;
+    // a removed line takes its words with it.
+    const setRows = async (R) => {
+      state.med.rows = R; render();
+      const res = await call("app_set_refl_rows", { p_code: state.code, p_person: state.meId, p_rows: R });
+      if (res.error) { state.medMsg = res.offline ? "No signal. Not saved yet." : res.error; render(); return; }
+      await refresh();
+    };
+    document.querySelectorAll("[data-mjadd]").forEach((el) => el.addEventListener("click", () => {
+      const k = el.dataset.mjadd, R = Object.assign({}, state.med.rows);
+      if ((R[k] || 0) >= 5) return;
+      R[k] = (R[k] || 0) + 1;
+      setRows(R).then(() => {});
+      document.getElementById(`mj-${k}${R[k] - 1}`)?.focus();
+    }));
+    document.querySelectorAll("[data-mjx]").forEach((el) => el.addEventListener("click", () => {
+      const [k, i] = el.dataset.mjx.split(":"), R = Object.assign({}, state.med.rows);
+      if (R.g + R.l + R.c <= 1) return;
+      const j = jour();
+      if (+i < j[k].length) { j[k].splice(+i, 1); sendJ(j, 0); }
+      R[k] = Math.max(0, (R[k] || 0) - 1);
+      setRows(R);
     }));
 
     // Silence.
     const c = silCfg();
     const setCfg = (patch) => { silSaveCfg(Object.assign(c, patch)); render(); };
-    on("silMinus", "click", () => setCfg({ dur: Math.max(5, c.dur - 5) }));
-    on("silPlus", "click", () => setCfg({ dur: Math.min(180, c.dur + 5) }));
-    on("silStart", "change", (e) => { setCfg({ start: e.target.value }); bell(e.target.value); });
-    on("silEndBell", "change", (e) => { setCfg({ end: e.target.value }); bell(e.target.value); });
-    on("silInt", "change", (e) => { setCfg({ int: e.target.value }); bell(e.target.value); });
-    on("silEvery", "change", (e) => setCfg({ every: e.target.value === "half" ? "half" : Number(e.target.value) }));
-    on("silWarm", "change", (e) => setCfg({ warm: Number(e.target.value) }));
-    on("silTry", "click", () => { bell(c.start); setTimeout(() => bell(c.int), 1400); setTimeout(() => bell(c.end), 3600); });
+    document.querySelectorAll("[data-siltype]").forEach((el) => el.addEventListener("click", () => {
+      const x = silStore(); x.cur = el.dataset.siltype; silPut(x); state.silNew = false; render(); }));
+    on("silNew", "click", () => { state.silNew = true; render(); document.getElementById("silNewIn")?.focus(); });
+    on("silNewX", "click", () => { state.silNew = false; render(); });
+    on("silNewF", "submit", (e) => {
+      e.preventDefault();
+      const name = (document.getElementById("silNewIn")?.value || "").trim().slice(0, 24);
+      if (!name) return;
+      const x = silStore();
+      const hit = silTypes().find((t) => t.name.toLowerCase() === name.toLowerCase());
+      if (hit) x.cur = hit.id;
+      else if (x.types.length < 5) { const id = "t" + uuid().slice(0, 8); x.types.push({ id, name }); x.cur = id; }
+      silPut(x); state.silNew = false; render();
+    });
+    on("silDelType", "click", () => {
+      const x = silStore(), id = x.cur, t = x.types.find((y) => y.id === id); if (!t) return;
+      openModal({ title: `Remove ${t.name}?`, body: "Sittings already logged stay logged.",
+        buttons: [{ label: "Remove", kind: "bad", run: () => { const y = silStore();
+            y.types = y.types.filter((z) => z.id !== id); delete y.cfgs[id]; y.cur = "silence"; silPut(y); render(); } },
+          { label: "Keep", kind: "quiet" }] });
+    });
+    on("silChimes", "click", () => { state.silSub = "chimes"; render(); });
+    on("silChimesBack", "click", () => { state.silSub = null; render(); });
+    on("silDur", "click", () => { state.silPick = "dur"; render(); wheelsInit(); });
+    on("silWarmRow", "click", () => { state.silPick = "warm"; render(); });
+    document.querySelectorAll("[data-silpick]").forEach((el) => el.addEventListener("click", () => { state.silPick = el.dataset.silpick; render(); }));
+    const pickClose = () => { state.silPick = null; render(); };
+    on("silBg", "click", () => { if (state.silPick === "dur") wheelsSave(); pickClose(); });
+    on("silPickDone", "click", () => { if (state.silPick === "dur") wheelsSave(); pickClose(); });
+    document.querySelectorAll("[data-silopt]").forEach((el) => el.addEventListener("click", () => {
+      const k = state.silPick, v = el.dataset.silopt;
+      if (k === "every") { setCfg({ every: v === "half" ? "half" : Number(v) }); pickClose(); return; }
+      if (k === "warm") { setCfg({ warm: Number(v) }); pickClose(); return; }
+      bell(v); setCfg({ [k]: v });   // a bell: hear it, keep the list open
+    }));
+    // The wheels: native scrolling that snaps; the middle row is the pick.
+    const WH = 40;
+    function wheelsInit() {
+      for (const id of ["wH", "wM"]) { const w = document.getElementById(id); if (w) w.scrollTop = Number(w.dataset.val) * WH; }
+      wheelsMark();
+      for (const id of ["wH", "wM"]) document.getElementById(id)?.addEventListener("scroll", wheelsMark, { passive: true });
+    }
+    function wheelsMark() {
+      for (const id of ["wH", "wM"]) { const w = document.getElementById(id); if (!w) continue;
+        const i = Math.round(w.scrollTop / WH);
+        w.querySelectorAll(".witem").forEach((x) => x.classList.toggle("on", Number(x.dataset.i) === i)); }
+    }
+    function wheelsSave() {
+      const h = Math.round((document.getElementById("wH")?.scrollTop || 0) / WH);
+      const mm = Math.round((document.getElementById("wM")?.scrollTop || 0) / WH);
+      const dur = Math.max(1, Math.min(4 * 60 + 59, h * 60 + mm));
+      silSaveCfg(Object.assign(c, { dur }));
+    }
+    if (state.silPick === "dur") wheelsInit();
     on("silBegin", "click", () => {
       try { silCtx = silCtx || new (window.AudioContext || window.webkitAudioContext)(); silCtx.resume && silCtx.resume(); } catch {}
+      const t = silCur();
       const r = { id: uuid(), startedAt: Date.now(), dur: c.dur, warm: Number(c.warm) || 0, pausedMs: 0, pausedAt: null,
-                  start: c.start, end: c.end, int: c.int, every: c.every, iv: 0, rang0: false, date: null };
+                  start: c.start, end: c.end, int: c.int, every: c.every, iv: 0, rang0: false, date: null,
+                  label: t.id === "silence" ? null : t.name, muted: false };
       if (!r.warm) { r.rang0 = true; bell(r.start); }
       silSetRun(r); silLock(true); render(); silStartTick();
     });
+    on("silMute", "click", () => { const r = silRun(); if (!r) return; r.muted = !r.muted; silSetRun(r); render(); silStartTick(); });
     on("silPause", "click", () => {
       const r = silRun(); if (!r) return;
       if (r.pausedAt) { r.pausedMs = (r.pausedMs || 0) + (Date.now() - r.pausedAt); r.pausedAt = null; }
@@ -10249,24 +10466,21 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       const stop = () => { silSetRun(null); clearInterval(silTick); silTick = null; silLock(false); };
       openModal({ title: "End this sitting?", body: mins >= 1 ? `You sat for ${hm(mins)}.` : "Less than a minute so far.",
         buttons: [
-          ...(mins >= 1 ? [{ label: `Log ${hm(mins)}`, kind: "go", run: async () => { stop(); bell(r.end);
-            await logSitting(mins, r.date, r.id); await loadMed(); await refresh(); render(); } }] : []),
+          ...(mins >= 1 ? [{ label: `Log ${hm(mins)}`, kind: "go", run: async () => { stop(); rbell(r, r.end);
+            await logSitting(mins, r.date, r.id, r.label); await loadMed(); await refresh(); render(); } }] : []),
           { label: "Discard", kind: "bad", run: () => { stop(); render(); } },
           { label: "Keep sitting", kind: "quiet" },
         ] });
     });
     if (silRun()) silStartTick();
-    document.querySelectorAll("[data-pray]").forEach((el) => el.addEventListener("click", () => {
-      day.prayers = Math.max(0, Math.min(50, Number(day.prayers || 0) + Number(el.dataset.pray)));
-      render(); medSave({ prayers: day.prayers }, 600);
-    }));
     on("msOpen", "click", () => { state.medAdd = true; render(); document.getElementById("msMin")?.focus(); });
     on("msCancel", "click", () => { state.medAdd = null; render(); });
     const addMin = async () => {
       const v = Number(String(document.getElementById("msMin")?.value || "").replace(/[^0-9]/g, ""));
       if (!v || v > 600) { document.getElementById("msMin")?.focus(); return; }
       state.medAdd = null; render();
-      await logSitting(v, state.med.date, null); await loadMed(); await refresh(); render();
+      const t = silCur();
+      await logSitting(v, state.med.date, null, t.id === "silence" ? null : t.name); await loadMed(); await refresh(); render();
     };
     on("msSave", "click", addMin);
     on("msMin", "keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); addMin(); } });
@@ -10523,7 +10737,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
                    weight: `Your goal weight, in ${wName()}.`,
                    min: "Minutes each day. 45, 1:30 or 1h 30m all work.",
                    pct: k === "goals" ? "The share of the week's tactics that wins the week."
-                      : k === "attn" ? "The share of your ideal day to keep, on time and in full. Late or short counts half."
+                      : k === "attn" ? "The share of the day's points to earn: 4 a block (done, in full, on time, done well), plus Rise and Rest."
                                       : "The share of the sleep habits to do each night.",
                    time: k === "rest" ? "In bed by this time." : "Up by this time." }[S.kind];
     return `
