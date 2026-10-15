@@ -176,8 +176,7 @@ input[type=number] { -moz-appearance:textfield; }
 /* V3.6. Rest and Rise: a big time that is its own picker, and Now. */
 .tclock { display:flex; flex-direction:column; align-items:center; }
 .tpk { position:relative; display:inline-block; cursor:pointer; -webkit-tap-highlight-color:transparent; }
-.tpk .tover { position:absolute; inset:0; width:100%; height:100%; opacity:0; border:none; padding:0; margin:0;
-  font-size:16px; cursor:pointer; -webkit-appearance:none; appearance:none; background:transparent; color:transparent; }
+:where(button.tpk) { background:none; border:none; padding:0; margin:0; font:inherit; color:inherit; text-align:inherit; }
 .tbig { font-family:var(--mono); font-size:clamp(52px, 17vw, 72px); font-weight:500; letter-spacing:-.03em;
   line-height:1.05; border-bottom:2px dashed color-mix(in oklab, currentColor 30%, transparent); padding:0 4px; }
 .tpk small { font-size:.36em; margin-left:6px; letter-spacing:0; color:var(--muted); font-weight:600; }
@@ -194,7 +193,7 @@ input[type=number] { -moz-appearance:textfield; }
    scales down a phone without the text reflowing into a different
    number of lines per row. */
 /* ---------- the popup ------------------------------------------------ */
-.modal { position:fixed; inset:0; z-index:50; display:grid; place-items:center;
+.modal { position:fixed; inset:0; z-index:80; display:grid; place-items:center;
   padding:24px 18px calc(24px + env(safe-area-inset-bottom, 0px));
   background:rgba(10,14,12,.46); animation:mfade .16s ease both; }
 @keyframes mfade { from { opacity:0; } to { opacity:1; } }
@@ -1849,10 +1848,28 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 .ftbl tbody th { border-top:1px solid var(--line); }
 .ftbl tbody tr:first-child td, .ftbl tbody tr:first-child th { border-top:none; }
 .ftbl td.nil { color:var(--muted); opacity:.5; }
-/* V5.2. Your own row: first, lit, every number a door to its page. */
-.ftbl tr.me th, .ftbl tr.me td { background:color-mix(in oklab, var(--gold) 9%, var(--surface)); }
+/* V5.3. Categories in shades, darkest first; your row first and bold. */
+.b0 { --band:color-mix(in oklab, var(--ink) 2%, var(--surface)); }
+.b1 { --band:color-mix(in oklab, var(--ink) 5%, var(--surface)); }
+.b2 { --band:color-mix(in oklab, var(--ink) 8%, var(--surface)); }
+.b3 { --band:color-mix(in oklab, var(--ink) 11%, var(--surface)); }
+.b4 { --band:color-mix(in oklab, var(--ink) 14%, var(--surface)); }
+.ftbl td, .ftbl thead th:not(.fn) { background:var(--band, transparent); }
+.ftbl tr.fgrp th { font-size:8px; letter-spacing:.1em; color:var(--ink-2); padding:4px 0 3px; border-radius:6px 6px 0 0; }
 .ftbl tr.me .ftn { font-weight:700; color:var(--ink); }
-.ftbl tr.me td.nil { opacity:.75; }
+.ftbl tr.me td { color:var(--ink); font-weight:600; }
+/* Your dashboard: five rows, the category on the left, three numbers. */
+.pdash { margin:4px 0 14px; border-radius:14px; overflow:hidden; border:1px solid var(--line); }
+.prw { display:grid; grid-template-columns:clamp(70px, 22vw, 92px) minmax(0, 1fr); align-items:center; background:var(--band); }
+.prw + .prw { border-top:1px solid color-mix(in oklab, var(--line) 60%, transparent); }
+.pcat { padding-left:12px; font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); line-height:1.2; }
+.pcells { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); }
+.pcell { display:flex; flex-direction:column; align-items:flex-start; gap:1px; min-width:0; border:none; background:none;
+  padding:8px 6px; font:inherit; color:var(--ink); text-align:left; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.pcell b { font-family:var(--mono); font-weight:500; font-size:clamp(14px, 4.3vw, 17px); letter-spacing:-.03em; white-space:nowrap; }
+.pcell span { font-size:11px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
+.pcell.nil b { color:var(--line-strong); }
+.pcell:active { background:color-mix(in oklab, var(--ink) 6%, transparent); }
 .ftbl .g0 { box-shadow:inset 1px 0 0 color-mix(in oklab, var(--line) 60%, transparent); }
 .ftbl td.see button { font:inherit; color:inherit; background:none; border:none; padding:0; cursor:pointer;
   text-decoration:underline dotted; text-decoration-color:var(--line-strong); text-underline-offset:3px; }
@@ -1908,13 +1925,12 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 /* The habit sentence, now at the foot of the page. */
 .astrip.foot { margin-top:18px; }
 
-/* Rest and Rise on a laptop: the time can be typed. */
-@media (hover:hover) and (pointer:fine) {
-  .tpk.typing .tover { opacity:1; background:var(--surface-2); color:var(--ink); border-radius:10px;
-    font:600 22px/1 var(--body); text-align:center; padding:0 8px; z-index:2; color-scheme:dark;
-    box-shadow:0 0 0 2px var(--gold); }
-  .tpk:hover .tpkv { opacity:.85; }
-}
+@media (hover:hover) and (pointer:fine) { .tpk:hover .tpkv { opacity:.85; } }
+/* V5.3. The wheel sheet sits above everything. */
+#wsheet .sheetbg { z-index:84; }
+#wsheet .wsheet { z-index:85; }
+.wsheet .stdbtns { margin-top:12px; }
+.wheel:focus-visible { outline:2px solid var(--gold); outline-offset:2px; border-radius:8px; }
 
 
 /* Goals: tactics edited in place and dragged into order. */
@@ -1950,6 +1966,26 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   color:var(--muted); font-size:18px; font-weight:600; cursor:pointer; padding:0; line-height:1; }
 .mplus.on { background:var(--gold); border-color:var(--gold); color:#1b160c; }
 .mhint { margin-top:12px; }
+/* V5.3. Attention in two columns: AM | PM tiles with three switches. */
+.mcols { display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); gap:10px; }
+.mcolh { margin:0 0 6px; font-size:11px; font-weight:700; letter-spacing:.14em; color:var(--muted); }
+.mtiles { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
+.mtile { border:1px solid var(--line); border-radius:12px; padding:9px 10px 8px; background:var(--surface); min-width:0; }
+.mtile.is-done, .mtile.msleep.is-d { border-color:color-mix(in oklab, var(--green) 55%, var(--line)); background:color-mix(in oklab, var(--green) 7%, var(--surface)); }
+.mtile.over { border-color:color-mix(in oklab, var(--warn) 45%, var(--line)); }
+.mth { display:flex; align-items:baseline; gap:6px; }
+.mth b { flex:1; min-width:0; font-weight:600; font-size:14px; line-height:1.25; overflow-wrap:anywhere; }
+.mtile small { display:block; margin-top:2px; color:var(--muted); font-size:11.5px; }
+.mtile .mpts { min-width:0; font-size:11px; }
+.mtg { display:flex; gap:6px; margin-top:7px; }
+.mtog { flex:1; min-width:0; height:30px; border-radius:8px; border:1px solid var(--line-strong); background:none; color:var(--muted);
+  font:inherit; font-size:15px; font-weight:700; cursor:pointer; padding:0; display:grid; place-items:center; }
+.mtog svg { width:16px; height:16px; fill:currentColor; }
+.mtog.on { background:var(--gold); border-color:var(--gold); color:#1b160c; }
+.msleep .mtog { font-size:12px; font-weight:600; }
+.mhclk svg { width:13px; height:13px; fill:currentColor; vertical-align:-2px; }
+.metx { font-size:12px; margin-left:6px; }
+button.met { text-align:left; cursor:pointer; min-width:84px; }
 .mpts { flex:none; min-width:30px; text-align:right; font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums; }
 .msleep .mbody b { color:var(--ink-2); }
 /* V5.1.1. A block's length: tap it to say you did less. */
@@ -2068,7 +2104,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "5.2";
+  const APP_VERSION = "5.3";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -3351,33 +3387,47 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     syncTimer = setTimeout(() => syncLift(false), 2500);
   }
 
-  async function syncLift(finish) {
-    const a = A();
-    if (!a || !state.meId) return {};
-    if (finish) { a.endedAt = a.endedAt || Date.now(); a.pendingFinish = true; }
-    saveLocal();
-
-    if (!navigator.onLine) { setSync("offline"); return { offline: true }; }
-    setSync("saving");
-
-    const res = await call("app_lift_save", {
+  // V5.3. Saves go to the server one at a time, in order. An autosave in
+  // flight used to race Finish, land second, and un-finish the workout.
+  let syncChain = Promise.resolve();
+  const inOrder = (fn) => { const p = syncChain.then(fn, fn); syncChain = p.catch(() => {}); return p; };
+  // One draft, saved: the open workout, or one waiting in the outbox.
+  function saveDraft(a, finished) {
+    return call("app_lift_save", {
       p_code: state.code, p_person: state.meId, p_session: a.id,
       p_label: a.label || "", p_note: a.note || null, p_date: a.date,
       p_duration: durationMin(a), p_sets: setsPayload(a),
       // V3.4. A past workout being edited is already finished. Autosaving
       // it as unfinished hid it from History until Finish was pressed, and
       // for ever if it never was.
-      p_finished: !!(finish || a.pendingFinish || a.edit), p_mode: a.mode || state.mode,
+      p_finished: !!(finished || a.pendingFinish || a.edit), p_mode: a.mode || state.mode,
       p_tz: deviceTZ(),
       // Somebody typed this duration, or edited the session from History.
       // Either way it is a deliberate statement about that day.
       p_claim: a.durOverride !== null && a.durOverride !== undefined,
     });
+  }
+  async function syncLift(finish) {
+    const a = A();
+    if (!a || !state.meId) return {};
+    if (finish) { clearTimeout(syncTimer); a.endedAt = a.endedAt || Date.now(); a.pendingFinish = true; }
+    saveLocal();
 
+    if (!navigator.onLine) { setSync("offline"); return { offline: true }; }
+    setSync("saving");
+    const res = await inOrder(() => saveDraft(a, finish));
     if (res.error) { setSync("offline"); return res; }
     setSync("saved");
     return res;
   }
+  // V5.3. Finished workouts that could not be sent yet, and discarded ones
+  // whose server copy still has to go. Both survive a reload.
+  const outKey = () => `fhd.liftout.${state.code}.${state.meId}`;
+  const tombKey = () => `fhd.lifttomb.${state.code}.${state.meId}`;
+  const readJ = (k) => { try { const v = JSON.parse(localStorage.getItem(k) || "[]"); return Array.isArray(v) ? v : []; } catch { return []; } };
+  const writeJ = (k, v) => { try { v.length ? localStorage.setItem(k, JSON.stringify(v)) : localStorage.removeItem(k); } catch {} };
+  const outboxPush = (a) => writeJ(outKey(), readJ(outKey()).filter((x) => x.id !== a.id).concat([a]).slice(-20));
+  const isTomb = (id) => readJ(tombKey()).includes(id);
 
   function setSync(s) {
     state.lift.sync = s;
@@ -3392,19 +3442,37 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   // A finish that happened with no signal is still a finished workout. It
   // sits in localStorage until the phone is back, then goes up by itself.
   async function flushPending() {
-    loadLocal();
-    const a = A();
-    if (!a || !a.pendingFinish || !navigator.onLine || !state.meId) return;
-    const res = await syncLift(true);
-    if (!res.error && !res.offline) {
-      state.lift.active = null;
-      saveLocal();
-      state.lift.loaded = false;
+    if (!A()) loadLocal();
+    if (!navigator.onLine || !state.meId) return;
+    let sent = false;
+    // The outbox: finished workouts set aside when another one started.
+    const out = readJ(outKey()), keep = [];
+    for (const d of out) { const r = await inOrder(() => saveDraft(d, true)); if (r.error) keep.push(d); else sent = true; }
+    if (out.length) writeJ(outKey(), keep);
+    // Discarded workouts whose delete did not go through.
+    const tomb = readJ(tombKey()), tkeep = [];
+    for (const id of tomb) { const r = await inOrder(() => call("app_lift_delete", { p_code: state.code, p_person: state.meId, p_session: id }));
+      if (r.error && r.offline) tkeep.push(id); }
+    if (tomb.length) writeJ(tombKey(), tkeep);
+    // A finished draft in either slot, Train or Cardio, whichever page is open.
+    for (const mode of ["lift", "cardio"]) {
+      let d = null;
+      try { d = JSON.parse(localStorage.getItem(liftKeyFor(mode)) || "null"); } catch {}
+      if (!d || !d.pendingFinish) continue;
+      const r = await inOrder(() => saveDraft(d, true));
+      if (r.error) continue;
+      sent = true;
+      const cur = A();
+      if (cur && cur.id === d.id) state.lift.active = null;
+      try { const now = JSON.parse(localStorage.getItem(liftKeyFor(mode)) || "null");
+        if (now && now.id === d.id) localStorage.removeItem(liftKeyFor(mode)); } catch {}
     }
+    if (sent) state.lift.loaded = false;
   }
 
   async function loadLift() {
     if (!state.meId) return;
+    await flushPending();
     state.lift.exercises = cachedExercises();
     const res = await call("app_lift_home", {
       p_code: state.code, p_person: state.meId, p_limit: 20, p_mode: state.mode });
@@ -3428,6 +3496,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     const res = await call("app_lift_open", { p_code: state.code, p_person: state.meId, p_mode: mode });
     const s = res && res.session;
     if (!s || A() || state.mode !== mode) return;
+    // V5.3. A workout you discarded never comes back.
+    if (isTomb(s.id)) { dropServerCopy({ id: s.id }); return; }
     const byPos = new Map();
     for (const r of (s.sets || [])) {
       if (!byPos.has(r.position)) byPos.set(r.position, { name: r.exercise, kind: r.kind || "weight_reps", sets: [] });
@@ -3457,7 +3527,9 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   function guardActive(then, what) {
     const cur = A();
     if (!cur || cur.pendingFinish || !hasContent(cur)) {
-      if (cur && !cur.pendingFinish) dropServerCopy(cur);
+      // V5.3. Finished with no signal: set aside to send later, never lost.
+      if (cur && cur.pendingFinish) { outboxPush(cur); state.lift.active = null; saveLocal(cur.mode); }
+      else if (cur) dropServerCopy(cur);
       return then();
     }
     const name = cur.label || (cur.mode === "cardio" ? "An activity" : "A workout");
@@ -3474,9 +3546,21 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     });
   }
   // A discarded workout must not come back from the server later.
+  // V5.3. The delete waits its turn behind any save in flight, is retried
+  // until it lands, and a starter tile made only for this workout goes too.
   function dropServerCopy(a) {
     if (!a || !a.id || a.pendingFinish || a.edit) return;
-    call("app_lift_delete", { p_code: state.code, p_person: state.meId, p_session: a.id });
+    clearTimeout(syncTimer);
+    writeJ(tombKey(), readJ(tombKey()).filter((x) => x !== a.id).concat([a.id]).slice(-50));
+    inOrder(() => call("app_lift_delete", { p_code: state.code, p_person: state.meId, p_session: a.id })).then(async (r) => {
+      if (r && r.error && r.offline) return;
+      writeJ(tombKey(), readJ(tombKey()).filter((x) => x !== a.id));
+      if (a.starter && a.label) {
+        await call("app_template_save", { p_code: state.code, p_person: state.meId,
+          p_label: a.label, p_mode: a.mode || state.mode, p_items: [] });
+        state.lift.loaded = false;
+      }
+    });
   }
 
   function startSession(label, iso) {
@@ -3719,6 +3803,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
     if (res.error) { state.lift.msg = res.error; render(); return; }
     await loadLift();
     await startSession(t.label);
+    const a = A(); if (a && a.label === t.label) { a.starter = true; saveLocal(); }
   }
 
   /* V4.6. Daily exercise targets, for the things you do every day rather
@@ -4488,7 +4573,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         state.mode = d.mode === "cardio" ? "cardio" : "lift";
         state.seg  = state.mode === "cardio" ? "cardio" : "train";
         state.lift.active = {
-          id: d.id, label: d.label || "", date: d.entry_date,
+          id: d.id, label: d.label || "", date: d.entry_date, note: d.note || "",
+          // V5.3. Editing keeps the workout's name as it is: no "Name this
+          // day" box that could make a new tile.
+          fromTile: !!d.label,
           startedAt: Date.now(), endedAt: Date.now(), pendingFinish: false, edit: true,
           mode: state.mode, durOverride: Number(d.duration_min) || 0,
           ex: [...byPos.entries()].sort((x, y) => x[0] - y[0]).map(([, v]) => v),
@@ -5073,26 +5161,40 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       }
       return String(x);
     };
+    // V5.3. The tribe's table: a row of category names over each three
+    // columns, each category a shade lighter than the one before. Read
+    // only: nobody taps into anyone else's habits from here.
     const famTable = (list) => {
       const ks = STD_GROUPS.flatMap(([, g]) => g);
+      const band = (i) => ` b${Math.floor(i / 3)}`;
       return `<div class="ftab"><table class="ftbl">
-        <thead><tr><th class="fn"><span class="sr">Name</span></th>${ks.map((k, i) =>
-          `<th class="${i % 3 === 0 ? "g0" : ""}" title="${STD[k].label}">${FAB[k]}</th>`).join("")}</tr></thead>
+        <thead><tr class="fgrp"><th class="fn"></th>${STD_GROUPS.map(([g], i) => `<th colspan="3" class="b${i}">${esc(g)}</th>`).join("")}</tr>
+          <tr><th class="fn"><span class="sr">Name</span></th>${ks.map((k, i) =>
+          `<th class="${i % 3 === 0 ? "g0" : ""}${band(i)}" title="${STD[k].label}">${FAB[k]}</th>`).join("")}</tr></thead>
         <tbody>${list.map((p) => {
           const c = famCells(p), mine = p.id === state.meId;
           return `<tr${mine ? ` class="me"` : ""}><th class="fn" scope="row" style="--hc:hsl(${p.hue} 58% 42%)">
               <button type="button" class="ftn" data-edit="name" data-person="${p.id}"><i aria-hidden="true"></i>${esc(p.name)}</button></th>
             ${ks.map((k, i) => {
               const v = c[k], nil = v === null || v === undefined, g = i % 3 === 0 ? " g0" : "";
-              // V5.2. Your own row opens your pages.
-              if (mine) return `<td class="see${nil ? " nil" : ""}${g}"><button type="button" data-go="${k}"
-                     aria-label="${esc(STD[k].label)}${nil ? ", not logged" : ": " + stdWords(k, v)}. Open">${tiny(k, v)}</button></td>`;
-              return !nil && (k === "train" || k === "cardio")
-                ? `<td class="see${g}"><button type="button" data-see="${p.id}" data-m="${k === "train" ? "lift" : "cardio"}"
-                     aria-label="See ${esc(p.name)}'s ${k === "train" ? "workout" : "cardio"}">${tiny(k, v)}</button></td>`
-                : `<td class="${nil ? "nil" : ""}${g}">${tiny(k, v)}</td>`;
+              return `<td class="${nil ? "nil" : ""}${g}${band(i)}">${tiny(k, v)}</td>`;
             }).join("")}</tr>`;
         }).join("")}</tbody></table></div>`;
+    };
+    // V5.3. Your own dashboard, above the tribe: five quiet rows, three
+    // numbers each, every one a door to its page. Same shades as the table.
+    const meDash = (p) => {
+      const c = famCells(p);
+      const cell = (k) => {
+        const v = c[k], nil = v === null || v === undefined;
+        return `<button type="button" class="pcell${nil ? " nil" : ""}" data-go="${k}"
+          aria-label="${esc(STD[k].label)}${nil ? ", not logged" : ": " + stdWords(k, v)}. Open">
+          <b>${nil ? "–" : v === true ? "✓" : stdWords(k, v)}</b><span>${esc(STD[k].short || STD[k].label)}</span></button>`;
+      };
+      return `<div class="pdash" aria-label="Your habits">
+        ${STD_GROUPS.map(([g, ks], i) => `<div class="prw b${i}"><span class="pcat">${esc(g)}</span>
+            <div class="pcells">${ks.map(cell).join("")}</div></div>`).join("")}
+      </div>`;
     };
     const roster = state.people.length === 0
       ? `<div class="dashed"><p class="note">Nobody has been added yet.
@@ -5100,7 +5202,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       // V5.2. You are a row in the tribe's table, the first one, like
       // everyone else: one way to read every number, yours included.
       : ordered.some((p) => p.id === state.meId)
-      ? `<div class="roster">${famTable([ordered.find((p) => p.id === state.meId)].concat(ordered.filter((p) => p.id !== state.meId)))}</div>`
+      ? `<div class="roster">${meDash(ordered.find((p) => p.id === state.meId))}${famTable([ordered.find((p) => p.id === state.meId)].concat(ordered.filter((p) => p.id !== state.meId)))}</div>`
       : `<div class="roster">${ordered.map((p) => {
           const c = famCells(p);
           const initials = p.name.trim().split(/\s+/).slice(0,2)
@@ -5109,11 +5211,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
           const cell = (k) => {
             const v = c[k], nil = v === null;
             const label = STD[k].short || STD[k].label;
-            const see = !nil && (k === "train" || k === "cardio");
-            return see
-              ? `<button type="button" class="fcell" data-see="${p.id}" data-m="${k === "train" ? "lift" : "cardio"}"
-                   aria-label="See ${esc(p.name)}'s ${k === "train" ? "workout" : "cardio"}"><b>${stdWords(k, v)}</b><span>${label}</span></button>`
-              : `<div class="fcell${nil ? " nil" : ""}"${v === true ? ` aria-label="${label}: on target"` : ""}><b>${nil ? "–" : v === true ? "\u2713" : stdWords(k, v)}</b><span>${label}</span></div>`;
+            return `<div class="fcell${nil ? " nil" : ""}"${v === true ? ` aria-label="${label}: on target"` : ""}><b>${nil ? "–" : v === true ? "\u2713" : stdWords(k, v)}</b><span>${label}</span></div>`;
           };
           return `<div class="fcard${isMe ? " me" : ""}" style="--hc:hsl(${p.hue} 58% 42%)">
             <div class="fhead">
@@ -5821,36 +5919,20 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   // wheel to rest; the last value wins.
   function wireTimePicks(dayFor, after) {
     document.querySelectorAll("[data-tpick]").forEach((f) => {
+      if (f.dataset.w) return; f.dataset.w = "1";
       const k = f.dataset.tpick, met = M[k];
-      // V5.1. A laptop has no time wheel: Safari shows none and Chrome's
-      // needs its own icon. With a mouse, the field shows itself and the
-      // time is typed (or stepped with the arrow keys); Enter saves.
-      const fine = window.matchMedia && window.matchMedia("(hover:hover) and (pointer:fine)").matches;
       f.addEventListener("click", () => {
-        if (fine) { f.closest(".tpk")?.classList.add("typing"); return; }
-        try { f.showPicker && f.showPicker(); } catch {}
-      });
-      f.addEventListener("focus", () => { if (fine) f.closest(".tpk")?.classList.add("typing"); });
-      f.addEventListener("blur", () => f.closest(".tpk")?.classList.remove("typing"));
-      f.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === "Escape") { e.preventDefault(); f.blur(); } });
-      let timer = null, gen = 0;
-      const save = () => {
-        const mm = /^(\d{1,2}):(\d{2})/.exec(f.value || "");
-        if (!mm) return;
-        let v = Number(mm[1]) * 60 + Number(mm[2]);
-        // The 5am rule: a bedtime after midnight belongs to the evening.
-        if (k === "rest" && v < 5 * 60) v += 1440;
-        const box = f.closest(".tpk"), shown = box && box.querySelector(".tpkv");
-        if (shown) shown.innerHTML = tParts(v);
-        if (box) box.classList.remove("unset");
-        const iso = dayFor(k);
-        state.tLocal = { k, iso, v };
-        const mine = ++gen;
-        clearTimeout(timer);
-        timer = setTimeout(async () => {
+        const cur = Number(f.dataset.v) % 1440;
+        timeWheel(met.label, cur, async (v) => {
+          // The 5am rule: a bedtime after midnight belongs to the evening.
+          if (k === "rest" && v < 5 * 60) v += 1440;
+          const shown = f.querySelector(".tpkv");
+          if (shown) shown.innerHTML = tParts(v);
+          f.classList.remove("unset"); f.dataset.v = v;
+          const iso = dayFor(k);
+          state.tLocal = { k, iso, v };
           const res = await call("app_log", { p_code: state.code, p_person: state.meId,
             p_value: v, p_metric: met.key, p_date: iso, p_tz: deviceTZ() });
-          if (mine !== gen) return;
           state.tLocal = null;
           if (res.error) { state.msg = res.offline ? "No signal. Not saved yet." : res.error; state.msgKind = "bad"; }
           else {
@@ -5859,11 +5941,58 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             if (state.view === "board") dialSay(k, `${met.label} ${clockWords(v)} saved.`);
           }
           await after();
-        }, 700);
-      };
-      f.addEventListener("change", save);
-      f.addEventListener("input", save);
+        });
+      });
     });
+  }
+
+  // V5.3. A sheet of scroll wheels. Each column scrolls natively and snaps
+  // (finger, mouse wheel or trackpad); arrow keys and a click on an item
+  // move it too. Lives on <body>, so a redraw of the page can't close it.
+  const WROW = 40;
+  function wheelSheet({ title, cols, onDone }) {
+    document.getElementById("wsheet")?.remove();
+    const box = document.createElement("div");
+    box.id = "wsheet";
+    box.innerHTML = `<div class="sheetbg" data-wx="1"></div>
+      <div class="stdsheet silsheet wsheet" role="dialog" aria-label="${esc(title)}">
+        <p class="eyebrow" style="text-align:center">${esc(title)}</p>
+        <div class="wheels"><div class="wsel" aria-hidden="true"></div>
+          ${cols.map((c, ci) => `<div class="wheel" data-col="${ci}" tabindex="0" role="listbox" aria-label="${esc(c.label)}" style="width:${c.w || 64}px">
+            <div class="wpad"></div>${c.items.map((t, i) => `<div class="witem" data-i="${i}" role="option">${esc(t)}</div>`).join("")}<div class="wpad"></div></div>
+            ${c.unit ? `<span class="wlab">${esc(c.unit)}</span>` : ""}`).join("")}</div>
+        <div class="stdbtns"><button type="button" class="btn-quiet" data-wx="1">Cancel</button>
+          <button type="button" class="btn" data-wdone="1">Done</button></div>
+      </div>`;
+    document.body.appendChild(box);
+    const wheels = [...box.querySelectorAll(".wheel")];
+    const idx = (w) => Math.max(0, Math.min(cols[+w.dataset.col].items.length - 1, Math.round(w.scrollTop / WROW)));
+    const mark = (w) => { const i = idx(w); w.querySelectorAll(".witem").forEach((x) => x.classList.toggle("on", +x.dataset.i === i)); };
+    wheels.forEach((w) => {
+      w.scrollTop = cols[+w.dataset.col].i * WROW; mark(w);
+      w.addEventListener("scroll", () => mark(w), { passive: true });
+      w.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowDown" || e.key === "ArrowUp") { e.preventDefault();
+          w.scrollTo({ top: (idx(w) + (e.key === "ArrowDown" ? 1 : -1)) * WROW, behavior: "smooth" }); }
+        if (e.key === "Enter") { e.preventDefault(); done(); }
+        if (e.key === "Escape") { e.preventDefault(); close(); }
+      });
+      w.addEventListener("click", (e) => { const it = e.target.closest(".witem"); if (it) w.scrollTo({ top: +it.dataset.i * WROW, behavior: "smooth" }); });
+    });
+    const close = () => box.remove();
+    const done = () => { const v = wheels.map(idx); close(); onDone(v); };
+    box.querySelectorAll("[data-wx]").forEach((x) => x.addEventListener("click", close));
+    box.querySelector("[data-wdone]").addEventListener("click", done);
+    setTimeout(() => wheels[0] && wheels[0].focus({ preventScroll: true }), 50);
+  }
+  function timeWheel(title, min, onSave) {
+    min = ((Math.round(min) % 1440) + 1440) % 1440;
+    const h24 = Math.floor(min / 60), mm = min % 60, pm = h24 >= 12, h12 = h24 % 12 || 12;
+    wheelSheet({ title, cols: [
+        { label: "Hour", items: Array.from({ length: 12 }, (_, i) => String(i + 1)), i: h12 - 1 },
+        { label: "Minute", items: Array.from({ length: 60 }, (_, i) => pad(i)), i: mm },
+        { label: "AM or PM", items: ["AM", "PM"], i: pm ? 1 : 0, w: 56 } ],
+      onDone: ([hi, mi, ai]) => { const h = (hi + 1) % 12 + (ai ? 12 : 0); onSave(h * 60 + mi); } });
   }
 
   // V3.5. The tab bar is deleted. Every page is reached from the links
@@ -6217,12 +6346,14 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
   // opens the system wheel; on a computer showPicker() opens its clock.
   const hhmmOf = (min) => { const b = ((Math.round(min) % 1440) + 1440) % 1440;
     return `${pad(Math.floor(b / 60))}:${pad(b % 60)}`; };
+  // V5.3. The time is a button that opens one wheel (hour, minute,
+  // AM/PM), the same on iPhone, Android and a laptop. Android's own time
+  // field broke logging; ours can't.
   function timePick(k, min, { id = "", cls = "", color = "", label = "", inert = false } = {}) {
-    return `<label class="tpk ${cls}" ${id ? `id="${id}"` : ""} ${color ? `style="color:${color}"` : ""}>
-        <span class="tpkv">${tParts(min)}</span>
-        ${inert ? "" : `<input type="time" class="tover" data-tpick="${k}" value="${hhmmOf(min)}"
-          aria-label="${esc(label)}">`}
-      </label>`;
+    return inert
+      ? `<span class="tpk ${cls}" ${color ? `style="color:${color}"` : ""}><span class="tpkv">${tParts(min)}</span></span>`
+      : `<button type="button" class="tpk ${cls}" ${id ? `id="${id}"` : ""} ${color ? `style="color:${color}"` : ""}
+          data-tpick="${k}" data-v="${Math.round(min)}" aria-label="${esc(label)}"><span class="tpkv">${tParts(min)}</span></button>`;
   }
   function timeCard(k, iso, isToday, m, rec, goal) {
     const met = M[k];
@@ -9887,28 +10018,31 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       </section>`;
     const S = attnScore(), std = stdOf(m, "attn"), marks = (state.med.day || {}).marks || {};
     const isToday = entryDay() === todayISO(), now = nowMin();
-    // Rise opens the day and Rest closes it. Both come from Sleep: tap to
-    // log or change them there.
-    const sleepRow = (k) => { const x = S.sl[k], lab = k === "rise" ? "Rise" : "Rest";
-      return `<li class="mblk msleep${x.ok ? " is-d" : ""}">
-          <button type="button" class="mchk" data-go="${k}" aria-label="${lab}${x.v === null ? ", not logged. Log it in Sleep" : x.ok ? ", on time" : ", late"}">${x.ok ? "✓" : ""}</button>
-          <div class="mbody"><b>${lab}</b>
-            <small>${k === "rise" ? "up" : "in bed"} by ${clockWords(x.t % 1440)}${x.v === null ? ` · <button type="button" class="mamt" data-go="${k}">log in Sleep</button>`
-              : ` · ${clockWords(x.v % 1440)}${x.ok ? "" : ` · <em>late</em>`}`}</small></div>
-          <span class="mpts" aria-label="${x.ok ? 1 : 0} of 1 point">${x.ok ? 1 : 0}/1</span>
+    // V5.3. Two columns split at noon. Each block is a compact tile with
+    // three toggles that light up: done, on time, done well. Rise opens
+    // the morning and Rest closes the evening; both come from Sleep.
+    const I_CLK = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm0 2a7 7 0 1 1 0 14 7 7 0 0 1 0-14zm-1 2v5.4l4.2 2.5 1-1.7-3.2-1.9V7z"/></svg>`;
+    const sleepTile = (k) => { const x = S.sl[k], lab = k === "rise" ? "Rise" : "Rest";
+      return `<li class="mtile msleep${x.ok ? " is-d" : ""}">
+          <div class="mth"><b>${lab}</b><span class="mpts">${x.ok ? 1 : 0}/1</span></div>
+          <small>${k === "rise" ? "up" : "in bed"} by ${clockWords(x.t % 1440)}</small>
+          <div class="mtg"><button type="button" class="mtog${x.ok ? " on" : ""}" data-go="${k}" aria-label="${lab}${x.v === null ? ", not logged. Log it in Sleep" : x.ok ? ", on time" : ", late"}">${x.v === null ? "Log" : x.ok ? "✓ " + clockWords(x.v % 1440) : clockWords(x.v % 1440)}</button></div>
         </li>`; };
-    const rows = sched.map((b) => {
+    const tile = (b) => {
       const mk = marks[b.id], over = isToday && !mk && b.t !== null && b.t !== undefined && now > b.t;
-      return `<li class="mblk${mk ? " is-" + mk.s : ""}${over ? " over" : ""}">
-          <button type="button" class="mchk" data-mchk="${esc(b.id)}" aria-pressed="${!!mk}"
-            aria-label="${esc(b.a)}${mk ? ", done. Tap to undo" : ", mark done"}">${mk ? "✓" : ""}</button>
-          <div class="mbody"><b>${esc(b.a)}</b>
-            <small>${b.t !== null && b.t !== undefined ? `by ${clockWords(b.t)}` : "any time"}${b.d ? ` · ${amtHtml(b, mk)}` : ""}${over ? ` · <em>past due</em>` : ""}</small></div>
-          ${mk ? `<button type="button" class="mst" data-mst="${esc(b.id)}" aria-label="${mk.s === "l" ? "Late. Tap for on time" : "On time. Tap for late"}">${mk.s === "l" ? "Late" : "On time"}</button>
-            <button type="button" class="mplus${mk.p ? " on" : ""}" data-mplus="${esc(b.id)}" aria-pressed="${!!mk.p}" aria-label="Done with quality">+</button>` : ""}
-          <span class="mpts" aria-label="${blockPts(mk)} of 4 points">${blockPts(mk)}/4</span>
+      const on = mk && mk.s === "d";
+      return `<li class="mtile${mk ? " is-done" : ""}${over ? " over" : ""}">
+          <div class="mth"><b>${esc(b.a)}</b><span class="mpts">${blockPts(mk)}/4</span></div>
+          <small>${b.t !== null && b.t !== undefined ? `by ${clockWords(b.t)}` : "any time"}${b.d ? ` · ${amtHtml(b, mk)}` : ""}</small>
+          <div class="mtg">
+            <button type="button" class="mtog${mk ? " on" : ""}" data-mchk="${esc(b.id)}" aria-pressed="${!!mk}" aria-label="${esc(b.a)}: ${mk ? "done. Tap to undo" : "mark done"}">✓</button>
+            <button type="button" class="mtog${on ? " on" : ""}" data-mst="${esc(b.id)}" aria-pressed="${!!on}" aria-label="${esc(b.a)}: ${on ? "on time. Tap for late" : "mark on time"}">${I_CLK}</button>
+            <button type="button" class="mtog${mk && mk.p ? " on" : ""}" data-mplus="${esc(b.id)}" aria-pressed="${!!(mk && mk.p)}" aria-label="${esc(b.a)}: done well">+</button>
+          </div>
         </li>`;
-    }).join("");
+    };
+    const am = sched.filter((b) => b.t !== null && b.t !== undefined && b.t < 720);
+    const pm = sched.filter((b) => !(b.t !== null && b.t !== undefined && b.t < 720));
     return `
       <section class="card mattn">
         ${medNav("day")}
@@ -9918,8 +10052,11 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
             <span class="dsub">${S.pts} of ${S.max} points</span></div></div>
       </section>
       <section class="card">
-        <ul class="mblks">${sleepRow("rise")}${rows}${sleepRow("rest")}</ul>
-        <p class="hint mhint">Each block is 4 points: done, in full, on time, done well (<b>+</b>). Did less? Tap its length and type what you did. Rise and Rest come from Sleep.</p>
+        <div class="mcols">
+          <div><p class="mcolh">AM</p><ul class="mtiles">${sleepTile("rise")}${am.map(tile).join("")}</ul></div>
+          <div><p class="mcolh">PM</p><ul class="mtiles">${pm.map(tile).join("")}${sleepTile("rest")}</ul></div>
+        </div>
+        <p class="hint mhint">✓ done · <span class="mhclk">${I_CLK}</span> on time · <b>+</b> done well · in full: 1 point each. Did less? Tap the length.</p>
         <button type="button" class="linkbtn" id="mEditDay">Edit my ideal day</button>
       </section>`;
   }
@@ -9930,7 +10067,8 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
         <input class="field mea" data-mea="${i}" id="mea-${i}" maxlength="80" value="${esc(b.a)}" placeholder="Activity" aria-label="Activity">
         <span class="med2">
           <label class="mel"><input class="field med" data-med="${i}" id="med-${i}" inputmode="numeric" value="${b.d || ""}" placeholder="30" aria-label="Minutes"><em>min</em></label>
-          <label class="mel">by <input class="field met" type="time" data-met="${i}" id="met-${i}" value="${b.t === null || b.t === undefined ? "" : hhmmOf(b.t)}" aria-label="Deadline"></label>
+          <span class="mel">by <button type="button" class="field met" data-met="${i}" id="met-${i}" aria-label="Deadline${b.t === null || b.t === undefined ? ", none" : " " + clockWords(b.t)}">${b.t === null || b.t === undefined ? "any time" : clockWords(b.t)}</button>
+            ${b.t === null || b.t === undefined ? "" : `<button type="button" class="linkbtn metx" data-metx="${i}" aria-label="No deadline">clear</button>`}</span>
           <button type="button" class="tx" data-mex="${i}" aria-label="Remove ${esc(b.a || "this block")}">&times;</button>
         </span>
       </li>`;
@@ -10273,8 +10411,11 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       document.querySelectorAll("[data-mea]").forEach((el) => el.addEventListener("input", () => { D.list[+el.dataset.mea].a = el.value; }));
       document.querySelectorAll("[data-med]").forEach((el) => el.addEventListener("input", () => {
         D.list[+el.dataset.med].d = Number(String(el.value).replace(/[^0-9]/g, "")) || 0; }));
-      document.querySelectorAll("[data-met]").forEach((el) => el.addEventListener("change", () => {
-        const mm = /^(\d{1,2}):(\d{2})/.exec(el.value || ""); D.list[+el.dataset.met].t = mm ? Number(mm[1]) * 60 + Number(mm[2]) : null; }));
+      // V5.3. The deadline uses the same wheel as Rest and Rise.
+      document.querySelectorAll("[data-met]").forEach((el) => el.addEventListener("click", () => {
+        const b = D.list[+el.dataset.met];
+        timeWheel("Done by", b.t ?? 9 * 60, (v) => { b.t = v; render(); }); }));
+      document.querySelectorAll("[data-metx]").forEach((el) => el.addEventListener("click", () => { D.list[+el.dataset.metx].t = null; render(); }));
       document.querySelectorAll("[data-mex]").forEach((el) => el.addEventListener("click", () => { D.list.splice(+el.dataset.mex, 1); render(); }));
       on("mAddBlk", "click", () => {
         if (D.list.length >= 24) { D.err = "Up to 24 blocks in a day."; render(); return; }
@@ -10303,12 +10444,19 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
       }
       render(); medSave({ marks: M0 }, 500);
     }));
+    // V5.3. On time and done well light up like switches; on a block not
+    // yet done, either one also marks it done.
     document.querySelectorAll("[data-mst]").forEach((el) => el.addEventListener("click", () => {
-      const M0 = marks(), x = M0[el.dataset.mst]; if (!x) return;
-      x.s = x.s === "l" ? "d" : "l"; render(); medSave({ marks: M0 }, 500); }));
+      const M0 = marks(), id = el.dataset.mst, x = M0[id];
+      if (!x) M0[id] = { s: "d", p: false }; else x.s = x.s === "l" ? "d" : "l";
+      render(); medSave({ marks: M0 }, 500); }));
     document.querySelectorAll("[data-mplus]").forEach((el) => el.addEventListener("click", () => {
-      const M0 = marks(), x = M0[el.dataset.mplus]; if (!x) return;
-      x.p = !x.p; render(); medSave({ marks: M0 }, 500); }));
+      const M0 = marks(), id = el.dataset.mplus, x = M0[id];
+      if (!x) { const b = (state.med.schedule || []).find((y) => y.id === id);
+        const late = entryDay() === todayISO() && b && b.t !== null && b.t !== undefined && nowMin() > b.t;
+        M0[id] = { s: late ? "l" : "d", p: true }; }
+      else x.p = !x.p;
+      render(); medSave({ marks: M0 }, 500); }));
     // How long you actually did a block. Empty, or the full length or
     // more: done in full. Less: short, which counts half.
     document.querySelectorAll("[data-mamt]").forEach((el) => el.addEventListener("click", () => {
