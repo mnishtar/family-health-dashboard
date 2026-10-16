@@ -158,11 +158,11 @@ input[type=number] { -moz-appearance:textfield; }
 .domino { text-align:center; padding:4px 0 2px; }
 .domino .big { font-family:var(--mono); font-size:56px; line-height:1;
   font-weight:500; letter-spacing:-.04em; color:var(--ink); display:block; }
-.domino .of { display:inline-block; margin-top:7px; font-size:12px; color:var(--muted);
+.domino .of, .ctot .of { display:inline-block; margin-top:7px; font-size:12px; color:var(--muted);
   letter-spacing:.02em; background:none; border:none; font-family:inherit;
   padding:2px 4px; cursor:pointer; text-decoration:underline dotted;
   text-underline-offset:3px; text-decoration-color:var(--line-strong); }
-.domino .of b { color:var(--series); font-weight:600; }
+.domino .of b, .ctot .of b { color:var(--series); font-weight:600; }
 
 /* The seven days shrink to a strip. Still the form, just no longer the
    loudest thing on the screen. */
@@ -856,6 +856,37 @@ button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inh
 .gpl .cnil { font-size:13.5px; }
 .gaddc { margin:0 0 4px; text-align:center; width:100%; }
 .gonehint { text-align:center; margin:-4px 0 8px; }
+/* V5.4. Goals as headers in This week; a goal opens in place. */
+.scgo { display:flex; align-items:baseline; gap:6px; width:100%; border:none; background:none; padding:0; font:inherit; color:inherit; text-align:left; cursor:pointer; }
+.scgo i { margin-left:auto; font-style:normal; color:var(--muted); font-size:12px; }
+.sclag { display:block; font-weight:400; color:var(--muted); font-size:12px; margin-top:1px; }
+.scgo .sclag { display:inline; margin:0 0 0 6px; }
+.scdet td { padding:6px 0 10px; }
+.gdet { border:1px solid var(--line); border-radius:12px; padding:10px 12px; background:var(--surface-2); text-align:left; }
+/* V5.4. The Preloaded Year. */
+.ynav { display:flex; align-items:center; justify-content:center; gap:14px; margin:4px 0 8px; }
+.ynav b { font-family:var(--mono); font-size:16px; }
+.ynb { border:none; background:none; color:var(--ink-2); font-size:22px; padding:2px 10px; cursor:pointer; }
+.yglance { display:flex; flex-direction:column; gap:3px; }
+.yrow { display:grid; grid-template-columns:30px minmax(0, 1fr); align-items:center; gap:6px; border:none; background:none; padding:2px 0; cursor:pointer; color:var(--muted); font:inherit; font-size:10.5px; text-align:left; border-radius:6px; }
+.yrow.on { background:color-mix(in oklab, var(--ink) 6%, transparent); color:var(--ink); }
+.ycells { display:grid; grid-template-columns:repeat(31, minmax(0, 1fr)); gap:1.5px; }
+.ycells b { display:block; aspect-ratio:1; border-radius:2px; background:var(--surface-2); }
+.ycells b.we { background:color-mix(in oklab, var(--ink) 9%, var(--surface)); }
+.ycells b.cy { box-shadow:inset 0 -2px 0 var(--green); }
+.ycells b.td { outline:1px solid var(--ink); outline-offset:0; }
+.ykinds { display:flex; flex-wrap:wrap; justify-content:center; gap:6px; margin:12px 0 8px; }
+.ykind { display:inline-flex; align-items:center; gap:6px; border:1px solid var(--line-strong); background:none; color:var(--ink-2); border-radius:99px; padding:5px 11px; font:inherit; font-size:12.5px; cursor:pointer; }
+.ykind i { width:9px; height:9px; border-radius:50%; }
+.ykind.on { border-color:var(--ink); color:var(--ink); background:color-mix(in oklab, var(--ink) 6%, transparent); }
+.ymonth { margin-top:6px; }
+.ymh { margin:0 0 6px; text-align:center; font-weight:600; }
+.ydow, .ygrid { display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); gap:4px; }
+.ydow span { text-align:center; font-size:10.5px; color:var(--muted); }
+.ygrid { touch-action:none; user-select:none; -webkit-user-select:none; }
+.yday { aspect-ratio:1; border:1px solid var(--line); border-radius:8px; background:var(--surface-2); color:var(--ink-2); font:inherit; font-size:13px; cursor:pointer; padding:0; }
+.yday.cy { box-shadow:inset 0 -3px 0 var(--green); }
+.yday.td { border-color:var(--ink); }
 .gguidew { display:flex; justify-content:center; margin:-6px 0 14px; }
 .gguidew .gguideb { text-align:left; }
 .gguidew { flex-direction:column; align-items:center; }
@@ -892,6 +923,23 @@ button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inh
 #diet-dd .daynav, #diet-protein .daynav { margin:-4px 0 8px; }
 
 /* V4.6. Train: daily exercise targets. */
+/* V5.4. Cardio: total, repeat, activity tiles. */
+.ctot { display:flex; flex-direction:column; align-items:center; gap:2px; padding-top:8px; }
+.ctot > b { font-family:var(--mono); font-size:56px; font-weight:500; line-height:1; letter-spacing:-.03em; }
+.crep { display:block; margin:12px auto 0; border:1px solid var(--line-strong); background:none; color:var(--ink-2); border-radius:99px;
+  padding:7px 14px; font:inherit; font-size:13.5px; cursor:pointer; }
+.ctiles { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:8px; margin-top:16px; }
+.ctile { position:relative; display:flex; flex-direction:column; align-items:flex-start; gap:2px; min-width:0; min-height:64px; padding:10px 10px 12px;
+  border:1px solid var(--line); border-radius:12px; background:var(--surface-2); color:var(--ink); font:inherit; text-align:left; cursor:pointer; overflow:hidden; }
+.ctile b { font-size:14px; font-weight:600; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.ctile span { font-family:var(--mono); font-size:12.5px; color:var(--muted); }
+.ctile.on { border-color:color-mix(in oklab, var(--swim) 55%, var(--line)); }
+.ctile.on span { color:var(--swim); }
+.ctile.cnew { align-items:center; justify-content:center; font-size:22px; color:var(--muted); background:none; border-style:dashed; }
+.cbar { position:absolute; left:10px; right:10px; bottom:6px; height:3px; border-radius:2px; background:var(--line); overflow:hidden; }
+.cbar i { display:block; height:100%; background:var(--swim); }
+.cqsheet .cqname { margin:2px 0 4px; font-family:var(--display); font-weight:500; font-size:26px; }
+.cqf small { font-weight:400; color:var(--muted); letter-spacing:0; text-transform:none; }
 /* V5.2. Daily targets inside the Cardio card. */
 .ctgs { margin-top:16px; padding-top:12px; border-top:1px solid var(--line); }
 .ctgs .dsh h3 { margin:0; font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
@@ -954,6 +1002,9 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 
 /* V4.7. + Track more: the extras beside Protein and Weight. */
 .xmore { display:block; margin:-4px auto 0; font-size:13.5px; }
+.xmine { display:inline-flex; align-items:center; gap:4px; }
+.xmine button { border:none; background:none; color:inherit; font-size:15px; padding:0 0 0 2px; cursor:pointer; opacity:.7; }
+.xother { display:grid; grid-template-columns:minmax(0, 1.4fr) minmax(0, 1fr) auto; gap:8px; margin-top:10px; }
 .xpick { display:flex; flex-wrap:wrap; justify-content:center; gap:6px; margin-top:8px; }
 .xlist { list-style:none; margin:0; padding:0; }
 .xrow2 { display:flex; align-items:center; gap:8px; padding:9px 0; border-top:1px solid var(--line); }
@@ -1967,9 +2018,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 .mplus.on { background:var(--gold); border-color:var(--gold); color:#1b160c; }
 .mhint { margin-top:12px; }
 /* V5.3. Attention in two columns: AM | PM tiles with three switches. */
-.mcols { display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); gap:10px; }
-.mcolh { margin:0 0 6px; font-size:11px; font-weight:700; letter-spacing:.14em; color:var(--muted); }
-.mtiles { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
+.mgrid { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); gap:8px; align-items:start; }
+.mgrip { flex:none; color:var(--muted); cursor:grab; font-size:15px; line-height:1; padding:0 2px; touch-action:none; user-select:none; -webkit-user-select:none; }
+.mtile.dragging { opacity:.85; border-color:var(--gold); box-shadow:0 10px 24px -10px rgba(0,0,0,.6); transform:scale(1.02); }
+.mtile { -webkit-touch-callout:none; }
 .mtile { border:1px solid var(--line); border-radius:12px; padding:9px 10px 8px; background:var(--surface); min-width:0; }
 .mtile.is-done, .mtile.msleep.is-d { border-color:color-mix(in oklab, var(--green) 55%, var(--line)); background:color-mix(in oklab, var(--green) 7%, var(--surface)); }
 .mtile.over { border-color:color-mix(in oklab, var(--warn) 45%, var(--line)); }
@@ -2028,7 +2080,30 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
 .siltype.silnew { min-width:44px; padding:0; font-size:20px; font-weight:400; color:var(--muted); background:none; border-style:dashed; }
 .silnewf { display:flex; gap:8px; align-items:center; margin-top:10px; }
 .silnewf .field { flex:1; min-width:0; }
-.silp { color:var(--ink-2); font-size:14px; margin:12px 0 0; }
+.silp { color:var(--ink-2); font-size:14px; margin:12px 0 0; text-align:center; }
+/* V5.4. Silence, quieter: the length large, three quiet words, one play. */
+.msil { text-align:center; }
+.msil .siltypes { justify-content:center; }
+.sildur { display:block; margin:22px auto 0; border:none; background:none; color:var(--ink); cursor:pointer; padding:0 6px;
+  font-family:var(--mono); font-size:64px; font-weight:400; letter-spacing:-.03em; line-height:1; }
+.sildur small { font-family:var(--body); font-size:15px; color:var(--muted); margin-left:6px; letter-spacing:0; }
+.silmeta { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:4px 6px; margin:14px 0 0; font-size:14px; }
+.silmeta button { border:none; background:none; color:var(--ink-2); font:inherit; cursor:pointer; padding:4px 2px;
+  text-decoration:underline dotted; text-underline-offset:4px; text-decoration-color:var(--line-strong); }
+.silmeta i { color:var(--muted); font-style:normal; }
+.silmeta .silbyx { text-decoration:none; color:var(--muted); padding:4px; }
+.silgo { display:grid; place-items:center; width:76px; height:76px; margin:22px auto 4px; border-radius:50%; border:none;
+  background:var(--green); color:#f2fbf5; cursor:pointer; }
+.silgo svg { width:30px; height:30px; fill:currentColor; margin-left:3px; }
+.silgap { display:flex; flex-wrap:wrap; justify-content:center; gap:4px 14px; margin:14px 0 0; font-size:13px; color:var(--muted); }
+.silgap b { color:var(--ink); font-weight:600; }
+.silgap b.win { color:var(--green-ink); }
+.silgap em { flex-basis:100%; font-style:normal; color:var(--green-ink); }
+.silsits li { flex-wrap:wrap; }
+.silsits small em { font-style:normal; color:var(--warn); }
+.wlines .silnotev { flex-basis:100%; flex:1 1 100%; text-align:left; border:none; background:none; padding:2px 0 0; font:inherit; font-size:13px; color:var(--ink-2); cursor:pointer; }
+.wlines .silnotev.empty { color:var(--muted); }
+.silnote { flex-basis:100%; margin-top:6px; font-size:14px; }
 .silh { font-family:var(--display); font-weight:500; font-size:22px; margin:10px 0 0; }
 .silback { margin:0; padding:0; }
 .sillist { margin-top:14px; border-top:1px solid var(--line); }
@@ -2104,7 +2179,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "5.3";
+  const APP_VERSION = "5.4";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -2475,6 +2550,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     if (kind === "pct")  return Math.round(Number(v)) + "%";
     if (kind === "min")  return hm(v);
     if (k === "macros") return num(Math.round(Number(v))) + " g";
+    if (k === "dd") return ddPct(v) + "%";   // V5.4. Longevity reads as a percent.
     if (kind === "weight") return lb1(wOut(v));
     return num(Math.round(Number(v)));
   }
@@ -3842,7 +3918,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     };
     const names = cardioActs();
     return `<div class="ctgs">
-        <div class="dsh"><h3>Daily targets</h3><button type="button" class="linkbtn" id="xtEdit">${ed ? "Done" : shown.length ? "Edit" : "+ Add one"}</button></div>
+        <div class="dsh"><h3>Daily targets</h3><button type="button" class="linkbtn" id="xtEdit">${ed ? "Done" : "Edit"}</button></div>
         ${ed ? `${T.length ? `<ul class="ctged">${T.map((t, i) => `<li><span>${esc(t.n)}</span><small>${t.t > 0 ? `${rFmt(t, t.t)}${t.kind === "time" ? "" : " reps"} a day` : "no target"}</small>
               <button type="button" class="tx" data-xtdel="${i}" aria-label="Remove the target for ${esc(t.n)}">&times;</button></li>`).join("")}</ul>` : ""}
             <form class="xtadd" id="xtForm">
@@ -3852,7 +3928,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
               <input class="field" id="xtVal" inputmode="text" autocomplete="off" placeholder="100" aria-label="Daily target">
               <button type="submit" class="btn" style="background:var(--swim)">Add</button>
             </form>${state.extMsg ? `<p class="hint bad">${esc(state.extMsg)}</p>` : `<p class="hint">Like 100 jumping jacks or a 3-minute plank. Time as 3, 1:30 or 90s. Log it with + like any activity.</p>`}`
-          : shown.length ? `<ul class="ctgl">${shown.map(row).join("")}</ul>` : ""}
+          : ""}
       </div>`;
   }
   function wireExTargets() {
@@ -4612,8 +4688,26 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
 
   // Exercise carries both halves: the steps entry and week charts that used
   // to be on the board, and the log that used to be its own screen.
+  // V5.4. One tap logs the last cardio entry again.
+  async function cqRepeatNow() {
+    const L = cqLast(); if (!L || !L.act || !L.min) return;
+    const rt = routineOf(L.act), reps = rt && rt.kind === "reps" ? Number(L.reps) || 0 : 0, dist = rt ? 0 : Number(L.dist) || 0;
+    const day = state.view === "exercise" ? entryDay() : todayISO();
+    const res = await call("app_lift_save", {
+      p_code: state.code, p_person: state.meId, p_session: uuid(), p_label: L.act, p_note: null,
+      p_date: day, p_duration: L.min,
+      p_sets: [{ position: 0, set_index: 0, exercise: L.act, kind: !rt && dist ? "distance_time" : "duration",
+                 weight: 0, reps, distance: dist, seconds: L.min * 60 }],
+      p_finished: true, p_mode: "cardio", p_tz: deviceTZ(), p_claim: true });
+    state.lift.msg = res.error ? (res.offline ? "No signal. Try again in a moment." : res.error) : `${L.act} · ${hm(L.min)} logged.`;
+    render();
+    if (!res.error) { await loadLift(); await loadHistory(); await refresh(); if (rt) await loadExTargets(); render(); }
+  }
   function wireExercise() {
     wireExTargets();
+    document.querySelectorAll("[data-cqgo]").forEach((el) => el.addEventListener("click", () => openCardio(el.dataset.cqgo)));
+    on("cqNew", "click", () => { state.homeSheet = "cardio"; state.cq = { adding: true, err: "" }; render(); document.getElementById("cqNewName")?.focus(); });
+    on("cqRepeat", "click", (e) => { e.currentTarget.disabled = true; cqRepeatNow(); });
     wireLift();
     document.querySelectorAll("[data-cdel]").forEach((el) =>
       el.addEventListener("click", async () => {
@@ -5693,6 +5787,16 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     if (MED_KEYS.includes(k)) {
       centre = `<button type="button" class="dval dgo${v === null ? " dnone" : ""}" ${go(page)} ${clone ? 'tabindex="-1"' : ""}>${
         v === null ? (k === "silence" ? "Sit" : k === "refl" ? "Write" : "\u2013") : stdWords(k, v)}</button>`;
+      // V5.4. Silence starts from home: play, and the timer fills the screen.
+      if (k === "silence") extra = `<button type="button" class="dplay" ${clone ? 'tabindex="-1"' : 'id="homeSilGo"'} aria-label="Begin a sitting">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></button>`;
+    }
+    // V5.4. Train and Cardio minutes come only from what you log: the number
+    // opens the log, it is never typed (typing used to invent "Typed" workouts).
+    if (!centre && (k === "train" || k === "cardio")) {
+      centre = k === "cardio"
+        ? `<button type="button" class="dval dgo${v === null ? " dnone" : ""}" ${clone ? 'tabindex="-1"' : 'data-cardioq="1"'} aria-label="Cardio${v === null ? "" : " " + stdWords(k, v)}. Log an activity">${v === null ? "+" : stdWords(k, v)}</button>`
+        : `<button type="button" class="dval dgo${v === null ? " dnone" : ""}" ${go(page)} ${clone ? 'tabindex="-1"' : ""}>${v === null ? "\u2013" : stdWords(k, v)}</button>`;
     }
     if (!centre) {
       if (S.kind === "count" && k !== "tasks" || S.kind === "min" || S.kind === "weight") {
@@ -5859,6 +5963,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         } else w.len = Math.max(WORK_MIN, Math.min(WORK_MAX, w.len + d));
         saveWorkLocal(); render();
       }));
+    on("homeSilGo", "click", async () => { if (!silRun()) silStartNow(); await openMed("silence"); });
     on("homeWorkGo", "click", async (e) => {
       e.stopPropagation();
       if (!state.work) loadWorkLocal();
@@ -5870,8 +5975,8 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       if (r.pausedAt) workResume(); else workHold();
       render();
     });
-    // Tasks: type straight into the dial. Return adds it to Do, or to
-    // Decide when Do is full, and keeps the line for the next one.
+    // Tasks: type straight into the dial. V5.4: it always lands in Decide,
+    // to be sorted on the Tasks page; the line stays ready for the next one.
     document.querySelectorAll("[data-dtask]").forEach((f) =>
       f.addEventListener("keydown", async (e) => {
         if (e.key !== "Enter") return;
@@ -5886,10 +5991,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         const fresh = await call("app_tasks", { p_code: state.code, p_person: state.meId });
         if (!fresh.error && Array.isArray(fresh.tasks)) list = fresh.tasks;
         if (!Array.isArray(list)) list = [];
-        const today = todayISO();
-        const activeDo = list.filter((x) => !x.parent_id && !x.done && (x.quadrant || 1) === 1
-          && !(x.sched_date && x.sched_date > today)).length;
-        const q = activeDo < doLimit() ? 1 : 2;
+        const q = 2;
         const pos = Math.max(-1, ...list.filter((x) => !x.parent_id && !x.done && (x.quadrant || 1) === q)
           .map((x) => Number(x.position) || 0)) + 1;
         const x = { id: uuid(), parent_id: null, quadrant: q, title, done: false, position: pos,
@@ -5899,7 +6001,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         if (res.error) { f.value = title; dialSay("tasks", res.offline ? "No signal. Not saved yet." : res.error); return; }
         list.push(x);
         try { localStorage.setItem(taskCacheKey(), JSON.stringify(list)); } catch {}
-        dialSay("tasks", q === 1 ? "Added to Do." : "Do is full. Added to Decide.");
+        dialSay("tasks", "Added to Decide.");
       }));
     clearInterval(homeTick); homeTick = null;
     const run = state.work && state.work.run;
@@ -6037,9 +6139,10 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     let last = typeof pick === "string" ? pick : null;
     if (!last) try { last = localStorage.getItem(cardioLastKey()); } catch {}
     state.homeSheet = "cardio";
-    state.cq = { act: last && cardioActs().includes(last) ? last : CARDIO_BASE[0], other: "", plus: false, dist: "", min: "", reps: "", err: "" };
+    state.cq = { act: last && cardioActs().includes(last) ? last : CARDIO_BASE[0], other: "", plus: false, dist: "", min: "", reps: "", err: "",
+                 picked: typeof pick === "string" };
     render();
-    document.getElementById(routineOf(state.cq.act) && routineOf(state.cq.act).kind === "reps" ? "cqReps" : "cqMin")?.focus();
+    document.getElementById("cqMin")?.focus();
     // From home the routines may not be loaded yet; they join the chips when they are.
     if (!state.ext) loadExTargets().then(() => { if (state.homeSheet === "cardio") { state.cq.act = last && cardioActs().includes(last) ? last : state.cq.act; render(); } });
   }
@@ -6075,12 +6178,21 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         </div>`;
     }
     const q = state.cq || {};
+    if (q.adding) return `
+      <div class="sheetbg" id="hsBg"></div>
+      <div class="stdsheet hsheet" role="dialog" aria-label="Add an activity">
+        <p class="eyebrow">New activity</p>
+        <input class="field" id="cqNewName" maxlength="40" autocomplete="off" enterkeyhint="done" placeholder="e.g. Row, Plank, Jumping jacks" value="${esc(q.newName || "")}" aria-label="Activity name">
+        <p class="hint">A daily target is optional: set one from Edit under the tiles.</p>
+        ${q.err ? `<p class="hint bad">${esc(q.err)}</p>` : ""}
+        <div class="stdbtns"><button type="button" class="btn-quiet" id="hsCancel">Cancel</button>
+          <button type="button" class="btn" id="cqNewSave" style="background:var(--swim)">Add</button></div>
+      </div>`;
     return `
       <div class="sheetbg" id="hsBg"></div>
-      <div class="stdsheet hsheet" role="dialog" aria-label="Log cardio">
+      <div class="stdsheet hsheet cqsheet" role="dialog" aria-label="Log cardio">
         <p class="eyebrow">Cardio · ${state.view === "exercise" && entryDay() !== todayISO() ? esc(shortDay(entryDay())) : "today"}</p>
-        <h3>Log an activity</h3>
-        ${cqChips()}
+        ${q.picked ? `<h3 class="cqname">${esc(q.act)}</h3>` : cqChips()}
         ${q.plus ? `<input class="field cqother" id="cqOther" maxlength="40" autocomplete="off" enterkeyhint="next"
           placeholder="Your activity, e.g. Row" value="${esc(q.other || "")}" aria-label="Your own activity">` : ""}
         ${(() => { const rt = !q.plus && routineOf(q.act);
@@ -6088,22 +6200,20 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
           const v = Number((rt.days || {})[(state.ext || {}).today] || 0);
           return `<p class="cqtg">Today ${rFmt(rt, v)} of ${rFmt(rt, rt.t)}${rt.kind === "time" ? "" : " reps"}</p>`; })()}
         <div class="cqrow">
+          <label class="cqf"><span>Minutes</span>
+            <span class="cqin"><input id="cqMin" inputmode="decimal" autocomplete="off" enterkeyhint="done" placeholder="30"
+              value="${esc(q.min || "")}" aria-label="Minutes"><em>min</em></span></label>
           ${(() => { const rt = !q.plus && routineOf(q.act);
             if (rt && rt.kind === "reps") return `<label class="cqf"><span>Reps</span>
               <span class="cqin"><input id="cqReps" inputmode="numeric" autocomplete="off" placeholder="100"
                 value="${esc(q.reps || "")}" aria-label="Reps"></span></label>`;
-            if (rt) return "";
-            return `<label class="cqf"><span>Distance</span>
+            if (rt || q.plus) return "";
+            return `<label class="cqf"><span>Distance <small>optional</small></span>
             <span class="cqin"><input id="cqDist" inputmode="decimal" autocomplete="off" placeholder="0"
               value="${esc(q.dist || "")}" aria-label="Distance in ${esc(units.d)}">
             <button type="button" class="unitchip" id="cqUnit" aria-label="Distance unit, now ${esc(units.d)}">${esc(units.d)}</button></span></label>`; })()}
-          <label class="cqf"><span>Time</span>
-            <span class="cqin"><input id="cqMin" inputmode="text" autocomplete="off" placeholder="30"
-              value="${esc(q.min || "")}" aria-label="Minutes"><em>min</em></span></label>
         </div>
-        <p class="hint${q.err ? " bad" : ""}" id="cqHint">${q.err ? esc(q.err) : !q.plus && routineOf(q.act)
-          ? (routineOf(q.act).kind === "reps" ? "Reps count toward your target; the time counts as cardio." : "Time counts toward your target and as cardio. 3, 1:30 or 1h all work.")
-          : "Distance is optional. 45, 1:30 or 1h 30m all work."}</p>
+        ${q.err ? `<p class="hint bad" id="cqHint">${esc(q.err)}</p>` : ""}
         <div class="stdbtns">
           <button type="button" class="btn-quiet" id="hsCancel">Cancel</button>
           <button type="button" class="btn" id="cqSave" style="background:var(--swim)">Save</button>
@@ -6128,6 +6238,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         saveWorkLocal();
         state.homeSheet = null;
         workGo();
+        state.workFull = true;   // V5.4. Play fills the screen.
         render();
       };
       // V4.7. One tap on a recent activity starts it.
@@ -6160,7 +6271,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     document.querySelectorAll("[data-cqa]").forEach((el) => {
       if (el.dataset.w) return; el.dataset.w = "1";
       el.addEventListener("click", () => { grab(); q.act = el.dataset.cqa; q.other = ""; q.plus = false; q.err = ""; render();
-        const rt = routineOf(q.act); document.getElementById(rt && rt.kind === "reps" ? "cqReps" : "cqMin")?.focus(); });
+        document.getElementById("cqMin")?.focus(); });
     });
     const plus = document.getElementById("cqPlus");
     if (plus && !plus.dataset.w) {
@@ -6172,6 +6283,21 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       unit.dataset.w = "1";
       unit.addEventListener("click", () => {
         grab(); units.d = units.d === "mi" ? "km" : units.d === "km" ? "m" : "mi"; render(); });
+    }
+    // V5.4. Enter saves: activity, minutes, done.
+    const cqm = document.getElementById("cqMin");
+    if (cqm && !cqm.dataset.w) { cqm.dataset.w = "1"; cqm.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); document.getElementById("cqSave")?.click(); } }); }
+    // New activity.
+    const nsv = document.getElementById("cqNewSave");
+    if (nsv && !nsv.dataset.w) {
+      nsv.dataset.w = "1";
+      const add = () => { const n = (document.getElementById("cqNewName")?.value || "").trim().slice(0, 40);
+        if (!n) { q.err = "Name the activity."; render(); return; }
+        rememberCardio(n); try { localStorage.setItem(cardioLastKey(), n); } catch {}
+        state.cq = { act: n, other: "", plus: false, dist: "", min: "", reps: "", err: "", picked: true }; render();
+        document.getElementById("cqMin")?.focus(); };
+      nsv.addEventListener("click", add);
+      document.getElementById("cqNewName")?.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); add(); } });
     }
     const saveBtn = document.getElementById("cqSave");
     if (saveBtn && !saveBtn.dataset.w) {
@@ -6198,6 +6324,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
           p_finished: true, p_mode: "cardio", p_tz: deviceTZ(), p_claim: true });
         if (res.error) { q.err = res.offline ? "No signal. Try again in a moment." : res.error; render(); return; }
         rememberCardio(name);
+        try { localStorage.setItem(cqLastKey(), JSON.stringify({ act: name, min, reps, dist: rt ? 0 : dist })); } catch {}
         state.homeSheet = null;
         const said = `${name}${reps ? " · " + num(reps) + " reps" : !rt && dist ? " · " + distWords(dist) : ""} · ${hm(min)} logged.`;
         if (rt) loadExTargets().then(() => render());
@@ -6259,34 +6386,46 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   // V3.7. Cardio is logged the way the dial logs it: one button, one card
   // (activity, distance, time), Save. The gym-style session logger is gone
   // from this page; past sessions are still listed under the graph.
+  // V5.4. Cardio from first principles: the day's total, then your
+  // activities as tiles. Tap one, type the minutes, Save: two taps and the
+  // digits. The last entry repeats in one tap. A target is a thin bar
+  // under its activity. Today's entries sit underneath, each with an ×.
+  const cqLastKey = () => "fhd.cqlast." + (state.meId || "anon");
+  const cqLast = () => { try { return JSON.parse(localStorage.getItem(cqLastKey()) || "null"); } catch { return null; } };
+  const CQ_DIST = (name) => !routineOf(name);   // distance only where it means something
   function cardioCard() {
     const k = "cardio", met = M[k], m = me() || {};
     const iso = entryDay(), isToday = iso === todayISO(), rec = dayRecord(k);
     const shown = isToday ? val(m, k) : rec.value, has = shown > 0;
     const goal = target(m, k);
-    // V4.2. The number is the sum of the day's activities, listed under it,
-    // each with an ×. Tap the number to add one. Nothing can be typed that
-    // disagrees with the list, so deleting always moves it.
     const acts = (state.lift.sessions || []).filter((x) => x.entry_date === iso && (x.mode || "cardio") === "cardio");
     const sum = acts.reduce((a, x) => a + Number(x.duration_min || 0), 0);
     const extra = state.lift.loaded && shown > sum ? shown - sum : 0;
+    const by = (n) => acts.filter((x) => (x.label || "").toLowerCase() === n.toLowerCase()).reduce((a, x) => a + Number(x.duration_min || 0), 0);
+    const today = (state.ext && state.ext.today) || todayISO();
+    const tile = (n) => {
+      const t = routineOf(n), mins = by(n);
+      const prog = t && t.t > 0 ? Math.min(100, Math.round(Number((t.days || {})[today] || 0) / t.t * 100)) : null;
+      return `<button type="button" class="ctile${mins ? " on" : ""}" data-cqgo="${esc(n)}" aria-label="${esc(n)}${mins ? ", " + hm(mins) + " today" : ""}. Log">
+          <b>${esc(n)}</b><span>${mins ? hm(mins) : t && t.t > 0 ? `${rFmt(t, Number((t.days || {})[today] || 0))} / ${rFmt(t, t.t)}${t.kind === "time" ? "" : ""}` : "–"}</span>
+          ${prog !== null ? `<i class="cbar"><i style="width:${prog}%"></i></i>` : ""}</button>`;
+    };
+    const L = cqLast();
     return `
-      <section class="card">
+      <section class="card ccard">
         ${dayNav({ label: isToday ? "Today" : esc(fullDate(iso)), atToday: isToday, unit: "day" })}
-        <div class="domino" style="padding-top:10px">
-          <button type="button" class="bigtap" data-cardioq="1" id="cardioLog" aria-label="${has ? `${hm(shown)} of cardio. ` : ""}Add an activity">
-            <b class="big" style="color:${has ? met.color : "var(--muted)"}">${has ? hm(shown) : "0m"}</b>
-            <span class="bigplus" style="color:${met.color}">+ add</span></button>
-          <button type="button" class="of" data-edit="goal" data-metric="${k}">${goal
-            ? `of <b>${hm(goal)}</b>` : "set a cardio target"}</button>
-        </div>
+        <div class="ctot"><b style="color:${has ? met.color : "var(--muted)"}">${has ? hm(shown) : "0m"}</b>
+          <button type="button" class="of" data-edit="goal" data-metric="${k}">${goal ? `of <b>${hm(goal)}</b>` : "set a cardio target"}</button></div>
+        ${L && L.act && L.min ? `<button type="button" class="crep" id="cqRepeat" aria-label="Log ${esc(L.act)} ${hm(L.min)} again">↻ ${esc(L.act)} ${hm(L.min)}${L.reps ? ` · ${num(L.reps)} reps` : ""}</button>` : ""}
+        <div class="ctiles">${cardioActs().map(tile).join("")}
+          <button type="button" class="ctile cnew" id="cqNew" aria-label="Add an activity">+</button></div>
         ${acts.length || extra ? `<ul class="sesslist cacts">${acts.map((x) => `
           <li><span>${hm(x.duration_min)}</span>
             <em><b>${esc(x.label || "Cardio")}</b>${Number(x.distance) > 0 ? ` · ${esc(distWords(x.distance))}` : ""}${(() => {
               const r = Number(((x.exercises || [])[0] || {}).top_reps) || 0; return r ? ` · ${num(r)} reps` : ""; })()}</em>
             <button type="button" data-cdel="${x.id}" aria-label="Delete ${esc(x.label || "this activity")}">&times;</button></li>`).join("")}${extra ? `
-          <li><span>${hm(extra)}</span><em>Typed in an earlier version</em>
-            <button type="button" id="cardioUntyped" aria-label="Delete the typed minutes">&times;</button></li>` : ""}</ul>` : ""}
+          <li><span>${hm(extra)}</span><em>From an earlier version</em>
+            <button type="button" id="cardioUntyped" aria-label="Delete those minutes">&times;</button></li>` : ""}</ul>` : ""}
         ${isToday ? cardioTargets() : ""}
       </section>`;
   }
@@ -6301,6 +6440,16 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     if (met.time) return timeCard(k, iso, isToday, m, rec, goal);
     const shown = isToday ? val(m, k) : rec.value;
     const has = isToday ? (k === "steps" ? !!m.steps_logged : shown > 0) : rec.logged;
+    // V5.4. Train's minutes are the sum of its workouts: shown, never typed.
+    if (k === "train") return `
+      <section class="card">
+        ${dayNav({ label: isToday ? "Today" : esc(fullDate(iso)), atToday: isToday, unit: "day" })}
+        <div class="domino" style="padding-top:10px">
+          <b class="big" style="color:${has ? met.color : "var(--muted)"}">${has ? hm(shown) : "0m"}</b>
+          <button type="button" class="of" data-edit="goal" data-metric="${k}">${goal ? `of <b>${hm(goal)}</b>` : "set a train target"}</button>
+        </div>
+        <p class="hint dshint" style="text-align:center">The sum of ${isToday ? "today's" : "this day's"} workouts.</p>
+      </section>`;
 
     // V2.1. The number IS the input. Tap it and the keyboard comes up with
     // the digits selected; leave it and it saves. There is no second box
@@ -6838,15 +6987,12 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         : `<button type="button" class="dbig dbigb" data-dedit="${f}" aria-label="${v === null ? "Nothing yet" : num(Math.round(v)) + " " + unit}. Tap to type the day's total">
              <b style="color:${col}">${v === null ? "0" : num(Math.round(v))}</b><span class="dunit">${unit}</span></button>`;
     };
-    const chips = (f, list) => `<div class="dchips" role="group" aria-label="Add">${list.map((d) =>
-      `<button type="button" class="dchip" data-dadd="${f}:${d}">+${num(d)}${f === "protein" ? " g" : ""}</button>`).join("")}</div>`;
     return `
       <section class="card dsec" id="diet-protein" style="--dc:var(--diet)">
         ${dietDayNav(D)}
         <div class="dsh"><h2>Protein</h2>
           <button type="button" class="of dofx" data-edit="goal" data-metric="macros">of <b>${num(sP)} g</b></button></div>
         ${big("protein", V.protein, "g", sP, "macros")}
-        ${chips("protein", [10, 25])}
         ${dietMsg(D, "protein")}
         <button type="button" class="linkbtn dcalc" data-dcalc="protein" aria-expanded="${D.calc === "protein"}">${D.calc === "protein" ? "Close the calculator" : "Calculate my target"}</button>
         ${D.calc === "protein" ? calcPanel("protein") : ""}
@@ -6855,7 +7001,6 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         <div class="dsh"><h2>Calories</h2><span class="dss">optional</span>
           <button type="button" class="of dofx" data-edit="goal" data-metric="kcal">of <b>${num(sK)}</b></button></div>
         ${big("kcal", V.kcal, "kcal", sK, "kcal")}
-        ${chips("kcal", [100, 250])}
         ${dietMsg(D, "kcal")}
         <button type="button" class="linkbtn dcalc" data-dcalc="kcal" aria-expanded="${D.calc === "kcal"}">${D.calc === "kcal" ? "Close the calculator" : "Calculate my target"}</button>
         ${D.calc === "kcal" ? calcPanel("kcal") : ""}
@@ -6961,14 +7106,31 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
           <em>${esc(u)}</em></li>`;
     };
     const pick = D.xpick === page;
-    return `${on.length ? `<section class="card dsec dmini xcard2" style="--dc:var(--diet)"><ul class="xlist">${on.map(row).join("")}</ul>
+    // V5.4. Your own measures sit with the built-in ones.
+    const mine = (D.custom || []).filter((c) => c.page === page);
+    const crow = (c) => { const ed = D.xedit === "c:" + c.id, val = c.v != null ? fmtNum(Number(c.v)) : null;
+      return `<li class="xrow2">
+          <span class="xl">${esc(c.n)}${page === "weight" && c.date && val ? `<small>${c.date === todayISO() ? "today" : esc(shortDay(c.date))}</small>` : ""}</span>
+          ${ed ? `<input class="field xin" id="xIn" data-x="c:${esc(c.id)}" inputmode="decimal" enterkeyhint="done" autocomplete="off" placeholder="0" value="${esc(val || "")}" aria-label="${esc(c.n)}">`
+            : `<button type="button" class="xv${val ? "" : " nil"}" data-xedit="c:${esc(c.id)}">${val ? esc(val) : "+ log"}</button>`}
+          <em>${esc(c.u || "")}</em></li>`; };
+    return `${on.length || mine.length ? `<section class="card dsec dmini xcard2" style="--dc:var(--diet)"><ul class="xlist">${on.map(row).join("")}${mine.map(crow).join("")}</ul>
         ${D.msg && D.msgFor === "extra" ? `<p class="hint bad">${esc(D.msg)}</p>` : ""}</section>` : ""}
       <button type="button" class="linkbtn xmore" id="xMore" aria-expanded="${pick}">${pick ? "Done" : "+ Track more"}</button>
-      ${pick ? `<div class="xpick">${list.map(([k, label]) => `<button type="button" class="achip${extraOn(k) ? " on" : ""}" data-xpick="${k}" aria-pressed="${extraOn(k)}">${esc(label)}</button>`).join("")}</div>` : ""}`;
+      ${pick ? `<div class="xpick">${list.map(([k, label]) => `<button type="button" class="achip${extraOn(k) ? " on" : ""}" data-xpick="${k}" aria-pressed="${extraOn(k)}">${esc(label)}</button>`).join("")}
+          ${mine.map((c) => `<span class="achip on xmine">${esc(c.n)}<button type="button" data-xcdel="${esc(c.id)}" aria-label="Stop tracking ${esc(c.n)}">&times;</button></span>`).join("")}
+          ${D.xother ? "" : `<button type="button" class="achip" id="xOther">Other\u2026</button>`}</div>
+        ${D.xother ? `<form class="xother" id="xOtherF">
+            <input class="field" id="xoName" maxlength="40" autocomplete="off" placeholder="What, e.g. Ketones" aria-label="What to measure">
+            <input class="field" id="xoUnit" maxlength="16" autocomplete="off" placeholder="Unit, e.g. mmol/L" aria-label="Unit">
+            <button type="submit" class="btn">Add</button></form>
+          <p class="hint">${page === "weight" ? "Shows your latest reading, like body fat." : "One number a day, like protein."} Private to you.</p>` : ""}` : ""}`;
   }
   async function loadExtras() {
     const D = state.diet;
     if (!D || !EXTRAS[D.page]) return;
+    { const c = await call("app_custom", { p_code: state.code, p_person: state.meId, p_date: D.page === "macros" ? D.day || null : null });
+      if (c && !c.error && state.diet === D) D.custom = c.list || []; }
     const ks = EXTRAS[D.page].filter(([k]) => k !== "kcal" && k !== "bodyfat_pct");
     const day = D.page === "macros" ? D.day || todayISO() : todayISO();
     const get = (metric, mode) => call("app_history", { p_code: state.code, p_person: state.meId,
@@ -7086,7 +7248,29 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     // Macros: type the total, or the chips add.
     const metricOf = (f) => ({ protein: "protein_g", kcal: "kcal", weight: "weight_lb", bodyfat: "bodyfat_pct" })[f];
     // V4.7. + Track more, and the extras' numbers.
-    on("xMore", "click", () => { D.xpick = D.xpick === D.page ? null : D.page; render(); });
+    on("xMore", "click", () => { D.xpick = D.xpick === D.page ? null : D.page; D.xother = false; render(); });
+    // V5.4. Other: name it, give it a unit, and it is yours to log.
+    const saveCustom = async (list) => {
+      const res = await call("app_set_custom", { p_code: state.code, p_person: state.meId, p_list: list });
+      if (res.error) { D.msg = res.offline ? "No signal. Not saved yet." : res.error; D.msgFor = "extra"; }
+      await loadExtras(); render();
+    };
+    on("xOther", "click", () => { D.xother = true; render(); document.getElementById("xoName")?.focus(); });
+    on("xOtherF", "submit", (e) => {
+      e.preventDefault();
+      const n = (document.getElementById("xoName")?.value || "").trim(), u = (document.getElementById("xoUnit")?.value || "").trim();
+      if (!n) { document.getElementById("xoName")?.focus(); return; }
+      const list = (D.custom || []).map(({ id, n, u, page }) => ({ id, n, u, page }));
+      if (list.some((c) => c.n.toLowerCase() === n.toLowerCase() && c.page === D.page)) { D.xother = false; render(); return; }
+      D.xother = false;
+      saveCustom(list.concat([{ id: "c" + uuid().slice(0, 8), n, u, page: D.page }]));
+    });
+    document.querySelectorAll("[data-xcdel]").forEach((el) => el.addEventListener("click", () => {
+      const c = (D.custom || []).find((x) => x.id === el.dataset.xcdel); if (!c) return;
+      openModal({ title: `Stop tracking ${c.n}?`, body: "Its numbers are deleted too.", buttons: [
+        { label: "Delete", kind: "bad", run: () => saveCustom((D.custom || []).filter((x) => x.id !== c.id).map(({ id, n, u, page }) => ({ id, n, u, page }))) },
+        { label: "Keep", kind: "quiet" }] });
+    }));
     document.querySelectorAll("[data-xpick]").forEach((el) =>
       el.addEventListener("click", () => {
         const k = el.dataset.xpick, l = extraList(), was = extraOn(k);
@@ -7108,7 +7292,11 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         const day = D.page === "macros" ? D.day || todayISO() : todayISO();
         const send = async (metric, v) => call("app_log", { p_code: state.code, p_person: state.meId, p_value: v, p_metric: metric, p_date: day, p_tz: deviceTZ() });
         let res;
-        if (k === "bp") {
+        if (k.startsWith("c:")) {
+          const v = parseFloat(raw.replace(",", "."));
+          if (!Number.isFinite(v)) { D.msg = "Type a number."; D.msgFor = "extra"; render(); return; }
+          res = await call("app_custom_log", { p_code: state.code, p_person: state.meId, p_cid: k.slice(2), p_date: day, p_value: v });
+        } else if (k === "bp") {
           const mm = raw.match(/^(\d{2,3})\s*[\/ ]\s*(\d{2,3})$/);
           if (!mm) { D.msg = "Type it as 120/80."; D.msgFor = "extra"; render(); return; }
           const a = await send("bp_sys", Number(mm[1])); res = a.error ? a : await send("bp_dia", Number(mm[2]));
@@ -8517,6 +8705,12 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       great: "★ “Lose 8 lb.” Lag: Weight, 184 → 176, logged Monday mornings. Lead: Lift 3× a week, walk 8,000 steps daily. · “Read 4 books.” Lag: Books finished, 0 → 4. Lead: Read 20 minutes daily.",
       notgreat: "“Get healthier.” (No finish line, so no lag to log.) · Lag: “Go to the gym.” (That’s an action, so it’s lead, a tactic. The lag is what the gym changes.) · Five goals at once. (Twelve weeks holds three at most.)",
     },
+    year: {
+      ask: "What is already fixed this year, before work fills it?",
+      how: "Dan Martell’s Preloaded Year: before the year fills up, block what matters most. Vacations, family days, big events, rest weeks. Then plan each 12 weeks around them instead of into them. Pick a kind, then tap or drag across days to mark them. Marks are for planning: no score reads them.",
+      great: "Two weeks of vacation in summer, a long weekend each quarter, family birthdays, the move, a rest week after each 12-week cycle.",
+      notgreat: "Leaving the year empty and hoping time turns up. It won’t: someone else’s plan will fill it.",
+    },
     week: {
       ask: "What will I do this week, and how often, to move each goal?",
       how: "Tactics are your lead: actions you control, each with a rhythm (every day, a number of times a week, or one week only). Each day, tick what you did. The ring at the top is the week’s score: every tactic done ÷ every tactic due, across all your goals. Your standard (85% to start) wins the week. Score the lead, not the lag: win the weeks and the results follow. If the lead stays high for three or four weeks but the lag won’t move, the tactics are wrong. Change them, not the goal.",
@@ -8564,6 +8758,92 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       : `<input class="field cin" data-cf="${k}" id="gcf-${k}" maxlength="200" enterkeyhint="done"
            placeholder="${ph}" value="${esc(v || "")}">`;
     return `<button type="button" class="cval gtap${v ? "" : " cnil"}" data-cedit="${k}">${v ? esc(v) : ph}</button>`;
+  }
+
+  // V5.4. The Preloaded Year. The whole year at a glance, one row a month;
+  // tap a month to mark its days. Pick a kind, then tap or drag across days.
+  // Your 12 weeks are underlined. Planning only: no score reads a mark.
+  const YK = { v: ["Vacation", "#c9a45c"], f: ["Family", "#7cc89a"], e: ["Event", "#7aa2c8"], r: ["Rest", "#a594d6"] };
+  const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  function yearCard(C) {
+    if (C.ro) return "";
+    const G = state.goals || {}, Y = G.year || {}, marks = Y.marks || {};
+    const yr = G.yyear || Number((G.today || todayISO()).slice(0, 4));
+    const d = C.doc, cs = d && d.start_date, ce = cs ? shiftISO(cs, 83) : null;
+    const iso = (m, dd) => `${yr}-${pad(m + 1)}-${pad(dd)}`;
+    const dim = (m) => new Date(Date.UTC(yr, m + 1, 0)).getUTCDate();
+    const inC = (x) => cs && x >= cs && x <= ce;
+    const today = G.today || todayISO();
+    const n = Object.keys(marks).filter((k) => k.startsWith(yr + "-")).length;
+    const glance = MONTHS.map((name, m) => `<button type="button" class="yrow${G.ymonth === m ? " on" : ""}" data-ymonth="${m}" aria-label="${name}, mark its days">
+        <span>${name.slice(0, 3)}</span><i class="ycells">${Array.from({ length: dim(m) }, (_, i) => { const x = iso(m, i + 1), k = marks[x];
+          const dow = new Date(x + "T00:00:00Z").getUTCDay();
+          return `<b class="${dow === 0 || dow === 6 ? "we" : ""}${inC(x) ? " cy" : ""}${x === today ? " td" : ""}"${k ? ` style="background:${YK[k][1]}"` : ""}></b>`; }).join("")}</i></button>`).join("");
+    const month = G.ymonth === undefined || G.ymonth === null ? "" : (() => {
+      const m = G.ymonth, first = (new Date(Date.UTC(yr, m, 1)).getUTCDay() + 6) % 7;
+      const cells = Array.from({ length: first }, () => `<span></span>`).concat(Array.from({ length: dim(m) }, (_, i) => {
+        const x = iso(m, i + 1), k = marks[x];
+        return `<button type="button" class="yday${inC(x) ? " cy" : ""}${x === today ? " td" : ""}" data-yd="${x}"${k ? ` style="background:${YK[k][1]};color:#1b160c"` : ""} aria-label="${MONTHS[m]} ${i + 1}${k ? ", " + YK[k][0] : ""}">${i + 1}</button>`; }));
+      return `<div class="ymonth"><p class="ymh">${MONTHS[m]} ${yr}</p>
+        <div class="ydow">${["M", "T", "W", "T", "F", "S", "S"].map((x) => `<span>${x}</span>`).join("")}</div>
+        <div class="ygrid" id="yGrid">${cells.join("")}</div></div>`; })();
+    const paint = G.ypaint || "v";
+    return gStep(C, null, "Your year", "", "year", `
+      <div class="ynav"><button type="button" class="ynb" id="yPrev" aria-label="Previous year">\u2039</button><b>${yr}</b><button type="button" class="ynb" id="yNext" aria-label="Next year">\u203a</button></div>
+      <div class="yglance">${glance}</div>
+      <div class="ykinds" role="group" aria-label="Mark days as">${Object.entries(YK).map(([k, [lab, col]]) =>
+        `<button type="button" class="ykind${paint === k ? " on" : ""}" data-ypaint="${k}" aria-pressed="${paint === k}"><i style="background:${col}"></i>${lab}</button>`).join("")}
+        <button type="button" class="ykind${paint === "x" ? " on" : ""}" data-ypaint="x" aria-pressed="${paint === "x"}">Clear</button></div>
+      ${month || `<p class="hint" style="text-align:center">Tap a month to mark its days.${cs ? " Your 12 weeks are underlined." : ""}</p>`}`,
+      n ? `${n} day${n > 1 ? "s" : ""} marked in ${yr}` : "Block your vacations, family and big days first", true);
+  }
+  let yTimer = null;
+  function wireYear() {
+    const G = state.goals; if (!G) return;
+    if (!G.year && !G.yearLoading) {
+      G.yearLoading = true;
+      call("app_year", { p_code: state.code, p_person: state.meId }).then((r) => { G.yearLoading = false; G.year = { marks: (r && !r.error && r.marks) || {} }; if (state.view === "goals") render(); });
+    }
+    const Y = G.year = G.year || { marks: {} };
+    const yr = G.yyear || Number((G.today || todayISO()).slice(0, 4));
+    on("yPrev", "click", () => { G.yyear = yr - 1; G.ymonth = null; render(); });
+    on("yNext", "click", () => { G.yyear = yr + 1; G.ymonth = null; render(); });
+    document.querySelectorAll("[data-ymonth]").forEach((el) => el.addEventListener("click", () => {
+      const m = Number(el.dataset.ymonth); G.ymonth = G.ymonth === m ? null : m; render(); }));
+    document.querySelectorAll("[data-ypaint]").forEach((el) => el.addEventListener("click", () => { G.ypaint = el.dataset.ypaint; render(); }));
+    const grid = document.getElementById("yGrid");
+    if (!grid) return;
+    const pending = {};
+    const flush = () => { clearTimeout(yTimer); yTimer = setTimeout(async () => {
+      const ch = Object.assign({}, pending); for (const k in pending) delete pending[k];
+      if (!Object.keys(ch).length) return;
+      const res = await call("app_set_year", { p_code: state.code, p_person: state.meId, p_changes: ch });
+      if (res.error) { G.err = res.offline ? "No signal. Marks not saved yet." : res.error; render(); }
+    }, 500); };
+    let act = null;   // what this drag does: a kind, or clear
+    const apply = (el) => {
+      const x = el.dataset.yd, k = act === "x" ? null : act;
+      if ((Y.marks[x] || null) === k) return;
+      if (k) Y.marks[x] = k; else delete Y.marks[x];
+      pending[x] = k;
+      el.style.background = k ? YK[k][1] : ""; el.style.color = k ? "#1b160c" : "";
+    };
+    grid.addEventListener("pointerdown", (e) => {
+      const el = e.target.closest("[data-yd]"); if (!el) return;
+      e.preventDefault();
+      const p = G.ypaint || "v";
+      act = p !== "x" && Y.marks[el.dataset.yd] === p ? "x" : p;   // tapping a day of the same kind clears it
+      try { grid.setPointerCapture(e.pointerId); } catch {}
+      apply(el);
+    });
+    grid.addEventListener("pointermove", (e) => {
+      if (!act) return;
+      const el = document.elementFromPoint(e.clientX, e.clientY)?.closest?.("[data-yd]");
+      if (el && grid.contains(el)) apply(el);
+    });
+    const end = () => { if (!act) return; act = null; flush(); render(); };
+    grid.addEventListener("pointerup", end);
+    grid.addEventListener("pointercancel", end);
   }
 
   // 1 · Someday, 3 years, this year: a ladder, each rung serving the one above.
@@ -8720,20 +9000,6 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         <p class="gfoot2">From Scott Young, <i>Ultralearning</i> (2019).</p>
       </div>` : ""}`;
   }
-  // V4.7. A goal card folds to its title, lead and lag: the twelve-week
-  // grid and the game plan are for the weekly look, not the daily one.
-  function goalCard(C, g) {
-    const G = state.goals || {};
-    const editing = !C.ro && G.edit === "g:" + g.id;
-    const shut = !C.ro && !editing && gFolded("goal:" + g.id, true);
-    return `
-      <section class="card gcard3${g.id === C.doc.one_goal ? " one" : ""}${shut ? " shut" : ""}">
-        ${goalLineHTML(C, g)}
-        ${editing ? "" : C.ro ? gGrid(C, g) + gPlan(C, g) : `<button type="button" class="gcfold" data-gfold="goal:${g.id}" aria-expanded="${!shut}">${shut ? "\u25b8 Twelve weeks and game plan" : "\u25be Fold"}</button>
-        ${shut ? "" : gGrid(C, g) + gPlan(C, g)}`}
-      </section>`;
-  }
-
   // One goal, in full: its title and Edit, lead, lag with this week's log.
   // V4.4: shared by the Goals card (open row) and the example.
   function goalLineHTML(C, g) {
@@ -8771,16 +9037,22 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     const DAYS = ["M", "T", "W", "T", "F", "S", "S"];
     const DNAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     const locked = C.ro || pre || w > open;
-    if (!d.goals.some((g) => g.tactics.length)) return `<p class="hint" style="margin-top:12px">${C.ro ? ""
-      : "No tactics yet. Tap Edit on a goal above and add the actions that move it."}</p>`;
-    const rows = d.goals.map((g, gi) => {
+    const G = state.goals || {};
+    if (!d.goals.length) return "";
+    // V5.4. Each goal heads its own tactics. Tap the goal to open it in
+    // place: its lead and lag, Edit, the twelve weeks and the game plan.
+    const rows = goalOrder(d).map((g) => {
+      const gi = d.goals.indexOf(g);
       const due = g.tactics.filter((t) => dueIn(t, w)), gp = goalTally(g, w).pct;
+      const isOpen = !C.ro && (G.gopen === g.id || G.edit === "g:" + g.id);
+      const lagNow = g.kpi ? kpiLatest(g, open) : null;
+      const title = `${g.id === d.one_goal ? `<span class="cstar">★</span>` : `<span class="gnum xs">${gi + 1}</span>`}${
+            g.title ? esc(g.title) : `<span style="color:var(--muted)">Untitled goal</span>`}${g.kpi ? `<small class="sclag">${esc(g.kpi)} ${fmtNum(lagNow)} \u2192 ${fmtNum(g.kpi_target)}</small>` : ""}`;
       return `
         <tbody>
-          <tr class="scgh"><th colspan="7">${g.id === d.one_goal ? `<span class="cstar">★</span>`
-            : `<span class="gnum xs">${gi + 1}</span>`}${
-            g.title ? esc(g.title) : `<span style="color:var(--muted)">Untitled goal</span>`}</th>
+          <tr class="scgh"><th colspan="7">${C.ro ? title : `<button type="button" class="scgo" data-gopen="${g.id}" aria-expanded="${isOpen}">${title}<i aria-hidden="true">${isOpen ? "\u25be" : "\u25b8"}</i></button>`}</th>
             <td class="${gp !== null && gp >= win ? "win" : ""}">${gp === null ? "–" : gp + "%"}</td></tr>
+          ${isOpen ? `<tr class="scdet"><td colspan="8"><div class="gdet">${goalLineHTML(C, g)}${G.edit === "g:" + g.id ? "" : gGrid(C, g) + gPlan(C, g)}</div></td></tr>` : ""}
           ${due.length ? due.map((t) => {
             const n = timesOf(t), k = ticksIn(t, w);
             return `<tr class="sctr"><th class="sct" colspan="7" scope="row">${esc(t.title)}<small>${freqWord(t)}</small></th>
@@ -8793,7 +9065,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
                   aria-label="${esc(t.title)}, ${DNAMES[j]}"></button></td>`;
               }).join("")}<td></td></tr>`;
           }).join("") : `<tr><td colspan="8" class="scnone">${g.tactics.length
-              ? `Nothing due in week ${w}.` : "No tactics yet."}</td></tr>`}
+              ? `Nothing due in week ${w}.` : C.ro ? "No tactics yet." : "No tactics yet. Open the goal and tap Edit to add them."}</td></tr>`}
         </tbody>`;
     }).join("");
     return `
@@ -8824,8 +9096,12 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         <span>all goals \u00b7 ${T.due ? `${T.done} of ${T.due} done` : "nothing planned"} \u00b7 ${C.ro ? `${win}% wins the week`
           : `<button type="button" class="linkbtn" data-edit="goal" data-metric="goals">${win}% wins the week</button>`}</span>
       </div>
-      <p class="gtrack">Lead: tick each tactic on the day you do it. Lag: log each result once a week in its goal’s Lag row.</p>
+      <p class="gtrack">Lead: tick each tactic on the day you do it. Lag: open a goal and log its result once a week.</p>
       ${scTable(C)}
+      ${C.ro ? "" : (() => { const gl = d.goals.length;
+        return `${gl && !d.one_goal && !(G.edit || "").startsWith("g:") ? `<p class="hint gonehint">Open a goal, tap Edit, then ★ to mark your ONE goal.</p>` : ""}
+          ${gl < 3 ? `<button type="button" class="linkbtn gadd2 gaddc" id="gAdd">${gl ? "+ Add a goal (three at most)" : "+ Write your ONE goal"}</button>` : ""}
+          ${!gl || (G.edit || "").startsWith("g:") ? `<div class="gguidew">${guide("goals")}</div>` : ""}`; })()}
       `,
       `Week ${w}: ${T.pct === null ? "nothing due" : `${T.pct}% · ${T.done} of ${T.due} done`}`, false);
   }
@@ -8971,14 +9247,9 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         <button class="btn" id="gNew2" style="width:100%;margin-top:12px;background:var(--work)">
           Start the next 12 weeks</button>
       </section>`;
-    const gl = doc.goals.length;
-    const goalCards = goalOrder(doc).map((g) => goalCard(C, g)).join("") + `
-      ${gl && !doc.one_goal && !(G.edit || "").startsWith("g:") ? `<p class="hint gonehint">Tap Edit on a goal, then ★, to mark your ONE goal.</p>` : ""}
-      ${gl < 3 ? `<button type="button" class="linkbtn gadd2 gaddc" id="gAdd">${gl ? "+ Add a goal (three at most)" : "+ Write your ONE goal"}</button>` : ""}
-      <div class="gguidew">${guide("goals")}</div>`;
-    // V4.7. This week, which you log daily, comes first; the goals and the
-    // ladder, which you look at weekly, fold under it.
-    return head + overCard + gRing(C) + gStepWeek(C) + goalCards + gStepLadder(C) +
+    // V5.4. One card: This week, with each goal heading its tactics. Then
+    // the Preloaded Year and the ladder, folded until you want them.
+    return head + overCard + gRing(C) + gStepWeek(C) + yearCard(C) + gStepLadder(C) +
       (G.err ? `<p class="terr">${esc(G.err)}</p>` : "") + exCard +
       `<button type="button" class="linkbtn gnew" id="gNew">Start a new 12 weeks</button>` + foot;
   }
@@ -9144,6 +9415,11 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     });
 
     // ---- the plan ----
+    document.querySelectorAll("[data-gopen]").forEach((el) =>
+      el.addEventListener("click", () => { const id = el.dataset.gopen;
+        if (G.edit === "g:" + id) return;
+        G.gopen = G.gopen === id ? null : id; render(); }));
+    wireYear();
     document.querySelectorAll("[data-gedit]").forEach((el) =>
       el.addEventListener("click", () => { G.edit = "g:" + el.dataset.gedit; render(); }));
     document.querySelectorAll("[data-gdone]").forEach((el) =>
@@ -9488,12 +9764,90 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     saveWorkLocal();
   }
 
+  // V5.4. Ending a session early asks, from the page or the full screen.
+  function workEndAsk() {
+    {
+      const w = state.work, r = w.run;
+      if (!r) return;
+      const mins = Math.floor(workElapsed(r) / 60000);
+      if (!r.pausedAt) { r.pausedAt = Date.now(); saveWorkLocal(); stopWorkTick(); }
+      // Stopping early is a real decision — half a session is still work —
+      // so it asks rather than guessing either way.
+      openModal({
+        title: "End this session?",
+        body: mins >= 1
+          ? `You focused for ${hm(mins)} of ${hm(r.len)}.`
+          : "Less than a minute in — nothing to log yet.",
+        buttons: [
+          ...(mins >= 1 ? [{ label: `Log ${hm(mins)}`, kind: "go", run: async () => {
+              w.run = null; saveWorkLocal(); state.workFull = false;
+              const res = await logWork(r.id, mins, r.startedAt, r.date, r.label, r.task);
+              state.msg = res.error ? "Session saved on this phone. It will upload by itself."
+                                    : `Session logged · ${hm(mins)}.`;
+              state.msgKind = "ok"; render();
+            } }] : []),
+          { label: "Discard", kind: "bad", run: () => { w.run = null; saveWorkLocal(); state.workFull = false; render(); } },
+          { label: "Keep going", kind: "quiet", run: () => {
+              r.pausedMs += Date.now() - r.pausedAt; r.pausedAt = null; saveWorkLocal(); render();
+            } },
+        ],
+      });
+    }
+  }
+  // V5.4. A running Focus session fills the screen, as a sitting does: what
+  // it is for, a thin ring draining, the time left, pause in the middle.
+  // ⌄ steps out while it keeps running; ✕ ends it.
+  function workFullView() {
+    const r = state.work && state.work.run;
+    if (!r) return "";
+    const f = Math.max(0, Math.min(1, 1 - workLeft(r) / (r.len * 60000)));
+    return `
+      <div class="silrun wfull" role="dialog" aria-label="Focus session">
+        <div class="silbar">
+          <button type="button" class="silico" id="wfMin" aria-label="Leave full screen; the session keeps running">\u2304</button>
+          <button type="button" class="silico" id="wfEnd" aria-label="End this session">&times;</button>
+        </div>
+        <div class="silmid">
+          <p class="silmin">${esc(durWords(r.len)).toUpperCase()}</p>
+          <h2 class="silname">${esc(r.label || "Focus")}</h2>
+          <div class="silring">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle cx="60" cy="60" r="52" class="siltrack"></circle>
+              <circle cx="60" cy="60" r="52" class="silfill" id="wfRing" stroke-dasharray="${DIAL_C}" stroke-dashoffset="${(DIAL_C * f).toFixed(2)}"></circle>
+              <g id="wfDot" transform="rotate(${(360 * f).toFixed(1)} 60 60)"><circle cx="112" cy="60" r="2.6" class="sildot"></circle></g>
+            </svg>
+            <button type="button" class="silpp" id="wfPP" aria-label="${r.pausedAt ? "Continue" : "Pause"}">${r.pausedAt ? I_PLAY : I_PAUSE}</button>
+          </div>
+          <b class="silclock" id="wfClock">${mmssMs(workLeft(r))}</b>
+          <span class="silsub">${r.pausedAt ? "Paused" : ""}</span>
+        </div>
+      </div>`;
+  }
+  let wfTick = null;
+  function wireWorkFull() {
+    clearInterval(wfTick); wfTick = null;
+    if (!document.querySelector(".wfull")) return;
+    on("wfMin", "click", () => { state.workFull = false; render(); });
+    on("wfEnd", "click", () => workEndAsk());
+    on("wfPP", "click", () => { const r = state.work.run; if (!r) return; if (r.pausedAt) workResume(); else workHold(); render(); });
+    wfTick = setInterval(async () => {
+      const r = state.work && state.work.run;
+      if (!r) { clearInterval(wfTick); wfTick = null; state.workFull = false; render(); return; }
+      const f = Math.max(0, Math.min(1, 1 - workLeft(r) / (r.len * 60000)));
+      const c = document.getElementById("wfClock"); if (c) c.textContent = mmssMs(workLeft(r));
+      document.getElementById("wfRing")?.setAttribute("stroke-dashoffset", (DIAL_C * f).toFixed(2));
+      document.getElementById("wfDot")?.setAttribute("transform", `rotate(${(360 * f).toFixed(1)} 60 60)`);
+      if (!r.pausedAt && workLeft(r) <= 0) { clearInterval(wfTick); wfTick = null; state.workFull = false; if (await checkWork()) {} render(); }
+    }, 250);
+  }
+
   // V4.4. The Focus page is the dial: the same one as home, bigger, with
   // the day's sessions as quiet lines under it. One ring (the session
   // while it runs, the day against your standard when idle), one total,
   // one list. Nothing is said twice.
   // V4.7. Focus History folds, and stays as you left it.
-  const histShut = () => { try { return localStorage.getItem("fhd.whist") === "shut"; } catch { return false; } };
+  // V5.4. Folded unless you open it: the page is the dial.
+  const histShut = () => { try { return localStorage.getItem("fhd.whist") !== "open"; } catch { return true; } };
   function workCard() {
     if (!state.work) loadWorkLocal();
     const w = state.work, r = w.run;
@@ -9533,7 +9887,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         ${state.msg ? `<p class="hint dshint ${state.msgKind || ""}" style="text-align:center">${esc(state.msg)}</p>` : ""}
       </section>
       <section class="whist${histShut() ? " shut" : ""}">
-        <button type="button" class="whh" id="whFold" aria-expanded="${!histShut()}"><i aria-hidden="true">${histShut() ? "\u25b8" : "\u25be"}</i>${today ? "Today's sessions" : `Sessions <small>${esc(shortDay(entryDay()))}</small>`}${sessions.length ? `<small> \u00b7 ${sessions.length}</small>` : ""}</button>
+        <button type="button" class="whh" id="whFold" aria-expanded="${!histShut()}"><i aria-hidden="true">${histShut() ? "\u25b8" : "\u25be"}</i>${sessions.length ? `${sessions.length} session${sessions.length > 1 ? "s" : ""} <small>\u00b7 ${hm(sum)}</small>` : today ? "No sessions yet" : `Sessions <small>${esc(shortDay(entryDay()))}</small>`}</button>
         ${histShut() ? "" : `
         ${sessions.length || extra ? `<ul class="wlines">${sessions.map((x) => `
           <li><span>${x.label ? esc(x.label) : "Focus"}${x.started_at ? `<small>${new Date(x.started_at).toLocaleTimeString([],
@@ -9543,7 +9897,6 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
           <li><span>Typed earlier<small>older version</small></span><b>${hm(extra)}</b>
             <button type="button" id="workUntyped" aria-label="Delete the typed minutes">&times;</button></li>` : ""}</ul>`
           : `<p class="hint whnone">No sessions ${today ? "yet today" : "that day"}.</p>`}
-        <p class="hint whnone">For an earlier day, tap it in the calendar at the foot of the page.</p>
         ${w.adding ? `
           <div class="wadd">
             <input class="field" id="waLabel" maxlength="120" autocomplete="off" list="waRecent" placeholder="What it was for" value="${esc(w.addLabel || "")}" aria-label="What the session was for">
@@ -9723,36 +10076,11 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     on("fNone", "click", () => choose(null));
     on("fClose", "click", () => { w.pick = false; w.startAfter = false; render(); });
 
-    on("workStart", "click", () => { w.chipEdit = false; workGo(); render(); });
+    on("workStart", "click", () => { w.chipEdit = false; workGo(); state.workFull = true; render(); });
     on("whFold", "click", () => { try { localStorage.setItem("fhd.whist", histShut() ? "open" : "shut"); } catch {} render(); });
     on("workPause", "click", () => { workHold(); stopWorkTick(); render(); });
     on("workContinue", "click", () => { workResume(); render(); });
-    on("workEnd", "click", () => {
-      const r = w.run;
-      const mins = Math.floor(workElapsed(r) / 60000);
-      if (!r.pausedAt) { r.pausedAt = Date.now(); saveWorkLocal(); stopWorkTick(); }
-      // Stopping early is a real decision — half a session is still work —
-      // so it asks rather than guessing either way.
-      openModal({
-        title: "End this session?",
-        body: mins >= 1
-          ? `You focused for ${hm(mins)} of ${hm(r.len)}.`
-          : "Less than a minute in — nothing to log yet.",
-        buttons: [
-          ...(mins >= 1 ? [{ label: `Log ${hm(mins)}`, kind: "go", run: async () => {
-              w.run = null; saveWorkLocal();
-              const res = await logWork(r.id, mins, r.startedAt, r.date, r.label, r.task);
-              state.msg = res.error ? "Session saved on this phone. It will upload by itself."
-                                    : `Session logged · ${hm(mins)}.`;
-              state.msgKind = "ok"; render();
-            } }] : []),
-          { label: "Discard", kind: "bad", run: () => { w.run = null; saveWorkLocal(); render(); } },
-          { label: "Keep going", kind: "quiet", run: () => {
-              r.pausedMs += Date.now() - r.pausedAt; r.pausedAt = null; saveWorkLocal(); render();
-            } },
-        ],
-      });
-    });
+    on("workEnd", "click", () => workEndAsk());
     // A session done without the timer: what it was for, and minutes.
     on("waOpen", "click", () => { w.adding = true; w.addErr = null; render(); document.getElementById("waLabel")?.focus(); });
     on("waCancel", "click", () => { w.adding = false; w.addLabel = ""; w.addMin = ""; w.addErr = null; render(); });
@@ -9866,7 +10194,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   const MED_KEYS = ["attn", "refl", "silence"];
   const MED_INFO = {
     attn:    { h: "Attention",  sub: "Your ideal day, kept on time." },
-    refl:    { h: "Reflection", sub: "What went well and why, what you learned, what you will change." },
+    refl:    { h: "Reflection", sub: "Gratitude, one lesson, one change. Two minutes." },
     silence: { h: "Silence",    sub: "Sit in stillness. The bells keep the time." },
   };
   const I_LOCK = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V7.5a5 5 0 0 1 10 0V10h1.2c.7 0 1.3.6 1.3 1.3v8.4c0 .7-.6 1.3-1.3 1.3H5.8c-.7 0-1.3-.6-1.3-1.3v-8.4c0-.7.6-1.3 1.3-1.3zm2.2 0h5.6V7.5a2.8 2.8 0 0 0-5.6 0z"/></svg>`;
@@ -9893,8 +10221,12 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       state.medMsg = res && res.offline ? "No signal. Showing what was last loaded." : (res && res.error) || null;
       return;
     }
+    if (state.seg === "silence") {
+      const g = await call("app_med_sits", { p_code: state.code, p_person: state.meId, p_days: 14 });
+      if (g && !g.error) state.silSits = g;
+    }
     state.med = { date: res.date, today: res.today, schedule: res.schedule || [], day: res.day || {},
-                  sleep: res.sleep || {}, rows: Object.assign({ g: 3, l: 2, c: 1 }, res.refl_rows || {}) };
+                  sleep: res.sleep || {}, rows: Object.assign({ g: 3, l: 1, c: 1 }, res.refl_rows || {}) };
   }
   const medReady = () => !!state.med && state.med.date === (entryDay() === todayISO() ? state.med.today : entryDay());
 
@@ -10003,7 +10335,8 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   }
   function attnView() {
     const m = me() || {};
-    const sched = (state.med.schedule || []).slice().sort(bySched);
+    // V5.4. Your order, not the clock's: blocks sit where you put them.
+    const sched = (state.med.schedule || []).slice();
     if (state.medEdit) return schedEditor();
     if (!sched.length) return `
       <section class="card mempty">
@@ -10031,8 +10364,9 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     const tile = (b) => {
       const mk = marks[b.id], over = isToday && !mk && b.t !== null && b.t !== undefined && now > b.t;
       const on = mk && mk.s === "d";
-      return `<li class="mtile${mk ? " is-done" : ""}${over ? " over" : ""}">
-          <div class="mth"><b>${esc(b.a)}</b><span class="mpts">${blockPts(mk)}/4</span></div>
+      return `<li class="mtile${mk ? " is-done" : ""}${over ? " over" : ""}" data-bid="${esc(b.id)}">
+          <div class="mth"><b>${esc(b.a)}</b><span class="mpts">${blockPts(mk)}/4</span>
+            <span class="mgrip" data-mgrip="1" aria-hidden="true" title="Drag to move">⠇</span></div>
           <small>${b.t !== null && b.t !== undefined ? `by ${clockWords(b.t)}` : "any time"}${b.d ? ` · ${amtHtml(b, mk)}` : ""}</small>
           <div class="mtg">
             <button type="button" class="mtog${mk ? " on" : ""}" data-mchk="${esc(b.id)}" aria-pressed="${!!mk}" aria-label="${esc(b.a)}: ${mk ? "done. Tap to undo" : "mark done"}">✓</button>
@@ -10041,8 +10375,6 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
           </div>
         </li>`;
     };
-    const am = sched.filter((b) => b.t !== null && b.t !== undefined && b.t < 720);
-    const pm = sched.filter((b) => !(b.t !== null && b.t !== undefined && b.t < 720));
     return `
       <section class="card mattn">
         ${medNav("day")}
@@ -10052,11 +10384,8 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
             <span class="dsub">${S.pts} of ${S.max} points</span></div></div>
       </section>
       <section class="card">
-        <div class="mcols">
-          <div><p class="mcolh">AM</p><ul class="mtiles">${sleepTile("rise")}${am.map(tile).join("")}</ul></div>
-          <div><p class="mcolh">PM</p><ul class="mtiles">${pm.map(tile).join("")}${sleepTile("rest")}</ul></div>
-        </div>
-        <p class="hint mhint">✓ done · <span class="mhclk">${I_CLK}</span> on time · <b>+</b> done well · in full: 1 point each. Did less? Tap the length.</p>
+        <ul class="mgrid" id="mGrid">${sleepTile("rise")}${sched.map(tile).join("")}${sleepTile("rest")}</ul>
+        <p class="hint mhint">✓ done · <span class="mhclk">${I_CLK}</span> on time · <b>+</b> done well · in full: 1 point each. Did less? Tap the length. Hold a block to move it.</p>
         <button type="button" class="linkbtn" id="mEditDay">Edit my ideal day</button>
       </section>`;
   }
@@ -10075,7 +10404,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     return `
       <section class="card msched">
         <p class="eyebrow">Your ideal day</p>
-        <p class="hint" style="margin-top:2px">Each block: what, how long, and the time it should be done by. Blocks sort by their time.</p>
+        <p class="hint" style="margin-top:2px">Each block: what, how long, and the time it should be done by. Drag blocks on the Attention page to set their order.</p>
         <ul class="medlist">${D.list.map(row).join("")}</ul>
         <button type="button" class="linkbtn" id="mAddBlk">+ Add a block</button>
         ${D.err ? `<p class="hint bad">${esc(D.err)}</p>` : ""}
@@ -10094,20 +10423,33 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
        Change       one thing to do differently, as "When X, I will Y"
                     (an implementation intention).
      Done when every line you keep is written. Defaults 3, 2, 1. */
+  // V5.4. Gratitude, one lesson, one change: about two minutes. The
+  // gratitude prompt turns each day, because the same list written every
+  // day goes stale; one line each, specific beats long.
+  const GRAT_PROMPTS = [
+    "Someone who made today better, and how",
+    "Something small you would miss if it were gone",
+    "Something that went right today, and why",
+    "A comfort you usually overlook",
+    "Something your body let you do today",
+    "A moment you want to remember",
+    "Someone you have not thanked yet, and for what",
+  ];
+  const gratToday = () => GRAT_PROMPTS[Math.floor(Date.parse((state.med && state.med.date || todayISO()) + "T12:00:00Z") / 864e5) % GRAT_PROMPTS.length];
   const REFL = [
-    { k: "g", h: "Good things", one: "Good thing", ph: ["What went well, and why", "And why", "And why"], area: false },
-    { k: "l", h: "Lessons", one: "Lesson", ph: ["Today taught me…", "And…"], area: true },
+    { k: "g", h: "Gratitude", one: "Gratitude", ph: null, area: false },
+    { k: "l", h: "Lesson", one: "Lesson", ph: ["Today taught me…", "And…"], area: true },
     { k: "c", h: "Change", one: "Change", ph: ["When ___, I will ___"], area: false },
   ];
   function reflView() {
-    const j = (state.med.day || {}).journal || {}, R = state.med.rows || { g: 3, l: 2, c: 1 };
+    const j = (state.med.day || {}).journal || {}, R = state.med.rows || { g: 3, l: 1, c: 1 };
     const total = R.g + R.l + R.c;
     const lines = (x) => (Array.isArray(j[x.k]) ? j[x.k] : []);
     let filled = 0;
     const sec = (x) => {
       const L = lines(x), n = R[x.k] || 0;
       const row = (i) => {
-        const v = L[i] || "", ph = x.ph[Math.min(i, x.ph.length - 1)];
+        const v = L[i] || "", ph = x.ph ? x.ph[Math.min(i, x.ph.length - 1)] : (i === 0 ? gratToday() : "And…");
         if (v.trim()) filled++;
         const lab = `${x.one} ${i + 1}`;
         const input = x.area
@@ -10238,6 +10580,30 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       </div>`;
   }
 
+  // V5.4. One way to start a sitting, from the page or the home dial: the
+  // current kind's length and bells, then the full-screen timer.
+  function silStartNow() {
+    try { silCtx = silCtx || new (window.AudioContext || window.webkitAudioContext)(); silCtx.resume && silCtx.resume(); } catch {}
+    const c = silCfg(), t = silCur();
+    const r = { id: uuid(), startedAt: Date.now(), dur: c.dur, warm: Number(c.warm) || 0, pausedMs: 0, pausedAt: null,
+                start: c.start, end: c.end, int: c.int, every: c.every, iv: 0, rang0: false, date: null,
+                label: t.id === "silence" ? null : t.name, muted: false };
+    if (!r.warm) { r.rang0 = true; bell(r.start); }
+    silSetRun(r); silLock(true);
+  }
+  // V5.4. The gap: how long after its done-by time a sitting finished. The
+  // first sitting of that kind each day counts; early is on time (0).
+  const localMin = (iso) => { const d = new Date(iso); return d.getHours() * 60 + d.getMinutes(); };
+  const gapOf = (x, by) => by === null || by === undefined || !x.at || x.manual ? null : Math.max(0, localMin(x.at) - by);
+  function silWeeks(label, by) {
+    const S = (state.silSits && state.silSits.sits) || [], today = (state.silSits && state.silSits.today) || todayISO();
+    const first = new Map();
+    for (const x of S) if ((x.label || null) === (label || null) && !x.manual && x.at && !first.has(x.date)) first.set(x.date, x);
+    const avg = (from, to) => { const g = [...first.entries()].filter(([d]) => d >= shiftISO(today, -to) && d <= shiftISO(today, -from)).map(([, x]) => gapOf(x, by)).filter((v) => v !== null);
+      return g.length ? Math.round(g.reduce((a, v) => a + v, 0) / g.length) : null; };
+    return { now: avg(0, 6), prev: avg(7, 13) };
+  }
+  const gapWords = (m) => m === null ? "\u2013" : m <= 0 ? "on time" : `${hm(m)} late`;
   function silView() {
     const r = silRun();
     if (r) return silRunView(r);
@@ -10269,23 +10635,35 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       </div>
       ${state.silNew ? `<form class="silnewf" id="silNewF"><input class="field" id="silNewIn" maxlength="24" autocomplete="off" enterkeyhint="done" placeholder="Name it, e.g. Prayer" aria-label="Name of the new kind of sitting">
           <button type="submit" class="btn">Add</button><button type="button" class="linkbtn" id="silNewX">Cancel</button></form>` : ""}
-      ${cur.id === "silence" ? "" : `<p class="silp">${esc(cur.name)}: your own kind of sitting. Its minutes count toward Silence.
-        <button type="button" class="linkbtn" id="silDelType">Remove</button></p>`}
-      <div class="sillist">
-        ${row("silDur", I_HOUR, "Duration", durWords(c.dur))}
-        ${row("silChimes", I_WAVE, "Chimes", BELLS[c.start].toLowerCase())}
-        ${row("silWarmRow", I_WARM, "Warm-up", WARM[c.warm].toLowerCase())}
-      </div>
-      ${isToday ? `<button type="button" class="btn mbegin" id="silBegin">Begin</button>` : ""}`;
+      <button type="button" class="sildur" id="silDur" aria-label="Length ${durWords(c.dur)}. Change">${c.dur >= 60 ? hm(c.dur) : c.dur}<small>${c.dur >= 60 ? "" : "min"}</small></button>
+      <p class="silmeta">
+        <button type="button" id="silChimes">${esc(BELLS[c.start].toLowerCase())}</button><i>·</i>
+        <button type="button" id="silWarmRow">${c.warm ? esc(WARM[c.warm].toLowerCase()) + " warm-up" : "no warm-up"}</button><i>·</i>
+        <button type="button" id="silBy">${c.by === null || c.by === undefined ? "done by –" : "by " + clockWords(c.by)}</button>${c.by === null || c.by === undefined ? "" : `<button type="button" class="silbyx" id="silByX" aria-label="No done-by time">×</button>`}
+      </p>
+      ${isToday ? `<button type="button" class="silgo" id="silBegin" aria-label="Begin ${esc(cur.name)}">${I_PLAY}</button>` : ""}
+      ${(() => { if (c.by === null || c.by === undefined) return "";
+        const w = silWeeks(cur.id === "silence" ? null : cur.name, c.by);
+        const better = w.now !== null && w.prev !== null && w.now < w.prev;
+        return `<p class="silgap"><span>This week <b class="${w.now === 0 ? "win" : ""}">${gapWords(w.now)}</b></span>
+          <span>Last week <b>${gapWords(w.prev)}</b></span>${better ? `<em>↓ ${hm(w.prev - w.now)} closer</em>` : ""}</p>`; })()}
+      ${cur.id === "silence" ? "" : `<p class="silp"><button type="button" class="linkbtn" id="silDelType">Remove ${esc(cur.name)}</button></p>`}`;
     return `
       <section class="card msil">${setup}</section>
       <section class="card msess">
         ${medNav("day")}
         <p class="silsum"><b class="${total >= std ? "win" : ""}">${hm(total)}</b> <button type="button" class="dof" data-edit="goal" data-metric="silence">of ${hm(std)}</button></p>
-        ${sessions.length ? `<ul class="wlines">${sessions.map((x) => `
-          <li><span>${esc(x.label || "Silence")}${x.at ? `<small>${new Date(x.at).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}</small>` : ""}</span>
+        ${sessions.length ? `<ul class="wlines silsits">${sessions.map((x) => {
+          const kind = silTypes().find((t) => (t.id === "silence" ? null : t.name) === (x.label || null));
+          const by = kind ? (Object.assign({}, SIL_DEF, silStore().cfgs[kind.id] || {})).by : null;
+          const g = gapOf(x, by);
+          return `
+          <li><span>${esc(x.label || "Silence")}${x.at && !x.manual ? `<small>${new Date(x.at).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}${g === null ? "" : g > 0 ? ` \u00b7 <em>${hm(g)} late</em>` : " \u00b7 on time"}</small>` : ""}</span>
             <b>${hm(x.min)}</b>
-            <button type="button" data-msdel="${esc(x.id)}" aria-label="Delete this sitting">&times;</button></li>`).join("")}</ul>`
+            <button type="button" data-msdel="${esc(x.id)}" aria-label="Delete this sitting">&times;</button>
+            ${state.silNoteFor === x.id
+              ? `<input class="field silnote" id="silNoteIn" data-silnote="${esc(x.id)}" maxlength="140" autocomplete="off" enterkeyhint="done" value="${esc(x.note || "")}" placeholder="A note: how it went" aria-label="Note on this sitting">`
+              : `<button type="button" class="silnotev${x.note ? "" : " empty"}" data-silnoteopen="${esc(x.id)}">${x.note ? esc(x.note) : "+ note"}</button>`}</li>`; }).join("")}</ul>`
           : `<p class="hint">No sittings ${isToday ? "yet today" : "that day"}.</p>`}
         ${state.medAdd ? `<div class="wadd">
             <span class="wamin"><input class="field" id="msMin" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="20" aria-label="Minutes"><em>min</em></span>
@@ -10321,10 +10699,10 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       </div>`;
   }
 
-  async function logSitting(min, date, id, label) {
-    const x = { id: id || uuid(), min: Math.max(1, Math.round(min)), date: date || null, label: label || null };
+  async function logSitting(min, date, id, label, manual) {
+    const x = { id: id || uuid(), min: Math.max(1, Math.round(min)), date: date || null, label: label || null, manual: !!manual };
     const res = await call("app_med_session", { p_code: state.code, p_person: state.meId,
-      p_date: x.date, p_id: x.id, p_min: x.min, p_delete: false, p_label: x.label });
+      p_date: x.date, p_id: x.id, p_min: x.min, p_delete: false, p_label: x.label, p_manual: x.manual });
     if (res.error && res.offline) {
       let q = [];
       try { q = JSON.parse(localStorage.getItem(silPendKey()) || "[]"); } catch {}
@@ -10339,7 +10717,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     const left = [];
     for (const x of q) {
       const res = await call("app_med_session", { p_code: state.code, p_person: state.meId,
-        p_date: x.date, p_id: x.id, p_min: x.min, p_delete: false, p_label: x.label || null });
+        p_date: x.date, p_id: x.id, p_min: x.min, p_delete: false, p_label: x.label || null, p_manual: !!x.manual });
       if (res.error && res.offline) left.push(x);
     }
     try { localStorage.setItem(silPendKey(), JSON.stringify(left)); } catch {}
@@ -10354,6 +10732,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     silLock(false);
     const res = await logSitting(r.dur, r.date, r.id, r.label);
     state.medMsg = res.error && !res.offline ? res.error : null;
+    state.silNoteFor = r.id;   // V5.4. A finished sitting asks for its note.
     if (state.view === "med") { await loadMed(); }
     await refresh();
     return true;
@@ -10405,7 +10784,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       document.getElementById("mea-" + (state.medEdit.list.length - 1))?.focus(); };
     on("mPlan", "click", () => editOpen([{ id: uuid(), a: "", d: 30, t: null }]));
     on("mExample", "click", () => editOpen(MED_EXAMPLE.map((b) => Object.assign({ id: uuid() }, b))));
-    on("mEditDay", "click", () => editOpen((state.med.schedule || []).slice().sort(bySched)));
+    on("mEditDay", "click", () => editOpen((state.med.schedule || []).slice()));
     if (state.medEdit) {
       const D = state.medEdit;
       document.querySelectorAll("[data-mea]").forEach((el) => el.addEventListener("input", () => { D.list[+el.dataset.mea].a = el.value; }));
@@ -10426,7 +10805,6 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         const list = D.list.map((b) => ({ id: b.id, a: String(b.a || "").trim().slice(0, 80), d: Math.min(720, Math.max(0, Math.round(b.d || 0))), t: b.t }))
           .filter((b) => b.a);
         if (!list.length) { D.err = "Name at least one block, or Cancel."; render(); return; }
-        list.sort(bySched);
         state.med.schedule = list; state.medEdit = null; render();
         const res = await call("app_med_schedule", { p_code: state.code, p_person: state.meId, p_schedule: list });
         if (res.error) state.medMsg = res.offline ? "No signal. Not saved yet." : res.error;
@@ -10444,6 +10822,55 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       }
       render(); medSave({ marks: M0 }, 500);
     }));
+    // V5.4. Move a block: drag its grip, or hold it (touch) for a moment.
+    // The grid reorders as you pass over other blocks; letting go saves
+    // the new order of your ideal day. Rise and Rest stay first and last.
+    const grid = document.getElementById("mGrid");
+    if (grid && entryDay() === todayISO()) {
+      let drag = null, hold = null, sx = 0, sy = 0, pid = null;
+      const tiles = () => [...grid.querySelectorAll(".mtile[data-bid]")];
+      const stopScroll = (e) => { if (drag) e.preventDefault(); };
+      const begin = (li) => {
+        drag = li; li.classList.add("dragging");
+        try { if (pid !== null) grid.setPointerCapture(pid); } catch {}
+        try { navigator.vibrate && navigator.vibrate(8); } catch {}
+        document.addEventListener("touchmove", stopScroll, { passive: false });
+      };
+      const move = (x, y) => {
+        if (!drag) return;
+        const over = document.elementFromPoint(x, y)?.closest?.(".mtile[data-bid]");
+        if (!over || over === drag) return;
+        const T = tiles(), from = T.indexOf(drag), to = T.indexOf(over);
+        over.parentNode.insertBefore(drag, to > from ? over.nextSibling : over);
+      };
+      const end = async () => {
+        clearTimeout(hold); hold = null;
+        document.removeEventListener("touchmove", stopScroll);
+        if (!drag) return;
+        drag.classList.remove("dragging"); drag = null;
+        const order = tiles().map((t) => t.dataset.bid), cur = state.med.schedule || [];
+        if (order.join() === cur.map((b) => b.id).join()) return;
+        const byId = new Map(cur.map((b) => [b.id, b]));
+        const list = order.map((id) => byId.get(id)).filter(Boolean);
+        state.med.schedule = list; render();
+        const res = await call("app_med_schedule", { p_code: state.code, p_person: state.meId, p_schedule: list });
+        if (res.error) { state.medMsg = res.offline ? "No signal. Not saved yet." : res.error; render(); }
+      };
+      grid.addEventListener("pointerdown", (e) => {
+        const li = e.target.closest(".mtile[data-bid]"); if (!li) return;
+        sx = e.clientX; sy = e.clientY; pid = e.pointerId;
+        if (e.target.closest("[data-mgrip]")) { e.preventDefault(); begin(li); return; }
+        if (e.pointerType === "mouse" || e.target.closest("button, input")) return;
+        hold = setTimeout(() => begin(li), 380);
+      });
+      grid.addEventListener("pointermove", (e) => {
+        if (hold && Math.hypot(e.clientX - sx, e.clientY - sy) > 8) { clearTimeout(hold); hold = null; }
+        move(e.clientX, e.clientY);
+      });
+      grid.addEventListener("pointerup", end);
+      grid.addEventListener("pointercancel", end);
+      grid.addEventListener("contextmenu", (e) => { if (drag || hold) e.preventDefault(); });
+    }
     // V5.3. On time and done well light up like switches; on a block not
     // yet done, either one also marks it done.
     document.querySelectorAll("[data-mst]").forEach((el) => el.addEventListener("click", () => {
@@ -10592,15 +11019,30 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       silSaveCfg(Object.assign(c, { dur }));
     }
     if (state.silPick === "dur") wheelsInit();
-    on("silBegin", "click", () => {
-      try { silCtx = silCtx || new (window.AudioContext || window.webkitAudioContext)(); silCtx.resume && silCtx.resume(); } catch {}
-      const t = silCur();
-      const r = { id: uuid(), startedAt: Date.now(), dur: c.dur, warm: Number(c.warm) || 0, pausedMs: 0, pausedAt: null,
-                  start: c.start, end: c.end, int: c.int, every: c.every, iv: 0, rang0: false, date: null,
-                  label: t.id === "silence" ? null : t.name, muted: false };
-      if (!r.warm) { r.rang0 = true; bell(r.start); }
-      silSetRun(r); silLock(true); render(); silStartTick();
-    });
+    on("silBegin", "click", () => { silStartNow(); render(); silStartTick(); });
+    on("silBy", "click", () => timeWheel(`${silCur().name} done by`, c.by ?? 5 * 60, (v) => setCfg({ by: v })));
+    on("silByX", "click", () => setCfg({ by: null }));
+    // V5.4. A note on a sitting: tap, type, Enter (or tap away) saves.
+    document.querySelectorAll("[data-silnoteopen]").forEach((el) => el.addEventListener("click", () => {
+      state.silNoteFor = el.dataset.silnoteopen; render(); document.getElementById("silNoteIn")?.focus(); }));
+    const noteIn = document.getElementById("silNoteIn");
+    if (noteIn) {
+      let done = false;
+      const save = async () => {
+        if (done) return; done = true;
+        const id = noteIn.dataset.silnote, note = noteIn.value.trim().slice(0, 140);
+        const x = (day.sessions || []).find((y) => y.id === id);
+        state.silNoteFor = null;
+        if (x && (x.note || "") !== note) {
+          x.note = note || undefined; render();
+          const res = await call("app_med_note", { p_code: state.code, p_person: state.meId, p_date: state.med.date, p_id: id, p_note: note });
+          if (res.error) { state.medMsg = res.offline ? "No signal. Note not saved yet." : res.error; render(); }
+        } else render();
+      };
+      noteIn.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); save(); } if (e.key === "Escape") { done = true; state.silNoteFor = null; render(); } });
+      noteIn.addEventListener("blur", () => setTimeout(() => { if (noteIn.isConnected) save(); }, 0));
+      if (document.activeElement !== noteIn) setTimeout(() => noteIn.focus({ preventScroll: true }), 50);
+    }
     on("silMute", "click", () => { const r = silRun(); if (!r) return; r.muted = !r.muted; silSetRun(r); render(); silStartTick(); });
     on("silPause", "click", () => {
       const r = silRun(); if (!r) return;
@@ -10615,7 +11057,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       openModal({ title: "End this sitting?", body: mins >= 1 ? `You sat for ${hm(mins)}.` : "Less than a minute so far.",
         buttons: [
           ...(mins >= 1 ? [{ label: `Log ${hm(mins)}`, kind: "go", run: async () => { stop(); rbell(r, r.end);
-            await logSitting(mins, r.date, r.id, r.label); await loadMed(); await refresh(); render(); } }] : []),
+            await logSitting(mins, r.date, r.id, r.label); state.silNoteFor = r.id; await loadMed(); await refresh(); render(); } }] : []),
           { label: "Discard", kind: "bad", run: () => { stop(); render(); } },
           { label: "Keep sitting", kind: "quiet" },
         ] });
@@ -10628,7 +11070,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       if (!v || v > 600) { document.getElementById("msMin")?.focus(); return; }
       state.medAdd = null; render();
       const t = silCur();
-      await logSitting(v, state.med.date, null, t.id === "silence" ? null : t.name); await loadMed(); await refresh(); render();
+      await logSitting(v, state.med.date, null, t.id === "silence" ? null : t.name, true); await loadMed(); await refresh(); render();
     };
     on("msSave", "click", addMin);
     on("msMin", "keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); addMin(); } });
@@ -10640,6 +11082,18 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     }));
   }
   async function flushMedNow() { if (state.medPending) { clearTimeout(medTimer); await medFlush(); } }
+
+  // V5.4. Tap a number box and the old number is selected, so what you type
+  // replaces it: no deleting first. (The mouseup guard keeps a click on a
+  // laptop from dropping the selection again.)
+  let selFresh = null;
+  document.addEventListener("focusin", (e) => {
+    const t = e.target;
+    if (restoring || !t || !t.matches || !t.matches('.setgrid input, input[inputmode="numeric"], input[inputmode="decimal"], .bigedit, .dnum, .cqin input')) return;
+    selFresh = t;
+    setTimeout(() => { try { if (document.activeElement === t) t.select(); } catch {} }, 0);
+  });
+  document.addEventListener("mouseup", (e) => { if (selFresh && e.target === selFresh) { e.preventDefault(); selFresh = null; } });
 
   function render() {
     if (!configured) { app.innerHTML = notConfigured(); return; }
@@ -10694,6 +11148,8 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     if (v === "sleep" || v === "tasks" || v === "diet" || v === "exercise" || v === "med") injectAtoms();
     wireNet();
     // One sheet for every standard and one for the home dials, on any page.
+    if (state.workFull && state.work && state.work.run) { app.insertAdjacentHTML("beforeend", workFullView()); }
+    wireWorkFull();
     if (v !== "session" && v !== "detail") {
       app.insertAdjacentHTML("beforeend", stdSheet() + dialSheet() + homeSheet() + tribeSheet());
       wireTribeSheet();
@@ -10895,7 +11351,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         <h3>${k === "macros" ? "Protein" : esc(S.label)}</h3>
         <div class="stdrow">
           <input id="stdVal" class="stdin" autocomplete="off" enterkeyhint="done"
-            ${S.kind === "time" ? 'type="time"' : S.kind === "min" ? 'type="text" inputmode="text"'
+            ${S.kind === "time" ? 'type="text" readonly data-stdwheel="1"' : S.kind === "min" ? 'type="text" inputmode="text"'
               : S.kind === "weight" ? 'type="text" inputmode="decimal"'
               : 'type="text" inputmode="numeric" pattern="[0-9]*"'}
             value="${esc(seed)}" aria-label="${esc(S.label)} standard">
@@ -11021,6 +11477,13 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     on("stdBg", "click", () => { state.editing = null; state.editDraft = null; render(); });
     on("stdSave", "click", saveStd);
     on("stdVal", "input", (e) => { state.editDraft = e.target.value; });
+    // V5.4. A time standard opens the same wheel as Rest and Rise.
+    on("stdVal", "click", (e) => {
+      const f = e.target; if (!f.dataset.stdwheel) return;
+      const [hh, mm] = String(f.value || "").split(":").map(Number);
+      timeWheel(STD[state.editMetric].label + " standard", (hh || 0) * 60 + (mm || 0), (v) => {
+        f.value = `${pad(Math.floor(v / 60))}:${pad(v % 60)}`; state.editDraft = f.value; });
+    });
     on("stdVal", "keydown", (e) => {
       if (e.key === "Enter") { e.preventDefault(); saveStd(); }
       if (e.key === "Escape") { state.editing = null; state.editDraft = null; render(); }
