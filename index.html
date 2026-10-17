@@ -381,8 +381,27 @@ input[type=number] { -moz-appearance:textfield; }
 .tm { border-bottom:1px solid var(--line); background:var(--ground); }
 .tm.drag { background:var(--surface); box-shadow:var(--shadow); border-radius:10px; position:relative; z-index:3; }
 .tr { display:flex; align-items:center; gap:10px; min-height:50px; }
-.tdrag { flex:none; width:18px; height:34px; display:grid; place-items:center; cursor:grab;
-  touch-action:none; color:var(--line-strong); }
+.tdrag { flex:none; width:34px; height:40px; margin-right:-8px; display:grid; place-items:center; cursor:grab;
+  touch-action:none; color:var(--muted); }
+/* V5.5. A task being moved lifts; empty lists open up to take it. */
+li.tm.drag { position:relative; z-index:5; background:var(--surface-2); border-radius:10px; box-shadow:0 12px 28px -12px rgba(0,0,0,.7); outline:1.5px solid var(--gold); }
+ul.tl.tempty { min-height:0; }
+body.tdragging ul.tl.tempty { min-height:46px; border:1.5px dashed var(--line-strong); border-radius:10px; margin:6px 0; }
+body.tdragging { user-select:none; -webkit-user-select:none; }
+li.tm { -webkit-touch-callout:none; }
+li.tm .tt, .mtile .mth { -webkit-user-select:none; user-select:none; }
+.tdl { margin:0 0 6px 34px; }
+.tdel { border:1px solid var(--line-strong); background:none; color:var(--ink-2); border-radius:99px; padding:3px 10px; font:inherit; font-size:12px; cursor:pointer; }
+.tdel.st-accepted, .tdel.st-done { color:var(--green-ink); border-color:color-mix(in oklab, var(--green) 50%, var(--line)); }
+.tdel.st-declined { color:var(--warn); border-color:color-mix(in oklab, var(--warn) 50%, var(--line)); }
+.tfrom { font-size:12px; color:var(--gold); }
+.tinbox { margin:6px 0 16px; padding:12px 14px; border:1px solid color-mix(in oklab, var(--gold) 45%, var(--line)); border-radius:14px; background:color-mix(in oklab, var(--gold) 6%, var(--surface)); }
+.tinbox ul { list-style:none; margin:6px 0 0; padding:0; }
+.tinbox li { display:flex; align-items:center; gap:8px; padding:8px 0; border-top:1px solid var(--line); }
+.tinbox li:first-child { border-top:none; }
+.tinbox li span { flex:1; min-width:0; display:flex; flex-direction:column; }
+.tinbox li small { color:var(--muted); font-size:12px; }
+.tinbox .btn, .tinbox .btn-quiet { padding:7px 12px; font-size:13px; min-height:0; }
 .tdrag svg { width:10px; height:16px; fill:currentColor; }
 .tck { flex:none; width:24px; height:24px; border-radius:50%; border:2px solid var(--qc, var(--line-strong));
   background:none; padding:0; cursor:pointer; position:relative; }
@@ -935,6 +954,8 @@ button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inh
 .ctile span { font-family:var(--mono); font-size:12.5px; color:var(--muted); }
 .ctile.on { border-color:color-mix(in oklab, var(--swim) 55%, var(--line)); }
 .ctile.on span { color:var(--swim); }
+.ctile.cedit { cursor:default; border-style:dashed; }
+.cdelx { position:absolute; top:4px; right:4px; width:26px; height:26px; border-radius:50%; border:none; background:var(--surface); color:var(--ink-2); font-size:17px; line-height:1; cursor:pointer; }
 .ctile.cnew { align-items:center; justify-content:center; font-size:22px; color:var(--muted); background:none; border-style:dashed; }
 .cbar { position:absolute; left:10px; right:10px; bottom:6px; height:3px; border-radius:2px; background:var(--line); overflow:hidden; }
 .cbar i { display:block; height:100%; background:var(--swim); }
@@ -1114,6 +1135,22 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .tsent .tset { font-size:12px; color:var(--muted); margin-top:10px; }
 .tsheet { max-height:88vh; overflow:auto; }
 .hwho { position:relative; display:inline-flex; align-items:center; }
+/* V5.5. The ⓘ in the corner, and the tour it starts. */
+.hright { display:inline-flex; align-items:center; gap:4px; }
+.hinfo { width:26px; height:26px; flex:none; border-radius:50%; border:1px solid var(--line-strong); background:none;
+  font:italic 600 13px/1 Georgia, serif; color:var(--muted); cursor:pointer; padding:0; }
+.hinfo:active { background:var(--line); }
+.hinfo { position:relative; }
+.hinfo.new::after { content:""; position:absolute; top:-1px; right:-1px; width:8px; height:8px; border-radius:50%;
+  background:var(--accent); border:2px solid var(--ground); }
+.tourbg { position:fixed; inset:0; z-index:90; }
+.tourcut { position:fixed; border-radius:14px; box-shadow:0 0 0 2px color-mix(in oklab, var(--accent) 70%, transparent), 0 0 0 9999px rgba(6,7,9,.72); pointer-events:auto;
+  transition:all .2s ease; }
+.tourcard { position:fixed; left:16px; right:16px; max-width:420px; margin:0 auto; background:var(--surface);
+  border-radius:16px; padding:16px 18px 14px; box-shadow:0 12px 40px rgba(0,0,0,.28); }
+.tourcard h3 { margin:2px 0 6px; font-family:var(--display); font-weight:500; font-size:19px; }
+.tourcard p:not(.eyebrow) { margin:0; font-size:14.5px; line-height:1.45; color:var(--ink-2); }
+.tourbtns { display:flex; justify-content:space-between; align-items:center; margin-top:14px; }
 .hwho select { appearance:none; -webkit-appearance:none; border:none; background:none; font-family:inherit;
   font-size:14px; font-weight:600; color:var(--ink); padding:6px 18px 6px 6px; cursor:pointer; }
 .hwho i { position:absolute; right:4px; font-style:normal; font-size:10px; color:var(--muted); pointer-events:none; }
@@ -2018,9 +2055,13 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 .mplus.on { background:var(--gold); border-color:var(--gold); color:#1b160c; }
 .mhint { margin-top:12px; }
 /* V5.3. Attention in two columns: AM | PM tiles with three switches. */
-.mgrid { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); gap:8px; align-items:start; }
+.mgrid { display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); gap:8px; align-items:start; }
+/* V5.5. Two lists, top down; while moving, both columns stretch to take a drop. */
+.mcol { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; min-height:40px; border-radius:12px; }
+.mgrid.on .mcol { outline:1.5px dashed var(--line-strong); outline-offset:3px; }
+.mgrid.on { user-select:none; -webkit-user-select:none; }
 .mgrip { flex:none; color:var(--muted); cursor:grab; font-size:15px; line-height:1; padding:0 2px; touch-action:none; user-select:none; -webkit-user-select:none; }
-.mtile.dragging { opacity:.85; border-color:var(--gold); box-shadow:0 10px 24px -10px rgba(0,0,0,.6); transform:scale(1.02); }
+.mtile.dragging { border-color:var(--gold); box-shadow:0 14px 30px -12px rgba(0,0,0,.7); background:var(--surface-2); }
 .mtile { -webkit-touch-callout:none; }
 .mtile { border:1px solid var(--line); border-radius:12px; padding:9px 10px 8px; background:var(--surface); min-width:0; }
 .mtile.is-done, .mtile.msleep.is-d { border-color:color-mix(in oklab, var(--green) 55%, var(--line)); background:color-mix(in oklab, var(--green) 7%, var(--surface)); }
@@ -2081,6 +2122,24 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
 .silnewf { display:flex; gap:8px; align-items:center; margin-top:10px; }
 .silnewf .field { flex:1; min-width:0; }
 .silp { color:var(--ink-2); font-size:14px; margin:12px 0 0; text-align:center; }
+/* V5.5. Silence: one circle. */
+.silbig { position:relative; width:min(68vw, 250px); aspect-ratio:1; margin:14px auto 0; border-radius:50%; cursor:pointer;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+  background:radial-gradient(circle at 50% 40%, color-mix(in oklab, var(--green) 18%, var(--surface)) 0%, var(--surface) 70%); }
+.silbig.off { cursor:default; }
+.silbig > svg { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+.silbigring { fill:none; stroke:color-mix(in oklab, var(--green) 55%, var(--line)); stroke-width:1.4; }
+.silbign { position:relative; border:none; background:none; color:var(--ink); cursor:pointer; font-family:var(--mono); font-size:58px; font-weight:400; letter-spacing:-.03em; line-height:1; padding:4px 10px;
+  text-decoration:underline dotted; text-decoration-color:var(--line-strong); text-underline-offset:10px; text-decoration-thickness:1px; }
+.silbign small { font-family:var(--body); font-size:14px; color:var(--muted); margin-left:4px; letter-spacing:0; text-decoration:none; }
+.silbigp { position:relative; display:inline-flex; align-items:center; gap:6px; border:none; background:none; color:var(--green-ink); font:inherit; font-size:14px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; cursor:pointer; padding:6px 10px; }
+.silbigp svg { width:15px; height:15px; fill:currentColor; }
+.silbigp.off { color:var(--muted); cursor:default; }
+.silsetl { display:block; margin:16px auto 0; border:none; background:none; color:var(--ink-2); font:inherit; font-size:14px; cursor:pointer; padding:6px 8px; }
+.silsetl i { font-style:normal; color:var(--muted); margin-left:2px; }
+.silsets { top:auto; bottom:calc(12px + env(safe-area-inset-bottom, 0px)); }
+.silsets .sillist { margin-top:6px; }
+.silsheet, .silact { z-index:62; }
 /* V5.4. Silence, quieter: the length large, three quiet words, one play. */
 .msil { text-align:center; }
 .msil .siltypes { justify-content:center; }
@@ -2179,7 +2238,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "5.4";
+  const APP_VERSION = "5.5";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -2492,7 +2551,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     ["Sleep",      ["sleep", "rise", "rest"]],
     ["Great Work", ["work", "goals", "tasks"]],
   ];
-  const DIAL_DEFAULT = ["steps", "work", "sleep"];
+  const DIAL_DEFAULT = ["steps"];   // V5.5. One dial to start; add more any time.
   const STD_FIELD = { steps:"steps_target", train:"train_target", cardio:"cardio_target",
     sleep:"sleep_target", rise:"rise_target", rest:"rest_target", work:"work_target",
     goals:"goal_target", tasks:"tasks_target",
@@ -3918,7 +3977,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     };
     const names = cardioActs();
     return `<div class="ctgs">
-        <div class="dsh"><h3>Daily targets</h3><button type="button" class="linkbtn" id="xtEdit">${ed ? "Done" : "Edit"}</button></div>
+        <div class="dsh"><h3>${ed ? "Edit activities" : ""}</h3><button type="button" class="linkbtn" id="xtEdit">${ed ? "Done" : "Edit activities"}</button></div>
         ${ed ? `${T.length ? `<ul class="ctged">${T.map((t, i) => `<li><span>${esc(t.n)}</span><small>${t.t > 0 ? `${rFmt(t, t.t)}${t.kind === "time" ? "" : " reps"} a day` : "no target"}</small>
               <button type="button" class="tx" data-xtdel="${i}" aria-label="Remove the target for ${esc(t.n)}">&times;</button></li>`).join("")}</ul>` : ""}
             <form class="xtadd" id="xtForm">
@@ -3959,6 +4018,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       if (state.ext.targets.some((x) => x.n.toLowerCase() === n.toLowerCase())) { state.extMsg = `${n} already has a target.`; render(); return; }
       if (state.ext.targets.length >= 6) { state.extMsg = "Up to six targets."; render(); return; }
       rememberCardio(n);
+      try { localStorage.setItem(cqHideKey(), JSON.stringify(cqHidden().filter((x) => x.toLowerCase() !== n.toLowerCase()))); } catch {}
       state.extMsg = null;
       save(state.ext.targets.concat([{ n, kind, t, days: {} }]));
     });
@@ -4706,6 +4766,18 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   function wireExercise() {
     wireExTargets();
     document.querySelectorAll("[data-cqgo]").forEach((el) => el.addEventListener("click", () => openCardio(el.dataset.cqgo)));
+    // V5.5. Remove a tile: it leaves the grid; a daily target on it goes too.
+    document.querySelectorAll("[data-cqdel]").forEach((el) => el.addEventListener("click", async () => {
+      const n = el.dataset.cqdel;
+      const hide = cqHidden().filter((x) => x.toLowerCase() !== n.toLowerCase()).concat([n]);
+      try { localStorage.setItem(cqHideKey(), JSON.stringify(hide)); } catch {}
+      const T = (state.ext && state.ext.targets) || [];
+      if (T.some((x) => x.n.toLowerCase() === n.toLowerCase())) {
+        state.ext.targets = T.filter((x) => x.n.toLowerCase() !== n.toLowerCase());
+        await call("app_set_ex_targets", { p_code: state.code, p_person: state.meId, p_targets: state.ext.targets.map((x) => ({ n: x.n, kind: x.kind, t: x.t })) });
+      }
+      render();
+    }));
     on("cqNew", "click", () => { state.homeSheet = "cardio"; state.cq = { adding: true, err: "" }; render(); document.getElementById("cqNewName")?.focus(); });
     on("cqRepeat", "click", (e) => { e.currentTarget.disabled = true; cqRepeatNow(); });
     wireLift();
@@ -5327,8 +5399,9 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     return `
       <div class="hbar">
         <b>${esc(state.group.name)}</b>
-        ${m ? `<label class="hwho"><select id="who" aria-label="Who are you">${whoOptions}</select>
+        <span class="hright">${m ? `<label class="hwho"><select id="who" aria-label="Who are you">${whoOptions}</select>
           <i aria-hidden="true">&#9662;</i></label>` : ""}
+          ${m ? `<button type="button" class="hinfo${tourSeen() ? "" : " new"}" id="tourBtn" aria-label="How Tribes works">i</button>` : ""}</span>
       </div>
       ${goalLine()}
 
@@ -5457,7 +5530,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     weight: ["step on the scale", "weigh in after waking", "log my weight"],
     attn: ["write tomorrow's ideal day", "do my first block before my phone", "check my day at lunch"],
     refl: ["write one thing I'm grateful for", "write today's lesson", "journal for 2 minutes"],
-    silence: ["sit for 2 minutes", "sit after I pray", "breathe for ten breaths"],
+    silence: ["sit for 2 minutes", "sit after I wake", "breathe for ten breaths"],
   };
   const ATOM_WHEN = ["when I wake up", "after breakfast", "after work", "after dinner", "before bed"];
   const ATOM_WHO = {
@@ -5850,7 +5923,58 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       const e2 = document.getElementById("dmsg-" + k); if (e2) e2.innerHTML = "&nbsp;"; }, 2200);
   }
   let homeTick = null;
+  /* ---------- V5.5: the tour -----------------------------------------
+     The app shows everything; the ⓘ in the corner explains it, four
+     stops, one sentence each. Nothing is hidden, nothing is punished.
+     The overlay lives on <body>, outside render(), and looks each target
+     up again at every step, so a re-render underneath does not lose it. */
+  const TOUR = [
+    { at: "#dials", t: "Your dial",
+      d: "Today against your standard. Tap the name to open it, the number to log. Swipe if you have more than one." },
+    { at: "#dialEdit", t: "As few or as many",
+      d: "Start with one habit. Add another dial when the first one is easy." },
+    { at: ".pdash", open: true, t: "Your habits",
+      d: "Every habit, in five groups. Tap any number to open its page. Ignore the ones you are not doing yet." },
+    { at: ".ftab", open: true, t: "Your tribe",
+      d: "Everyone side by side, today. You are the first row." },
+  ];
+  // Until it is opened once, the ⓘ wears a small dot. That is the whole nudge.
+  const tourSeen = () => { try { return !!localStorage.getItem("fhd.tour"); } catch { return true; } };
+  function tour(i) {
+    document.querySelector(".tourbg")?.remove();
+    if (i >= TOUR.length) return;
+    const st = TOUR[i];
+    if (st.open && !boardOpen() && state.view === "home") {
+      try { localStorage.setItem("fhd.board", "open"); } catch {}
+      render();
+    }
+    const el = document.querySelector(st.at);
+    if (!el) return tour(i + 1);
+    el.scrollIntoView({ block: "center", behavior: "instant" });
+    const r = el.getBoundingClientRect(), pad = 6;
+    const bg = document.createElement("div");
+    bg.className = "tourbg";
+    bg.innerHTML = `<div class="tourcut" style="top:${r.top - pad}px;left:${r.left - pad}px;width:${r.width + pad * 2}px;height:${r.height + pad * 2}px"></div>
+      <div class="tourcard" role="dialog" aria-label="${esc(st.t)}">
+        <p class="eyebrow">${i + 1} of ${TOUR.length}</p>
+        <h3>${esc(st.t)}</h3><p>${esc(st.d)}</p>
+        <div class="tourbtns"><button type="button" class="btn-quiet" id="tourSkip">${i + 1 < TOUR.length ? "Skip" : ""}</button>
+          <button type="button" class="btn" id="tourNext">${i + 1 < TOUR.length ? "Next" : "Done"}</button></div></div>`;
+    document.body.appendChild(bg);
+    const card = bg.querySelector(".tourcard"), h = card.offsetHeight, vh = window.innerHeight;
+    // The card sits below the target if it fits there, otherwise above.
+    card.style.top = (r.bottom + pad + 12 + h < vh ? r.bottom + pad + 12 : Math.max(12, r.top - pad - 12 - h)) + "px";
+    bg.querySelector("#tourNext").addEventListener("click", () => tour(i + 1));
+    bg.querySelector("#tourSkip").addEventListener("click", () => tour(TOUR.length));
+    bg.addEventListener("click", (e) => { if (e.target === bg || e.target.classList.contains("tourcut")) tour(i + 1); });
+  }
+
   function wireHome() {
+    on("tourBtn", "click", (e) => {
+      try { localStorage.setItem("fhd.tour", "1"); } catch {}
+      e.currentTarget.classList.remove("new");
+      tour(0);
+    });
     const box = document.getElementById("dials");
     if (box) {
       // Strip positions: 0 a copy of the last dial · 1..n the dials ·
@@ -6122,7 +6246,14 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     try { saved = JSON.parse(localStorage.getItem(cardioKey()) || "[]"); } catch {}
     return (Array.isArray(saved) ? saved : []).filter((a) => typeof a === "string" && a.trim()).slice(0, 5);
   }
+  // V5.5. A tile you remove stays removed (on this phone); + adds one back.
+  const cqHideKey = () => "fhd.cardioHide." + (state.meId || "anon");
+  const cqHidden = () => { try { return JSON.parse(localStorage.getItem(cqHideKey()) || "[]") || []; } catch { return []; } };
   function cardioActs() {
+    const hide = cqHidden().map((x) => x.toLowerCase());
+    return cardioActsAll().filter((a) => !hide.includes(a.toLowerCase()));
+  }
+  function cardioActsAll() {
     const out = CARDIO_BASE.slice();
     for (const a of cardioOwn()) if (!out.some((b) => b.toLowerCase() === a.toLowerCase())) out.push(a);
     // V5.2. Routines are activities too.
@@ -6293,7 +6424,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       nsv.dataset.w = "1";
       const add = () => { const n = (document.getElementById("cqNewName")?.value || "").trim().slice(0, 40);
         if (!n) { q.err = "Name the activity."; render(); return; }
-        rememberCardio(n); try { localStorage.setItem(cardioLastKey(), n); } catch {}
+        rememberCardio(n); try { localStorage.setItem(cardioLastKey(), n); localStorage.setItem(cqHideKey(), JSON.stringify(cqHidden().filter((x) => x.toLowerCase() !== n.toLowerCase()))); } catch {}
         state.cq = { act: n, other: "", plus: false, dist: "", min: "", reps: "", err: "", picked: true }; render();
         document.getElementById("cqMin")?.focus(); };
       nsv.addEventListener("click", add);
@@ -6406,6 +6537,8 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     const tile = (n) => {
       const t = routineOf(n), mins = by(n);
       const prog = t && t.t > 0 ? Math.min(100, Math.round(Number((t.days || {})[today] || 0) / t.t * 100)) : null;
+      if (state.extEdit) return `<span class="ctile cedit"><b>${esc(n)}</b><span>${t && t.t > 0 ? `${rFmt(t, t.t)}${t.kind === "time" ? "" : " reps"} a day` : "\u2013"}</span>
+          <button type="button" class="cdelx" data-cqdel="${esc(n)}" aria-label="Remove ${esc(n)}">&times;</button></span>`;
       return `<button type="button" class="ctile${mins ? " on" : ""}" data-cqgo="${esc(n)}" aria-label="${esc(n)}${mins ? ", " + hm(mins) + " today" : ""}. Log">
           <b>${esc(n)}</b><span>${mins ? hm(mins) : t && t.t > 0 ? `${rFmt(t, Number((t.days || {})[today] || 0))} / ${rFmt(t, t.t)}${t.kind === "time" ? "" : ""}` : "–"}</span>
           ${prog !== null ? `<i class="cbar"><i style="width:${prog}%"></i></i>` : ""}</button>`;
@@ -7524,6 +7657,15 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   };
   const TLENS = [15, 30, 45, 60, 90, 120, 180];
 
+  // V5.5. The tap that ends a drag must not open the task it dropped.
+  let tJustDragged = false;
+  // V5.5. A phone only lets a page stop its own scrolling if a blocking
+  // touchmove listener is already there when the finger lands. Added after
+  // the hold, it is too late: the page scrolls and the drag is cancelled.
+  // So every draggable list carries one from the start, idle until a drag.
+  let dragLock = false;
+  const lockTouch = (el) => el && el.addEventListener("touchmove", (e) => { if (dragLock) e.preventDefault(); }, { passive: false });
+  document.addEventListener("click", (e) => { if (tJustDragged) { e.preventDefault(); e.stopPropagation(); } }, true);
   let pointerDown = false;
   window.addEventListener("pointerdown", () => { pointerDown = true; }, true);
   window.addEventListener("pointerup", () => { pointerDown = false; }, true);
@@ -7553,6 +7695,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     const fresh = res.tasks || [];
     const seen = new Set(fresh.map((x) => x.id));
     t.list = fresh.concat(t.list.filter((x) => t.added.has(x.id) && !seen.has(x.id)));
+    t.inbox = res.inbox || [];
     try { localStorage.setItem(taskCacheKey(), JSON.stringify(t.list)); } catch {}
     // Never pull the line out from under someone typing in it.
     const f = document.getElementById("tAddIn");
@@ -7682,7 +7825,18 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
             <button type="button" class="tmb bad" data-tsw="delete:${x.id}">Delete</button>
           </div>` : ""}
         ${t.schFor === x.id && !ed ? schedPanel(x) : ""}
+        ${ed ? "" : delegLine(x)}
       </li>`;
+  }
+  // V5.5. Delegate: send a task to someone in the tribe and see where it
+  // stands; a task someone sent you says who from.
+  const DSTAT = { sent: "waiting", accepted: "accepted", declined: "declined", done: "done \u2713" };
+  function delegLine(x) {
+    if (x.parent_id) return "";
+    if (x.from_name) return `<p class="tdl"><span class="tfrom">from ${esc(x.from_name)}</span></p>`;
+    if (x.deleg_to) return `<p class="tdl"><button type="button" class="tdel st-${esc(x.deleg_status || "sent")}" data-tdeleg="${x.id}">\u2192 ${esc(x.deleg_name || "someone")} \u00b7 ${DSTAT[x.deleg_status] || "waiting"}</button></p>`;
+    if ((x.quadrant || 1) === 3 && state.people.length > 1) return `<p class="tdl"><button type="button" class="tdel" data-tdeleg="${x.id}">Send to\u2026</button></p>`;
+    return "";
   }
 
   function listView() {
@@ -7708,11 +7862,18 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         <section class="tgroup q${Q.q}${qShut(Q.q) ? " shut" : ""}">
           <header class="tgh">${qFold(Q)}<span></span><em>${open.length || ""}</em>${qShut(Q.q) ? "" : plus(Q)}</header>
           ${qShut(Q.q) ? "" : `${adder(Q)}
-          ${order.length ? `<ul class="tl" data-tgroup="${Q.q}">${order.map((x) => taskRow(x)).join("")}</ul>` : ""}`}
+          <ul class="tl${order.length ? "" : " tempty"}" data-tgroup="${Q.q}">${order.map((x) => taskRow(x)).join("")}</ul>`}
         </section>`;
     };
     const anyOpen = actionable().length > 0;
+    const inbox = (t.inbox || []);
     return `
+      ${inbox.length ? `<section class="tinbox" aria-label="Sent to you">
+        <p class="eyebrow">For you</p>
+        <ul>${inbox.map((x) => `<li><span><b>${esc(x.title)}</b><small>from ${esc(x.from_name)}</small></span>
+          <button type="button" class="btn-quiet tno" data-tans="${x.id}:0">Decline</button>
+          <button type="button" class="btn tyes" data-tans="${x.id}:1">Accept</button></li>`).join("")}</ul>
+      </section>` : ""}
       <section class="tgroup q1 tdo${qShut(1) ? " shut" : ""}">
         <header class="tgh">${qFold(QUADS[0])}<em class="tdocount${doList.length > lim ? " over" : ""}">${doList.length}/${lim}</em><span></span>
           ${qShut(1) ? "" : `<button type="button" class="tlim" data-edit="goal" data-metric="tasks"
@@ -7727,7 +7888,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       </section>
       ${group(QUADS[1])}
       ${group(QUADS[2])}
-      ${anyOpen ? `<p class="tswhint">Swipe a task right to move it, left for more.</p>` : ""}
+      ${anyOpen ? `<p class="tswhint">Hold a task to move it, even into another list. Swipe right to move it, left for more.</p>` : ""}
 
       ${done.length ? `
         <section class="tdone">
@@ -8211,32 +8372,102 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     document.querySelectorAll("[data-tschdone]").forEach((el) =>
       el.addEventListener("click", () => { t.schFor = null; render(); }));
 
-    // ---- order inside a box: drag the grip ----
+    // ---- V5.5. Move a task: hold it (or grab the grip), then drag. It
+    // slides between tasks, never on top of one, and can go into another
+    // list (Decide to Do). The page scrolls when you near an edge.
+    let dragging = null;
+    const startDrag = (li, pid, x0, y0) => {
+      if (dragging) return;
+      const fromQ = Number(li.parentElement.dataset.tgroup);
+      dragging = li; t.swiped = null; dragLock = true;
+      li.classList.add("drag"); document.body.classList.add("tdragging");
+      try { navigator.vibrate && navigator.vibrate(8); } catch {}
+      const stopScroll = (ev) => ev.preventDefault();
+      document.addEventListener("touchmove", stopScroll, { passive: false });
+      let lx = x0, ly = y0, raf = 0;
+      const place = () => {
+        const el = document.elementFromPoint(lx, ly);
+        // An empty numbered slot in Do counts as Do.
+        const ul = el && el.closest && (el.closest("ul.tl[data-tgroup]")
+          || (el.closest("ul.tempties") && document.querySelector('ul.tl[data-tgroup="1"]')));
+        if (!ul) return;
+        const others = [...ul.children].filter((c) => c !== li && c.matches("li.tm"));
+        const before = others.find((c) => { const r = c.getBoundingClientRect(); return ly < r.top + r.height / 2; });
+        if (before) { if (li.nextElementSibling !== before || li.parentElement !== ul) ul.insertBefore(li, before); }
+        else if (li.parentElement !== ul || ul.lastElementChild !== li) ul.appendChild(li);
+        document.querySelectorAll('ul.tl[data-tgroup="1"]').forEach((u) =>
+          [...u.children].forEach((c, k) => { const r = c.querySelector(".trank"); if (r) r.textContent = k + 1; }));
+      };
+      const tick = () => {
+        if (!dragging) return;
+        if (ly < 70) window.scrollBy(0, -10); else if (ly > window.innerHeight - 70) window.scrollBy(0, 10);
+        place(); raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+      const move = (ev) => { if (pid !== null && ev.pointerId !== pid) return; lx = ev.clientX; ly = ev.clientY; };
+      const up = (ev) => {
+        if (pid !== null && ev && ev.pointerId !== pid) return;
+        window.removeEventListener("pointermove", move); window.removeEventListener("pointerup", up); window.removeEventListener("pointercancel", up);
+        document.removeEventListener("touchmove", stopScroll);
+        cancelAnimationFrame(raf);
+        li.classList.remove("drag"); document.body.classList.remove("tdragging");
+        dragging = null; dragLock = false; tJustDragged = true; setTimeout(() => { tJustDragged = false; }, 80);
+        const ul = li.parentElement, q = Number(ul.dataset.tgroup), x = find(li.dataset.id);
+        if (x && q && q !== fromQ) {
+          if (q === 1 && doFull() && !waiting(x)) { t.err = `Do holds ${doLimit()}. Finish or move one first.`; render(); return; }
+          x.quadrant = q; kids(x.id).forEach((c) => { c.quadrant = q; });
+          t.err = null; save(x);
+        }
+        reorder([...ul.children].filter((c) => c.matches("li.tm")).map((c) => c.dataset.id));
+      };
+      window.addEventListener("pointermove", move); window.addEventListener("pointerup", up); window.addEventListener("pointercancel", up);
+    };
+    document.querySelectorAll("ul.tl[data-tgroup]").forEach(lockTouch);
     document.querySelectorAll("[data-drag]").forEach((grip) =>
-      grip.addEventListener("pointerdown", (e) => {
-        e.preventDefault();
-        const li = grip.closest("li.tm"), ul = li.parentElement;
-        li.classList.add("drag");
-        const move = (ev) => {
-          const yy = ev.clientY;
-          const others = [...ul.children].filter((c) => c !== li);
-          const before = others.find((c) => { const r = c.getBoundingClientRect(); return yy < r.top + r.height / 2; });
-          if (before) { if (li.nextElementSibling !== before) ul.insertBefore(li, before); }
-          else if (ul.lastElementChild !== li) ul.appendChild(li);
-          if (ul.dataset.tgroup === "1")
-            [...ul.children].forEach((c, k) => { const r = c.querySelector(".trank"); if (r) r.textContent = k + 1; });
-        };
-        const up = () => {
-          window.removeEventListener("pointermove", move);
-          window.removeEventListener("pointerup", up);
-          window.removeEventListener("pointercancel", up);
-          li.classList.remove("drag");
-          reorder([...ul.children].map((c) => c.dataset.id));
-        };
-        window.addEventListener("pointermove", move);
-        window.addEventListener("pointerup", up);
-        window.addEventListener("pointercancel", up);
-      }));
+      grip.addEventListener("pointerdown", (e) => { e.preventDefault(); e.stopPropagation(); startDrag(grip.closest("li.tm"), e.pointerId, e.clientX, e.clientY); }));
+    document.querySelectorAll("ul.tl[data-tgroup] li.tm").forEach((li) => {
+      if (li.classList.contains("wait") || li.classList.contains("editing")) return;
+      let hold = null, sx = 0, sy = 0;
+      li.addEventListener("pointerdown", (e) => {
+        if (e.target.closest("[data-drag], [data-tdone], input, .tsw, .tswl, .tmorep, .tdel") || e.pointerType === "mouse") return;
+        sx = e.clientX; sy = e.clientY;
+        const pid = e.pointerId;
+        hold = setTimeout(() => { hold = null; startDrag(li, pid, sx, sy); }, 380);
+      });
+      li.addEventListener("pointermove", (e) => { if (hold && Math.hypot(e.clientX - sx, e.clientY - sy) > 8) { clearTimeout(hold); hold = null; } });
+      const clear = () => { clearTimeout(hold); hold = null; };
+      li.addEventListener("pointerup", clear); li.addEventListener("pointercancel", clear);
+      li.addEventListener("contextmenu", (e) => { if (dragging) e.preventDefault(); });
+    });
+
+    // ---- V5.5. Delegate ----
+    document.querySelectorAll("[data-tdeleg]").forEach((el) => el.addEventListener("click", () => {
+      const x = find(el.dataset.tdeleg); if (!x) return;
+      const others = state.people.filter((p) => p.id !== state.meId);
+      const send = async (to) => {
+        const res = await taskCall("app_task_delegate", { p_id: x.id, p_to: to });
+        if (res && res.error) { t.err = res.offline ? "No signal. Not sent yet." : res.error; render(); return; }
+        const fresh = await call("app_tasks", { p_code: state.code, p_person: state.meId });
+        if (fresh && !fresh.error) { t.list = fresh.tasks || t.list; t.inbox = fresh.inbox || []; cacheTasks(); }
+        render();
+      };
+      openModal({ title: x.deleg_to ? `${x.title}` : `Send “${x.title}” to`,
+        body: x.deleg_to ? `With ${x.deleg_name || "someone"} · ${DSTAT[x.deleg_status] || "waiting"}.` : "They can accept it or decline it.",
+        buttons: [
+          ...others.filter((p) => p.id !== x.deleg_to).map((p) => ({ label: x.deleg_to ? `Send to ${p.name} instead` : p.name, kind: "go", run: () => send(p.id) })),
+          ...(x.deleg_to ? [{ label: "Take it back", kind: "bad", run: () => send(null) }] : []),
+          { label: "Cancel", kind: "quiet" },
+        ] });
+    }));
+    document.querySelectorAll("[data-tans]").forEach((el) => el.addEventListener("click", async () => {
+      const [id, yes] = el.dataset.tans.split(":");
+      t.inbox = (t.inbox || []).filter((x) => x.id !== id); render();
+      const res = await taskCall("app_task_answer", { p_id: id, p_accept: yes === "1" });
+      if (res && res.error) { t.err = res.offline ? "No signal. Try again." : res.error; }
+      const fresh = await call("app_tasks", { p_code: state.code, p_person: state.meId });
+      if (fresh && !fresh.error) { t.list = fresh.tasks || t.list; t.inbox = fresh.inbox || []; cacheTasks(); }
+      render();
+    }));
 
     // ---- done: fold and clear ----
     on("tDoneFold", "click", () => { t.doneOpen = !t.doneOpen; render(); });
@@ -9796,7 +10027,8 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   }
   // V5.4. A running Focus session fills the screen, as a sitting does: what
   // it is for, a thin ring draining, the time left, pause in the middle.
-  // ⌄ steps out while it keeps running; ✕ ends it.
+  // V5.5: one control, ⌄, steps out while it keeps running; ⤢ on the page
+  // brings it back. Ending is on the page (pause, then End).
   function workFullView() {
     const r = state.work && state.work.run;
     if (!r) return "";
@@ -9804,8 +10036,8 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     return `
       <div class="silrun wfull" role="dialog" aria-label="Focus session">
         <div class="silbar">
+          <span></span>
           <button type="button" class="silico" id="wfMin" aria-label="Leave full screen; the session keeps running">\u2304</button>
-          <button type="button" class="silico" id="wfEnd" aria-label="End this session">&times;</button>
         </div>
         <div class="silmid">
           <p class="silmin">${esc(durWords(r.len)).toUpperCase()}</p>
@@ -9828,7 +10060,6 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     clearInterval(wfTick); wfTick = null;
     if (!document.querySelector(".wfull")) return;
     on("wfMin", "click", () => { state.workFull = false; render(); });
-    on("wfEnd", "click", () => workEndAsk());
     on("wfPP", "click", () => { const r = state.work.run; if (!r) return; if (r.pausedAt) workResume(); else workHold(); render(); });
     wfTick = setInterval(async () => {
       const r = state.work && state.work.run;
@@ -9874,7 +10105,8 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
          <span class="dsub" id="workRange">${r ? (r.pausedAt ? "Paused" : `ends ${workRange().split(" – ")[1] || ""}`) : ""}</span>
          <button type="button" class="dof" data-edit="goal" data-metric="work">${hm(total)} of ${hm(goal)} today</button>
          ${!r ? `<button type="button" class="dplay" id="workStart" aria-label="Start a ${w.len}-minute session"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></button>`
-           : running ? `<button type="button" class="dplay on" id="workPause" aria-label="Pause"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="5" width="3.6" height="14" rx="1"/><rect x="13.9" y="5" width="3.6" height="14" rx="1"/></svg></button>`
+           : running ? `<span class="wpaused"><button type="button" class="dplay on" id="workPause" aria-label="Pause"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="5" width="3.6" height="14" rx="1"/><rect x="13.9" y="5" width="3.6" height="14" rx="1"/></svg></button>
+              <button type="button" class="linkbtn wend" id="workMax" aria-label="Full screen">\u2922 Full screen</button></span>`
            : `<span class="wpaused"><button type="button" class="dplay" id="workContinue" aria-label="Continue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></button>
               <button type="button" class="linkbtn wend" id="workEnd">End</button></span>`}`
       : `<b class="dval">${hm(total)}</b>
@@ -10077,6 +10309,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     on("fClose", "click", () => { w.pick = false; w.startAfter = false; render(); });
 
     on("workStart", "click", () => { w.chipEdit = false; workGo(); state.workFull = true; render(); });
+    on("workMax", "click", () => { state.workFull = true; render(); });
     on("whFold", "click", () => { try { localStorage.setItem("fhd.whist", histShut() ? "open" : "shut"); } catch {} render(); });
     on("workPause", "click", () => { workHold(); stopWorkTick(); render(); });
     on("workContinue", "click", () => { workResume(); render(); });
@@ -10171,7 +10404,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       <div class="banner">
         This page has not been given its database address yet. Open
         <code>index.html</code>, and near the top replace
-        <code>__SUPABASE_URL__</code> and <code>__SUPABASE_ANON_KEY__</code> with the
+        <code>https://tdzrjtnsvhuubfzkrdny.supabase.co</code> and <code>sb_publishable_PDVArZM_J7r02XO-Texedw_f8Y6ZEtG</code> with the
         Project URL and the <b>anon</b> key from Supabase &rarr; Project Settings &rarr; API.
       </div>`;
   }
@@ -10207,7 +10440,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     state.view = "med";
     state.entryDate = null;
     state.medEdit = null; state.medMsg = null; state.medAdd = null; state.medSaved = null; state.medAmt = null;
-    state.silSub = null; state.silPick = null; state.silNew = false;
+    state.silSub = null; state.silPick = null; state.silNew = false; state.silSettings = false;
     render();
     window.scrollTo(0, 0);
     await flushSilPending();
@@ -10226,7 +10459,8 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       if (g && !g.error) state.silSits = g;
     }
     state.med = { date: res.date, today: res.today, schedule: res.schedule || [], day: res.day || {},
-                  sleep: res.sleep || {}, rows: Object.assign({ g: 3, l: 1, c: 1 }, res.refl_rows || {}) };
+                  sleep: res.sleep || {}, rows: Object.assign({ g: 1, l: 1, c: 1 }, res.refl_rows || {}),
+                  order: res.attn_order || {} };
   }
   const medReady = () => !!state.med && state.med.date === (entryDay() === todayISO() ? state.med.today : entryDay());
 
@@ -10276,6 +10510,22 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
              pct: n && (d + l || sp) ? Math.min(100, Math.round(100 * (pts + sp) / max)) : null };
   }
   const bySched = (a, b) => (a.t ?? 9999) - (b.t ?? 9999);
+  // V5.5. Attention's two columns, top down, each its own list. Your saved
+  // arrangement first; anything new joins the shorter column; Rise starts
+  // on the left and Rest ends on the right until you move them.
+  function attnCols(sched) {
+    const O = (state.med && state.med.order) || {}, ids = ["rise"].concat(sched.map((b) => b.id), ["rest"]);
+    const have = new Set(ids), used = new Set();
+    const take = (a) => (Array.isArray(a) ? a : []).filter((id) => have.has(id) && !used.has(id) && used.add(id));
+    let L = take(O.L), R = take(O.R);
+    if (!L.length && !R.length) {
+      const blocks = sched.map((b) => b.id), half = Math.ceil((blocks.length + 2) / 2);
+      const all = ["rise"].concat(blocks, ["rest"]);
+      return { L: all.slice(0, half), R: all.slice(half) };
+    }
+    for (const id of ids) if (!used.has(id)) { (L.length <= R.length ? L : R).push(id); used.add(id); }
+    return { L, R };
+  }
   const blockPts = (x) => !x || (x.s !== "d" && x.s !== "l") ? 0
     : 1 + (x.h ? 0 : 1) + (x.s === "d" ? 1 : 0) + (x.p ? 1 : 0);
   // Rise and Rest for the Attention day, read from Sleep.
@@ -10356,8 +10606,9 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     // the morning and Rest closes the evening; both come from Sleep.
     const I_CLK = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm0 2a7 7 0 1 1 0 14 7 7 0 0 1 0-14zm-1 2v5.4l4.2 2.5 1-1.7-3.2-1.9V7z"/></svg>`;
     const sleepTile = (k) => { const x = S.sl[k], lab = k === "rise" ? "Rise" : "Rest";
-      return `<li class="mtile msleep${x.ok ? " is-d" : ""}">
-          <div class="mth"><b>${lab}</b><span class="mpts">${x.ok ? 1 : 0}/1</span></div>
+      return `<li class="mtile msleep${x.ok ? " is-d" : ""}" data-bid="${k}">
+          <div class="mth"><b>${lab}</b><span class="mpts">${x.ok ? 1 : 0}/1</span>
+            <span class="mgrip" data-mgrip="1" aria-hidden="true" title="Drag to move">\u2807</span></div>
           <small>${k === "rise" ? "up" : "in bed"} by ${clockWords(x.t % 1440)}</small>
           <div class="mtg"><button type="button" class="mtog${x.ok ? " on" : ""}" data-go="${k}" aria-label="${lab}${x.v === null ? ", not logged. Log it in Sleep" : x.ok ? ", on time" : ", late"}">${x.v === null ? "Log" : x.ok ? "✓ " + clockWords(x.v % 1440) : clockWords(x.v % 1440)}</button></div>
         </li>`; };
@@ -10384,7 +10635,9 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
             <span class="dsub">${S.pts} of ${S.max} points</span></div></div>
       </section>
       <section class="card">
-        <ul class="mgrid" id="mGrid">${sleepTile("rise")}${sched.map(tile).join("")}${sleepTile("rest")}</ul>
+        ${(() => { const C = attnCols(sched), byId = new Map(sched.map((b) => [b.id, b]));
+          const one = (id) => id === "rise" || id === "rest" ? sleepTile(id) : byId.has(id) ? tile(byId.get(id)) : "";
+          return `<div class="mgrid" id="mGrid"><ul class="mcol" data-col="L">${C.L.map(one).join("")}</ul><ul class="mcol" data-col="R">${C.R.map(one).join("")}</ul></div>`; })()}
         <p class="hint mhint">✓ done · <span class="mhclk">${I_CLK}</span> on time · <b>+</b> done well · in full: 1 point each. Did less? Tap the length. Hold a block to move it.</p>
         <button type="button" class="linkbtn" id="mEditDay">Edit my ideal day</button>
       </section>`;
@@ -10442,7 +10695,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     { k: "c", h: "Change", one: "Change", ph: ["When ___, I will ___"], area: false },
   ];
   function reflView() {
-    const j = (state.med.day || {}).journal || {}, R = state.med.rows || { g: 3, l: 1, c: 1 };
+    const j = (state.med.day || {}).journal || {}, R = state.med.rows || { g: 1, l: 1, c: 1 };
     const total = R.g + R.l + R.c;
     const lines = (x) => (Array.isArray(j[x.k]) ? j[x.k] : []);
     let filled = 0;
@@ -10497,12 +10750,13 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   }
   const silPut = (x) => { try { localStorage.setItem(silKey(), JSON.stringify(x)); } catch {} };
   const silTypes = () => [{ id: "silence", name: "Silence" }].concat(silStore().types);
-  const silCur = () => { const x = silStore(); return silTypes().find((t) => t.id === x.cur) || silTypes()[0]; };
+  // V5.5. One kind of sitting: Silence. (Kinds named in V5.2–5.4 stay in old sittings' labels.)
+  const silCur = () => silTypes()[0];
   function silCfg() {
     const x = silStore();
-    return Object.assign({}, SIL_DEF, x.cfgs[x.cur] || {});
+    return Object.assign({}, SIL_DEF, x.cfgs.silence || {});
   }
-  const silSaveCfg = (c) => { const x = silStore(); x.cfgs[x.cur] = c; silPut(x); };
+  const silSaveCfg = (c) => { const x = silStore(); x.cfgs.silence = c; silPut(x); };
   function silRun() { try { return JSON.parse(localStorage.getItem(silRunKey()) || "null"); } catch { return null; } }
   function silSetRun(r) { try { r ? localStorage.setItem(silRunKey(), JSON.stringify(r)) : localStorage.removeItem(silRunKey()); } catch {} }
   // Milliseconds sat so far (warm-up excluded, pauses excluded).
@@ -10612,42 +10866,22 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     const sessions = Array.isArray(day.sessions) ? day.sessions : [];
     const total = sessions.reduce((a, x) => a + Number(x.min || 0), 0);
     const std = stdOf(m, "silence");
-    const row = (id, icon, label, value) => `<button type="button" class="silrow" id="${id}">
-        <span class="silri">${icon}</span><span class="silrl">${label}</span><span class="silrv">${value}</span><i aria-hidden="true">&rsaquo;</i></button>`;
-    const sub = state.silSub === "chimes";
-    const pickRow = (k, label, value) => `<button type="button" class="silrow" data-silpick="${k}">
-        <span class="silrl">${label}</span><span class="silrv">${value}</span><i aria-hidden="true">&rsaquo;</i></button>`;
-    const setup = sub ? `
-      <button type="button" class="backlink silback" id="silChimesBack">&larr; ${esc(cur.name)}</button>
-      <h2 class="silh">Chimes</h2>
-      <div class="sillist">
-        ${pickRow("start", "Starting bell", BELLS[c.start].toLowerCase())}
-        ${pickRow("end", "Ending bell", BELLS[c.end].toLowerCase())}
+    // V5.5. Silence, from first principles: one large circle. The length is
+    // inside it (tap the number to change it); tap the circle to begin, and
+    // the sitting fills the screen. One quiet line opens the settings.
+    // When a sitting ends, its end time is kept, so the gap to your done-by
+    // time is worked out for you.
+    const by = c.by === null || c.by === undefined ? null : c.by;
+    const w = by === null ? null : silWeeks(null, by);
+    const setup = `
+      <div class="silbig${isToday ? "" : " off"}" id="silCircle" role="group" aria-label="Begin a sitting">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" class="silbigring"></circle></svg>
+        <button type="button" class="silbign" id="silDur" aria-label="Length ${durWords(c.dur)}. Change">${c.dur >= 60 ? hm(c.dur) : c.dur}<small>${c.dur >= 60 ? "" : "min"}</small></button>
+        ${isToday ? `<button type="button" class="silbigp" id="silBegin" aria-label="Begin">${I_PLAY}<span>Begin</span></button>` : `<span class="silbigp off">Today only</span>`}
       </div>
-      <div class="sillist">
-        ${pickRow("int", "Interval bell", BELLS[c.int].toLowerCase())}
-        ${pickRow("every", "Interval time", EVERY[c.every].toLowerCase())}
-      </div>
-      <p class="hint" style="margin-top:10px">Tap a bell to hear it.</p>` : `
-      <div class="siltypes" role="tablist" aria-label="Kind of sitting">
-        ${types.map((t) => `<button type="button" class="siltype${t.id === cur.id ? " on" : ""}" data-siltype="${esc(t.id)}" role="tab" aria-selected="${t.id === cur.id}">${esc(t.name)}</button>`).join("")}
-        ${types.length < 6 ? `<button type="button" class="siltype silnew" id="silNew" aria-label="Add a kind of sitting, like Prayer">+</button>` : ""}
-      </div>
-      ${state.silNew ? `<form class="silnewf" id="silNewF"><input class="field" id="silNewIn" maxlength="24" autocomplete="off" enterkeyhint="done" placeholder="Name it, e.g. Prayer" aria-label="Name of the new kind of sitting">
-          <button type="submit" class="btn">Add</button><button type="button" class="linkbtn" id="silNewX">Cancel</button></form>` : ""}
-      <button type="button" class="sildur" id="silDur" aria-label="Length ${durWords(c.dur)}. Change">${c.dur >= 60 ? hm(c.dur) : c.dur}<small>${c.dur >= 60 ? "" : "min"}</small></button>
-      <p class="silmeta">
-        <button type="button" id="silChimes">${esc(BELLS[c.start].toLowerCase())}</button><i>·</i>
-        <button type="button" id="silWarmRow">${c.warm ? esc(WARM[c.warm].toLowerCase()) + " warm-up" : "no warm-up"}</button><i>·</i>
-        <button type="button" id="silBy">${c.by === null || c.by === undefined ? "done by –" : "by " + clockWords(c.by)}</button>${c.by === null || c.by === undefined ? "" : `<button type="button" class="silbyx" id="silByX" aria-label="No done-by time">×</button>`}
-      </p>
-      ${isToday ? `<button type="button" class="silgo" id="silBegin" aria-label="Begin ${esc(cur.name)}">${I_PLAY}</button>` : ""}
-      ${(() => { if (c.by === null || c.by === undefined) return "";
-        const w = silWeeks(cur.id === "silence" ? null : cur.name, c.by);
-        const better = w.now !== null && w.prev !== null && w.now < w.prev;
-        return `<p class="silgap"><span>This week <b class="${w.now === 0 ? "win" : ""}">${gapWords(w.now)}</b></span>
-          <span>Last week <b>${gapWords(w.prev)}</b></span>${better ? `<em>↓ ${hm(w.prev - w.now)} closer</em>` : ""}</p>`; })()}
-      ${cur.id === "silence" ? "" : `<p class="silp"><button type="button" class="linkbtn" id="silDelType">Remove ${esc(cur.name)}</button></p>`}`;
+      <button type="button" class="silsetl" id="silSet">${esc(BELLS[c.start].toLowerCase())}${c.warm ? " · " + esc(WARM[c.warm].toLowerCase()) + " warm-up" : ""}${by === null ? "" : " · by " + clockWords(by)} <i aria-hidden="true">›</i></button>
+      ${w ? `<p class="silgap"><span>This week <b class="${w.now === 0 ? "win" : ""}">${gapWords(w.now)}</b></span>
+          <span>Last week <b>${gapWords(w.prev)}</b></span>${w.now !== null && w.prev !== null && w.now < w.prev ? `<em>↓ ${hm(w.prev - w.now)} closer</em>` : ""}</p>` : ""}`;
     return `
       <section class="card msil">${setup}</section>
       <section class="card msess">
@@ -10676,13 +10910,34 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
 
   // The pickers: a list for each bell (tap one to hear it), and a wheel
   // of hours and minutes for the length.
+  function silSettings(c) {
+    if (!state.silSettings) return "";
+    const row = (k, label, value) => `<button type="button" class="silrow" data-silpick="${k}"><span class="silrl">${label}</span><span class="silrv">${value}</span><i aria-hidden="true">&rsaquo;</i></button>`;
+    return `<div class="sheetbg" id="silSetBg"></div>
+      <div class="stdsheet silsets" role="dialog" aria-label="Silence settings">
+        <p class="eyebrow">Settings</p>
+        <div class="sillist">
+          ${row("dur", "Length", durWords(c.dur))}
+          ${row("start", "Starting bell", BELLS[c.start].toLowerCase())}
+          ${row("end", "Ending bell", BELLS[c.end].toLowerCase())}
+          ${row("int", "Interval bell", BELLS[c.int].toLowerCase())}
+          ${row("every", "Interval time", EVERY[c.every].toLowerCase())}
+          ${row("warm", "Warm-up", WARM[c.warm].toLowerCase())}
+          ${row("by", "Done by", c.by === null || c.by === undefined ? "none" : clockWords(c.by))}
+        </div>
+        <p class="hint">Done by: the time you mean to have finished. Each sitting shows how late it ended, and the week how close you are getting.</p>
+        <div class="stdbtns">${c.by === null || c.by === undefined ? "" : `<button type="button" class="btn-quiet" id="silByX">No done-by time</button>`}
+          <button type="button" class="btn" id="silSetDone">Done</button></div>
+      </div>`;
+  }
   function silSheet(c) {
     const k = state.silPick;
-    if (!k) return "";
+    if (!k) return silSettings(c);
+    const under = silSettings(c);
     if (k === "dur") {
       const col = (id, n, unit, val) => `<div class="wheel" id="${id}" tabindex="0" aria-label="${unit}" data-val="${val}">
           <div class="wpad"></div>${Array.from({ length: n }, (_, i) => `<div class="witem" data-i="${i}">${i}</div>`).join("")}<div class="wpad"></div></div>`;
-      return `<div class="sheetbg" id="silBg"></div>
+      return under + `<div class="sheetbg" id="silBg"></div>
         <div class="stdsheet silsheet" role="dialog" aria-label="Duration">
           <div class="wheels"><div class="wsel" aria-hidden="true"></div>
             ${col("wH", 5, "Hours", Math.floor(c.dur / 60))}<span class="wlab">hours</span>
@@ -10692,7 +10947,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     }
     const map = k === "every" ? EVERY : k === "warm" ? WARM : BELLS;
     const cur = String(c[k]);
-    return `<div class="sheetbg" id="silBg"></div>
+    return under + `<div class="sheetbg" id="silBg"></div>
       <div class="silact" role="dialog" aria-label="${{ start: "Starting bell", end: "Ending bell", int: "Interval bell", every: "Interval time", warm: "Warm-up" }[k]}">
         <div class="silopts">${Object.entries(map).map(([v, t]) => `<button type="button" class="silopt${String(v) === cur ? " on" : ""}" data-silopt="${v}" aria-pressed="${String(v) === cur}">${t}</button>`).join("")}</div>
         <button type="button" class="silopt silcancel" id="silPickDone">${map === BELLS ? "Done" : "Cancel"}</button>
@@ -10827,33 +11082,40 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     // the new order of your ideal day. Rise and Rest stay first and last.
     const grid = document.getElementById("mGrid");
     if (grid && entryDay() === todayISO()) {
-      let drag = null, hold = null, sx = 0, sy = 0, pid = null;
-      const tiles = () => [...grid.querySelectorAll(".mtile[data-bid]")];
+      lockTouch(grid);
+      let drag = null, hold = null, sx = 0, sy = 0, pid = null, lx = 0, ly = 0, raf = 0;
       const stopScroll = (e) => { if (drag) e.preventDefault(); };
-      const begin = (li) => {
-        drag = li; li.classList.add("dragging");
-        try { if (pid !== null) grid.setPointerCapture(pid); } catch {}
-        try { navigator.vibrate && navigator.vibrate(8); } catch {}
-        document.addEventListener("touchmove", stopScroll, { passive: false });
+      const place = () => {
+        const el = document.elementFromPoint(lx, ly);
+        const col = el && el.closest && el.closest(".mcol");
+        if (!col) return;
+        const others = [...col.children].filter((c) => c !== drag);
+        const before = others.find((c) => { const r = c.getBoundingClientRect(); return ly < r.top + r.height / 2; });
+        if (before) { if (drag.nextElementSibling !== before || drag.parentElement !== col) col.insertBefore(drag, before); }
+        else if (drag.parentElement !== col || col.lastElementChild !== drag) col.appendChild(drag);
       };
-      const move = (x, y) => {
-        if (!drag) return;
-        const over = document.elementFromPoint(x, y)?.closest?.(".mtile[data-bid]");
-        if (!over || over === drag) return;
-        const T = tiles(), from = T.indexOf(drag), to = T.indexOf(over);
-        over.parentNode.insertBefore(drag, to > from ? over.nextSibling : over);
+      const tick = () => { if (!drag) return;
+        if (ly < 70) window.scrollBy(0, -10); else if (ly > window.innerHeight - 70) window.scrollBy(0, 10);
+        place(); raf = requestAnimationFrame(tick); };
+      const begin = (li) => {
+        drag = li; dragLock = true; li.classList.add("dragging"); grid.classList.add("on");
+        try { navigator.vibrate && navigator.vibrate(8); } catch {}
+        try { if (pid !== null) grid.setPointerCapture(pid); } catch {}
+        document.addEventListener("touchmove", stopScroll, { passive: false });
+        lx = sx; ly = sy; raf = requestAnimationFrame(tick);
       };
       const end = async () => {
         clearTimeout(hold); hold = null;
         document.removeEventListener("touchmove", stopScroll);
+        cancelAnimationFrame(raf); dragLock = false;
         if (!drag) return;
-        drag.classList.remove("dragging"); drag = null;
-        const order = tiles().map((t) => t.dataset.bid), cur = state.med.schedule || [];
-        if (order.join() === cur.map((b) => b.id).join()) return;
-        const byId = new Map(cur.map((b) => [b.id, b]));
-        const list = order.map((id) => byId.get(id)).filter(Boolean);
-        state.med.schedule = list; render();
-        const res = await call("app_med_schedule", { p_code: state.code, p_person: state.meId, p_schedule: list });
+        drag.classList.remove("dragging"); grid.classList.remove("on"); drag = null;
+        const col = (c) => [...grid.querySelectorAll(`.mcol[data-col="${c}"] .mtile[data-bid]`)].map((t) => t.dataset.bid);
+        const order = { L: col("L"), R: col("R") };
+        const was = attnCols(state.med.schedule || []);
+        if (order.L.join() === was.L.join() && order.R.join() === was.R.join()) return;
+        state.med.order = order; render();
+        const res = await call("app_set_attn_order", { p_code: state.code, p_person: state.meId, p_order: order });
         if (res.error) { state.medMsg = res.offline ? "No signal. Not saved yet." : res.error; render(); }
       };
       grid.addEventListener("pointerdown", (e) => {
@@ -10865,7 +11127,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       });
       grid.addEventListener("pointermove", (e) => {
         if (hold && Math.hypot(e.clientX - sx, e.clientY - sy) > 8) { clearTimeout(hold); hold = null; }
-        move(e.clientX, e.clientY);
+        lx = e.clientX; ly = e.clientY;
       });
       grid.addEventListener("pointerup", end);
       grid.addEventListener("pointercancel", end);
@@ -10965,32 +11227,11 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     // Silence.
     const c = silCfg();
     const setCfg = (patch) => { silSaveCfg(Object.assign(c, patch)); render(); };
-    document.querySelectorAll("[data-siltype]").forEach((el) => el.addEventListener("click", () => {
-      const x = silStore(); x.cur = el.dataset.siltype; silPut(x); state.silNew = false; render(); }));
-    on("silNew", "click", () => { state.silNew = true; render(); document.getElementById("silNewIn")?.focus(); });
-    on("silNewX", "click", () => { state.silNew = false; render(); });
-    on("silNewF", "submit", (e) => {
-      e.preventDefault();
-      const name = (document.getElementById("silNewIn")?.value || "").trim().slice(0, 24);
-      if (!name) return;
-      const x = silStore();
-      const hit = silTypes().find((t) => t.name.toLowerCase() === name.toLowerCase());
-      if (hit) x.cur = hit.id;
-      else if (x.types.length < 5) { const id = "t" + uuid().slice(0, 8); x.types.push({ id, name }); x.cur = id; }
-      silPut(x); state.silNew = false; render();
-    });
-    on("silDelType", "click", () => {
-      const x = silStore(), id = x.cur, t = x.types.find((y) => y.id === id); if (!t) return;
-      openModal({ title: `Remove ${t.name}?`, body: "Sittings already logged stay logged.",
-        buttons: [{ label: "Remove", kind: "bad", run: () => { const y = silStore();
-            y.types = y.types.filter((z) => z.id !== id); delete y.cfgs[id]; y.cur = "silence"; silPut(y); render(); } },
-          { label: "Keep", kind: "quiet" }] });
-    });
-    on("silChimes", "click", () => { state.silSub = "chimes"; render(); });
-    on("silChimesBack", "click", () => { state.silSub = null; render(); });
     on("silDur", "click", () => { state.silPick = "dur"; render(); wheelsInit(); });
-    on("silWarmRow", "click", () => { state.silPick = "warm"; render(); });
-    document.querySelectorAll("[data-silpick]").forEach((el) => el.addEventListener("click", () => { state.silPick = el.dataset.silpick; render(); }));
+    document.querySelectorAll("[data-silpick]").forEach((el) => el.addEventListener("click", () => {
+      const k = el.dataset.silpick;
+      if (k === "by") { timeWheel("Done by", c.by ?? 5 * 60, (v) => setCfg({ by: v })); return; }
+      state.silPick = k; render(); if (k === "dur") wheelsInit(); }));
     const pickClose = () => { state.silPick = null; render(); };
     on("silBg", "click", () => { if (state.silPick === "dur") wheelsSave(); pickClose(); });
     on("silPickDone", "click", () => { if (state.silPick === "dur") wheelsSave(); pickClose(); });
@@ -11019,7 +11260,12 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       silSaveCfg(Object.assign(c, { dur }));
     }
     if (state.silPick === "dur") wheelsInit();
-    on("silBegin", "click", () => { silStartNow(); render(); silStartTick(); });
+    on("silBegin", "click", (e) => { e.stopPropagation(); silStartNow(); render(); silStartTick(); });
+    // The whole circle begins, except the number, which changes the length.
+    on("silCircle", "click", (e) => { if (e.target.closest("#silDur") || entryDay() !== todayISO()) return; silStartNow(); render(); silStartTick(); });
+    on("silSet", "click", () => { state.silSettings = true; render(); });
+    on("silSetDone", "click", () => { state.silSettings = false; render(); });
+    on("silSetBg", "click", () => { state.silSettings = false; render(); });
     on("silBy", "click", () => timeWheel(`${silCur().name} done by`, c.by ?? 5 * 60, (v) => setCfg({ by: v })));
     on("silByX", "click", () => setCfg({ by: null }));
     // V5.4. A note on a sitting: tap, type, Enter (or tap away) saves.
@@ -11416,8 +11662,8 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   // V4.2. Only what the dashboard shows can be a dial (not Calories, which
   // lives under Macros). A V4.1 phone may still say protein or kcal.
   const DIAL_KEYS = STD_GROUPS.flatMap(([, ks]) => ks);
-  // V4.6. Three at most: home is for what matters most today.
-  const DIAL_MAX = 3;
+  // V5.5. As few or as many as you want; one, Steps, to start.
+  const DIAL_MAX = DIAL_KEYS.length;
   const okDials = (d) => Array.isArray(d) && d.length >= 1 && d.length <= DIAL_MAX &&
     new Set(d).size === d.length && d.every((k) => DIAL_KEYS.includes(k));
   const fixDials = (d) => Array.isArray(d)
@@ -11439,7 +11685,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       <div class="stdsheet dpick" role="dialog" aria-label="Choose your dials">
         <p class="eyebrow">Home screen</p>
         <h3>Your dials</h3>
-        <p class="hint" style="margin-top:4px">Tap up to three, in the order you want them. A fourth tap starts over.</p>
+        <p class="hint" style="margin-top:4px">Tap as few or as many as you like, in the order you want them. One is plenty to start.</p>
         ${STD_GROUPS.map(([g, ks]) => `
           <p class="dpg">${esc(g)}</p>
           <div class="dpgrid">${ks.map((k) => {
@@ -11498,7 +11744,6 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         const at = p.indexOf(k);
         if (at >= 0) p.splice(at, 1);
         else if (p.length < DIAL_MAX) p.push(k);
-        else p.splice(0, p.length, k);      // V5.1. A fourth tap starts over: it is #1.
         render();
       }));
     on("dialSave", "click", () => { if (okDials(state.dialPick)) saveDials(state.dialPick); });
