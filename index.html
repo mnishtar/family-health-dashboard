@@ -366,8 +366,9 @@ input[type=number] { -moz-appearance:textfield; }
 .tmb.bad { color:#b3422a; border-color:color-mix(in oklab, #b3422a 40%, var(--line)); }
 .tswhint { margin:18px 2px 0; font-size:12px; color:var(--muted); text-align:center; }
 .tgroup { margin-top:16px; }
-.tgroup.q1 { --qc:var(--work); } .tgroup.q2 { --qc:var(--accent); }
-.tgroup.q3 { --qc:var(--swim); } .tgroup.q4 { --qc:var(--muted); }
+/* V5.6. Do gold, Decide lavender, Delegate sage: three lists, three colors. */
+.tgroup.q1 { --qc:var(--work); } .tgroup.q2 { --qc:var(--sleep); }
+.tgroup.q3 { --qc:var(--sage); } .tgroup.q4 { --qc:var(--muted); }
 .tgh { display:flex; align-items:baseline; gap:8px; padding:0 2px 6px;
   border-bottom:2px solid var(--qc); }
 .tgh b { font-family:var(--display); font-weight:500; font-size:20px; color:var(--ink); }
@@ -446,8 +447,8 @@ li.tm .tt, .mtile .mth { -webkit-user-select:none; user-select:none; }
 .schip { border:1.5px solid var(--line); background:var(--surface); border-radius:99px; padding:8px 13px;
   font-family:inherit; font-size:14px; color:var(--ink); cursor:pointer; max-width:100%;
   overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.schip.q1 { --qc:var(--work); } .schip.q2 { --qc:var(--accent); }
-.schip.q3 { --qc:var(--swim); } .schip.q4 { --qc:var(--muted); }
+.schip.q1 { --qc:var(--work); } .schip.q2 { --qc:var(--sleep); }
+.schip.q3 { --qc:var(--sage); } .schip.q4 { --qc:var(--muted); }
 .schip { border-left:4px solid var(--qc); }
 .schip.on { background:var(--qc); color:#17130c; border-color:var(--qc); }
 .schip small { margin-left:6px; font-size:11px; opacity:.75; }
@@ -465,8 +466,8 @@ li.tm .tt, .mtile .mth { -webkit-user-select:none; user-select:none; }
   font-family:inherit; color:var(--ink); cursor:pointer; overflow:hidden; display:flex; align-items:flex-start;
   gap:7px; line-height:1.25; box-sizing:border-box;
   background:color-mix(in oklab, var(--qc) 16%, var(--surface)); border-left:4px solid var(--qc); z-index:1; }
-.sblk.q1 { --qc:var(--work); } .sblk.q2 { --qc:var(--accent); }
-.sblk.q3 { --qc:var(--swim); } .sblk.q4 { --qc:var(--muted); }
+.sblk.q1 { --qc:var(--work); } .sblk.q2 { --qc:var(--sleep); }
+.sblk.q3 { --qc:var(--sage); } .sblk.q4 { --qc:var(--muted); }
 .sblk .tck { margin-top:1px; }
 .sbt { flex:1; min-width:0; }
 .sblk b { font-size:14px; font-weight:600; }
@@ -564,9 +565,11 @@ li.tm .tt, .mtile .mth { -webkit-user-select:none; user-select:none; }
 .tlim { border:none; background:none; color:var(--muted); font-family:inherit; font-size:12.5px;
   padding:2px 0 2px 8px; cursor:pointer; text-decoration:underline; text-decoration-color:var(--line-strong);
   text-underline-offset:3px; }
-.tgroup.q2 .tgh, .tgroup.q3 .tgh { border-bottom-width:1px; }
 .tgroup.q2 .tgh b, .tgroup.q3 .tgh b { font-family:inherit; font-size:12px; font-weight:700; letter-spacing:.08em;
-  text-transform:uppercase; color:var(--muted); }
+  text-transform:uppercase; color:var(--qc); }
+/* V5.6. Each list wears its colour: its name, its rule, a thin edge on each task. */
+.tgroup.q1 .tgh b { color:var(--qc); }
+.tgroup .tl > li.tm > .tr { box-shadow:inset 3px 0 0 color-mix(in oklab, var(--qc) 70%, transparent); }
 .tgroup.q2, .tgroup.q3 { margin-top:22px; }
 .tempties { list-style:none; margin:0; padding:0; }
 .tslot { display:flex; align-items:center; gap:10px; min-height:46px; border-bottom:1px dashed var(--line); }
@@ -591,7 +594,7 @@ li.tm .tt, .mtile .mth { -webkit-user-select:none; user-select:none; }
 .tm.swipedr .tsw, .tm.pullr .tsw { opacity:0; pointer-events:none; }
 .tswq { border:none; border-radius:99px; padding:8px 12px; font-family:inherit; font-size:13.5px; font-weight:600; color:#17130c;
   cursor:pointer; background:var(--qc); }
-.tswq.q1 { --qc:var(--work); } .tswq.q2 { --qc:var(--accent); } .tswq.q3 { --qc:var(--swim); }
+.tswq.q1 { --qc:var(--work); } .tswq.q2 { --qc:var(--sleep); } .tswq.q3 { --qc:var(--sage); }
 .tswq.on { background:none; color:var(--qc); box-shadow:inset 0 0 0 1.5px var(--qc); }
 .tswt { border:none; background:none; color:var(--accent); font-family:inherit; font-size:15px; font-weight:500;
   padding:8px 4px; cursor:pointer; }
@@ -889,9 +892,17 @@ button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inh
 .yglance { display:flex; flex-direction:column; gap:3px; }
 .yrow { display:grid; grid-template-columns:30px minmax(0, 1fr); align-items:center; gap:6px; border:none; background:none; padding:2px 0; cursor:pointer; color:var(--muted); font:inherit; font-size:10.5px; text-align:left; border-radius:6px; }
 .yrow.on { background:color-mix(in oklab, var(--ink) 6%, transparent); color:var(--ink); }
-.ycells { display:grid; grid-template-columns:repeat(31, minmax(0, 1fr)); gap:1.5px; }
-.ycells b { display:block; aspect-ratio:1; border-radius:2px; background:var(--surface-2); }
-.ycells b.we { background:color-mix(in oklab, var(--ink) 9%, var(--surface)); }
+.ycells { display:grid; grid-template-columns:repeat(37, minmax(0, 1fr)); gap:1.5px; }
+.ycells b { display:flex; align-items:center; justify-content:center; aspect-ratio:1; border-radius:2px; background:var(--surface-2); overflow:hidden; }
+.ycells b.we { background:color-mix(in oklab, var(--ink) 16%, var(--surface)); }
+.ycells b.e { background:none; }
+.ycells b.e.we { background:color-mix(in oklab, var(--ink) 3.5%, transparent); }
+.ycells em { display:none; font-style:normal; font-size:8.5px; line-height:1; color:var(--muted); }
+.ycells b.we em { color:var(--ink-2); }
+@media (min-width:560px) { .ycells em { display:block; } }
+.yhead { cursor:default; padding:0; }
+.yhead .ycells span { text-align:center; font-size:7.5px; line-height:1.4; color:var(--muted); }
+.yhead .ycells span.we { color:var(--ink); font-weight:700; }
 .ycells b.cy { box-shadow:inset 0 -2px 0 var(--green); }
 .ycells b.td { outline:1px solid var(--ink); outline-offset:0; }
 .ykinds { display:flex; flex-wrap:wrap; justify-content:center; gap:6px; margin:12px 0 8px; }
@@ -902,6 +913,8 @@ button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inh
 .ymh { margin:0 0 6px; text-align:center; font-weight:600; }
 .ydow, .ygrid { display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); gap:4px; }
 .ydow span { text-align:center; font-size:10.5px; color:var(--muted); }
+.ydow span.we { color:var(--ink); font-weight:700; }
+.yday.we { background:color-mix(in oklab, var(--ink) 12%, var(--surface-2)); }
 .ygrid { touch-action:none; user-select:none; -webkit-user-select:none; }
 .yday { aspect-ratio:1; border:1px solid var(--line); border-radius:8px; background:var(--surface-2); color:var(--ink-2); font:inherit; font-size:13px; cursor:pointer; padding:0; }
 .yday.cy { box-shadow:inset 0 -3px 0 var(--green); }
@@ -1328,8 +1341,8 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .sanyh em { font-style:normal; font-size:13px; color:var(--work); }
 .sany.armed .sanyh { cursor:copy; border:1.5px dashed var(--work); border-radius:10px; padding:10px 12px; }
 .sany .tm { --qc:var(--line-strong); }
-.sany .tm.q1 { --qc:var(--work); } .sany .tm.q2 { --qc:var(--accent); }
-.sany .tm.q3 { --qc:var(--swim); } .sany .tm.q4 { --qc:var(--muted); }
+.sany .tm.q1 { --qc:var(--work); } .sany .tm.q2 { --qc:var(--sleep); }
+.sany .tm.q3 { --qc:var(--sage); } .sany .tm.q4 { --qc:var(--muted); }
 .sany .tr { min-height:44px; }
 .sany .tt { cursor:default; padding:9px 0; }
 
@@ -1925,7 +1938,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 .ftab { border-top:1px solid var(--line); padding:8px 8px 6px 10px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
 /* V4.1. Twelve columns no longer fit a phone at a readable size: the
    table keeps a floor per column and slides sideways, names pinned. */
-.ftbl { width:100%; min-width:480px; border-collapse:collapse; table-layout:fixed; font-variant-numeric:tabular-nums; }
+.ftbl { width:100%; border-collapse:collapse; table-layout:fixed; font-variant-numeric:tabular-nums; }
 .ftbl th, .ftbl td { padding:0 1px; text-align:center; white-space:nowrap; overflow:hidden; text-overflow:clip; }
 .ftbl thead th { font-size:8.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
   color:var(--muted); padding:0 0 5px; }
@@ -1952,6 +1965,34 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 .prw + .prw { border-top:1px solid color-mix(in oklab, var(--line) 60%, transparent); }
 .pcat { padding-left:12px; font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); line-height:1.2; }
 .pcells { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); }
+/* V5.6. Progress over time: a dot plot under each habit's dial. */
+.pgcard { padding:14px 14px 10px; }
+.pghead { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.pgsum { margin:0; font-size:13.5px; color:var(--ink-2); }
+.pgsum b { color:var(--ink); font-size:16px; font-variant-numeric:tabular-nums; }
+.pgr button { min-width:38px; }
+.pgsvg { display:block; width:100%; height:auto; margin-top:8px; overflow:visible; }
+.pgsvg rect[data-pg] { cursor:pointer; }
+.pgh { fill:var(--green); stroke:var(--surface); stroke-width:1; }
+.pgm { fill:none; stroke:var(--ink-2); stroke-width:1.4; opacity:.75; }
+.pgstd { stroke:var(--muted); stroke-width:1; stroke-dasharray:3 3; }
+.pgbase { stroke:var(--line); stroke-width:1; }
+.pgsel { stroke:var(--line-strong); stroke-width:1; }
+.pgt { fill:var(--muted); font:10.5px var(--body); }
+.pgax { opacity:.7; }
+.pgcap { margin:6px 0 0; min-height:18px; font-size:12.5px; color:var(--ink-2); display:flex; flex-wrap:wrap; gap:4px 14px; }
+.pgk { display:inline-flex; align-items:center; gap:5px; color:var(--muted); }
+.pgk i { width:8px; height:8px; border-radius:50%; border:1.4px solid var(--ink-2); }
+.pgk i.h { background:var(--green); border-color:var(--green); }
+.pgnone { margin:10px 0 4px; }
+.xspark { display:block !important; padding:0 0 8px !important; border-top:none !important; }
+.xspark svg { display:block; width:100%; height:auto; overflow:visible; }
+.xsl { fill:none; stroke:var(--line-strong); stroke-width:1.2; }
+.xsd { fill:var(--diet); stroke:var(--surface); stroke-width:1; }
+.xsx { display:flex; justify-content:space-between; padding-right:46px; font-size:10.5px; color:var(--muted); }
+/* V5.6. The way to add or remove habits, at the foot of your dashboard. */
+.paddh { display:block; width:100%; border:none; border-top:1px solid var(--line); background:none; color:var(--accent);
+  font:inherit; font-size:13px; padding:11px 12px; text-align:left; cursor:pointer; }
 .pcell { display:flex; flex-direction:column; align-items:flex-start; gap:1px; min-width:0; border:none; background:none;
   padding:8px 6px; font:inherit; color:var(--ink); text-align:left; cursor:pointer; -webkit-tap-highlight-color:transparent; }
 .pcell b { font-family:var(--mono); font-weight:500; font-size:clamp(14px, 4.3vw, 17px); letter-spacing:-.03em; white-space:nowrap; }
@@ -2154,10 +2195,6 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
 .silgo { display:grid; place-items:center; width:76px; height:76px; margin:22px auto 4px; border-radius:50%; border:none;
   background:var(--green); color:#f2fbf5; cursor:pointer; }
 .silgo svg { width:30px; height:30px; fill:currentColor; margin-left:3px; }
-.silgap { display:flex; flex-wrap:wrap; justify-content:center; gap:4px 14px; margin:14px 0 0; font-size:13px; color:var(--muted); }
-.silgap b { color:var(--ink); font-weight:600; }
-.silgap b.win { color:var(--green-ink); }
-.silgap em { flex-basis:100%; font-style:normal; color:var(--green-ink); }
 .silsits li { flex-wrap:wrap; }
 .silsits small em { font-style:normal; color:var(--warn); }
 .wlines .silnotev { flex-basis:100%; flex:1 1 100%; text-align:left; border:none; background:none; padding:2px 0 0; font:inherit; font-size:13px; color:var(--ink-2); cursor:pointer; }
@@ -2238,7 +2275,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "5.5";
+  const APP_VERSION = "5.6";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -2534,8 +2571,8 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     // the latest weigh-in, its standard a goal weight. Calories has a
     // standard of its own but is not a dial or a cell.
     dd:      { label:"Longevity",  kind:"count", def:25,   key:"dd_items",   unit:"boxes" },
-    macros:  { label:"Protein",    kind:"count", def:60,   key:"protein_g",  unit:"g" },
-    weight:  { label:"Weight",     kind:"weight", def:0,   key:"weight_lb",  unit:"lb" },
+    macros:  { label:"Macros",    kind:"count", def:60,   key:"protein_g",  unit:"g" },
+    weight:  { label:"Biomarkers",     kind:"weight", def:0,   key:"weight_lb",  unit:"lb" },
     kcal:    { label:"Calories",   kind:"count", def:2000, key:"kcal",       unit:"kcal", hidden:true },
     // V5.1. Meditation. Reflection is done or not; Prayers is a standard
     // that lives under Silence, not a dial of its own.
@@ -5308,7 +5345,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     // the same nine numbers in the same order, small, so the whole family
     // fits in the space one card used to take. Columns read down.
     const FAB = { steps:"Stp", train:"Trn", cardio:"Crd", sleep:"Rec", rise:"Rise", rest:"Rest",
-                  work:"Foc", goals:"Gls", tasks:"Tsk", dd:"Lng", macros:"Pro", weight:"Wt",
+                  work:"Foc", goals:"Gls", tasks:"Tsk", dd:"Lng", macros:"Mac", weight:"Bio",
                   attn:"Att", refl:"Ref", silence:"Sil" };
     const tiny = (k, v) => {
       if (v === null || v === undefined) return "\u2013";
@@ -5330,19 +5367,24 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     // V5.3. The tribe's table: a row of category names over each three
     // columns, each category a shade lighter than the one before. Read
     // only: nobody taps into anyone else's habits from here.
+    // V5.6. Only your habits: the groups you have nothing in drop out, and
+    // each group keeps its own shade.
+    const mine = new Set(myDials());
+    const groups = STD_GROUPS.map(([g, ks], gi) => [g, ks.filter((k) => mine.has(k)), gi]).filter(([, ks]) => ks.length);
     const famTable = (list) => {
-      const ks = STD_GROUPS.flatMap(([, g]) => g);
-      const band = (i) => ` b${Math.floor(i / 3)}`;
-      return `<div class="ftab"><table class="ftbl">
-        <thead><tr class="fgrp"><th class="fn"></th>${STD_GROUPS.map(([g], i) => `<th colspan="3" class="b${i}">${esc(g)}</th>`).join("")}</tr>
+      const cols = groups.flatMap(([, ks, gi]) => ks.map((k, j) => ({ k, gi, first: j === 0 })));
+      const ks = cols.map((c) => c.k);
+      const band = (i) => ` b${cols[i].gi}`;
+      return `<div class="ftab"><table class="ftbl" style="width:min(100%, ${78 + ks.length * 64}px);min-width:${78 + ks.length * 27}px">
+        <thead><tr class="fgrp"><th class="fn"></th>${groups.map(([g, gks, gi]) => `<th colspan="${gks.length}" class="b${gi}">${esc(gks.length < 2 && g.length > 6 ? g.split(" ").pop() : g)}</th>`).join("")}</tr>
           <tr><th class="fn"><span class="sr">Name</span></th>${ks.map((k, i) =>
-          `<th class="${i % 3 === 0 ? "g0" : ""}${band(i)}" title="${STD[k].label}">${FAB[k]}</th>`).join("")}</tr></thead>
+          `<th class="${cols[i].first ? "g0" : ""}${band(i)}" title="${STD[k].label}">${FAB[k]}</th>`).join("")}</tr></thead>
         <tbody>${list.map((p) => {
           const c = famCells(p), mine = p.id === state.meId;
           return `<tr${mine ? ` class="me"` : ""}><th class="fn" scope="row" style="--hc:hsl(${p.hue} 58% 42%)">
               <button type="button" class="ftn" data-edit="name" data-person="${p.id}"><i aria-hidden="true"></i>${esc(p.name)}</button></th>
             ${ks.map((k, i) => {
-              const v = c[k], nil = v === null || v === undefined, g = i % 3 === 0 ? " g0" : "";
+              const v = c[k], nil = v === null || v === undefined, g = cols[i].first ? " g0" : "";
               return `<td class="${nil ? "nil" : ""}${g}${band(i)}">${tiny(k, v)}</td>`;
             }).join("")}</tr>`;
         }).join("")}</tbody></table></div>`;
@@ -5358,8 +5400,9 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
           <b>${nil ? "–" : v === true ? "✓" : stdWords(k, v)}</b><span>${esc(STD[k].short || STD[k].label)}</span></button>`;
       };
       return `<div class="pdash" aria-label="Your habits">
-        ${STD_GROUPS.map(([g, ks], i) => `<div class="prw b${i}"><span class="pcat">${esc(g)}</span>
+        ${groups.map(([g, ks, i]) => `<div class="prw b${i}"><span class="pcat">${esc(g)}</span>
             <div class="pcells">${ks.map(cell).join("")}</div></div>`).join("")}
+        <button type="button" class="paddh" id="habAdd">+ Add or remove habits</button>
       </div>`;
     };
     const roster = state.people.length === 0
@@ -5493,7 +5536,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       ${n > 1 ? `<div class="ddots" role="tablist" aria-label="Your dials">${keys.map((k, j) => `
         <button type="button" class="ddot${j === i ? " on" : ""}" data-dot="${j}" role="tab"
           aria-selected="${j === i}" aria-label="${esc(STD[k].label)}"></button>`).join("")}</div>` : ""}
-      <button type="button" class="dedit" id="dialEdit">Change dials</button>`;
+      <button type="button" class="dedit" id="dialEdit">Your habits</button>`;
   }
   const ofWords = (k, std) => STD[k].kind === "time" ? `by ${clockWords(std)}`
     : STD[k].kind === "min" ? `of ${hm(std)}` : STD[k].kind === "pct" ? `of ${Math.round(std)}%`
@@ -5704,6 +5747,84 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         <div class="heatax"><span class="hkey"><i></i>below your standard <i class="full"></i>met it</span></div>
       </section>`;
   }
+  /* ---------- V5.6: progress over time --------------------------------
+     One dot per day you logged, a dashed line at your standard. A filled
+     green dot met it; a hollow ring fell short (shape as well as colour,
+     so it reads without colour too). 30 days, 90 days, or a year, where
+     each dot is a week's average. Better is always up: for Rise and Rest,
+     earlier sits higher. Tap a dot to read it.
+     ------------------------------------------------------------------ */
+  const PROG_R = { 30: "30 days", 90: "90 days", 365: "1 year" };
+  const progRange = () => { try { const v = Number(localStorage.getItem("fhd.prog")); return PROG_R[v] ? v : 30; } catch { return 30; } };
+  function progPoints(k, range) {
+    const v = votesOf(k); if (!v) return null;
+    const days = v.days && !Array.isArray(v.days) ? v.days : {};
+    const today = state.votes.today || todayISO();
+    const m = me() || {}, std = k === "rise" || k === "rest" ? (hasTarget(m, k) ? target(m, k) : STD[k].def) : stdOf(m, k);
+    const val = (raw) => k === "dd" ? ddCount(raw) : k === "sleep" ? scorePct(raw) : Number(raw);
+    const pts = [];
+    if (range === 365) {
+      for (let w = 51; w >= 0; w--) {
+        const end = shiftISO(today, -w * 7), xs = [];
+        for (let d = 0; d < 7; d++) { const iso = shiftISO(end, -d); if (days[iso] !== undefined) xs.push(val(days[iso])); }
+        pts.push({ i: 51 - w, iso: shiftISO(end, -6), end, v: xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null, n: xs.length });
+      }
+    } else {
+      for (let d = range - 1; d >= 0; d--) { const iso = shiftISO(today, -d);
+        pts.push({ i: range - 1 - d, iso, v: days[iso] !== undefined ? val(days[iso]) : null }); }
+    }
+    pts.forEach((p) => { p.hit = p.v !== null && (stdPct(k, p.v, std) || 0) >= 100; });
+    return { pts, std, n: range === 365 ? 52 : range };
+  }
+  function progressCard(k) {
+    if (!ATOM_HOW[k] || k === "weight" || !votesOf(k) || !votesOf(k).total) return "";
+    const range = progRange(), P = progPoints(k, range);
+    if (!P) return "";
+    const { pts, std, n } = P, seen = pts.filter((p) => p.v !== null);
+    const time = STD[k].kind === "time", bin = k === "refl";
+    const W = 320, H = bin ? 56 : 132, L = 6, Rr = 44, T = bin ? 18 : 12, B = 22, ph = H - T - B, pw = W - L - Rr;
+    let lo, hi;
+    if (bin) { lo = 0; hi = 2; }
+    else {
+      const vs = seen.map((p) => p.v).concat(std > 0 || time ? [std] : []);
+      // Dots need no zero line: the scale hugs the data so a trend shows.
+      const mn = Math.min(...vs), mx = Math.max(...vs, mn + 1), pad0 = Math.max((mx - mn) * 0.12, time ? 10 : 0.5);
+      lo = Math.max(time ? -Infinity : 0, mn - pad0); hi = mx + pad0;
+    }
+    const x = (i) => L + (n === 1 ? pw / 2 : i / (n - 1) * pw);
+    const y = (v) => { const f = (v - lo) / Math.max(1e-9, hi - lo); return T + (time ? f : 1 - f) * ph; };
+    const r = n > 60 ? 2.4 : 3.6;
+    const dots = seen.map((p) => p.hit
+      ? `<circle cx="${x(p.i).toFixed(1)}" cy="${y(p.v).toFixed(1)}" r="${r}" class="pgh"/>`
+      : `<circle cx="${x(p.i).toFixed(1)}" cy="${y(p.v).toFixed(1)}" r="${r - 0.6}" class="pgm"/>`).join("");
+    const stdY = !bin && (std > 0 || time) ? y(std) : null;
+    const slot = pw / Math.max(1, n - 1);
+    const hits = pts.map((p) => p.v === null ? "" : `<rect x="${(x(p.i) - slot / 2).toFixed(1)}" y="0" width="${Math.max(slot, 6).toFixed(1)}" height="${H}" data-pg="${p.i}" fill="transparent"/>`).join("");
+    const met = pts.filter((p) => p.hit).length;
+    const unit = range === 365 ? "weeks" : "days";
+    const sel = state.progSel && state.progSel.k === k && state.progSel.r === range ? pts[state.progSel.i] : null;
+    const selWords = sel && sel.v !== null ? `${esc(range === 365 ? `Week of ${shortDay(sel.iso)}` : shortDay(sel.iso))} · ${esc(stdWords(k, sel.v))}${range === 365 ? ` average, ${sel.n} day${sel.n === 1 ? "" : "s"} logged` : ""}${sel.hit ? " · met" : ""}` : "";
+    return `<section class="card pgcard" aria-label="${esc(STD[k].label)} over time">
+        <div class="pghead"><p class="pgsum"><b>${met}</b> of ${n} ${unit} at your standard</p>
+          <div class="range pgr" role="group" aria-label="Time range">${Object.entries(PROG_R).map(([v, t]) =>
+            `<button type="button" data-pgr="${v}" aria-pressed="${Number(v) === range}">${v === "365" ? "1y" : v + "d"}</button>`).join("")}</div></div>
+        ${seen.length ? `<svg class="pgsvg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(STD[k].label)}, ${PROG_R[range]}: ${met} of ${n} ${unit} met your standard of ${esc(stdWords(k, std))}">
+          <line x1="${L}" x2="${W - Rr}" y1="${T + ph + 6}" y2="${T + ph + 6}" class="pgbase"/>
+          ${stdY !== null ? `<line x1="${L}" x2="${W - Rr}" y1="${stdY.toFixed(1)}" y2="${stdY.toFixed(1)}" class="pgstd"/>
+            <text x="${W - Rr + 6}" y="${(stdY + 3.5).toFixed(1)}" class="pgt">${esc(stdWords(k, std))}</text>` : ""}
+          ${sel ? `<line x1="${x(sel.i).toFixed(1)}" x2="${x(sel.i).toFixed(1)}" y1="${T - 4}" y2="${T + ph + 6}" class="pgsel"/>` : ""}
+          ${dots}
+          <text x="${L}" y="${H - 4}" class="pgt">${esc(shortDay(pts[0].iso))}</text>
+          <text x="${W - Rr}" y="${H - 4}" text-anchor="end" class="pgt">today</text>
+          ${(() => { const hiV = time ? lo : hi, loV = time ? hi : lo;
+            const far = (yy) => stdY === null || Math.abs(yy - stdY) > 13;
+            return bin ? "" : `${far(T) ? `<text x="${W - Rr + 6}" y="${T + 3}" class="pgt pgax">${esc(stdWords(k, hiV))}</text>` : ""}
+              ${far(T + ph) ? `<text x="${W - Rr + 6}" y="${T + ph + 3}" class="pgt pgax">${esc(stdWords(k, loV))}</text>` : ""}`; })()}
+          ${hits}
+        </svg>` : `<p class="hint pgnone">Log a few days and your progress shows here.</p>`}
+        <p class="pgcap" id="pgCap">${selWords || `<span class="pgk"><i class="h"></i>met</span><span class="pgk"><i></i>short of it</span>${range === 365 ? `<span class="pgk">each dot a week</span>` : ""}`}</p>
+      </section>`;
+  }
   const monthShift = (ym, n) => {
     const y = Number(ym.slice(0, 4)), m0 = Number(ym.slice(5, 7)) - 1 + n;
     const d = new Date(Date.UTC(y, m0, 1));
@@ -5720,6 +5841,21 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     // the page, over the calendar it feeds.
     const foot = app.querySelector("p.ver");
     if (foot) foot.insertAdjacentHTML("beforebegin", atomsStrip(k).replace('<section class="astrip">', '<section class="astrip foot">') + atomsCard(k));
+    // V5.6. Progress sits under the dial, where the page has one.
+    const pg = progressCard(k);
+    if (pg) {
+      const dial = app.querySelector(".msess, #mGrid") || app.querySelector(".dring, .dbig, .ctot, .mdial, .stamp");
+      const at = dial && dial.closest("section");
+      if (at) at.insertAdjacentHTML("afterend", pg);
+      else app.querySelector(".astrip.foot")?.insertAdjacentHTML("beforebegin", pg);
+      app.querySelectorAll("[data-pgr]").forEach((el) => el.addEventListener("click", () => {
+        try { localStorage.setItem("fhd.prog", el.dataset.pgr); } catch {}
+        state.progSel = null; render(); }));
+      app.querySelector(".pgsvg")?.addEventListener("click", (e) => {
+        const t = e.target.closest && e.target.closest("[data-pg]"); if (!t) return;
+        const i = Number(t.dataset.pg), r0 = progRange();
+        state.progSel = state.progSel && state.progSel.k === k && state.progSel.i === i ? null : { k, i, r: r0 }; render(); });
+    }
     on("hmPrev", "click", () => { state.hMonth = monthShift(state.hMonthShown, -1); render(); });
     on("hmNext", "click", () => { state.hMonth = monthShift(state.hMonthShown, 1); render(); });
     on("atomOpen", "click", () => { state.atomEdit = k; state.atomDraft = null; render();
@@ -5931,12 +6067,12 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   const TOUR = [
     { at: "#dials", t: "Your dial",
       d: "Today against your standard. Tap the name to open it, the number to log. Swipe if you have more than one." },
-    { at: "#dialEdit", t: "As few or as many",
-      d: "Start with one habit. Add another dial when the first one is easy." },
-    { at: ".pdash", open: true, t: "Your habits",
-      d: "Every habit, in five groups. Tap any number to open its page. Ignore the ones you are not doing yet." },
+    { at: "#dialEdit", t: "One habit at a time",
+      d: "Start with one. Add the next when the first is easy; turn off any you are not doing. Nothing else shows until you add it." },
+    { at: ".pdash", open: true, t: "Your dashboard",
+      d: "Your habits, one line each. Tap a number to open its page and see your progress over time." },
     { at: ".ftab", open: true, t: "Your tribe",
-      d: "Everyone side by side, today. You are the first row." },
+      d: "Everyone side by side on your habits, today. You are the first row." },
   ];
   // Until it is opened once, the ⓘ wears a small dot. That is the whole nudge.
   const tourSeen = () => { try { return !!localStorage.getItem("fhd.tour"); } catch { return true; } };
@@ -6332,7 +6468,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
           return `<p class="cqtg">Today ${rFmt(rt, v)} of ${rFmt(rt, rt.t)}${rt.kind === "time" ? "" : " reps"}</p>`; })()}
         <div class="cqrow">
           <label class="cqf"><span>Minutes</span>
-            <span class="cqin"><input id="cqMin" inputmode="decimal" autocomplete="off" enterkeyhint="done" placeholder="30"
+            <span class="cqin"><input id="cqMin" inputmode="decimal" autocomplete="off" enterkeyhint="done" placeholder="0"
               value="${esc(q.min || "")}" aria-label="Minutes"><em>min</em></span></label>
           ${(() => { const rt = !q.plus && routineOf(q.act);
             if (rt && rt.kind === "reps") return `<label class="cqf"><span>Reps</span>
@@ -7020,7 +7156,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       </div>`;
   }
 
-  const DIET_PAGE = { dd: "Longevity", macros: "Protein", weight: "Weight" };
+  const DIET_PAGE = { dd: "Longevity", macros: "Macros", weight: "Biomarkers" };   // V5.6
   function dietView() {
     const D = state.diet || (state.diet = { day: todayISO(), page: "dd" });
     const head = `
@@ -7030,7 +7166,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       <header class="masthead">
         <h1>${DIET_PAGE[D.page] || "Longevity"}</h1>
         <p class="sub">${D.page === "macros" ? "The building block of muscle."
-          : D.page === "weight" ? "Weigh in weekly, same time of day."
+          : D.page === "weight" ? "Weight, and any body number you track."
           : "Dr. Greger&rsquo;s Daily Dozen, every day."}</p>
       </header>`;
     return head + (D.page === "macros" ? macrosBody(D) : D.page === "weight" ? weightBody(D) : longevityBody(D))
@@ -7225,6 +7361,22 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     if (k === "kcal") return dietVals().kcal != null;
     return !!(D.xv && D.xv[k] && D.xv[k].v != null);
   }
+  // V5.6. A body number over the past year: a small dot plot under its row,
+  // once there are two readings. Oldest on the left, the latest labelled.
+  function miniPlot(series, fmt, series2) {
+    const all = series.concat(series2 || []);
+    if (series.length < 2) return "";
+    const W = 300, H = 46, L = 4, Rr = 46, T = 6, B = 6;
+    const t = (d) => new Date(d + "T00:00:00Z").getTime();
+    const t0 = Math.min(...all.map((p) => t(p[0]))), t1 = Math.max(...all.map((p) => t(p[0])), t0 + 864e5);
+    const vs = all.map((p) => Number(p[1])), lo = Math.min(...vs), hi = Math.max(...vs, lo + 1e-6), pd = (hi - lo) * 0.15 || 1;
+    const x = (d) => L + (t(d) - t0) / (t1 - t0) * (W - L - Rr), y = (v) => T + (1 - (v - lo + pd) / (hi - lo + 2 * pd)) * (H - T - B);
+    const one = (S) => `<path d="${S.map((p, i) => `${i ? "L" : "M"}${x(p[0]).toFixed(1)} ${y(p[1]).toFixed(1)}`).join(" ")}" class="xsl"/>${S.map((p) =>
+      `<circle cx="${x(p[0]).toFixed(1)}" cy="${y(p[1]).toFixed(1)}" r="2.6" class="xsd"/>`).join("")}
+      <text x="${W - Rr + 6}" y="${(y(S.at(-1)[1]) + 3.5).toFixed(1)}" class="pgt">${esc(fmt(S.at(-1)[1]))}</text>`;
+    return `<li class="xspark"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${series.length} readings since ${esc(shortDay(series[0][0]))}, from ${esc(fmt(series[0][1]))} to ${esc(fmt(series.at(-1)[1]))}">${one(series)}${series2 && series2.length > 1 ? one(series2) : ""}</svg>
+      <span class="xsx"><span>${esc(shortDay(all.reduce((a, p) => p[0] < a ? p[0] : a, all[0][0])))}</span><span>latest</span></span></li>`;
+  }
   function extrasCard(D, page) {
     const list = EXTRAS[page], on = list.filter(([k]) => k !== "kcal" && k !== "bodyfat_pct" && extraOn(k));
     const row = ([k, label, unit, mode]) => {
@@ -7236,7 +7388,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
           <span class="xl">${esc(label)}${mode === "last" && x.date && val ? `<small>${x.date === todayISO() ? "today" : esc(shortDay(x.date))}</small>` : ""}</span>
           ${ed ? `<input class="field xin" id="xIn" data-x="${k}" inputmode="${k === "bp" ? "text" : "decimal"}" enterkeyhint="done" autocomplete="off" placeholder="${k === "bp" ? "120/80" : "0"}" value="${esc(val || "")}" aria-label="${esc(label)}">`
             : `<button type="button" class="xv${val ? "" : " nil"}" data-xedit="${k}">${val ? esc(val) : "+ log"}</button>`}
-          <em>${esc(u)}</em></li>`;
+          <em>${esc(u)}</em></li>${mode === "last" ? miniPlot(((D.xh || {})[k] || []), (v) => fmtNum(k === "waist_in" && units.w === "kg" ? Math.round(v * 2.54 * 10) / 10 : v), k === "bp" ? (D.xh || {}).bp2 : null) : ""}`;
     };
     const pick = D.xpick === page;
     // V5.4. Your own measures sit with the built-in ones.
@@ -7246,7 +7398,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
           <span class="xl">${esc(c.n)}${page === "weight" && c.date && val ? `<small>${c.date === todayISO() ? "today" : esc(shortDay(c.date))}</small>` : ""}</span>
           ${ed ? `<input class="field xin" id="xIn" data-x="c:${esc(c.id)}" inputmode="decimal" enterkeyhint="done" autocomplete="off" placeholder="0" value="${esc(val || "")}" aria-label="${esc(c.n)}">`
             : `<button type="button" class="xv${val ? "" : " nil"}" data-xedit="c:${esc(c.id)}">${val ? esc(val) : "+ log"}</button>`}
-          <em>${esc(c.u || "")}</em></li>`; };
+          <em>${esc(c.u || "")}</em></li>${page === "weight" ? miniPlot(c.hist || [], (v) => fmtNum(Number(v))) : ""}`; };
     return `${on.length || mine.length ? `<section class="card dsec dmini xcard2" style="--dc:var(--diet)"><ul class="xlist">${on.map(row).join("")}${mine.map(crow).join("")}</ul>
         ${D.msg && D.msgFor === "extra" ? `<p class="hint bad">${esc(D.msg)}</p>` : ""}</section>` : ""}
       <button type="button" class="linkbtn xmore" id="xMore" aria-expanded="${pick}">${pick ? "Done" : "+ Track more"}</button>
@@ -7271,10 +7423,12 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     const res = await Promise.all(ks.flatMap(([k, , , mode]) => k === "bp" ? [get("bp_sys", mode), get("bp_dia", mode)] : [get(k, mode)]));
     if (state.diet !== D) return;
     const last = (r) => { const xs = (r && !r.error ? r.days || [] : []).filter((x) => x.logged); return xs.length ? xs[xs.length - 1] : null; };
-    D.xv = {}; let i = 0;
-    for (const [k] of ks) {
-      if (k === "bp") { const a = last(res[i++]), b2 = last(res[i++]); D.xv.bp = { v: a ? Number(a.value) : null, v2: b2 ? Number(b2.value) : null, date: a ? a.date : null }; }
-      else { const a = last(res[i++]); D.xv[k] = { v: a ? Number(a.value) : null, date: a ? a.date : null }; }
+    D.xv = {}; D.xh = {}; let i = 0;
+    const ser = (r) => (r && !r.error ? r.days || [] : []).filter((x) => x.logged).slice(-365).map((x) => [x.date, Number(x.value)]);
+    for (const [k, , , mode] of ks) {
+      if (k === "bp") { const ra = res[i++], rb = res[i++], a = last(ra), b2 = last(rb); D.xv.bp = { v: a ? Number(a.value) : null, v2: b2 ? Number(b2.value) : null, date: a ? a.date : null };
+        D.xh.bp = ser(ra); D.xh.bp2 = ser(rb); }
+      else { const r = res[i++], a = last(r); D.xv[k] = { v: a ? Number(a.value) : null, date: a ? a.date : null }; if (mode === "last") D.xh[k] = ser(r); }
     }
   }
 
@@ -9006,17 +9160,28 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     const inC = (x) => cs && x >= cs && x <= ce;
     const today = G.today || todayISO();
     const n = Object.keys(marks).filter((k) => k.startsWith(yr + "-")).length;
-    const glance = MONTHS.map((name, m) => `<button type="button" class="yrow${G.ymonth === m ? " on" : ""}" data-ymonth="${m}" aria-label="${name}, mark its days">
-        <span>${name.slice(0, 3)}</span><i class="ycells">${Array.from({ length: dim(m) }, (_, i) => { const x = iso(m, i + 1), k = marks[x];
-          const dow = new Date(x + "T00:00:00Z").getUTCDay();
-          return `<b class="${dow === 0 || dow === 6 ? "we" : ""}${inC(x) ? " cy" : ""}${x === today ? " td" : ""}"${k ? ` style="background:${YK[k][1]}"` : ""}></b>`; }).join("")}</i></button>`).join("");
+    // V5.6. Like the printed Preloaded Year: every month starts under its
+    // own weekday, so Saturdays and Sundays line up as two shaded columns
+    // down the whole year, under a row of weekday letters.
+    const DOW = ["M", "T", "W", "T", "F", "S", "S"];
+    const head = `<div class="yrow yhead" aria-hidden="true"><span></span><i class="ycells">${Array.from({ length: 37 }, (_, c) =>
+      `<span class="${c % 7 >= 5 ? "we" : ""}">${DOW[c % 7]}</span>`).join("")}</i></div>`;
+    const glance = head + MONTHS.map((name, m) => {
+      const off = (new Date(Date.UTC(yr, m, 1)).getUTCDay() + 6) % 7, n = dim(m);
+      return `<button type="button" class="yrow${G.ymonth === m ? " on" : ""}" data-ymonth="${m}" aria-label="${name}, mark its days">
+        <span>${name.slice(0, 3)}</span><i class="ycells">${Array.from({ length: 37 }, (_, c) => {
+          const we = c % 7 >= 5 ? "we" : "", d = c - off + 1;
+          if (d < 1 || d > n) return `<b class="e ${we}"></b>`;
+          const x = iso(m, d), k = marks[x];
+          return `<b class="${we}${inC(x) ? " cy" : ""}${x === today ? " td" : ""}"${k ? ` style="background:${YK[k][1]};color:#1b160c"` : ""}><em>${d}</em></b>`; }).join("")}</i></button>`; }).join("") + head;
     const month = G.ymonth === undefined || G.ymonth === null ? "" : (() => {
       const m = G.ymonth, first = (new Date(Date.UTC(yr, m, 1)).getUTCDay() + 6) % 7;
       const cells = Array.from({ length: first }, () => `<span></span>`).concat(Array.from({ length: dim(m) }, (_, i) => {
         const x = iso(m, i + 1), k = marks[x];
-        return `<button type="button" class="yday${inC(x) ? " cy" : ""}${x === today ? " td" : ""}" data-yd="${x}"${k ? ` style="background:${YK[k][1]};color:#1b160c"` : ""} aria-label="${MONTHS[m]} ${i + 1}${k ? ", " + YK[k][0] : ""}">${i + 1}</button>`; }));
+        const we = (first + i) % 7 >= 5;
+        return `<button type="button" class="yday${we ? " we" : ""}${inC(x) ? " cy" : ""}${x === today ? " td" : ""}" data-yd="${x}"${k ? ` style="background:${YK[k][1]};color:#1b160c"` : ""} aria-label="${MONTHS[m]} ${i + 1}${k ? ", " + YK[k][0] : ""}">${i + 1}</button>`; }));
       return `<div class="ymonth"><p class="ymh">${MONTHS[m]} ${yr}</p>
-        <div class="ydow">${["M", "T", "W", "T", "F", "S", "S"].map((x) => `<span>${x}</span>`).join("")}</div>
+        <div class="ydow">${["M", "T", "W", "T", "F", "S", "S"].map((x, j) => `<span class="${j >= 5 ? "we" : ""}">${x}</span>`).join("")}</div>
         <div class="ygrid" id="yGrid">${cells.join("")}</div></div>`; })();
     const paint = G.ypaint || "v";
     return gStep(C, null, "Your year", "", "year", `
@@ -10454,10 +10619,6 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       state.medMsg = res && res.offline ? "No signal. Showing what was last loaded." : (res && res.error) || null;
       return;
     }
-    if (state.seg === "silence") {
-      const g = await call("app_med_sits", { p_code: state.code, p_person: state.meId, p_days: 14 });
-      if (g && !g.error) state.silSits = g;
-    }
     state.med = { date: res.date, today: res.today, schedule: res.schedule || [], day: res.day || {},
                   sleep: res.sleep || {}, rows: Object.assign({ g: 1, l: 1, c: 1 }, res.refl_rows || {}),
                   order: res.attn_order || {} };
@@ -10763,10 +10924,27 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   const silElapsed = (r) => Math.max(0, ((r.pausedAt || Date.now()) - r.startedAt - (r.pausedMs || 0)) - r.warm * 1000);
 
   let silCtx = null;
+  // V5.6. Sound that actually plays on a phone. Three things stop it:
+  //  * iPhone web sound follows the side switch unless the page says it is
+  //    playback, like a music app (navigator.audioSession, iOS 17+);
+  //  * a sound context must be woken by a tap; this one is, by Begin, and
+  //    a silent blip proves it is awake;
+  //  * a call, Siri or a notification can suspend it mid-sitting, so every
+  //    bell wakes it again first.
+  function silAudio() {
+    try { if (navigator.audioSession) navigator.audioSession.type = "playback"; } catch {}
+    try { silCtx = silCtx || new (window.AudioContext || window.webkitAudioContext)(); } catch { return null; }
+    try { if (silCtx.state !== "running") silCtx.resume(); } catch {}
+    return silCtx;
+  }
+  function silUnlock() {
+    const ctx = silAudio(); if (!ctx) return;
+    try { const b = ctx.createBuffer(1, 1, 22050), src = ctx.createBufferSource(); src.buffer = b; src.connect(ctx.destination); src.start(0); } catch {}
+  }
   function bell(kind) {
     if (!kind || kind === "none") return;
-    try { silCtx = silCtx || new (window.AudioContext || window.webkitAudioContext)(); } catch { return; }
-    const ctx = silCtx, t0 = ctx.currentTime + 0.02, out = ctx.createGain();
+    const ctx = silAudio(); if (!ctx) return;
+    const t0 = ctx.currentTime + 0.05, out = ctx.createGain();
     out.gain.value = 0.9; out.connect(ctx.destination);
     // Each bell is a few sine partials with their own decay: enough to
     // tell them apart with the eyes closed.
@@ -10837,7 +11015,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   // V5.4. One way to start a sitting, from the page or the home dial: the
   // current kind's length and bells, then the full-screen timer.
   function silStartNow() {
-    try { silCtx = silCtx || new (window.AudioContext || window.webkitAudioContext)(); silCtx.resume && silCtx.resume(); } catch {}
+    silUnlock();
     const c = silCfg(), t = silCur();
     const r = { id: uuid(), startedAt: Date.now(), dur: c.dur, warm: Number(c.warm) || 0, pausedMs: 0, pausedAt: null,
                 start: c.start, end: c.end, int: c.int, every: c.every, iv: 0, rang0: false, date: null,
@@ -10845,19 +11023,6 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     if (!r.warm) { r.rang0 = true; bell(r.start); }
     silSetRun(r); silLock(true);
   }
-  // V5.4. The gap: how long after its done-by time a sitting finished. The
-  // first sitting of that kind each day counts; early is on time (0).
-  const localMin = (iso) => { const d = new Date(iso); return d.getHours() * 60 + d.getMinutes(); };
-  const gapOf = (x, by) => by === null || by === undefined || !x.at || x.manual ? null : Math.max(0, localMin(x.at) - by);
-  function silWeeks(label, by) {
-    const S = (state.silSits && state.silSits.sits) || [], today = (state.silSits && state.silSits.today) || todayISO();
-    const first = new Map();
-    for (const x of S) if ((x.label || null) === (label || null) && !x.manual && x.at && !first.has(x.date)) first.set(x.date, x);
-    const avg = (from, to) => { const g = [...first.entries()].filter(([d]) => d >= shiftISO(today, -to) && d <= shiftISO(today, -from)).map(([, x]) => gapOf(x, by)).filter((v) => v !== null);
-      return g.length ? Math.round(g.reduce((a, v) => a + v, 0) / g.length) : null; };
-    return { now: avg(0, 6), prev: avg(7, 13) };
-  }
-  const gapWords = (m) => m === null ? "\u2013" : m <= 0 ? "on time" : `${hm(m)} late`;
   function silView() {
     const r = silRun();
     if (r) return silRunView(r);
@@ -10869,30 +11034,23 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     // V5.5. Silence, from first principles: one large circle. The length is
     // inside it (tap the number to change it); tap the circle to begin, and
     // the sitting fills the screen. One quiet line opens the settings.
-    // When a sitting ends, its end time is kept, so the gap to your done-by
-    // time is worked out for you.
-    const by = c.by === null || c.by === undefined ? null : c.by;
-    const w = by === null ? null : silWeeks(null, by);
+    // V5.6. No done-by time here: Attention already says whether you sat on
+    // time. A sitting simply keeps the time it ended.
     const setup = `
       <div class="silbig${isToday ? "" : " off"}" id="silCircle" role="group" aria-label="Begin a sitting">
         <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" class="silbigring"></circle></svg>
         <button type="button" class="silbign" id="silDur" aria-label="Length ${durWords(c.dur)}. Change">${c.dur >= 60 ? hm(c.dur) : c.dur}<small>${c.dur >= 60 ? "" : "min"}</small></button>
         ${isToday ? `<button type="button" class="silbigp" id="silBegin" aria-label="Begin">${I_PLAY}<span>Begin</span></button>` : `<span class="silbigp off">Today only</span>`}
       </div>
-      <button type="button" class="silsetl" id="silSet">${esc(BELLS[c.start].toLowerCase())}${c.warm ? " · " + esc(WARM[c.warm].toLowerCase()) + " warm-up" : ""}${by === null ? "" : " · by " + clockWords(by)} <i aria-hidden="true">›</i></button>
-      ${w ? `<p class="silgap"><span>This week <b class="${w.now === 0 ? "win" : ""}">${gapWords(w.now)}</b></span>
-          <span>Last week <b>${gapWords(w.prev)}</b></span>${w.now !== null && w.prev !== null && w.now < w.prev ? `<em>↓ ${hm(w.prev - w.now)} closer</em>` : ""}</p>` : ""}`;
+      <button type="button" class="silsetl" id="silSet">${esc(BELLS[c.start].toLowerCase())}${c.warm ? " · " + esc(WARM[c.warm].toLowerCase()) + " warm-up" : ""} <i aria-hidden="true">›</i></button>`;
     return `
       <section class="card msil">${setup}</section>
       <section class="card msess">
         ${medNav("day")}
         <p class="silsum"><b class="${total >= std ? "win" : ""}">${hm(total)}</b> <button type="button" class="dof" data-edit="goal" data-metric="silence">of ${hm(std)}</button></p>
         ${sessions.length ? `<ul class="wlines silsits">${sessions.map((x) => {
-          const kind = silTypes().find((t) => (t.id === "silence" ? null : t.name) === (x.label || null));
-          const by = kind ? (Object.assign({}, SIL_DEF, silStore().cfgs[kind.id] || {})).by : null;
-          const g = gapOf(x, by);
           return `
-          <li><span>${esc(x.label || "Silence")}${x.at && !x.manual ? `<small>${new Date(x.at).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}${g === null ? "" : g > 0 ? ` \u00b7 <em>${hm(g)} late</em>` : " \u00b7 on time"}</small>` : ""}</span>
+          <li><span>${esc(x.label || "Silence")}${x.at && !x.manual ? `<small>ended ${new Date(x.at).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}</small>` : ""}</span>
             <b>${hm(x.min)}</b>
             <button type="button" data-msdel="${esc(x.id)}" aria-label="Delete this sitting">&times;</button>
             ${state.silNoteFor === x.id
@@ -10923,11 +11081,9 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
           ${row("int", "Interval bell", BELLS[c.int].toLowerCase())}
           ${row("every", "Interval time", EVERY[c.every].toLowerCase())}
           ${row("warm", "Warm-up", WARM[c.warm].toLowerCase())}
-          ${row("by", "Done by", c.by === null || c.by === undefined ? "none" : clockWords(c.by))}
         </div>
-        <p class="hint">Done by: the time you mean to have finished. Each sitting shows how late it ended, and the week how close you are getting.</p>
-        <div class="stdbtns">${c.by === null || c.by === undefined ? "" : `<button type="button" class="btn-quiet" id="silByX">No done-by time</button>`}
-          <button type="button" class="btn" id="silSetDone">Done</button></div>
+        <p class="hint">Tap a bell to hear it. No sound? Turn the volume up; on an iPhone, check the side switch too.</p>
+        <div class="stdbtns"><button type="button" class="btn" id="silSetDone">Done</button></div>
       </div>`;
   }
   function silSheet(c) {
@@ -11230,7 +11386,6 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     on("silDur", "click", () => { state.silPick = "dur"; render(); wheelsInit(); });
     document.querySelectorAll("[data-silpick]").forEach((el) => el.addEventListener("click", () => {
       const k = el.dataset.silpick;
-      if (k === "by") { timeWheel("Done by", c.by ?? 5 * 60, (v) => setCfg({ by: v })); return; }
       state.silPick = k; render(); if (k === "dur") wheelsInit(); }));
     const pickClose = () => { state.silPick = null; render(); };
     on("silBg", "click", () => { if (state.silPick === "dur") wheelsSave(); pickClose(); });
@@ -11266,8 +11421,6 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     on("silSet", "click", () => { state.silSettings = true; render(); });
     on("silSetDone", "click", () => { state.silSettings = false; render(); });
     on("silSetBg", "click", () => { state.silSettings = false; render(); });
-    on("silBy", "click", () => timeWheel(`${silCur().name} done by`, c.by ?? 5 * 60, (v) => setCfg({ by: v })));
-    on("silByX", "click", () => setCfg({ by: null }));
     // V5.4. A note on a sitting: tap, type, Enter (or tap away) saves.
     document.querySelectorAll("[data-silnoteopen]").forEach((el) => el.addEventListener("click", () => {
       state.silNoteFor = el.dataset.silnoteopen; render(); document.getElementById("silNoteIn")?.focus(); }));
@@ -11594,7 +11747,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       <div class="sheetbg" id="stdBg"></div>
       <div class="stdsheet" role="dialog" aria-label="${esc(S.label)} standard">
         <p class="eyebrow">${S.kind === "weight" ? "Your goal" : "Your daily standard"}</p>
-        <h3>${k === "macros" ? "Protein" : esc(S.label)}</h3>
+        <h3>${k === "macros" ? "Protein" : k === "weight" ? "Weight" : esc(S.label)}</h3>
         <div class="stdrow">
           <input id="stdVal" class="stdin" autocomplete="off" enterkeyhint="done"
             ${S.kind === "time" ? 'type="text" readonly data-stdwheel="1"' : S.kind === "min" ? 'type="text" inputmode="text"'
@@ -11683,9 +11836,9 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     return `
       <div class="sheetbg" id="dialBg"></div>
       <div class="stdsheet dpick" role="dialog" aria-label="Choose your dials">
-        <p class="eyebrow">Home screen</p>
-        <h3>Your dials</h3>
-        <p class="hint" style="margin-top:4px">Tap as few or as many as you like, in the order you want them. One is plenty to start.</p>
+        <p class="eyebrow">Your habits</p>
+        <h3>What you are working on</h3>
+        <p class="hint" style="margin-top:4px">Each one you pick is a dial on home and a line in your dashboard; the rest stay out of sight. One is plenty to start. Tap in the order you want the dials.</p>
         ${STD_GROUPS.map(([g, ks]) => `
           <p class="dpg">${esc(g)}</p>
           <div class="dpgrid">${ks.map((k) => {
@@ -11736,6 +11889,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     });
 
     on("dialEdit", "click", () => { state.dialPick = myDials(); render(); });
+    on("habAdd", "click", () => { state.dialPick = myDials(); render(); });
     on("dialCancel", "click", () => { state.dialPick = null; render(); });
     on("dialBg", "click", () => { state.dialPick = null; render(); });
     document.querySelectorAll("[data-dpk]").forEach((el) =>
