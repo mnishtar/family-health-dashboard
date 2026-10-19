@@ -330,7 +330,8 @@ input[type=number] { -moz-appearance:textfield; }
 .tseg { display:flex; width:100%; margin:0 0 14px; }
 .tseg button { flex:1; font-size:13.5px; padding:8px 0; }
 /* V3.4. One list, one colour. */
-.stray, .sany, .sgrid, .ssheet, .tdone { --qc:var(--work); }
+.stray, .sany, .sgrid, .ssheet { --qc:var(--work); }
+.tdone { --qc:var(--tq4); }
 .trank { flex:none; width:20px; font-family:var(--mono); font-size:13px; font-weight:600; color:var(--qc);
   text-align:center; font-variant-numeric:tabular-nums; }
 .tr .tdrag { margin-left:2px; }
@@ -350,6 +351,8 @@ input[type=number] { -moz-appearance:textfield; }
 .tplus[aria-disabled="true"] { opacity:.4; }
 .tnew { display:flex; align-items:center; gap:10px; min-height:50px; border-bottom:1px solid var(--line); }
 .tnew .field { flex:1; font-size:16px; padding:10px 12px; border-color:var(--qc); }
+.tadd { flex:none; width:42px; height:42px; border-radius:50%; border:none; background:var(--qc); color:#14110b; display:grid; place-items:center; cursor:pointer; padding:0; }
+.tadd svg { width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
 .tqhint { margin:7px 2px 0; font-size:12px; color:var(--muted); }
 .tmore { display:none; flex:none; width:30px; height:30px; border:none; border-radius:8px; background:none;
   color:var(--muted); font-size:18px; line-height:1; cursor:pointer; padding:0; }
@@ -366,9 +369,10 @@ input[type=number] { -moz-appearance:textfield; }
 .tmb.bad { color:#b3422a; border-color:color-mix(in oklab, #b3422a 40%, var(--line)); }
 .tswhint { margin:18px 2px 0; font-size:12px; color:var(--muted); text-align:center; }
 .tgroup { margin-top:16px; }
-/* V5.6. Do gold, Decide lavender, Delegate sage: three lists, three colors. */
-.tgroup.q1 { --qc:var(--work); } .tgroup.q2 { --qc:var(--sleep); }
-.tgroup.q3 { --qc:var(--sage); } .tgroup.q4 { --qc:var(--muted); }
+/* V5.7. Do red, Decide yellow, Delegate blue, Done green. */
+:root { --tq1:#e5675c; --tq2:#e3c25a; --tq3:#6fa3e0; --tq4:#4fb57a; }
+.tgroup.q1 { --qc:var(--tq1); } .tgroup.q2 { --qc:var(--tq2); }
+.tgroup.q3 { --qc:var(--tq3); } .tgroup.q4 { --qc:var(--muted); }
 .tgh { display:flex; align-items:baseline; gap:8px; padding:0 2px 6px;
   border-bottom:2px solid var(--qc); }
 .tgh b { font-family:var(--display); font-weight:500; font-size:20px; color:var(--ink); }
@@ -406,7 +410,7 @@ li.tm .tt, .mtile .mth { -webkit-user-select:none; user-select:none; }
 .tdrag svg { width:10px; height:16px; fill:currentColor; }
 .tck { flex:none; width:24px; height:24px; border-radius:50%; border:2px solid var(--qc, var(--line-strong));
   background:none; padding:0; cursor:pointer; position:relative; }
-.tck[aria-pressed="true"] { background:var(--qc, var(--ink-2)); border-color:var(--qc, var(--ink-2)); }
+.tck[aria-pressed="true"] { background:var(--tq4); border-color:var(--tq4); }
 .tck[aria-pressed="true"]::after { content:"\2713"; position:absolute; inset:0; display:grid;
   place-items:center; color:#17130c; font-size:13px; font-weight:700; }
 .tck.sm { width:19px; height:19px; border-width:1.5px; }
@@ -447,8 +451,8 @@ li.tm .tt, .mtile .mth { -webkit-user-select:none; user-select:none; }
 .schip { border:1.5px solid var(--line); background:var(--surface); border-radius:99px; padding:8px 13px;
   font-family:inherit; font-size:14px; color:var(--ink); cursor:pointer; max-width:100%;
   overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.schip.q1 { --qc:var(--work); } .schip.q2 { --qc:var(--sleep); }
-.schip.q3 { --qc:var(--sage); } .schip.q4 { --qc:var(--muted); }
+.schip.q1 { --qc:var(--tq1); } .schip.q2 { --qc:var(--tq2); }
+.schip.q3 { --qc:var(--tq3); } .schip.q4 { --qc:var(--muted); }
 .schip { border-left:4px solid var(--qc); }
 .schip.on { background:var(--qc); color:#17130c; border-color:var(--qc); }
 .schip small { margin-left:6px; font-size:11px; opacity:.75; }
@@ -466,8 +470,8 @@ li.tm .tt, .mtile .mth { -webkit-user-select:none; user-select:none; }
   font-family:inherit; color:var(--ink); cursor:pointer; overflow:hidden; display:flex; align-items:flex-start;
   gap:7px; line-height:1.25; box-sizing:border-box;
   background:color-mix(in oklab, var(--qc) 16%, var(--surface)); border-left:4px solid var(--qc); z-index:1; }
-.sblk.q1 { --qc:var(--work); } .sblk.q2 { --qc:var(--sleep); }
-.sblk.q3 { --qc:var(--sage); } .sblk.q4 { --qc:var(--muted); }
+.sblk.q1 { --qc:var(--tq1); } .sblk.q2 { --qc:var(--tq2); }
+.sblk.q3 { --qc:var(--tq3); } .sblk.q4 { --qc:var(--muted); }
 .sblk .tck { margin-top:1px; }
 .sbt { flex:1; min-width:0; }
 .sblk b { font-size:14px; font-weight:600; }
@@ -594,7 +598,7 @@ li.tm .tt, .mtile .mth { -webkit-user-select:none; user-select:none; }
 .tm.swipedr .tsw, .tm.pullr .tsw { opacity:0; pointer-events:none; }
 .tswq { border:none; border-radius:99px; padding:8px 12px; font-family:inherit; font-size:13.5px; font-weight:600; color:#17130c;
   cursor:pointer; background:var(--qc); }
-.tswq.q1 { --qc:var(--work); } .tswq.q2 { --qc:var(--sleep); } .tswq.q3 { --qc:var(--sage); }
+.tswq.q1 { --qc:var(--tq1); } .tswq.q2 { --qc:var(--tq2); } .tswq.q3 { --qc:var(--tq3); }
 .tswq.on { background:none; color:var(--qc); box-shadow:inset 0 0 0 1.5px var(--qc); }
 .tswt { border:none; background:none; color:var(--accent); font-family:inherit; font-size:15px; font-weight:500;
   padding:8px 4px; cursor:pointer; }
@@ -637,7 +641,7 @@ table.sc { width:100%; border-collapse:collapse; table-layout:fixed; margin-top:
 .sc col.scs { width:40px; }
 .sc thead th { font-size:10px; font-weight:700; color:var(--muted); text-align:center; padding:0 0 2px; }
 .sc thead th.today { color:var(--work); }
-.scgh th { text-align:left; padding:14px 0 4px; font-size:13.5px; font-weight:700; color:var(--ink);
+.scgh th { text-align:left; padding:16px 0 6px; font-size:17px; font-weight:700; color:var(--ink);
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .scgh td { text-align:right; padding:14px 0 4px; font-family:var(--mono); font-size:12px; color:var(--ink-2); }
 .scgh td.win { color:var(--work); font-weight:600; }
@@ -757,6 +761,22 @@ button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inh
 .gwkv { font-family:var(--display); font-weight:500; font-size:40px; line-height:1.05; font-variant-numeric:tabular-nums; }
 .gwk .dof { font-size:13px; }
 .gwks { width:100%; font-size:12.5px; color:var(--muted); }
+/* V5.7. The ONE goal and all goals, side by side up top. */
+.grings.two { display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); gap:10px; align-items:start; }
+.grings.two > .gstart2, .grings.two > .hint { grid-column:1 / -1; }
+.grings.two .gwkl { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+/* V5.7. Someday's milestones. */
+.gms { list-style:none; margin:8px 0 0; padding:0; }
+.gms li { display:flex; align-items:center; gap:10px; padding:6px 0; border-top:1px solid color-mix(in oklab, var(--line) 60%, transparent); font-size:14px; }
+.gms li:first-child { border-top:none; }
+.gms li span { flex:1; min-width:0; overflow-wrap:anywhere; }
+.gms li.done span { text-decoration:line-through; color:var(--muted); }
+.gmsc { flex:none; width:22px; height:22px; border-radius:50%; border:2px solid var(--work); background:none; cursor:pointer; padding:0; }
+.gms li.done .gmsc { background:var(--green); border-color:var(--green); }
+.gmsx { flex:none; border:none; background:none; color:var(--muted); font-size:18px; line-height:1; cursor:pointer; padding:2px 4px; }
+.gmsf { display:flex; gap:8px; margin-top:6px; }
+.gmsf .field { flex:1; min-width:0; font-size:15px; padding:9px 11px; }
+.gmsadd { flex:none; padding:8px 14px; }
 .gll { display:grid; grid-template-columns:auto 1fr auto; align-items:baseline; gap:8px; margin-top:6px; }
 .gtag { display:inline-block; font-style:normal; font-size:9.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
   border-radius:5px; padding:2px 5px; }
@@ -1057,6 +1077,9 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .astk svg { width:15px; height:15px; fill:var(--line-strong); }
 .astk.lit svg { fill:var(--gold, #d4a24c); }
 .astk b { font-family:var(--mono); font-size:15px; font-weight:600; color:var(--ink); }
+.avt { display:inline-flex; align-items:center; gap:3px; }
+.avt svg { width:14px; height:14px; fill:var(--gold, #d4a24c); }
+.avt b { font-family:var(--mono); font-size:15px; font-weight:600; color:var(--ink); }
 .spi.agi { width:24px; height:24px; font-size:12.5px; }
 .aguide { margin-top:-6px; }
 .aguide p { font-size:14px; line-height:1.55; color:var(--ink-2); margin:6px 0; }
@@ -1202,6 +1225,12 @@ button.fchip { padding:7px 13px; cursor:pointer; }
   cursor:pointer; transition:width .2s, background .2s; }
 .ddot.on { width:22px; border-radius:4px; background:var(--ink-2); }
 .hfam { margin-top:22px; }
+/* V5.7. Posting the day is a quiet share icon beside the dashboard's name. */
+.hfamh { display:flex; align-items:center; gap:4px; border-top:1px solid var(--line); }
+.hfamh .hfamline { border-top:none; flex:1; min-width:0; }
+.hshare { flex:none; width:36px; height:36px; border:none; background:none; color:var(--muted); border-radius:50%; cursor:pointer; display:grid; place-items:center; padding:0; }
+.hshare svg { width:19px; height:19px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.hshare:active { background:var(--line); color:var(--ink); }
 .hfamline { display:flex; align-items:baseline; gap:10px; width:100%; border:none; border-top:1px solid var(--line);
   background:none; padding:14px 2px; font-family:inherit; color:var(--ink); cursor:pointer; text-align:left; }
 .hfamline span { font-family:var(--display); font-size:17px; }
@@ -1341,8 +1370,8 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .sanyh em { font-style:normal; font-size:13px; color:var(--work); }
 .sany.armed .sanyh { cursor:copy; border:1.5px dashed var(--work); border-radius:10px; padding:10px 12px; }
 .sany .tm { --qc:var(--line-strong); }
-.sany .tm.q1 { --qc:var(--work); } .sany .tm.q2 { --qc:var(--sleep); }
-.sany .tm.q3 { --qc:var(--sage); } .sany .tm.q4 { --qc:var(--muted); }
+.sany .tm.q1 { --qc:var(--tq1); } .sany .tm.q2 { --qc:var(--tq2); }
+.sany .tm.q3 { --qc:var(--tq3); } .sany .tm.q4 { --qc:var(--muted); }
 .sany .tr { min-height:44px; }
 .sany .tt { cursor:default; padding:9px 0; }
 
@@ -1467,6 +1496,28 @@ button.fchip { padding:7px 13px; cursor:pointer; }
    disabled "next" on today stays visible but faint, so the pair always
    reads as a pair and you can see which way time runs. */
 .daynav { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+/* V5.7. The date strip under a habit page's title. */
+.dstrip { margin:-4px 0 14px; }
+.dsh2 { display:flex; align-items:center; justify-content:center; gap:4px; position:relative; min-height:34px; }
+.dsm { border:none; background:none; color:var(--ink); font:inherit; font-size:15px; font-weight:600; padding:6px 10px; cursor:pointer; display:inline-flex; align-items:center; gap:6px; }
+.dsm i { font-style:normal; font-size:10px; color:var(--muted); }
+.dsn { width:32px; height:32px; border:none; background:none; color:var(--muted); border-radius:50%; cursor:pointer; padding:0; display:grid; place-items:center; }
+.dsn svg { width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round; }
+.dsn:disabled { opacity:.25; cursor:default; }
+.dstoday { position:absolute; right:0; border:1px solid var(--line-strong); background:none; color:var(--accent); border-radius:99px; font:inherit; font-size:12.5px; padding:5px 11px; cursor:pointer; }
+.dsw, .dsg { display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); }
+.dsw span { text-align:center; font-size:11px; color:var(--muted); padding:6px 0 2px; }
+.dsg { row-gap:2px; touch-action:pan-y; }
+.sd { position:relative; display:flex; flex-direction:column; align-items:center; gap:3px; border:none; background:none; color:var(--ink); font:inherit; padding:5px 0 6px; cursor:pointer; }
+.sd b { width:36px; height:36px; display:grid; place-items:center; border-radius:50%; font-size:15px; font-weight:500; font-variant-numeric:tabular-nums; }
+.sd i { width:5px; height:5px; border-radius:50%; background:transparent; }
+.sd.slog i { background:var(--ink-2); opacity:.6; }
+.sd.smet i { background:var(--green); }
+.sd.now b { color:var(--accent); font-weight:700; }
+.sd.sel b { background:var(--accent); color:#17130c; font-weight:700; }
+.sd.dim b { color:var(--muted); opacity:.55; }
+.sd:disabled { cursor:default; }
+.sd:disabled b { color:var(--muted); opacity:.35; }
 .dnav { width:40px; height:40px; flex:none; border-radius:50%; cursor:pointer;
   border:1px solid var(--line-strong); background:var(--ground); color:var(--ink);
   display:grid; place-items:center; padding:0; transition:transform .08s, background .15s; }
@@ -1670,8 +1721,13 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .install { display:flex; align-items:flex-start; gap:10px; padding:12px 14px;
   border:1px solid var(--line); border-radius:12px; background:var(--soft);
   font-size:13px; color:var(--ink-2); }
-.install p { flex:1; }
-.install b { color:var(--accent); }
+.install .ibody { flex:1; min-width:0; }
+.install .ih { margin:0 0 6px; font-weight:600; color:var(--ink); font-size:14px; }
+.install ol { margin:0; padding-left:20px; display:grid; gap:4px; font-size:13.5px; }
+.install small { color:var(--muted); font-size:11.5px; }
+.install b { color:var(--ink); }
+.iico { width:17px; height:17px; vertical-align:-3px; fill:none; stroke:var(--accent); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.iico circle { fill:var(--accent); stroke:none; }
 .install button { background:none; border:none; color:var(--muted); cursor:pointer;
   font-size:18px; line-height:1; padding:0 2px; flex:none; }
 .banner { border:1px solid var(--line-strong); background:var(--warn-soft);
@@ -1901,13 +1957,18 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .stdbtns .btn, .stdbtns .btn-quiet { flex:1; padding:13px 10px; font-size:15px; border-radius:12px; }
 .dpg { margin:16px 0 6px; font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
 .dpgrid { display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; }
-.dpk { position:relative; height:64px; border:1.5px solid var(--line); border-radius:14px; background:var(--surface);
-  font-family:inherit; font-size:13px; font-weight:600; color:var(--ink-2); cursor:pointer; padding:6px 4px;
-  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; }
-.dpk i { font-style:normal; width:20px; height:20px; border-radius:50%; display:grid; place-items:center;
-  font-family:var(--mono); font-size:11px; border:1.5px solid var(--line-strong); color:transparent; }
-.dpk.on { border-color:var(--accent); background:var(--soft); color:var(--ink); }
-.dpk.on i { background:var(--accent); border-color:var(--accent); color:#17130c; }
+.dpk { position:relative; height:64px; border:1.5px solid var(--line); border-radius:14px; background:var(--surface); }
+.dpkb { width:100%; height:100%; border:none; background:none; border-radius:13px; font-family:inherit; font-size:13px; font-weight:600;
+  color:var(--ink-2); cursor:pointer; padding:6px 22px 6px 6px; }
+.dpk.on { border-color:var(--accent); background:var(--soft); }
+.dpk.on .dpkb { color:var(--ink); }
+/* V5.7. The pin, in the corner of a habit that is on: filled when it is a dial. */
+.dpin { position:absolute; top:4px; right:4px; width:30px; height:30px; display:none; place-items:center; border:none; background:none;
+  border-radius:50%; color:var(--muted); cursor:pointer; padding:0; }
+.dpk.on .dpin { display:grid; }
+.dpin svg { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; transform:rotate(30deg); }
+.dpk.pin .dpin { color:var(--accent); }
+.dpk.pin .dpin svg { fill:currentColor; transform:none; }
 
 /* ---------- V3.4: the family, every number ------------------------------ */
 .fcard { padding:13px 14px 12px; border-top:1px solid var(--line); }
@@ -1984,6 +2045,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 .pgk { display:inline-flex; align-items:center; gap:5px; color:var(--muted); }
 .pgk i { width:8px; height:8px; border-radius:50%; border:1.4px solid var(--ink-2); }
 .pgk i.h { background:var(--green); border-color:var(--green); }
+.pgline { display:inline-block; width:14px; height:2px; border-radius:1px; background:var(--accent); }
+.pgtr { fill:none; stroke:var(--accent); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; opacity:.9; }
+.pgavg { font-size:12.5px; color:var(--muted); }
+.pgavg b { font-size:13.5px !important; }
 .pgnone { margin:10px 0 4px; }
 .xspark { display:block !important; padding:0 0 8px !important; border-top:none !important; }
 .xspark svg { display:block; width:100%; height:auto; overflow:visible; }
@@ -1991,8 +2056,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 .xsd { fill:var(--diet); stroke:var(--surface); stroke-width:1; }
 .xsx { display:flex; justify-content:space-between; padding-right:46px; font-size:10.5px; color:var(--muted); }
 /* V5.6. The way to add or remove habits, at the foot of your dashboard. */
-.paddh { display:block; width:100%; border:none; border-top:1px solid var(--line); background:none; color:var(--accent);
-  font:inherit; font-size:13px; padding:11px 12px; text-align:left; cursor:pointer; }
+
 .pcell { display:flex; flex-direction:column; align-items:flex-start; gap:1px; min-width:0; border:none; background:none;
   padding:8px 6px; font:inherit; color:var(--ink); text-align:left; cursor:pointer; -webkit-tap-highlight-color:transparent; }
 .pcell b { font-family:var(--mono); font-weight:500; font-size:clamp(14px, 4.3vw, 17px); letter-spacing:-.03em; white-space:nowrap; }
@@ -2212,6 +2276,22 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
 .silrow i { font-style:normal; color:var(--muted); font-size:20px; line-height:1; }
 .silsum { margin:12px 0 4px; display:flex; align-items:baseline; gap:6px; justify-content:center; }
 .silsum b { font-size:28px; font-weight:600; font-variant-numeric:tabular-nums; }
+/* V5.7. The day's sittings, under the circle in the same card. */
+.silday { margin-top:14px; padding-top:12px; border-top:1px solid var(--line); }
+.silday .silsum { margin:0 0 6px; }
+.silday .silsum b { font-size:20px; }
+.silday .silsum small { margin-left:6px; font-size:12px; color:var(--muted); }
+.silday .silsits { list-style:none; margin:0 auto 4px; padding:0; max-width:340px; text-align:left; }
+.silday .silsits li { display:flex; align-items:center; gap:10px; padding:7px 0; border-top:1px solid color-mix(in oklab, var(--line) 60%, transparent); flex-wrap:wrap; }
+.silday .silsits li:first-child { border-top:none; }
+.silt { border:none; background:none; padding:2px 0; font:inherit; font-size:14px; color:var(--ink-2); font-variant-numeric:tabular-nums; cursor:pointer; text-decoration:underline dotted var(--line-strong); text-underline-offset:3px; min-width:52px; text-align:left; }
+.silday .silsits b { font-size:14px; font-weight:600; font-variant-numeric:tabular-nums; min-width:44px; }
+.silday .silnotev { flex:1; min-width:0; text-align:left; border:none; background:none; padding:2px 0; font:inherit; font-size:13px; color:var(--ink-2); cursor:pointer; }
+.silday .silnotev.empty { color:var(--muted); }
+.silday .silnote { flex-basis:100%; }
+.silx { border:none; background:none; color:var(--muted); font-size:18px; line-height:1; padding:2px 4px; cursor:pointer; margin-left:auto; }
+.silday .wplus { margin:4px auto 0; display:block; }
+.silad { justify-content:center; }
 .silsum b.win { color:var(--green-ink); }
 /* The pickers. */
 .silact { position:fixed; left:12px; right:12px; bottom:calc(12px + env(safe-area-inset-bottom, 0px)); z-index:61;
@@ -2234,6 +2314,25 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
 .witem.on { color:var(--ink); font-weight:600; }
 .wlab { position:relative; font-size:15px; color:var(--ink-2); margin-right:10px; }
 /* The running sitting: the whole screen. */
+/* V5.7. Focus full screen: a work clock. */
+.wfull { position:fixed; inset:0; z-index:70; display:flex; flex-direction:column; background:#0e0d0b; color:#f2e6cc;
+  padding:max(14px, env(safe-area-inset-top)) 20px max(20px, env(safe-area-inset-bottom)); }
+.wfbar { display:flex; align-items:center; justify-content:space-between; }
+.wfk { font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#9c8f74; }
+.wfmin { width:44px; height:44px; border:1px solid #2c2820; background:none; color:#d8c9a6; border-radius:12px; font-size:22px; line-height:1; cursor:pointer; }
+.wfmid { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; text-align:center; }
+.wfname { margin:0; font-family:var(--body); font-weight:600; font-size:clamp(20px, 5.5vw, 26px); color:#f2e6cc; max-width:92%; overflow-wrap:anywhere; }
+.wfclock { font-family:var(--body); font-weight:300; font-size:clamp(76px, 24vw, 132px); line-height:1; letter-spacing:-.03em; color:var(--work); font-variant-numeric:tabular-nums; }
+.wfends { margin:0; font-size:15px; color:#b9aa88; }
+.wfbarp { width:min(320px, 80%); height:4px; border-radius:2px; background:#2a261e; overflow:hidden; margin:8px 0 18px; }
+.wfbarp i { display:block; height:100%; background:var(--work); }
+.wfrow { display:flex; align-items:center; gap:22px; }
+.wfstep { width:64px; height:48px; border:1px solid #3a3426; background:#17150f; color:#e8d9b4; border-radius:12px; font:inherit; font-size:16px; font-weight:600; cursor:pointer; font-variant-numeric:tabular-nums; }
+.wfpp { width:76px; height:76px; border:none; border-radius:20px; background:var(--work); color:#1a140a; display:grid; place-items:center; cursor:pointer; }
+.wfpp svg { width:30px; height:30px; fill:currentColor; }
+.wfstep:active, .wfpp:active { transform:scale(.95); }
+.wfor { margin:0 0 -6px; text-align:center; font-size:14px; font-weight:600; color:var(--ink-2); }
+.wtoday { margin-top:6px; }
 .silrun { position:fixed; inset:0; z-index:70; display:flex; flex-direction:column; color:#efe9dc;
   background:radial-gradient(120% 80% at 50% 0%, #2a3a30 0%, #161a17 55%, #0f1110 100%); }
 .silrun::before { content:""; position:absolute; inset:0; pointer-events:none;
@@ -2275,7 +2374,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "5.6";
+  const APP_VERSION = "5.7";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -3320,12 +3419,16 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   }
   function installHint() {
     if (standalone() || hintDismissed() || !me()) return "";
-    const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
-    const how = ios
-      ? "tap Share, then <b>Add to Home Screen</b>"
-      : "open the browser menu, then <b>Add to Home screen</b>";
+    // V5.7. Two steps, each with the picture of what to tap.
+    const ios = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    const SHARE = `<svg class="iico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11v9h12v-9"/></svg>`;
+    const DOTS = `<svg class="iico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg>`;
+    const steps = ios
+      ? [`Tap ${SHARE} <b>Share</b> <small>(in Safari's bar, or under \u2022\u2022\u2022)</small>`, `Tap <b>Add to Home Screen</b>`]
+      : [`Tap ${DOTS} <b>menu</b> <small>(top right)</small>`, `Tap <b>Add to Home screen</b>`];
     return `<div class="install" id="installHint">
-      <p>Make tomorrow one tap: ${how}. The icon opens straight here.</p>
+      <div class="ibody"><p class="ih">Put Tribes on your Home Screen</p>
+        <ol>${steps.map((x) => `<li>${x}</li>`).join("")}</ol></div>
       <button id="installNo" aria-label="Dismiss">&times;</button>
     </div>`;
   }
@@ -3333,6 +3436,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   /* ---------- the daily WhatsApp message ---------------------------- */
   // Written to be read in a chat, not on a dashboard: the standings first,
   // who is missing second, the link last. Asterisks are WhatsApp bold.
+  const myHabit = (k) => myDials().includes(k);
   function dailyMessage() {
     // V3.6. Back to the V3.3 post, as asked: a tick for everyone who met
     // their step standard, a hollow square for everyone else who logged,
@@ -3364,8 +3468,9 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       const pc = pctOf(p);
       if (pc !== null && bval(p, "steps") > 0) bits.push(pc + "% steps");
       else if (bval(p, "steps") > 0)           bits.push(num(bval(p, "steps")) + " steps");
-      if (bval(p, "train") > 0)  bits.push(hm(bval(p, "train")) + " train");
-      if (bval(p, "cardio") > 0) bits.push(hm(bval(p, "cardio")) + " cardio");
+      // V5.6. Train and cardio only when the person posting has them on.
+      if (myHabit("train") && bval(p, "train") > 0)  bits.push(hm(bval(p, "train")) + " train");
+      if (myHabit("cardio") && bval(p, "cardio") > 0) bits.push(hm(bval(p, "cardio")) + " cardio");
       // V4.3. Exercise only: steps, train, cardio. Nothing else is posted.
       // A streak is a today fact: yesterday's post cannot know it.
       const streak = !past && p.streak > 1 ? `  (${p.streak}-day streak)` : "";
@@ -3865,6 +3970,10 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     d < 0 ? "M14.5 5.5 8 12l6.5 6.5" : "M9.5 5.5 16 12l-6.5 6.5"}"/></svg>`;
   function dayNav({ ids = ["dPrev", "dNext", "dToday"], label, atToday, unit = "day",
                     todayWord = "today", cls = "", openNext = false }) {
+    // V5.7. A habit's day is chosen from the date strip at the top of its
+    // page (injectStrip); the arrows and their label live on only for the
+    // dashboard, the schedule and the goals week.
+    if (["dPrev", "ddPrev", "mPrev"].includes(ids[0])) return "";
     return `
       <div class="daynav ${cls}">
         <button type="button" class="dnav" id="${ids[0]}" aria-label="Previous ${unit}">${CHEV(-1)}</button>
@@ -5376,7 +5485,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       const ks = cols.map((c) => c.k);
       const band = (i) => ` b${cols[i].gi}`;
       return `<div class="ftab"><table class="ftbl" style="width:min(100%, ${78 + ks.length * 64}px);min-width:${78 + ks.length * 27}px">
-        <thead><tr class="fgrp"><th class="fn"></th>${groups.map(([g, gks, gi]) => `<th colspan="${gks.length}" class="b${gi}">${esc(gks.length < 2 && g.length > 6 ? g.split(" ").pop() : g)}</th>`).join("")}</tr>
+        <thead><tr class="fgrp"><th class="fn"></th>${groups.map(([g, gks, gi]) => `<th colspan="${gks.length}" class="b${gi}">${esc(gks.length < 2 ? ({ Meditation: "Med", Exercise: "Exer", "Great Work": "Work" }[g] || g) : g)}</th>`).join("")}</tr>
           <tr><th class="fn"><span class="sr">Name</span></th>${ks.map((k, i) =>
           `<th class="${cols[i].first ? "g0" : ""}${band(i)}" title="${STD[k].label}">${FAB[k]}</th>`).join("")}</tr></thead>
         <tbody>${list.map((p) => {
@@ -5402,7 +5511,6 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       return `<div class="pdash" aria-label="Your habits">
         ${groups.map(([g, ks, i]) => `<div class="prw b${i}"><span class="pcat">${esc(g)}</span>
             <div class="pcells">${ks.map(cell).join("")}</div></div>`).join("")}
-        <button type="button" class="paddh" id="habAdd">+ Add or remove habits</button>
       </div>`;
     };
     const roster = state.people.length === 0
@@ -5468,19 +5576,17 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         </section>`}
 
       <section class="hfam">
-        <button class="hfamline" id="foldBoard" aria-expanded="${boardOpen()}">
+        <div class="hfamh"><button class="hfamline" id="foldBoard" aria-expanded="${boardOpen()}">
           <span>Dashboard</span>
           <em>${state.people.length ? `you and the tribe · ${logged}/${state.people.length} logged` : ""}</em>
           <i aria-hidden="true">${boardOpen() ? "\u25b4" : "\u203a"}</i></button>
+        ${boardOpen() && state.people.length && !state.boardBusy ? `<button type="button" class="hshare" id="waShare" aria-label="Post ${state.boardDay ? esc(shortDay(famDayISO())) : "today"} to WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11v9h12v-9"/></svg></button>` : ""}</div>
         ${boardOpen() ? dayNav({ ids: ["bPrev", "bNext", "bToday"], cls: "famnav",
                      atToday: famDayISO() >= familyISO(),
                      label: state.boardBusy ? "\u2026"
                        : famDayISO() === familyISO() ? "Today" : esc(fullDate(famDayISO())) }) : ""}
         ${boardOpen() ? roster : ""}
         ${boardOpen() ? `
-          ${state.boardBusy ? "" : `
-            <button class="btn" id="waShare" style="width:100%;margin-top:14px">${state.boardDay
-              ? `Post ${esc(shortDay(famDayISO()))} to WhatsApp` : "Post today to WhatsApp"}</button>`}
           ${m ? `
           <div class="hadd">
             <button class="linkbtn" id="addBtn">${state.adding ? "Never mind" : "Add someone"}</button>
@@ -5522,7 +5628,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   // under it (tap it to change it). Where a number can be typed, the
   // middle IS the input, as the step count always was.
   function homeDials(m) {
-    const keys = myDials(), n = keys.length;
+    const keys = myPins(), n = keys.length;   // V5.7. Only pinned habits are dials.
     const i = Math.min(state.dialIdx || 0, n - 1);
     // A loop: a copy of the last dial sits before the first and a copy of
     // the first after the last. Land on a copy and the strip jumps, unseen,
@@ -5628,11 +5734,13 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     // run of days beside it, and an i for how a good habit is built.
     const v = votesOf(k);
     const streak = v && k !== "weight" ? `<span class="astk${v.streak ? " lit" : ""}" aria-label="${num(v.streak)} days in a row">${I_FLAME}<b>${num(v.streak)}</b><small>${v.streak === 1 ? "day" : "days"}</small></span>` : "";
+    // V5.7. Votes join the run of days on this one line; the card is gone.
+    const votes = v ? `<span class="avt" aria-label="${num(v.total)} ${v.total === 1 ? "vote" : "votes"}${nextMile(v.total) ? `, next badge at ${num(nextMile(v.total))}` : ""}">${I_BOLT}<b>${num(v.total)}</b></span>` : "";
     return `<section class="astrip">
         <button type="button" class="asent${A ? "" : " nil"}" id="atomOpen">${A
           ? `I will <u>${esc(A.how)}</u>${A.when ? `, <u>${esc(A.when)}</u>` : ""}${A.who ? ` so that I can become <u>${esc(A.who)}</u>` : ""}.`
           : `<b>Make it a habit.</b> I will <u>action</u>, <u>time or place</u> so that I can become <u>who I want to be</u>.`}</button>
-        <div class="aside">${streak}<button type="button" class="spi agi${state.atomGuide ? " on" : ""}" id="atomGuide" aria-expanded="${!!state.atomGuide}" aria-label="How to build a habit">i</button></div>
+        <div class="aside">${votes}${streak}<button type="button" class="spi agi${state.atomGuide ? " on" : ""}" id="atomGuide" aria-expanded="${!!state.atomGuide}" aria-label="How to build a habit">i</button></div>
       </section>
       ${state.atomGuide ? atomsGuide(k) : ""}`;
   }
@@ -5801,11 +5909,20 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     const slot = pw / Math.max(1, n - 1);
     const hits = pts.map((p) => p.v === null ? "" : `<rect x="${(x(p.i) - slot / 2).toFixed(1)}" y="0" width="${Math.max(slot, 6).toFixed(1)}" height="${H}" data-pg="${p.i}" fill="transparent"/>`).join("");
     const met = pts.filter((p) => p.hit).length;
+    // V5.7. The trend: a rolling average of the days you logged (7 days;
+    // 4 weeks on the year view), drawn as one thin line. It breaks where a
+    // whole window is empty rather than inventing a value.
+    const win = range === 365 ? 4 : 7;
+    const roll = pts.map((p, i) => { const xs = pts.slice(Math.max(0, i - win + 1), i + 1).filter((q) => q.v !== null).map((q) => q.v);
+      return xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null; });
+    let trend = "", pen = false;
+    if (!bin) roll.forEach((v, i) => { if (v === null) { pen = false; return; } trend += `${pen ? "L" : "M"}${x(i).toFixed(1)} ${y(v).toFixed(1)} `; pen = true; });
+    const avg = seen.length ? seen.reduce((a, p) => a + p.v, 0) / seen.length : null;
     const unit = range === 365 ? "weeks" : "days";
     const sel = state.progSel && state.progSel.k === k && state.progSel.r === range ? pts[state.progSel.i] : null;
     const selWords = sel && sel.v !== null ? `${esc(range === 365 ? `Week of ${shortDay(sel.iso)}` : shortDay(sel.iso))} · ${esc(stdWords(k, sel.v))}${range === 365 ? ` average, ${sel.n} day${sel.n === 1 ? "" : "s"} logged` : ""}${sel.hit ? " · met" : ""}` : "";
     return `<section class="card pgcard" aria-label="${esc(STD[k].label)} over time">
-        <div class="pghead"><p class="pgsum"><b>${met}</b> of ${n} ${unit} at your standard</p>
+        <div class="pghead"><p class="pgsum"><b>${met}</b> of ${n} ${unit} met${avg !== null && !bin ? `<br><span class="pgavg">average <b>${esc(stdWords(k, avg))}</b></span>` : ""}</p>
           <div class="range pgr" role="group" aria-label="Time range">${Object.entries(PROG_R).map(([v, t]) =>
             `<button type="button" data-pgr="${v}" aria-pressed="${Number(v) === range}">${v === "365" ? "1y" : v + "d"}</button>`).join("")}</div></div>
         ${seen.length ? `<svg class="pgsvg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(STD[k].label)}, ${PROG_R[range]}: ${met} of ${n} ${unit} met your standard of ${esc(stdWords(k, std))}">
@@ -5813,6 +5930,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
           ${stdY !== null ? `<line x1="${L}" x2="${W - Rr}" y1="${stdY.toFixed(1)}" y2="${stdY.toFixed(1)}" class="pgstd"/>
             <text x="${W - Rr + 6}" y="${(stdY + 3.5).toFixed(1)}" class="pgt">${esc(stdWords(k, std))}</text>` : ""}
           ${sel ? `<line x1="${x(sel.i).toFixed(1)}" x2="${x(sel.i).toFixed(1)}" y1="${T - 4}" y2="${T + ph + 6}" class="pgsel"/>` : ""}
+          ${trend ? `<path d="${trend.trim()}" class="pgtr"/>` : ""}
           ${dots}
           <text x="${L}" y="${H - 4}" class="pgt">${esc(shortDay(pts[0].iso))}</text>
           <text x="${W - Rr}" y="${H - 4}" text-anchor="end" class="pgt">today</text>
@@ -5822,7 +5940,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
               ${far(T + ph) ? `<text x="${W - Rr + 6}" y="${T + ph + 3}" class="pgt pgax">${esc(stdWords(k, loV))}</text>` : ""}`; })()}
           ${hits}
         </svg>` : `<p class="hint pgnone">Log a few days and your progress shows here.</p>`}
-        <p class="pgcap" id="pgCap">${selWords || `<span class="pgk"><i class="h"></i>met</span><span class="pgk"><i></i>short of it</span>${range === 365 ? `<span class="pgk">each dot a week</span>` : ""}`}</p>
+        <p class="pgcap" id="pgCap">${selWords || `<span class="pgk"><i class="h"></i>met</span><span class="pgk"><i></i>short of it</span>${trend ? `<span class="pgk"><span class="pgline"></span>${range === 365 ? "4-week" : "7-day"} average</span>` : ""}${range === 365 ? `<span class="pgk">each dot a week</span>` : ""}`}</p>
       </section>`;
   }
   const monthShift = (ym, n) => {
@@ -5833,6 +5951,94 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   // The habit a page is about, if it is one.
   const pageHabit = () => state.view === "diet" ? (state.diet || {}).page
     : state.view === "exercise" || state.view === "sleep" || state.view === "tasks" || state.view === "med" ? state.seg : null;
+  /* ---------- V5.7: the date strip -----------------------------------
+     One way to pick a day on every habit page, like TickTick: the week,
+     Monday to Sunday, under the page title. Tap a day to open it; swipe
+     (or the small arrows) for other weeks; tap the month to see all of
+     it. A dot marks a day you logged, green when it met your standard.
+     It replaces the old arrows and the calendar at the foot of the page.
+     ------------------------------------------------------------------ */
+  const pageDay = () => state.view === "diet" ? ((state.diet || {}).day || todayISO()) : entryDay();
+  function dayMark(k, iso) {
+    const v = votesOf(k); if (!v) return "";
+    const days = v.days && !Array.isArray(v.days) ? v.days : {};
+    if (!Object.prototype.hasOwnProperty.call(days, iso)) return "";
+    if (k === "refl" || k === "weight") return "met";
+    const m = me() || {}, std = k === "rise" || k === "rest" ? (hasTarget(m, k) ? target(m, k) : STD[k].def) : stdOf(m, k);
+    const raw = days[iso], val = k === "dd" ? ddCount(raw) : k === "sleep" ? scorePct(raw) : Number(raw);
+    return (stdPct(k, val, std) ?? 100) >= 100 ? "met" : "log";
+  }
+  const MON3 = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  function stripHTML(k) {
+    const sel = pageDay(), today = todayISO(), open = !!state.stripOpen;
+    const cell = (iso, dim) => {
+      const fut = iso > today, mk = fut ? "" : dayMark(k, iso);
+      return `<button type="button" class="sd${iso === sel ? " sel" : ""}${iso === today ? " now" : ""}${dim ? " dim" : ""}${mk ? " s" + mk : ""}" ${fut ? "disabled" : `data-sday="${iso}"`}
+        aria-label="${esc(shortDay(iso))}${mk === "met" ? ", met" : mk === "log" ? ", logged" : ""}"${iso === sel ? ' aria-current="date"' : ""}><b>${Number(iso.slice(8))}</b><i></i></button>`;
+    };
+    let head, grid;
+    if (open) {
+      const ym = state.stripYm || sel.slice(0, 7), first = ym + "-01";
+      const lead = (new Date(first + "T00:00:00Z").getUTCDay() + 6) % 7, start = shiftISO(first, -lead);
+      const dim = new Date(Date.UTC(Number(ym.slice(0, 4)), Number(ym.slice(5, 7)), 0)).getUTCDate();
+      const weeks = Math.ceil((lead + dim) / 7);
+      grid = Array.from({ length: weeks * 7 }, (_, i) => { const iso = shiftISO(start, i); return cell(iso, iso.slice(0, 7) !== ym); }).join("");
+      head = { label: `${MONTHS[Number(ym.slice(5, 7)) - 1]}${ym.slice(0, 4) !== today.slice(0, 4) ? " " + ym.slice(0, 4) : ""}`, canNext: ym < today.slice(0, 7) };
+    } else {
+      const mon = state.stripMon || mondayOf(sel);
+      grid = Array.from({ length: 7 }, (_, i) => cell(shiftISO(mon, i))).join("");
+      const sun = shiftISO(mon, 6), m1 = Number(mon.slice(5, 7)) - 1, m2 = Number(sun.slice(5, 7)) - 1;
+      head = { label: m1 === m2 ? MONTHS[m1] : `${MON3[m1]} – ${MON3[m2]}`, canNext: shiftISO(mon, 7) <= today };
+    }
+    return `<section class="dstrip${open ? " open" : ""}" id="dStrip" aria-label="Choose a day">
+        <div class="dsh2">
+          <button type="button" class="dsn" id="sPrevW" aria-label="Previous ${open ? "month" : "week"}">${CHEV(-1)}</button>
+          <button type="button" class="dsm" id="sMonth" aria-expanded="${open}">${esc(head.label)}<i aria-hidden="true">${open ? "\u25b4" : "\u25be"}</i></button>
+          <button type="button" class="dsn" id="sNextW" aria-label="Next ${open ? "month" : "week"}" ${head.canNext ? "" : "disabled"}>${CHEV(1)}</button>
+          ${sel !== today ? `<button type="button" class="dstoday" id="sToday">Today</button>` : ""}
+        </div>
+        <div class="dsw">${DOWS.map((d) => `<span>${d}</span>`).join("")}</div>
+        <div class="dsg" id="dsGrid">${grid}</div>
+      </section>`;
+  }
+  function injectStrip() {
+    const k = pageHabit();
+    if (!k || !state.goDay || !ATOM_HOW[k]) return;
+    const host = app.querySelector("header.masthead");
+    if (!host) return;
+    host.insertAdjacentHTML("afterend", stripHTML(k));
+    const go = (iso) => { state.stripMon = null; state.stripYm = null; state.stripOpen = false; state.goDay(iso); };
+    app.querySelectorAll("[data-sday]").forEach((el) => el.addEventListener("click", () => { if (el.dataset.sday !== pageDay() || state.stripOpen) go(el.dataset.sday); }));
+    on("sToday", "click", () => go(todayISO()));
+    on("sMonth", "click", () => { state.stripOpen = !state.stripOpen; state.stripYm = null; state.stripMon = null; render(); });
+    const shift = (n) => {
+      const today = todayISO();
+      if (state.stripOpen) {
+        const ym = state.stripYm || pageDay().slice(0, 7), y = Number(ym.slice(0, 4)), m0 = Number(ym.slice(5, 7)) - 1 + n;
+        const d = new Date(Date.UTC(y, m0, 1)), nym = `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}`;
+        if (nym > today.slice(0, 7)) return;
+        state.stripYm = nym;
+      } else {
+        const mon = shiftISO(state.stripMon || mondayOf(pageDay()), n * 7);
+        if (mon > today) return;
+        state.stripMon = mon;
+      }
+      render();
+    };
+    on("sPrevW", "click", () => shift(-1));
+    on("sNextW", "click", () => shift(1));
+    // Swipe the days sideways for the week (or month) before or after.
+    const g = document.getElementById("dsGrid");
+    if (g) {
+      let x0 = null, y0 = 0;
+      g.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+      g.addEventListener("touchend", (e) => {
+        if (x0 === null) return;
+        const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0; x0 = null;
+        if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(dy) * 1.5) { e.preventDefault(); shift(dx < 0 ? 1 : -1); }
+      });
+    }
+  }
   function injectAtoms() {
     const k = pageHabit();
     if (!k || !ATOM_HOW[k]) return;
@@ -5840,11 +6046,11 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     // V5.1. Logging comes first. The habit sentence sits at the foot of
     // the page, over the calendar it feeds.
     const foot = app.querySelector("p.ver");
-    if (foot) foot.insertAdjacentHTML("beforebegin", atomsStrip(k).replace('<section class="astrip">', '<section class="astrip foot">') + atomsCard(k));
+    if (foot) foot.insertAdjacentHTML("beforebegin", atomsStrip(k).replace('<section class="astrip">', '<section class="astrip foot">'));
     // V5.6. Progress sits under the dial, where the page has one.
     const pg = progressCard(k);
     if (pg) {
-      const dial = app.querySelector(".msess, #mGrid") || app.querySelector(".dring, .dbig, .ctot, .mdial, .stamp");
+      const dial = app.querySelector(".msil, .msess, #mGrid, .wtoday") || app.querySelector(".dring, .dbig, .ctot, .mdial, .stamp");
       const at = dial && dial.closest("section");
       if (at) at.insertAdjacentHTML("afterend", pg);
       else app.querySelector(".astrip.foot")?.insertAdjacentHTML("beforebegin", pg);
@@ -6068,7 +6274,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     { at: "#dials", t: "Your dial",
       d: "Today against your standard. Tap the name to open it, the number to log. Swipe if you have more than one." },
     { at: "#dialEdit", t: "One habit at a time",
-      d: "Start with one. Add the next when the first is easy; turn off any you are not doing. Nothing else shows until you add it." },
+      d: "Start with one. Turn on the next when the first is easy, and pin any you want as a dial here. Turning one off only hides it." },
     { at: ".pdash", open: true, t: "Your dashboard",
       d: "Your habits, one line each. Tap a number to open its page and see your progress over time." },
     { at: ".ftab", open: true, t: "Your tribe",
@@ -6421,7 +6627,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       <button type="button" class="cqc cqplus${q.plus ? " on" : ""}" id="cqPlus" aria-pressed="${!!q.plus}"
         aria-label="Add your own activity">+</button></div>`;
   };
-  const sheetHere = () => state.view === "board" || (state.view === "exercise" && state.seg === "cardio");
+  const sheetHere = () => state.view === "board" || (state.view === "exercise" && (state.seg === "cardio" || state.seg === "work"));
   function homeSheet() {
     if (!sheetHere() || !state.homeSheet) return "";
     if (state.homeSheet === "focus") {
@@ -6440,8 +6646,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
           <form class="fnewf" id="hfForm"><input class="field" id="hfIn" maxlength="120" autocomplete="off" enterkeyhint="go"
             placeholder="Something new" value="${esc(w.pickQ || "")}" aria-label="Something new to focus on">
             <button type="submit" class="btn">Start</button></form>
-          <div class="stdbtns"><button type="button" class="btn-quiet" id="hsCancel">Cancel</button>
-            <button type="button" class="btn-quiet" id="hfPlain">Start without a label</button></div>
+          <div class="stdbtns"><button type="button" class="btn-quiet" id="hsCancel">Cancel</button></div>
         </div>`;
     }
     const q = state.cq || {};
@@ -8007,7 +8212,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     const adder = (Q) => t.adding !== Q.q ? "" : `
         <div class="tnew"><input class="field" id="tAddIn" data-tq="${Q.q}" maxlength="200" enterkeyhint="done"
           autocomplete="off" placeholder="New task in ${Q.name}" aria-label="New task in ${Q.name}"
-          value="${esc(t.draft || "")}"></div>
+          value="${esc(t.draft || "")}"><button type="button" class="tadd" id="tAddOk" aria-label="Add this task"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button></div>
         ${t.addMsg ? `<p class="tqhint warn" id="tqHint">${t.addMsg}</p>` : ""}`;
     const group = (Q) => {
       const open = openIn(Q.q);
@@ -8217,32 +8422,43 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       const q = Number(line.dataset.tq);
       // What is typed survives a re-render (a tick elsewhere, a refresh).
       line.addEventListener("input", () => { t.draft = line.value; });
-      line.addEventListener("keydown", (e) => {
-        if (e.key !== "Enter") return;
-        e.preventDefault();
+      // V5.7. One way to save what is typed, whatever finishes it: Return,
+      // the ✓ button on the line, or the phone's own ✓ above the keyboard
+      // (which only closes the keyboard: that is what lost tasks).
+      const commit = (refocus) => {
         const title = (line.value || "").trim();
         if (!title) { t.adding = null; t.addMsg = null; render(); return; }
         if (q === 1 && doFull()) {
           // Full means full. Say so where the eye already is; keep the words.
           t.addMsg = doFullMsg(); render();
-          document.getElementById("tAddIn")?.focus();
+          if (refocus) document.getElementById("tAddIn")?.focus();
           return;
         }
         // Emptied before the repaint, which carries a focused line's text over.
         addMain(q, title); line.value = ""; t.draft = ""; t.addMsg = null; t.stale = false;
-        if (q === 1 && doFull()) { t.adding = null; render(); return; }
+        if ((q === 1 && doFull()) || !refocus) { t.adding = null; render(); return; }
         render();
         document.getElementById("tAddIn")?.focus();
+      };
+      line.addEventListener("keydown", (e) => {
+        if (e.key !== "Enter") return;
+        e.preventDefault();
+        commit(true);
       });
-      // Leave an empty line and it folds away. A written one stays open,
-      // so nothing typed is ever lost to a stray tap.
+      const ok = document.getElementById("tAddOk");
+      if (ok) {
+        // Pressed without taking focus from the line, so the keyboard stays up.
+        ok.addEventListener("pointerdown", (e) => e.preventDefault());
+        ok.addEventListener("click", () => commit(true));
+      }
+      // Leave the line: what is written is saved; an empty line folds away.
       line.addEventListener("blur", () => {
         setTimeout(() => {
-          if (state.tasks !== t || t.adding !== q || (t.draft || "").trim()) return;
-          // A repaint replaces the line; that is not leaving it.
+          if (state.tasks !== t || t.adding !== q) return;
           if (!line.isConnected) return;
           const ae = document.activeElement;
           if (ae && ae.id === "tAddIn") return;
+          if ((line.value || "").trim()) { commit(false); return; }
           if (ae && ae.dataset && ae.dataset.tplus) return;
           t.adding = null; t.addMsg = null;
           if (pointerDown) window.addEventListener("pointerup", () => setTimeout(render, 0), { once: true });
@@ -8995,6 +9211,8 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     c.focus = c.focus || {};
     c.three_year = c.three_year || "";
     c.one_year = c.one_year || "";
+    c.quarter = c.quarter || "";
+    c.milestones = Array.isArray(c.milestones) ? c.milestones : [];
     c.goals.forEach((g) => {
       g.kpi_log = g.kpi_log || {};
       g.plan = g.plan || {};
@@ -9057,6 +9275,8 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
                 vision: fromExample ? EXAMPLE.vision : prev ? prev.vision : "",
                 three_year: fromExample ? EXAMPLE.three_year : prev ? prev.three_year || "" : "",
                 one_year: fromExample ? EXAMPLE.one_year : prev ? prev.one_year || "" : "",
+                // V5.7. Someday's milestones carry into the next twelve weeks; the quarter starts fresh.
+                quarter: "", milestones: prev && Array.isArray(prev.milestones) ? prev.milestones.map((m) => Object.assign({}, m)) : [],
                 one_goal: one, focus: {}, goals };
     G.sel = lastOpen();
     G.edit = fromExample ? null : "g:" + goals[0].id;
@@ -9248,12 +9468,26 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     const rung = (k, label, q, ph) => `
       <div class="grung"><span class="grl">${label}</span><small class="grq">${q}</small>
         ${gText(C, k, d[k], ph, true)}</div>`;
-    return gStep(C, null, "Someday \u00b7 3 years \u00b7 this year", "", "ladder", `
+    // V5.7. Down to this week: Someday (with milestones you cross off), 3
+    // years, this year, this quarter, and this week's ONE Thing.
+    const wk = Math.min(12, Math.max(1, C.cur)), fw = (d.focus || {})["w" + wk] || "";
+    const ms = d.milestones || [];
+    const msHTML = `<ul class="gms">${ms.map((m) => `<li class="${m.d ? "done" : ""}">
+          ${C.ro ? "" : `<button type="button" class="gmsc" data-gmsd="${esc(m.id)}" aria-pressed="${!!m.d}" aria-label="${m.d ? "Not done" : "Done"}: ${esc(m.t)}"></button>`}
+          <span>${esc(m.t)}</span>
+          ${C.ro ? "" : `<button type="button" class="gmsx" data-gmsx="${esc(m.id)}" aria-label="Remove ${esc(m.t)}">&times;</button>`}</li>`).join("")}</ul>
+        ${C.ro ? "" : `<form class="gmsf" id="gMsF"><input class="field" id="gMsIn" maxlength="200" autocomplete="off" enterkeyhint="done" placeholder="Add a milestone, e.g. Week 13: book the flights" aria-label="Add a milestone">
+          <button type="submit" class="btn-quiet gmsadd" aria-label="Add milestone">Add</button></form>`}`;
+    return gStep(C, null, "Someday \u2192 this week", "", "ladder", `
       <div class="gladder">
-        ${rung("vision", "Someday", "The ONE thing I want most", "Write your someday")}
+        <div class="grung"><span class="grl">Someday</span><small class="grq">The ONE thing I want most</small>
+          ${gText(C, "vision", d.vision, "Write your someday", true)}${msHTML}</div>
         ${rung("three_year", "In 3 years", "What has to be true by then", "What must be true in 3 years")}
         ${rung("one_year", "This year", "The ONE thing to finish by December", "What you will finish this year")}
-      </div>`, d.one_year ? `This year: ${esc(d.one_year)}` : d.vision ? `Someday: ${esc(d.vision)}` : "Not written yet",
+        ${rung("quarter", "This quarter", "The ONE thing these twelve weeks are for", "What these 12 weeks will finish")}
+        <div class="grung"><span class="grl">This week</span><small class="grq">The ONE thing that makes the rest easier</small>
+          ${C.cur >= 1 && C.cur <= 12 ? gText(C, "fw", fw, "The ONE Thing for this week", false) : `<p class="gvtext cnil">${C.cur < 1 ? "From week 1" : "\u2013"}</p>`}</div>
+      </div>`, fw ? `This week: ${esc(fw)}` : d.quarter ? `This quarter: ${esc(d.quarter)}` : d.one_year ? `This year: ${esc(d.one_year)}` : d.vision ? `Someday: ${esc(d.vision)}` : "Not written yet",
       true);
   }
 
@@ -9316,14 +9550,19 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     // The score across all goals lives in This week, below.
     const one = d.goals.find((g) => g.id === d.one_goal) || goals[0];
     const op = one && run ? goalTally(one, C.cur).pct : null;
+    // V5.7. The week's score across all goals sits beside it, up here.
+    const allW = d.goals.length > 1 && run ? `<div class="gwk gall"><span class="gwkl">All goals \u00b7 this week</span>
+          <b class="gwkv" style="color:${T.pct === null ? "var(--muted)" : dialColor(stdPct("goals", T.pct, win))}">${T.pct === null ? "\u2013" : T.pct + "%"}</b>
+          <span class="gwks">${T.due ? `${T.done} of ${T.due} done` : "nothing due"}</span></div>` : "";
     return `
-      <section class="grings" aria-label="Your ONE goal this week">
+      <section class="grings${allW ? " two" : ""}" aria-label="Your ONE goal this week">
         <div class="gwk">
           <span class="gwkl">${one ? `\u2605 ${esc(one.title || "Your ONE goal")} \u00b7 lead this week` : "This week"}</span>
           <b class="gwkv" style="color:${op === null ? "var(--muted)" : dialColor(stdPct("goals", op, win))}">${op === null ? "\u2013" : op + "%"}</b>
           <button type="button" class="dof" data-edit="goal" data-metric="goals">of ${win}%</button>
           <span class="gwks">${run ? `week ${C.cur} of 12` : when}</span>
         </div>
+        ${allW}
         <!-- V4.6. No rings here: each goal's card shows its own lead %. The
              rings live on home's Goals dial. -->
         ${start}
@@ -9480,19 +9719,10 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       : dayNav({ ids: ["gPrev", "gNext", "gToday"], unit: "week", todayWord: "this week",
                  atToday: pre || w >= open,
                  label: pre ? `Starts ${esc(shortDay(d.start_date))}` : `Week ${w} · ${esc(weekSpan(d.start_date, w))}` });
-    const fw = (d.focus || {})["w" + w] || "";
-    const canFw = !C.ro && w === open && C.cur <= 12;
+    // V5.7. This week is lean: the week, your goals (large) and their
+    // tactics to tick. The ONE Thing moved to the ladder; the score moved up top.
     return gStep(C, null, "This week", "", "week", `
       ${head}
-      <div class="gsub2"><span class="clab">This week’s ONE Thing</span>
-        ${canFw || C.ro ? gText(C, "fw", fw, "The ONE Thing for this week", false)
-          : `<p class="gvtext${fw ? "" : " cnil"}">${fw ? esc(fw) : "–"}</p>`}</div>
-      <div class="gscore">
-        <b style="color:${T.pct !== null && T.pct >= win ? "var(--work)" : "var(--ink)"}">${T.pct === null ? "–" : T.pct + "%"}</b>
-        <span>all goals \u00b7 ${T.due ? `${T.done} of ${T.due} done` : "nothing planned"} \u00b7 ${C.ro ? `${win}% wins the week`
-          : `<button type="button" class="linkbtn" data-edit="goal" data-metric="goals">${win}% wins the week</button>`}</span>
-      </div>
-      <p class="gtrack">Lead: tick each tactic on the day you do it. Lag: open a goal and log its result once a week.</p>
       ${scTable(C)}
       ${C.ro ? "" : (() => { const gl = d.goals.length;
         return `${gl && !d.one_goal && !(G.edit || "").startsWith("g:") ? `<p class="hint gonehint">Open a goal, tap Edit, then ★ to mark your ONE goal.</p>` : ""}
@@ -9754,6 +9984,19 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         render(); saveGoals();
       }));
 
+    // ---- V5.7. Someday's milestones: add, cross off, remove ----
+    const msList = () => (doc.milestones = Array.isArray(doc.milestones) ? doc.milestones : []);
+    const msAdd = () => { const f = document.getElementById("gMsIn"); const t = (f && f.value || "").trim();
+      if (!t) return false; msList().push({ id: uuid(), t: t.slice(0, 200), d: false }); f.value = ""; saveGoals(); render();
+      document.getElementById("gMsIn")?.focus(); return true; };
+    on("gMsF", "submit", (e) => { e.preventDefault(); msAdd(); });
+    // A tap anywhere else keeps what was typed (the phone's ✓ above the keyboard only blurs).
+    on("gMsIn", "blur", () => { const f = document.getElementById("gMsIn"); if (f && f.value.trim()) setTimeout(() => msAdd(), 0); });
+    document.querySelectorAll("[data-gmsd]").forEach((el) => el.addEventListener("click", () => {
+      const m = msList().find((x) => x.id === el.dataset.gmsd); if (m) { m.d = !m.d; saveGoals(); render(); } }));
+    document.querySelectorAll("[data-gmsx]").forEach((el) => el.addEventListener("click", () => {
+      doc.milestones = msList().filter((x) => x.id !== el.dataset.gmsx); saveGoals(); render(); }));
+
     // ---- goal setting to the now ----
     const wk = Math.min(12, Math.max(1, cur));
     const focusKey = (k) => k === "fw" ? "w" + wk : `w${wk}d${dowOf(G.today)}`;
@@ -9766,7 +10009,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     document.querySelectorAll("[data-cf]").forEach((el) => {
       const k = el.dataset.cf;
       el.addEventListener("input", () => {
-        if (k === "vision" || k === "three_year" || k === "one_year") doc[k] = el.value.slice(0, k === "vision" ? 2000 : 1000);
+        if (k === "vision" || k === "three_year" || k === "one_year" || k === "quarter") doc[k] = el.value.slice(0, k === "vision" ? 2000 : 1000);
         else {
           const v = el.value.slice(0, 200);
           doc.focus = doc.focus || {};
@@ -10194,29 +10437,27 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   // it is for, a thin ring draining, the time left, pause in the middle.
   // V5.5: one control, ⌄, steps out while it keeps running; ⤢ on the page
   // brings it back. Ending is on the page (pause, then End).
+  // V5.7. Focus full screen is a work clock, not a sanctuary: what it is
+  // for, a big countdown, when it ends, and −5 / pause / +5 in one row.
+  const wfEnd = (r) => new Date(Date.now() + workLeft(r)).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
   function workFullView() {
     const r = state.work && state.work.run;
     if (!r) return "";
     const f = Math.max(0, Math.min(1, 1 - workLeft(r) / (r.len * 60000)));
     return `
-      <div class="silrun wfull" role="dialog" aria-label="Focus session">
-        <div class="silbar">
-          <span></span>
-          <button type="button" class="silico" id="wfMin" aria-label="Leave full screen; the session keeps running">\u2304</button>
-        </div>
-        <div class="silmid">
-          <p class="silmin">${esc(durWords(r.len)).toUpperCase()}</p>
-          <h2 class="silname">${esc(r.label || "Focus")}</h2>
-          <div class="silring">
-            <svg viewBox="0 0 120 120" aria-hidden="true">
-              <circle cx="60" cy="60" r="52" class="siltrack"></circle>
-              <circle cx="60" cy="60" r="52" class="silfill" id="wfRing" stroke-dasharray="${DIAL_C}" stroke-dashoffset="${(DIAL_C * f).toFixed(2)}"></circle>
-              <g id="wfDot" transform="rotate(${(360 * f).toFixed(1)} 60 60)"><circle cx="112" cy="60" r="2.6" class="sildot"></circle></g>
-            </svg>
-            <button type="button" class="silpp" id="wfPP" aria-label="${r.pausedAt ? "Continue" : "Pause"}">${r.pausedAt ? I_PLAY : I_PAUSE}</button>
+      <div class="wfull" role="dialog" aria-label="Focus session">
+        <div class="wfbar"><span class="wfk">Focus \u00b7 ${esc(durWords(r.len))}</span>
+          <button type="button" class="wfmin" id="wfMin" aria-label="Leave full screen; the session keeps running">\u2304</button></div>
+        <div class="wfmid">
+          <h2 class="wfname">${esc(r.label || "Focus")}</h2>
+          <b class="wfclock" id="wfClock">${mmssMs(workLeft(r))}</b>
+          <p class="wfends" id="wfEnds">${r.pausedAt ? "Paused" : `ends ${esc(wfEnd(r))}`}</p>
+          <div class="wfbarp" aria-hidden="true"><i id="wfProg" style="width:${(f * 100).toFixed(1)}%"></i></div>
+          <div class="wfrow">
+            <button type="button" class="wfstep" id="wfMinus" aria-label="${WORK_STEP} minutes less">\u2212${WORK_STEP}</button>
+            <button type="button" class="wfpp" id="wfPP" aria-label="${r.pausedAt ? "Continue" : "Pause"}">${r.pausedAt ? I_PLAY : I_PAUSE}</button>
+            <button type="button" class="wfstep" id="wfPlus" aria-label="${WORK_STEP} minutes more">+${WORK_STEP}</button>
           </div>
-          <b class="silclock" id="wfClock">${mmssMs(workLeft(r))}</b>
-          <span class="silsub">${r.pausedAt ? "Paused" : ""}</span>
         </div>
       </div>`;
   }
@@ -10226,13 +10467,18 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     if (!document.querySelector(".wfull")) return;
     on("wfMin", "click", () => { state.workFull = false; render(); });
     on("wfPP", "click", () => { const r = state.work.run; if (!r) return; if (r.pausedAt) workResume(); else workHold(); render(); });
+    // ±5 straight from full screen; never ends a session before now.
+    const st = (d) => { const r = state.work.run; if (!r) return; const floor = Math.ceil(workElapsed(r) / 60000) + 1;
+      r.len = Math.max(floor, Math.min(WORK_MAX, r.len + d)); saveWorkLocal(); render(); };
+    on("wfMinus", "click", () => st(-WORK_STEP));
+    on("wfPlus", "click", () => st(WORK_STEP));
     wfTick = setInterval(async () => {
       const r = state.work && state.work.run;
       if (!r) { clearInterval(wfTick); wfTick = null; state.workFull = false; render(); return; }
       const f = Math.max(0, Math.min(1, 1 - workLeft(r) / (r.len * 60000)));
       const c = document.getElementById("wfClock"); if (c) c.textContent = mmssMs(workLeft(r));
-      document.getElementById("wfRing")?.setAttribute("stroke-dashoffset", (DIAL_C * f).toFixed(2));
-      document.getElementById("wfDot")?.setAttribute("transform", `rotate(${(360 * f).toFixed(1)} 60 60)`);
+      const pg = document.getElementById("wfProg"); if (pg) pg.style.width = (f * 100).toFixed(1) + "%";
+      const en = document.getElementById("wfEnds"); if (en && !r.pausedAt) en.textContent = "ends " + wfEnd(r);
       if (!r.pausedAt && workLeft(r) <= 0) { clearInterval(wfTick); wfTick = null; state.workFull = false; if (await checkWork()) {} render(); }
     }, 250);
   }
@@ -10279,21 +10525,19 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     return `
       <section class="wpage">
         ${dayNav({ label: today ? "Today" : esc(fullDate(entryDay())), atToday: today, unit: "day", cls: "wnav" })}
-        ${today ? focusChips() : ""}
+        ${r && today && r.label ? `<p class="wfor">${esc(r.label)}</p>` : ""}
         <div class="dial wdial">${ring}<div class="dcore">${core}</div></div>
         ${state.msg ? `<p class="hint dshint ${state.msgKind || ""}" style="text-align:center">${esc(state.msg)}</p>` : ""}
       </section>
-      <section class="whist${histShut() ? " shut" : ""}">
-        <button type="button" class="whh" id="whFold" aria-expanded="${!histShut()}"><i aria-hidden="true">${histShut() ? "\u25b8" : "\u25be"}</i>${sessions.length ? `${sessions.length} session${sessions.length > 1 ? "s" : ""} <small>\u00b7 ${hm(sum)}</small>` : today ? "No sessions yet" : `Sessions <small>${esc(shortDay(entryDay()))}</small>`}</button>
-        ${histShut() ? "" : `
+      <section class="whist wtoday">
         ${sessions.length || extra ? `<ul class="wlines">${sessions.map((x) => `
-          <li><span>${x.label ? esc(x.label) : "Focus"}${x.started_at ? `<small>${new Date(x.started_at).toLocaleTimeString([],
-              { hour:"numeric", minute:"2-digit" })}</small>` : `<small>added</small>`}</span>
+          <li><span>${x.label ? esc(x.label) : "Focus"}${x.started_at ? `<small>${(() => { const t = (ms) => new Date(ms).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+              const st = new Date(x.started_at).getTime(); return `${t(st)} \u2013 ${t(st + Number(x.minutes || 0) * 60000)}`; })()}</small>` : `<small>added</small>`}</span>
             <b>${hm(x.minutes)}</b>
             <button type="button" data-wdel="${x.id}" aria-label="Delete this session">&times;</button></li>`).join("")}${extra ? `
           <li><span>Typed earlier<small>older version</small></span><b>${hm(extra)}</b>
             <button type="button" id="workUntyped" aria-label="Delete the typed minutes">&times;</button></li>` : ""}</ul>`
-          : `<p class="hint whnone">No sessions ${today ? "yet today" : "that day"}.</p>`}
+          : ""}
         ${w.adding ? `
           <div class="wadd">
             <input class="field" id="waLabel" maxlength="120" autocomplete="off" list="waRecent" placeholder="What it was for" value="${esc(w.addLabel || "")}" aria-label="What the session was for">
@@ -10303,7 +10547,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
             <button type="button" class="linkbtn" id="waCancel">Cancel</button>
           </div>
           ${w.addErr ? `<p class="hint bad">${esc(w.addErr)}</p>` : ""}`
-          : `<button type="button" class="linkbtn wplus" id="waOpen">+ Add minutes you did</button>`}`}
+          : `<button type="button" class="linkbtn wplus" id="waOpen">+ Add minutes you did</button>`}
       </section>`;
   }
 
@@ -10473,7 +10717,8 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     on("fNone", "click", () => choose(null));
     on("fClose", "click", () => { w.pick = false; w.startAfter = false; render(); });
 
-    on("workStart", "click", () => { w.chipEdit = false; workGo(); state.workFull = true; render(); });
+    // V5.7. Every session says what it is for: Start asks first.
+    on("workStart", "click", () => { w.chipEdit = false; w.pickQ = ""; state.homeSheet = "focus"; render(); document.getElementById("hfIn")?.focus(); });
     on("workMax", "click", () => { state.workFull = true; render(); });
     on("whFold", "click", () => { try { localStorage.setItem("fhd.whist", histShut() ? "open" : "shut"); } catch {} render(); });
     on("workPause", "click", () => { workHold(); stopWorkTick(); render(); });
@@ -11043,25 +11288,29 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         ${isToday ? `<button type="button" class="silbigp" id="silBegin" aria-label="Begin">${I_PLAY}<span>Begin</span></button>` : `<span class="silbigp off">Today only</span>`}
       </div>
       <button type="button" class="silsetl" id="silSet">${esc(BELLS[c.start].toLowerCase())}${c.warm ? " · " + esc(WARM[c.warm].toLowerCase()) + " warm-up" : ""} <i aria-hidden="true">›</i></button>`;
-    return `
-      <section class="card msil">${setup}</section>
-      <section class="card msess">
-        ${medNav("day")}
-        <p class="silsum"><b class="${total >= std ? "win" : ""}">${hm(total)}</b> <button type="button" class="dof" data-edit="goal" data-metric="silence">of ${hm(std)}</button></p>
-        ${sessions.length ? `<ul class="wlines silsits">${sessions.map((x) => {
-          return `
-          <li><span>${esc(x.label || "Silence")}${x.at && !x.manual ? `<small>ended ${new Date(x.at).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}</small>` : ""}</span>
+    // V5.7. The day's sittings sit under the circle, in the same card: the
+    // total, then one quiet line per sitting with the time it ended.
+    const tWords = (iso) => new Date(iso).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }).replace(/\s?([AP])M$/i, (m0, a) => a.toLowerCase()).replace(":00", ":00");
+    const rows = sessions.slice().sort((a, b) => String(a.at || "").localeCompare(String(b.at || ""))).map((x) => `
+          <li>
+            <button type="button" class="silt" data-silat="${esc(x.id)}" aria-label="Ended ${x.at ? esc(tWords(x.at)) : "at an unknown time"}. Change">${x.at ? esc(tWords(x.at)) : "–"}</button>
             <b>${hm(x.min)}</b>
-            <button type="button" data-msdel="${esc(x.id)}" aria-label="Delete this sitting">&times;</button>
             ${state.silNoteFor === x.id
               ? `<input class="field silnote" id="silNoteIn" data-silnote="${esc(x.id)}" maxlength="140" autocomplete="off" enterkeyhint="done" value="${esc(x.note || "")}" placeholder="A note: how it went" aria-label="Note on this sitting">`
-              : `<button type="button" class="silnotev${x.note ? "" : " empty"}" data-silnoteopen="${esc(x.id)}">${x.note ? esc(x.note) : "+ note"}</button>`}</li>`; }).join("")}</ul>`
-          : `<p class="hint">No sittings ${isToday ? "yet today" : "that day"}.</p>`}
-        ${state.medAdd ? `<div class="wadd">
-            <span class="wamin"><input class="field" id="msMin" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="20" aria-label="Minutes"><em>min</em></span>
-            <button type="button" class="btn" id="msSave">Add</button>
-            <button type="button" class="linkbtn" id="msCancel">Cancel</button></div>`
-          : `<button type="button" class="linkbtn wplus" id="msOpen">+ Add minutes you sat</button>`}
+              : `<button type="button" class="silnotev${x.note ? "" : " empty"}" data-silnoteopen="${esc(x.id)}">${x.note ? esc(x.note) : "+ note"}</button>`}
+            <button type="button" class="silx" data-msdel="${esc(x.id)}" aria-label="Delete this sitting">&times;</button>
+          </li>`).join("");
+    return `
+      <section class="card msil">${setup}
+        <div class="silday">
+          <p class="silsum"><b class="${total >= std ? "win" : ""}">${hm(total)}</b> <button type="button" class="dof" data-edit="goal" data-metric="silence">of ${hm(std)}</button>${isToday ? "" : `<small>${esc(shortDay(entryDay()))}</small>`}</p>
+          ${rows ? `<ul class="silsits">${rows}</ul>` : ""}
+          ${state.medAdd ? `<div class="wadd silad">
+              <span class="wamin"><input class="field" id="msMin" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="20" aria-label="Minutes"><em>min</em></span>
+              <button type="button" class="btn" id="msSave">Add</button>
+              <button type="button" class="linkbtn" id="msCancel">Cancel</button></div>`
+            : `<button type="button" class="linkbtn wplus" id="msOpen">+ Add minutes you sat</button>`}
+        </div>
       </section>
       ${silSheet(c)}`;
   }
@@ -11110,10 +11359,18 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       </div>`;
   }
 
-  async function logSitting(min, date, id, label, manual) {
-    const x = { id: id || uuid(), min: Math.max(1, Math.round(min)), date: date || null, label: label || null, manual: !!manual };
+  // V5.7. When a sitting ended, as an instant: on its own day, at the time
+  // of day given (minutes after midnight), or now.
+  const atOn = (date, min) => {
+    const d = date ? new Date(date + "T00:00:00") : new Date();
+    if (min === undefined || min === null) { const n = new Date(); min = n.getHours() * 60 + n.getMinutes(); }
+    d.setHours(Math.floor(min / 60), min % 60, 0, 0);
+    return d.toISOString();
+  };
+  async function logSitting(min, date, id, label, manual, at) {
+    const x = { id: id || uuid(), min: Math.max(1, Math.round(min)), date: date || null, label: label || null, manual: !!manual, at: at || null };
     const res = await call("app_med_session", { p_code: state.code, p_person: state.meId,
-      p_date: x.date, p_id: x.id, p_min: x.min, p_delete: false, p_label: x.label, p_manual: x.manual });
+      p_date: x.date, p_id: x.id, p_min: x.min, p_delete: false, p_label: x.label, p_manual: x.manual, p_at: x.at });
     if (res.error && res.offline) {
       let q = [];
       try { q = JSON.parse(localStorage.getItem(silPendKey()) || "[]"); } catch {}
@@ -11128,7 +11385,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     const left = [];
     for (const x of q) {
       const res = await call("app_med_session", { p_code: state.code, p_person: state.meId,
-        p_date: x.date, p_id: x.id, p_min: x.min, p_delete: false, p_label: x.label || null, p_manual: !!x.manual });
+        p_date: x.date, p_id: x.id, p_min: x.min, p_delete: false, p_label: x.label || null, p_manual: !!x.manual, p_at: x.at || null });
       if (res.error && res.offline) left.push(x);
     }
     try { localStorage.setItem(silPendKey(), JSON.stringify(left)); } catch {}
@@ -11469,10 +11726,20 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       if (!v || v > 600) { document.getElementById("msMin")?.focus(); return; }
       state.medAdd = null; render();
       const t = silCur();
-      await logSitting(v, state.med.date, null, t.id === "silence" ? null : t.name, true); await loadMed(); await refresh(); render();
+      // Stamped now (or now's time of day, on an earlier day); tap the time to change it.
+      await logSitting(v, state.med.date, null, t.id === "silence" ? null : t.name, true, atOn(entryDay() === todayISO() ? null : entryDay())); await loadMed(); await refresh(); render();
     };
     on("msSave", "click", addMin);
     on("msMin", "keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); addMin(); } });
+    // V5.7. Tap a sitting's time to say when it really ended.
+    document.querySelectorAll("[data-silat]").forEach((el) => el.addEventListener("click", () => {
+      const x = (day.sessions || []).find((y) => y.id === el.dataset.silat); if (!x) return;
+      const d0 = x.at ? new Date(x.at) : new Date();
+      timeWheel("Ended at", d0.getHours() * 60 + d0.getMinutes(), async (v) => {
+        x.at = atOn(entryDay(), v); render();
+        await logSitting(x.min, state.med.date, x.id, x.label || null, !!x.manual, x.at); await loadMed(); render();
+      });
+    }));
     document.querySelectorAll("[data-msdel]").forEach((el) => el.addEventListener("click", async () => {
       day.sessions = (day.sessions || []).filter((x) => x.id !== el.dataset.msdel); render();
       await call("app_med_session", { p_code: state.code, p_person: state.meId, p_date: state.med.date,
@@ -11544,7 +11811,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       wire();
       wireHome(); wireGo();
     }
-    if (v === "sleep" || v === "tasks" || v === "diet" || v === "exercise" || v === "med") injectAtoms();
+    if (v === "sleep" || v === "tasks" || v === "diet" || v === "exercise" || v === "med") { injectAtoms(); injectStrip(); }
     wireNet();
     // One sheet for every standard and one for the home dials, on any page.
     if (state.workFull && state.work && state.work.run) { app.insertAdjacentHTML("beforeend", workFullView()); }
@@ -11830,36 +12097,70 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     } catch {}
     return DIAL_DEFAULT.slice();
   }
+  // V5.7. Your habits, and which of them are dials. Pins live beside the
+  // habits; no pins saved yet means every habit is a dial (how V5.6 worked).
+  function pinsRaw() {
+    const m = me();
+    if (m && Array.isArray(m.pins)) return m.pins;
+    try { const p = JSON.parse(localStorage.getItem("fhd.pins." + state.meId) || "null"); if (Array.isArray(p)) return p; } catch {}
+    return null;
+  }
+  function myPins() {
+    const h = myDials(), p = pinsRaw();
+    if (!p) return h;
+    const q = h.filter((k) => p.includes(k));
+    return q.length ? q : [h[0]];
+  }
+  const I_PIN = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 9V4h1a1 1 0 0 0 0-2H7a1 1 0 0 0 0 2h1v5a3 3 0 0 1-3 3v2h6v7l1 1 1-1v-7h6v-2a3 3 0 0 1-3-3z"/></svg>`;
   function dialSheet() {
-    const pick = state.dialPick;
-    if (!pick) return "";
+    if (!state.dialPick) return "";
+    const h = myDials(), p = myPins();
     return `
       <div class="sheetbg" id="dialBg"></div>
-      <div class="stdsheet dpick" role="dialog" aria-label="Choose your dials">
+      <div class="stdsheet dpick" role="dialog" aria-label="Your habits">
         <p class="eyebrow">Your habits</p>
         <h3>What you are working on</h3>
-        <p class="hint" style="margin-top:4px">Each one you pick is a dial on home and a line in your dashboard; the rest stay out of sight. One is plenty to start. Tap in the order you want the dials.</p>
+        <p class="hint" style="margin-top:4px">Tap a habit to turn it on or off. <b>Pin</b> it to make it a dial on home. Turning one off only hides it: everything you logged stays.</p>
         ${STD_GROUPS.map(([g, ks]) => `
           <p class="dpg">${esc(g)}</p>
           <div class="dpgrid">${ks.map((k) => {
-            const at = pick.indexOf(k);
-            return `<button type="button" class="dpk${at >= 0 ? " on" : ""}" data-dpk="${k}" aria-pressed="${at >= 0}">
-              <i>${at >= 0 ? at + 1 : ""}</i><span>${esc(STD[k].label)}</span></button>`;
+            const on = h.includes(k), pin = on && p.includes(k);
+            return `<div class="dpk${on ? " on" : ""}${pin ? " pin" : ""}">
+              <button type="button" class="dpkb${on ? " on" : ""}" data-dpk="${k}" aria-pressed="${on}">${esc(STD[k].label)}</button>
+              <button type="button" class="dpin" data-dpin="${k}" aria-pressed="${pin}" aria-label="${pin ? "Unpin" : "Pin"} ${esc(STD[k].label)} as a dial on home">${I_PIN}</button></div>`;
           }).join("")}</div>`).join("")}
-        <div class="stdbtns">
-          <button type="button" class="btn-quiet" id="dialCancel">Cancel</button>
-          <button type="button" class="btn" id="dialSave" ${pick.length ? "" : "disabled"}>${
-            pick.length ? `Save ${pick.length}` : "Pick at least one"}</button>
-        </div>
+        ${state.dialMsg ? `<p class="hint bad" id="dialMsg">${esc(state.dialMsg)}</p>` : ""}
+        <div class="stdbtns"><button type="button" class="btn" id="dialDone">Done</button></div>
       </div>`;
   }
-  async function saveDials(d) {
+  // Every tap saves: habits in the order you turned them on, pins in that order too.
+  async function saveHabits(h, p) {
     const m = me();
-    if (m) m.dials = d.slice();
-    try { localStorage.setItem("fhd.dials." + state.meId, JSON.stringify(d)); } catch {}
-    state.dialPick = null; state.dialIdx = 0;
+    p = h.filter((k) => p.includes(k));
+    if (m) { m.dials = h.slice(); m.pins = p.slice(); }
+    try { localStorage.setItem("fhd.dials." + state.meId, JSON.stringify(h)); localStorage.setItem("fhd.pins." + state.meId, JSON.stringify(p)); } catch {}
+    state.dialIdx = 0; state.dialMsg = null;
     render();
-    await call("app_set_dials", { p_code: state.code, p_person: state.meId, p_dials: d });
+    await call("app_set_habits", { p_code: state.code, p_person: state.meId, p_habits: h, p_pins: p });
+  }
+  function tapHabit(k) {
+    const h = myDials().slice(), p = myPins().slice();
+    if (h.includes(k)) {
+      if (h.length === 1) { state.dialMsg = "Keep at least one habit."; render(); return; }
+      h.splice(h.indexOf(k), 1);
+      if (p.includes(k)) p.splice(p.indexOf(k), 1);
+      if (!p.length) p.push(h[0]);
+    } else h.push(k);
+    saveHabits(h, p);
+  }
+  function tapPin(k) {
+    const h = myDials().slice(), p = myPins().slice();
+    if (!h.includes(k)) { h.push(k); p.push(k); }
+    else if (p.includes(k)) {
+      if (p.length === 1) { state.dialMsg = "Keep at least one dial on home."; render(); return; }
+      p.splice(p.indexOf(k), 1);
+    } else p.push(k);
+    saveHabits(h, p);
   }
 
   // Every "of …" and every standard line, on every page, opens the sheet.
@@ -11888,19 +12189,12 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       if (e.key === "Escape") { state.editing = null; state.editDraft = null; render(); }
     });
 
-    on("dialEdit", "click", () => { state.dialPick = myDials(); render(); });
-    on("habAdd", "click", () => { state.dialPick = myDials(); render(); });
-    on("dialCancel", "click", () => { state.dialPick = null; render(); });
-    on("dialBg", "click", () => { state.dialPick = null; render(); });
-    document.querySelectorAll("[data-dpk]").forEach((el) =>
-      el.addEventListener("click", () => {
-        const k = el.dataset.dpk, p = state.dialPick;
-        const at = p.indexOf(k);
-        if (at >= 0) p.splice(at, 1);
-        else if (p.length < DIAL_MAX) p.push(k);
-        render();
-      }));
-    on("dialSave", "click", () => { if (okDials(state.dialPick)) saveDials(state.dialPick); });
+    on("dialEdit", "click", () => { state.dialPick = true; state.dialMsg = null; render(); });
+    const close = () => { state.dialPick = null; state.dialMsg = null; render(); };
+    on("dialDone", "click", close);
+    on("dialBg", "click", close);
+    document.querySelectorAll("[data-dpk]").forEach((el) => el.addEventListener("click", () => tapHabit(el.dataset.dpk)));
+    document.querySelectorAll("[data-dpin]").forEach((el) => el.addEventListener("click", () => tapPin(el.dataset.dpin)));
   }
 
   function wireNet() {
