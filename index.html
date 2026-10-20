@@ -428,6 +428,12 @@ li.tm .tt, .mtile .mth { -webkit-user-select:none; user-select:none; }
 .ts { list-style:none; margin:-4px 0 6px 52px; padding:0; }
 .tsx { display:flex; align-items:center; gap:9px; }
 .tsx.done .tt { text-decoration:line-through; color:var(--muted); }
+/* V6.1. Steps always in view, over the row's swipe actions. */
+.tsv { position:relative; z-index:1; background:var(--ground); margin:-6px 0 0; padding:0 0 8px 52px; }
+.tsv .tsx { min-height:30px; }
+.tsv .tt.sm { font-size:14px; color:var(--ink-2); border:none; background:none; padding:0; text-align:left; }
+.tsmore { padding:2px 0 0 28px; }
+.tsmore .linkbtn { font-size:12.5px; }
 .tsubin { display:block; width:calc(100% - 52px); margin:0 0 10px 52px; box-sizing:border-box; border:none;
   border-bottom:1.5px dashed var(--line-strong); background:none; font-family:inherit; font-size:16px;
   color:var(--ink); padding:7px 0; border-radius:0; }
@@ -777,6 +783,17 @@ button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inh
 .gmsf { display:flex; gap:8px; margin-top:6px; }
 .gmsf .field { flex:1; min-width:0; font-size:15px; padding:9px 11px; }
 .gmsadd { flex:none; padding:8px 14px; }
+.g1 { margin:4px 0 14px; }
+.g1 .clab { display:block; margin-bottom:2px; }
+.g1l li span.g1w { flex:none; width:30px; font-family:var(--mono); font-size:12px; color:var(--muted); }
+.g1l li { align-items:flex-start; }
+.g1l li .gmsc { margin-top:1px; }
+.g1t { flex:1; min-width:0; overflow-wrap:anywhere; }
+.g1l li.now .g1t { font-weight:600; }
+.g1l li.done .g1t { text-decoration:line-through; color:var(--muted); }
+.g1l li.done span.g1w { text-decoration:none; }
+.g1l li span.gmsc.ghost { flex:none; border-color:var(--line-strong); opacity:.4; display:inline-block; box-sizing:border-box; }
+.g1l .cval { margin:0; padding:0; text-align:left; }
 .gll { display:grid; grid-template-columns:auto 1fr auto; align-items:baseline; gap:8px; margin-top:6px; }
 .gtag { display:inline-block; font-style:normal; font-size:9.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
   border-radius:5px; padding:2px 5px; }
@@ -1969,6 +1986,23 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .dpin svg { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; transform:rotate(30deg); }
 .dpk.pin .dpin { color:var(--accent); }
 .dpk.pin .dpin svg { fill:currentColor; transform:none; }
+.cbig { border:none; background:none; color:var(--ink); font-family:var(--body); font-weight:600; font-size:clamp(44px, 14vw, 64px); cursor:pointer; padding:0; font-variant-numeric:tabular-nums; }
+.cbigin { width:70%; border:none; border-bottom:2px solid var(--accent); background:none; color:var(--ink); text-align:center; font-family:var(--body); font-weight:600; font-size:clamp(40px, 12vw, 56px); padding:0; }
+.cbigin:focus { outline:none; }
+.ddone { border:2px solid var(--line-strong); border-radius:999px; padding:10px 22px !important; font-size:22px !important; color:var(--ink-2); background:none; cursor:pointer; }
+.ddone.on { border-color:var(--green); background:var(--green); color:#0f1a12; font-size:30px !important; }
+.cfoot { justify-content:flex-end; }
+/* V6.1. Your own habits. */
+.dptr { display:block; font-size:10px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-top:2px; }
+.habnew { display:block; width:100%; margin-top:14px; padding:12px; border:1.5px dashed var(--line-strong); border-radius:14px; background:none; color:var(--accent); font:inherit; font-size:14px; font-weight:600; cursor:pointer; }
+.hform .field { width:100%; font-size:16px; }
+.hform .tlab { margin-top:14px; }
+.hseg { display:flex; gap:6px; flex-wrap:wrap; }
+.hseg button { flex:1; padding:9px 6px; }
+.hfrow { display:flex; gap:10px; align-items:flex-end; }
+.hfrow label { flex:1; min-width:0; }
+.hfmin { padding-bottom:12px; color:var(--muted); font-size:14px; }
+.btn-quiet.bad { color:var(--warn); }
 
 /* ---------- V3.4: the family, every number ------------------------------ */
 .fcard { padding:13px 14px 12px; border-top:1px solid var(--line); }
@@ -2045,9 +2079,10 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 .pgk { display:inline-flex; align-items:center; gap:5px; color:var(--muted); }
 .pgk i { width:8px; height:8px; border-radius:50%; border:1.4px solid var(--ink-2); }
 .pgk i.h { background:var(--green); border-color:var(--green); }
-.pgline { display:inline-block; width:14px; height:2px; border-radius:1px; background:var(--accent); }
-.pgtr { fill:none; stroke:var(--accent); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; opacity:.9; }
 .pgavg { font-size:12.5px; color:var(--muted); }
+.pgd { font-size:12.5px; color:var(--muted); }
+.pgd.up { color:var(--green-ink, #7cc89a); }
+.pgd.dn { color:var(--warn); }
 .pgavg b { font-size:13.5px !important; }
 .pgnone { margin:10px 0 4px; }
 .xspark { display:block !important; padding:0 0 8px !important; border-top:none !important; }
@@ -2374,7 +2409,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "5.7";
+  const APP_VERSION = "6.1";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -2694,13 +2729,40 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     dd:"dd_target", macros:"protein_target", kcal:"kcal_target", weight:"weight_target",
     attn:"attn_target", silence:"silence_target", prayers:"prayers_target", refl:"refl_target" };
   // This person's standard, or the default when none was ever set.
+  /* ---------- V6.1: your own habits ---------------------------------
+     Made by anyone, for themselves or for the tribe. Each becomes a key,
+     "c:<id>", in STD, so dials, the dashboard, the tribe table, the date
+     strip, votes and the dot plot all treat it like any other habit. */
+  const isCustom = (k) => typeof k === "string" && k.startsWith("c:");
+  const habitOf = (k) => isCustom(k) ? ((state.habits && state.habits.list) || []).find((h) => "c:" + h.id === k) || null : null;
+  const customKeys = () => ((state.habits && state.habits.list) || []).map((h) => "c:" + h.id);
+  function registerHabits() {
+    for (const k of Object.keys(STD)) if (isCustom(k)) delete STD[k];
+    for (const h of (state.habits && state.habits.list) || [])
+      STD["c:" + h.id] = { label: h.name, kind: h.kind === "min" ? "min" : "count", def: Number(h.std) || 1, key: null,
+        unit: h.kind === "number" ? h.unit : "", custom: true, hk: h.kind, tribe: !!h.tribe, mine: !!h.mine, short: h.name };
+  }
+  async function loadHabits() {
+    if (!state.meId) return;
+    const res = await call("app_habits", { p_code: state.code, p_person: state.meId, p_day: state.boardDay || null });
+    if (!res || res.error) return;
+    state.habits = { list: res.habits || [], today: res.today || {}, fam: res.fam || {}, loaded: true };
+    registerHabits();
+  }
+  // The groups as the sheet, dashboard and tribe table show them: the five,
+  // then "Your own" when there is anything in it.
+  const habitGroups = () => customKeys().length ? STD_GROUPS.concat([["Your own", customKeys()]]) : STD_GROUPS;
   function stdOf(p, k) {
+    if (isCustom(k)) return STD[k] ? STD[k].def : 1;
     const v = p ? p[STD_FIELD[k]] : null;
     return v === null || v === undefined || v === "" ? STD[k].def : Number(v);
   }
   // Today's value on this person's own day. Null means nothing recorded.
   function todayOf(p, k) {
     if (!p) return null;
+    if (isCustom(k)) { const H = state.habits || {}, id = k.slice(2);
+      const v = p.id === state.meId ? (H.today || {})[id] : ((H.fam || {})[p.id] || {})[id];
+      return v === undefined || v === null ? null : Number(v); }
     const n = (v) => v === null || v === undefined ? null : Number(v);
     switch (k) {
       case "steps":  return p.steps_logged || Number(p.steps) > 0 ? Number(p.steps) : null;
@@ -2739,6 +2801,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   // A value written the way the activity is spoken about.
   function stdWords(k, v) {
     if (v === null || v === undefined) return "\u2013";
+    if (STD[k] && STD[k].custom && STD[k].hk === "done") return Number(v) > 0 ? "\u2713" : "\u2013";
     if (k === "refl") return Number(v) > 0 ? "\u2713" : "\u2013";
     const kind = STD[k].kind;
     if (kind === "time") return clockWords(v);
@@ -2870,7 +2933,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
     if (!state.people.some((p) => p.id === state.meId)) state.meId = loadMe();
     if (!state.people.some((p) => p.id === state.meId)) state.meId = null;
-    await Promise.all([loadHistory(), loadVotes(true)]);
+    await Promise.all([loadHistory(), loadVotes(true), loadHabits()]);
     // If the family block is open on the page you are looking at, it is
     // showing numbers that just changed. Refetch it here rather than in
     // each caller, so no path can leave it stale.
@@ -5147,6 +5210,8 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     if (seg === "dd" || seg === "macros" || seg === "weight") return openDiet(seg);
     // V5.1. Attention, Reflection and Silence.
     if (MED_KEYS.includes(seg)) return openMed(seg);
+    // V6.1. Your own habits.
+    if (isCustom(seg)) return openCustom(seg);
     state.seg  = seg || "steps";
     state.mode = state.seg === "cardio" ? "cardio" : "lift";
     state.entryDate = null;
@@ -5446,6 +5511,9 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         weight: p.id === state.meId ? n(p.weight) : bd.weighed ? true : null,
         // V5.1. Meditation: Attention and Silence as numbers; Reflection a tick.
         attn: n(bd.attn_pct), refl: bd.refl_done ? true : null, silence: pos(bd.silence_min),
+        // V6.1. Your own habits, on the tribe's day.
+        ...Object.fromEntries(customKeys().map((k) => { const v = ((state.habits.fam || {})[p.id] || {})[k.slice(2)];
+          return [k, v === undefined || v === null ? null : STD[k].hk === "done" ? true : Number(v)]; })),
       };
     };
     const ordered = state.people.slice().sort((a, b) =>
@@ -5479,15 +5547,15 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     // V5.6. Only your habits: the groups you have nothing in drop out, and
     // each group keeps its own shade.
     const mine = new Set(myDials());
-    const groups = STD_GROUPS.map(([g, ks], gi) => [g, ks.filter((k) => mine.has(k)), gi]).filter(([, ks]) => ks.length);
+    const groups = habitGroups().map(([g, ks], gi) => [g, ks.filter((k) => mine.has(k)), gi]).filter(([, ks]) => ks.length);
     const famTable = (list) => {
       const cols = groups.flatMap(([, ks, gi]) => ks.map((k, j) => ({ k, gi, first: j === 0 })));
       const ks = cols.map((c) => c.k);
       const band = (i) => ` b${cols[i].gi}`;
       return `<div class="ftab"><table class="ftbl" style="width:min(100%, ${78 + ks.length * 64}px);min-width:${78 + ks.length * 27}px">
-        <thead><tr class="fgrp"><th class="fn"></th>${groups.map(([g, gks, gi]) => `<th colspan="${gks.length}" class="b${gi}">${esc(gks.length < 2 ? ({ Meditation: "Med", Exercise: "Exer", "Great Work": "Work" }[g] || g) : g)}</th>`).join("")}</tr>
+        <thead><tr class="fgrp"><th class="fn"></th>${groups.map(([g, gks, gi]) => `<th colspan="${gks.length}" class="b${gi}">${esc(gks.length < 2 ? ({ Meditation: "Med", Exercise: "Exer", "Great Work": "Work", "Your own": "Own" }[g] || g) : g)}</th>`).join("")}</tr>
           <tr><th class="fn"><span class="sr">Name</span></th>${ks.map((k, i) =>
-          `<th class="${cols[i].first ? "g0" : ""}${band(i)}" title="${STD[k].label}">${FAB[k]}</th>`).join("")}</tr></thead>
+          `<th class="${cols[i].first ? "g0" : ""}${band(i)}" title="${esc(STD[k].label)}">${FAB[k] || esc(STD[k].label.slice(0, 3))}</th>`).join("")}</tr></thead>
         <tbody>${list.map((p) => {
           const c = famCells(p), mine = p.id === state.meId;
           return `<tr${mine ? ` class="me"` : ""}><th class="fn" scope="row" style="--hc:hsl(${p.hue} 58% 42%)">
@@ -5628,7 +5696,9 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   // under it (tap it to change it). Where a number can be typed, the
   // middle IS the input, as the step count always was.
   function homeDials(m) {
-    const keys = myPins(), n = keys.length;   // V5.7. Only pinned habits are dials.
+    let keys = myPins().filter((k) => STD[k]);   // V5.7. Only pinned habits are dials.
+    if (!keys.length) keys = ["steps"];
+    const n = keys.length;
     const i = Math.min(state.dialIdx || 0, n - 1);
     // A loop: a copy of the last dial sits before the first and a copy of
     // the first after the last. Land on a copy and the strip jumps, unseen,
@@ -5650,6 +5720,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     // V4.4. The unit after the standard: of 8,000 steps, of 131 g. The
     // Daily Dozen is a count of 25 and needs no word.
     : k === "dd" ? `of ${ddPct(std)}%`
+    : STD[k] && STD[k].custom && STD[k].hk === "done" ? "once a day"
     : k === "refl" ? "gratitude and lessons"
     : `of ${num(Math.round(std))}${STD[k].unit ? " " + STD[k].unit : ""}`;
   /* ---------- V4.5: Atoms ---------------------------------------------
@@ -5885,11 +5956,11 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     return { pts, std, n: range === 365 ? 52 : range };
   }
   function progressCard(k) {
-    if (!ATOM_HOW[k] || k === "weight" || !votesOf(k) || !votesOf(k).total) return "";
+    if (!(ATOM_HOW[k] || (isCustom(k) && STD[k])) || k === "weight" || !votesOf(k) || !votesOf(k).total) return "";
     const range = progRange(), P = progPoints(k, range);
     if (!P) return "";
     const { pts, std, n } = P, seen = pts.filter((p) => p.v !== null);
-    const time = STD[k].kind === "time", bin = k === "refl";
+    const time = STD[k].kind === "time", bin = k === "refl" || (STD[k].custom && STD[k].hk === "done");
     const W = 320, H = bin ? 56 : 132, L = 6, Rr = 44, T = bin ? 18 : 12, B = 22, ph = H - T - B, pw = W - L - Rr;
     let lo, hi;
     if (bin) { lo = 0; hi = 2; }
@@ -5909,20 +5980,31 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     const slot = pw / Math.max(1, n - 1);
     const hits = pts.map((p) => p.v === null ? "" : `<rect x="${(x(p.i) - slot / 2).toFixed(1)}" y="0" width="${Math.max(slot, 6).toFixed(1)}" height="${H}" data-pg="${p.i}" fill="transparent"/>`).join("");
     const met = pts.filter((p) => p.hit).length;
-    // V5.7. The trend: a rolling average of the days you logged (7 days;
-    // 4 weeks on the year view), drawn as one thin line. It breaks where a
-    // whole window is empty rather than inventing a value.
-    const win = range === 365 ? 4 : 7;
-    const roll = pts.map((p, i) => { const xs = pts.slice(Math.max(0, i - win + 1), i + 1).filter((q) => q.v !== null).map((q) => q.v);
-      return xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null; });
-    let trend = "", pen = false;
-    if (!bin) roll.forEach((v, i) => { if (v === null) { pen = false; return; } trend += `${pen ? "L" : "M"}${x(i).toFixed(1)} ${y(v).toFixed(1)} `; pen = true; });
     const avg = seen.length ? seen.reduce((a, p) => a + p.v, 0) / seen.length : null;
+    // V6.1. No trend line: the dots show the shape, and one number answers
+    // "am I improving?": this period's average against the one before.
+    const prev = (() => {
+      const v0 = votesOf(k), days = v0 && v0.days && !Array.isArray(v0.days) ? v0.days : {};
+      const today = state.votes.today || todayISO(), xs = [];
+      const val = (raw) => k === "dd" ? ddCount(raw) : k === "sleep" ? scorePct(raw) : Number(raw);
+      for (let i = range; i < range * 2; i++) { const iso = shiftISO(today, -i); if (days[iso] !== undefined) xs.push(val(days[iso])); }
+      return xs.length >= 3 ? xs.reduce((a, b) => a + b, 0) / xs.length : null;
+    })();
+    const delta = (() => {
+      if (avg === null || prev === null || bin) return "";
+      const span = range === 365 ? "the year before" : `the ${range} days before`;
+      if (time) { const dm = Math.round(prev - avg); if (Math.abs(dm) < 2) return `<span class="pgd">same as ${span}</span>`;
+        return `<span class="pgd ${dm > 0 ? "up" : "dn"}">${dm > 0 ? "\u2191" : "\u2193"} ${hm(Math.abs(dm))} ${dm > 0 ? "earlier" : "later"} than ${span}</span>`; }
+      if (prev <= 0) return "";
+      const pc = Math.round((avg - prev) / prev * 100);
+      if (Math.abs(pc) < 2) return `<span class="pgd">same as ${span}</span>`;
+      return `<span class="pgd ${pc > 0 ? "up" : "dn"}">${pc > 0 ? "\u2191" : "\u2193"} ${Math.abs(pc)}% vs ${span}</span>`;
+    })();
     const unit = range === 365 ? "weeks" : "days";
     const sel = state.progSel && state.progSel.k === k && state.progSel.r === range ? pts[state.progSel.i] : null;
     const selWords = sel && sel.v !== null ? `${esc(range === 365 ? `Week of ${shortDay(sel.iso)}` : shortDay(sel.iso))} · ${esc(stdWords(k, sel.v))}${range === 365 ? ` average, ${sel.n} day${sel.n === 1 ? "" : "s"} logged` : ""}${sel.hit ? " · met" : ""}` : "";
     return `<section class="card pgcard" aria-label="${esc(STD[k].label)} over time">
-        <div class="pghead"><p class="pgsum"><b>${met}</b> of ${n} ${unit} met${avg !== null && !bin ? `<br><span class="pgavg">average <b>${esc(stdWords(k, avg))}</b></span>` : ""}</p>
+        <div class="pghead"><p class="pgsum"><b>${met}</b> of ${n} ${unit} met${avg !== null && !bin ? `<br><span class="pgavg">average <b>${esc(stdWords(k, avg))}</b></span>` : ""}${delta ? `<br>${delta}` : ""}</p>
           <div class="range pgr" role="group" aria-label="Time range">${Object.entries(PROG_R).map(([v, t]) =>
             `<button type="button" data-pgr="${v}" aria-pressed="${Number(v) === range}">${v === "365" ? "1y" : v + "d"}</button>`).join("")}</div></div>
         ${seen.length ? `<svg class="pgsvg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(STD[k].label)}, ${PROG_R[range]}: ${met} of ${n} ${unit} met your standard of ${esc(stdWords(k, std))}">
@@ -5930,7 +6012,6 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
           ${stdY !== null ? `<line x1="${L}" x2="${W - Rr}" y1="${stdY.toFixed(1)}" y2="${stdY.toFixed(1)}" class="pgstd"/>
             <text x="${W - Rr + 6}" y="${(stdY + 3.5).toFixed(1)}" class="pgt">${esc(stdWords(k, std))}</text>` : ""}
           ${sel ? `<line x1="${x(sel.i).toFixed(1)}" x2="${x(sel.i).toFixed(1)}" y1="${T - 4}" y2="${T + ph + 6}" class="pgsel"/>` : ""}
-          ${trend ? `<path d="${trend.trim()}" class="pgtr"/>` : ""}
           ${dots}
           <text x="${L}" y="${H - 4}" class="pgt">${esc(shortDay(pts[0].iso))}</text>
           <text x="${W - Rr}" y="${H - 4}" text-anchor="end" class="pgt">today</text>
@@ -5940,7 +6021,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
               ${far(T + ph) ? `<text x="${W - Rr + 6}" y="${T + ph + 3}" class="pgt pgax">${esc(stdWords(k, loV))}</text>` : ""}`; })()}
           ${hits}
         </svg>` : `<p class="hint pgnone">Log a few days and your progress shows here.</p>`}
-        <p class="pgcap" id="pgCap">${selWords || `<span class="pgk"><i class="h"></i>met</span><span class="pgk"><i></i>short of it</span>${trend ? `<span class="pgk"><span class="pgline"></span>${range === 365 ? "4-week" : "7-day"} average</span>` : ""}${range === 365 ? `<span class="pgk">each dot a week</span>` : ""}`}</p>
+        <p class="pgcap" id="pgCap">${selWords || `<span class="pgk"><i class="h"></i>met</span><span class="pgk"><i></i>short of it</span>${range === 365 ? `<span class="pgk">each dot a week</span>` : ""}`}</p>
       </section>`;
   }
   const monthShift = (ym, n) => {
@@ -5950,7 +6031,73 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   };
   // The habit a page is about, if it is one.
   const pageHabit = () => state.view === "diet" ? (state.diet || {}).page
-    : state.view === "exercise" || state.view === "sleep" || state.view === "tasks" || state.view === "med" ? state.seg : null;
+    : state.view === "exercise" || state.view === "sleep" || state.view === "tasks" || state.view === "med" || state.view === "custom" ? state.seg : null;
+  /* ---------- V6.1: a habit of your own, its page -------------------- */
+  async function openCustom(k) {
+    if (!state.meId || !STD[k]) return;
+    stopTicking();
+    state.seg = k; state.view = "custom"; state.entryDate = null; state.cMsg = null; state.cEdit = false;
+    render(); window.scrollTo(0, 0);
+    await loadVotes(false); render();
+  }
+  function customVal(k, iso) {
+    if (iso === todayISO()) { const v = ((state.habits || {}).today || {})[k.slice(2)]; return v === undefined || v === null ? null : Number(v); }
+    const vd = votesOf(k), days = vd && vd.days && !Array.isArray(vd.days) ? vd.days : {};
+    return days[iso] === undefined ? null : Number(days[iso]);
+  }
+  function customView() {
+    const k = state.seg, S = STD[k], h = habitOf(k);
+    const head = `
+      <div class="topbar"><button class="backlink" id="back">&larr; ${esc(state.group.name)}</button></div>
+      <header class="masthead">
+        <p class="eyebrow">${S && S.tribe ? "Tribe habit" : "Your own"}</p>
+        <h1>${esc(S ? S.label : "Habit")}</h1>
+        <p class="sub">${!S ? "" : S.hk === "done" ? "Once a day." : S.hk === "min" ? `${hm(S.def)} a day.` : `${num(S.def)}${S.unit ? " " + esc(S.unit) : ""} a day.`}${h && h.mine ? ` <button type="button" class="linkbtn" id="cEditH">Edit</button>` : ""}</p>
+      </header>`;
+    if (!S) return head + `<p class="hint">This habit was removed.</p><p class="ver">v${APP_VERSION}</p>`;
+    const iso = entryDay(), v = customVal(k, iso), std = S.def, pct = stdPct(k, v, std);
+    const centre = S.hk === "done"
+      ? `<button type="button" class="cbig ddone${v ? " on" : ""}" id="cDone" aria-pressed="${!!v}">${v ? "\u2713" : "Done?"}</button>`
+      : state.cEdit
+      ? `<input class="cbigin" id="cIn" inputmode="${S.hk === "min" ? "text" : "decimal"}" enterkeyhint="done" autocomplete="off" placeholder="0" value="${v === null ? "" : S.hk === "min" ? hm(v).replace(/\s/g, "") : String(v)}" aria-label="${esc(S.label)}${S.hk === "min" ? ", minutes" : ""}">`
+      : `<button type="button" class="cbig" id="cVal" aria-label="${esc(S.label)}: ${v === null ? "nothing yet" : esc(stdWords(k, v))}. Tap to type">${v === null ? "0" : esc(stdWords(k, v))}</button>`;
+    return head + `
+      <section class="card cday">
+        <div class="dial">${dialRing(pct)}<div class="dcore">${centre}
+          <span class="dof">${S.hk === "done" ? (v ? "done" : "not yet") : `of ${S.hk === "min" ? hm(std) : num(std) + (S.unit ? " " + esc(S.unit) : "")}`}</span></div></div>
+        ${S.hk === "done" ? "" : `<p class="hint" style="text-align:center">${state.cEdit ? "Type, then Return." : "Tap the number to change it."}</p>`}
+        ${state.cMsg ? `<p class="hint bad" style="text-align:center">${esc(state.cMsg)}</p>` : ""}
+      </section>
+      <p class="ver">v${APP_VERSION}</p>`;
+  }
+  function wireCustom() {
+    const k = state.seg, S = STD[k];
+    on("back", "click", () => { state.view = "board"; state.entryDate = null; render(); refresh(); });
+    state.goDay = (iso) => { if (iso > todayISO()) return; state.entryDate = iso === todayISO() ? null : iso; state.cEdit = false; state.cMsg = null; render(); };
+    if (!S) return;
+    const log = async (val) => {
+      const iso = entryDay();
+      if (iso === todayISO() && state.habits) state.habits.today[k.slice(2)] = val;
+      const res = await call("app_habit_log", { p_code: state.code, p_person: state.meId, p_id: k.slice(2), p_date: iso, p_value: val });
+      state.cMsg = res.error ? (res.offline ? "No signal. Not saved yet." : res.error) : null;
+      await loadVotes(true); await loadHabits(); render();
+    };
+    on("cDone", "click", (e) => { const was = e.currentTarget.getAttribute("aria-pressed") === "true"; log(was ? null : 1); });
+    on("cVal", "click", () => { state.cEdit = true; render(); const f = document.getElementById("cIn"); if (f) { f.focus(); f.select(); } });
+    const f = document.getElementById("cIn");
+    if (f) {
+      const done = () => { if (!state.cEdit) return; state.cEdit = false;
+        const t = (f.value || "").trim(); if (!t) { log(null); return; }
+        const val = S.hk === "min" ? parseMinutes(t) : parseFloat(t.replace(",", "."));
+        if (!(val >= 0)) { state.cMsg = "Type a number."; render(); return; }
+        log(val); };
+      f.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); f.blur(); } if (e.key === "Escape") { state.cEdit = false; render(); } });
+      f.addEventListener("blur", done);
+    }
+    on("cEditH", "click", () => { const h = habitOf(k); if (!h) return;
+      state.habEdit = { id: h.id, name: h.name, kind: h.kind, unit: h.unit, std: h.kind === "min" ? hm(h.std).replace(/\s/g, "") : h.std, tribe: !!h.tribe, back: true };
+      render(); });
+  }
   /* ---------- V5.7: the date strip -----------------------------------
      One way to pick a day on every habit page, like TickTick: the week,
      Monday to Sunday, under the page title. Tap a day to open it; swipe
@@ -6003,7 +6150,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   }
   function injectStrip() {
     const k = pageHabit();
-    if (!k || !state.goDay || !ATOM_HOW[k]) return;
+    if (!k || !state.goDay || !(ATOM_HOW[k] || isCustom(k))) return;
     const host = app.querySelector("header.masthead");
     if (!host) return;
     host.insertAdjacentHTML("afterend", stripHTML(k));
@@ -6041,6 +6188,23 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   }
   function injectAtoms() {
     const k = pageHabit();
+    // V6.1. Your own habits: votes and the run of days, then the plot.
+    if (k && isCustom(k) && STD[k]) {
+      const v = votesOf(k), foot = app.querySelector("p.ver");
+      if (v && foot) foot.insertAdjacentHTML("beforebegin", `<section class="astrip foot cfoot"><span></span><div class="aside">
+        <span class="avt" aria-label="${num(v.total)} votes">${I_BOLT}<b>${num(v.total)}</b></span>
+        <span class="astk${v.streak ? " lit" : ""}" aria-label="${num(v.streak)} days in a row">${I_FLAME}<b>${num(v.streak)}</b><small>${v.streak === 1 ? "day" : "days"}</small></span></div></section>`);
+      const pg = progressCard(k), at = app.querySelector(".cday");
+      if (pg && at) at.insertAdjacentHTML("afterend", pg);
+      app.querySelectorAll("[data-pgr]").forEach((el) => el.addEventListener("click", () => {
+        try { localStorage.setItem("fhd.prog", el.dataset.pgr); } catch {}
+        state.progSel = null; render(); }));
+      app.querySelector(".pgsvg")?.addEventListener("click", (e) => {
+        const t = e.target.closest && e.target.closest("[data-pg]"); if (!t) return;
+        const i = Number(t.dataset.pg), r0 = progRange();
+        state.progSel = state.progSel && state.progSel.k === k && state.progSel.i === i ? null : { k, i, r: r0 }; render(); });
+      return;
+    }
     if (!k || !ATOM_HOW[k]) return;
     if (k !== state.atomEditFor) { state.atomEdit = null; state.atomDraft = null; state.atomGuide = false; state.atomEditFor = k; state.hMonth = null; }
     // V5.1. Logging comes first. The habit sentence sits at the foot of
@@ -6194,6 +6358,10 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         centre = `<button type="button" class="dval dgo dnone" ${go(page)} ${clone ? 'tabindex="-1"' : ""}>\u2013</button>`;
         extra = `<button type="button" class="dsame" ${go(page)} ${clone ? 'tabindex="-1"' : ""}>Set your goals</button>`;
       }
+    }
+    // V6.1. Your own habit: a tick to mark done, or the number/minutes typed.
+    if (S.custom && S.hk === "done") {
+      centre = `<button type="button" class="dval ddone${v ? " on" : ""}" ${clone ? 'tabindex="-1"' : `data-hdone="${k}"`} aria-pressed="${!!v}" aria-label="${esc(S.label)}: ${v ? "done today. Undo" : "mark done"}">${v ? "\u2713" : "Done?"}</button>`;
     }
     if (k === "tasks") {
       extra = `<input class="dtaskin" ${clone ? 'tabindex="-1" readonly' : 'data-dtask="1" id="dial-taskin"'}
@@ -6371,12 +6539,24 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         const val = S.kind === "weight" ? wToLb(v) : v;
         f.value = stdWords(k, val);
         f.dataset.raw = String(v);
-        const res = await call("app_log", { p_code: state.code, p_person: state.meId,
+        const res = S.custom
+          ? await call("app_habit_log", { p_code: state.code, p_person: state.meId, p_id: k.slice(2), p_date: null, p_value: val })
+          : await call("app_log", { p_code: state.code, p_person: state.meId,
           p_value: val, p_metric: S.key, p_date: null, p_tz: deviceTZ() });
         dialSay(k, res.error ? (res.offline ? "No signal. Not saved yet." : res.error) : "Saved.");
         await refresh();
       });
     });
+    // V6.1. Your own done-habit: one tap marks today, another undoes it.
+    document.querySelectorAll("[data-hdone]").forEach((el) => el.addEventListener("click", async (e) => {
+      e.stopPropagation();
+      const k = el.dataset.hdone, on = el.getAttribute("aria-pressed") === "true";
+      if (state.habits) state.habits.today[k.slice(2)] = on ? null : 1;
+      render();
+      const res = await call("app_habit_log", { p_code: state.code, p_person: state.meId, p_id: k.slice(2), p_date: null, p_value: on ? null : 1 });
+      if (res.error) dialSay(k, res.offline ? "No signal. Not saved yet." : res.error);
+      await refresh();
+    }));
     // Recovery: one tap copies last night, with Undo.
     document.querySelectorAll("[data-dialsame]").forEach((el) =>
       el.addEventListener("click", async (e) => {
@@ -8167,6 +8347,16 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
             <span class="tt sm">${esc(c.title)}</span>
             <button type="button" class="tx" data-tdel="${c.id}" aria-label="Delete ${esc(c.title)}">&times;</button>
           </li>`).join("")}</ul>` : ""}
+        ${subs.length && !ed ? (() => {
+          // V6.1. Steps show under their task, ticked in place: first three
+          // still to do (then the done ones), and "+ n more" opens the task.
+          const show = subs.filter((c) => !c.done).concat(subs.filter((c) => c.done)), top = show.slice(0, 3), more = show.length - top.length;
+          return `<ul class="ts tsv">${top.map((c) => `
+            <li class="tsx${c.done ? " done" : ""}">
+              <button type="button" class="tck sm" data-tdone="${c.id}" aria-pressed="${!!c.done}"
+                aria-label="${c.done ? "Not done" : "Done"}: ${esc(c.title)}"></button>
+              <span class="tt sm">${esc(c.title)}</span></li>`).join("")}${more > 0 ? `
+            <li class="tsmore"><button type="button" class="linkbtn" data-tedit="${x.id}">+ ${more} more</button></li>` : ""}</ul>`; })() : ""}
         ${ed ? `
           <input class="tsubin" data-tsubnew="${x.id}" maxlength="200" enterkeyhint="done"
             autocomplete="off" placeholder="Add a step" aria-label="New step under ${esc(x.title)}">
@@ -9468,26 +9658,15 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     const rung = (k, label, q, ph) => `
       <div class="grung"><span class="grl">${label}</span><small class="grq">${q}</small>
         ${gText(C, k, d[k], ph, true)}</div>`;
-    // V5.7. Down to this week: Someday (with milestones you cross off), 3
-    // years, this year, this quarter, and this week's ONE Thing.
-    const wk = Math.min(12, Math.max(1, C.cur)), fw = (d.focus || {})["w" + wk] || "";
-    const ms = d.milestones || [];
-    const msHTML = `<ul class="gms">${ms.map((m) => `<li class="${m.d ? "done" : ""}">
-          ${C.ro ? "" : `<button type="button" class="gmsc" data-gmsd="${esc(m.id)}" aria-pressed="${!!m.d}" aria-label="${m.d ? "Not done" : "Done"}: ${esc(m.t)}"></button>`}
-          <span>${esc(m.t)}</span>
-          ${C.ro ? "" : `<button type="button" class="gmsx" data-gmsx="${esc(m.id)}" aria-label="Remove ${esc(m.t)}">&times;</button>`}</li>`).join("")}</ul>
-        ${C.ro ? "" : `<form class="gmsf" id="gMsF"><input class="field" id="gMsIn" maxlength="200" autocomplete="off" enterkeyhint="done" placeholder="Add a milestone, e.g. Week 13: book the flights" aria-label="Add a milestone">
-          <button type="submit" class="btn-quiet gmsadd" aria-label="Add milestone">Add</button></form>`}`;
-    return gStep(C, null, "Someday \u2192 this week", "", "ladder", `
+    // V6.1. Someday down to this quarter. The week's ONE Thing lives in
+    // This week, as a running list you cross off.
+    return gStep(C, null, "Someday \u2192 this quarter", "", "ladder", `
       <div class="gladder">
-        <div class="grung"><span class="grl">Someday</span><small class="grq">The ONE thing I want most</small>
-          ${gText(C, "vision", d.vision, "Write your someday", true)}${msHTML}</div>
+        ${rung("vision", "Someday", "The ONE thing I want most", "Write your someday")}
         ${rung("three_year", "In 3 years", "What has to be true by then", "What must be true in 3 years")}
         ${rung("one_year", "This year", "The ONE thing to finish by December", "What you will finish this year")}
         ${rung("quarter", "This quarter", "The ONE thing these twelve weeks are for", "What these 12 weeks will finish")}
-        <div class="grung"><span class="grl">This week</span><small class="grq">The ONE thing that makes the rest easier</small>
-          ${C.cur >= 1 && C.cur <= 12 ? gText(C, "fw", fw, "The ONE Thing for this week", false) : `<p class="gvtext cnil">${C.cur < 1 ? "From week 1" : "\u2013"}</p>`}</div>
-      </div>`, fw ? `This week: ${esc(fw)}` : d.quarter ? `This quarter: ${esc(d.quarter)}` : d.one_year ? `This year: ${esc(d.one_year)}` : d.vision ? `Someday: ${esc(d.vision)}` : "Not written yet",
+      </div>`, d.quarter ? `This quarter: ${esc(d.quarter)}` : d.one_year ? `This year: ${esc(d.one_year)}` : d.vision ? `Someday: ${esc(d.vision)}` : "Not written yet",
       true);
   }
 
@@ -9711,6 +9890,27 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         ${rows}
       </table>`;
   }
+  // V6.1. The ONE Thing, week by week: one running list. This week's line
+  // is written here; past weeks stay, each ticked off when it was done.
+  // Milestones written in V5.7 sit at the top as earlier items.
+  function oneList(C) {
+    const d = C.doc, F = d.focus || {}, cur = Math.min(12, C.cur);
+    const ms = (d.milestones || []).map((m) => `<li class="${m.d ? "done" : ""}">
+        ${C.ro ? "" : `<button type="button" class="gmsc" data-gmsd="${esc(m.id)}" aria-pressed="${!!m.d}" aria-label="${m.d ? "Not done" : "Done"}: ${esc(m.t)}"></button>`}
+        <span class="g1w">\u2013</span><span class="g1t">${esc(m.t)}</span>
+        ${C.ro ? "" : `<button type="button" class="gmsx" data-gmsx="${esc(m.id)}" aria-label="Remove ${esc(m.t)}">&times;</button>`}</li>`).join("");
+    const weeks = [];
+    for (let n = 1; n <= cur; n++) {
+      const t = F["w" + n] || "", done = !!F["w" + n + "x"], now = n === cur && C.cur <= 12;
+      if (!t && !now) continue;
+      weeks.push(`<li class="${done ? "done" : ""}${now ? " now" : ""}">
+        ${C.ro || !t ? `<span class="gmsc ghost"></span>` : `<button type="button" class="gmsc" data-g1d="${n}" aria-pressed="${done}" aria-label="${done ? "Not done" : "Done"}: week ${n}"></button>`}
+        <span class="g1w">W${n}</span>
+        <span class="g1t">${now && !C.ro ? gText(C, "fw", t, "This week's ONE Thing", false) : esc(t)}</span></li>`);
+    }
+    if (C.cur < 1) return `<p class="hint g1pre">Your ONE Thing for each week starts in week 1.</p>`;
+    return `<div class="g1"><p class="clab">ONE Thing, week by week</p><ul class="gms g1l">${ms}${weeks.join("")}</ul></div>`;
+  }
   function gStepWeek(C) {
     const d = C.doc, G = state.goals || {}, w = C.w, pre = C.cur < 1;
     const open = Math.min(12, Math.max(1, C.cur)), win = goalWin(), T = weekTally(d, w);
@@ -9722,6 +9922,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     // V5.7. This week is lean: the week, your goals (large) and their
     // tactics to tick. The ONE Thing moved to the ladder; the score moved up top.
     return gStep(C, null, "This week", "", "week", `
+      ${oneList(C)}
       ${head}
       ${scTable(C)}
       ${C.ro ? "" : (() => { const gl = d.goals.length;
@@ -9986,12 +10187,10 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
 
     // ---- V5.7. Someday's milestones: add, cross off, remove ----
     const msList = () => (doc.milestones = Array.isArray(doc.milestones) ? doc.milestones : []);
-    const msAdd = () => { const f = document.getElementById("gMsIn"); const t = (f && f.value || "").trim();
-      if (!t) return false; msList().push({ id: uuid(), t: t.slice(0, 200), d: false }); f.value = ""; saveGoals(); render();
-      document.getElementById("gMsIn")?.focus(); return true; };
-    on("gMsF", "submit", (e) => { e.preventDefault(); msAdd(); });
-    // A tap anywhere else keeps what was typed (the phone's ✓ above the keyboard only blurs).
-    on("gMsIn", "blur", () => { const f = document.getElementById("gMsIn"); if (f && f.value.trim()) setTimeout(() => msAdd(), 0); });
+    document.querySelectorAll("[data-g1d]").forEach((el) => el.addEventListener("click", () => {
+      const k = "w" + el.dataset.g1d + "x"; doc.focus = doc.focus || {};
+      if (doc.focus[k]) delete doc.focus[k]; else doc.focus[k] = "1";
+      saveGoals(); render(); }));
     document.querySelectorAll("[data-gmsd]").forEach((el) => el.addEventListener("click", () => {
       const m = msList().find((x) => x.id === el.dataset.gmsd); if (m) { m.d = !m.d; saveGoals(); render(); } }));
     document.querySelectorAll("[data-gmsx]").forEach((el) => el.addEventListener("click", () => {
@@ -11803,6 +12002,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     else if (v === "goals")    { app.innerHTML = netBar + goalsView() + bar;  wireGoals();    wireGo(); }
     else if (v === "diet")     { app.innerHTML = netBar + dietView() + bar;   wireDiet();     wireGo(); }
     else if (v === "med")      { app.innerHTML = netBar + medView() + bar;    wireMed();      wireGo(); }
+    else if (v === "custom")   { app.innerHTML = netBar + customView() + bar; wireCustom();   wireGo(); }
     else if (v === "exercise") { app.innerHTML = netBar + metricView() + bar; wireExercise(); wireGo(); }
     else if (v === "session")  { app.innerHTML = netBar + sessionView();  wireLift(); }
     else if (v === "detail")   { app.innerHTML = netBar + detailView();   wireLift(); }
@@ -11811,7 +12011,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       wire();
       wireHome(); wireGo();
     }
-    if (v === "sleep" || v === "tasks" || v === "diet" || v === "exercise" || v === "med") { injectAtoms(); injectStrip(); }
+    if (v === "sleep" || v === "tasks" || v === "diet" || v === "exercise" || v === "med" || v === "custom") { injectAtoms(); injectStrip(); }
     wireNet();
     // One sheet for every standard and one for the home dials, on any page.
     if (state.workFull && state.work && state.work.run) { app.insertAdjacentHTML("beforeend", workFullView()); }
@@ -12082,12 +12282,15 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   // V4.2. Only what the dashboard shows can be a dial (not Calories, which
   // lives under Macros). A V4.1 phone may still say protein or kcal.
   const DIAL_KEYS = STD_GROUPS.flatMap(([, ks]) => ks);
+  // V6.1. Your own habits count too; before they load, a "c:" key is kept.
+  const knownKey = (k) => DIAL_KEYS.includes(k) || (isCustom(k) && (!(state.habits && state.habits.loaded) || !!habitOf(k)));
   // V5.5. As few or as many as you want; one, Steps, to start.
   const DIAL_MAX = DIAL_KEYS.length;
-  const okDials = (d) => Array.isArray(d) && d.length >= 1 && d.length <= DIAL_MAX &&
-    new Set(d).size === d.length && d.every((k) => DIAL_KEYS.includes(k));
+  const okDials = (d) => Array.isArray(d) && d.length >= 1 && d.length <= DIAL_MAX + 30 &&
+    new Set(d).size === d.length && d.every(knownKey);
+  // A habit that was removed drops out; the rest stay.
   const fixDials = (d) => Array.isArray(d)
-    ? d.map((k) => (k === "protein" || k === "kcal" ? "macros" : k)).filter((k, i, a) => a.indexOf(k) === i).slice(0, DIAL_MAX) : d;
+    ? d.map((k) => (k === "protein" || k === "kcal" ? "macros" : k)).filter((k, i, a) => a.indexOf(k) === i && knownKey(k)) : d;
   function myDials() {
     const m = me();
     if (m && okDials(fixDials(m.dials))) return fixDials(m.dials);
@@ -12112,7 +12315,32 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     return q.length ? q : [h[0]];
   }
   const I_PIN = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 9V4h1a1 1 0 0 0 0-2H7a1 1 0 0 0 0 2h1v5a3 3 0 0 1-3 3v2h6v7l1 1 1-1v-7h6v-2a3 3 0 0 1-3-3z"/></svg>`;
+  // V6.1. Make (or change) a habit of your own: a name, one of three
+  // shapes, a unit and daily standard where they apply, and who it is for.
+  function habitForm() {
+    const E = state.habEdit;
+    const seg = (f, opts) => `<div class="range hseg" role="group">${opts.map(([v, t]) =>
+      `<button type="button" data-hf="${f}:${v}" aria-pressed="${String(E[f]) === String(v)}">${t}</button>`).join("")}</div>`;
+    return `
+      <div class="sheetbg" id="habBg"></div>
+      <div class="stdsheet dpick hform" role="dialog" aria-label="${E.id ? "Change habit" : "New habit"}">
+        <p class="eyebrow">${E.id ? "Change habit" : "New habit"}</p>
+        <input class="field" id="hfName" maxlength="40" autocomplete="off" enterkeyhint="done" placeholder="e.g. Family dinner, Read, Water" value="${esc(E.name || "")}" aria-label="Name">
+        <p class="tlab">Measured as</p>
+        ${seg("kind", [["done", "Done \u2713"], ["number", "A number"], ["min", "Minutes"]])}
+        ${E.kind === "done" ? "" : `<div class="hfrow">
+          <label><span class="tlab">Daily standard</span><input class="field" id="hfStd" inputmode="decimal" autocomplete="off" placeholder="${E.kind === "min" ? "20" : "8"}" value="${esc(E.std == null ? "" : String(E.std))}" aria-label="Daily standard"></label>
+          ${E.kind === "number" ? `<label><span class="tlab">Unit</span><input class="field" id="hfUnit" maxlength="16" autocomplete="off" placeholder="glasses" value="${esc(E.unit || "")}" aria-label="Unit"></label>` : `<span class="hfmin">minutes</span>`}</div>`}
+        <p class="tlab">For</p>
+        ${seg("tribe", [["false", "Just me"], ["true", "The whole tribe"]])}
+        <p class="hint">${E.tribe ? "Everyone in the tribe can turn it on, and it gets a column in your tribe table." : "Private: only you see it."}</p>
+        ${E.err ? `<p class="hint bad">${esc(E.err)}</p>` : ""}
+        <div class="stdbtns">${E.id ? `<button type="button" class="btn-quiet bad" id="hfDel">Remove</button>` : `<button type="button" class="btn-quiet" id="hfCancel">Cancel</button>`}
+          <button type="button" class="btn" id="hfSave">${E.id ? "Save" : "Add"}</button></div>
+      </div>`;
+  }
   function dialSheet() {
+    if (state.habEdit) return habitForm();
     if (!state.dialPick) return "";
     const h = myDials(), p = myPins();
     return `
@@ -12121,14 +12349,15 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         <p class="eyebrow">Your habits</p>
         <h3>What you are working on</h3>
         <p class="hint" style="margin-top:4px">Tap a habit to turn it on or off. <b>Pin</b> it to make it a dial on home. Turning one off only hides it: everything you logged stays.</p>
-        ${STD_GROUPS.map(([g, ks]) => `
+        ${habitGroups().map(([g, ks]) => `
           <p class="dpg">${esc(g)}</p>
           <div class="dpgrid">${ks.map((k) => {
             const on = h.includes(k), pin = on && p.includes(k);
             return `<div class="dpk${on ? " on" : ""}${pin ? " pin" : ""}">
-              <button type="button" class="dpkb${on ? " on" : ""}" data-dpk="${k}" aria-pressed="${on}">${esc(STD[k].label)}</button>
+              <button type="button" class="dpkb${on ? " on" : ""}" data-dpk="${k}" aria-pressed="${on}">${esc(STD[k].label)}${STD[k].custom && STD[k].tribe ? `<small class="dptr">tribe</small>` : ""}</button>
               <button type="button" class="dpin" data-dpin="${k}" aria-pressed="${pin}" aria-label="${pin ? "Unpin" : "Pin"} ${esc(STD[k].label)} as a dial on home">${I_PIN}</button></div>`;
           }).join("")}</div>`).join("")}
+        <button type="button" class="habnew" id="habNew">+ New habit</button>
         ${state.dialMsg ? `<p class="hint bad" id="dialMsg">${esc(state.dialMsg)}</p>` : ""}
         <div class="stdbtns"><button type="button" class="btn" id="dialDone">Done</button></div>
       </div>`;
@@ -12194,6 +12423,41 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     on("dialDone", "click", close);
     on("dialBg", "click", close);
     document.querySelectorAll("[data-dpk]").forEach((el) => el.addEventListener("click", () => tapHabit(el.dataset.dpk)));
+    // V6.1. A habit of your own.
+    on("habNew", "click", () => { state.habEdit = { name: "", kind: "done", unit: "", std: null, tribe: false }; render(); document.getElementById("hfName")?.focus(); });
+    const grab = () => { const E = state.habEdit; if (!E) return;
+      const n = document.getElementById("hfName"), st = document.getElementById("hfStd"), u = document.getElementById("hfUnit");
+      if (n) E.name = n.value; if (st) E.std = st.value; if (u) E.unit = u.value; };
+    document.querySelectorAll("[data-hf]").forEach((el) => el.addEventListener("click", () => {
+      grab(); const [f, v] = el.dataset.hf.split(":"); state.habEdit[f] = f === "tribe" ? v === "true" : v; render(); }));
+    const shut = () => { const back = state.habEdit && state.habEdit.back; state.habEdit = null; if (back) state.dialPick = null; render(); };
+    on("hfCancel", "click", shut);
+    on("habBg", "click", shut);
+    on("hfSave", "click", async () => {
+      grab(); const E = state.habEdit;
+      const std = E.kind === "done" ? 1 : E.kind === "min" ? parseMinutes(String(E.std || "")) : parseFloat(String(E.std || "").replace(",", "."));
+      if (!String(E.name || "").trim()) { E.err = "Give it a name."; render(); return; }
+      if (E.kind !== "done" && !(std > 0)) { E.err = "Set a daily standard above 0."; render(); return; }
+      const res = await call("app_habit_save", { p_code: state.code, p_person: state.meId,
+        p_habit: { id: E.id || null, name: E.name.trim(), kind: E.kind, unit: E.unit || "", std, tribe: !!E.tribe } });
+      if (res.error) { E.err = res.offline ? "No signal. Not saved yet." : res.error; render(); return; }
+      const fresh = !E.id, back = E.back;
+      state.habEdit = null; if (back) state.dialPick = null;
+      await loadHabits();
+      // A new habit is turned on for you (not pinned: pin it if you want a dial).
+      if (fresh && res.id) { const h = myDials().slice(); h.push("c:" + res.id); await saveHabits(h, myPins()); }
+      else render();
+    });
+    on("hfDel", "click", () => {
+      const E = state.habEdit;
+      openModal({ title: `Remove ${E.name}?`, body: "It leaves everyone's lists. What was logged is kept.",
+        buttons: [{ label: "Remove", kind: "bad", run: async () => {
+          await call("app_habit_delete", { p_code: state.code, p_person: state.meId, p_id: E.id });
+          state.habEdit = null; state.dialPick = null;
+          if (state.view === "custom") { state.view = "board"; }
+          await loadHabits(); await saveHabits(myDials().filter((k) => k !== "c:" + E.id), myPins().filter((k) => k !== "c:" + E.id));
+          refresh(); } }, { label: "Cancel", kind: "quiet" }] });
+    });
     document.querySelectorAll("[data-dpin]").forEach((el) => el.addEventListener("click", () => tapPin(el.dataset.dpin)));
   }
 
