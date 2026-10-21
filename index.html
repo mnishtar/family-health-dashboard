@@ -768,9 +768,14 @@ button.gsh.gfold { width:100%; border:none; background:none; padding:0; font:inh
 .gwk .dof { font-size:13px; }
 .gwks { width:100%; font-size:12.5px; color:var(--muted); }
 /* V5.7. The ONE goal and all goals, side by side up top. */
-.grings.two { display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); gap:10px; align-items:start; }
-.grings.two > .gstart2, .grings.two > .hint { grid-column:1 / -1; }
-.grings.two .gwkl { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.grings.g2, .grings.g3 { display:grid; gap:8px; align-items:start; }
+.grings.g2 { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+.grings.g3 { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+.grings.g3 .gwkv { font-size:30px; }
+.grings > .gwkall, .grings > .gstart2, .grings > .hint { grid-column:1 / -1; }
+.grings .gwkl { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-transform:none; letter-spacing:0; font-size:12.5px; }
+.grings .gwk { margin-bottom:4px; }
+
 /* V5.7. Someday's milestones. */
 .gms { list-style:none; margin:8px 0 0; padding:0; }
 .gms li { display:flex; align-items:center; gap:10px; padding:6px 0; border-top:1px solid color-mix(in oklab, var(--line) 60%, transparent); font-size:14px; }
@@ -1094,6 +1099,10 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .astk svg { width:15px; height:15px; fill:var(--line-strong); }
 .astk.lit svg { fill:var(--gold, #d4a24c); }
 .astk b { font-family:var(--mono); font-size:15px; font-weight:600; color:var(--ink); }
+.agnums { display:grid; gap:8px; margin:0 0 14px; padding-bottom:12px; border-bottom:1px solid var(--line); }
+.agnums p { margin:0; font-size:14px; line-height:1.45; color:var(--ink-2); }
+.agnums .avt, .agnums .astk { margin-right:4px; vertical-align:-2px; }
+.agpt { display:inline-block; min-width:26px; padding:1px 6px; margin-right:4px; border-radius:99px; background:var(--soft); color:var(--accent); font-weight:700; font-size:12.5px; text-align:center; }
 .avt { display:inline-flex; align-items:center; gap:3px; }
 .avt svg { width:14px; height:14px; fill:var(--gold, #d4a24c); }
 .avt b { font-family:var(--mono); font-size:15px; font-weight:600; color:var(--ink); }
@@ -1937,6 +1946,53 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .dsame { margin-top:10px; border:none; border-radius:99px; padding:9px 16px; background:var(--sleep-soft); color:var(--sleep);
   font-family:inherit; font-size:14px; font-weight:600; cursor:pointer; }
 .dsame:active { transform:scale(.97); }
+/* V6.2. The game: one row under the dials, one sheet behind it. */
+.grow2 { display:grid; grid-template-columns:auto 1fr 1.3fr; gap:8px; width:100%; margin:6px 0 4px; padding:10px 12px; border:1px solid var(--line); border-radius:16px; background:var(--surface); color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
+.grow2 > span { display:flex; flex-direction:column; min-width:0; position:relative; }
+.grow2 b { font-size:17px; font-weight:700; font-variant-numeric:tabular-nums; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.grow2 small { font-size:11.5px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.grow2 em { font-style:normal; font-weight:500; color:var(--muted); font-size:13px; }
+.gpts b { color:var(--accent); }
+.gpts { padding-right:10px; border-right:1px solid var(--line); }
+.grank { padding-right:6px; border-right:1px solid var(--line); }
+.gjar.ready b { color:var(--green-ink, #7cc89a); }
+.gpop { position:absolute; left:18px; top:-14px; font-style:normal; font-weight:800; font-size:14px; color:var(--accent); animation:gpop 2.4s ease-out forwards; }
+@keyframes gpop { 0% { opacity:0; transform:translateY(8px); } 15% { opacity:1; transform:none; } 80% { opacity:1; } 100% { opacity:0; transform:translateY(-10px); } }
+.gsheet .gjbig { display:flex; align-items:baseline; gap:10px; margin:2px 0 10px; }
+.gsheet .gjbig b { font-family:var(--display); font-weight:500; font-size:44px; line-height:1; color:var(--accent); font-variant-numeric:tabular-nums; }
+.gsheet .gjbig span { font-size:13px; color:var(--muted); }
+.rwl, .rwh, .ghow { list-style:none; margin:0; padding:0; }
+.rwl li { display:flex; align-items:center; gap:10px; padding:9px 0; border-top:1px solid var(--line); }
+.rwl li:first-child { border-top:none; }
+.rwn { flex:1; min-width:0; font-weight:600; overflow-wrap:anywhere; }
+.rwc { font-variant-numeric:tabular-nums; color:var(--ink-2); font-size:14px; }
+.rwbar { width:64px; height:6px; border-radius:3px; background:var(--line); overflow:hidden; flex:none; }
+.rwbar i { display:block; height:100%; background:var(--accent); }
+.rwgo { padding:7px 12px; font-size:13px; min-height:0; }
+.rwx { border:none; background:none; color:var(--muted); font-size:18px; cursor:pointer; padding:2px 4px; }
+.rwnone { color:var(--muted); font-size:14px; }
+.rwf { display:flex; gap:8px; margin-top:8px; }
+.rwf .field { flex:1; min-width:0; font-size:16px; }
+.rwf .rwcost { flex:0 0 76px; }
+.rwh li { padding:4px 0; font-size:14px; }
+.rwh small { color:var(--muted); }
+.grk { display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 10px; }
+.grk b { font-family:var(--display); font-weight:500; font-size:22px; }
+.grk span { font-size:13px; color:var(--muted); }
+.grkl { display:flex !important; gap:4px; flex-basis:100%; margin-top:4px; }
+.grkl i { flex:1; height:5px; border-radius:3px; background:var(--line); }
+.grkl i.on { background:var(--accent); }
+.ghow li { font-size:13.5px; color:var(--ink-2); padding:4px 0; line-height:1.45; }
+.ghow li b:first-child { display:inline-block; min-width:26px; }
+.gconf { font-size:44px; }
+.fcrown { margin-right:3px; font-size:12px; }
+.ftbl th.fpt, .ftbl td.fpt { width:34px; color:var(--accent); font-weight:700; }
+.tadd2 { display:block; margin:12px auto 4px; }
+.tadd3 { margin-top:12px; }
+.dtaskrow { display:flex; align-items:center; gap:6px; width:72%; margin-top:8px; }
+.dtaskrow .dtaskin { flex:1; min-width:0; width:auto !important; margin-top:0 !important; }
+.dtaskok { --qc:var(--tq2); width:32px; height:32px; }
+.dtaskok svg { width:18px; height:18px; }
 .dtaskin { margin-top:8px; width:64%; border:none; border-bottom:1.5px dashed var(--line-strong); background:none;
   text-align:center; font-family:inherit; font-size:16px; color:var(--ink); padding:6px 0; border-radius:0; }
 .dtaskin:focus { outline:none; border-bottom:1.5px solid var(--work); }
@@ -2409,7 +2465,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "6.1";
+  const APP_VERSION = "6.2";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -2729,6 +2785,117 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     dd:"dd_target", macros:"protein_target", kcal:"kcal_target", weight:"weight_target",
     attn:"attn_target", silence:"silence_target", prayers:"prayers_target", refl:"refl_target" };
   // This person's standard, or the default when none was ever set.
+  /* ---------- V6.2: the game -----------------------------------------
+     One point for each habit met in a day, fifteen at most. Points add to
+     your rank and fill the tribe's jar, spent on rewards the tribe writes.
+     Last week's best share of your own habits met wears the crown.
+     This phone works out its own days and sends the last three weeks. */
+  const RANKS = [[0, "Seed"], [30, "Sprout"], [100, "Sapling"], [250, "Young tree"], [500, "Tree"], [1000, "Grove"], [2500, "Forest"], [5000, "Elder"]];
+  const rankOf = (life) => { let i = 0; RANKS.forEach(([t], j) => { if (life >= t) i = j; });
+    return { name: RANKS[i][1], i, next: RANKS[i + 1] ? RANKS[i + 1][0] : null, nextName: RANKS[i + 1] ? RANKS[i + 1][1] : null }; };
+  // The habits a day is scored on: all you have on that log something
+  // every day (Goals is weekly), fifteen at most.
+  const scoredHabits = () => myDials().filter((k) => k !== "goals" && STD[k]).slice(0, 15);
+  function pointsOn(iso) {
+    const hs = scoredHabits();
+    return [Math.min(15, hs.filter((k) => dayMark(k, iso) === "smet" || dayMark(k, iso) === "met").length), hs.length];
+  }
+  async function syncPoints() {
+    if (!state.meId || !state.votes || !state.votes.votes) return;
+    const today = state.votes.today || todayISO(), out = {};
+    for (let i = 0; i < 21; i++) { const d = shiftISO(today, -i); out[d] = pointsOn(d); }
+    const sig = JSON.stringify(out), key = "fhd.ptsSent." + state.meId;
+    let last = null; try { last = localStorage.getItem(key); } catch {}
+    if (last === sig) return;
+    const res = await call("app_points_sync", { p_code: state.code, p_person: state.meId, p_days: out });
+    if (!res.error) { try { localStorage.setItem(key, sig); } catch {} }
+  }
+  async function loadGame() {
+    if (!state.meId) return;
+    const res = await call("app_game", { p_code: state.code, p_person: state.meId, p_day: state.boardDay || null });
+    if (!res || res.error) return;
+    const before = state.game && state.game.people && state.game.people.find((x) => x.id === state.meId);
+    state.game = res;
+    const now = (res.people || []).find((x) => x.id === state.meId);
+    if (before && now && (now.day || 0) > (before.day || 0) && !state.boardDay) {
+      state.ptsPop = (now.day || 0) - (before.day || 0);
+      clearTimeout(loadGame.t); loadGame.t = setTimeout(() => { state.ptsPop = 0; if (state.view === "board") render(); }, 2600);
+    }
+  }
+  const gameMe = () => state.game && (state.game.people || []).find((x) => x.id === state.meId);
+  const nextReward = () => { const G = state.game; if (!G) return null;
+    const R0 = (G.rewards || []).slice().sort((a, b) => a.cost - b.cost);
+    return R0.find((r) => r.cost > G.jar) || R0[R0.length - 1] || null; };
+  function gameRow() {
+    const G = state.game, mine = gameMe();
+    if (!G || !mine) return "";
+    const today = pointsOn(todayISO()), rk = rankOf(mine.life), nr = nextReward();
+    const ready = (G.rewards || []).filter((r) => r.cost <= G.jar).sort((a, b) => b.cost - a.cost)[0];
+    return `<button type="button" class="grow2" id="gameOpen" aria-label="Points, rank and the tribe jar">
+        <span class="gpts"><b>${today[0]}<em>/${today[1] || 0}</em></b><small>points today</small>${state.ptsPop ? `<i class="gpop">+${state.ptsPop}</i>` : ""}</span>
+        <span class="grank"><b>${esc(rk.name)}</b><small>${num(mine.life)} pts</small></span>
+        <span class="gjar${ready ? " ready" : ""}"><b>${num(G.jar)}${!ready && nr ? `<em>/${num(nr.cost)}</em>` : ""}</b><small>${ready ? `Ready: ${esc(ready.name)}` : nr ? `jar \u00b7 ${esc(nr.name)}` : "tribe jar \u00b7 add a reward"}</small></span>
+      </button>`;
+  }
+  function gameSheet() {
+    if (!state.gameOpen || !state.game) return "";
+    const G = state.game, mine = gameMe() || { life: 0, week: 0 }, rk = rankOf(mine.life), E = state.rwEdit;
+    const crown = G.crown && state.people.find((p) => p.id === G.crown);
+    const shelf = (G.rewards || []).slice().sort((a, b) => a.cost - b.cost).map((r) => `<li>
+        <span class="rwn">${esc(r.name)}</span><b class="rwc">${num(r.cost)}</b>
+        ${r.cost <= G.jar ? `<button type="button" class="btn rwgo" data-rwgo="${r.id}">Redeem</button>` : `<span class="rwbar"><i style="width:${Math.min(100, Math.round(G.jar / r.cost * 100))}%"></i></span>`}
+        <button type="button" class="rwx" data-rwx="${r.id}" aria-label="Remove ${esc(r.name)}">&times;</button></li>`).join("");
+    return `<div class="sheetbg" id="gameBg"></div>
+      <div class="stdsheet gsheet" role="dialog" aria-label="Points and rewards">
+        <p class="eyebrow">The tribe jar</p>
+        <div class="gjbig"><b>${num(G.jar)}</b><span>points to spend, from ${num(G.earned)} earned together</span></div>
+        <ul class="rwl">${shelf || `<li class="rwnone">No rewards yet. Write the first: something the whole family wants.</li>`}</ul>
+        ${E ? `<form class="rwf" id="rwForm"><input class="field" id="rwName" maxlength="60" autocomplete="off" placeholder="e.g. Pancake Saturday" value="${esc(E.name || "")}" aria-label="Reward">
+            <input class="field rwcost" id="rwCost" inputmode="numeric" autocomplete="off" placeholder="150" value="${esc(E.cost || "")}" aria-label="Points it costs">
+            <button type="submit" class="btn">Add</button></form>${E.err ? `<p class="hint bad">${esc(E.err)}</p>` : ""}`
+          : `<button type="button" class="linkbtn" id="rwAdd">+ Add a reward</button>`}
+        ${(G.redeemed || []).length ? `<p class="dpg">Redeemed</p><ul class="rwh">${G.redeemed.map((x) => `<li>${esc(x.name)} <small>${num(x.cost)} \u00b7 ${esc(x.by || "")} \u00b7 ${esc(shortDay(new Date(x.at).toLocaleDateString("en-CA")))}</small></li>`).join("")}</ul>` : ""}
+        <p class="dpg">You</p>
+        <div class="grk"><b>${esc(rk.name)}</b><span>${num(mine.life)} points${rk.next ? ` \u00b7 ${num(rk.next - mine.life)} to ${esc(rk.nextName)}` : " \u00b7 the highest rank"}</span>
+          <span class="grkl">${RANKS.map(([, n], j) => `<i class="${j <= rk.i ? "on" : ""}" title="${esc(n)}"></i>`).join("")}</span></div>
+        <p class="dpg">How it works</p>
+        <ul class="ghow">
+          <li><b>+1</b> for each habit you meet today, up to 15. Everyone's points fill the jar.</li>
+          <li><b>\ud83d\udc51</b> Each week's crown goes to whoever met the biggest share of their own habits${crown ? `; <b>${esc(crown.name)}</b> wears it this week` : ""}. One habit or twelve, it is fair.</li>
+          <li><b>\ud83d\udd25</b> Runs forgive one missed day a week.</li>
+        </ul>
+        <div class="stdbtns"><button type="button" class="btn" id="gameDone">Done</button></div>
+      </div>`;
+  }
+  function wireGame() {
+    on("gameOpen", "click", () => { state.gameOpen = true; state.rwEdit = null; render(); });
+    const close = () => { state.gameOpen = false; state.rwEdit = null; render(); };
+    on("gameDone", "click", close); on("gameBg", "click", close);
+    on("rwAdd", "click", () => { state.rwEdit = { name: "", cost: "" }; render(); document.getElementById("rwName")?.focus(); });
+    on("rwForm", "submit", async (e) => {
+      e.preventDefault();
+      const E = state.rwEdit; E.name = document.getElementById("rwName").value; E.cost = document.getElementById("rwCost").value;
+      const cost = Number(String(E.cost).replace(/[^0-9]/g, ""));
+      if (!E.name.trim()) { E.err = "Name the reward."; render(); return; }
+      if (!cost) { E.err = "How many points does it cost?"; render(); return; }
+      const res = await call("app_reward_save", { p_code: state.code, p_person: state.meId, p_reward: { name: E.name.trim(), cost } });
+      if (res.error) { E.err = res.offline ? "No signal. Not saved yet." : res.error; render(); return; }
+      state.rwEdit = null; await loadGame(); render();
+    });
+    document.querySelectorAll("[data-rwx]").forEach((el) => el.addEventListener("click", async () => {
+      await call("app_reward_delete", { p_code: state.code, p_person: state.meId, p_id: el.dataset.rwx }); await loadGame(); render(); }));
+    document.querySelectorAll("[data-rwgo]").forEach((el) => el.addEventListener("click", () => {
+      const r = (state.game.rewards || []).find((x) => x.id === el.dataset.rwgo); if (!r) return;
+      openModal({ title: `Redeem ${r.name}?`, body: `${num(r.cost)} points come out of the tribe jar.`,
+        buttons: [{ label: "Redeem", kind: "go", run: async () => {
+          const res = await call("app_reward_redeem", { p_code: state.code, p_person: state.meId, p_id: r.id });
+          await loadGame(); render();
+          if (res.error) openModal({ title: "Not yet", body: res.error, buttons: [{ label: "OK", kind: "go" }] });
+          else openModal({ mark: `<span class="gconf">\ud83c\udf89</span>`, title: r.name, body: "Redeemed for the whole tribe. Enjoy it together.", buttons: [{ label: "Lovely", kind: "go" }] });
+        } }, { label: "Not now", kind: "quiet" }] });
+    }));
+  }
+
   /* ---------- V6.1: your own habits ---------------------------------
      Made by anyone, for themselves or for the tribe. Each becomes a key,
      "c:<id>", in STD, so dials, the dashboard, the tribe table, the date
@@ -2934,6 +3101,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     if (!state.people.some((p) => p.id === state.meId)) state.meId = loadMe();
     if (!state.people.some((p) => p.id === state.meId)) state.meId = null;
     await Promise.all([loadHistory(), loadVotes(true), loadHabits()]);
+    await syncPoints(); await loadGame();
     // If the family block is open on the page you are looking at, it is
     // showing numbers that just changed. Refetch it here rather than in
     // each caller, so no path can leave it stale.
@@ -4368,6 +4536,35 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     });
   }
 
+  // V6.2. Minutes trained without a workout logged set by set: a name
+  // (optional) and the minutes. It lands in History, never as a tile.
+  function trainAdd() {
+    const A0 = state.trainAdd;
+    if (!A0) return `<button type="button" class="linkbtn wplus tadd2" id="taOpen">+ Add minutes you trained</button>`;
+    return `<div class="wadd tadd3">
+        <input class="field" id="taLabel" maxlength="24" autocomplete="off" placeholder="What, e.g. Yoga" value="${esc(A0.label || "")}" aria-label="What you did">
+        <span class="wamin"><input class="field" id="taMin" inputmode="text" autocomplete="off" enterkeyhint="done" placeholder="30" value="${esc(A0.min || "")}" aria-label="Minutes"><em>min</em></span>
+        <button type="button" class="btn" id="taSave">Add</button>
+        <button type="button" class="linkbtn" id="taCancel">Cancel</button>
+      </div>${A0.err ? `<p class="hint bad">${esc(A0.err)}</p>` : ""}`;
+  }
+  function wireTrainAdd() {
+    on("taOpen", "click", () => { state.trainAdd = { label: "", min: "" }; render(); document.getElementById("taMin")?.focus(); });
+    on("taCancel", "click", () => { state.trainAdd = null; render(); });
+    on("taLabel", "input", (e) => { state.trainAdd.label = e.target.value; });
+    on("taMin", "input", (e) => { state.trainAdd.min = e.target.value; });
+    const save = async () => {
+      const A0 = state.trainAdd; if (!A0) return;
+      const m = parseMinutes(A0.min || "");
+      if (!m || m < 1) { A0.err = "Type the minutes, like 30 or 1:15."; render(); return; }
+      const res = await call("app_train_add", { p_code: state.code, p_person: state.meId, p_date: entryDay() === todayISO() ? null : entryDay(), p_min: m, p_label: (A0.label || "").trim() || null });
+      if (res.error) { A0.err = res.offline ? "No signal. Not saved yet." : res.error; render(); return; }
+      state.trainAdd = null; state.lift.msg = `Added ${hm(m)}${A0.label ? " of " + A0.label.trim() : ""}.`;
+      await loadLift(); await refresh();
+    };
+    on("taSave", "click", save);
+    on("taMin", "keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); save(); } });
+  }
   function liftHistory() {
     if (!state.lift.sessions.length)
       return `<div class="dashed"><p class="empty">Nothing logged yet.<br>
@@ -5038,6 +5235,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
 
     // The workout history folds. It is the longest thing on the page and
     // the least often wanted.
+    if (state.seg === "train") wireTrainAdd();
     on("foldHist", "click", () => {
       state.histOpen = !state.histOpen;
       try { localStorage.setItem("fhd.hist", state.histOpen ? "open" : "shut"); } catch {}
@@ -5552,18 +5750,20 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       const cols = groups.flatMap(([, ks, gi]) => ks.map((k, j) => ({ k, gi, first: j === 0 })));
       const ks = cols.map((c) => c.k);
       const band = (i) => ` b${cols[i].gi}`;
-      return `<div class="ftab"><table class="ftbl" style="width:min(100%, ${78 + ks.length * 64}px);min-width:${78 + ks.length * 27}px">
-        <thead><tr class="fgrp"><th class="fn"></th>${groups.map(([g, gks, gi]) => `<th colspan="${gks.length}" class="b${gi}">${esc(gks.length < 2 ? ({ Meditation: "Med", Exercise: "Exer", "Great Work": "Work", "Your own": "Own" }[g] || g) : g)}</th>`).join("")}</tr>
+      const nc = ks.length + (state.game ? 1 : 0);
+      return `<div class="ftab"><table class="ftbl" style="width:min(100%, ${78 + nc * 64}px);min-width:${78 + nc * 27}px">
+        <thead><tr class="fgrp"><th class="fn"></th>${groups.map(([g, gks, gi]) => `<th colspan="${gks.length}" class="b${gi}">${esc(gks.length < 2 ? ({ Meditation: "Med", Exercise: "Exer", "Great Work": "Work", "Your own": "Own" }[g] || g) : g)}</th>`).join("")}${state.game ? `<th class="fpt"></th>` : ""}</tr>
           <tr><th class="fn"><span class="sr">Name</span></th>${ks.map((k, i) =>
-          `<th class="${cols[i].first ? "g0" : ""}${band(i)}" title="${esc(STD[k].label)}">${FAB[k] || esc(STD[k].label.slice(0, 3))}</th>`).join("")}</tr></thead>
+          `<th class="${cols[i].first ? "g0" : ""}${band(i)}" title="${esc(STD[k].label)}">${FAB[k] || esc(STD[k].label.slice(0, 3))}</th>`).join("")}${state.game ? `<th class="fpt g0" title="Points">Pts</th>` : ""}</tr></thead>
         <tbody>${list.map((p) => {
           const c = famCells(p), mine = p.id === state.meId;
           return `<tr${mine ? ` class="me"` : ""}><th class="fn" scope="row" style="--hc:hsl(${p.hue} 58% 42%)">
-              <button type="button" class="ftn" data-edit="name" data-person="${p.id}"><i aria-hidden="true"></i>${esc(p.name)}</button></th>
+              <button type="button" class="ftn" data-edit="name" data-person="${p.id}"><i aria-hidden="true"></i>${state.game && state.game.crown === p.id ? `<span class="fcrown" title="Last week's crown">\ud83d\udc51</span>` : ""}${esc(p.name)}</button></th>
             ${ks.map((k, i) => {
               const v = c[k], nil = v === null || v === undefined, g = cols[i].first ? " g0" : "";
               return `<td class="${nil ? "nil" : ""}${g}${band(i)}">${tiny(k, v)}</td>`;
-            }).join("")}</tr>`;
+            }).join("")}${state.game ? (() => { const x = (state.game.people || []).find((q) => q.id === p.id);
+              return `<td class="fpt g0${x && x.day ? "" : " nil"}">${x && x.day ? num(x.day) : "\u2013"}</td>`; })() : ""}</tr>`;
         }).join("")}</tbody></table></div>`;
     };
     // V5.3. Your own dashboard, above the tribe: five quiet rows, three
@@ -5626,7 +5826,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
 
       ${editRowHTML()}
 
-      ${m ? homeDials(m) : `
+      ${m ? homeDials(m) + gameRow() : `
         <section class="card hfirst">
           <h2>Who are you?</h2>
           <p class="hint">Pick your name, or add it, and your dials appear here.</p>
@@ -5699,6 +5899,10 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     let keys = myPins().filter((k) => STD[k]);   // V5.7. Only pinned habits are dials.
     if (!keys.length) keys = ["steps"];
     const n = keys.length;
+    if (state.dialIdx === undefined || state.dialIdx === null) {
+      let at = null; try { at = localStorage.getItem("fhd.dialAt." + state.meId); } catch {}
+      state.dialIdx = Math.max(0, keys.indexOf(at));
+    }
     const i = Math.min(state.dialIdx || 0, n - 1);
     // A loop: a copy of the last dial sits before the first and a copy of
     // the first after the last. Land on a copy and the strip jumps, unseen,
@@ -5771,11 +5975,35 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     return `<span class="hex${on ? " on" : ""}${big ? " big" : ""}"><svg viewBox="0 0 100 100" aria-hidden="true">
       <path d="M50 4 90 27v46L50 96 10 73V27z"/></svg><b>${num(n)}</b></span>`;
   }
+  function forgivingRuns(days, today) {
+    const keys = Object.keys(days).filter((d) => d <= today).sort();
+    if (!keys.length) return { now: 0, best: 0 };
+    const has = (d) => Object.prototype.hasOwnProperty.call(days, d);
+    // Forward over every day since the first log: count logged days; a
+    // gap uses the week's one rest day, or ends the run.
+    let best = 0, run = 0, used = {};
+    for (let d = keys[0]; d <= today; d = shiftISO(d, 1)) {
+      const wk = mondayOf(d);
+      if (has(d)) { run++; best = Math.max(best, run); continue; }
+      if (d === today) break;
+      if (!used[wk]) { used[wk] = true; continue; }
+      run = 0;
+    }
+    // The run still alive today: the same walk ends with it.
+    return { now: run, best };
+  }
   async function loadVotes(celebrate) {
     if (!state.meId) return;
     const res = await call("app_votes", { p_code: state.code, p_person: state.meId });
     if (!res || res.error || !res.votes) return;
     const before = state.votes && state.votes.votes, who = state.meId;
+    // V6.2. A run forgives one missed day a week (Monday to Sunday); a
+    // second miss that week ends it. Today, not yet logged, never breaks it.
+    for (const v of Object.values(res.votes || {})) {
+      const days = v.days && !Array.isArray(v.days) ? v.days : {};
+      const runs = forgivingRuns(days, res.today);
+      v.streak = runs.now; v.best = Math.max(runs.best, runs.now);
+    }
     state.votes = { today: res.today, votes: res.votes, for: who };
     if (!celebrate || !before || state.votesFor !== who) { state.votesFor = who; return; }
     // A milestone crossed since the last look, celebrated once.
@@ -5827,7 +6055,13 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   ];
   function atomsGuide(k) {
     const i = (state.atomGuideEx || 0) % GUIDE_EX.length, [h, w, who] = GUIDE_EX[i];
+    const v = votesOf(k);
     return `<section class="card aguide" id="aGuide">
+        <div class="agnums">
+          <p><span class="avt">${I_BOLT}<b>${v ? num(v.total) : 0}</b></span> <b>Votes.</b> Every day you log ${esc(STD[k].label)} is a vote for the person you are becoming. Badges at 1, 3, 5, 10, 21, 30, 50, 100 and on.</p>
+          <p><span class="astk lit">${I_FLAME}<b>${v ? num(v.streak) : 0}</b></span> <b>Run.</b> Days in a row you logged it. One missed day a week is forgiven; a second one starts the run again.${v && v.best ? ` Your best: ${num(v.best)}.` : ""}</p>
+          <p><span class="agpt">+1</span> <b>Points.</b> Meeting your standard today earns 1 point toward your rank and the tribe jar.</p>
+        </div>
         <p class="agsecret">The secret to a habit that lasts: <b>an action</b>, <b>a time and place</b>, and, most of all, <b>an identity</b>.</p>
         <div class="agex"><p class="asent big">I will <u>${esc(h)}</u>, <u>${esc(w)}</u> so that I can become <u>${esc(who)}</u>.</p>
           <button type="button" class="linkbtn" id="agNext">Different example</button></div>
@@ -6364,8 +6598,8 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       centre = `<button type="button" class="dval ddone${v ? " on" : ""}" ${clone ? 'tabindex="-1"' : `data-hdone="${k}"`} aria-pressed="${!!v}" aria-label="${esc(S.label)}: ${v ? "done today. Undo" : "mark done"}">${v ? "\u2713" : "Done?"}</button>`;
     }
     if (k === "tasks") {
-      extra = `<input class="dtaskin" ${clone ? 'tabindex="-1" readonly' : 'data-dtask="1" id="dial-taskin"'}
-          type="text" maxlength="200" enterkeyhint="done" autocomplete="off" placeholder="+ Add a task" aria-label="Add a task">`;
+      extra = `<span class="dtaskrow"><input class="dtaskin" ${clone ? 'tabindex="-1" readonly' : 'data-dtask="1" id="dial-taskin"'}
+          type="text" maxlength="200" enterkeyhint="done" autocomplete="off" placeholder="+ Add a task" aria-label="Add a task"><button type="button" class="tadd dtaskok" ${clone ? 'tabindex="-1"' : 'id="dialTaskOk"'} aria-label="Add this task"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button></span>`;
     }
     if (MED_KEYS.includes(k)) {
       centre = `<button type="button" class="dval dgo${v === null ? " dnone" : ""}" ${go(page)} ${clone ? 'tabindex="-1"' : ""}>${
@@ -6501,6 +6735,8 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       jump(Math.min(state.dialIdx || 0, n - 1) + off);
       const mark = (n) => {
         state.dialIdx = n;
+        // V6.2. Home reopens on the dial you last looked at.
+        try { localStorage.setItem("fhd.dialAt." + state.meId, myPins()[n] || ""); } catch {}
         document.querySelectorAll("[data-dot]").forEach((d, k) => {
           d.classList.toggle("on", k === n); d.setAttribute("aria-selected", String(k === n)); });
       };
@@ -6623,17 +6859,19 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     });
     // Tasks: type straight into the dial. V5.4: it always lands in Decide,
     // to be sorted on the Tasks page; the line stays ready for the next one.
-    document.querySelectorAll("[data-dtask]").forEach((f) =>
-      f.addEventListener("keydown", async (e) => {
-        if (e.key !== "Enter") return;
-        e.preventDefault();
+    // V6.2. A task typed into the dial is saved however you finish it:
+    // Return, the ✓ beside it, or the phone's ✓ above the keyboard. Undo
+    // takes it back for a few seconds.
+    document.querySelectorAll("[data-dtask]").forEach((f) => {
+      let busy = false;
+      const submit = async () => {
         const title = (f.value || "").trim().slice(0, 200);
-        if (!title) { f.blur(); return; }
+        if (!title || busy) return;
+        busy = true; f.value = "";
         // The list as the server has it, so a phone that never opened Tasks
         // still knows how full Do is; the copy on the phone if offline.
         let list = [];
         try { list = JSON.parse(localStorage.getItem(taskCacheKey()) || "[]"); } catch {}
-        f.value = "";
         const fresh = await call("app_tasks", { p_code: state.code, p_person: state.meId });
         if (!fresh.error && Array.isArray(fresh.tasks)) list = fresh.tasks;
         if (!Array.isArray(list)) list = [];
@@ -6642,13 +6880,29 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
           .map((x) => Number(x.position) || 0)) + 1;
         const x = { id: uuid(), parent_id: null, quadrant: q, title, done: false, position: pos,
                     sched_date: null, sched_start: null, sched_min: null };
-        f.value = "";
         const res = await call("app_task_save", { p_code: state.code, p_person: state.meId, p_task: taskPayload(x) });
+        busy = false;
         if (res.error) { f.value = title; dialSay("tasks", res.offline ? "No signal. Not saved yet." : res.error); return; }
         list.push(x);
         try { localStorage.setItem(taskCacheKey(), JSON.stringify(list)); } catch {}
         dialSay("tasks", "Added to Decide.");
-      }));
+        const m = document.getElementById("dmsg-tasks");
+        if (m) {
+          m.innerHTML = `Added \u201c${esc(title.length > 28 ? title.slice(0, 27) + "\u2026" : title)}\u201d to Decide \u00b7 <button type="button" class="linkbtn" id="dialTaskUndo">Undo</button>`;
+          clearTimeout(dialSay.t);
+          dialSay.t = setTimeout(() => { state.homeMsg = null; const e2 = document.getElementById("dmsg-tasks"); if (e2) e2.innerHTML = "&nbsp;"; }, 6000);
+          document.getElementById("dialTaskUndo")?.addEventListener("click", async () => {
+            const r2 = await call("app_task_delete", { p_code: state.code, p_person: state.meId, p_id: x.id });
+            try { localStorage.setItem(taskCacheKey(), JSON.stringify(list.filter((y) => y.id !== x.id))); } catch {}
+            dialSay("tasks", r2.error ? (r2.offline ? "No signal. Not undone yet." : r2.error) : "Taken back.");
+          });
+        }
+      };
+      f.addEventListener("keydown", (e) => { if (e.key !== "Enter") return; e.preventDefault(); submit(); });
+      f.addEventListener("blur", () => { if ((f.value || "").trim()) submit(); });
+      const ok = document.getElementById("dialTaskOk");
+      if (ok) { ok.addEventListener("pointerdown", (e) => e.preventDefault()); ok.addEventListener("click", () => { submit(); f.focus(); }); }
+    });
     clearInterval(homeTick); homeTick = null;
     const run = state.work && state.work.run;
     if (run && !run.pausedAt) homeTick = setInterval(async () => {
@@ -9729,21 +9983,15 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     // The score across all goals lives in This week, below.
     const one = d.goals.find((g) => g.id === d.one_goal) || goals[0];
     const op = one && run ? goalTally(one, C.cur).pct : null;
-    // V5.7. The week's score across all goals sits beside it, up here.
-    const allW = d.goals.length > 1 && run ? `<div class="gwk gall"><span class="gwkl">All goals \u00b7 this week</span>
-          <b class="gwkv" style="color:${T.pct === null ? "var(--muted)" : dialColor(stdPct("goals", T.pct, win))}">${T.pct === null ? "\u2013" : T.pct + "%"}</b>
-          <span class="gwks">${T.due ? `${T.done} of ${T.due} done` : "nothing due"}</span></div>` : "";
+    // V6.2. Each goal's own lead this week, side by side; the ONE goal first.
+    const gl = goalOrder(d).slice(0, 3);
+    const cell = (g) => { const p = run ? goalTally(g, C.cur).pct : null;
+      return `<div class="gwk"><span class="gwkl">${g.id === d.one_goal ? "\u2605 " : ""}${esc(g.title || "Untitled goal")}</span>
+          <b class="gwkv" style="color:${p === null ? "var(--muted)" : dialColor(stdPct("goals", p, win))}">${p === null ? "\u2013" : p + "%"}</b></div>`; };
     return `
-      <section class="grings${allW ? " two" : ""}" aria-label="Your ONE goal this week">
-        <div class="gwk">
-          <span class="gwkl">${one ? `\u2605 ${esc(one.title || "Your ONE goal")} \u00b7 lead this week` : "This week"}</span>
-          <b class="gwkv" style="color:${op === null ? "var(--muted)" : dialColor(stdPct("goals", op, win))}">${op === null ? "\u2013" : op + "%"}</b>
-          <button type="button" class="dof" data-edit="goal" data-metric="goals">of ${win}%</button>
-          <span class="gwks">${run ? `week ${C.cur} of 12` : when}</span>
-        </div>
-        ${allW}
-        <!-- V4.6. No rings here: each goal's card shows its own lead %. The
-             rings live on home's Goals dial. -->
+      <section class="grings g${Math.max(1, gl.length)}" aria-label="Each goal's lead this week">
+        ${gl.length ? gl.map(cell).join("") : `<div class="gwk"><span class="gwkl">This week</span><b class="gwkv" style="color:var(--muted)">\u2013</b></div>`}
+        <p class="gwks gwkall">${run ? `week ${C.cur} of 12` : when} \u00b7 lead this week \u00b7 <button type="button" class="dof" data-edit="goal" data-metric="goals">${win}% wins</button></p>
         ${start}
       </section>`;
   }
@@ -10998,6 +11246,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
                 style="width:100%;margin-top:${isFirst() ? 10 : 22}px;${isFirst() ? "" : `background:${met.color}`}">
           Start an Empty Workout</button>
         ${liftTiles()}
+        ${trainAdd()}
         ${unitRow}
         ${liftHistory()}`}
 
@@ -11237,7 +11486,9 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         <div class="dial mdial">${dialRing(stdPct("attn", S.pct, std))}
           <div class="dcore"><b class="dval">${S.pct === null ? "–" : S.pct + "%"}</b>
             <button type="button" class="dof" data-edit="goal" data-metric="attn">of ${Math.round(std)}%</button>
-            <span class="dsub">${S.pts} of ${S.max} points</span></div></div>
+            <span class="dsub">${S.pts} of ${S.max} points</span>
+            ${!Object.keys(marks).length ? `<button type="button" class="dsame" id="mSame">Same as yesterday</button>`
+              : state.attnUndo === state.med.date ? `<span class="dsub">Copied \u00b7 <button type="button" class="linkbtn" id="mSameUndo">Undo</button></span>` : ""}</div></div>
       </section>
       <section class="card">
         ${(() => { const C = attnCols(sched), byId = new Map(sched.map((b) => [b.id, b]));
@@ -11650,6 +11901,19 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     const editOpen = (list) => { state.medEdit = { list: list.map((b) => Object.assign({}, b)), err: null }; render();
       document.getElementById("mea-" + (state.medEdit.list.length - 1))?.focus(); };
     on("mPlan", "click", () => editOpen([{ id: uuid(), a: "", d: 30, t: null }]));
+    // V6.2. Copy the day before's marks onto an empty day, with Undo.
+    on("mSame", "click", async (e) => {
+      e.currentTarget.disabled = true;
+      const d0 = state.med.date, prev = shiftISO(d0, -1);
+      const res = await call("app_med", { p_code: state.code, p_person: state.meId, p_date: prev });
+      const pm = res && !res.error && res.day ? res.day.marks || {} : {};
+      const ids = new Set((state.med.schedule || []).map((b) => b.id));
+      const M0 = {}; for (const [k, v] of Object.entries(pm)) if (ids.has(k)) M0[k] = Object.assign({}, v);
+      if (!Object.keys(M0).length) { state.medMsg = "Nothing marked the day before."; render(); return; }
+      day.marks = M0; state.attnUndo = d0; render(); medSave({ marks: M0 });
+      setTimeout(() => { if (state.attnUndo === d0) { state.attnUndo = null; if (state.view === "med") render(); } }, 8000);
+    });
+    on("mSameUndo", "click", () => { state.attnUndo = null; day.marks = {}; render(); medSave({ marks: {} }); });
     on("mExample", "click", () => editOpen(MED_EXAMPLE.map((b) => Object.assign({ id: uuid() }, b))));
     on("mEditDay", "click", () => editOpen((state.med.schedule || []).slice()));
     if (state.medEdit) {
@@ -12017,7 +12281,8 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     if (state.workFull && state.work && state.work.run) { app.insertAdjacentHTML("beforeend", workFullView()); }
     wireWorkFull();
     if (v !== "session" && v !== "detail") {
-      app.insertAdjacentHTML("beforeend", stdSheet() + dialSheet() + homeSheet() + tribeSheet());
+      app.insertAdjacentHTML("beforeend", stdSheet() + dialSheet() + homeSheet() + tribeSheet() + gameSheet());
+      wireGame();
       wireTribeSheet();
       wireStd();
       wireHomeSheet();
@@ -12311,7 +12576,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   function myPins() {
     const h = myDials(), p = pinsRaw();
     if (!p) return h;
-    const q = h.filter((k) => p.includes(k));
+    const q = p.filter((k) => h.includes(k));
     return q.length ? q : [h[0]];
   }
   const I_PIN = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 9V4h1a1 1 0 0 0 0-2H7a1 1 0 0 0 0 2h1v5a3 3 0 0 1-3 3v2h6v7l1 1 1-1v-7h6v-2a3 3 0 0 1-3-3z"/></svg>`;
@@ -12365,10 +12630,10 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   // Every tap saves: habits in the order you turned them on, pins in that order too.
   async function saveHabits(h, p) {
     const m = me();
-    p = h.filter((k) => p.includes(k));
+    p = p.filter((k, i) => h.includes(k) && p.indexOf(k) === i);   // V6.2. In the order you pinned them.
     if (m) { m.dials = h.slice(); m.pins = p.slice(); }
     try { localStorage.setItem("fhd.dials." + state.meId, JSON.stringify(h)); localStorage.setItem("fhd.pins." + state.meId, JSON.stringify(p)); } catch {}
-    state.dialIdx = 0; state.dialMsg = null;
+    state.dialMsg = null;
     render();
     await call("app_set_habits", { p_code: state.code, p_person: state.meId, p_habits: h, p_pins: p });
   }
