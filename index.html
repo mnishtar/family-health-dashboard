@@ -1985,10 +1985,53 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .ghow li { font-size:13.5px; color:var(--ink-2); padding:4px 0; line-height:1.45; }
 .ghow li b:first-child { display:inline-block; min-width:26px; }
 .gconf { font-size:44px; }
-.fcrown { margin-right:3px; font-size:12px; }
+.gcard { display:block; width:100%; margin:6px 0 4px; padding:12px 14px 10px; border:1px solid var(--line); border-radius:18px; background:var(--surface); color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
+.gc1 { display:grid; grid-template-columns:auto minmax(0, .9fr) minmax(0, 1.4fr); gap:10px; align-items:center; }
+.gplant { display:grid; place-items:center; width:46px; height:46px; border-radius:14px; background:color-mix(in oklab, var(--green) 10%, transparent); }
+.gsk, .gtrek { display:flex; flex-direction:column; min-width:0; }
+.gsk b { font-size:17px; font-weight:700; font-variant-numeric:tabular-nums; }
+.gsk small, .gtrek small { font-size:11.5px; line-height:1.3; color:var(--muted); overflow-wrap:anywhere; }
+.gtk1 { display:flex; align-items:center; gap:6px; font-size:13.5px; }
+.gfire { font-style:normal; font-size:12.5px; font-weight:700; color:#f0a04b; }
+.gbar { display:block; height:7px; border-radius:4px; background:var(--line); overflow:hidden; margin:5px 0 3px; }
+.gbar i { display:block; height:100%; background:linear-gradient(90deg, var(--accent), #f0a04b); border-radius:4px; transition:width .4s ease; }
+.gbar.won i { background:var(--green); }
+.gbar.big { height:10px; border-radius:5px; }
+.gc2 { display:flex; justify-content:space-between; gap:8px; margin-top:10px; padding-top:9px; border-top:1px solid var(--line); font-size:12.5px; color:var(--muted); position:relative; }
+.gc2 > span { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; position:relative; }
+.gc2 b { color:var(--accent); font-size:14px; }
+.gc2 .ready { color:var(--green-ink, #7cc89a); font-weight:600; }
+.tkmap { display:block; width:100%; height:auto; margin:4px 0 0; }
+.tkmap.none { padding:22px 10px; text-align:center; color:var(--muted); font-size:13.5px; border:1.5px dashed var(--line-strong); border-radius:14px; }
+.tkall { fill:none; stroke:var(--line-strong); stroke-width:2; stroke-dasharray:4 5; }
+.tkdone { fill:none; stroke:var(--accent); stroke-width:3; stroke-linecap:round; }
+.tkcity { stroke:var(--surface); stroke-width:2; }
+.tkl { font:11px var(--body); fill:var(--ink-2); }
+.tkme { fill:#f0a04b; stroke:var(--surface); stroke-width:2; }
+.tkme2 { fill:none; stroke:#f0a04b; stroke-width:1.5; opacity:.5; }
+.tkcap { margin:2px 0 10px; font-size:12.5px; color:var(--muted); text-align:center; }
+.tkweek { padding:10px 0 4px; }
+.tkw1 { display:flex; justify-content:space-between; align-items:baseline; }
+.tkw1 span { font-variant-numeric:tabular-nums; color:var(--ink-2); }
+.tkwho { list-style:none; margin:6px 0 4px; padding:0; }
+.tkwho li { display:flex; align-items:center; gap:9px; padding:5px 0; font-size:14px; }
+.tkwho li i { width:8px; height:8px; border-radius:50%; flex:none; }
+.tkwho li span { flex:1; min-width:0; }
+.tkwho li small { margin-left:6px; color:var(--muted); font-size:12px; }
+.tkwho li b { font-variant-numeric:tabular-nums; font-size:13.5px; }
+.tkcity2 .field { width:100%; font-size:16px; }
+.tkres { list-style:none; margin:6px 0; padding:0; }
+.tkres button { width:100%; text-align:left; border:none; border-bottom:1px solid var(--line); background:none; color:var(--ink); font:inherit; font-size:14.5px; padding:10px 2px; cursor:pointer; }
+.rwideas { display:flex; flex-wrap:wrap; gap:6px; margin:8px 0; }
+.rwideas .achip small { color:var(--muted); margin-left:4px; }
+.gyou { display:flex; gap:12px; align-items:center; }
+.gyou b { font-size:16px; }
+.gsel { display:inline-block; width:auto; padding:6px 10px; font-size:15px; margin-left:4px; }
+.gplantbig { display:grid; place-items:center; }
 .ftbl th.fpt, .ftbl td.fpt { width:34px; color:var(--accent); font-weight:700; }
 .tadd2 { display:block; margin:12px auto 4px; }
 .tadd3 { margin-top:12px; }
+.dsame.msame { margin-top:10px; padding:9px 16px; border:1px solid var(--accent); border-radius:99px; color:var(--accent); background:color-mix(in oklab, var(--accent) 10%, transparent); font-weight:600; }
 .dtaskrow { display:flex; align-items:center; gap:6px; width:72%; margin-top:8px; }
 .dtaskrow .dtaskin { flex:1; min-width:0; width:auto !important; margin-top:0 !important; }
 .dtaskok { --qc:var(--tq2); width:32px; height:32px; }
@@ -2435,6 +2478,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
 .silico svg { width:22px; height:22px; fill:currentColor; }
 .silmid { position:relative; flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding-bottom:8vh; }
 .silmin { margin:0; font-size:11px; font-weight:600; letter-spacing:.16em; opacity:.75; }
+.silclock.over { color:#e8d9a8; }
 .silname { margin:0 0 22px; font-family:var(--display); font-weight:400; font-size:26px; color:#f6f1e6; }
 .silring { position:relative; width:min(62vw, 260px); aspect-ratio:1; }
 .silring > svg { width:100%; height:100%; transform:rotate(-90deg); overflow:visible; }
@@ -2450,6 +2494,34 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
 .msess .eyebrow { margin-bottom:6px; }
 @media (prefers-reduced-motion: reduce) { .mchk, .mplus { transition:none; } }
 
+/* ---------- V6.3: Tasks, calm lists ------------------------------------- */
+.th1 { display:flex; align-items:center; gap:10px; }
+.th1 .tinfo { font-family:Georgia, serif; }
+.tinfop p { margin:0 0 8px; font-size:14px; line-height:1.45; color:var(--ink-2); display:flex; gap:10px; align-items:baseline; }
+.tinfop p .tdot { flex:none; transform:translateY(-1px); }
+.tinfop p b { color:var(--ink); }
+.tinfop .tinfog { display:block; margin:10px 0 0; padding-top:10px; border-top:1px solid var(--line); }
+.tdot { flex:none; width:9px; height:9px; border-radius:50%; background:var(--qc); display:inline-block; }
+.tgroup { margin-top:14px; padding:4px 14px 6px; border-radius:18px; background:var(--surface); border:1px solid var(--line); }
+.tgroup.q2, .tgroup.q3 { margin-top:14px; }
+.tgh, .tgroup.q2 .tgh, .tgroup.q3 .tgh { border-bottom:none; padding:10px 0 6px; align-items:center; }
+.tgh .tqf b, .tgroup.q2 .tgh b, .tgroup.q3 .tgh b, .tgroup.q1 .tgh b { font-family:var(--body); font-size:16px; font-weight:700; letter-spacing:0; text-transform:none; color:var(--ink); }
+.tgh .tqf b::before { content:""; display:inline-block; width:9px; height:9px; border-radius:50%; background:var(--qc); margin-right:9px; vertical-align:1px; }
+.tgh .tqf i { color:var(--muted); font-size:11px; }
+.tgh em, .tdo .tgh em.tdocount { color:var(--muted); font-size:13px; font-weight:500; font-family:var(--body); }
+.tplus { width:30px; height:30px; border:none; background:color-mix(in oklab, var(--qc) 14%, transparent); }
+.tm { border-bottom:1px solid color-mix(in oklab, var(--line) 70%, transparent); background:var(--surface); }
+.tl > li.tm:last-child { border-bottom:none; }
+.tm > .tr { background:var(--surface); }
+.tgroup .tl > li.tm > .tr { box-shadow:none; }
+.tsv { background:var(--surface); }
+.tm .tt { font-size:15.5px; }
+.tck { border-width:1.8px; }
+.trank { color:var(--muted); font-weight:500; }
+.tdoempty { display:block; width:100%; margin:2px 0 8px; padding:14px 12px; border:1.5px dashed var(--line-strong); border-radius:12px; background:none; color:var(--muted); font:inherit; font-size:13.5px; text-align:left; cursor:pointer; }
+body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dashed var(--qc); border-radius:12px; margin:4px 0; }
+.tdone { padding:4px 14px 6px; border-radius:18px; background:var(--surface); border:1px solid var(--line); }
+.tnew { border-bottom:none; }
 </style>
 </head>
 <body>
@@ -2465,7 +2537,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "6.2";
+  const APP_VERSION = "6.3";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -2750,7 +2822,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     steps:  { label:"Steps",       kind:"count", def:8000, key:"steps",      unit:"steps", short:"Steps" },
     train:  { label:"Train",       kind:"min",   def:40,   key:"train_min" },
     cardio: { label:"Cardio",      kind:"min",   def:30,   key:"cardio_min" },
-    sleep:  { label:"Recovery",    kind:"pct",   def:80,   key:"sleep_pct", short:"Sleep" },
+    sleep:  { label:"Recovery",    kind:"pct",   def:80,   key:"sleep_pct", short:"Recovery" },
     rise:   { label:"Rise",        kind:"time",  def:360,  key:"rise_time" },
     rest:   { label:"Rest",        kind:"time",  def:1350, key:"rest_time" },
     work:   { label:"Focus",       kind:"min",   def:180,  key:"work_min",  short:"Focus" },
@@ -2788,9 +2860,10 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   /* ---------- V6.2: the game -----------------------------------------
      One point for each habit met in a day, fifteen at most. Points add to
      your rank and fill the tribe's jar, spent on rewards the tribe writes.
-     Last week's best share of your own habits met wears the crown.
+     V6.3: the crown is gone; the tribe walks together (Tribe Trek).
      This phone works out its own days and sends the last three weeks. */
-  const RANKS = [[0, "Seed"], [30, "Sprout"], [100, "Sapling"], [250, "Young tree"], [500, "Tree"], [1000, "Grove"], [2500, "Forest"], [5000, "Elder"]];
+  // V6.3. Ranks are the trek's: the plant is your streak.
+  const RANKS = [[0, "Walker"], [30, "Hiker"], [100, "Trekker"], [250, "Pathfinder"], [500, "Voyager"], [1000, "Explorer"], [2500, "Navigator"], [5000, "Legend"]];
   const rankOf = (life) => { let i = 0; RANKS.forEach(([t], j) => { if (life >= t) i = j; });
     return { name: RANKS[i][1], i, next: RANKS[i + 1] ? RANKS[i + 1][0] : null, nextName: RANKS[i + 1] ? RANKS[i + 1][1] : null }; };
   // The habits a day is scored on: all you have on that log something
@@ -2826,43 +2899,179 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   const nextReward = () => { const G = state.game; if (!G) return null;
     const R0 = (G.rewards || []).slice().sort((a, b) => a.cost - b.cost);
     return R0.find((r) => r.cost > G.jar) || R0[R0.length - 1] || null; };
+  /* ---------- V6.3: your streak, a plant -----------------------------
+     Days in a row you logged the habit you chose (Steps unless you pick
+     another). Two rest days are forgiven in a run's first week, then one
+     a week. It turns gold while no rest day has been used. */
+  const STAGES = [[1, "Seed"], [3, "Sprout"], [7, "Sapling"], [14, "Young tree"], [30, "Tree"], [100, "Blossom"], [365, "Fruit"]];
+  const stageOf = (n) => { let i = -1; STAGES.forEach(([t], j) => { if (n >= t) i = j; }); return i; };
+  const streakKey = () => { const gp = gameMe(), k = (gp && gp.streak_habit) || "steps"; return STD[k] && myDials().includes(k) ? k : "steps"; };
+  function plantStreak(k) {
+    const v = votesOf(k), days = v && v.days && !Array.isArray(v.days) ? v.days : {};
+    const today = (state.votes && state.votes.today) || todayISO();
+    const has = (d) => Object.prototype.hasOwnProperty.call(days, d);
+    // Walk back from today: logged days count; a miss is a rest day if the
+    // run (counted forward) is still in its first week (two allowed) or
+    // its week has none used yet.
+    const seq = [];
+    for (let d = today, i = 0; i < 800; i++, d = shiftISO(d, -1)) seq.push(d);
+    // Forward over the window, keeping the current run's state.
+    let run = 0, rests = [], used = {}, early = 0;
+    for (let i = seq.length - 1; i >= 0; i--) {
+      const d = seq[i];
+      if (has(d)) { run++; continue; }
+      if (d === today) break;
+      if (run === 0) continue;
+      const wk = mondayOf(d);
+      if (run < 7 && early < 2) { early++; rests.push(d); continue; }
+      if (run >= 7 && !used[wk]) { used[wk] = true; rests.push(d); continue; }
+      run = 0; rests = []; used = {}; early = 0;
+    }
+    return { n: run, gold: run > 0 && !rests.length, rests: rests.length };
+  }
+  function plantSVG(stage, gold, size) {
+    const g = gold ? "#e8c45a" : "var(--green)", leaf = gold ? "#f0d77e" : "#6fbf8a";
+    const h = [6, 12, 20, 28, 34, 38, 40][Math.max(0, stage)] || 4;
+    const leaves = [0, 1, 2, 3, 4, 5, 5][Math.max(0, stage)] || 0;
+    let parts = `<path d="M18 46h20l-3 10H21z" fill="#8a6a4a"/><rect x="16" y="43" width="24" height="4" rx="2" fill="#a07e5a"/>`;
+    if (stage < 0) return `<svg viewBox="0 0 56 60" width="${size}" height="${size}" aria-hidden="true">${parts}</svg>`;
+    if (stage === 0) parts += `<ellipse cx="28" cy="41" rx="4" ry="3" fill="#b08a5a"/>`;
+    else {
+      const top = 43 - h;
+      parts += `<path d="M28 43V${top}" stroke="${g}" stroke-width="${stage >= 4 ? 3.2 : 2.2}" stroke-linecap="round"/>`;
+      for (let i = 0; i < leaves; i++) { const y = 41 - (i + 1) * (h / (leaves + 1)), side = i % 2 ? -1 : 1;
+        parts += `<path d="M28 ${y.toFixed(1)} q ${side * 9} -6 ${side * 13} 0 q ${side * -6} 5 ${side * -13} 0z" fill="${leaf}"/>`; }
+      if (stage >= 4) parts += `<circle cx="28" cy="${(top + 2).toFixed(1)}" r="${stage >= 5 ? 9 : 7}" fill="${leaf}" opacity=".9"/>`;
+      if (stage >= 5) for (const [dx, dy] of [[-5, -2], [4, -4], [1, 4]]) parts += `<circle cx="${28 + dx}" cy="${(top + 2 + dy).toFixed(1)}" r="1.8" fill="#f4b6c8"/>`;
+      if (stage >= 6) for (const [dx, dy] of [[-4, 3], [5, 1]]) parts += `<circle cx="${28 + dx}" cy="${(top + 4 + dy).toFixed(1)}" r="2.4" fill="#e2683c"/>`;
+    }
+    return `<svg viewBox="0 0 56 60" width="${size}" height="${size}" aria-hidden="true">${parts}</svg>`;
+  }
+  // A stage reached since this phone last looked is celebrated once.
+  function plantCheck() {
+    if (!state.votes || !state.game || state.view !== "board") return;
+    const k = streakKey(), P = plantStreak(k), st = stageOf(P.n), key = "fhd.plant." + state.meId + "." + k;
+    let was = null; try { const raw = localStorage.getItem(key); was = raw === null ? null : Number(raw); } catch {}
+    if (was !== null && Number.isFinite(was) && st > was && st >= 1) {
+      setTimeout(() => openModal({ mark: `<span class="gplantbig">${plantSVG(st, P.gold, 96)}</span>`, title: `${STAGES[st][1]}!`,
+        body: `${P.n} days of ${STD[k].label} in a row. ${STAGES[st + 1] ? `Next: ${STAGES[st + 1][1].toLowerCase()} at ${STAGES[st + 1][0]} days.` : "The full tree."}`,
+        buttons: [{ label: "Keep growing", kind: "go" }] }), 500);
+    }
+    try { localStorage.setItem(key, String(st)); } catch {}
+  }
+
+  /* ---------- V6.3: Tribe Trek ----------------------------------------- */
+  const hav = (a, b) => { const R0 = 6371, r = Math.PI / 180, dLa = (b.lat - a.lat) * r, dLo = (b.lon - a.lon) * r;
+    const x = Math.sin(dLa / 2) ** 2 + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(dLo / 2) ** 2;
+    return 2 * R0 * Math.asin(Math.sqrt(x)); };
+  function trekRoute() {
+    const ps = ((state.game && state.game.people) || []).filter((p) => p.lat !== null && p.lat !== undefined && p.city);
+    if (ps.length < 2) return { ps, legs: [], total: 0 };
+    const legs = ps.map((p, i) => ({ from: p, to: ps[(i + 1) % ps.length], km: hav(p, ps[(i + 1) % ps.length]) }));
+    return { ps, legs, total: legs.reduce((a, l) => a + l.km, 0) };
+  }
+  const weekNow = () => { const t = state.game && state.game.trek; return t && t.weeks && t.weeks[0] || null; };
+  const daysLeft = () => { const d = new Date((state.game && state.game.day || todayISO()) + "T00:00:00Z").getUTCDay(); return d === 0 ? 0 : 7 - d; };
+  function trekMap(R0, kmTotal) {
+    const W = 320, H = 150, pad = 22;
+    if (R0.ps.length < 2) return `<div class="tkmap none">${R0.ps.length ? `${esc(R0.ps[0].city.split(",")[0])} is on the map. Add one more city to draw your route.` : "Add your city and your tribe's route appears here."}</div>`;
+    const xs = R0.ps.map((p) => p.lon), ys = R0.ps.map((p) => p.lat);
+    const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+    const sx = (W - 2 * pad) / Math.max(1e-6, x1 - x0 || 1), sy = (H - 2 * pad) / Math.max(1e-6, y1 - y0 || 1), sc = Math.min(sx, sy * 1.6);
+    const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+    const P = (p) => [W / 2 + (p.lon - cx) * sc, H / 2 - (p.lat - cy) * Math.min(sc, sy)];
+    // Where the tribe is: total km walked, round and round the loop.
+    let d = R0.total ? kmTotal % R0.total : 0, at = null, done = "";
+    for (const l of R0.legs) {
+      const [ax, ay] = P(l.from), [bx, by] = P(l.to);
+      if (at) continue;
+      if (d <= l.km) { const f = l.km ? d / l.km : 0; at = [ax + (bx - ax) * f, ay + (by - ay) * f, l]; done += `M${ax.toFixed(1)} ${ay.toFixed(1)}L${at[0].toFixed(1)} ${at[1].toFixed(1)}`; }
+      else { done += `M${ax.toFixed(1)} ${ay.toFixed(1)}L${bx.toFixed(1)} ${by.toFixed(1)}`; d -= l.km; }
+    }
+    const all = R0.legs.map((l) => { const [ax, ay] = P(l.from), [bx, by] = P(l.to); return `M${ax.toFixed(1)} ${ay.toFixed(1)}L${bx.toFixed(1)} ${by.toFixed(1)}`; }).join("");
+    const laps = R0.total ? Math.floor(kmTotal / R0.total) : 0;
+    return `<svg class="tkmap" viewBox="0 0 ${W} ${H}" role="img" aria-label="Your tribe's route through ${R0.ps.map((p) => esc(p.city.split(",")[0])).join(", ")}; ${num(Math.round(kmTotal))} km walked">
+        <path d="${all}" class="tkall"/><path d="${done}" class="tkdone"/>
+        ${R0.ps.map((p) => { const [x, y] = P(p), hue = (state.people.find((q) => q.id === p.id) || {}).hue || 200;
+          return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5" style="fill:hsl(${hue} 58% 52%)" class="tkcity"/>
+            <text x="${(x < 60 ? x - 6 : x > W - 60 ? x + 6 : x).toFixed(1)}" y="${(y + (y > H / 2 ? 16 : -9)).toFixed(1)}" text-anchor="${x < 60 ? "start" : x > W - 60 ? "end" : "middle"}" class="tkl">${esc(p.city.split(",")[0])}</text>`; }).join("")}
+        ${at ? `<circle cx="${at[0].toFixed(1)}" cy="${at[1].toFixed(1)}" r="7" class="tkme"/><circle cx="${at[0].toFixed(1)}" cy="${at[1].toFixed(1)}" r="12" class="tkme2"/>` : ""}
+      </svg>
+      <p class="tkcap">${num(Math.round(kmTotal))} km walked together${laps ? ` \u00b7 ${laps} lap${laps > 1 ? "s" : ""} of the family` : ""}${at ? ` \u00b7 next: ${esc(at[2].to.city.split(",")[0])}, ${num(Math.max(0, Math.round(at[2].km - ((kmTotal % R0.total) - R0.legs.slice(0, R0.legs.indexOf(at[2])).reduce((a, l) => a + l.km, 0)))))} km` : ""}</p>`;
+  }
+  const FIRE = ["Unlit", "Ember", "Flame", "Campfire", "Bonfire", "Beacon"];
+  const fireName = (n) => FIRE[Math.min(FIRE.length - 1, n)];
   function gameRow() {
     const G = state.game, mine = gameMe();
     if (!G || !mine) return "";
-    const today = pointsOn(todayISO()), rk = rankOf(mine.life), nr = nextReward();
-    const ready = (G.rewards || []).filter((r) => r.cost <= G.jar).sort((a, b) => b.cost - a.cost)[0];
-    return `<button type="button" class="grow2" id="gameOpen" aria-label="Points, rank and the tribe jar">
-        <span class="gpts"><b>${today[0]}<em>/${today[1] || 0}</em></b><small>points today</small>${state.ptsPop ? `<i class="gpop">+${state.ptsPop}</i>` : ""}</span>
-        <span class="grank"><b>${esc(rk.name)}</b><small>${num(mine.life)} pts</small></span>
-        <span class="gjar${ready ? " ready" : ""}"><b>${num(G.jar)}${!ready && nr ? `<em>/${num(nr.cost)}</em>` : ""}</b><small>${ready ? `Ready: ${esc(ready.name)}` : nr ? `jar \u00b7 ${esc(nr.name)}` : "tribe jar \u00b7 add a reward"}</small></span>
+    const today = pointsOn(todayISO()), wk = weekNow(), T = G.trek || {};
+    const k = streakKey(), P = plantStreak(k), st = stageOf(P.n);
+    const nReady = (G.rewards || []).filter((r) => r.cost <= G.jar).length, ready = nReady > 0;
+    const pct = wk && wk.target > 0 ? Math.min(100, Math.round(wk.km / wk.target * 100)) : 0;
+    return `<button type="button" class="gcard" id="gameOpen" aria-label="Your streak, Tribe Trek, points and the jar">
+        <span class="gc1">
+          <span class="gplant">${plantSVG(st, P.gold, 46)}</span>
+          <span class="gsk"><b>${P.n} day${P.n === 1 ? "" : "s"}</b><small>${esc(STD[k].label)} \u00b7 ${st >= 0 ? STAGES[st][1] : "plant a seed"}${P.gold && P.n >= 3 ? " \u2728" : ""}</small></span>
+          <span class="gtrek"><span class="gtk1"><b>Tribe Trek</b>${T.fire ? `<em class="gfire">\ud83d\udd25${T.fire}</em>` : ""}</span>
+            <span class="gbar${wk && wk.won ? " won" : ""}"><i style="width:${pct}%"></i></span>
+            <small>${!wk || !(wk.target > 0) ? "log steps to start the week" : wk.won ? `week won \u00b7 ${num(wk.km)} km` : `${num(wk.km)} of ${num(wk.target)} km \u00b7 ${daysLeft() ? `${daysLeft()} day${daysLeft() === 1 ? "" : "s"} left` : "last day"}`}</small></span>
+        </span>
+        <span class="gc2">
+          <span><b>${today[0]}</b>/${today[1] || 0} points today${state.ptsPop ? `<i class="gpop">+${state.ptsPop}</i>` : ""}</span>
+          <span class="${ready ? "ready" : ""}">Jar ${num(G.jar)}${ready ? ` \u00b7 ${nReady} ready` : ""}</span>
+        </span>
       </button>`;
   }
+  const REWARD_IDEAS = [["Family video call with a game", 50], ["The top walker picks the next call's topic", 75],
+    ["Everyone shares a photo of their walk", 100], ["A recorded story from a grandparent", 150]];
   function gameSheet() {
     if (!state.gameOpen || !state.game) return "";
     const G = state.game, mine = gameMe() || { life: 0, week: 0 }, rk = rankOf(mine.life), E = state.rwEdit;
-    const crown = G.crown && state.people.find((p) => p.id === G.crown);
+    const T = G.trek || {}, wk = weekNow(), R0 = trekRoute(), k = streakKey(), P = plantStreak(k), st = stageOf(P.n);
+    const pct = wk && wk.target > 0 ? Math.min(100, Math.round(wk.km / wk.target * 100)) : 0;
+    const walkers = (G.people || []).slice().sort((a, b) => (b.km_week || 0) - (a.km_week || 0));
     const shelf = (G.rewards || []).slice().sort((a, b) => a.cost - b.cost).map((r) => `<li>
         <span class="rwn">${esc(r.name)}</span><b class="rwc">${num(r.cost)}</b>
         ${r.cost <= G.jar ? `<button type="button" class="btn rwgo" data-rwgo="${r.id}">Redeem</button>` : `<span class="rwbar"><i style="width:${Math.min(100, Math.round(G.jar / r.cost * 100))}%"></i></span>`}
         <button type="button" class="rwx" data-rwx="${r.id}" aria-label="Remove ${esc(r.name)}">&times;</button></li>`).join("");
+    const have = new Set((G.rewards || []).map((r) => r.name.toLowerCase()));
+    const ideas = REWARD_IDEAS.filter(([n]) => !have.has(n.toLowerCase()));
+    const C = state.cityQ;
     return `<div class="sheetbg" id="gameBg"></div>
-      <div class="stdsheet gsheet" role="dialog" aria-label="Points and rewards">
-        <p class="eyebrow">The tribe jar</p>
-        <div class="gjbig"><b>${num(G.jar)}</b><span>points to spend, from ${num(G.earned)} earned together</span></div>
-        <ul class="rwl">${shelf || `<li class="rwnone">No rewards yet. Write the first: something the whole family wants.</li>`}</ul>
-        ${E ? `<form class="rwf" id="rwForm"><input class="field" id="rwName" maxlength="60" autocomplete="off" placeholder="e.g. Pancake Saturday" value="${esc(E.name || "")}" aria-label="Reward">
-            <input class="field rwcost" id="rwCost" inputmode="numeric" autocomplete="off" placeholder="150" value="${esc(E.cost || "")}" aria-label="Points it costs">
+      <div class="stdsheet gsheet" role="dialog" aria-label="Tribe Trek, your streak and the jar">
+        <p class="eyebrow">Tribe Trek${T.fire ? ` \u00b7 \ud83d\udd25 ${fireName(T.fire)}, ${T.fire} week${T.fire > 1 ? "s" : ""} won in a row` : ""}</p>
+        ${trekMap(R0, Number(T.km_total) || 0)}
+        <div class="tkweek"><div class="tkw1"><b>This week</b><span>${wk && wk.target > 0 ? `${num(wk.km)} of ${num(wk.target)} km` : "no steps yet"}</span></div>
+          <span class="gbar big${wk && wk.won ? " won" : ""}"><i style="width:${pct}%"></i></span>
+          <p class="hint">${wk && wk.won ? `Won! ${num(20 * wk.walkers)} bonus points are in the jar for good.` : `<b>${num(T.stake || 20)} bonus points</b> sit in the jar, yours to keep if the tribe finishes this week's ${wk && wk.target > 0 ? num(wk.target) + " km" : "leg"} by Sunday.`}</p>
+          <ul class="tkwho">${walkers.map((p) => { const hue = (state.people.find((q) => q.id === p.id) || {}).hue || 200;
+            return `<li><i style="background:hsl(${hue} 58% 52%)"></i><span>${esc(p.name)}${p.city ? `<small>${esc(p.city.split(",")[0])}</small>` : ""}</span><b>${num(p.km_week || 0)} km</b></li>`; }).join("")}</ul>
+          ${C ? `<div class="tkcity2"><input class="field" id="cityIn" autocomplete="off" placeholder="Your city" value="${esc(C.q || "")}" aria-label="Your city">
+              ${C.busy ? `<p class="hint">Looking\u2026</p>` : C.err ? `<p class="hint bad">${esc(C.err)}</p>` : ""}
+              <ul class="tkres">${(C.res || []).map((x, i) => `<li><button type="button" data-cityp="${i}">${esc(x.label)}</button></li>`).join("")}</ul>
+              <button type="button" class="linkbtn" id="cityX">Cancel</button></div>`
+            : `<button type="button" class="linkbtn" id="cityOpen">${mine.city ? `Your city: ${esc(mine.city.split(",")[0])} \u00b7 change` : "+ Add your city to the route"}</button>`}
+        </div>
+        <p class="dpg">The tribe jar \u00b7 ${num(G.jar)} points</p>
+        <ul class="rwl">${shelf || `<li class="rwnone">No rewards yet. Pick one below or write your own.</li>`}</ul>
+        ${ideas.length && (G.rewards || []).length < 8 ? `<div class="rwideas">${ideas.map(([n, c], i) => `<button type="button" class="achip" data-rwidea="${i}">+ ${esc(n)} <small>${c}</small></button>`).join("")}</div>` : ""}
+        ${E ? `<form class="rwf" id="rwForm"><input class="field" id="rwName" maxlength="60" autocomplete="off" placeholder="e.g. Family video call with a game" value="${esc(E.name || "")}" aria-label="Reward">
+            <input class="field rwcost" id="rwCost" inputmode="numeric" autocomplete="off" placeholder="50" value="${esc(E.cost || "")}" aria-label="Points it costs">
             <button type="submit" class="btn">Add</button></form>${E.err ? `<p class="hint bad">${esc(E.err)}</p>` : ""}`
-          : `<button type="button" class="linkbtn" id="rwAdd">+ Add a reward</button>`}
+          : `<button type="button" class="linkbtn" id="rwAdd">+ Write your own reward</button>`}
         ${(G.redeemed || []).length ? `<p class="dpg">Redeemed</p><ul class="rwh">${G.redeemed.map((x) => `<li>${esc(x.name)} <small>${num(x.cost)} \u00b7 ${esc(x.by || "")} \u00b7 ${esc(shortDay(new Date(x.at).toLocaleDateString("en-CA")))}</small></li>`).join("")}</ul>` : ""}
         <p class="dpg">You</p>
+        <div class="gyou"><span class="gplantbig">${plantSVG(st, P.gold, 84)}</span>
+          <div><b>${P.n} day${P.n === 1 ? "" : "s"} of</b> <select class="field gsel" id="streakPick" aria-label="The habit your plant grows on">${myDials().filter((x) => STD[x] && x !== "goals").map((x) => `<option value="${x}"${x === k ? " selected" : ""}>${esc(STD[x].label)}</option>`).join("")}</select>
+            <p class="hint">${st >= 0 ? `${STAGES[st][1]}${P.gold ? ", gold: no rest day used" : ""}.` : "Log it today to plant a seed."} ${STAGES[st + 1] ? `${STAGES[st + 1][1]} at ${STAGES[st + 1][0]} days.` : ""}</p></div></div>
         <div class="grk"><b>${esc(rk.name)}</b><span>${num(mine.life)} points${rk.next ? ` \u00b7 ${num(rk.next - mine.life)} to ${esc(rk.nextName)}` : " \u00b7 the highest rank"}</span>
           <span class="grkl">${RANKS.map(([, n], j) => `<i class="${j <= rk.i ? "on" : ""}" title="${esc(n)}"></i>`).join("")}</span></div>
         <p class="dpg">How it works</p>
         <ul class="ghow">
-          <li><b>+1</b> for each habit you meet today, up to 15. Everyone's points fill the jar.</li>
-          <li><b>\ud83d\udc51</b> Each week's crown goes to whoever met the biggest share of their own habits${crown ? `; <b>${esc(crown.name)}</b> wears it this week` : ""}. One habit or twelve, it is fair.</li>
-          <li><b>\ud83d\udd25</b> Runs forgive one missed day a week.</li>
+          <li><b>\ud83d\udc63</b> Everyone's steps move the tribe along the route through your cities (1 step = 0.75 m). Each week's leg is sized to the family: 60% of the step standards of everyone who walks that week.</li>
+          <li><b>\ud83d\udd25</b> Finish the leg by Sunday: the week is won, its bonus stays in the jar, and the Tribe Fire grows. Ember, flame, campfire, bonfire, beacon.</li>
+          <li><b>+1</b> for each habit you meet today, up to 15. Points raise your rank and fill the jar.</li>
+          <li><b>\ud83c\udf31</b> Your plant grows each day you log the habit you chose. Two rest days are forgiven in its first week, then one a week.</li>
         </ul>
         <div class="stdbtns"><button type="button" class="btn" id="gameDone">Done</button></div>
       </div>`;
@@ -2872,6 +3081,40 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     const close = () => { state.gameOpen = false; state.rwEdit = null; render(); };
     on("gameDone", "click", close); on("gameBg", "click", close);
     on("rwAdd", "click", () => { state.rwEdit = { name: "", cost: "" }; render(); document.getElementById("rwName")?.focus(); });
+    document.querySelectorAll("[data-rwidea]").forEach((el) => el.addEventListener("click", async () => {
+      const have = new Set((state.game.rewards || []).map((r) => r.name.toLowerCase()));
+      const [n, c] = REWARD_IDEAS.filter(([x]) => !have.has(x.toLowerCase()))[Number(el.dataset.rwidea)] || [];
+      if (!n) return;
+      await call("app_reward_save", { p_code: state.code, p_person: state.meId, p_reward: { name: n, cost: c } }); await loadGame(); render(); }));
+    on("streakPick", "change", async (e) => {
+      const k = e.target.value, me0 = gameMe(); if (me0) me0.streak_habit = k; render();
+      await call("app_set_streak_habit", { p_code: state.code, p_person: state.meId, p_key: k }); });
+    // Your city: a place search (Open-Meteo's free geocoder), then one tap.
+    on("cityOpen", "click", () => { state.cityQ = { q: "", res: [] }; render(); document.getElementById("cityIn")?.focus(); });
+    on("cityX", "click", () => { state.cityQ = null; render(); });
+    const ci = document.getElementById("cityIn");
+    if (ci) {
+      let t0 = null;
+      ci.addEventListener("input", () => {
+        const C = state.cityQ; C.q = ci.value; clearTimeout(t0);
+        if (C.q.trim().length < 2) return;
+        t0 = setTimeout(async () => {
+          C.busy = true; C.err = null; render(); const f = document.getElementById("cityIn"); if (f) { f.focus(); f.setSelectionRange(f.value.length, f.value.length); }
+          try {
+            const r = await fetch("https://geocoding-api.open-meteo.com/v1/search?count=6&language=en&name=" + encodeURIComponent(C.q.trim()));
+            const j = await r.json();
+            C.res = (j.results || []).map((x) => ({ label: [x.name, x.admin1, x.country].filter(Boolean).join(", "), short: `${x.name}, ${x.country || ""}`.replace(/, $/, ""), lat: x.latitude, lon: x.longitude }));
+            if (!C.res.length) C.err = "No place by that name.";
+          } catch { C.err = "Could not search just now."; }
+          C.busy = false; render(); const g2 = document.getElementById("cityIn"); if (g2) { g2.focus(); g2.setSelectionRange(g2.value.length, g2.value.length); }
+        }, 400);
+      });
+    }
+    document.querySelectorAll("[data-cityp]").forEach((el) => el.addEventListener("click", async () => {
+      const x = state.cityQ.res[Number(el.dataset.cityp)]; if (!x) return;
+      const res = await call("app_set_city", { p_code: state.code, p_person: state.meId, p_city: x.short, p_lat: x.lat, p_lon: x.lon });
+      if (res.error) { state.cityQ.err = res.error; render(); return; }
+      state.cityQ = null; await loadGame(); render(); }));
     on("rwForm", "submit", async (e) => {
       e.preventDefault();
       const E = state.rwEdit; E.name = document.getElementById("rwName").value; E.cost = document.getElementById("rwCost").value;
@@ -3101,7 +3344,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     if (!state.people.some((p) => p.id === state.meId)) state.meId = loadMe();
     if (!state.people.some((p) => p.id === state.meId)) state.meId = null;
     await Promise.all([loadHistory(), loadVotes(true), loadHabits()]);
-    await syncPoints(); await loadGame();
+    await syncPoints(); await loadGame(); plantCheck();
     // If the family block is open on the page you are looking at, it is
     // showing numbers that just changed. Refetch it here rather than in
     // each caller, so no path can leave it stale.
@@ -5758,7 +6001,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         <tbody>${list.map((p) => {
           const c = famCells(p), mine = p.id === state.meId;
           return `<tr${mine ? ` class="me"` : ""}><th class="fn" scope="row" style="--hc:hsl(${p.hue} 58% 42%)">
-              <button type="button" class="ftn" data-edit="name" data-person="${p.id}"><i aria-hidden="true"></i>${state.game && state.game.crown === p.id ? `<span class="fcrown" title="Last week's crown">\ud83d\udc51</span>` : ""}${esc(p.name)}</button></th>
+              <button type="button" class="ftn" data-edit="name" data-person="${p.id}"><i aria-hidden="true"></i>${esc(p.name)}</button></th>
             ${ks.map((k, i) => {
               const v = c[k], nil = v === null || v === undefined, g = cols[i].first ? " g0" : "";
               return `<td class="${nil ? "nil" : ""}${g}${band(i)}">${tiny(k, v)}</td>`;
@@ -8678,20 +8921,18 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
           <button type="button" class="btn tyes" data-tans="${x.id}:1">Accept</button></li>`).join("")}</ul>
       </section>` : ""}
       <section class="tgroup q1 tdo${qShut(1) ? " shut" : ""}">
-        <header class="tgh">${qFold(QUADS[0])}<em class="tdocount${doList.length > lim ? " over" : ""}">${doList.length}/${lim}</em><span></span>
-          ${qShut(1) ? "" : `<button type="button" class="tlim" data-edit="goal" data-metric="tasks"
-            aria-label="Do today: ${lim}. Change it">do today ${lim}</button>${plus(QUADS[0])}`}</header>
+        <header class="tgh">${qFold(QUADS[0])}<button type="button" class="tlim tdocount${doList.length > lim ? " over" : ""}" data-edit="goal" data-metric="tasks"
+            aria-label="${doList.length} of ${lim} for today. Change how many">${doList.length} of ${lim} today</button><span></span>
+          ${qShut(1) ? "" : plus(QUADS[0])}</header>
         ${qShut(1) ? "" : `${adder(QUADS[0])}
         ${t.addMsg && t.adding !== 1 && t.msgQ === 1 ? `<p class="tqhint warn" id="tqHint">${t.addMsg}</p>` : ""}
         <ul class="tl" data-tgroup="1">${doList.map((x, n) => taskRow(x, n + 1)).join("")}</ul>
-        ${doList.length < lim ? `<ul class="tl tempties">${Array.from({ length: lim - doList.length }, (_, k) => `
-          <li class="tslot"><span class="trank">${doList.length + k + 1}</span>
-            <button type="button" class="tslotb" data-tslot="1" aria-label="Add to Do"></button></li>`).join("")}</ul>` : ""}
+        ${!doList.length && t.adding !== 1 ? `<button type="button" class="tdoempty" data-tslot="1">Nothing for today yet. Tap to add, or hold a task below and drag it here.</button>` : ""}
         ${doWait.length ? `<ul class="tl twaitl">${doWait.map((x) => taskRow(x)).join("")}</ul>` : ""}`}
       </section>
       ${group(QUADS[1])}
       ${group(QUADS[2])}
-      ${anyOpen ? `<p class="tswhint">Hold a task to move it, even into another list. Swipe right to move it, left for more.</p>` : ""}
+
 
       ${done.length ? `
         <section class="tdone">
@@ -8789,9 +9030,15 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         <button class="backlink" id="back">&larr; ${esc(state.group.name)}</button>
       </div>
       <header class="masthead">
-        <h1>Tasks</h1>
+        <h1 class="th1">Tasks <button type="button" class="spi tinfo${state.taskInfo ? " on" : ""}" id="tInfo" aria-expanded="${!!state.taskInfo}" aria-label="How Tasks works">i</button></h1>
         <p class="sub stdline"><b style="color:var(--ink)">${Number((me() || {}).tasks_done) || 0}</b> done today</p>
-      </header>`;
+      </header>
+      ${state.taskInfo ? `<section class="card tinfop">
+        <p><span class="tdot" style="--qc:var(--tq1)"></span><span><b>Do</b> Urgent and important: today, and only as many as you set.</span></p>
+        <p><span class="tdot" style="--qc:var(--tq2)"></span><span><b>Decide</b> Important, not urgent: plan when you will do it.</span></p>
+        <p><span class="tdot" style="--qc:var(--tq3)"></span><span><b>Delegate</b> Someone else's to do: <i>Send to\u2026</i> hands it to someone in your tribe.</span></p>
+        <p class="tinfog"><b>Tap</b> a task to edit it and add steps. <b>Hold</b> to drag it, into another list too. <b>Swipe right</b> to move it, <b>left</b> for Today, Tomorrow, Schedule or Delete. A tick in green is done.</p>
+      </section>` : ""}`;
     if (!t.loaded) return head + `<p class="loading">Opening…</p>`;
     return head + `
       <div class="range tseg" role="group" aria-label="View">
@@ -8807,6 +9054,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
     on("back", "click", () => { state.view = "board"; state.tasks = null; render(); refresh(); });
     const t = state.tasks;
     if (!t || !t.loaded) return;
+    on("tInfo", "click", () => { state.taskInfo = !state.taskInfo; render(); });
     document.querySelectorAll("[data-tqf]").forEach((el) =>
       el.addEventListener("click", () => {
         const f = qFolds(), q = el.dataset.tqf; f[q] = !f[q];
@@ -9203,7 +9451,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         const el = document.elementFromPoint(lx, ly);
         // An empty numbered slot in Do counts as Do.
         const ul = el && el.closest && (el.closest("ul.tl[data-tgroup]")
-          || (el.closest("ul.tempties") && document.querySelector('ul.tl[data-tgroup="1"]')));
+          || (el.closest("ul.tempties, .tdoempty") && document.querySelector('ul.tl[data-tgroup="1"]')));
         if (!ul) return;
         const others = [...ul.children].filter((c) => c !== li && c.matches("li.tm"));
         const before = others.find((c) => { const r = c.getBoundingClientRect(); return ly < r.top + r.height / 2; });
@@ -9792,9 +10040,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         : `<button type="button" class="gsh gfold" data-gfold="${key}" aria-expanded="${!shut}">
             ${n ? `<span class="gsn">${n}</span>` : ""}<h2>${title}</h2>${right || ""}<i class="gcar" aria-hidden="true">${shut ? "\u25b8" : "\u25be"}</i></button>`}
       ${shut ? (summary ? `<p class="gsum">${summary}</p>` : "") : `
-      <p class="gask">${GUIDE[key].ask}</p>
-      ${body}
-      ${C.ro ? "" : guide(key)}`}
+      ${body}`}
     </section>`;
   };
   // One line of the plan: tap it to write, tap away to keep it.
@@ -10272,7 +10518,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         <button class="backlink" id="back">&larr; ${esc(state.group.name)}</button>
       </div>
       <header class="masthead">
-        <h1>Goals</h1>
+        <h1 class="th1">Goals ${G.cycle ? `<button type="button" class="spi${G.info ? " on" : ""}" id="gInfo" aria-expanded="${!!G.info}" aria-label="How Goals works">i</button>` : ""}</h1>
         <p class="sub">Twelve weeks, won one week at a time.</p>
       </header>`;
     const foot = `<p class="ver">v${APP_VERSION}</p>`;
@@ -10324,8 +10570,17 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       </section>`;
     // V5.4. One card: This week, with each goal heading its tactics. Then
     // the Preloaded Year and the ladder, folded until you want them.
-    return head + overCard + gRing(C) + gStepWeek(C) + yearCard(C) + gStepLadder(C) +
-      (G.err ? `<p class="terr">${esc(G.err)}</p>` : "") + exCard +
+    // V6.3. Lean: the scores, This week, then the folds. One \u24d8 holds the
+    // method and the example.
+    const info = !G.info ? "" : `<section class="card ginfo">
+        <ol class="gfour">
+          <li><b>Each goal's percent</b> is its lead this week: the tactics you ticked. ${goalWin()}% wins the week.</li>
+          <li><b>This week:</b> write the week's ONE Thing, then tick each tactic on the day you do it.</li>
+          <li><b>Open a goal</b> to log its result (lag) once a week, see the twelve weeks, and edit its plan.</li>
+          <li><b>Someday \u2192 this quarter</b> and <b>Your year</b> fold below, for when you plan.</li>
+        </ol></section>${exCard}`;
+    return head + info + overCard + gRing(C) + gStepWeek(C) + gStepLadder(C) + yearCard(C) +
+      (G.err ? `<p class="terr">${esc(G.err)}</p>` : "") +
       `<button type="button" class="linkbtn gnew" id="gNew">Start a new 12 weeks</button>` + foot;
   }
 
@@ -10344,6 +10599,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
         G.guide = Object.assign({}, G.guide, { [el.dataset.guide]: !(G.guide || {})[el.dataset.guide] });
         render();
       }));
+    on("gInfo", "click", () => { G.info = !G.info; render(); });
     on("gEx", "click", () => { G.ex = !G.ex; render();
       if (G.ex) document.querySelector(".exwrap")?.scrollIntoView({ block: "start", behavior: "smooth" }); });
     document.querySelectorAll("[data-gfold]").forEach((el) =>
@@ -11464,7 +11720,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
           <div class="mth"><b>${lab}</b><span class="mpts">${x.ok ? 1 : 0}/1</span>
             <span class="mgrip" data-mgrip="1" aria-hidden="true" title="Drag to move">\u2807</span></div>
           <small>${k === "rise" ? "up" : "in bed"} by ${clockWords(x.t % 1440)}</small>
-          <div class="mtg"><button type="button" class="mtog${x.ok ? " on" : ""}" data-go="${k}" aria-label="${lab}${x.v === null ? ", not logged. Log it in Sleep" : x.ok ? ", on time" : ", late"}">${x.v === null ? "Log" : x.ok ? "✓ " + clockWords(x.v % 1440) : clockWords(x.v % 1440)}</button></div>
+          <div class="mtg"><button type="button" class="mtog${x.ok ? " on" : ""}" data-go="${k}" aria-label="${lab}${x.v === null ? ", not logged. Log it in Recovery" : x.ok ? ", on time" : ", late"}">${x.v === null ? "Log" : x.ok ? "✓ " + clockWords(x.v % 1440) : clockWords(x.v % 1440)}</button></div>
         </li>`; };
     const tile = (b) => {
       const mk = marks[b.id], over = isToday && !mk && b.t !== null && b.t !== undefined && now > b.t;
@@ -11487,8 +11743,8 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
           <div class="dcore"><b class="dval">${S.pct === null ? "–" : S.pct + "%"}</b>
             <button type="button" class="dof" data-edit="goal" data-metric="attn">of ${Math.round(std)}%</button>
             <span class="dsub">${S.pts} of ${S.max} points</span>
-            ${!Object.keys(marks).length ? `<button type="button" class="dsame" id="mSame">Same as yesterday</button>`
-              : state.attnUndo === state.med.date ? `<span class="dsub">Copied \u00b7 <button type="button" class="linkbtn" id="mSameUndo">Undo</button></span>` : ""}</div></div>
+            ${state.attnUndo === state.med.date ? `<span class="dsub">Copied \u00b7 <button type="button" class="linkbtn" id="mSameUndo">Undo</button></span>`
+              : sched.some((b) => !marks[b.id]) ? `<button type="button" class="dsame msame" id="mSame">${Object.keys(marks).length ? "Rest like yesterday" : "Same as yesterday"}</button>` : ""}</div></div>
       </section>
       <section class="card">
         ${(() => { const C = attnCols(sched), byId = new Map(sched.map((b) => [b.id, b]));
@@ -11701,7 +11957,7 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
             </svg>
             <button type="button" class="silpp" id="silPause" aria-label="${r.pausedAt ? "Continue" : "Pause"}">${r.pausedAt ? I_PLAY : I_PAUSE}</button>
           </div>
-          <b class="silclock" id="silClock">${warmLeft > 0 ? mmssMs(warmLeft) : mmssMs(Math.max(0, len - el))}</b>
+          <b class="silclock${el >= len ? " over" : ""}" id="silClock">${warmLeft > 0 ? mmssMs(warmLeft) : el >= len ? "+" + mmssMs(el - len) : mmssMs(Math.max(0, len - el))}</b>
           <span class="silsub" id="silSub">${r.pausedAt ? "Paused" : warmLeft > 0 ? "Settle in" : ""}</span>
         </div>
       </div>`;
@@ -11842,11 +12098,13 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
   }
   // A sitting that finished while the phone was asleep is logged the
   // moment the app is looked at again.
+  // V6.3. A sitting keeps counting past its length (the end bell rings
+  // once); you choose at the end whether the extra minutes count. Left
+  // running for three hours past it, it is logged as planned.
   async function checkSil() {
     const r = silRun();
-    if (!r || r.pausedAt || silElapsed(r) < r.dur * 60000) return false;
+    if (!r || r.pausedAt || silElapsed(r) < r.dur * 60000 + 3 * 3600000) return false;
     silSetRun(null);
-    if (state.view === "med" && state.seg === "silence" && document.visibilityState === "visible") rbell(r, r.end);
     silLock(false);
     const res = await logSitting(r.dur, r.date, r.id, r.label);
     state.medMsg = res.error && !res.offline ? res.error : null;
@@ -11877,7 +12135,13 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       const fr = Math.max(0, Math.min(1, el / len));
       if (ring) ring.setAttribute("stroke-dashoffset", (DIAL_C * fr).toFixed(2));
       document.getElementById("silDot")?.setAttribute("transform", `rotate(${(360 * fr).toFixed(1)} 60 60)`);
-      if (el >= len) { clearInterval(silTick); silTick = null; if (await checkSil()) render(); }
+      if (el >= len && !r.over) { r.over = true; silSetRun(r); rbell(r, r.end); try { navigator.vibrate && navigator.vibrate([60, 80, 60]); } catch {} }
+      if (r.over) {
+        if (clk) { clk.textContent = "+" + mmssMs(el - len); clk.classList.add("over"); }
+        if (sub) sub.textContent = `${durWords(r.dur)} done \u00b7 still sitting`;
+        if (ring) ring.setAttribute("stroke-dashoffset", "0");
+      }
+      if (el >= len + 3 * 3600000) { clearInterval(silTick); silTick = null; if (await checkSil()) render(); }
     }, 250);
   }
 
@@ -11907,13 +12171,16 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       const d0 = state.med.date, prev = shiftISO(d0, -1);
       const res = await call("app_med", { p_code: state.code, p_person: state.meId, p_date: prev });
       const pm = res && !res.error && res.day ? res.day.marks || {} : {};
-      const ids = new Set((state.med.schedule || []).map((b) => b.id));
-      const M0 = {}; for (const [k, v] of Object.entries(pm)) if (ids.has(k)) M0[k] = Object.assign({}, v);
-      if (!Object.keys(M0).length) { state.medMsg = "Nothing marked the day before."; render(); return; }
+      // V6.3. Fills only the blocks not marked yet; what you marked stays.
+      const ids = new Set((state.med.schedule || []).map((b) => b.id)), mine = Object.assign({}, day.marks || {});
+      const M0 = Object.assign({}, mine); let n = 0;
+      for (const [k, v] of Object.entries(pm)) if (ids.has(k) && !mine[k]) { M0[k] = Object.assign({}, v); n++; }
+      if (!n) { state.medMsg = "Nothing to copy from the day before."; render(); return; }
+      state.attnBefore = mine;
       day.marks = M0; state.attnUndo = d0; render(); medSave({ marks: M0 });
       setTimeout(() => { if (state.attnUndo === d0) { state.attnUndo = null; if (state.view === "med") render(); } }, 8000);
     });
-    on("mSameUndo", "click", () => { state.attnUndo = null; day.marks = {}; render(); medSave({ marks: {} }); });
+    on("mSameUndo", "click", () => { state.attnUndo = null; day.marks = state.attnBefore || {}; render(); medSave({ marks: day.marks }); });
     on("mExample", "click", () => editOpen(MED_EXAMPLE.map((b) => Object.assign({ id: uuid() }, b))));
     on("mEditDay", "click", () => editOpen((state.med.schedule || []).slice()));
     if (state.medEdit) {
@@ -12173,6 +12440,14 @@ button.met { text-align:left; cursor:pointer; min-width:84px; }
       const r = silRun(); if (!r) return;
       const mins = Math.round(silElapsed(r) / 60000);
       const stop = () => { silSetRun(null); clearInterval(silTick); silTick = null; silLock(false); };
+      const fin = async (m) => { stop(); await logSitting(m, r.date, r.id, r.label); state.silNoteFor = r.id; await loadMed(); await refresh(); render(); };
+      // V6.3. Past the set length: count the extra minutes, or not.
+      if (mins > r.dur) return openModal({ title: `You sat ${hm(mins)}`, body: `${hm(mins - r.dur)} past your ${hm(r.dur)}. Count all of it?`,
+        buttons: [
+          { label: `Log ${hm(mins)}`, kind: "go", run: () => fin(mins) },
+          { label: `Log ${hm(r.dur)}, as planned`, kind: "quiet", run: () => fin(r.dur) },
+          { label: "Keep sitting", kind: "quiet" },
+        ] });
       openModal({ title: "End this sitting?", body: mins >= 1 ? `You sat for ${hm(mins)}.` : "Less than a minute so far.",
         buttons: [
           ...(mins >= 1 ? [{ label: `Log ${hm(mins)}`, kind: "go", run: async () => { stop(); rbell(r, r.end);
