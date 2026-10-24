@@ -2023,6 +2023,68 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .ggh em { font-style:normal; font-weight:700; font-variant-numeric:tabular-nums; }
 .ggh i { font-style:normal; color:var(--muted); font-size:12px; }
 .ggi .gdet { padding:0 0 12px; }
+.pgmini { padding:14px 16px 10px; }
+.pgtwo { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.pgtwo > div { display:flex; flex-direction:column; min-width:0; }
+.pgtwo b { font-size:26px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.1; }
+.pgtwo b.pgok { color:var(--green-ink, #4f9a6c); }
+.pgtwo small { font-size:12.5px; color:var(--muted); }
+.pgmore { display:block; margin:8px 0 0 auto; font-size:13px; }
+/* V6.5. The steps game (STEP UP). */
+.brow em.bpts { min-width:34px; font-size:18px; font-weight:800; color:var(--ink); }
+.brow em.bpts.dn { color:#e0904a; }
+.bset { display:flex; flex-direction:column; width:100%; margin:10px 0 4px; padding:12px 14px; border-radius:14px; border:1.5px solid var(--accent);
+  background:color-mix(in oklab, var(--accent) 12%, var(--surface)); color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
+.bset b { font-size:15px; } .bset small { font-size:12.5px; color:var(--muted); }
+.ggbase { font-size:15px; margin:6px 0 10px; } .ggbase small { color:var(--muted); }
+.ggopts { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:8px; }
+.ggopt { display:flex; flex-direction:column; align-items:center; padding:12px 4px; border-radius:14px; border:1.5px solid var(--line-strong); background:var(--surface); color:var(--ink); font:inherit; cursor:pointer; }
+.ggopt b { font-size:18px; font-variant-numeric:tabular-nums; } .ggopt small { color:var(--muted); font-size:12px; }
+.ggopt.on { border-color:var(--accent); background:color-mix(in oklab, var(--accent) 16%, var(--surface)); }
+.gglab { display:block; margin:14px 0 6px; font-size:13px; color:var(--ink-2); font-weight:600; }
+.ggsheet .field { width:100%; font-size:16px; }
+.ggpledge { margin:14px 0 4px; font-family:var(--display); font-size:17px; color:var(--ink); text-align:center; }
+.glevels { display:flex; justify-content:space-between; align-items:flex-end; margin:6px 0 4px; }
+.glv { display:flex; flex-direction:column; align-items:center; opacity:.5; }
+.glv.on { opacity:1; } .glv small { font-size:11.5px; color:var(--muted); } .glv.on small { color:var(--ink); font-weight:700; }
+.gnow { font-size:14.5px; margin:4px 0 2px; text-align:center; } .gnow b { font-size:18px; }
+.gsrc { margin-top:10px; font-size:12px; color:var(--muted); }
+
+.bcard { cursor:default; }
+.bcard:active { transform:none; }
+.bhead { display:block; width:100%; border:none; background:none; padding:0; color:inherit; font:inherit; text-align:left; cursor:pointer; }
+.bhead .gd1 small { color:var(--ink-2); font-weight:600; }
+.blist { list-style:none; margin:8px 0 2px; padding:0; }
+.brow { display:flex; align-items:center; gap:8px; min-height:38px; padding:2px 0; }
+.brow + .brow { border-top:1px solid var(--line); }
+.brk { flex:none; width:14px; font-size:12px; font-weight:700; color:var(--muted); text-align:center; }
+.bpl { flex:none; display:grid; place-items:center; width:30px; }
+.bpl.dry svg { filter:saturate(.45); opacity:.7; }
+.bmid { flex:1; min-width:0; display:flex; flex-direction:column; gap:2px; padding:3px 0; }
+.bnm { min-width:0; font-size:15px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.bsub { display:flex; flex-wrap:wrap; align-items:center; gap:2px 8px; }
+.bsub small { font-size:11.5px; color:var(--muted); white-space:nowrap; }
+.bsub small.brisk { color:#e0904a; font-weight:700; }
+.brow.me .bnm::after { content:" (you)"; font-weight:400; color:var(--muted); font-size:12px; }
+.bdots { flex:none; display:flex; gap:3px; }
+.bdots i { width:8px; height:8px; border-radius:50%; border:1.5px solid var(--line); box-sizing:border-box; }
+.bdots i.on { background:var(--green); border-color:var(--green); }
+.bdots i.miss { border-color:#e0904a; background:color-mix(in oklab, #e0904a 25%, transparent); }
+.bdots i.now { border-color:var(--ink-2); }
+.brow em { flex:none; min-width:44px; text-align:right; font-style:normal; font-size:12.5px; color:var(--ink-2); font-variant-numeric:tabular-nums; }
+.brow em.bok { color:var(--green-ink, #4f9a6c); font-weight:700; }
+.brow em.brisk { color:#e0904a; font-weight:700; }
+.brow em.blost { color:var(--muted); }
+.brow.lost .bnm { color:var(--muted); }
+.bnudge { flex:none; padding:4px 10px; border-radius:99px; border:1px solid #e0904a; color:#e0904a; font-size:12.5px; font-weight:700; cursor:pointer; }
+.gdwk.bline { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
+.btot { flex:none; font-variant-numeric:tabular-nums; }
+.bnew { margin:6px 0 0; font-size:12.5px; color:var(--muted); }
+.bcard.slip { border-color:var(--line-strong); }
+.bstreak { display:flex; align-items:baseline; gap:10px; margin:2px 0 4px; }
+.bstreak b { font-family:var(--display); font-weight:500; font-size:44px; line-height:1; }
+.bstreak span { font-size:14px; color:var(--muted); }
+@media (max-width:360px) { .bdots i { width:7px; height:7px; } .brow em { min-width:50px; } }
 /* V6.4. The family garden: one card under the dials, one sheet behind it. */
 .gcard { display:block; width:100%; margin:6px 0 4px; padding:12px 14px 11px; border:1px solid var(--line); border-radius:18px; background:var(--surface); color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
 .gcard:active { transform:scale(.99); }
@@ -2588,7 +2650,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "6.4";
+  const APP_VERSION = "6.5";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -2908,25 +2970,30 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     dd:"dd_target", macros:"protein_target", kcal:"kcal_target", weight:"weight_target",
     attn:"attn_target", silence:"silence_target", prayers:"prayers_target", refl:"refl_target" };
   // This person's standard, or the default when none was ever set.
-  /* ---------- V6.4: the family garden --------------------------------
-     Two ideas, so a child and a grandparent can both say it:
-       * reach your step goal and your plant is watered; it grows with every
-         watered day and never dies (a missed day only makes it droop);
-       * when the family's steps reach the week's goal, the garden blooms.
-     Points, the jar, ranks, the trek map and the fire are gone (V6.3 data
-     stays in the database, unread). */
-  const STAGES = [[0, "Seed"], [3, "Sprout"], [7, "Sapling"], [14, "Young tree"], [30, "Tree"], [100, "Blossom"], [365, "Fruit"]];
-  const stageOf = (n) => { let i = 0; STAGES.forEach(([t], j) => { if (n >= t) i = j; }); return i; };
+  /* ---------- V6.5: the steps game -----------------------------------
+     Built as the STEP UP trial's competition arm (Patel et al., JAMA
+     Internal Medicine 2019): of the designs tested head to head, the one
+     whose extra steps lasted after the game was switched off.
+       * Your goal comes from your own baseline: +33%, +40%, +50%, or your
+         own at least 1,500 above it, with a pledge to try every day.
+       * Every Monday you get 70 points. Each day you miss your goal, 10 go.
+       * Five levels, your plant; everyone starts in the middle. Keep 40 or
+         more by Sunday and you grow a level; fewer and you shrink one.
+       * The family is ranked each week by points kept. Everyone plays
+         against their own goal, so a grandmother can beat a teenager.
+     The plant and the levels replace the V6.4 garden and the V6.5 family
+     bet; their data stays in the database, unread. */
+  const LEVELS = [["Seed", 0], ["Sprout", 1], ["Sapling", 2], ["Tree", 4], ["Blossom", 5]];   // name, plant drawing
+  const LV = (n) => LEVELS[Math.max(1, Math.min(5, n || 3)) - 1];
+  const GAME_UP = 40, GAME_WEEK = 70, GAME_DAY = 10;
   async function loadGarden() {
     if (!state.meId) return;
-    const res = await call("app_garden", { p_code: state.code, p_person: state.meId });
+    const res = await call("app_steps_game", { p_code: state.code, p_person: state.meId });
     if (res && !res.error) state.garden = res;
   }
   const gardenMe = () => state.garden && (state.garden.people || []).find((x) => x.id === state.meId);
-  // Thirsty: no water yesterday and none yet today.
-  const droops = (p) => !p.today && !p.yesterday && p.watered > 0;
-  const gWeek = () => (state.garden && state.garden.weeks && state.garden.weeks[0]) || null;
-  const gDaysLeft = () => { const d = new Date(((state.garden && state.garden.day) || todayISO()) + "T00:00:00Z").getUTCDay(); return d === 0 ? 0 : 7 - d; };
+  // Drooping: missed yesterday and not there yet today.
+  const droops = (p) => !p.today && !p.yesterday;
   const hueOf = (id) => (state.people.find((q) => q.id === id) || {}).hue || 200;
   function plantSVG(stage, size, droop) {
     const g = "var(--green)", leaf = droop ? "#a8b37a" : "#6fbf8a";
@@ -2948,44 +3015,69 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     }
     return `<svg viewBox="0 0 56 60" width="${size}" height="${size}" aria-hidden="true">${parts}</svg>`;
   }
-  const plantOf = (p, size) => plantSVG(stageOf(p.watered || 0), size, droops(p));
-  const weekLine = (wk) => !wk || !(wk.target > 0) ? "The week starts with the first steps logged."
-    : wk.bloomed ? "🌸 The garden bloomed this week!"
-    : `${Math.min(99, Math.round(wk.steps / wk.target * 100))}% of the week's steps · ${gDaysLeft() ? `${gDaysLeft()} day${gDaysLeft() === 1 ? "" : "s"} left` : "last day"}`;
+  const plantOf = (p, size) => plantSVG(LV(p.level)[1], size, droops(p));
+  const gDow = () => ((new Date(((state.garden && state.garden.day) || todayISO()) + "T00:00:00Z").getUTCDay() + 6) % 7) + 1;
+  const dots7 = (p) => { const on = new Set(p.days || []), dow = gDow();
+    return `<span class="bdots" aria-hidden="true">${[1, 2, 3, 4, 5, 6, 7].map((d) => `<i class="${on.has(d) ? "on" : d < dow ? "miss" : d === dow ? "now" : ""}"></i>`).join("")}</span>`; };
+  const players = () => ((state.garden && state.garden.people) || []).filter((p) => p.recent || p.id === state.meId);
+  const ranked = () => players().slice().sort((x, y) => (y.points - x.points) || (y.level - x.level) || ((y.week_steps || 0) - (x.week_steps || 0)));
+  // Where you stand: points kept, and what Sunday will do with them.
+  const fate = (p) => p.points >= GAME_UP ? (p.level >= 5 ? "stays in bloom" : `grows to ${LV(p.level + 1)[0]}`) : (p.level <= 1 ? "stays a seed" : `shrinks to ${LV(p.level - 1)[0]}`);
   function gameRow() {
-    const G = state.garden; if (!G || !gardenMe()) return "";
-    const ps = G.people || [], wk = gWeek(), pct = wk && wk.target > 0 ? Math.min(100, Math.round(wk.steps / wk.target * 100)) : 0;
-    return `<button type="button" class="gcard gdcard${wk && wk.bloomed ? " bloom" : ""}" id="gameOpen" aria-label="Our garden: ${ps.filter((p) => p.today).length} of ${ps.length} watered today. ${weekLine(wk)}">
-        <span class="gd1"><b>Our garden</b><small>${ps.filter((p) => p.today).length} of ${ps.length} watered today</small></span>
-        <span class="gdrow">${ps.map((p) => `<span class="gdp${p.today ? " wet" : droops(p) ? " dry" : ""}">${plantOf(p, 46)}<small>${p.today ? "\ud83d\udca7" : ""}${esc(p.name)}</small></span>`).join("")}</span>
-        <span class="gdbar${wk && wk.bloomed ? " won" : ""}"><i style="width:${pct}%"></i></span>
-        <small class="gdwk">${weekLine(wk)}</small>
-      </button>`;
+    const G = state.garden, mine = gardenMe(); if (!G || !mine) return "";
+    const R = ranked(), away = (G.people || []).filter((p) => !p.recent && p.id !== state.meId);
+    const row = (p, i) => `<li class="brow${p.id === state.meId ? " me" : ""}${p.points < GAME_UP ? " low" : ""}">
+        <span class="brk">${i + 1}</span><span class="bpl${droops(p) ? " dry" : ""}">${plantOf(p, 30)}</span>
+        <span class="bmid"><span class="bnm">${esc(p.name)}</span><span class="bsub">${dots7(p)}<small>${LV(p.level)[0]}</small></span></span>
+        <em class="bpts${p.points >= GAME_UP ? " up" : " dn"}">${p.points}</em>
+        ${p.id !== state.meId && !p.today ? `<span class="bnudge" role="button" tabindex="0" data-nudge="${p.id}" aria-label="Nudge ${esc(p.name)}">Nudge</span>` : ""}</li>`;
+    return `<div class="gcard bcard" id="gameCard">
+        <button type="button" class="bhead" id="gameOpen" aria-label="This week's game: how it works">
+          <span class="gd1"><b>This week</b><small>points kept ›</small></span></button>
+        ${!mine.pledged ? `<button type="button" class="bset" id="gameGoal"><b>Set your goal from your usual steps</b><small>Takes 10 seconds. Then every day counts.</small></button>` : ""}
+        <ol class="blist">${R.map(row).join("")}</ol>
+        <small class="gdwk bline"><span>You: <b>${mine.points}</b> of ${GAME_WEEK} · Sunday your plant ${fate(mine)}.</span></small>
+        ${away.length ? `<p class="bnew">${away.map((p) => esc(p.name)).join(", ")} ${away.length === 1 ? "hasn't" : "haven't"} logged steps lately.</p>` : ""}
+      </div>`;
+  }
+  // The goal picker: your usual, then four step-ups, as in the trial.
+  function goalSheet() {
+    const Q = state.gameGoal; if (!Q) return "";
+    const mine = gardenMe() || {}, base = mine.baseline ? Number(mine.baseline) : null;
+    const up = (f) => Math.ceil(base * (1 + f) / 100) * 100;
+    const opts = base ? [[0.33, up(0.33)], [0.4, up(0.4)], [0.5, up(0.5)]] : [];
+    const minOwn = base ? Math.ceil((base + 1500) / 100) * 100 : 1000;
+    return `<div class="sheetbg" id="ggBg"></div>
+      <div class="stdsheet ggsheet" role="dialog" aria-label="Your step goal">
+        <p class="eyebrow">Your step goal</p>
+        ${base ? `<p class="ggbase">Your usual: <b>${num(base)}</b> steps a day <small>(last 2 weeks)</small></p>
+          <div class="ggopts">${opts.map(([f, v]) => `<button type="button" class="ggopt${Q.pick === v ? " on" : ""}" data-ggpick="${v}"><b>${num(v)}</b> <small>+${Math.round(f * 100)}%</small></button>`).join("")}</div>`
+          : `<p class="hint">Log your steps for a few more days to see your usual. For now, pick a goal you can reach most days.</p>`}
+        <label class="gglab" for="ggOwn">Or your own${base ? ` (at least ${num(minOwn)})` : ""}</label>
+        <input class="field" id="ggOwn" inputmode="numeric" autocomplete="off" placeholder="${num(base ? minOwn : stdOf(me(), "steps"))}" value="${esc(Q.own || "")}">
+        <p class="ggpledge">“I’ll try my best to reach my goal every day.”</p>
+        ${Q.err ? `<p class="hint bad">${esc(Q.err)}</p>` : ""}
+        <div class="stdbtns"><button type="button" class="btn-quiet" id="ggX">Cancel</button><button type="button" class="btn" id="ggGo">I’m in</button></div>
+      </div>`;
   }
   function gameSheet() {
+    if (state.gameGoal) return goalSheet();
     if (!state.gameOpen || !state.garden) return "";
-    const G = state.garden, ps = G.people || [], wk = gWeek();
-    const pct = wk && wk.target > 0 ? Math.min(100, Math.round(wk.steps / wk.target * 100)) : 0;
-    const past = (G.weeks || []).slice(1).reverse();
+    const mine = gardenMe() || { level: 3, points: GAME_WEEK };
     return `<div class="sheetbg" id="gameBg"></div>
-      <div class="stdsheet gsheet" role="dialog" aria-label="Our garden">
-        <p class="eyebrow">Our garden</p>
-        <ul class="gdbig">${ps.map((p) => { const st = stageOf(p.watered || 0);
-          return `<li><span class="gdpl${droops(p) ? " dry" : ""}">${plantOf(p, 64)}</span>
-            <span class="gdn"><b><i style="background:hsl(${hueOf(p.id)} 58% 52%)"></i>${esc(p.name)}</b>
-              <small>${STAGES[st][1]} · ${num(p.watered || 0)} day${p.watered === 1 ? "" : "s"} watered</small></span>
-            <span class="gdst">${p.today ? "💧 today" : droops(p) ? "thirsty" : ""}<small>${p.week_days || 0} of 7 this week</small></span></li>`; }).join("")}</ul>
-        <div class="tkweek"><div class="tkw1"><b>This week</b><span>${wk && wk.target > 0 ? `${num(Math.round(wk.steps))} of ${num(wk.target)} steps` : "no steps yet"}</span></div>
-          <span class="gdbar big${wk && wk.bloomed ? " won" : ""}"><i style="width:${pct}%"></i></span>
-          <p class="hint">${wk && wk.bloomed ? "The family reached the week's steps. The garden is in bloom." : wk && wk.target > 0 ? `${num(Math.max(0, Math.round(wk.target - wk.steps)))} more family steps by Sunday and the garden blooms.` : "Log your steps and the week begins."}</p>
-          ${past.length ? `<p class="gdpast" aria-label="Weeks the garden bloomed">${past.map((w) => `<span class="${w.bloomed ? "on" : ""}" title="${esc(shortDay(w.wk))}">${w.bloomed ? "🌸" : "·"}</span>`).join("")}<small>last ${past.length} weeks</small></p>` : ""}
-        </div>
+      <div class="stdsheet gsheet" role="dialog" aria-label="This week's game">
+        <p class="eyebrow">Your plant</p>
+        <div class="glevels">${LEVELS.map(([n, st], i) => `<span class="glv${i + 1 === mine.level ? " on" : ""}">${plantSVG(st, i + 1 === mine.level ? 54 : 36, false)}<small>${n}</small></span>`).join("")}</div>
+        <p class="gnow"><b>${mine.points}</b> of ${GAME_WEEK} points this week · Sunday it ${fate(mine)}.</p>
         <p class="dpg">How it works</p>
         <ul class="gdhow">
-          <li><b>🌱</b> Reach your step goal and your plant is watered. Every watered day it grows: seed, sprout, sapling, young tree, tree, blossom, fruit.</li>
-          <li><b>💧</b> Miss a day and it droops. It never dies: water it and it perks up.</li>
-          <li><b>🌸</b> When the family's steps reach the week's goal by Sunday, the garden blooms. The goal is 60% of a week of everyone's step goals, counting whoever walks that week.</li>
+          <li><b>70</b> Every Monday everyone starts with 70 points.</li>
+          <li><b>−10</b> Each day you miss your own step goal, you lose 10.</li>
+          <li><b>40</b> Keep 40 or more by Sunday and your plant grows a level. Fewer, and it shrinks one.</li>
+          <li><b>🏆</b> The family is ranked by points kept. Everyone plays against their own goal, so anyone can win any week.</li>
         </ul>
+        <button type="button" class="linkbtn" id="gameGoal2">Change my goal (now ${num(stdOf(me(), "steps"))})</button>
+        <p class="gsrc">Built on the STEP UP trial (Penn Medicine, 2019): this design added about 900 steps a day, and people still walked more three months after the game ended.</p>
         <div class="stdbtns"><button type="button" class="btn" id="gameDone">Done</button></div>
       </div>`;
   }
@@ -2993,25 +3085,47 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     on("gameOpen", "click", () => { state.gameOpen = true; render(); });
     const close = () => { state.gameOpen = false; render(); };
     on("gameDone", "click", close); on("gameBg", "click", close);
+    const openGoal = () => { state.gameOpen = false; state.gameGoal = { pick: null, own: "", err: null }; render(); };
+    on("gameGoal", "click", openGoal); on("gameGoal2", "click", openGoal);
+    const closeGoal = () => { state.gameGoal = null; render(); };
+    on("ggX", "click", closeGoal); on("ggBg", "click", closeGoal);
+    document.querySelectorAll("[data-ggpick]").forEach((el) => el.addEventListener("click", () => { state.gameGoal.pick = Number(el.dataset.ggpick); state.gameGoal.own = ""; state.gameGoal.err = null; render(); }));
+    on("ggOwn", "input", (e) => { state.gameGoal.own = e.target.value; state.gameGoal.pick = null; document.querySelectorAll(".ggopt.on").forEach((x) => x.classList.remove("on")); });
+    on("ggGo", "click", async () => {
+      const Q = state.gameGoal, mine = gardenMe() || {}, base = mine.baseline ? Number(mine.baseline) : null;
+      const own = Number(String(Q.own || "").replace(/[^0-9]/g, ""));
+      const v = own || Q.pick;
+      if (!v) { Q.err = base ? "Pick one of the three, or type your own." : "Type a goal."; render(); return; }
+      if (own && base && own < base + 1500) { Q.err = `Your own goal needs to be at least ${num(Math.ceil((base + 1500) / 100) * 100)}: 1,500 above your usual.`; render(); return; }
+      const res = await call("app_game_goal", { p_code: state.code, p_person: state.meId, p_target: v });
+      if (res.error) { Q.err = res.offline ? "No signal. Not saved yet." : res.error; render(); return; }
+      state.gameGoal = null; await refresh(); render();
+    });
+    document.querySelectorAll("[data-nudge]").forEach((el) => {
+      const go = async () => {
+        const p = ((state.garden && state.garden.people) || []).find((x) => x.id === el.dataset.nudge); if (!p) return;
+        const link = `${location.origin}${location.pathname}?g=${encodeURIComponent(state.code || "")}`;
+        const text = `${p.name}, time for your steps today 🌱 Every day keeps your points. ${link}`;
+        try { if (navigator.share) { await navigator.share({ text }); return; } } catch (e) { if (e && e.name === "AbortError") return; }
+        window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank");
+      };
+      el.addEventListener("click", go);
+      el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+    });
   }
-  // Celebrated once on this phone: your plant reaching a new stage, and a
-  // week the garden bloomed.
+  // Monday: last week's result for you, shown once on this phone.
   function gardenCheck() {
-    const G = state.garden, mine = gardenMe(); if (!G || !mine || state.view !== "board") return;
-    const read = (k) => { try { const r = localStorage.getItem(k); return r === null ? null : r; } catch { return null; } };
-    const write = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
-    const st = stageOf(mine.watered || 0), pk = "fhd.garden.stage." + state.meId, was = read(pk);
-    const wk = gWeek(), bk = "fhd.garden.bloom." + state.meId;
-    if (was !== null && st > Number(was)) {
-      setTimeout(() => openModal({ mark: `<span class="gplantbig">${plantSVG(st, 96, false)}</span>`, title: `${STAGES[st][1]}!`,
-        body: `${num(mine.watered)} days watered. ${STAGES[st + 1] ? `${STAGES[st + 1][1]} at ${STAGES[st + 1][0]} days.` : "The full tree."}`,
-        buttons: [{ label: "Keep growing", kind: "go" }] }), 500);
-    } else if (wk && wk.bloomed && read(bk) !== wk.wk) {
-      write(bk, wk.wk);
-      setTimeout(() => openModal({ mark: `<span class="gconf gbloomer">🌸</span>`, title: "The garden bloomed!",
-        body: `Together you walked ${num(Math.round(wk.steps))} steps this week.`, buttons: [{ label: "Wonderful", kind: "go" }] }), 500);
-    }
-    write(pk, String(st));
+    const G = state.garden, mine = gardenMe(); if (!G || !mine || state.view !== "board" || mine.prev_level === null || mine.prev_level === undefined) return;
+    const k = "fhd.game.seen." + state.meId;
+    let seen = null; try { seen = localStorage.getItem(k); } catch {}
+    if (seen === G.last_week) return;
+    try { localStorage.setItem(k, G.last_week); } catch {}
+    const upw = mine.level > mine.prev_level, dn = mine.level < mine.prev_level, name = LV(mine.level)[0];
+    setTimeout(() => openModal({
+      mark: `<span class="gplantbig${upw ? " gbloomer" : ""}">${plantSVG(LV(mine.level)[1], 96, dn)}</span>`,
+      title: upw ? `You grew to ${name}!` : dn ? `Down to ${name}` : `Still ${name}`,
+      body: `Last week you kept ${mine.last_points} of ${GAME_WEEK} points. ${upw || (!dn && mine.level === 5) ? "" : `Keep ${GAME_UP} this week to grow again. `}A new week: everyone is back to ${GAME_WEEK}.`,
+      buttons: [{ label: "Let's go", kind: "go" }] }), 500);
   }
 
   /* ---------- V6.1: your own habits ---------------------------------
@@ -6097,41 +6211,22 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       v.streak = runs.now; v.best = Math.max(runs.best, runs.now);
     }
     state.votes = { today: res.today, votes: res.votes, for: who };
-    if (!celebrate || !before || state.votesFor !== who) { state.votesFor = who; return; }
-    // A milestone crossed since the last look, celebrated once.
-    for (const k of ATOM_KEYS) {
-      const a = (before[k] || {}).total || 0, b = (res.votes[k] || {}).total || 0;
-      const hit = MILES.filter((x) => x > a && x <= b).pop();
-      // A beat later, so the dial shows the new count first and the key
-      // that saved the number cannot press the button that appears.
-      if (hit) { setTimeout(() => celebrateMile(k, hit), 400); break; }
-    }
+    // V6.5. No vote badges: the family week celebrates instead.
+    state.votesFor = who;
   }
-  function celebrateMile(k, n) {
-    const who = atomWho(k), nx = nextMile(n);
-    openModal({
-      mark: hexBadge(n, true, true),
-      title: `${num(n)} ${n === 1 ? "vote" : "votes"}`,
-      body: `${STD[k].label}: ${num(n)} ${n === 1 ? "day" : "days"} logged, each a vote for ${who ? who : "the person you are becoming"}.${nx ? ` Next badge at ${num(nx)}.` : ""}`,
-      buttons: [{ label: "Keep going", kind: "go" }],
-    });
-  }
-  // The strip under a habit's title: its sentence, its votes, its run.
+  // The strip under a habit's title: its sentence and the i.
   function atomsStrip(k) {
     if (!ATOM_HOW[k] || !state.meId) return "";
     const A = myAtoms()[k];
     if (state.atomEdit === k) return atomsEditor(k, A);
     // V4.6: the sentence; votes live in the card at the foot. V4.7: the
     // run of days beside it, and an i for how a good habit is built.
-    const v = votesOf(k);
-    const streak = v && k !== "weight" ? `<span class="astk${v.streak ? " lit" : ""}" aria-label="${num(v.streak)} days in a row">${I_FLAME}<b>${num(v.streak)}</b><small>${v.streak === 1 ? "day" : "days"}</small></span>` : "";
-    // V5.7. Votes join the run of days on this one line; the card is gone.
-    const votes = v ? `<span class="avt" aria-label="${num(v.total)} ${v.total === 1 ? "vote" : "votes"}${nextMile(v.total) ? `, next badge at ${num(nextMile(v.total))}` : ""}">${I_BOLT}<b>${num(v.total)}</b></span>` : "";
+    // V6.5. Votes and runs are gone: the family week is the one score.
     return `<section class="astrip">
         <button type="button" class="asent${A ? "" : " nil"}" id="atomOpen">${A
           ? `I will <u>${esc(A.how)}</u>${A.when ? `, <u>${esc(A.when)}</u>` : ""}${A.who ? ` so that I can become <u>${esc(A.who)}</u>` : ""}.`
           : `<b>Make it a habit.</b> I will <u>action</u>, <u>time or place</u> so that I can become <u>who I want to be</u>.`}</button>
-        <div class="aside">${votes}${streak}<button type="button" class="spi agi${state.atomGuide ? " on" : ""}" id="atomGuide" aria-expanded="${!!state.atomGuide}" aria-label="How to build a habit">i</button></div>
+        <div class="aside"><button type="button" class="spi agi${state.atomGuide ? " on" : ""}" id="atomGuide" aria-expanded="${!!state.atomGuide}" aria-label="How to build a habit">i</button></div>
       </section>
       ${state.atomGuide ? atomsGuide(k) : ""}`;
   }
@@ -6149,10 +6244,6 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const i = (state.atomGuideEx || 0) % GUIDE_EX.length, [h, w, who] = GUIDE_EX[i];
     const v = votesOf(k);
     return `<section class="card aguide" id="aGuide">
-        <div class="agnums">
-          <p><span class="avt">${I_BOLT}<b>${v ? num(v.total) : 0}</b></span> <b>Votes.</b> Every day you log ${esc(STD[k].label)} is a vote for the person you are becoming. Badges at 1, 3, 5, 10, 21, 30, 50, 100 and on.</p>
-          <p><span class="astk lit">${I_FLAME}<b>${v ? num(v.streak) : 0}</b></span> <b>Run.</b> Days in a row you logged it. One missed day a week is forgiven; a second one starts the run again.${v && v.best ? ` Your best: ${num(v.best)}.` : ""}</p>
-        </div>
         <p class="agsecret">The secret to a habit that lasts: <b>an action</b>, <b>a time and place</b>, and, most of all, <b>an identity</b>.</p>
         <div class="agex"><p class="asent big">I will <u>${esc(h)}</u>, <u>${esc(w)}</u> so that I can become <u>${esc(who)}</u>.</p>
           <button type="button" class="linkbtn" id="agNext">Different example</button></div>
@@ -6190,67 +6281,6 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         </div>
       </section>`;
   }
-  // Votes, milestones and the calendar, at the foot of a habit's page.
-  function atomsCard(k) {
-    const v = votesOf(k);
-    if (!ATOM_HOW[k] || !v) return "";
-    const nx = nextMile(v.total), got = MILES.filter((x) => x <= v.total);
-    const show = state.atomAll === k ? MILES : got.slice(-1).concat(MILES.filter((x) => x > v.total).slice(0, got.length ? 2 : 3));
-    // 26 weeks, Monday to Sunday down, oldest week on the left. V4.6: each
-    // day shaded by how far it got toward your standard: full colour at or
-    // past it, paler the further short. Tap a day to open it above.
-    const today = state.votes.today || todayISO();
-    const days = v.days && !Array.isArray(v.days) ? v.days : {};
-    const m = me() || {}, std = k === "rise" || k === "rest" ? (hasTarget(m, k) ? target(m, k) : STD[k].def) : stdOf(m, k);
-    const pctOn = (raw) => {
-      if (k === "refl") return 100;
-      const val = k === "dd" ? ddCount(raw) : k === "sleep" ? scorePct(raw) : Number(raw);
-      const p = stdPct(k, val, std);
-      return p === null ? 100 : Math.max(0, Math.min(100, p));
-    };
-    // V5.1. One month at a time, with its name and year; the arrows walk
-    // back through two years. Each day is shaded toward your standard and
-    // is dark green once it met it. Tap a day to open it above.
-    const tappable = !!state.goDay;
-    const sel = entryDay();
-    const cur = today.slice(0, 7), minYm = shiftISO(today, -730).slice(0, 7);
-    let ym = state.hMonth && /^\d{4}-\d{2}$/.test(state.hMonth) ? state.hMonth : cur;
-    if (ym > cur) ym = cur;
-    if (ym < minYm) ym = minYm;
-    state.hMonthShown = ym;
-    const first = ym + "-01";
-    const lead = (new Date(first + "T00:00:00Z").getUTCDay() + 6) % 7;
-    const dim = new Date(Date.UTC(Number(ym.slice(0, 4)), Number(ym.slice(5, 7)), 0)).getUTCDate();
-    let cells = "";
-    for (let i = 0; i < lead; i++) cells += `<i class="pad"></i>`;
-    for (let d = 1; d <= dim; d++) {
-      const iso = `${ym}-${pad(d)}`, has = Object.prototype.hasOwnProperty.call(days, iso);
-      if (iso > today) { cells += `<i class="fut">${d}</i>`; continue; }
-      const p = has ? pctOn(days[iso]) : 0;
-      const st = has && p < 100 ? ` style="background:color-mix(in oklab, var(--green) ${Math.round(20 + p * 0.45)}%, var(--surface-2))"` : "";
-      cells += `<i class="${has ? (p >= 100 ? "full" : "part") : ""}${iso === today ? " now" : ""}${tappable && iso === sel && state.view !== "tasks" ? " sel" : ""}"${st}${
-        tappable ? ` data-hday="${iso}" role="button" tabindex="0" aria-label="${esc(shortDay(iso))}${has ? `, ${p}% of your standard` : ", nothing logged"}"` : ""}>${d}</i>`;
-    }
-    const mname = new Date(first + "T00:00:00Z").toLocaleDateString(undefined, { timeZone: "UTC", month: "long", year: "numeric" });
-    const who = atomWho(k);
-    return `<section class="card acard">
-        <div class="ahead"><span class="abig">${I_BOLT}<b>${num(v.total)}</b></span>
-          <span class="awho">${v.total === 1 ? "vote" : "votes"} for ${who ? `<b>${esc(who)}</b>` : "the person you are becoming"}
-            <small>${k === "weight" ? "every weigh-in counts" : `${num(v.streak)} in a row · best ${num(v.best || 0)}`}${nx ? ` · next badge at ${num(nx)}` : ""}</small></span></div>
-        <div class="hexes">${show.map((x) => hexBadge(x, x <= v.total)).join("")}</div>
-        <button type="button" class="linkbtn amore" id="atomAll">${state.atomAll === k ? "Fewer badges" : "All badges"}</button>
-        <div class="hcal">
-          <div class="hcalh">
-            <button type="button" class="dnav" id="hmPrev" aria-label="Previous month" ${ym <= minYm ? "disabled" : ""}>${CHEV(-1)}</button>
-            <b>${esc(mname)}</b>
-            <button type="button" class="dnav" id="hmNext" aria-label="Next month" ${ym >= cur ? "disabled" : ""}>${CHEV(1)}</button>
-          </div>
-          <div class="hcaldow">${["M", "T", "W", "T", "F", "S", "S"].map((d) => `<span>${d}</span>`).join("")}</div>
-          <div class="hcalg heat${tappable ? " tap" : ""}" aria-label="Days logged in ${esc(mname)}">${cells}</div>
-        </div>
-        <div class="heatax"><span class="hkey"><i></i>below your standard <i class="full"></i>met it</span></div>
-      </section>`;
-  }
   /* ---------- V5.6: progress over time --------------------------------
      One dot per day you logged, a dashed line at your standard. A filled
      green dot met it; a hollow ring fell short (shape as well as colour,
@@ -6280,8 +6310,29 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     pts.forEach((p) => { p.hit = p.v !== null && (stdPct(k, p.v, std) || 0) >= 100; });
     return { pts, std, n: range === 365 ? 52 : range };
   }
+  // V6.5. First principles: the question on a habit page is "am I doing
+  // it, and is it enough?". Two numbers answer it: days met this week, and
+  // the 4-week average against your standard. The week's days themselves
+  // are the dots on the date strip above. The long plot waits behind a tap.
+  function progressMini(k) {
+    const P = progPoints(k, 28); if (!P) return "";
+    const today = state.votes.today || todayISO(), mon = mondayOf(today);
+    const wk = P.pts.filter((p) => p.iso >= mon), metW = wk.filter((p) => p.hit).length;
+    const seen = P.pts.filter((p) => p.v !== null), bin = k === "refl" || (STD[k].custom && STD[k].hk === "done");
+    const avg = seen.length ? seen.reduce((a, p) => a + p.v, 0) / seen.length : null;
+    const time = STD[k].kind === "time";
+    const good = avg !== null && (stdPct(k, avg, P.std) || 0) >= 100;
+    const second = bin || avg === null
+      ? `<b>${P.pts.filter((p) => p.hit).length}</b><small>of the last 28 days</small>`
+      : `<b class="${good ? "pgok" : ""}">${esc(stdWords(k, avg))}</b><small>4-week average · standard ${esc(stdWords(k, P.std))}</small>`;
+    return `<section class="card pgcard pgmini" aria-label="${esc(STD[k].label)}: this week and the last four">
+        <div class="pgtwo"><div><b>${metW}</b><small>of ${7} days met this week</small></div><div>${second}</div></div>
+        <button type="button" class="linkbtn pgmore" data-pgmore="${k}" aria-expanded="false">History ›</button>
+      </section>`;
+  }
   function progressCard(k) {
     if (!(ATOM_HOW[k] || (isCustom(k) && STD[k])) || k === "weight" || !votesOf(k) || !votesOf(k).total) return "";
+    if (state.pgOpen !== k) return progressMini(k);
     const range = progRange(), P = progPoints(k, range);
     if (!P) return "";
     const { pts, std, n } = P, seen = pts.filter((p) => p.v !== null);
@@ -6347,8 +6398,13 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
           ${hits}
         </svg>` : `<p class="hint pgnone">Log a few days and your progress shows here.</p>`}
         <p class="pgcap" id="pgCap">${selWords || `<span class="pgk"><i class="h"></i>met</span><span class="pgk"><i></i>short of it</span>${range === 365 ? `<span class="pgk">each dot a week</span>` : ""}`}</p>
+        <button type="button" class="linkbtn pgmore" data-pgmore="${k}" aria-expanded="true">Hide history</button>
       </section>`;
   }
+  document.addEventListener("click", (e) => {
+    const t = e.target && e.target.closest ? e.target.closest("[data-pgmore]") : null; if (!t) return;
+    state.pgOpen = state.pgOpen === t.dataset.pgmore ? null : t.dataset.pgmore; state.progSel = null; render();
+  });
   const monthShift = (ym, n) => {
     const y = Number(ym.slice(0, 4)), m0 = Number(ym.slice(5, 7)) - 1 + n;
     const d = new Date(Date.UTC(y, m0, 1));
@@ -6515,10 +6571,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const k = pageHabit();
     // V6.1. Your own habits: votes and the run of days, then the plot.
     if (k && isCustom(k) && STD[k]) {
-      const v = votesOf(k), foot = app.querySelector("p.ver");
-      if (v && foot) foot.insertAdjacentHTML("beforebegin", `<section class="astrip foot cfoot"><span></span><div class="aside">
-        <span class="avt" aria-label="${num(v.total)} votes">${I_BOLT}<b>${num(v.total)}</b></span>
-        <span class="astk${v.streak ? " lit" : ""}" aria-label="${num(v.streak)} days in a row">${I_FLAME}<b>${num(v.streak)}</b><small>${v.streak === 1 ? "day" : "days"}</small></span></div></section>`);
+      // V6.5. No votes or run counters here either.
       const pg = progressCard(k), at = app.querySelector(".cday");
       if (pg && at) at.insertAdjacentHTML("afterend", pg);
       app.querySelectorAll("[data-pgr]").forEach((el) => el.addEventListener("click", () => {
@@ -6768,6 +6821,8 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       d: "Today against your standard. Tap the name to open it, the number to log. Swipe if you have more than one." },
     { at: "#dialEdit", t: "One habit at a time",
       d: "Start with one. Turn on the next when the first is easy, and pin any you want as a dial here. Turning one off only hides it." },
+    { at: "#gameCard", t: "This week's game",
+      d: "Everyone starts Monday with 70 points and loses 10 for each day they miss their own step goal. Keep 40 and your plant grows a level." },
     { at: ".pdash", open: true, t: "Your dashboard",
       d: "Your habits, one line each. Tap a number to open its page and see your progress over time." },
     { at: ".ftab", open: true, t: "Your tribe",
@@ -6775,10 +6830,15 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   ];
   // Until it is opened once, the ⓘ wears a small dot. That is the whole nudge.
   const tourSeen = () => { try { return !!localStorage.getItem("fhd.tour"); } catch { return true; } };
+  // V6.5. Only the stops this home screen has (the family week appears
+  // once the bet data has loaded), so the count reads true.
+  let tourList = TOUR;
   function tour(i) {
     document.querySelector(".tourbg")?.remove();
-    if (i >= TOUR.length) return;
-    const st = TOUR[i];
+    if (i === 0) tourList = TOUR.filter((st) => st.at !== "#gameCard" || document.querySelector(st.at));
+    const TOUR_ = tourList;
+    if (i >= TOUR_.length) return;
+    const st = TOUR_[i];
     if (st.open && !boardOpen() && state.view === "home") {
       try { localStorage.setItem("fhd.board", "open"); } catch {}
       render();
@@ -6791,16 +6851,16 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     bg.className = "tourbg";
     bg.innerHTML = `<div class="tourcut" style="top:${r.top - pad}px;left:${r.left - pad}px;width:${r.width + pad * 2}px;height:${r.height + pad * 2}px"></div>
       <div class="tourcard" role="dialog" aria-label="${esc(st.t)}">
-        <p class="eyebrow">${i + 1} of ${TOUR.length}</p>
+        <p class="eyebrow">${i + 1} of ${TOUR_.length}</p>
         <h3>${esc(st.t)}</h3><p>${esc(st.d)}</p>
-        <div class="tourbtns"><button type="button" class="btn-quiet" id="tourSkip">${i + 1 < TOUR.length ? "Skip" : ""}</button>
-          <button type="button" class="btn" id="tourNext">${i + 1 < TOUR.length ? "Next" : "Done"}</button></div></div>`;
+        <div class="tourbtns"><button type="button" class="btn-quiet" id="tourSkip">${i + 1 < TOUR_.length ? "Skip" : ""}</button>
+          <button type="button" class="btn" id="tourNext">${i + 1 < TOUR_.length ? "Next" : "Done"}</button></div></div>`;
     document.body.appendChild(bg);
     const card = bg.querySelector(".tourcard"), h = card.offsetHeight, vh = window.innerHeight;
     // The card sits below the target if it fits there, otherwise above.
     card.style.top = (r.bottom + pad + 12 + h < vh ? r.bottom + pad + 12 : Math.max(12, r.top - pad - 12 - h)) + "px";
     bg.querySelector("#tourNext").addEventListener("click", () => tour(i + 1));
-    bg.querySelector("#tourSkip").addEventListener("click", () => tour(TOUR.length));
+    bg.querySelector("#tourSkip").addEventListener("click", () => tour(TOUR_.length));
     bg.addEventListener("click", (e) => { if (e.target === bg || e.target.classList.contains("tourcut")) tour(i + 1); });
   }
 
