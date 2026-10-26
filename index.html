@@ -1532,6 +1532,9 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .daynav { display:flex; align-items:center; justify-content:space-between; gap:10px; }
 /* V5.7. The date strip under a habit page's title. */
 .dstrip { margin:-4px 0 14px; }
+.dsday { position:relative; display:flex; align-items:center; justify-content:center; gap:10px; margin-top:8px; }
+.dsday b { min-width:132px; text-align:center; font-size:15px; font-weight:600; }
+.dsday .dstoday { margin-left:4px; }
 .dsh2 { display:flex; align-items:center; justify-content:center; gap:4px; position:relative; min-height:34px; }
 .dsm { border:none; background:none; color:var(--ink); font:inherit; font-size:15px; font-weight:600; padding:6px 10px; cursor:pointer; display:inline-flex; align-items:center; gap:6px; }
 .dsm i { font-style:normal; font-size:10px; color:var(--muted); }
@@ -2038,6 +2041,25 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .pgtwo b.pgok { color:var(--green-ink, #4f9a6c); }
 .pgtwo small { font-size:12.5px; color:var(--muted); }
 .pgmore { display:block; margin:8px 0 0 auto; font-size:13px; }
+.gwbars { display:flex; flex-direction:column; gap:2px; width:100%; margin-top:4px; }
+.gwbars i { display:block; height:4px; border-radius:2px; background:color-mix(in oklab, var(--gc) 22%, transparent); overflow:hidden; }
+.gwbars i b { display:block; height:100%; background:var(--gc); border-radius:2px; }
+.ggc { flex:none; width:8px; height:8px; border-radius:50%; }
+/* V6.7. Home: today's date, the game in This week, the past-day box. */
+.htoday { margin:-6px 0 -10px; font-size:13.5px; color:var(--muted); text-align:center; }
+.htoday b { color:var(--ink); font-weight:600; }
+.glines { display:flex; flex-direction:column; gap:2px; margin:6px 0 4px; }
+.gmline { display:flex; align-items:center; gap:9px; width:100%; min-height:40px; padding:4px 0; border:none; background:none; color:var(--ink-2); font:inherit; font-size:14px; text-align:left; cursor:pointer; }
+.gmline > span { flex:1; min-width:0; }
+.gmline b { color:var(--ink); font-size:15.5px; }
+.gmline i { font-style:normal; color:var(--muted); }
+.ftbl th.fpt, .ftbl td.fpt { width:34px; font-weight:800; font-variant-numeric:tabular-nums; color:var(--ink); }
+.ftbl td.fpt.dn { color:#e0904a; }
+.ftn .badge { display:inline-block; vertical-align:-3px; margin-right:5px; }
+.plsheet h3 { margin-bottom:4px; }
+.stdunit { color:var(--muted); font-size:15px; }
+.gsimple li { font-size:16px; line-height:1.4; }
+.gsimple li b:first-child { min-width:40px; font-size:17px; }
 /* V6.6. The steps game: one line for you, one for the family, then the board. */
 .bcard { cursor:default; }
 .bcard:active { transform:none; }
@@ -2648,7 +2670,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "6.6";
+  const APP_VERSION = "6.7";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -2716,7 +2738,13 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   const OFFLINE_RX = /load failed|failed to fetch|networkerror|network request failed|timeout|aborted/i;
   const isNetwork = (m) => !m || OFFLINE_RX.test(m);
 
+  // V6.7. Calls that only read. Any other call changes something, so the
+  // next refresh must really go to the server.
+  const READS = new Set(["app_state", "app_history", "app_votes", "app_habits", "app_steps_game", "app_team_game", "app_tasks",
+    "app_cycle", "app_med", "app_year", "app_work_day", "app_family", "app_ex_progress", "app_custom", "app_board", "app_lift_detail",
+    "app_template", "app_lift_open", "app_lift_home"]);
   async function call(fn, args) {
+    if (!READS.has(fn)) state.dirty = true;
     try {
       const { data, error } = await sb.rpc(fn, args);
       if (error) {
@@ -3005,8 +3033,6 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     if (tm && !tm.error) state.team = tm;
   }
   const gardenMe = () => state.garden && (state.garden.people || []).find((x) => x.id === state.meId);
-  const players = () => ((state.garden && state.garden.people) || []).filter((p) => p.recent || p.id === state.meId);
-  const ranked = () => players().slice().sort((x, y) => (y.points - x.points) || (y.level - x.level) || ((y.week_steps || 0) - (x.week_steps || 0)));
   // What Sunday does with these points.
   const fate = (pts, lvl) => pts >= GAME_UP ? (lvl >= 5 ? "stays Diamond" : `up to ${BD(lvl + 1)[0]}`) : (lvl <= 1 ? "stays Bronze" : `down to ${BD(lvl - 1)[0]}`);
   const drawToday = () => ((state.team && state.team.draws) || []).find((d) => d.today) || null;
@@ -3030,20 +3056,15 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         <div class="stdbtns"><button type="button" class="btn-quiet" id="ggX">Cancel</button><button type="button" class="btn" id="ggGo">I’m in</button></div>
       </div>`;
   }
-  function gameRow() {
+  // V6.7. The game, as two lines at the top of This week: yours and the family's.
+  function gameLines() {
     const G = state.garden, mine = gardenMe(); if (!G || !mine) return "";
-    const R = ranked(), away = (G.people || []).filter((p) => !p.recent && p.id !== state.meId), T = state.team, dt = drawToday();
-    const row = (p, i) => `<li><button type="button" class="brow${p.id === state.meId ? " me" : ""}" ${p.id === state.meId ? 'id="gameMe"' : `data-pnudge="${p.id}"`}
-        aria-label="${esc(p.name)}: ${BD(p.level)[0]}, ${p.points} points${p.id === state.meId ? "" : ". Tap to nudge"}">
-        <span class="brk">${i + 1}</span>${badgeSVG(p.level, 22)}<span class="bnm">${esc(p.name)}</span><b class="bpts${p.points < GAME_UP ? " dn" : ""}">${p.points}</b></button></li>`;
-    return `<div class="gcard bcard" id="gameCard">
-        <button type="button" class="bhead" id="gameOpen" aria-label="How the steps game works">
-          <span class="gd1"><b>This week</b><small>How it works ›</small></span></button>
-        ${!mine.pledged ? `<button type="button" class="bset" id="gameGoal"><b>Set your goal from your usual steps</b><small>Takes 10 seconds. Then every day counts.</small></button>` : ""}
-        <p class="byou"><span class="${mine.yesterday ? "yok" : "yno"}">${mine.yesterday ? "✓" : "✗"} Yesterday</span> · You <b>${mine.points}</b>/${GAME_WEEK} · Sunday: ${fate(mine.points, mine.level)}</p>
-        ${T ? `<p class="bteam">${badgeSVG(T.level, 18)}<span>Family <b>${T.points}</b>/${GAME_WEEK}${dt ? ` · today counts on <b>${esc(dt.id === state.meId ? "you" : dt.name)}</b>` : ""}</span></p>` : ""}
-        <ol class="blist">${R.map(row).join("")}</ol>
-        ${away.length ? `<p class="bnew">${away.map((p) => esc(p.name)).join(", ")} ${away.length === 1 ? "hasn't" : "haven't"} logged steps lately.</p>` : ""}
+    const T = state.team, dt = drawToday();
+    return `<div class="glines" id="gameCard">
+        ${!mine.pledged ? `<button type="button" class="bset" id="gameGoal"><b>Set your goal from your usual steps</b><small>10 seconds. Then every day counts.</small></button>` : ""}
+        <button type="button" class="gmline" id="gameOpen" aria-label="You: ${mine.points} of ${GAME_WEEK} points. How the game works">
+          ${badgeSVG(mine.level, 22)}<span><span class="${mine.yesterday ? "yok" : "yno"}">${mine.yesterday ? "\u2713" : "\u2717"} Yesterday</span> \u00b7 You <b>${mine.points}</b>/${GAME_WEEK} \u00b7 Sunday: ${fate(mine.points, mine.level)}</span><i aria-hidden="true">\u203a</i></button>
+        ${T ? `<button type="button" class="gmline team" id="gameOpen2" aria-label="The family team: ${T.points} of ${GAME_WEEK}">${badgeSVG(T.level, 22)}<span>Family <b>${T.points}</b>/${GAME_WEEK}${dt ? ` \u00b7 today counts on <b>${esc(dt.id === state.meId ? "you" : dt.name)}</b>` : ""}</span><i aria-hidden="true">\u203a</i></button>` : ""}
       </div>`;
   }
   function gameSheet() {
@@ -3060,11 +3081,11 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
           <p class="gnow">${badgeSVG(T.level, 24)} ${BD(T.level)[0]} · <b>${T.points}</b> of ${GAME_WEEK} · Sunday: ${fate(T.points, T.level)}</p>
           ${(T.draws || []).length ? `<ul class="gdraws">${T.draws.map((d) => `<li><span>${d.today ? "Today" : DN[d.dow - 1]}</span><b>${esc(d.name)}</b><em class="${d.today ? "" : d.met ? "yok" : "yno"}">${d.today ? "counts tonight" : d.met ? "✓ kept 10" : "✗ −10"}</em></li>`).join("")}</ul>` : ""}` : ""}
         <p class="dpg">How it works</p>
-        <ul class="gdhow">
-          <li><b>70</b> Every Monday you start with 70 points. Each day you miss your own step goal, you lose 10.</li>
-          <li><b>40</b> Keep 40 or more by Sunday and your badge moves up one. Fewer, and it moves down one. Everyone starts at Gold.</li>
-          <li><b>🏆</b> The family is ranked by points kept. Everyone plays against their own goal, so anyone can win.</li>
-          <li><b>🤝</b> The family team also has 70 points. Each day one of you is drawn at random; if that person misses their goal, the team loses 10. Same 40 rule for the family badge.</li>
+        <ul class="gdhow gsimple">
+          <li><b>70</b> Every Monday you get 70 points.</li>
+          <li><b>\u221210</b> Miss your step goal one day? You lose 10.</li>
+          <li><b>40</b> Keep 40 or more: your badge goes up on Sunday. Less: it goes down.</li>
+          <li><b>\ud83e\udd1d</b> The family has 70 points too. Each day the app picks one of you. If that person misses, the family loses 10.</li>
         </ul>
         <button type="button" class="linkbtn" id="gameGoal2">Change my goal (now ${num(stdOf(me(), "steps"))})</button>
         <p class="gsrc">From two Penn Medicine trials: STEP UP (2019; extra steps still there 3 months after the game ended) and BE FIT (2017; families).</p>
@@ -3073,7 +3094,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   }
   function wireGame() {
     on("gameOpen", "click", () => { state.gameOpen = true; render(); });
-    on("gameMe", "click", () => { state.gameOpen = true; render(); });
+    on("gameOpen2", "click", () => { state.gameOpen = true; render(); });
     const close = () => { state.gameOpen = false; render(); };
     on("gameDone", "click", close); on("gameBg", "click", close);
     const openGoal = () => { state.gameOpen = false; state.gameGoal = { pick: null, own: "", err: null }; render(); };
@@ -3094,7 +3115,8 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     });
     // Tap someone to nudge them: a ready WhatsApp line.
     document.querySelectorAll("[data-pnudge]").forEach((el) => el.addEventListener("click", () => {
-      const p = ((state.garden && state.garden.people) || []).find((x) => x.id === el.dataset.pnudge); if (!p) return;
+      const p = ((state.garden && state.garden.people) || []).find((x) => x.id === el.dataset.pnudge);
+      if (!p) return openEditor("name", el.dataset.pnudge);
       const dt = drawToday(), team = dt && dt.id === p.id;
       openModal({ mark: badgeSVG(p.level, 56), title: p.name, body: `${BD(p.level)[0]} · ${p.points} of ${GAME_WEEK} points this week.${p.today ? " Already at their goal today." : ""}`,
         buttons: [...(p.today ? [] : [{ label: `Nudge ${p.name}`, kind: "go", run: async () => {
@@ -3102,7 +3124,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
             const text = team ? `${p.name}, today the family team counts on you 🤝 Your steps keep our 10 points. ${link}`
               : `${p.name}, time for your steps today 👟 Every day keeps your points. ${link}`;
             try { if (navigator.share) { await navigator.share({ text }); return; } } catch (e) { if (e && e.name === "AbortError") return; }
-            window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank"); } }]), { label: "Close", kind: "quiet" }] });
+            window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank"); } }]), { label: "Rename", kind: "quiet", run: () => openEditor("name", p.id) }, { label: "Close", kind: "quiet" }] });
     }));
   }
   // Monday: how last week went, for you and the family, once on this phone.
@@ -3298,10 +3320,36 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   }
 
   /* ---------- data ------------------------------------------------- */
-  async function refresh() {
+  const snapKey = () => "fhd.snap." + (state.code || "");
+  function saveSnap() {
+    try { localStorage.setItem(snapKey(), JSON.stringify({ v: APP_VERSION, me: state.meId, on: deviceISO(), group: state.group, people: state.people,
+      votes: state.votes, habits: state.habits, garden: state.garden, team: state.team })); } catch {}
+  }
+  function loadSnap() {
+    try {
+      const x = JSON.parse(localStorage.getItem(snapKey()) || "null");
+      // Only today's numbers: yesterday's would pass for today for a moment.
+      if (!x || x.v !== APP_VERSION || x.me !== state.meId || !x.group || x.on !== deviceISO()) return false;
+      Object.assign(state, { group: x.group, people: x.people || [], votes: x.votes || null, habits: x.habits || state.habits, garden: x.garden || null, team: x.team || null });
+      if (state.habits && state.habits.list) registerHabits();
+      return true;
+    } catch { return false; }
+  }
+  // V6.7. Speed, first principles: nothing is faster than not asking.
+  //  * Coming back to home after only looking at a page asks nothing: the
+  //    numbers cannot have changed unless something was saved (state.dirty)
+  //    or half a minute has passed.
+  //  * Everything is asked for at once, in one round, not three in a row.
+  //  * The last answer is kept on the phone, so the app opens on it at once
+  //    and updates quietly when the new one lands.
+  async function refresh(force) {
+    if (!force && !state.dirty && state.lastRefresh && Date.now() - state.lastRefresh < 30000 && state.group) { render(); return; }
+    state.dirty = false;
+    const started = Date.now();
     // p_me + p_tz teach the server where this phone is, on every load. A
     // family member who only ever reads the board would otherwise keep the
     // group's zone for ever and see somebody else's day.
+    const side = state.meId ? Promise.all([loadHistory(), loadVotes(true), loadHabits(), loadGarden()]) : Promise.resolve();
     const res = await callRetry("app_state", { p_code: state.code,
       p_me: state.meId || null, p_tz: deviceTZ() });
     if (res.error) {
@@ -3329,8 +3377,11 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
     if (!state.people.some((p) => p.id === state.meId)) state.meId = loadMe();
     if (!state.people.some((p) => p.id === state.meId)) state.meId = null;
-    await Promise.all([loadHistory(), loadVotes(true), loadHabits()]);
-    await loadGarden(); gardenCheck();
+    await side;
+    if (state.meId && !state.votes) await Promise.all([loadHistory(), loadVotes(true), loadHabits(), loadGarden()]);
+    gardenCheck();
+    state.lastRefresh = started;
+    saveSnap();
     // If the family block is open on the page you are looking at, it is
     // showing numbers that just changed. Refetch it here rather than in
     // each caller, so no path can leave it stale.
@@ -3367,7 +3418,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   function scheduleRetry() {
     if (retryTimer) return;
     retryIn = Math.min(retryIn ? retryIn * 2 : 5, 60);
-    retryTimer = setTimeout(() => { retryTimer = null; refresh(); }, retryIn * 1000);
+    retryTimer = setTimeout(() => { retryTimer = null; refresh(true); }, retryIn * 1000);
   }
 
   function watchClock() {
@@ -3375,7 +3426,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) return;
-      refresh();
+      refresh(true);
     });
 
     if (clockTimer) clearInterval(clockTimer);
@@ -3385,7 +3436,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       clockDay = d;
       // A new day: the week the charts are anchored to is last week now.
       if (state.weekAnchor === null) state.entryDate = null;
-      if (!document.hidden) refresh();
+      if (!document.hidden) refresh(true);
     }, 60000);
   }
 
@@ -3420,6 +3471,12 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   // V2.7. The roster can look back. Day 0 is the family's own date and
   // comes free on app_state; any earlier day is fetched once and kept.
   const famDayISO = () => state.boardDay || familyISO();
+  // V6.7. The dashboard's past day, fetched again after logging into it.
+  async function loadBoardDay() {
+    if (!state.boardDay) return;
+    const res = await call("app_board", { p_code: state.code, p_day: state.boardDay });
+    if (!res.error && res.people) state.boardCards = Object.fromEntries(res.people.map((r) => [r.id, r.board || {}]));
+  }
   const board = (p) => {
     if (state.boardDay && state.boardCards) return state.boardCards[p.id] || {};
     return p.board || {};
@@ -5949,19 +6006,28 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     // each group keeps its own shade.
     const mine = new Set(myDials());
     const groups = habitGroups().map(([g, ks], gi) => [g, ks.filter((k) => mine.has(k)), gi]).filter(([, ks]) => ks.length);
-    const famTable = (list) => {
+    // V6.7. The game lives in the tribe's table: a badge by each name and
+    // the week's points kept, the family ranked by them.
+    const gp = (id) => ((state.garden && state.garden.people) || []).find((x) => x.id === id) || null;
+    const famTable = (list0) => {
+      const list = state.garden && (state.garden.people || []).length ? list0.slice().sort((a, b) => { const x = gp(a.id), y = gp(b.id);
+        const xs = x && (x.recent || a.id === state.meId) ? x.points : -1, ys = y && (y.recent || b.id === state.meId) ? y.points : -1;
+        return (ys - xs) || ((y ? y.level : 0) - (x ? x.level : 0)) || a.name.localeCompare(b.name); }) : list0;
+      const G = !!(state.garden && (state.garden.people || []).length);
       const cols = groups.flatMap(([, ks, gi]) => ks.map((k, j) => ({ k, gi, first: j === 0 })));
       const ks = cols.map((c) => c.k);
       const band = (i) => ` b${cols[i].gi}`;
       const nc = ks.length;
       return `<div class="ftab"><table class="ftbl" style="width:min(100%, ${78 + nc * 64}px);min-width:${78 + nc * 27}px">
-        <thead><tr class="fgrp"><th class="fn"></th>${groups.map(([g, gks, gi]) => `<th colspan="${gks.length}" class="b${gi}">${esc(gks.length < 2 ? ({ Meditation: "Med", Exercise: "Exer", "Great Work": "Work", "Your own": "Own" }[g] || g) : g)}</th>`).join("")}</tr>
-          <tr><th class="fn"><span class="sr">Name</span></th>${ks.map((k, i) =>
+        <thead><tr class="fgrp"><th class="fn"></th>${G ? `<th class="fpt"></th>` : ""}${groups.map(([g, gks, gi]) => `<th colspan="${gks.length}" class="b${gi}">${esc(gks.length < 2 ? ({ Meditation: "Med", Exercise: "Exer", "Great Work": "Work", "Your own": "Own" }[g] || g) : g)}</th>`).join("")}</tr>
+          <tr><th class="fn"><span class="sr">Name</span></th>${G ? `<th class="fpt" title="Points kept this week">Pts</th>` : ""}${ks.map((k, i) =>
           `<th class="${cols[i].first ? "g0" : ""}${band(i)}" title="${esc(STD[k].label)}">${FAB[k] || esc(STD[k].label.slice(0, 3))}</th>`).join("")}</tr></thead>
         <tbody>${list.map((p) => {
           const c = famCells(p), mine = p.id === state.meId;
           return `<tr${mine ? ` class="me"` : ""}><th class="fn" scope="row" style="--hc:hsl(${p.hue} 58% 42%)">
-              <button type="button" class="ftn" data-edit="name" data-person="${p.id}"><i aria-hidden="true"></i>${esc(p.name)}</button></th>
+              <button type="button" class="ftn" ${mine ? `data-edit="name"` : `data-pnudge="${p.id}"`} data-person="${p.id}">${(() => { const x = gp(p.id);
+                return x && G ? badgeSVG(x.level, 16) : `<i aria-hidden="true"></i>`; })()}${esc(p.name)}</button></th>
+            ${G ? (() => { const x = gp(p.id), on = x && (x.recent || mine); return `<td class="fpt${on && x.points < GAME_UP ? " dn" : ""}${on ? "" : " nil"}">${on ? x.points : "\u2013"}</td>`; })() : ""}
             ${ks.map((k, i) => {
               const v = c[k], nil = v === null || v === undefined, g = cols[i].first ? " g0" : "";
               return `<td class="${nil ? "nil" : ""}${g}${band(i)}">${tiny(k, v)}</td>`;
@@ -6024,11 +6090,12 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
           <i aria-hidden="true">&#9662;</i></label>` : ""}
           ${m ? `<button type="button" class="hinfo${tourSeen() ? "" : " new"}" id="tourBtn" aria-label="How Tribes works">i</button>` : ""}</span>
       </div>
+      <p class="htoday">Today · <b>${esc(new Date(familyISO() + "T00:00:00Z").toLocaleDateString(undefined, { timeZone: "UTC", weekday: "long", month: "short", day: "numeric" }))}</b></p>
       ${goalLine()}
 
       ${editRowHTML()}
 
-      ${m ? homeDials(m) + gameRow() : `
+      ${m ? homeDials(m) : `
         <section class="card hfirst">
           <h2>Who are you?</h2>
           <p class="hint">Pick your name, or add it, and your dials appear here.</p>
@@ -6047,10 +6114,11 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 
       <section class="hfam">
         <div class="hfamh"><button class="hfamline" id="foldBoard" aria-expanded="${boardOpen()}">
-          <span>Dashboard</span>
-          <em>${state.people.length ? `you and the tribe · ${logged}/${state.people.length} logged` : ""}</em>
+          <span>This week</span>
+          <em>${state.people.length ? `${logged}/${state.people.length} logged today` : ""}</em>
           <i aria-hidden="true">${boardOpen() ? "\u25b4" : "\u203a"}</i></button>
         ${boardOpen() && state.people.length && !state.boardBusy ? `<button type="button" class="hshare" id="waShare" aria-label="Post ${state.boardDay ? esc(shortDay(famDayISO())) : "today"} to WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11v9h12v-9"/></svg></button>` : ""}</div>
+        ${boardOpen() && m ? gameLines() : ""}
         ${boardOpen() ? dayNav({ ids: ["bPrev", "bNext", "bToday"], cls: "famnav",
                      atToday: famDayISO() >= familyISO(),
                      label: state.boardBusy ? "\u2026"
@@ -6284,27 +6352,52 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
      each dot is a week's average. Better is always up: for Rise and Rest,
      earlier sits higher. Tap a dot to read it.
      ------------------------------------------------------------------ */
-  const PROG_R = { 30: "30 days", 90: "90 days", 365: "1 year" };
-  const progRange = () => { try { const v = Number(localStorage.getItem("fhd.prog")); return PROG_R[v] ? v : 30; } catch { return 30; } };
+  // V6.7. Calendar spans, so the edges mean something: this week (Mon to
+  // Sun), this month (the 1st to the last day), this year (a dot a week).
+  const PROG_R = { w: "Week", m: "Month", y: "Year" };
+  const progRange = () => { try { const v = localStorage.getItem("fhd.prog2"); return PROG_R[v] ? v : "m"; } catch { return "m"; } };
+  const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  function progSpan(range, today) {
+    if (range === "w") { const a = mondayOf(today); return { start: a, end: shiftISO(a, 6), label: "this week", pStart: shiftISO(a, -7), pEnd: shiftISO(a, -1), pLabel: "last week" }; }
+    const y = Number(today.slice(0, 4)), mo = Number(today.slice(5, 7));
+    if (range === "y") return { start: `${y}-01-01`, end: `${y}-12-31`, label: String(y), pStart: `${y - 1}-01-01`, pEnd: `${y - 1}-12-31`, pLabel: String(y - 1) };
+    const last = (yy, mm) => new Date(Date.UTC(yy, mm, 0)).getUTCDate();
+    const pm = mo === 1 ? 12 : mo - 1, py = mo === 1 ? y - 1 : y;
+    return { start: `${y}-${pad(mo)}-01`, end: `${y}-${pad(mo)}-${pad(last(y, mo))}`, label: MONTH_NAMES[mo - 1],
+      pStart: `${py}-${pad(pm)}-01`, pEnd: `${py}-${pad(pm)}-${pad(last(py, pm))}`, pLabel: MONTH_NAMES[pm - 1] };
+  }
   function progPoints(k, range) {
     const v = votesOf(k); if (!v) return null;
     const days = v.days && !Array.isArray(v.days) ? v.days : {};
     const today = state.votes.today || todayISO();
     const m = me() || {}, std = k === "rise" || k === "rest" ? (hasTarget(m, k) ? target(m, k) : STD[k].def) : stdOf(m, k);
     const val = (raw) => k === "dd" ? ddCount(raw) : k === "sleep" ? scorePct(raw) : Number(raw);
+    const hitOf = (x) => x !== null && (stdPct(k, x, std) || 0) >= 100;
     const pts = [];
-    if (range === 365) {
-      for (let w = 51; w >= 0; w--) {
-        const end = shiftISO(today, -w * 7), xs = [];
-        for (let d = 0; d < 7; d++) { const iso = shiftISO(end, -d); if (days[iso] !== undefined) xs.push(val(days[iso])); }
-        pts.push({ i: 51 - w, iso: shiftISO(end, -6), end, v: xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null, n: xs.length });
-      }
-    } else {
+    if (typeof range === "number") {          // the last N days (the 4-week numbers)
       for (let d = range - 1; d >= 0; d--) { const iso = shiftISO(today, -d);
         pts.push({ i: range - 1 - d, iso, v: days[iso] !== undefined ? val(days[iso]) : null }); }
+      pts.forEach((p) => { p.hit = hitOf(p.v); });
+      return { pts, std, n: range };
     }
-    pts.forEach((p) => { p.hit = p.v !== null && (stdPct(k, p.v, std) || 0) >= 100; });
-    return { pts, std, n: range === 365 ? 52 : range };
+    const S = progSpan(range, today);
+    if (range === "y") {
+      for (let a = mondayOf(S.start), i = 0; a <= S.end; a = shiftISO(a, 7), i++) {
+        const xs = [];
+        for (let d = 0; d < 7; d++) { const iso = shiftISO(a, d); if (iso >= S.start && iso <= S.end && iso <= today && days[iso] !== undefined) xs.push(val(days[iso])); }
+        pts.push({ i, iso: a, v: xs.length ? xs.reduce((x, y) => x + y, 0) / xs.length : null, n: xs.length });
+      }
+    } else {
+      for (let iso = S.start, i = 0; iso <= S.end; iso = shiftISO(iso, 1), i++)
+        pts.push({ i, iso, v: iso <= today && days[iso] !== undefined ? val(days[iso]) : null });
+    }
+    pts.forEach((p) => { p.hit = hitOf(p.v); });
+    // Days met and days so far, counted by day even in the year view.
+    let met = 0, sofar = 0, sum = 0, cnt = 0, psum = 0, pcnt = 0;
+    for (let iso = S.start; iso <= S.end && iso <= today; iso = shiftISO(iso, 1)) {
+      sofar++; if (days[iso] !== undefined) { const x = val(days[iso]); sum += x; cnt++; if (hitOf(x)) met++; } }
+    for (let iso = S.pStart; iso <= S.pEnd; iso = shiftISO(iso, 1)) if (days[iso] !== undefined) { psum += val(days[iso]); pcnt++; }
+    return { pts, std, n: pts.length, span: S, met, sofar, avg: cnt ? sum / cnt : null, prev: pcnt >= 3 ? psum / pcnt : null };
   }
   // V6.5. First principles: the question on a habit page is "am I doing
   // it, and is it enough?". Two numbers answer it: days met this week, and
@@ -6351,20 +6444,13 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const stdY = !bin && (std > 0 || time) ? y(std) : null;
     const slot = pw / Math.max(1, n - 1);
     const hits = pts.map((p) => p.v === null ? "" : `<rect x="${(x(p.i) - slot / 2).toFixed(1)}" y="0" width="${Math.max(slot, 6).toFixed(1)}" height="${H}" data-pg="${p.i}" fill="transparent"/>`).join("");
-    const met = pts.filter((p) => p.hit).length;
-    const avg = seen.length ? seen.reduce((a, p) => a + p.v, 0) / seen.length : null;
+    const met = P.met, avg = P.avg, SP = P.span;
     // V6.1. No trend line: the dots show the shape, and one number answers
     // "am I improving?": this period's average against the one before.
-    const prev = (() => {
-      const v0 = votesOf(k), days = v0 && v0.days && !Array.isArray(v0.days) ? v0.days : {};
-      const today = state.votes.today || todayISO(), xs = [];
-      const val = (raw) => k === "dd" ? ddCount(raw) : k === "sleep" ? scorePct(raw) : Number(raw);
-      for (let i = range; i < range * 2; i++) { const iso = shiftISO(today, -i); if (days[iso] !== undefined) xs.push(val(days[iso])); }
-      return xs.length >= 3 ? xs.reduce((a, b) => a + b, 0) / xs.length : null;
-    })();
+    const prev = P.prev;
     const delta = (() => {
       if (avg === null || prev === null || bin) return "";
-      const span = range === 365 ? "the year before" : `the ${range} days before`;
+      const span = SP.pLabel;
       if (time) { const dm = Math.round(prev - avg); if (Math.abs(dm) < 2) return `<span class="pgd">same as ${span}</span>`;
         return `<span class="pgd ${dm > 0 ? "up" : "dn"}">${dm > 0 ? "\u2191" : "\u2193"} ${hm(Math.abs(dm))} ${dm > 0 ? "earlier" : "later"} than ${span}</span>`; }
       if (prev <= 0) return "";
@@ -6372,28 +6458,27 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       if (Math.abs(pc) < 2) return `<span class="pgd">same as ${span}</span>`;
       return `<span class="pgd ${pc > 0 ? "up" : "dn"}">${pc > 0 ? "\u2191" : "\u2193"} ${Math.abs(pc)}% vs ${span}</span>`;
     })();
-    const unit = range === 365 ? "weeks" : "days";
     const sel = state.progSel && state.progSel.k === k && state.progSel.r === range ? pts[state.progSel.i] : null;
-    const selWords = sel && sel.v !== null ? `${esc(range === 365 ? `Week of ${shortDay(sel.iso)}` : shortDay(sel.iso))} · ${esc(stdWords(k, sel.v))}${range === 365 ? ` average, ${sel.n} day${sel.n === 1 ? "" : "s"} logged` : ""}${sel.hit ? " · met" : ""}` : "";
+    const selWords = sel && sel.v !== null ? `${esc(range === "y" ? `Week of ${shortDay(sel.iso)}` : shortDay(sel.iso))} · ${esc(stdWords(k, sel.v))}${range === "y" ? ` average, ${sel.n} day${sel.n === 1 ? "" : "s"} logged` : ""}${sel.hit ? " · met" : ""}` : "";
     return `<section class="card pgcard" aria-label="${esc(STD[k].label)} over time">
-        <div class="pghead"><p class="pgsum"><b>${met}</b> of ${n} ${unit} met${avg !== null && !bin ? `<br><span class="pgavg">average <b>${esc(stdWords(k, avg))}</b></span>` : ""}${delta ? `<br>${delta}` : ""}</p>
+        <div class="pghead"><p class="pgsum"><b>${met}</b> of ${P.sofar} day${P.sofar === 1 ? "" : "s"} met ${range === "w" ? "this week" : `in ${esc(SP.label)}`}${avg !== null && !bin ? `<br><span class="pgavg">average <b>${esc(stdWords(k, avg))}</b></span>` : ""}${delta ? `<br>${delta}` : ""}</p>
           <div class="range pgr" role="group" aria-label="Time range">${Object.entries(PROG_R).map(([v, t]) =>
-            `<button type="button" data-pgr="${v}" aria-pressed="${Number(v) === range}">${v === "365" ? "1y" : v + "d"}</button>`).join("")}</div></div>
-        ${seen.length ? `<svg class="pgsvg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(STD[k].label)}, ${PROG_R[range]}: ${met} of ${n} ${unit} met your standard of ${esc(stdWords(k, std))}">
+            `<button type="button" data-pgr="${v}" aria-pressed="${v === range}">${t}</button>`).join("")}</div></div>
+        ${seen.length ? `<svg class="pgsvg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(STD[k].label)}, ${esc(SP.label)}: ${met} of ${P.sofar} days met your standard of ${esc(stdWords(k, std))}">
           <line x1="${L}" x2="${W - Rr}" y1="${T + ph + 6}" y2="${T + ph + 6}" class="pgbase"/>
           ${stdY !== null ? `<line x1="${L}" x2="${W - Rr}" y1="${stdY.toFixed(1)}" y2="${stdY.toFixed(1)}" class="pgstd"/>
             <text x="${W - Rr + 6}" y="${(stdY + 3.5).toFixed(1)}" class="pgt">${esc(stdWords(k, std))}</text>` : ""}
           ${sel ? `<line x1="${x(sel.i).toFixed(1)}" x2="${x(sel.i).toFixed(1)}" y1="${T - 4}" y2="${T + ph + 6}" class="pgsel"/>` : ""}
           ${dots}
-          <text x="${L}" y="${H - 4}" class="pgt">${esc(shortDay(pts[0].iso))}</text>
-          <text x="${W - Rr}" y="${H - 4}" text-anchor="end" class="pgt">today</text>
+          <text x="${L}" y="${H - 4}" class="pgt">${esc(range === "y" ? "Jan" : range === "w" ? "Mon" : shortDay(SP.start).replace(/^[A-Za-z]+, /, ""))}</text>
+          <text x="${W - Rr}" y="${H - 4}" text-anchor="end" class="pgt">${esc(range === "y" ? "Dec" : range === "w" ? "Sun" : shortDay(SP.end).replace(/^[A-Za-z]+, /, ""))}</text>
           ${(() => { const hiV = time ? lo : hi, loV = time ? hi : lo;
             const far = (yy) => stdY === null || Math.abs(yy - stdY) > 13;
             return bin ? "" : `${far(T) ? `<text x="${W - Rr + 6}" y="${T + 3}" class="pgt pgax">${esc(stdWords(k, hiV))}</text>` : ""}
               ${far(T + ph) ? `<text x="${W - Rr + 6}" y="${T + ph + 3}" class="pgt pgax">${esc(stdWords(k, loV))}</text>` : ""}`; })()}
           ${hits}
         </svg>` : `<p class="hint pgnone">Log a few days and your progress shows here.</p>`}
-        <p class="pgcap" id="pgCap">${selWords || `<span class="pgk"><i class="h"></i>met</span><span class="pgk"><i></i>short of it</span>${range === 365 ? `<span class="pgk">each dot a week</span>` : ""}`}</p>
+        <p class="pgcap" id="pgCap">${selWords || `<span class="pgk"><i class="h"></i>met</span><span class="pgk"><i></i>short of it</span>${range === "y" ? `<span class="pgk">each dot a week</span>` : ""}`}</p>
         <button type="button" class="linkbtn pgmore" data-pgmore="${k}" aria-expanded="true">Hide history</button>
       </section>`;
   }
@@ -6519,10 +6604,15 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
           <button type="button" class="dsn" id="sPrevW" aria-label="Previous ${open ? "month" : "week"}">${CHEV(-1)}</button>
           <button type="button" class="dsm" id="sMonth" aria-expanded="${open}">${esc(head.label)}<i aria-hidden="true">${open ? "\u25b4" : "\u25be"}</i></button>
           <button type="button" class="dsn" id="sNextW" aria-label="Next ${open ? "month" : "week"}" ${head.canNext ? "" : "disabled"}>${CHEV(1)}</button>
-          ${sel !== today ? `<button type="button" class="dstoday" id="sToday">Today</button>` : ""}
         </div>
         <div class="dsw">${DOWS.map((d) => `<span>${d}</span>`).join("")}</div>
         <div class="dsg" id="dsGrid">${grid}</div>
+        <div class="dsday">
+          <button type="button" class="dsn" id="sDayPrev" aria-label="Previous day">${CHEV(-1)}</button>
+          <b>${sel === today ? "Today" : esc(fullDate(sel))}</b>
+          <button type="button" class="dsn" id="sDayNext" aria-label="Next day" ${sel >= today ? "disabled" : ""}>${CHEV(1)}</button>
+          ${sel !== today ? `<button type="button" class="dstoday" id="sToday">Today</button>` : ""}
+        </div>
       </section>`;
   }
   function injectStrip() {
@@ -6534,6 +6624,9 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const go = (iso) => { state.stripMon = null; state.stripYm = null; state.stripOpen = false; state.goDay(iso); };
     app.querySelectorAll("[data-sday]").forEach((el) => el.addEventListener("click", () => { if (el.dataset.sday !== pageDay() || state.stripOpen) go(el.dataset.sday); }));
     on("sToday", "click", () => go(todayISO()));
+    // V6.7. One day back or forward: the strip, the page and its date move together.
+    on("sDayPrev", "click", () => go(shiftISO(pageDay(), -1)));
+    on("sDayNext", "click", () => { const n = shiftISO(pageDay(), 1); if (n <= todayISO()) go(n); });
     on("sMonth", "click", () => { state.stripOpen = !state.stripOpen; state.stripYm = null; state.stripMon = null; render(); });
     const shift = (n) => {
       const today = todayISO();
@@ -6571,7 +6664,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       const pg = progressCard(k), at = app.querySelector(".cday");
       if (pg && at) at.insertAdjacentHTML("afterend", pg);
       app.querySelectorAll("[data-pgr]").forEach((el) => el.addEventListener("click", () => {
-        try { localStorage.setItem("fhd.prog", el.dataset.pgr); } catch {}
+        try { localStorage.setItem("fhd.prog2", el.dataset.pgr); } catch {}
         state.progSel = null; render(); }));
       app.querySelector(".pgsvg")?.addEventListener("click", (e) => {
         const t = e.target.closest && e.target.closest("[data-pg]"); if (!t) return;
@@ -6593,7 +6686,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       if (at) at.insertAdjacentHTML("afterend", pg);
       else app.querySelector(".astrip.foot")?.insertAdjacentHTML("beforebegin", pg);
       app.querySelectorAll("[data-pgr]").forEach((el) => el.addEventListener("click", () => {
-        try { localStorage.setItem("fhd.prog", el.dataset.pgr); } catch {}
+        try { localStorage.setItem("fhd.prog2", el.dataset.pgr); } catch {}
         state.progSel = null; render(); }));
       app.querySelector(".pgsvg")?.addEventListener("click", (e) => {
         const t = e.target.closest && e.target.closest("[data-pg]"); if (!t) return;
@@ -6703,7 +6796,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     let gbody = "";
     if (k === "goals") {
       const hc = state.homeCycle;
-      if (!hc && !state.homeCycleLoading && !clone) setTimeout(loadHomeCycle, 0);
+      if (!hc && !state.homeCycleLoading && !clone) { state.homeCycleLoading = true; setTimeout(loadHomeCycle, 0); }
       const cy = hc && hc.cycle, win = std;
       if (cy && cy.goals.length) {
         const cw = weekOf(cy, hc.today), run = cw >= 1 && cw <= 12;
@@ -7144,9 +7237,62 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 
   // V3.5. The tab bar is deleted. Every page is reached from the links
   // on the home screen (and the dials), and every page has its way back.
+  // V6.7. On the dashboard, a past day: tap a habit to log that day. Steps
+  // and your own habits are typed right there; a habit made on its own page
+  // opens that page on that day.
+  const QUICK = (k) => k === "steps" || (isCustom(k) && STD[k]);
+  function pastSheet() {
+    const Q = state.pastLog; if (!Q || !STD[Q.k]) return "";
+    const S = STD[Q.k], done = S.custom && S.hk === "done";
+    return `<div class="sheetbg" id="plBg"></div>
+      <div class="stdsheet plsheet" role="dialog" aria-label="${esc(S.label)}, ${esc(fullDate(Q.iso))}">
+        <p class="eyebrow">${esc(fullDate(Q.iso))}</p>
+        <h3>${esc(S.label)}</h3>
+        ${done ? `<p class="hint">Did you do it that day?</p>
+            <div class="stdbtns"><button type="button" class="btn-quiet" id="plNo">Not done</button><button type="button" class="btn" id="plYes">Done</button></div>`
+          : `<div class="stdrow"><input class="stdin" id="plIn" inputmode="${S.kind === "min" || S.hk === "min" ? "text" : "numeric"}" autocomplete="off" enterkeyhint="done"
+              placeholder="0" value="${Q.v === null || Q.v === undefined ? "" : esc(String(Q.v))}" aria-label="${esc(S.label)} on ${esc(fullDate(Q.iso))}">
+              <span class="stdunit">${Q.k === "steps" ? "steps" : esc(S.unit || (S.hk === "min" ? "min" : ""))}</span></div>
+            ${Q.err ? `<p class="hint bad">${esc(Q.err)}</p>` : ""}
+            <div class="stdbtns"><button type="button" class="btn-quiet" id="plX">Cancel</button><button type="button" class="btn" id="plSave">Save</button></div>`}
+      </div>`;
+  }
+  function wirePast() {
+    if (!state.pastLog) return;
+    const close = () => { state.pastLog = null; render(); };
+    on("plX", "click", close); on("plBg", "click", close);
+    const put = async (v) => {
+      const Q = state.pastLog, S = STD[Q.k];
+      const res = S.custom
+        ? await call("app_habit_log", { p_code: state.code, p_person: state.meId, p_id: Q.k.slice(2), p_date: Q.iso, p_value: v })
+        : await call("app_log", { p_code: state.code, p_person: state.meId, p_value: v, p_metric: S.key || M[Q.k].key, p_date: Q.iso, p_tz: deviceTZ() });
+      if (res.error) { Q.err = res.offline ? "No signal. Not saved yet." : res.error; render(); return; }
+      state.pastLog = null; state.boardCards = null;
+      await refresh(true); if (state.boardDay) await loadBoardDay(); render();
+    };
+    on("plYes", "click", () => put(1)); on("plNo", "click", () => put(0));
+    const go = () => { const Q = state.pastLog, raw = (document.getElementById("plIn") || {}).value || "";
+      const v = (STD[Q.k].hk === "min") ? parseMinutes(raw) : Number(String(raw).replace(/[^0-9.]/g, ""));
+      if (raw.trim() === "") return put(0);
+      if (!Number.isFinite(v) || v < 0) { Q.err = "Type a number."; render(); return; }
+      put(v); };
+    on("plSave", "click", go);
+    on("plIn", "keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); go(); } });
+    setTimeout(() => document.getElementById("plIn")?.focus(), 30);
+  }
   function wireGo() {
     document.querySelectorAll("[data-go]").forEach((el) => {
-      el.addEventListener("click", () => { state.homeSheet = null; openExercise(el.dataset.go); });
+      el.addEventListener("click", async () => {
+        state.homeSheet = null;
+        const k = el.dataset.go, day = state.view === "board" && state.boardDay ? state.boardDay : null;
+        if (day && QUICK(k)) {
+          const me0 = state.people.find((p) => p.id === state.meId), c = el.closest(".pcell");
+          const cur = c && !c.classList.contains("nil") ? (c.querySelector("b") || {}).textContent : "";
+          state.pastLog = { k, iso: day, v: cur && /^[0-9,.]+$/.test(cur) ? Number(cur.replace(/,/g, "")) : null, err: null }; render(); return;
+        }
+        await openExercise(k);
+        if (day && state.view !== "board" && state.goDay) await state.goDay(day);
+      });
       if (el.getAttribute("role") === "button") el.addEventListener("keydown", (e) => {
         if ((e.key === "Enter" || e.key === " ") && e.target === el) { e.preventDefault(); el.click(); } });
     });
@@ -9771,7 +9917,8 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
      ------------------------------------------------------------------ */
   const goalWin = () => stdOf(me(), "goals");
   const timesOf = (t) => Math.max(1, Math.min(7, Number(t.times) || (t.daily ? 7 : 1)));
-  const dueIn = (t, w) => t.week === null || t.week === undefined || Number(t.week) === w;
+  // V6.7. Every 2 or 4 weeks: due in weeks 2, 4, 6... or 4, 8, 12.
+  const dueIn = (t, w) => (t.week === null || t.week === undefined || Number(t.week) === w) && (!t.every || w % Number(t.every) === 0);
   const hasMark = (t, w, d) => (t.marks || []).some((m) => m[0] === w && m[1] === d);
   function toggleMark(t, w, d) {
     t.marks = hasMark(t, w, d) ? t.marks.filter((m) => !(m[0] === w && m[1] === d))
@@ -9815,15 +9962,17 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     for (let w = upto; w >= 1; w--) if (log[w] !== undefined && log[w] !== null) return Number(log[w]);
     return g.kpi_now === null || g.kpi_now === undefined ? null : Number(g.kpi_now);
   };
-  const freqWord = (t) => t.week ? `wk ${t.week}` : timesOf(t) === 7 ? "daily" : `${timesOf(t)}×`;
-  const freqOf = (t) => t.week ? "w" + t.week : String(timesOf(t));
+  const freqWord = (t) => t.week ? `wk ${t.week}` : t.every ? `every ${t.every} wks` : timesOf(t) === 7 ? "daily" : `${timesOf(t)}×`;
+  const freqOf = (t) => t.week ? "w" + t.week : t.every ? "e" + t.every : String(timesOf(t));
   const FREQ_OPTS = [["7", "Every day"], ["6", "6× a week"], ["5", "5× a week"], ["4", "4× a week"],
-    ["3", "3× a week"], ["2", "2× a week"], ["1", "1× a week"]]
+    ["3", "3× a week"], ["2", "2× a week"], ["1", "1× a week"], ["e2", "Every 2 weeks"], ["e4", "Every 4 weeks"]]
     .concat(Array.from({ length: 12 }, (_, k) => ["w" + (k + 1), `Week ${k + 1} only`]));
   const freqSelect = (sel, attrs) => `<select class="tmove" ${attrs} aria-label="How often">${FREQ_OPTS.map(([v, l]) =>
     `<option value="${v}" ${sel === v ? "selected" : ""}>${l}</option>`).join("")}</select>`;
   function setFreq(t, v) {
+    t.every = null;
     if (String(v).startsWith("w")) { t.week = Number(String(v).slice(1)); t.times = 1; }
+    else if (String(v).startsWith("e")) { t.week = null; t.times = 1; t.every = Number(String(v).slice(1)); }
     else { t.week = null; t.times = Math.max(1, Math.min(7, Number(v) || 1)); }
     t.daily = t.times === 7;
     if (t.week) t.marks = (t.marks || []).filter((m) => m[0] === t.week);
@@ -10297,6 +10446,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
      Every week so far can be opened (W1, W2...) and everything in it
      edited: its ONE Thing, its ticks, the goals and their actions. */
   const DNAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  const GCOL = ["var(--gold)", "var(--sage)", "var(--steel)"];
   const wcolor = (p) => p === null ? "var(--muted)" : dialColor(stdPct("goals", p, goalWin()));
   function gTop(C) {
     const d = C.doc, w = C.w, win = goalWin(), T = weekTally(d, w), open = lastOpen();
@@ -10307,10 +10457,13 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         <div class="gtw"><b>Week ${w} <small>of 12</small></b><span>${esc(weekSpan(d.start_date, w))}</span>
           <em style="color:${wcolor(pct)}">${pct === null ? "–" : pct + "%"}</em></div>
         <div class="gtbar"><i style="width:${Math.min(100, pct || 0)}%;background:${wcolor(pct)}"></i><b style="left:${win}%" aria-hidden="true"></b></div>
-        <p class="gtwin"><button type="button" class="dof" data-edit="goal" data-metric="goals">${win}% wins the week</button>${T.due ? ` · ${T.done} of ${T.due} done` : ""}</p>
+        <p class="gtwin">Week score: all actions done \u00f7 due \u00b7 <button type="button" class="dof" data-edit="goal" data-metric="goals">${win}% wins</button>${T.due ? ` · ${T.done} of ${T.due} done` : ""}</p>
         ${open > 1 ? `<div class="gwtabs" role="tablist" aria-label="Weeks">${Array.from({ length: open }, (_, i) => i + 1).map((n) => {
           const p = weekTally(d, n).pct;
-          return `<button type="button" role="tab" class="gwt${n === w ? " on" : ""}${p !== null && p >= win ? " won" : ""}" data-gweek="${n}" aria-selected="${n === w}">W${n}<small>${p === null ? "–" : p + "%"}</small></button>`; }).join("")}</div>` : ""}
+          // V6.7. One thin bar per goal, in that goal's colour (as on home).
+          const bars = goalOrder(d).slice(0, 3).map((g, gi) => { const gp = goalTally(g, n).pct;
+            return `<i style="--gc:${GCOL[gi]}"><b style="width:${gp === null ? 0 : Math.min(100, gp)}%"></b></i>`; }).join("");
+          return `<button type="button" role="tab" class="gwt${n === w ? " on" : ""}${p !== null && p >= win ? " won" : ""}" data-gweek="${n}" aria-selected="${n === w}" aria-label="Week ${n}: ${p === null ? "nothing due" : p + "% of all actions"}">W${n}<span class="gwbars">${bars}</span></button>`; }).join("")}</div>` : ""}
       </section>`;
   }
   function gDay(C) {
@@ -10346,7 +10499,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       const lag = g.kpi ? `${esc(g.kpi)} ${fmtNum(kpiLatest(g, Math.min(12, Math.max(1, C.cur))))} → ${fmtNum(g.kpi_target)}` : "";
       return `<li class="ggi${isOpen ? " open" : ""}">
           <button type="button" class="ggh" data-gopen="${g.id}" aria-expanded="${isOpen}">
-            ${g.id === d.one_goal ? `<span class="cstar">★</span>` : `<span class="gnum xs">${gi + 1}</span>`}
+            <i class="ggc" style="background:${GCOL[goalOrder(d).indexOf(g)] || "var(--line)"}" aria-hidden="true"></i>${g.id === d.one_goal ? `<span class="cstar">★</span>` : `<span class="gnum xs">${gi + 1}</span>`}
             <span class="ggt"><b>${g.title ? esc(g.title) : "Untitled goal"}</b>${lag ? `<small>${lag}</small>` : ""}</span>
             <em style="color:${wcolor(gp)}">${gp === null ? "" : gp + "%"}</em><i aria-hidden="true">${isOpen ? "▾" : "▸"}</i></button>
           ${isOpen ? `<div class="gdet">${goalLineHTML(C, g)}${G.edit === "g:" + g.id ? "" : gGrid(C, g) + gPlan(C, g)}</div>` : ""}
@@ -12584,8 +12737,8 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     if (state.workFull && state.work && state.work.run) { app.insertAdjacentHTML("beforeend", workFullView()); }
     wireWorkFull();
     if (v !== "session" && v !== "detail") {
-      app.insertAdjacentHTML("beforeend", stdSheet() + dialSheet() + homeSheet() + tribeSheet() + gameSheet());
-      wireGame();
+      app.insertAdjacentHTML("beforeend", stdSheet() + dialSheet() + homeSheet() + tribeSheet() + gameSheet() + pastSheet());
+      wireGame(); wirePast();
       wireTribeSheet();
       wireStd();
       wireHomeSheet();
@@ -13271,7 +13424,8 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         state.range = localStorage.getItem("fhd.range") === "month" ? "month" : "week";
         state.histOpen = localStorage.getItem("fhd.hist") === "open";
       } catch {}
-      await refresh();
+      if (loadSnap()) render();
+      await refresh(true);
       watchClock();
       // A workout finished with no signal uploads itself the moment there
       // is one — on this load, and again whenever the phone reconnects.
