@@ -1259,6 +1259,44 @@ button.fchip { padding:7px 13px; cursor:pointer; }
   cursor:pointer; transition:width .2s, background .2s; }
 .ddot.on { width:22px; border-radius:4px; background:var(--ink-2); }
 .hfam { margin-top:22px; }
+/* ---------- V7.2: home tabs ------------------------------------------------ */
+.tabbar { position:fixed; z-index:29; left:50%; transform:translateX(-50%); bottom:calc(10px + env(safe-area-inset-bottom, 0px));
+  width:min(calc(100% - 32px), 420px); display:grid; grid-template-columns:repeat(3, 1fr); gap:4px; padding:5px; border-radius:999px;
+  background:color-mix(in oklab, var(--surface) 78%, transparent); -webkit-backdrop-filter:blur(18px) saturate(1.4); backdrop-filter:blur(18px) saturate(1.4);
+  border:1px solid color-mix(in oklab, var(--line-strong) 70%, transparent); box-shadow:0 10px 30px rgba(0,0,0,.28); }
+.tabb { position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; min-height:54px; padding:4px 0;
+  border:none; border-radius:999px; background:none; color:var(--muted); font:inherit; font-size:12px; font-weight:600; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.tabb svg { width:24px; height:24px; fill:none; stroke:currentColor; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+.tabb.on { color:var(--ink); background:color-mix(in oklab, var(--ink) 11%, transparent); }
+.tabb.on svg { stroke-width:2.3; }
+.tabb:active { transform:scale(.97); }
+.tabdot { position:absolute; top:7px; left:calc(50% + 8px); width:9px; height:9px; border-radius:50%; background:#e5534b; border:2px solid var(--surface); }
+#app:has(.tabbar) { padding-bottom:calc(96px + env(safe-area-inset-bottom, 0px)); }
+.htab { margin-top:18px; }
+.hme { margin-top:8px; }
+.htabh { display:flex; align-items:center; gap:10px; margin:0 0 6px; }
+.htabh h2 { margin:0; font-family:var(--display); font-size:24px; font-weight:500; }
+.htabh em { flex:1; font-style:normal; font-size:13px; color:var(--muted); }
+/* The League */
+.lgme { display:flex; align-items:center; gap:14px; margin:8px 0 14px; padding:14px 16px; border-radius:18px;
+  background:color-mix(in oklab, var(--accent) 10%, var(--surface)); border:1px solid color-mix(in oklab, var(--accent) 30%, var(--line)); }
+.lgme > b { font-size:40px; font-weight:800; line-height:1; font-variant-numeric:tabular-nums; color:var(--ink); }
+.lgme > b small { font-size:16px; font-weight:700; margin-left:1px; }
+.lgme > span { display:flex; flex-direction:column; font-size:15px; color:var(--ink-2); }
+.lgme em { font-style:normal; font-size:13px; color:var(--muted); }
+.lgnote { margin:8px 0 14px; padding:12px 14px; border-radius:14px; border:1px dashed var(--line-strong); font-size:14px; color:var(--ink-2); }
+.lglist { list-style:none; margin:0; padding:0; border-radius:16px; overflow:hidden; border:1px solid var(--line); }
+.lglist li { display:grid; grid-template-columns:30px minmax(0, 1fr) auto; align-items:center; gap:10px; min-height:52px; padding:6px 14px; }
+.lglist li + li { border-top:1px solid var(--line); }
+.lgrk { font-weight:800; font-variant-numeric:tabular-nums; color:var(--muted); text-align:center; }
+.lglist li.top1 .lgrk { color:#c9970f; } .lglist li.top2 .lgrk { color:#9aa3ae; } .lglist li.top3 .lgrk { color:#b8733a; }
+.lgnm { display:flex; flex-direction:column; min-width:0; font-size:15.5px; font-weight:600; color:var(--ink); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.lgnm small { font-size:12px; font-weight:400; color:var(--muted); }
+.lgsc { font-size:20px; font-weight:800; font-variant-numeric:tabular-nums; color:var(--ink); }
+.lglist li.me { background:color-mix(in oklab, var(--accent) 14%, var(--surface)); box-shadow:inset 3px 0 0 var(--accent); }
+.lglast { margin:12px 0 0; font-size:14px; color:var(--ink-2); }
+.lgrule { margin:8px 0 0; font-size:13px; line-height:1.45; color:var(--muted); }
+.lginv { width:100%; margin-top:16px; }
 /* V5.7. Posting the day is a quiet share icon beside the dashboard's name. */
 .hfamh { display:flex; align-items:center; gap:4px; border-top:1px solid var(--line); }
 .hfamh .hfamline { border-top:none; flex:1; min-width:0; }
@@ -1335,6 +1373,14 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .wdial { margin:6px auto 0; }
 .wpaused { display:flex; align-items:center; gap:14px; }
 .wpaused .dplay { margin-top:10px; }
+/* V7.2. Focus controls: two equal ghost circles either side of play. */
+.wctl { display:grid; grid-template-columns:44px 52px 44px; align-items:start; justify-content:center; column-gap:22px; margin-top:10px; }
+.wctl .dplay { margin-top:0; }
+.wside { display:flex; flex-direction:column; align-items:center; width:44px; margin-top:4px; padding:0; border:none; background:none; color:var(--ink-2); font:inherit; cursor:pointer; }
+.wside svg { width:44px; height:44px; padding:12px; box-sizing:border-box; border-radius:50%; border:1.5px solid var(--line-strong); fill:currentColor; }
+.wside svg.wsl { fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
+.wside small { font-size:11px; color:var(--muted); }
+.wside:active svg { background:color-mix(in oklab, var(--ink) 8%, transparent); }
 .wend { margin-top:10px; color:var(--muted); }
 .wlines { list-style:none; margin:14px 0 0; padding:0; width:100%; }
 .wlines li { display:flex; align-items:center; gap:10px; min-height:44px; border-top:1px solid var(--line); }
@@ -1533,18 +1579,11 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .daynav { display:flex; align-items:center; justify-content:space-between; gap:10px; }
 /* V5.7. The date strip under a habit page's title. */
 .dstrip { margin:-4px 0 14px; }
-/* V7.1. The day arrows, big enough to find: the day, then two wide buttons. */
+/* V7.2. Off today: the day and the way back, nothing else. */
 .dsday { margin-top:10px; }
-.dsdl { display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin:0 0 8px; }
-.dsdl b { font-size:16px; font-weight:700; color:var(--ink); }
+.dsdl { display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin:0; }
+.dsdl b { font-size:15px; font-weight:700; color:var(--ink); }
 .dsdl .dstoday { position:static; }
-.dsdb { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-.dsbig { display:flex; align-items:center; justify-content:center; gap:6px; min-height:46px; padding:0 10px; border-radius:14px;
-  border:1.5px solid color-mix(in oklab, var(--accent) 45%, var(--line)); background:color-mix(in oklab, var(--accent) 12%, var(--surface));
-  color:var(--ink); font:inherit; font-size:15px; font-weight:700; cursor:pointer; -webkit-tap-highlight-color:transparent; }
-.dsbig svg { flex:none; width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:2.8; stroke-linecap:round; stroke-linejoin:round; }
-.dsbig:active { transform:scale(.98); }
-.dsbig:disabled { opacity:.35; cursor:default; transform:none; }
 .dsh2 { display:flex; align-items:center; justify-content:center; gap:4px; position:relative; min-height:34px; }
 .dsm { border:none; background:none; color:var(--ink); font:inherit; font-size:15px; font-weight:600; padding:6px 10px; cursor:pointer; display:inline-flex; align-items:center; gap:6px; }
 .dsm i { font-style:normal; font-size:10px; color:var(--muted); }
@@ -2688,7 +2727,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "7.1";
+  const APP_VERSION = "7.2";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -2758,7 +2797,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 
   // V6.7. Calls that only read. Any other call changes something, so the
   // next refresh must really go to the server.
-  const READS = new Set(["app_state", "app_history", "app_votes", "app_habits", "app_steps_game", "app_tasks",
+  const READS = new Set(["app_state", "app_history", "app_votes", "app_habits", "app_steps_game", "app_league", "app_tasks",
     "app_cycle", "app_med", "app_year", "app_work_day", "app_family", "app_ex_progress", "app_custom", "app_board", "app_lift_detail",
     "app_template", "app_lift_open", "app_lift_home"]);
   async function call(fn, args) {
@@ -3023,18 +3062,19 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
        * 70 points every Monday, 10 lost for each day the goal is missed;
        * levels, starting in the middle: keep 40+ and move up one, fewer and
          move down one (V6.6 badges: Bronze, Silver, Gold, Platinum, Diamond;
-         everyone starts at Gold);
+         V7.2: everyone starts at Bronze and climbs, League of Legends style;
+         a week without steps counts as 0 points);
        * the family ranked each week by points kept.
        V7.1: BE FIT's family team (shared points, a daily random draw) is
        gone from the app. One points system is simpler for children and
        grandparents, and STEP UP's competition is the arm whose gains lasted. */
   const BADGES = [["Bronze", "#b8733a", "#e6a873"], ["Silver", "#9aa3ae", "#e3e7ec"], ["Gold", "#c9970f", "#f6d36a"],
     ["Platinum", "#6fa3b3", "#d6f1f6"], ["Diamond", "#2f9fd6", "#bfeaff"]];
-  const BD = (n) => BADGES[Math.max(1, Math.min(5, n || 3)) - 1];
+  const BD = (n) => BADGES[Math.max(1, Math.min(5, n || 1)) - 1];
   const GAME_UP = 40, GAME_WEEK = 70;
   // A medal: the colour is the level; Diamond is cut as a gem.
   function badgeSVG(n, size) {
-    const [name, c1, c2] = BD(n), id = "bg" + Math.max(1, Math.min(5, n || 3));
+    const [name, c1, c2] = BD(n), id = "bg" + Math.max(1, Math.min(5, n || 1));
     const grad = `<defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c2}"/><stop offset="1" stop-color="${c1}"/></linearGradient></defs>`;
     const body = n >= 5
       ? `<path d="M8 8h16l5 6-13 15L3 14z" fill="url(#${id})" stroke="${c1}" stroke-width="1"/><path d="M3 14h26M8 8l4 6 4-6 4 6 4-6M12 14l4 15 4-15" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="1"/>`
@@ -3094,7 +3134,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   function gameSheet() {
     if (state.gameGoal) return goalSheet();
     if (!state.gameOpen || !state.garden) return "";
-    const mine = gardenMe() || { level: 3, points: GAME_WEEK };
+    const mine = gardenMe() || { level: 1, points: GAME_WEEK };
     return `<div class="sheetbg" id="gameBg"></div>
       <div class="stdsheet gsheet" role="dialog" aria-label="How the steps game works">
         <p class="eyebrow">Your badge</p>
@@ -3102,10 +3142,10 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         <p class="gnow"><b>${mine.points}</b> of ${GAME_WEEK} this week · Sunday: ${fate(mine.points, mine.level)}</p>
         <p class="dpg">How it works</p>
         <ul class="gdhow gsimple">
-          <li><b>70</b> Every Monday everyone starts with 70 points.</li>
+          <li><b>70</b> Every Monday everyone gets 70 points.</li>
           <li><b>\u221210</b> Miss your step goal one day? You lose 10.</li>
-          <li><b>40</b> Keep 40 or more and your badge goes up on Sunday. Less, it goes down one.</li>
-          <li><b>1st</b> The family is ranked by points. Missed a day? Tomorrow still counts.</li>
+          <li><b>40</b> Keep 40 or more (your goal 4 days of 7) and your badge goes up on Sunday. Less, it goes down. Everyone starts at Bronze.</li>
+          <li><b>1st</b> You are ranked in your tribe. Your tribe's average is ranked in the League.</li>
         </ul>
         <button type="button" class="linkbtn" id="gameGoal2">Change my goal (now ${num(stdOf(me(), "steps"))})</button>
         <p class="gsrc">From Penn Medicine’s STEP UP trial (2019): extra steps were still there 3 months after the game ended.</p>
@@ -3394,6 +3434,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     // family member who only ever reads the board would otherwise keep the
     // group's zone for ever and see somebody else's day.
     const side = state.meId ? Promise.all([loadHistory(), loadVotes(true), loadHabits(), loadGarden()]) : Promise.resolve();
+    if (state.meId && !state.league) loadLeague();   // V7.2. The League tab opens with its answer ready.
     const res = await callRetry("app_state", { p_code: state.code,
       p_me: state.meId || null, p_tz: deviceTZ() });
     if (res.error) {
@@ -3475,6 +3516,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       // comes back to today from any past day.
       if (state.boardDay && hiddenAt && Date.now() - hiddenAt > 600000) {
         state.boardDay = null; state.boardCards = null; loadHabits().then(() => render()); }
+      if (state.view === "board" && homeTab() === "league") loadLeague(true);
       refresh(true);
     });
 
@@ -6133,22 +6175,35 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
           </div>`;
         }).join("")}</div>`;
 
-    // V3.3. The opening screen is the Steps dial, large, and nothing
-    // else that asks for attention. Swipe for Work and Sleep. The family,
-    // the post and adding people are one folded line underneath.
-    return `
+    // V7.2. Home is three tabs at the bottom: Me (your dials and your
+    // dashboard), Tribe (the game and the family's table) and League (tribes
+    // against tribes). One date still drives Me and Tribe together.
+    const tab = m ? homeTab() : "me";
+    const nav = () => dayNav({ ids: ["bPrev", "bNext", "bToday"], cls: "famnav",
+                     atToday: famDayISO() >= familyISO(),
+                     label: state.boardBusy ? "…"
+                       : famDayISO() === familyISO() ? "Today" : esc(fullDate(famDayISO())) });
+    const meRow = ordered.find((p) => p.id === state.meId);
+    const head = `
       <div class="hbar">
         <b>${esc(state.group.name)}</b>
         <span class="hright">${m ? `<label class="hwho"><select id="who" aria-label="Who are you">${whoOptions}</select>
           <i aria-hidden="true">&#9662;</i></label>` : ""}
           ${m ? `<button type="button" class="hinfo${tourSeen() ? "" : " new"}" id="tourBtn" aria-label="How Tribes works">i</button>` : ""}</span>
       </div>
-      ${m && homePast() ? `<div class="hpast" role="status"><span>Showing <b>${esc(fullDate(state.boardDay))}</b></span><button type="button" class="hpastgo" id="hToday">Back to today</button></div>` : ""}
-      ${goalLine()}
-
-      ${editRowHTML()}
-
-      ${m ? homeDials(m) : `
+      ${m && homePast() && tab !== "league" ? `<div class="hpast" role="status"><span>Showing <b>${esc(fullDate(state.boardDay))}</b></span><button type="button" class="hpastgo" id="hToday">Back to today</button></div>` : ""}`;
+    const addRow = m ? `
+          <div class="hadd">
+            <button class="linkbtn" id="addBtn">${state.adding ? "Never mind" : "Add someone"}</button>
+            <div class="addrow" id="addRow" ${state.adding ? "" : "hidden"}>
+              <input class="field" id="addName" placeholder="Their name" maxlength="40"
+                     autocomplete="off" aria-label="Name of the person to add">
+              <button class="btn" id="addSave">Add</button>
+              <p class="hint" id="addHint" style="flex-basis:100%;margin-top:0"></p>
+            </div>
+          </div>` : "";
+    let body;
+    if (!m) body = `
         <section class="card hfirst">
           <h2>Who are you?</h2>
           <p class="hint">Pick your name, or add it, and your dials appear here.</p>
@@ -6163,35 +6218,78 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
             <button class="btn" id="addSave">Add</button>
             <p class="hint" id="addHint" style="flex-basis:100%;margin-top:0"></p>
           </div>
-        </section>`}
-
-      <section class="hfam">
-        <div class="hfamh"><button class="hfamline" id="foldBoard" aria-expanded="${boardOpen()}">
-          <span>This week</span>
+        </section>`;
+    else if (tab === "tribe") body = `
+      <section class="htab htribe" aria-label="Your tribe">
+        <div class="htabh"><h2>Tribe</h2>
           <em>${state.people.length ? `${logged}/${state.people.length} logged ${state.boardDay ? "that day" : "today"}` : ""}</em>
-          <i aria-hidden="true">${boardOpen() ? "\u25b4" : "\u203a"}</i></button>
-        ${boardOpen() && state.people.length && !state.boardBusy ? `<button type="button" class="hshare" id="waShare" aria-label="Post ${state.boardDay ? esc(shortDay(famDayISO())) : "today"} to WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11v9h12v-9"/></svg></button>` : ""}</div>
-        ${boardOpen() ? dayNav({ ids: ["bPrev", "bNext", "bToday"], cls: "famnav",
-                     atToday: famDayISO() >= familyISO(),
-                     label: state.boardBusy ? "\u2026"
-                       : famDayISO() === familyISO() ? "Today" : esc(fullDate(famDayISO())) }) : ""}
-        ${boardOpen() ? roster : ""}
-        ${boardOpen() ? `
-          ${m ? `
-          <div class="hadd">
-            <button class="linkbtn" id="addBtn">${state.adding ? "Never mind" : "Add someone"}</button>
-            <div class="addrow" id="addRow" ${state.adding ? "" : "hidden"}>
-              <input class="field" id="addName" placeholder="Their name" maxlength="40"
-                     autocomplete="off" aria-label="Name of the person to add">
-              <button class="btn" id="addSave">Add</button>
-              <p class="hint" id="addHint" style="flex-basis:100%;margin-top:0"></p>
-            </div>
-          </div>` : ""}` : ""}
-      </section>
+          ${state.people.length && !state.boardBusy ? `<button type="button" class="hshare" id="waShare" aria-label="Post ${state.boardDay ? esc(shortDay(famDayISO())) : "today"} to WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11v9h12v-9"/></svg></button>` : ""}</div>
+        ${goalLine()}
+        ${gameLines()}
+        ${nav()}
+        ${state.people.length ? `<div class="roster">${famTable(meRow ? [meRow].concat(ordered.filter((p) => p.id !== state.meId)) : ordered)}</div>` : roster}
+        ${addRow}
+      </section>`;
+    else if (tab === "league") body = leagueView();
+    else body = `
+      ${editRowHTML()}
+      ${homeDials(m)}
+      <section class="htab hme" aria-label="Your dashboard">
+        ${nav()}
+        ${meRow ? `<div class="roster">${meDash(meRow)}</div>` : ""}
+      </section>`;
 
-      ${installHint()}
-      <p class="ver">v${APP_VERSION}</p>`;
+    return `${head}
+      ${body}
+      ${tab === "me" ? installHint() : ""}
+      <p class="ver">v${APP_VERSION}</p>
+      ${m ? tabBar(tab) : ""}`;
   }
+
+  // V7.2. The tab bar: a floating capsule; the open tab is a filled pill.
+  const HOME_TABS = [
+    ["me", "Me", `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c.8-4 3.9-6 7.5-6s6.7 2 7.5 6"/></svg>`],
+    ["tribe", "Tribe", `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8.5" r="3.2"/><circle cx="16.8" cy="9.6" r="2.5"/><path d="M2.8 19.5c.6-3.3 3-5 6.2-5s5.6 1.7 6.2 5M15.4 14.6c2.8-.3 5 1.1 5.8 4.4"/></svg>`],
+    ["league", "League", `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 4h9v5a4.5 4.5 0 0 1-9 0zM7.5 6H4.5c0 3 1.3 4.4 3.4 4.6M16.5 6h3c0 3-1.3 4.4-3.4 4.6M12 13.5V17M8.5 20.5h7M9.5 17h5v3.5h-5z"/></svg>`],
+  ];
+  function homeTab() {
+    const t = state.homeTab; return t === "tribe" || t === "league" ? t : "me";
+  }
+  function tabBar(tab) {
+    return `<nav class="tabbar" aria-label="Home">${HOME_TABS.map(([k, label, icon]) =>
+      `<button type="button" class="tabb${k === tab ? " on" : ""}" data-htab="${k}" ${k === tab ? 'aria-current="page"' : ""}>${icon}<span>${label}</span>${
+        k === "tribe" && gardenMe() && !gardenMe().pledged ? `<i class="tabdot" aria-label="Set your goal"></i>` : ""}</button>`).join("")}</nav>`;
+  }
+  // V7.2. The League: every tribe that is playing, ranked by the average
+  // points of the people in it who pledged. Names of tribes only.
+  async function loadLeague(force) {
+    const L = state.league;
+    if (!force && L && (L.busy || Date.now() - L.at < 60000)) return;
+    state.league = Object.assign({}, L || {}, { busy: true });
+    const res = await call("app_league", { p_code: state.code });
+    state.league = res && !res.error ? { tribes: res.tribes || [], mine: !!res.mine, at: Date.now(), busy: false }
+      : Object.assign({}, L || {}, { busy: false, at: Date.now(), err: res && res.offline ? "No signal." : (res && res.error) || "Could not load the League." });
+    if (state.view === "board" && homeTab() === "league") render();
+  }
+  function leagueView() {
+    const L = state.league || {};
+    if (!L.tribes) { if (!L.busy) setTimeout(() => loadLeague(), 0);
+      return `<section class="htab hleague"><div class="htabh"><h2>League</h2></div>${L.err ? `<p class="hint bad">${esc(L.err)}</p>` : `<p class="hint">Loading the League…</p>`}</section>`; }
+    const T = L.tribes, me0 = T.find((t) => t.me), n = T.length;
+    const champ = T.filter((t) => t.last_rank === 1);
+    const sc = (x) => { const v = Number(x); return Number.isInteger(v) ? String(v) : v.toFixed(1); };
+    return `<section class="htab hleague" aria-label="The League">
+      <div class="htabh"><h2>League</h2><em>this week</em></div>
+      ${me0 ? `<div class="lgme"><b>${me0.rank}<small>${ordinal(me0.rank)}</small></b><span>of ${n} tribe${n === 1 ? "" : "s"}<em>${esc(me0.name)} · ${sc(me0.score)} points on average</em></span></div>`
+        : `<p class="lgnote">${esc(state.group.name)} joins the League once someone sets a goal and walks.</p>`}
+      <ol class="lglist">${T.map((t) => `<li class="${t.me ? "me" : ""}${t.rank <= 3 ? " top" + t.rank : ""}">
+          <span class="lgrk">${t.rank}</span><span class="lgnm">${esc(t.name)}<small>${t.players} playing</small></span><b class="lgsc">${sc(t.score)}</b></li>`).join("")}</ol>
+      ${champ.length ? `<p class="lglast">Last week: <b>${champ.map((t) => esc(t.name)).join(", ")}</b> won with ${sc(champ[0].last)}.</p>` : ""}
+      <p class="lgrule">A tribe's score is the average of this week's points of everyone in it who set a goal. A missed day costs the whole tribe. Resets every Monday.</p>
+      <button type="button" class="btn lginv" id="lgInvite">Invite another family</button>
+    </section>`;
+  }
+  const ordinal = (n) => n % 100 >= 11 && n % 100 <= 13 ? "th" : ["th", "st", "nd", "rd"][n % 10] || "th";
 
   /* ---------- the dials -----------------------------------------------
      V3.3. One circle per score, coloured by how close you are: red at
@@ -6659,13 +6757,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         </div>
         <div class="dsw">${DOWS.map((d) => `<span>${d}</span>`).join("")}</div>
         <div class="dsg" id="dsGrid">${grid}</div>
-        <div class="dsday">
-          <p class="dsdl"><b>${sel === today ? "Today" : esc(fullDate(sel))}</b>${sel !== today ? `<button type="button" class="dstoday" id="sToday">Back to today</button>` : ""}</p>
-          <div class="dsdb">
-            <button type="button" class="dsbig" id="sDayPrev" aria-label="Previous day">${CHEV(-1)}<span>Day before</span></button>
-            <button type="button" class="dsbig" id="sDayNext" aria-label="Next day" ${sel >= today ? "disabled" : ""}><span>Next day</span>${CHEV(1)}</button>
-          </div>
-        </div>
+        ${sel !== today ? `<div class="dsday"><p class="dsdl"><b>${esc(fullDate(sel))}</b><button type="button" class="dstoday" id="sToday">Back to today</button></p></div>` : ""}
       </section>`;
   }
   function injectStrip() {
@@ -6677,9 +6769,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const go = (iso) => { state.stripMon = null; state.stripYm = null; state.stripOpen = false; state.goDay(iso); };
     app.querySelectorAll("[data-sday]").forEach((el) => el.addEventListener("click", () => { if (el.dataset.sday !== pageDay() || state.stripOpen) go(el.dataset.sday); }));
     on("sToday", "click", () => go(todayISO()));
-    // V6.7. One day back or forward: the strip, the page and its date move together.
-    on("sDayPrev", "click", () => go(shiftISO(pageDay(), -1)));
-    on("sDayNext", "click", () => { const n = shiftISO(pageDay(), 1); if (n <= todayISO()) go(n); });
+    // V7.2. The strip is the one way to pick a day; the day buttons are gone.
     on("sMonth", "click", () => { state.stripOpen = !state.stripOpen; state.stripYm = null; state.stripMon = null; render(); });
     const shift = (n) => {
       const today = todayISO();
@@ -6726,6 +6816,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       return;
     }
     if (!k || !ATOM_HOW[k]) return;
+    if (k === "tasks") return;   // V7.2. Tasks is a list: no habit line, no chart under it.
     if (k !== state.atomEditFor) { state.atomEdit = null; state.atomDraft = null; state.atomGuide = false; state.atomEditFor = k; state.hMonth = null; }
     // V5.1. Logging comes first. The habit sentence sits at the foot of
     // the page, over the calendar it feeds.
@@ -6967,17 +7058,19 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
      stops, one sentence each. Nothing is hidden, nothing is punished.
      The overlay lives on <body>, outside render(), and looks each target
      up again at every step, so a re-render underneath does not lose it. */
+  // V7.2. The tour walks the three tabs: each stop names its tab, and the
+  // tour opens that tab before it looks for the stop.
   const TOUR = [
-    { at: "#dials", t: "Your dial",
+    { at: "#dials", tab: "me", t: "Your dial",
       d: "Today against your standard. Tap the name to open it, the number to log. Swipe if you have more than one." },
-    { at: "#dialEdit", t: "One habit at a time",
-      d: "Start with one. Turn on the next when the first is easy, and pin any you want as a dial here. Turning one off only hides it." },
-    { at: "#gameCard", t: "This week's game",
-      d: "70 points every Monday, minus 10 for each day you miss your own step goal. Keep 40 and your badge moves up. The family is ranked by points each week; everyone starts again every Monday." },
-    { at: ".pdash", open: true, t: "Your dashboard",
-      d: "Your habits, one line each. Tap a number to open its page and see your progress over time." },
-    { at: ".ftab", open: true, t: "Your tribe",
-      d: "Everyone side by side on your habits, today. You are the first row." },
+    { at: ".pdash", tab: "me", t: "Your dashboard",
+      d: "Your habits, one line each. Tap a number to open its page. The arrows above it go back a day, for the dial too." },
+    { at: ".tabbar", tab: "me", t: "Three tabs",
+      d: "Me is you. Tribe is your family's game and table. League ranks tribes against each other." },
+    { at: "#gameCard", tab: "tribe", t: "This week's game",
+      d: "70 points every Monday, minus 10 for each day you miss your step goal. Keep 40 and your badge moves up on Sunday. Everyone starts at Bronze." },
+    { at: ".lglist", tab: "league", t: "The League",
+      d: "Your tribe's score is everyone's average. Invite another family and race them." },
   ];
   // Until it is opened once, the ⓘ wears a small dot. That is the whole nudge.
   const tourSeen = () => { try { return !!localStorage.getItem("fhd.tour"); } catch { return true; } };
@@ -6986,14 +7079,11 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   let tourList = TOUR;
   function tour(i) {
     document.querySelector(".tourbg")?.remove();
-    if (i === 0) tourList = TOUR.filter((st) => st.at !== "#gameCard" || document.querySelector(st.at));
+    if (i === 0) tourList = TOUR.filter((st) => (st.at !== "#gameCard" || gardenMe()) && (st.at !== ".lglist" || (state.league && state.league.tribes && state.league.tribes.length)));
     const TOUR_ = tourList;
-    if (i >= TOUR_.length) return;
+    if (i >= TOUR_.length) { if (homeTab() !== "me") { state.homeTab = "me"; render(); window.scrollTo(0, 0); } return; }
     const st = TOUR_[i];
-    if (st.open && !boardOpen() && state.view === "home") {
-      try { localStorage.setItem("fhd.board", "open"); } catch {}
-      render();
-    }
+    if (st.tab && state.view === "board" && homeTab() !== st.tab) { state.homeTab = st.tab; render(); }
     const el = document.querySelector(st.at);
     if (!el) return tour(i + 1);
     el.scrollIntoView({ block: "center", behavior: "instant" });
@@ -11434,10 +11524,11 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
          <span class="dsub" id="workRange">${r ? (r.pausedAt ? "Paused" : `ends ${workRange().split(" – ")[1] || ""}`) : ""}</span>
          <button type="button" class="dof" data-edit="goal" data-metric="work">${hm(total)} of ${hm(goal)} today</button>
          ${!r ? `<button type="button" class="dplay" id="workStart" aria-label="Start a ${w.len}-minute session"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></button>`
-           : running ? `<span class="wpaused"><button type="button" class="dplay on" id="workPause" aria-label="Pause"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="5" width="3.6" height="14" rx="1"/><rect x="13.9" y="5" width="3.6" height="14" rx="1"/></svg></button>
-              <button type="button" class="linkbtn wend" id="workMax" aria-label="Full screen">\u2922 Full screen</button></span>`
-           : `<span class="wpaused"><button type="button" class="dplay" id="workContinue" aria-label="Continue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></button>
-              <button type="button" class="linkbtn wend" id="workEnd">End</button></span>`}`
+           // V7.2. Three controls, mirrored like a player: End · play/pause · Full screen.
+           : `<span class="wctl"><button type="button" class="wside" id="workEnd" aria-label="End the session"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2"/></svg></button>
+              ${running ? `<button type="button" class="dplay on" id="workPause" aria-label="Pause"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="5" width="3.6" height="14" rx="1"/><rect x="13.9" y="5" width="3.6" height="14" rx="1"/></svg></button>`
+                : `<button type="button" class="dplay" id="workContinue" aria-label="Continue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></button>`}
+              <button type="button" class="wside" id="workMax" aria-label="Full screen"><svg viewBox="0 0 24 24" aria-hidden="true" class="wsl"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button></span>`}`
       : `<b class="dval">${hm(total)}</b>
          <button type="button" class="dof" data-edit="goal" data-metric="work">of ${hm(goal)}</button>`;
     return `
@@ -13422,6 +13513,19 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     on("bNext", "click", () => stepBoard(1));
     on("bToday", "click", () => state.homeToday());
     on("hToday", "click", () => state.homeToday());
+    // V7.2. The three home tabs. A tap switches; the page goes back to the top.
+    document.querySelectorAll("[data-htab]").forEach((el) => el.addEventListener("click", () => {
+      const k = el.dataset.htab; if (k === homeTab()) { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
+      state.homeTab = k; state.adding = false; render(); window.scrollTo(0, 0);
+      if (k === "league") loadLeague();
+    }));
+    on("lgInvite", "click", async () => {
+      // A link to start their own tribe: the app without our code.
+      const link = `${location.origin}${location.pathname}`;
+      const text = `Start your family's tribe on Tribes and race ${state.group.name} in the League 👟 ${link}`;
+      try { if (navigator.share) { await navigator.share({ text }); return; } } catch (e) { if (e && e.name === "AbortError") return; }
+      window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank");
+    });
 
     on("foldBoard", "click", () => {
       try { localStorage.setItem("fhd.board", boardOpen() ? "shut" : "open"); } catch {}
