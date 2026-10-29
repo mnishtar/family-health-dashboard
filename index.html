@@ -156,6 +156,17 @@ input[type=number] { -moz-appearance:textfield; }
 /* V1.6 — the lead domino. Steps is the ONE thing, so it is the only
    number on the screen rendered at a size you can read across a room. */
 .domino { text-align:center; padding:4px 0 2px; }
+/* V7.3. Steps page: the ring, no box. */
+.sstep { background:none; border:none; box-shadow:none; padding:4px 0 0; display:flex; flex-direction:column; align-items:center; }
+
+.sdial { margin:4px auto 0; width:min(270px, 72vw); }
+.sdial .bigedit.dnum { width:80%; padding:0; font-size:clamp(44px, 14vw, 60px); color:var(--ink); }
+.sdial .bigedit:focus { background:none; }
+.pgline { text-align:center; margin:2px 0 6px; }
+.pgline p { margin:0; display:flex; justify-content:center; align-items:baseline; gap:6px; flex-wrap:wrap; font-size:14.5px; color:var(--ink-2); }
+.pgline b { color:var(--ink); font-variant-numeric:tabular-nums; }
+.pgline b.pgok { color:var(--green-ink, #4f9a6c); }
+.pgline .pgmore { margin:0 0 0 4px; display:inline; }
 .domino .big { font-family:var(--mono); font-size:56px; line-height:1;
   font-weight:500; letter-spacing:-.04em; color:var(--ink); display:block; }
 .domino .of, .ctot .of { display:inline-block; margin-top:7px; font-size:12px; color:var(--muted);
@@ -1286,7 +1297,32 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .lgme em { font-style:normal; font-size:13px; color:var(--muted); }
 .lgnote { margin:8px 0 14px; padding:12px 14px; border-radius:14px; border:1px dashed var(--line-strong); font-size:14px; color:var(--ink-2); }
 .lglist { list-style:none; margin:0; padding:0; border-radius:16px; overflow:hidden; border:1px solid var(--line); }
-.lglist li { display:grid; grid-template-columns:30px minmax(0, 1fr) auto; align-items:center; gap:10px; min-height:52px; padding:6px 14px; }
+.lglist li { display:grid; grid-template-columns:24px 32px minmax(0, 1fr) auto; align-items:center; gap:10px; min-height:56px; padding:6px 14px; }
+/* V7.3. Crests and the rival card. */
+.crest { display:inline-grid; place-items:center; width:32px; height:32px; border-radius:50%; font-size:19px; line-height:1;
+  background:color-mix(in oklab, var(--ink) 7%, var(--surface)); }
+.crest.none { font-size:14px; font-weight:800; color:var(--ink-2); }
+.lgrival { margin:8px 0 12px; padding:14px 14px 12px; border-radius:20px; text-align:center;
+  background:linear-gradient(135deg, color-mix(in oklab, var(--accent) 16%, var(--surface)), color-mix(in oklab, #e5534b 12%, var(--surface)));
+  border:1px solid color-mix(in oklab, var(--accent) 30%, var(--line)); }
+.lgrival.none { background:color-mix(in oklab, var(--ink) 4%, var(--surface)); border-style:dashed; }
+.lgrival .eyebrow { margin:0 0 8px; }
+.lgvs { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:8px; }
+.lgvs + .lgvsl + .lgvs { margin-top:12px; padding-top:12px; border-top:1px solid var(--line); }
+.lgside { display:flex; flex-direction:column; align-items:center; gap:4px; min-width:0; opacity:.78; }
+.lgside.ahead { opacity:1; }
+.lgside .crest { width:48px; height:48px; font-size:28px; }
+.lgside b { max-width:100%; font-size:14px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--ink); }
+.lgside em { font-style:normal; font-size:30px; font-weight:800; font-variant-numeric:tabular-nums; color:var(--ink); line-height:1.05; }
+.lgside.ahead em { color:var(--green-ink, #4f9a6c); }
+.lgv { font-family:var(--display); font-size:18px; color:var(--muted); }
+.lgvsl { margin:8px 0 0; font-size:13.5px; color:var(--ink-2); }
+.crests { display:grid; grid-template-columns:repeat(8, 1fr); gap:6px; margin:6px 0 4px; }
+.crestb { aspect-ratio:1/1; display:grid; place-items:center; border-radius:12px; border:1.5px solid var(--line); background:var(--surface);
+  font-size:clamp(18px, 5.4vw, 24px); line-height:1; padding:0; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.crestb.on { border-color:var(--accent); background:color-mix(in oklab, var(--accent) 18%, var(--surface)); transform:scale(1.06); }
+.hcrest { margin-right:6px; }
+.lginvs { margin:6px 0 0; text-align:center; font-size:12.5px; color:var(--muted); }
 .lglist li + li { border-top:1px solid var(--line); }
 .lgrk { font-weight:800; font-variant-numeric:tabular-nums; color:var(--muted); text-align:center; }
 .lglist li.top1 .lgrk { color:#c9970f; } .lglist li.top2 .lgrk { color:#9aa3ae; } .lglist li.top3 .lgrk { color:#b8733a; }
@@ -1297,6 +1333,16 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .lglast { margin:12px 0 0; font-size:14px; color:var(--ink-2); }
 .lgrule { margin:8px 0 0; font-size:13px; line-height:1.45; color:var(--muted); }
 .lginv { width:100%; margin-top:16px; }
+/* V7.3. Feedback at the foot of Me. */
+.fbk { margin:26px 0 8px; padding:18px 16px 16px; border-radius:18px; background:color-mix(in oklab, var(--ink) 4%, var(--surface)); text-align:center; }
+.fbt { margin:0; font-family:var(--display); font-size:20px; color:var(--ink); }
+.fbs { margin:6px 0 4px; font-size:13.5px; color:var(--muted); }
+.fbstars { display:flex; justify-content:center; gap:6px; margin:10px 0 12px; }
+.fbstar { width:40px; height:40px; border:none; background:none; padding:0; font-size:28px; line-height:1; color:var(--line-strong); cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.fbstar.on { color:var(--gold, #c9970f); }
+.fbstar:active { transform:scale(.9); }
+.fbin { width:100%; min-height:76px; resize:vertical; font-size:16px; text-align:left; }
+.fbgo { width:100%; margin-top:10px; }
 /* V5.7. Posting the day is a quiet share icon beside the dashboard's name. */
 .hfamh { display:flex; align-items:center; gap:4px; border-top:1px solid var(--line); }
 .hfamh .hfamline { border-top:none; flex:1; min-width:0; }
@@ -1865,6 +1911,13 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .starter b { font-size:15px; font-weight:600; }
 .starter span { font-size:12.5px; color:var(--muted); padding-right:22px; line-height:1.35; }
 .starter:active { transform:scale(.99); }
+/* V7.3. The beginner plan: two big choices side by side. */
+.plans { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
+.planb { display:flex; flex-direction:column; align-items:flex-start; gap:4px; min-height:88px; padding:14px; border-radius:16px; text-align:left;
+  border:1.5px solid color-mix(in oklab, var(--train) 50%, var(--line)); background:color-mix(in oklab, var(--train) 10%, var(--surface));
+  color:var(--ink); font:inherit; cursor:pointer; }
+.planb b { font-size:17px; } .planb span { font-size:12.5px; color:var(--muted); line-height:1.35; }
+.planb:active { transform:scale(.98); } .planb:disabled { opacity:.5; }
 /* One line, once: what just happened to the workout you finished. */
 .flash { margin:0 0 14px; padding:10px 14px; border-radius:12px; font-size:13.5px;
   background:var(--train-soft); color:var(--ink); text-align:center; }
@@ -2090,9 +2143,11 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .pgtwo b.pgok { color:var(--green-ink, #4f9a6c); }
 .pgtwo small { font-size:12.5px; color:var(--muted); }
 .pgmore { display:block; margin:8px 0 0 auto; font-size:13px; }
-.gwbars { display:flex; flex-direction:column; gap:2px; width:100%; margin-top:4px; }
-.gwbars i { display:block; height:4px; border-radius:2px; background:color-mix(in oklab, var(--gc) 22%, transparent); overflow:hidden; }
-.gwbars i b { display:block; height:100%; background:var(--gc); border-radius:2px; }
+/* V7.3. Under each week: one number per goal, beside its colour dot. */
+.gwnums { display:flex; flex-direction:column; gap:1px; margin-top:4px; }
+.gwn { display:flex; align-items:center; gap:4px; font-family:var(--mono); font-size:11.5px; font-weight:600; color:var(--ink-2); font-variant-numeric:tabular-nums; line-height:1.3; }
+.gwn i { flex:none; width:6px; height:6px; border-radius:50%; }
+.gwn.won { color:var(--green-ink, #4f9a6c); }
 .ggc { flex:none; width:8px; height:8px; border-radius:50%; }
 /* V6.7. Home: today's date, the game in This week, the past-day box. */
 /* V7.1. On a past day the whole home shows it, with the way back. */
@@ -2110,6 +2165,25 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .gmline em { flex-basis:100%; font-style:normal; font-size:13px; color:var(--muted); }
 .gmline i { font-style:normal; color:var(--muted); font-size:20px; }
 .gmline em .grk { font-size:13px; color:var(--ink); }
+/* V7.3. All in, most improved, cheers. */
+.gextra { display:flex; flex-direction:column; gap:2px; margin:-2px 0 10px; }
+.gx { display:flex; align-items:center; gap:10px; width:100%; min-height:40px; margin:0; padding:0 4px; border:none; background:none; color:var(--ink-2); font:inherit; font-size:14px; text-align:left; }
+.gx > span:not(.gxi) { flex:1; min-width:0; }
+.gx b { color:var(--ink); }
+.gx i { font-style:normal; color:var(--muted); font-size:18px; }
+button.gx { cursor:pointer; }
+.gxi { flex:none; width:26px; text-align:center; font-size:18px; color:var(--gold, #c9970f); }
+.gstarbig { font-size:64px; color:var(--gold, #c9970f); line-height:1; }
+.ftbl th.fch, .ftbl td.fch { width:30px; }
+.fchb { width:30px; height:30px; border:none; background:none; padding:0; font-size:17px; line-height:1; color:var(--muted); cursor:pointer; }
+.fchb.on { color:#e5534b; cursor:default; }
+.fchb:active:not(.on) { transform:scale(.85); }
+.fchn { font-size:12px; color:#e5534b; font-weight:700; }
+.hcheer { display:flex; align-items:center; gap:10px; margin:-4px 0 -6px; padding:8px 8px 8px 14px; border-radius:14px; font-size:14px; color:var(--ink-2);
+  background:color-mix(in oklab, #e5534b 13%, var(--surface)); border:1px solid color-mix(in oklab, #e5534b 35%, var(--line)); }
+.hcheer > span:nth-child(2) { flex:1; } .hcheer b { color:var(--ink); }
+.hcheerh { color:#e5534b; font-size:18px; }
+.hcheerok { flex:none; min-height:34px; padding:0 14px; border-radius:999px; border:none; background:var(--ink); color:var(--surface); font:inherit; font-size:13.5px; font-weight:700; cursor:pointer; }
 .grule { margin:2px 0 0; font-size:13.5px; line-height:1.4; color:var(--ink-2); }
 .grule b { color:var(--ink); }
 .glines .bset { margin:0 0 6px; }
@@ -2344,7 +2418,7 @@ button.fcell b { text-decoration:underline dotted; text-decoration-color:var(--l
 .ftbl tbody tr.me th.fn .ftn { padding-left:7px; }
 .ftbl tbody tr.me + tr td, .ftbl tbody tr.me + tr th { border-top:1.5px solid var(--line-strong); }
 /* Your dashboard: five rows, the category on the left, three numbers. */
-.pdash { margin:4px 0 14px; border-radius:14px; overflow:hidden; border:1px solid var(--line); }
+.pdash { margin:4px 0 14px; border-radius:14px; overflow:hidden; }   /* V7.3: no outline; the shaded rows are the shape */
 .prw { display:grid; grid-template-columns:clamp(70px, 22vw, 92px) minmax(0, 1fr); align-items:center; background:var(--band); }
 .prw + .prw { border-top:1px solid color-mix(in oklab, var(--line) 60%, transparent); }
 .pcat { padding-left:12px; font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); line-height:1.2; }
@@ -2727,7 +2801,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "7.2";
+  const APP_VERSION = "7.3";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -3131,6 +3205,23 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         <p class="grule">Walk <b>${goal}</b> a day. Miss a day: <b>\u221210</b>. Keep <b>40</b> by Sunday: badge up.</p>
       </div>`;
   }
+  // V7.3. Two lines under the game: All in (the tribe's star) and the week's
+  // most improved. Both are about the family, and neither has a loser.
+  function tribeExtras() {
+    const G = state.garden; if (!G || !gardenMe()) return "";
+    const A = G.allin || {}, I = G.improved;
+    const allin = A.of ? `<button type="button" class="gx gallin" id="allinOpen" aria-label="All in: ${A.on} of ${A.of} still on 40 or more. ${A.stars || 0} stars. How it works">
+        <span class="gxi" aria-hidden="true">\u2605</span><span>All in: <b>${A.on} of ${A.of}</b> still on 40+${A.stars ? ` \u00b7 <b>${A.stars}</b> star${A.stars === 1 ? "" : "s"}` : ""}</span><i aria-hidden="true">\u203a</i></button>` : "";
+    const imp = I ? `<p class="gx gimp"><span class="gxi" aria-hidden="true">\ud83c\udf31</span><span>Most improved last week: <b>${esc(I.id === state.meId ? "you" : I.name)}</b>, +${I.pct}% steps</span></p>` : "";
+    return allin || imp ? `<div class="gextra">${allin}${imp}</div>` : "";
+  }
+  function cheerBanner() {
+    const N = (state.garden && state.garden.cheers_new) || [];
+    if (!N.length || state.cheersOk) return "";
+    const names = N.length > 2 ? `${N.slice(0, 2).join(", ")} and ${N.length - 2} more` : N.join(" and ");
+    return `<div class="hcheer" role="status"><span class="hcheerh" aria-hidden="true">\u2764</span><span><b>${esc(names)}</b> cheered you</span>
+      <button type="button" class="hcheerok" id="cheerOk">Thanks</button></div>`;
+  }
   function gameSheet() {
     if (state.gameGoal) return goalSheet();
     if (!state.gameOpen || !state.garden) return "";
@@ -3153,6 +3244,19 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       </div>`;
   }
   function wireGame() {
+    on("allinOpen", "click", () => { const A = (state.garden && state.garden.allin) || {};
+      openModal({ mark: `<span class="gstarbig" aria-hidden="true">\u2605</span>`, title: "All in",
+        body: `If everyone in the tribe who set a goal keeps 40 or more points this week, the tribe wins a star on Sunday. ${A.on} of ${A.of} are still on 40+ now.${A.stars ? ` Stars so far: ${A.stars}.` : ""} Stars show beside your tribe in the League.`,
+        buttons: [{ label: "Got it", kind: "go" }] }); });
+    on("cheerOk", "click", async () => { state.cheersOk = true; if (state.garden) state.garden.cheers_new = []; render();
+      await call("app_cheers_seen", { p_code: state.code, p_person: state.meId }); });
+    document.querySelectorAll("[data-cheer]").forEach((el) => el.addEventListener("click", async () => {
+      const x = ((state.garden && state.garden.people) || []).find((y) => y.id === el.dataset.cheer);
+      if (!x || x.cheered) return;
+      x.cheered = true; x.cheers = (x.cheers || 0) + 1; render();
+      const res = await call("app_cheer", { p_code: state.code, p_from: state.meId, p_to: x.id });
+      if (res.error) { x.cheered = false; x.cheers = Math.max(0, x.cheers - 1); state.msg = res.offline ? "No signal. Not sent yet." : res.error; state.msgKind = "bad"; render(); }
+    }));
     on("gameOpen", "click", () => { state.gameOpen = true; render(); });
     const close = () => { state.gameOpen = false; render(); };
     on("gameDone", "click", close); on("gameBg", "click", close);
@@ -3199,7 +3303,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     setTimeout(() => openModal({
       mark: `<span class="${upMe ? "gbloomer" : ""}">${badgeSVG(mine.level, 84)}</span>`,
       title: upMe ? `${BD(mine.level)[0]}!` : "A new week",
-      body: `${line(mine, "You")} Everyone is back to ${GAME_WEEK}.`,
+      body: `${line(mine, "You")}${G.allin && G.allin.last ? " The whole tribe kept 40+: a \u2605 star!" : ""} Everyone is back to ${GAME_WEEK}.`,
       buttons: [{ label: "Let's go", kind: "go" }] }), 500);
   }
 
@@ -3464,7 +3568,11 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     if (!state.people.some((p) => p.id === state.meId)) state.meId = null;
     await side;
     if (state.meId && !state.votes) await Promise.all([loadHistory(), loadVotes(true), loadHabits(), loadGarden()]);
-    gardenCheck();
+    // V7.3. A tribe started on this phone a moment ago: the welcome, once,
+    // and nothing else on top of it this time.
+    let welcomed = false;
+    try { if (state.meId && localStorage.getItem("fhd.welcome." + state.code)) { localStorage.removeItem("fhd.welcome." + state.code); welcomed = true; setTimeout(welcomeTribe, 400); } } catch {}
+    if (!welcomed) gardenCheck();
     state.lastRefresh = started;
     saveSnap();
     // If the family block is open on the page you are looking at, it is
@@ -4684,9 +4792,47 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   };
   const isFirst = () => state.lift.loaded && !state.lift.active &&
     !state.lift.labels.length && !state.lift.sessions.length;
+  // V7.3. A beginner's week: three full-body workouts, Monday, Wednesday
+  // and Friday, each under 40 minutes (about 13 working sets: a squat, a
+  // push, a pull or hinge, and the core). At home it needs a chair and a
+  // step; at a gym, dumbbells, a cable and a leg press. Picking one saves
+  // all three as your workouts (named A, B, C so they sort in order).
+  const PLANS = {
+    home: { name: "At home", sub: "Bodyweight, a chair and a step", days: [
+      ["A · Monday", [["Chair Squat", "weight_reps", 3], ["Incline Push-up", "weight_reps", 3], ["Glute Bridge", "weight_reps", 3], ["Bird Dog", "weight_reps", 2], ["Plank", "duration", 2]]],
+      ["B · Wednesday", [["Reverse Lunge", "weight_reps", 3], ["Incline Push-up", "weight_reps", 3], ["Superman", "weight_reps", 3], ["Calf Raise", "weight_reps", 2], ["Side Plank", "duration", 2]]],
+      ["C · Friday", [["Chair Squat", "weight_reps", 3], ["Step-up", "weight_reps", 3], ["Knee Push-up", "weight_reps", 3], ["Glute Bridge", "weight_reps", 2], ["Dead Bug", "weight_reps", 2]]]] },
+    gym: { name: "At a gym", sub: "Dumbbells, a cable and a leg press", days: [
+      ["A · Monday", [["Goblet Squat", "weight_reps", 3], ["Dumbbell Bench Press", "weight_reps", 3], ["Lat Pulldown", "weight_reps", 3], ["Plank", "duration", 2]]],
+      ["B · Wednesday", [["Leg Press", "weight_reps", 3], ["Seated Cable Row", "weight_reps", 3], ["Dumbbell Shoulder Press", "weight_reps", 3], ["Glute Bridge", "weight_reps", 2], ["Side Plank", "duration", 2]]],
+      ["C · Friday", [["Romanian Deadlift", "weight_reps", 3], ["Incline Dumbbell Press", "weight_reps", 3], ["Lat Pulldown", "weight_reps", 3], ["Walking Lunge", "weight_reps", 2], ["Plank", "duration", 2]]]] },
+  };
+  async function startPlan(kind) {
+    const P = PLANS[kind]; if (!P || state.lift.planBusy) return;
+    state.lift.planBusy = true; render();
+    for (const [label, rows] of P.days) {
+      const res = await call("app_template_save", { p_code: state.code, p_person: state.meId, p_label: label, p_mode: "lift",
+        p_items: rows.map(([exercise, kind2, sets]) => ({ exercise, kind: kind2, sets })) });
+      if (res.error) { state.lift.planBusy = false; state.lift.msg = res.offline ? "No signal. Try again in a moment." : res.error; render(); return; }
+    }
+    state.lift.planBusy = false;
+    await loadLift();
+    state.lift.msg = "Your plan is ready: Monday, Wednesday and Friday. Pick today's workout.";
+    state.trSheet = true; render();
+  }
   function firstCard(k) {
     if (!isFirst()) return "";
     const mode = k === "cardio" ? "cardio" : "lift";
+    if (mode === "lift") return `
+      <section class="firstcard plancard">
+        <p class="eyebrow">Your first plan</p>
+        <h2>Three workouts a week, under 40 minutes.</h2>
+        <p class="hint" style="margin-top:4px">Full body on Monday, Wednesday and Friday. Where will you train?</p>
+        <div class="plans">${Object.entries(PLANS).map(([key, P]) => `
+          <button type="button" class="planb" data-plan="${key}" ${state.lift.planBusy ? "disabled" : ""}>
+            <b>${esc(P.name)}</b><span>${esc(P.sub)}</span></button>`).join("")}</div>
+        <p class="hint" style="margin-top:10px">Every move can be changed or dropped as you go.</p>
+      </section>`;
     return `
       <section class="firstcard">
         <p class="eyebrow">Your first ${mode === "cardio" ? "activity" : "workout"}</p>
@@ -4751,7 +4897,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
             <button class="tile" data-start="${esc(l.label)}">
               <b>${esc(l.label)}</b>
               <span class="ex">${esc(l.preview || "")}</span>
-              <span class="ago">${esc(agoWords(l.last_date))}</span>
+              <span class="ago">${l.last_date ? esc(agoWords(l.last_date)) : "not done yet"}</span>
             </button>
             <button class="tilemenu" data-menu="${esc(l.label)}"
               aria-label="Options for ${esc(l.label)}">&hellip;</button>
@@ -5313,6 +5459,8 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       on("startEmpty", "click", () => startSession(""));
       document.querySelectorAll("[data-starter]").forEach((el) =>
         el.addEventListener("click", () => startStarter(el.dataset.starter)));
+      document.querySelectorAll("[data-plan]").forEach((el) =>
+        el.addEventListener("click", () => startPlan(el.dataset.plan)));
       on("resume", "click", () => { state.view = "session"; render(); });
       document.querySelectorAll("[data-start]").forEach((el) =>
         el.addEventListener("click", () => startSession(el.dataset.start)));
@@ -5792,47 +5940,40 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   // V4.3. Tribes. Start one (a name and the goal you share), or open the
   // link someone sent you. A tribe is private: only people with its link
   // can see it.
+  // V7.3. Starting a tribe is three things: its name, its crest and your
+  // name. The time zone comes from the phone; the tribe's goal can wait.
+  // From a challenge link (?rival=...), the challenger is named up top and
+  // the new tribe faces it this week.
+  const rivalParam = () => { const r = new URLSearchParams(location.search).get("rival"); return r && /^[0-9a-f-]{36}$/i.test(r) ? r : null; };
   function landing() {
-    const L = state.land || {};
+    const L = state.land || (state.land = {});
+    const R = state.rivalCard;
+    if (rivalParam() && !R) { state.rivalCard = { busy: true };
+      call("app_tribe_public", { p_pid: rivalParam() }).then((res) => { state.rivalCard = res && !res.error ? res : { none: true };
+        if (!state.code) render(); }); }
     return `
-      <header class="masthead">
+      <header class="masthead land">
         <h1>Tribes</h1>
-        <p class="sub">Habits, side by side, toward one goal your tribe shares.
-          No accounts: a tribe shares one private link.</p>
+        <p class="sub">Walk together. Win together. A steps game for the whole family, from 8 to 80.</p>
       </header>
-
+      ${R && R.name ? `<section class="lgrival landch"><p class="eyebrow">You've been challenged</p>
+          <div class="landvs">${crestOf(R.crest, R.name)}<p><b>${esc(R.name)}</b> challenged your family to a week of steps.</p></div>
+          <p class="lgvsl">Start your tribe below and you face them first.</p></section>` : ""}
       <section class="card tstart">
-        <h2>Start a tribe</h2>
-        <label class="tlab" for="gname">Tribe name</label>
-        <input class="field" id="gname" maxlength="60" placeholder="Flabs to Abs" value="${esc(L.name || "")}">
-        <p class="tsec">Your common goal</p>
-        <label class="tlab" for="ggoal">We will</label>
-        <input class="field" id="ggoal" maxlength="120" placeholder="climb a mountain in Europe" value="${esc(L.goal || "")}">
-        <label class="tlab" for="gby">By</label>
-        <input class="field" id="gby" type="date" value="${esc(L.by || "")}">
-        <div class="tifthen">
-          <label class="tlab" for="gwhen">When</label>
-          <input class="field" id="gwhen" maxlength="120" placeholder="we wake up each day" value="${esc(L.when || "")}">
-          <label class="tlab" for="gthen">we will</label>
-          <input class="field" id="gthen" maxlength="120" placeholder="hit our steps and train" value="${esc(L.then || "")}">
-        </div>
-        <p class="hint tifh">An if-then plan: the moment, and what you will do in it. Plans written this way get done more often.</p>
-        <label class="tlab" for="gtz">Time zone</label>
-        <select class="field" id="gtz">
-          <option value="America/New_York">Eastern (US)</option>
-          <option value="America/Chicago">Central (US)</option>
-          <option value="America/Denver">Mountain (US)</option>
-          <option value="America/Los_Angeles">Pacific (US)</option>
-          <option value="Europe/London">London</option>
-          <option value="Asia/Karachi">Karachi</option>
-          <option value="Asia/Dubai">Dubai</option>
-          <option value="Asia/Kolkata">India</option>
-        </select>
-        <button class="btn" id="create" style="width:100%;margin-top:14px">Create the tribe</button>
+        <h2>Start your tribe</h2>
+        <label class="tlab" for="gname">Your tribe's name</label>
+        <input class="field" id="gname" maxlength="60" placeholder="The Nishtars" autocomplete="off" value="${esc(L.name || "")}">
+        <p class="tlab">Pick a crest</p>
+        ${crestPicker(L.crest, "lcrest")}
+        <label class="tlab" for="gme">Your name</label>
+        <input class="field" id="gme" maxlength="40" placeholder="Mahd" autocomplete="given-name" value="${esc(L.me || "")}">
+        <p class="hint ${state.msg ? "bad" : ""}" id="msg" role="status">${esc(state.msg || "")}</p>
+        <button class="btn" id="create" style="width:100%;margin-top:6px" ${L.busy ? "disabled" : ""}>${L.busy ? "Starting…" : "Start our tribe"}</button>
+        <p class="hint" style="margin-top:8px;text-align:center">Next, you send your family one link. No accounts or passwords.</p>
       </section>
 
       <section class="card">
-        <h2>Joining a tribe?</h2>
+        <h2>Joining your family's tribe?</h2>
         <p class="hint" style="margin-top:6px">Open the link they sent you, or type its code.</p>
         <input class="field" id="code" placeholder="ABC123" autocapitalize="characters"
                autocomplete="off" style="margin-top:10px;text-align:center;
@@ -5840,12 +5981,23 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         <button class="btn-quiet" id="open" style="width:100%;margin-top:10px;padding:13px">Open the tribe</button>
       </section>
 
-      <p class="hint ${state.msg ? "bad" : ""}" id="msg">${esc(state.msg || "")}</p>
-
       <p class="note">Anyone holding a tribe&rsquo;s link can see it and join it.
         Share it the way you would share a house key.</p>
 
       <p class="ver">v${APP_VERSION}</p>`;
+  }
+  // V7.3. A new tribe's first minute: send the link to the family, then set
+  // your goal (which also puts the tribe in the League).
+  function welcomeTribe() {
+    const g = state.group || {};
+    const link = `${location.origin}${location.pathname}?g=${encodeURIComponent(state.code || "")}`;
+    openModal({ mark: g.crest ? `<span class="gstarbig" aria-hidden="true">${esc(g.crest)}</span>` : "", title: `${g.name || "Your tribe"} is ready`,
+      body: "Send this link to your family. Each person opens it on their own phone and taps their name. Then set your step goal and the game begins.",
+      buttons: [{ label: "Invite my family", kind: "go", run: async () => {
+          const text = `Join ${g.crest ? g.crest + " " : ""}${g.name} on Tribes, our family steps game 👟 ${link}`;
+          try { if (navigator.share) await navigator.share({ text }); else window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank"); } catch {}
+          state.homeTab = "tribe"; state.gameGoal = { pick: null, own: "", err: null }; render(); } },
+        { label: "Later", kind: "quiet", run: () => { state.homeTab = "tribe"; render(); } }] });
   }
 
   /* ---------- V4.3: the tribe's goal ------------------------------------ */
@@ -5884,6 +6036,8 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
           <p class="eyebrow">Your tribe</p>
           <label class="tlab" for="tsName">Tribe name</label>
           <input class="field" id="tsName" maxlength="60" value="${esc(T.name)}">
+          <p class="tlab">Crest</p>
+          ${crestPicker(T.crest, "tscrest")}
           <label class="tlab" for="tsGoal">We will</label>
           <input class="field" id="tsGoal" maxlength="120" placeholder="climb a mountain in Europe" value="${esc(T.goal)}">
           <label class="tlab" for="tsBy">By</label>
@@ -5905,6 +6059,11 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
           </div>`}
       </div>`;
   }
+  // V7.3. Sixteen crests: animals and nature, nothing that needs words.
+  const CRESTS = ["\ud83e\udd81", "\ud83d\udc3a", "\ud83e\udd85", "\ud83d\udc3b", "\ud83d\udc2f", "\ud83e\udd8a", "\ud83d\udc18", "\ud83d\udc2c",
+    "\ud83c\udf32", "\u26f0\ufe0f", "\ud83d\udd25", "\u26a1", "\ud83c\udf19", "\u2600\ufe0f", "\ud83c\udf0a", "\ud83d\ude80"];
+  const crestPicker = (cur, key) => `<div class="crests" role="radiogroup" aria-label="Crest">${CRESTS.map((c) =>
+    `<button type="button" class="crestb${c === cur ? " on" : ""}" data-${key}="${c}" role="radio" aria-checked="${c === cur}" aria-label="Crest ${c}">${c}</button>`).join("")}</div>`;
   function wireTribeSheet() {
     on("tribeGoal", "click", () => { state.tribeSheet = { edit: !(state.group || {}).goal }; seedTribe(); render();
       if (state.tribeSheet.edit) document.getElementById("tsGoal")?.focus(); });
@@ -5915,12 +6074,14 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const T = state.tribeSheet;
     [["tsName", "name"], ["tsGoal", "goal"], ["tsBy", "by"], ["tsWhen", "when"], ["tsThen", "then"]].forEach(([id, k]) =>
       on(id, "input", (e) => { T[k] = e.target.value; }));
+    document.querySelectorAll("[data-tscrest]").forEach((el) => el.addEventListener("click", () => { T.crest = el.dataset.tscrest; render(); }));
     on("tsSave", "click", async (e) => {
       e.target.disabled = true;
       const res = await call("app_set_tribe", { p_code: state.code, p_person: state.meId || null,
         p_name: (T.name || "").trim(), p_goal: (T.goal || "").trim(), p_by: T.by || null,
         p_when: (T.when || "").trim(), p_then: (T.then || "").trim() });
       if (res.error) { T.err = res.offline ? "No signal. Try again in a moment." : res.error; e.target.disabled = false; render(); return; }
+      if ((T.crest || null) !== ((state.group || {}).crest || null)) await call("app_set_crest", { p_code: state.code, p_crest: T.crest || null });
       state.tribeSheet = null;
       await refresh(); render();
     });
@@ -5929,7 +6090,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const g = state.group || {}, T = state.tribeSheet;
     if (!T || T.seeded) return;
     Object.assign(T, { name: g.name || "", goal: g.goal || "", by: g.goal_by || "", when: g.goal_when || "",
-                       then: g.goal_then || "", seeded: true });
+                       then: g.goal_then || "", crest: g.crest || null, seeded: true });
   }
 
   /* ---------- the board: a glance, not a dashboard -------------------
@@ -6108,13 +6269,15 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       // V7.1. You stay on top, highlighted; everyone else is ranked under you.
       const at = list.findIndex((p) => p.id === state.meId); if (at > 0) list.unshift(list.splice(at, 1)[0]);
       const G = !!(state.garden && (state.garden.people || []).length);
+      // V7.3. Cheers: a heart for anyone who reached today's goal (today only).
+      const CH = G && !state.boardDay;
       const cols = groups.flatMap(([, ks, gi]) => ks.map((k, j) => ({ k, gi, first: j === 0 })));
       const ks = cols.map((c) => c.k);
       const band = (i) => ` b${cols[i].gi}`;
       const nc = ks.length;
       return `<div class="ftab"><table class="ftbl" style="width:min(100%, ${78 + nc * 64}px);min-width:${78 + nc * 27}px">
-        <thead><tr class="fgrp"><th class="fn"></th>${G ? `<th class="fpt"></th>` : ""}${groups.map(([g, gks, gi]) => `<th colspan="${gks.length}" class="b${gi}">${esc(gks.length < 2 ? ({ Meditation: "Med", Exercise: "Exer", "Great Work": "Work", "Your own": "Own" }[g] || g) : g)}</th>`).join("")}</tr>
-          <tr><th class="fn"><span class="sr">Name</span></th>${G ? `<th class="fpt" title="Points kept this week">Pts</th>` : ""}${ks.map((k, i) =>
+        <thead><tr class="fgrp"><th class="fn"></th>${G ? `<th class="fpt"></th>` : ""}${CH ? `<th class="fch"></th>` : ""}${groups.map(([g, gks, gi]) => `<th colspan="${gks.length}" class="b${gi}">${esc(gks.length < 2 ? ({ Meditation: "Med", Exercise: "Exer", "Great Work": "Work", "Your own": "Own" }[g] || g) : g)}</th>`).join("")}</tr>
+          <tr><th class="fn"><span class="sr">Name</span></th>${G ? `<th class="fpt" title="Points kept this week">Pts</th>` : ""}${CH ? `<th class="fch" title="Cheers today"><span aria-hidden="true">\u2764</span><span class="sr">Cheers</span></th>` : ""}${ks.map((k, i) =>
           `<th class="${cols[i].first ? "g0" : ""}${band(i)}" title="${esc(STD[k].label)}">${FAB[k] || esc(STD[k].label.slice(0, 3))}</th>`).join("")}</tr></thead>
         <tbody>${list.map((p) => {
           const c = famCells(p), mine = p.id === state.meId;
@@ -6122,6 +6285,9 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
               <button type="button" class="ftn" ${mine ? `data-edit="name"` : `data-pnudge="${p.id}"`} data-person="${p.id}">${(() => { const x = gp(p.id);
                 return x && G ? badgeSVG(x.level, 16) : `<i aria-hidden="true"></i>`; })()}${esc(p.name)}</button></th>
             ${G ? (() => { const x = gp(p.id), on = x && (x.recent || mine); return `<td class="fpt${on && x.points < GAME_UP ? " dn" : ""}${on ? "" : " nil"}">${on ? x.points : "\u2013"}</td>`; })() : ""}
+            ${CH ? (() => { const x = gp(p.id) || {};
+              if (mine) return `<td class="fch">${x.cheers ? `<span class="fchn" aria-label="${x.cheers} cheers today">\u2764${x.cheers > 1 ? x.cheers : ""}</span>` : ""}</td>`;
+              return `<td class="fch">${x.today ? `<button type="button" class="fchb${x.cheered ? " on" : ""}" data-cheer="${p.id}" aria-pressed="${!!x.cheered}" aria-label="${x.cheered ? "You cheered" : "Cheer"} ${esc(p.name)}">${x.cheered ? "\u2764" : "\u2661"}</button>` : ""}</td>`; })() : ""}
             ${ks.map((k, i) => {
               const v = c[k], nil = v === null || v === undefined, g = cols[i].first ? " g0" : "";
               return `<td class="${nil ? "nil" : ""}${g}${band(i)}">${tiny(k, v)}</td>`;
@@ -6186,11 +6352,12 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const meRow = ordered.find((p) => p.id === state.meId);
     const head = `
       <div class="hbar">
-        <b>${esc(state.group.name)}</b>
+        <b>${state.group.crest ? `<span class="hcrest" aria-hidden="true">${esc(state.group.crest)}</span>` : ""}${esc(state.group.name)}</b>
         <span class="hright">${m ? `<label class="hwho"><select id="who" aria-label="Who are you">${whoOptions}</select>
           <i aria-hidden="true">&#9662;</i></label>` : ""}
           ${m ? `<button type="button" class="hinfo${tourSeen() ? "" : " new"}" id="tourBtn" aria-label="How Tribes works">i</button>` : ""}</span>
       </div>
+      ${m ? cheerBanner() : ""}
       ${m && homePast() && tab !== "league" ? `<div class="hpast" role="status"><span>Showing <b>${esc(fullDate(state.boardDay))}</b></span><button type="button" class="hpastgo" id="hToday">Back to today</button></div>` : ""}`;
     const addRow = m ? `
           <div class="hadd">
@@ -6203,21 +6370,20 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
             </div>
           </div>` : "";
     let body;
+    // V7.3. Arriving by your family's link: type your name and you are in;
+    // already in? pick yourself. One screen, two choices, nothing else.
     if (!m) body = `
         <section class="card hfirst">
-          <h2>Who are you?</h2>
-          <p class="hint">Pick your name, or add it, and your dials appear here.</p>
-          <div class="whoami" style="margin-top:12px">
-            <select id="who" aria-label="Who are you"
-              ${state.people.length === 0 ? "disabled" : ""}>${whoOptions}</select>
-            <button class="linkbtn" id="addBtn">${state.adding ? "Never mind" : "Add someone"}</button>
-          </div>
-          <div class="addrow" id="addRow" ${state.adding ? "" : "hidden"}>
+          <h2>${state.group.crest ? esc(state.group.crest) + " " : ""}Join ${esc(state.group.name)}</h2>
+          <p class="hint">Type your name and you're in.</p>
+          <div class="addrow" id="addRow">
             <input class="field" id="addName" placeholder="Your name" maxlength="40"
-                   autocomplete="off" aria-label="Name of the person to add">
-            <button class="btn" id="addSave">Add</button>
+                   autocomplete="given-name" aria-label="Your name">
+            <button class="btn" id="addSave">I'm in</button>
             <p class="hint" id="addHint" style="flex-basis:100%;margin-top:0"></p>
           </div>
+          ${state.people.length ? `<p class="hint" style="margin-top:14px">Already in? Pick your name:</p>
+          <div class="whoami"><select id="who" aria-label="Who are you">${whoOptions}</select></div>` : ""}
         </section>`;
     else if (tab === "tribe") body = `
       <section class="htab htribe" aria-label="Your tribe">
@@ -6226,6 +6392,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
           ${state.people.length && !state.boardBusy ? `<button type="button" class="hshare" id="waShare" aria-label="Post ${state.boardDay ? esc(shortDay(famDayISO())) : "today"} to WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11v9h12v-9"/></svg></button>` : ""}</div>
         ${goalLine()}
         ${gameLines()}
+        ${tribeExtras()}
         ${nav()}
         ${state.people.length ? `<div class="roster">${famTable(meRow ? [meRow].concat(ordered.filter((p) => p.id !== state.meId)) : ordered)}</div>` : roster}
         ${addRow}
@@ -6237,13 +6404,46 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       <section class="htab hme" aria-label="Your dashboard">
         ${nav()}
         ${meRow ? `<div class="roster">${meDash(meRow)}</div>` : ""}
-      </section>`;
+      </section>
+      ${feedbackCard()}`;
 
     return `${head}
       ${body}
       ${tab === "me" ? installHint() : ""}
       <p class="ver">v${APP_VERSION}</p>
       ${m ? tabBar(tab) : ""}`;
+  }
+
+  // V7.3. Feedback, at the foot of Me: a rating and a line, saved with who
+  // sent it and from which tribe, read by the app's maker.
+  function feedbackCard() {
+    const F = state.fb || (state.fb = { rating: 0, body: "", sent: false, err: null, busy: false });
+    if (F.sent) return `<section class="fbk sent" aria-live="polite"><p class="fbt">Thank you${me() ? ", " + esc(me().name) : ""}.</p>
+        <p class="fbs">Every note is read, and the next version is built from them.</p>
+        <button type="button" class="linkbtn" id="fbAgain">Send another</button></section>`;
+    return `<section class="fbk" aria-label="Send feedback">
+      <p class="fbt">Help make Tribes better</p>
+      <div class="fbstars" role="radiogroup" aria-label="How much do you like Tribes?">${[1, 2, 3, 4, 5].map((n) =>
+        `<button type="button" class="fbstar${n <= F.rating ? " on" : ""}" data-fbr="${n}" role="radio" aria-checked="${n === F.rating}" aria-label="${n} of 5">\u2605</button>`).join("")}</div>
+      <textarea class="field fbin" id="fbIn" rows="3" maxlength="2000" placeholder="What would make it better? What do you love?">${esc(F.body)}</textarea>
+      ${F.err ? `<p class="hint bad">${esc(F.err)}</p>` : ""}
+      <button type="button" class="btn fbgo" id="fbGo" ${F.busy ? "disabled" : ""}>${F.busy ? "Sending\u2026" : "Send"}</button>
+    </section>`;
+  }
+  function wireFeedback() {
+    const F = state.fb; if (!F) return;
+    document.querySelectorAll("[data-fbr]").forEach((el) => el.addEventListener("click", () => {
+      F.rating = Number(el.dataset.fbr) === F.rating ? 0 : Number(el.dataset.fbr); F.err = null; render(); }));
+    on("fbIn", "input", (e) => { F.body = e.target.value; });
+    on("fbAgain", "click", () => { state.fb = null; render(); });
+    on("fbGo", "click", async () => {
+      if (!F.rating && !F.body.trim()) { F.err = "Pick a star or write a line."; render(); return; }
+      F.busy = true; F.err = null; render();
+      const res = await call("app_feedback", { p_code: state.code, p_person: state.meId, p_rating: F.rating || null, p_body: F.body.trim(), p_version: APP_VERSION });
+      F.busy = false;
+      if (res.error) { F.err = res.offline ? "No signal. Not sent yet." : res.error; render(); return; }
+      F.sent = true; F.body = ""; F.rating = 0; render();
+    });
   }
 
   // V7.2. The tab bar: a floating capsule; the open tab is a filled pill.
@@ -6267,26 +6467,42 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     if (!force && L && (L.busy || Date.now() - L.at < 60000)) return;
     state.league = Object.assign({}, L || {}, { busy: true });
     const res = await call("app_league", { p_code: state.code });
-    state.league = res && !res.error ? { tribes: res.tribes || [], mine: !!res.mine, at: Date.now(), busy: false }
+    state.league = res && !res.error ? { tribes: res.tribes || [], mine: !!res.mine, rivals: res.rivals || [], last: res.last_matches || [], pid: res.pid || null, at: Date.now(), busy: false }
       : Object.assign({}, L || {}, { busy: false, at: Date.now(), err: res && res.offline ? "No signal." : (res && res.error) || "Could not load the League." });
     if (state.view === "board" && homeTab() === "league") render();
   }
+  // V7.3. A tribe's face: its crest, or its first letter in a circle.
+  const crestOf = (c, name) => c ? `<span class="crest" aria-hidden="true">${esc(c)}</span>`
+    : `<span class="crest none" aria-hidden="true">${esc(((name || "?").trim()[0] || "?").toUpperCase())}</span>`;
   function leagueView() {
     const L = state.league || {};
     if (!L.tribes) { if (!L.busy) setTimeout(() => loadLeague(), 0);
       return `<section class="htab hleague"><div class="htabh"><h2>League</h2></div>${L.err ? `<p class="hint bad">${esc(L.err)}</p>` : `<p class="hint">Loading the League…</p>`}</section>`; }
     const T = L.tribes, me0 = T.find((t) => t.me), n = T.length;
     const champ = T.filter((t) => t.last_rank === 1);
-    const sc = (x) => { const v = Number(x); return Number.isInteger(v) ? String(v) : v.toFixed(1); };
+    const sc = (x) => { if (x === null || x === undefined) return "–"; const v = Number(x); return Number.isInteger(v) ? String(v) : v.toFixed(1); };
+    const myName = state.group.name, myCrest = state.group.crest;
+    // This week's rival(s): you against them, score against score.
+    const rv = (L.rivals || []).map((r) => { const us = Number(r.us), them = Number(r.them), lead = r.us === null || r.them === null ? 0 : Math.sign(us - them);
+      return `<div class="lgvs">
+        <div class="lgside${lead > 0 ? " ahead" : ""}">${crestOf(myCrest, myName)}<b>${esc(myName)}</b><em>${sc(r.us)}</em></div>
+        <span class="lgv">vs</span>
+        <div class="lgside${lead < 0 ? " ahead" : ""}">${crestOf(r.crest, r.name)}<b>${esc(r.name)}</b><em>${sc(r.them)}</em></div>
+      </div><p class="lgvsl">${r.them === null ? `${esc(r.name)} start once someone there sets a goal.` : lead > 0 ? "You're ahead. Keep it through Sunday." : lead < 0 ? `${esc(r.name)} lead. Every walk today counts.` : "Level. One walk breaks the tie."}</p>`; }).join("");
+    const lastm = (L.last || []).filter((r) => r.us !== null && r.them !== null).map((r) => { const d = Number(r.us) - Number(r.them);
+      return `<p class="lglast">Last week vs ${esc(r.name)}: <b>${d > 0 ? "you won" : d < 0 ? "they won" : "a tie"}</b>, ${sc(r.us)} to ${sc(r.them)}.</p>`; }).join("");
     return `<section class="htab hleague" aria-label="The League">
       <div class="htabh"><h2>League</h2><em>this week</em></div>
-      ${me0 ? `<div class="lgme"><b>${me0.rank}<small>${ordinal(me0.rank)}</small></b><span>of ${n} tribe${n === 1 ? "" : "s"}<em>${esc(me0.name)} · ${sc(me0.score)} points on average</em></span></div>`
-        : `<p class="lgnote">${esc(state.group.name)} joins the League once someone sets a goal and walks.</p>`}
+      ${rv ? `<div class="lgrival"><p class="eyebrow">Your rival this week</p>${rv}</div>`
+        : `<div class="lgrival none"><p class="eyebrow">Your rival this week</p><p class="lgvsl">${me0 ? "Rivals are paired as more tribes join. Invite a family and they start as your rival." : `${esc(myName)} gets a rival once someone sets a goal and walks.`}</p></div>`}
+      ${lastm}
+      ${me0 ? `<div class="lgme"><b>${me0.rank}<small>${ordinal(me0.rank)}</small></b><span>of ${n} tribe${n === 1 ? "" : "s"}<em>${sc(me0.score)} points on average${me0.stars ? ` · ${me0.stars} ★` : ""}</em></span></div>` : ""}
       <ol class="lglist">${T.map((t) => `<li class="${t.me ? "me" : ""}${t.rank <= 3 ? " top" + t.rank : ""}">
-          <span class="lgrk">${t.rank}</span><span class="lgnm">${esc(t.name)}<small>${t.players} playing</small></span><b class="lgsc">${sc(t.score)}</b></li>`).join("")}</ol>
-      ${champ.length ? `<p class="lglast">Last week: <b>${champ.map((t) => esc(t.name)).join(", ")}</b> won with ${sc(champ[0].last)}.</p>` : ""}
-      <p class="lgrule">A tribe's score is the average of this week's points of everyone in it who set a goal. A missed day costs the whole tribe. Resets every Monday.</p>
-      <button type="button" class="btn lginv" id="lgInvite">Invite another family</button>
+          <span class="lgrk">${t.rank}</span>${crestOf(t.crest, t.name)}<span class="lgnm">${esc(t.name)}<small>${t.players} playing${t.stars ? ` · ${t.stars} ★` : ""}</small></span><b class="lgsc">${sc(t.score)}</b></li>`).join("")}</ol>
+      ${champ.length ? `<p class="lglast">Last week's champions: <b>${champ.map((t) => esc(t.name)).join(", ")}</b>, ${sc(champ[0].last)}.</p>` : ""}
+      <p class="lgrule">A tribe's score is the average of everyone's points this week (70 each Monday, 10 off per missed day). A ★ is a week where everyone kept 40+. New rivals every Monday.</p>
+      <button type="button" class="btn lginv" id="lgInvite">Challenge another family</button>
+      <p class="lginvs">They start their own tribe and face yours first.</p>
     </section>`;
   }
   const ordinal = (n) => n % 100 >= 11 && n % 100 <= 13 ? "th" : ["th", "st", "nd", "rd"][n % 10] || "th";
@@ -6564,6 +6780,11 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const second = bin || avg === null
       ? `<b>${P.pts.filter((p) => p.hit).length}</b><small>of the last 28 days</small>`
       : `<b class="${good ? "pgok" : ""}">${esc(stdWords(k, avg))}</b><small>4-week average · standard ${esc(stdWords(k, P.std))}</small>`;
+    // V7.3. Steps: the week and the 4-week average as one quiet line.
+    if (k === "steps") return `<section class="pgmini pgline" aria-label="Steps: this week and the last four">
+        <p><b>${metW}</b> of 7 days this week${avg === null ? "" : ` \u00b7 avg <b class="${good ? "pgok" : ""}">${esc(stdWords(k, avg))}</b>`}
+          <button type="button" class="linkbtn pgmore" data-pgmore="${k}" aria-expanded="false">History \u203a</button></p>
+      </section>`;
     return `<section class="card pgcard pgmini" aria-label="${esc(STD[k].label)}: this week and the last four">
         <div class="pgtwo"><div><b>${metW}</b><small>of ${7} days met this week</small></div><div>${second}</div></div>
         <button type="button" class="linkbtn pgmore" data-pgmore="${k}" aria-expanded="false">History ›</button>
@@ -7852,6 +8073,25 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         <p class="hint dshint" style="text-align:center">The sum of ${isToday ? "today's" : "this day's"} workouts.</p>
       </section>`;
 
+    // V7.3. Steps: the home dial's ring around the number, the standard
+    // under it, and nothing else. The ring says how close at a glance; the
+    // number is still the input; one line below holds the week.
+    if (k === "steps") {
+      const pct = stdPct("steps", has ? shown : null, goal);
+      return `
+      <section class="card sstep">
+        ${dayNav({ label: isToday ? "Today" : esc(fullDate(iso)), atToday: isToday, unit: "day" })}
+        <div class="dial sdial">${dialRing(pct)}
+          <div class="dcore">
+            <input class="bigedit dnum" id="steps" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" enterkeyhint="done"
+                   value="${has ? num(Math.round(shown)) : ""}" placeholder="0" data-raw="${has ? Math.round(shown) : ""}"
+                   aria-label="Steps on ${isToday ? "today" : esc(fullDate(iso))}, tap to type">
+            <button type="button" class="dof" data-edit="goal" data-metric="steps">of ${num(Math.round(goal || 8000))} steps</button>
+          </div>
+        </div>
+        ${state.msg ? `<p class="hint dshint ${state.msgKind || ""}" id="hint" style="text-align:center">${esc(state.msg)}</p>` : ""}
+      </section>`;
+    }
     // V2.1. The number IS the input. Tap it and the keyboard comes up with
     // the digits selected; leave it and it saves. There is no second box
     // to find and no button to press, which on an iPhone numeric keypad —
@@ -10645,10 +10885,11 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         <p class="gtwin">Week score: all actions done \u00f7 due \u00b7 <button type="button" class="dof" data-edit="goal" data-metric="goals">${win}% wins</button>${T.due ? ` · ${T.done} of ${T.due} done` : ""}</p>
         ${open > 1 ? `<div class="gwtabs" role="tablist" aria-label="Weeks">${Array.from({ length: open }, (_, i) => i + 1).map((n) => {
           const p = weekTally(d, n).pct;
-          // V6.7. One thin bar per goal, in that goal's colour (as on home).
-          const bars = goalOrder(d).slice(0, 3).map((g, gi) => { const gp = goalTally(g, n).pct;
-            return `<i style="--gc:${GCOL[gi]}"><b style="width:${gp === null ? 0 : Math.min(100, gp)}%"></b></i>`; }).join("");
-          return `<button type="button" role="tab" class="gwt${n === w ? " on" : ""}${p !== null && p >= win ? " won" : ""}" data-gweek="${n}" aria-selected="${n === w}" aria-label="Week ${n}: ${p === null ? "nothing due" : p + "% of all actions"}">W${n}<span class="gwbars">${bars}</span></button>`; }).join("")}</div>` : ""}
+          // V7.3. A number per goal, each beside its goal's colour dot (the
+          // same dot as in the goal list), so the week reads at a glance.
+          const gs = goalOrder(d).slice(0, 3).map((g, gi) => ({ gp: goalTally(g, n).pct, gi, t: g.title || "Untitled" }));
+          const nums = gs.map(({ gp, gi }) => `<span class="gwn${gp !== null && gp >= win ? " won" : ""}"><i style="background:${GCOL[gi]}"></i>${gp === null ? "\u2013" : gp}</span>`).join("");
+          return `<button type="button" role="tab" class="gwt${n === w ? " on" : ""}${p !== null && p >= win ? " won" : ""}" data-gweek="${n}" aria-selected="${n === w}" aria-label="Week ${n}: ${gs.map((x) => `${x.t} ${x.gp === null ? "nothing due" : x.gp + "%"}`).join(", ")}">W${n}<span class="gwnums">${nums}</span></button>`; }).join("")}</div>` : ""}
       </section>`;
   }
   function gDay(C) {
@@ -13443,19 +13684,24 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 
     // What is typed survives a repaint (a message, a failed create).
     state.land = state.land || {};
-    [["gname", "name"], ["ggoal", "goal"], ["gby", "by"], ["gwhen", "when"], ["gthen", "then"]].forEach(([id, k]) =>
-      on(id, "input", (e) => { state.land[k] = e.target.value; }));
-    on("create", "click", async (e) => {
-      const L = state.land, name = (L.name || "").trim();
-      const tz = document.getElementById("gtz").value;
-      if (!name) { state.msg = "Give your tribe a name."; render(); document.getElementById("gname")?.focus(); return; }
-      e.target.disabled = true;
-      const res = await call("app_create_group", { p_name: name, p_timezone: tz });
-      if (res.error) { state.msg = res.error; e.target.disabled = false; render(); return; }
-      if ((L.goal || "").trim() || L.by || (L.when || "").trim() || (L.then || "").trim()) {
-        await call("app_set_tribe", { p_code: res.code, p_person: null, p_name: name, p_goal: (L.goal || "").trim(),
-          p_by: L.by || null, p_when: (L.when || "").trim(), p_then: (L.then || "").trim() });
-      }
+    [["gname", "name"], ["gme", "me"]].forEach(([id, k]) => on(id, "input", (e) => { state.land[k] = e.target.value; }));
+    document.querySelectorAll("[data-lcrest]").forEach((el) => el.addEventListener("click", () => { state.land.crest = el.dataset.lcrest; state.msg = null; render(); }));
+    on("gme", "keydown", (e) => { if (e.key === "Enter") document.getElementById("create")?.click(); });
+    on("create", "click", async () => {
+      const L = state.land, name = (L.name || "").trim(), mine = (L.me || "").trim();
+      const say = (t, id) => { state.msg = t; render(); if (id) document.getElementById(id)?.focus(); };
+      if (!name) return say("Give your tribe a name.", "gname");
+      if (!L.crest) return say("Pick a crest.");
+      if (!mine) return say("Type your name.", "gme");
+      let tz = "America/New_York"; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || tz; } catch {}
+      L.busy = true; state.msg = null; render();
+      const res = await call("app_create_group", { p_name: name, p_timezone: tz, p_crest: L.crest, p_rival: rivalParam() });
+      if (res.error) { L.busy = false; return say(res.offline ? "No signal. Try again in a moment." : res.error, "gname"); }
+      const who = await call("app_add_person", { p_code: res.code, p_name: mine });
+      try {
+        if (who && who.id) localStorage.setItem("fhd.me." + res.code, who.id);
+        localStorage.setItem("fhd.welcome." + res.code, "1");
+      } catch {}
       location.search = "?g=" + res.code;
     });
 
@@ -13477,9 +13723,14 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       e.target.disabled = true;
       const res = await call("app_add_person", { p_code: state.code, p_name: name });
       if (res.error) { hint.textContent = res.error; e.target.disabled = false; return; }
-      saveMe(res.id);
+      // V7.3 BUG FIX: adding someone else from the Tribe tab used to turn
+      // this phone into them. Only a phone with nobody chosen becomes the
+      // person it adds.
+      const first = !state.meId;
+      if (first) saveMe(res.id);
       state.adding = false;
       await refresh();
+      if (first && (state.people || []).length <= 1) welcomeTribe();
     });
     on("addName", "keydown", (e) => {
       if (e.key === "Enter") document.getElementById("addSave").click();
@@ -13513,6 +13764,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     on("bNext", "click", () => stepBoard(1));
     on("bToday", "click", () => state.homeToday());
     on("hToday", "click", () => state.homeToday());
+    wireFeedback();
     // V7.2. The three home tabs. A tap switches; the page goes back to the top.
     document.querySelectorAll("[data-htab]").forEach((el) => el.addEventListener("click", () => {
       const k = el.dataset.htab; if (k === homeTab()) { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
@@ -13520,9 +13772,11 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       if (k === "league") loadLeague();
     }));
     on("lgInvite", "click", async () => {
-      // A link to start their own tribe: the app without our code.
-      const link = `${location.origin}${location.pathname}`;
-      const text = `Start your family's tribe on Tribes and race ${state.group.name} in the League 👟 ${link}`;
+      // V7.3. A link to start their own tribe, already challenged by ours:
+      // our public id, never our join code.
+      const pid = (state.league && state.league.pid) || state.group.pid;
+      const link = `${location.origin}${location.pathname}${pid ? "?rival=" + encodeURIComponent(pid) : ""}`;
+      const text = `${state.group.crest ? state.group.crest + " " : ""}${state.group.name} challenge your family to a week of steps on Tribes. Start your tribe here 👟 ${link}`;
       try { if (navigator.share) { await navigator.share({ text }); return; } } catch (e) { if (e && e.name === "AbortError") return; }
       window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank");
     });
