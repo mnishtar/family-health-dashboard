@@ -1322,6 +1322,11 @@ button.fchip { padding:7px 13px; cursor:pointer; }
   font-size:clamp(18px, 5.4vw, 24px); line-height:1; padding:0; cursor:pointer; -webkit-tap-highlight-color:transparent; }
 .crestb.on { border-color:var(--accent); background:color-mix(in oklab, var(--accent) 18%, var(--surface)); transform:scale(1.06); }
 .hcrest { margin-right:6px; }
+.lgrules { margin:2px 0 12px; }
+.lgjoin { display:flex; align-items:center; justify-content:space-between; gap:10px; min-height:48px; margin:0 0 12px; padding:0 14px; border-radius:14px; border:1px dashed var(--line-strong); font-size:14px; color:var(--ink-2); }
+.lgjoin.in { border-style:solid; border-color:color-mix(in oklab, var(--green, #3f9a63) 50%, var(--line)); background:color-mix(in oklab, var(--green, #3f9a63) 10%, var(--surface)); }
+.lgjoin b { color:var(--ink); }
+.lgjoinb { width:100%; margin:0 0 12px; }
 .lginvs { margin:6px 0 0; text-align:center; font-size:12.5px; color:var(--muted); }
 .lglist li + li { border-top:1px solid var(--line); }
 .lgrk { font-weight:800; font-variant-numeric:tabular-nums; color:var(--muted); text-align:center; }
@@ -1333,16 +1338,25 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .lglast { margin:12px 0 0; font-size:14px; color:var(--ink-2); }
 .lgrule { margin:8px 0 0; font-size:13px; line-height:1.45; color:var(--muted); }
 .lginv { width:100%; margin-top:16px; }
-/* V7.3. Feedback at the foot of Me. */
-.fbk { margin:26px 0 8px; padding:18px 16px 16px; border-radius:18px; background:color-mix(in oklab, var(--ink) 4%, var(--surface)); text-align:center; }
-.fbt { margin:0; font-family:var(--display); font-size:20px; color:var(--ink); }
-.fbs { margin:6px 0 4px; font-size:13.5px; color:var(--muted); }
-.fbstars { display:flex; justify-content:center; gap:6px; margin:10px 0 12px; }
-.fbstar { width:40px; height:40px; border:none; background:none; padding:0; font-size:28px; line-height:1; color:var(--line-strong); cursor:pointer; -webkit-tap-highlight-color:transparent; }
-.fbstar.on { color:var(--gold, #c9970f); }
-.fbstar:active { transform:scale(.9); }
-.fbin { width:100%; min-height:76px; resize:vertical; font-size:16px; text-align:left; }
-.fbgo { width:100%; margin-top:10px; }
+/* V7.4. Feedback: one line and a send arrow. The owner's inbox above it. */
+.fbk { margin:22px 0 6px; }
+.fbt { display:block; margin:0 0 6px; font-size:13px; font-weight:600; color:var(--muted); }
+.fbrow { display:flex; gap:8px; align-items:center; }
+.fbin { flex:1; min-width:0; font-size:16px; }
+.fbgo { flex:none; width:44px; height:44px; border-radius:50%; border:none; background:var(--accent); color:#1a1408; display:grid; place-items:center; cursor:pointer; }
+.fbgo svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
+.fbgo:disabled { opacity:.5; }
+.fbmsg { margin:6px 0 0; }
+.ownrow { display:flex; align-items:center; gap:10px; width:100%; min-height:48px; margin:18px 0 0; padding:0 14px; border-radius:14px; border:1px solid var(--line); background:var(--surface); color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
+.ownrow span { font-weight:700; } .ownrow em { flex:1; font-style:normal; font-size:13.5px; color:var(--muted); } .ownrow em b { color:var(--accent); } .ownrow i { font-style:normal; color:var(--muted); }
+.iblist { list-style:none; margin:0 0 6px; padding:0; }
+.iblist li { display:flex; gap:10px; align-items:center; padding:9px 0; border-top:1px solid var(--line); font-size:14.5px; color:var(--ink); }
+.iblist li > span:first-child { flex:1; min-width:0; display:flex; flex-direction:column; overflow-wrap:anywhere; }
+.iblist li small { font-size:12px; color:var(--muted); } .iblist li em { font-style:normal; font-size:12.5px; color:var(--muted); }
+.iblist li.new { box-shadow:inset 3px 0 0 var(--accent); padding-left:10px; }
+.ibact { display:flex; gap:6px; } .ibact button { padding:8px 10px; font-size:13px; }
+/* V7.4. Me: the dashboard sits flat, no border or shadow. */
+.hme .roster { border:none; box-shadow:none; background:none; }
 /* V5.7. Posting the day is a quiet share icon beside the dashboard's name. */
 .hfamh { display:flex; align-items:center; gap:4px; border-top:1px solid var(--line); }
 .hfamh .hfamline { border-top:none; flex:1; min-width:0; }
@@ -2184,6 +2198,34 @@ button.gx { cursor:pointer; }
 .hcheer > span:nth-child(2) { flex:1; } .hcheer b { color:var(--ink); }
 .hcheerh { color:#e5534b; font-size:18px; }
 .hcheerok { flex:none; min-height:34px; padding:0 14px; border-radius:999px; border:none; background:var(--ink); color:var(--surface); font:inherit; font-size:13.5px; font-weight:700; cursor:pointer; }
+/* V7.4. Tribe: numbered rules, you, your bank. */
+.grules { list-style:none; margin:0 0 8px; padding:0; display:flex; flex-direction:column; gap:6px; }
+.grules li { display:flex; align-items:flex-start; gap:10px; font-size:14.5px; line-height:1.35; color:var(--ink-2); }
+.grules li > b { flex:none; display:grid; place-items:center; width:22px; height:22px; border-radius:50%; font-size:12.5px; color:var(--surface); background:var(--ink-2); }
+.grules li span b { color:var(--ink); }
+.glines .gmline { border-top:1px solid var(--line); padding-top:8px; }
+.gbank { display:flex; align-items:center; gap:10px; width:100%; min-height:44px; margin:0; padding:6px 0 0; border:none; border-top:1px solid var(--line); background:none; color:var(--ink-2); font:inherit; font-size:14.5px; text-align:left; cursor:pointer; }
+.gbank > span:nth-child(2) { flex:1; } .gbank b { color:var(--ink); font-size:16px; }
+.gbank em { font-style:normal; font-weight:600; color:var(--accent); }
+.gbanki { width:30px; text-align:center; font-size:20px; color:var(--gold, #c9970f); }
+.gweek { display:block; margin:-2px 0 12px; font-size:13.5px; }
+.wksheet .wkrow { display:flex; gap:12px; align-items:baseline; padding:10px 0; border-top:1px solid var(--line); font-size:15px; color:var(--ink-2); }
+.wksheet .wkrow b { color:var(--ink); } .wksheet .wkrow .badge { display:inline-block; vertical-align:-3px; }
+.wkk { flex:none; width:58px; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
+.wkrec { display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; margin:12px 0 4px; padding:12px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); text-align:center; }
+.wkrec b { display:block; font-size:22px; font-weight:800; color:var(--ink); font-variant-numeric:tabular-nums; }
+.wkrec small { font-size:11.5px; color:var(--muted); }
+.wkbank { margin:10px 0 2px; font-size:14px; color:var(--ink-2); text-align:center; } .wkbank b { color:var(--ink); }
+.shbal { margin:2px 0 10px; font-size:15px; color:var(--ink-2); } .shbal b { font-size:22px; color:var(--ink); }
+.shlist, .shmine { list-style:none; margin:0; padding:0; }
+.shlist li { display:flex; align-items:center; gap:10px; padding:10px 0; border-top:1px solid var(--line); }
+.shlist li > span { flex:1; min-width:0; display:flex; flex-direction:column; }
+.shlist li b { font-size:15px; color:var(--ink); } .shlist li small { font-size:12.5px; color:var(--muted); }
+.shbuy { flex:none; display:flex; flex-direction:column; align-items:center; min-width:76px; padding:8px 10px; border-radius:12px; border:1.5px solid var(--line-strong); background:none; color:var(--ink-2); font:inherit; font-weight:700; font-variant-numeric:tabular-nums; }
+.shbuy small { font-size:10.5px; font-weight:500; color:var(--muted); }
+.shbuy.can { border-color:var(--accent); background:color-mix(in oklab, var(--accent) 16%, var(--surface)); color:var(--ink); cursor:pointer; }
+.shmine li { display:flex; justify-content:space-between; gap:10px; padding:6px 0; font-size:14px; } .shmine em { font-style:normal; color:var(--muted); }
+.shpick { font-size:16px; margin:4px 0 10px; } .shrule { margin-top:10px; }
 .grule { margin:2px 0 0; font-size:13.5px; line-height:1.4; color:var(--ink-2); }
 .grule b { color:var(--ink); }
 .glines .bset { margin:0 0 6px; }
@@ -2801,7 +2843,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "7.3";
+  const APP_VERSION = "7.4";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -3193,27 +3235,23 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         <div class="stdbtns"><button type="button" class="btn-quiet" id="ggX">Cancel</button><button type="button" class="btn" id="ggGo">I’m in</button></div>
       </div>`;
   }
-  // V7.1. The game between your dashboard and the family's: your line, then
-  // the rule in one sentence a child or a grandparent can repeat.
+  // V7.4. The Tribe game in three numbered rules, then you: badge, points
+  // this week, and your bank (what you have kept, ready to spend).
   function gameLines() {
     const G = state.garden, mine = gardenMe(); if (!G || !mine) return "";
-    const goal = num(stdOf(me(), "steps")), rk = gameRank();
+    const goal = num(stdOf(me(), "steps")), rk = gameRank(), bank = Number(G.bank) || 0;
     return `<div class="glines" id="gameCard">
-        ${!mine.pledged ? `<button type="button" class="bset" id="gameGoal"><b>Set your goal from your usual steps</b><small>10 seconds. Then every day counts.</small></button>` : ""}
+        <ol class="grules">
+          <li><b>1</b><span>Walk <b>${goal}</b> steps every day.</span></li>
+          <li><b>2</b><span>You start each week with <b>70</b> points. A missed day is <b>−10</b>.</span></li>
+          <li><b>3</b><span>Keep <b>40+</b> by Sunday and your badge goes up. What you keep goes to your bank.</span></li>
+        </ol>
+        ${!mine.pledged ? `<button type="button" class="bset" id="gameGoal"><b>Set your step goal to start</b><small>10 seconds. Then your points go to your bank.</small></button>` : ""}
         <button type="button" class="gmline" id="gameOpen" aria-label="You: ${mine.points} of ${GAME_WEEK} points. How the game works">
-          ${badgeSVG(mine.level, 26)}<span><b class="gpts">${mine.points}</b><small>/${GAME_WEEK}</small> <span class="${mine.yesterday ? "yok" : "yno"}">${mine.yesterday ? "\u2713" : "\u2717"} yesterday</span><em>${rk ? `<b class="grk">${rk.label}</b> of ${rk.of} \u00b7 ` : ""}Sunday: ${fate(mine.points, mine.level)}</em></span><i aria-hidden="true">\u203a</i></button>
-        <p class="grule">Walk <b>${goal}</b> a day. Miss a day: <b>\u221210</b>. Keep <b>40</b> by Sunday: badge up.</p>
-      </div>`;
-  }
-  // V7.3. Two lines under the game: All in (the tribe's star) and the week's
-  // most improved. Both are about the family, and neither has a loser.
-  function tribeExtras() {
-    const G = state.garden; if (!G || !gardenMe()) return "";
-    const A = G.allin || {}, I = G.improved;
-    const allin = A.of ? `<button type="button" class="gx gallin" id="allinOpen" aria-label="All in: ${A.on} of ${A.of} still on 40 or more. ${A.stars || 0} stars. How it works">
-        <span class="gxi" aria-hidden="true">\u2605</span><span>All in: <b>${A.on} of ${A.of}</b> still on 40+${A.stars ? ` \u00b7 <b>${A.stars}</b> star${A.stars === 1 ? "" : "s"}` : ""}</span><i aria-hidden="true">\u203a</i></button>` : "";
-    const imp = I ? `<p class="gx gimp"><span class="gxi" aria-hidden="true">\ud83c\udf31</span><span>Most improved last week: <b>${esc(I.id === state.meId ? "you" : I.name)}</b>, +${I.pct}% steps</span></p>` : "";
-    return allin || imp ? `<div class="gextra">${allin}${imp}</div>` : "";
+          ${badgeSVG(mine.level, 30)}<span><b class="gpts">${mine.points}</b><small>/${GAME_WEEK}</small> <span class="${mine.yesterday ? "yok" : "yno"}">${mine.yesterday ? "✓" : "✗"} yesterday</span><em>${BD(mine.level)[0]}${rk ? ` · <b class="grk">${rk.label}</b> of ${rk.of}` : ""} · Sunday: ${fate(mine.points, mine.level)}</em></span><i aria-hidden="true">›</i></button>
+        ${mine.pledged ? `<button type="button" class="gbank" id="shopOpen"><span class="gbanki" aria-hidden="true">◈</span><span>Your bank <b>${num(bank)}</b> points</span><em>Prizes ›</em></button>` : ""}
+      </div>
+      ${mine.pledged ? `<button type="button" class="linkbtn gweek" id="weekOpen">Your week and record ›</button>` : ""}`;
   }
   function cheerBanner() {
     const N = (state.garden && state.garden.cheers_new) || [];
@@ -3236,7 +3274,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
           <li><b>70</b> Every Monday everyone gets 70 points.</li>
           <li><b>\u221210</b> Miss your step goal one day? You lose 10.</li>
           <li><b>40</b> Keep 40 or more (your goal 4 days of 7) and your badge goes up on Sunday. Less, it goes down. Everyone starts at Bronze.</li>
-          <li><b>1st</b> You are ranked in your tribe. Your tribe's average is ranked in the League.</li>
+          <li><b>\u25c8</b> The points you keep go to your bank. Spend them on prizes.</li>
         </ul>
         <button type="button" class="linkbtn" id="gameGoal2">Change my goal (now ${num(stdOf(me(), "steps"))})</button>
         <p class="gsrc">From Penn Medicine’s STEP UP trial (2019): extra steps were still there 3 months after the game ended.</p>
@@ -3244,10 +3282,6 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       </div>`;
   }
   function wireGame() {
-    on("allinOpen", "click", () => { const A = (state.garden && state.garden.allin) || {};
-      openModal({ mark: `<span class="gstarbig" aria-hidden="true">\u2605</span>`, title: "All in",
-        body: `If everyone in the tribe who set a goal keeps 40 or more points this week, the tribe wins a star on Sunday. ${A.on} of ${A.of} are still on 40+ now.${A.stars ? ` Stars so far: ${A.stars}.` : ""} Stars show beside your tribe in the League.`,
-        buttons: [{ label: "Got it", kind: "go" }] }); });
     on("cheerOk", "click", async () => { state.cheersOk = true; if (state.garden) state.garden.cheers_new = []; render();
       await call("app_cheers_seen", { p_code: state.code, p_person: state.meId }); });
     document.querySelectorAll("[data-cheer]").forEach((el) => el.addEventListener("click", async () => {
@@ -3289,22 +3323,107 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     }));
   }
   // Monday: how last week went, for you and the family, once on this phone.
+  // V7.4. Monday's report, once per week per phone: you, your tribe's rival
+  // match and the League, plus your record. No notifications: it waits for
+  // you to open the app.
   function gardenCheck() {
-    const G = state.garden, mine = gardenMe(); if (!G || !mine || state.view !== "board") return;
-    const has = (x) => x && x.prev_level !== null && x.prev_level !== undefined;
-    if (!has(mine)) return;
+    const G = state.garden, mine = gardenMe(); if (!G || !mine || state.view !== "board" || !mine.pledged) return;
     const k = "fhd.game.seen." + state.meId;
     let seen = null; try { seen = localStorage.getItem(k); } catch {}
     if (seen === G.last_week) return;
     try { localStorage.setItem(k, G.last_week); } catch {}
-    const line = (x, who) => { const up = x.level > x.prev_level, dn = x.level < x.prev_level;
-      return `${who} kept ${x.last_points} of ${GAME_WEEK}: ${up ? `up to ${BD(x.level)[0]}` : dn ? `down to ${BD(x.level)[0]}` : `still ${BD(x.level)[0]}`}.`; };
-    const upMe = has(mine) && mine.level > mine.prev_level;
-    setTimeout(() => openModal({
-      mark: `<span class="${upMe ? "gbloomer" : ""}">${badgeSVG(mine.level, 84)}</span>`,
-      title: upMe ? `${BD(mine.level)[0]}!` : "A new week",
-      body: `${line(mine, "You")}${G.allin && G.allin.last ? " The whole tribe kept 40+: a \u2605 star!" : ""} Everyone is back to ${GAME_WEEK}.`,
-      buttons: [{ label: "Let's go", kind: "go" }] }), 500);
+    // Only after a week you actually played: not the moment you pledge.
+    if (mine.pledged_on && G.week_start && mine.pledged_on >= G.week_start) return;
+    openWeek();
+  }
+  async function openWeek() {
+    state.weekCard = { busy: true }; render();
+    const res = await call("app_week_report", { p_code: state.code, p_person: state.meId });
+    state.weekCard = res && !res.error ? res : { err: res && res.offline ? "No signal." : (res && res.error) || "Could not load your week." };
+    render();
+  }
+  function weekSheet() {
+    const W = state.weekCard; if (!W) return "";
+    const mine = gardenMe() || {}, up = mine.prev_level != null && mine.level > mine.prev_level, dn = mine.prev_level != null && mine.level < mine.prev_level;
+    const sc = (x) => x === null || x === undefined ? "–" : (Number.isInteger(Number(x)) ? String(Number(x)) : Number(x).toFixed(1));
+    const span = W.week_start ? `${shortDay(W.week_start)} – ${shortDay(shiftISO(W.week_start, 6))}` : "";
+    const rv = (W.rival || [])[0], R = W.record || {}, L = W.league;
+    const res = rv && rv.us != null && rv.them != null ? (Number(rv.us) > Number(rv.them) ? "Won" : Number(rv.us) < Number(rv.them) ? "Lost" : "Tied") : null;
+    const body = W.busy ? `<p class="hint">Loading your week…</p>` : W.err ? `<p class="hint bad">${esc(W.err)}</p>` : `
+        <div class="wkrow"><span class="wkk">You</span><span><b>${W.kept}</b> of 70 kept · ${badgeSVG(mine.level, 18)} ${up ? `up to ${BD(mine.level)[0]}` : dn ? `down to ${BD(mine.level)[0]}` : BD(mine.level)[0]}${W.banked != null ? ` · <b>+${W.banked}</b> banked` : ""}</span></div>
+        ${rv ? `<div class="wkrow"><span class="wkk">Tribe</span><span>vs ${esc(rv.name)}: <b class="${res === "Won" ? "yok" : res === "Lost" ? "yno" : ""}">${res || "no score"}</b>${res ? ` ${sc(rv.us)}–${sc(rv.them)}` : ""}</span></div>` : ""}
+        ${L ? `<div class="wkrow"><span class="wkk">League</span><span><b>${L.rank}${ordinal(L.rank)}</b> of ${L.of}${L.award ? ` · <b>+${L.award}</b> to you` : L.podium ? " · podium" : ""}</span></div>` : ""}
+        <div class="wkrec"><div><b>${R.me_w || 0}–${R.me_l || 0}</b><small>your weeks (40+ or not)</small></div>
+          <div><b>${R.tribe_w || 0}–${R.tribe_l || 0}</b><small>tribe vs rivals</small></div>
+          <div><b>${R.podiums || 0}</b><small>League podiums</small></div></div>
+        <p class="wkbank">Bank: <b>${num(W.bank || 0)}</b> points. Everyone is back to 70.</p>`;
+    return `<div class="sheetbg" id="wkBg"></div>
+      <div class="stdsheet wksheet" role="dialog" aria-label="Your week">
+        <p class="eyebrow">Your week${span ? " · " + esc(span) : ""}</p>
+        ${body}
+        <div class="stdbtns"><button type="button" class="btn-quiet" id="wkShare" ${W.busy || W.err ? "disabled" : ""}>Share</button><button type="button" class="btn" id="wkDone">Let's go</button></div>
+      </div>`;
+  }
+  function wireWeek() {
+    on("weekOpen", "click", () => openWeek());
+    if (!state.weekCard) return;
+    const close = () => { state.weekCard = null; render(); };
+    on("wkDone", "click", close); on("wkBg", "click", close);
+    on("wkShare", "click", async () => {
+      const W = state.weekCard || {}, rv = (W.rival || [])[0], R = W.record || {};
+      const text = `My week on Tribes: ${W.kept}/70 kept${W.banked != null ? `, +${W.banked} banked` : ""}${rv && rv.us != null && rv.them != null ? `. ${state.group.name} vs ${rv.name}: ${Number(rv.us) > Number(rv.them) ? "won" : Number(rv.us) < Number(rv.them) ? "lost" : "tied"}` : ""}. Record ${R.me_w || 0}–${R.me_l || 0} 👟 ${location.origin}${location.pathname}`;
+      try { if (navigator.share) { await navigator.share({ text }); return; } } catch (e) { if (e && e.name === "AbortError") return; }
+      window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank");
+    });
+  }
+
+  // V7.4. The shop: spend what you have kept. A redemption is a request the
+  // owner approves; the points are held until then.
+  async function openShop() {
+    state.shop = Object.assign({}, state.shop || {}, { open: true, busy: true, err: null }); render();
+    const res = await call("app_shop", { p_code: state.code, p_person: state.meId });
+    state.shop = Object.assign(state.shop || {}, res && !res.error ? { busy: false, balance: res.balance, rewards: res.rewards || [], mine: res.mine || [] }
+      : { busy: false, err: res && res.offline ? "No signal." : (res && res.error) || "Could not open the prizes." });
+    render();
+  }
+  function shopSheet() {
+    const S = state.shop; if (!S || !S.open) return "";
+    const bal = Number(S.balance) || 0, pick = S.pick ? (S.rewards || []).find((r) => r.id === S.pick) : null;
+    const ST = { requested: "waiting", done: "on its way ✓", refused: "not approved, points back" };
+    return `<div class="sheetbg" id="shBg"></div>
+      <div class="stdsheet shsheet" role="dialog" aria-label="Prizes">
+        <p class="eyebrow">Prizes</p>
+        <p class="shbal">Your bank <b>${num(bal)}</b> points</p>
+        ${S.busy ? `<p class="hint">Loading…</p>` : S.err ? `<p class="hint bad">${esc(S.err)}</p>` : pick ? `
+          <p class="shpick"><b>${esc(pick.name)}</b> for ${num(pick.points)} points</p>
+          <label class="tlab" for="shNote">How should we reach you to send it?</label>
+          <input class="field" id="shNote" maxlength="200" placeholder="Phone or email" value="${esc(S.note || "")}">
+          ${S.msg ? `<p class="hint bad">${esc(S.msg)}</p>` : ""}
+          <div class="stdbtns"><button type="button" class="btn-quiet" id="shBack">Back</button><button type="button" class="btn" id="shGo">Redeem</button></div>`
+        : `<ul class="shlist">${(S.rewards || []).map((r) => { const can = bal >= r.points, left = r.points - bal;
+            return `<li><span><b>${esc(r.name)}</b><small>${esc(r.blurb || "")}</small></span>
+              <button type="button" class="shbuy${can ? " can" : ""}" data-shop="${r.id}" ${can ? "" : "disabled"} aria-label="${esc(r.name)}, ${num(r.points)} points">${num(r.points)}${can ? "" : `<small>${num(left)} to go</small>`}</button></li>`; }).join("")}</ul>
+          ${(S.mine || []).length ? `<p class="dpg">Your requests</p><ul class="shmine">${S.mine.map((x) => `<li><span>${esc(x.name)}</span><em>${esc(ST[x.status] || x.status)}</em></li>`).join("")}</ul>` : ""}
+          <p class="hint shrule">Points come from the points you keep each week and League podiums. Steps count when logged by the next day.</p>
+          <div class="stdbtns"><button type="button" class="btn" id="shDone">Done</button></div>`}
+      </div>`;
+  }
+  function wireShop() {
+    on("shopOpen", "click", () => openShop());
+    const S = state.shop; if (!S || !S.open) return;
+    const close = () => { state.shop = null; render(); };
+    on("shDone", "click", close); on("shBg", "click", close);
+    document.querySelectorAll("[data-shop]").forEach((el) => el.addEventListener("click", () => { S.pick = Number(el.dataset.shop); S.msg = null; render();
+      setTimeout(() => document.getElementById("shNote")?.focus(), 30); }));
+    on("shBack", "click", () => { S.pick = null; S.msg = null; render(); });
+    on("shNote", "input", (e) => { S.note = e.target.value; });
+    on("shGo", "click", async () => {
+      if (!(S.note || "").trim()) { S.msg = "Tell us how to reach you."; render(); return; }
+      const res = await call("app_redeem", { p_code: state.code, p_person: state.meId, p_reward: S.pick, p_note: S.note.trim() });
+      if (res.error) { S.msg = res.offline ? "No signal. Try again in a moment." : res.error; render(); return; }
+      S.pick = null; S.note = ""; if (state.garden) state.garden.bank = res.balance;
+      await openShop();
+    });
   }
 
   /* ---------- V6.1: your own habits ---------------------------------
@@ -6392,7 +6511,6 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
           ${state.people.length && !state.boardBusy ? `<button type="button" class="hshare" id="waShare" aria-label="Post ${state.boardDay ? esc(shortDay(famDayISO())) : "today"} to WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11v9h12v-9"/></svg></button>` : ""}</div>
         ${goalLine()}
         ${gameLines()}
-        ${tribeExtras()}
         ${nav()}
         ${state.people.length ? `<div class="roster">${famTable(meRow ? [meRow].concat(ordered.filter((p) => p.id !== state.meId)) : ordered)}</div>` : roster}
         ${addRow}
@@ -6414,36 +6532,72 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       ${m ? tabBar(tab) : ""}`;
   }
 
-  // V7.3. Feedback, at the foot of Me: a rating and a line, saved with who
-  // sent it and from which tribe, read by the app's maker.
+  // V7.4. Feedback, at the foot of Me: one line and a send arrow. Saved
+  // with who and which tribe; the owner sees it in the Inbox above it.
   function feedbackCard() {
-    const F = state.fb || (state.fb = { rating: 0, body: "", sent: false, err: null, busy: false });
-    if (F.sent) return `<section class="fbk sent" aria-live="polite"><p class="fbt">Thank you${me() ? ", " + esc(me().name) : ""}.</p>
-        <p class="fbs">Every note is read, and the next version is built from them.</p>
-        <button type="button" class="linkbtn" id="fbAgain">Send another</button></section>`;
-    return `<section class="fbk" aria-label="Send feedback">
-      <p class="fbt">Help make Tribes better</p>
-      <div class="fbstars" role="radiogroup" aria-label="How much do you like Tribes?">${[1, 2, 3, 4, 5].map((n) =>
-        `<button type="button" class="fbstar${n <= F.rating ? " on" : ""}" data-fbr="${n}" role="radio" aria-checked="${n === F.rating}" aria-label="${n} of 5">\u2605</button>`).join("")}</div>
-      <textarea class="field fbin" id="fbIn" rows="3" maxlength="2000" placeholder="What would make it better? What do you love?">${esc(F.body)}</textarea>
-      ${F.err ? `<p class="hint bad">${esc(F.err)}</p>` : ""}
-      <button type="button" class="btn fbgo" id="fbGo" ${F.busy ? "disabled" : ""}>${F.busy ? "Sending\u2026" : "Send"}</button>
+    const F = state.fb || (state.fb = { body: "", sent: false, err: null, busy: false });
+    const O = state.owner, own = me() && me().owner;
+    if (own && !O && !state.ownerBusy) setTimeout(() => loadOwner(), 0);
+    const inbox = own ? `<button type="button" class="ownrow" id="inboxOpen"><span>Inbox</span><em>${O && !O.err
+        ? `${O.new_feedback ? `<b>${O.new_feedback}</b> new feedback` : "no new feedback"}${O.open_requests ? ` · <b>${O.open_requests}</b> prize request${O.open_requests === 1 ? "" : "s"}` : ""}` : "…"}</em><i aria-hidden="true">›</i></button>` : "";
+    return `${inbox}<section class="fbk" aria-label="Send feedback">
+      <label class="fbt" for="fbIn">What would you like to see in Tribes?</label>
+      <div class="fbrow"><input class="field fbin" id="fbIn" maxlength="500" autocomplete="off" enterkeyhint="send" placeholder="An idea, a wish or a problem" value="${esc(F.body)}">
+        <button type="button" class="fbgo" id="fbGo" aria-label="Send" ${F.busy ? "disabled" : ""}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button></div>
+      ${F.err ? `<p class="hint bad fbmsg">${esc(F.err)}</p>` : F.sent ? `<p class="hint ok fbmsg" role="status">Sent. Thank you${me() ? ", " + esc(me().name) : ""}!</p>` : ""}
     </section>`;
   }
   function wireFeedback() {
     const F = state.fb; if (!F) return;
-    document.querySelectorAll("[data-fbr]").forEach((el) => el.addEventListener("click", () => {
-      F.rating = Number(el.dataset.fbr) === F.rating ? 0 : Number(el.dataset.fbr); F.err = null; render(); }));
-    on("fbIn", "input", (e) => { F.body = e.target.value; });
-    on("fbAgain", "click", () => { state.fb = null; render(); });
-    on("fbGo", "click", async () => {
-      if (!F.rating && !F.body.trim()) { F.err = "Pick a star or write a line."; render(); return; }
+    on("fbIn", "input", (e) => { F.body = e.target.value; if (F.sent || F.err) { F.sent = false; F.err = null; } });
+    const send = async () => {
+      if (!F.body.trim() || F.busy) { if (!F.body.trim()) { F.err = "Type a line first."; render(); } return; }
       F.busy = true; F.err = null; render();
-      const res = await call("app_feedback", { p_code: state.code, p_person: state.meId, p_rating: F.rating || null, p_body: F.body.trim(), p_version: APP_VERSION });
+      const res = await call("app_feedback", { p_code: state.code, p_person: state.meId, p_rating: null, p_body: F.body.trim(), p_version: APP_VERSION });
       F.busy = false;
       if (res.error) { F.err = res.offline ? "No signal. Not sent yet." : res.error; render(); return; }
-      F.sent = true; F.body = ""; F.rating = 0; render();
-    });
+      F.sent = true; F.body = ""; render();
+    };
+    on("fbGo", "click", send);
+    on("fbIn", "keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); send(); } });
+    on("inboxOpen", "click", async () => { state.inboxOpen = true; await loadOwner(true); });
+  }
+  // V7.4. The owner's inbox: prize requests to approve, then feedback.
+  async function loadOwner(force) {
+    if (state.ownerBusy || (!force && state.owner && Date.now() - state.owner.at < 60000)) return;
+    state.ownerBusy = true;
+    const res = await call("app_owner", { p_code: state.code, p_person: state.meId });
+    state.ownerBusy = false;
+    state.owner = res && !res.error ? Object.assign(res, { at: Date.now() }) : { err: true, at: Date.now() };
+    if (state.view === "board") render();
+  }
+  function inboxSheet() {
+    if (!state.inboxOpen) return "";
+    const O = state.owner || {};
+    const req = (O.requests || []), fb = (O.feedback || []);
+    return `<div class="sheetbg" id="ibBg"></div>
+      <div class="stdsheet ibsheet" role="dialog" aria-label="Inbox">
+        <p class="eyebrow">Inbox</p>
+        ${O.err ? `<p class="hint bad">Could not load the inbox.</p>` : `
+        <p class="dpg">Prize requests</p>
+        ${req.length ? `<ul class="iblist">${req.map((x) => `<li class="${x.status === "requested" ? "new" : ""}">
+            <span><b>${esc(x.name)}</b> · ${num(x.points)} pts<small>${esc(x.person || "?")}, ${esc(x.tribe || "?")} · ${esc(x.at)} · ${esc(x.note)}</small></span>
+            ${x.status === "requested" ? `<span class="ibact"><button type="button" class="btn-quiet" data-ibr="${x.id}:refused">Refuse</button><button type="button" class="btn" data-ibr="${x.id}:done">Sent</button></span>`
+              : `<em>${x.status === "done" ? "sent ✓" : "refused"}</em>`}</li>`).join("")}</ul>` : `<p class="hint">None yet.</p>`}
+        <p class="dpg">Feedback</p>
+        ${fb.length ? `<ul class="iblist">${fb.map((x) => `<li class="${x.seen ? "" : "new"}"><span>${esc(x.body || (x.rating ? x.rating + " stars" : ""))}<small>${esc(x.person || "?")}, ${esc(x.tribe || "?")} · ${esc(x.at)}</small></span></li>`).join("")}</ul>` : `<p class="hint">None yet.</p>`}`}
+        <div class="stdbtns"><button type="button" class="btn" id="ibDone">Done</button></div>
+      </div>`;
+  }
+  function wireInbox() {
+    if (!state.inboxOpen) return;
+    const close = async () => { state.inboxOpen = false; render();
+      if (state.owner && state.owner.new_feedback) { await call("app_owner_set", { p_code: state.code, p_person: state.meId, p_kind: "feedback", p_id: null }); await loadOwner(true); } };
+    on("ibDone", "click", close); on("ibBg", "click", close);
+    document.querySelectorAll("[data-ibr]").forEach((el) => el.addEventListener("click", async () => {
+      const [id, st] = el.dataset.ibr.split(":"); el.disabled = true;
+      await call("app_owner_set", { p_code: state.code, p_person: state.meId, p_kind: "redeem", p_id: Number(id), p_status: st });
+      await loadOwner(true); }));
   }
 
   // V7.2. The tab bar: a floating capsule; the open tab is a filled pill.
@@ -6466,43 +6620,49 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const L = state.league;
     if (!force && L && (L.busy || Date.now() - L.at < 60000)) return;
     state.league = Object.assign({}, L || {}, { busy: true });
-    const res = await call("app_league", { p_code: state.code });
-    state.league = res && !res.error ? { tribes: res.tribes || [], mine: !!res.mine, rivals: res.rivals || [], last: res.last_matches || [], pid: res.pid || null, at: Date.now(), busy: false }
+    const res = await call("app_league", { p_code: state.code, p_person: state.meId });
+    state.league = res && !res.error ? { tribes: res.tribes || [], me: res.me || null, lastw: res.last || null, podium: res.podium || [300, 200, 100], rivals: res.rivals || [], last: res.last_matches || [], pid: res.pid || null, at: Date.now(), busy: false }
       : Object.assign({}, L || {}, { busy: false, at: Date.now(), err: res && res.offline ? "No signal." : (res && res.error) || "Could not load the League." });
     if (state.view === "board" && homeTab() === "league") render();
   }
   // V7.3. A tribe's face: its crest, or its first letter in a circle.
   const crestOf = (c, name) => c ? `<span class="crest" aria-hidden="true">${esc(c)}</span>`
     : `<span class="crest none" aria-hidden="true">${esc(((name || "?").trim()[0] || "?").toUpperCase())}</span>`;
+  // V7.4. The League in three numbered rules, your place in it (join or
+  // leave), this week's rival, the table and the challenge button.
   function leagueView() {
     const L = state.league || {};
     if (!L.tribes) { if (!L.busy) setTimeout(() => loadLeague(), 0);
       return `<section class="htab hleague"><div class="htabh"><h2>League</h2></div>${L.err ? `<p class="hint bad">${esc(L.err)}</p>` : `<p class="hint">Loading the League…</p>`}</section>`; }
-    const T = L.tribes, me0 = T.find((t) => t.me), n = T.length;
-    const champ = T.filter((t) => t.last_rank === 1);
+    const T = L.tribes, M = L.me || {}, P = L.podium || [300, 200, 100];
     const sc = (x) => { if (x === null || x === undefined) return "–"; const v = Number(x); return Number.isInteger(v) ? String(v) : v.toFixed(1); };
     const myName = state.group.name, myCrest = state.group.crest;
-    // This week's rival(s): you against them, score against score.
-    const rv = (L.rivals || []).map((r) => { const us = Number(r.us), them = Number(r.them), lead = r.us === null || r.them === null ? 0 : Math.sign(us - them);
+    const join = !M.pledged ? `<div class="lgjoin"><span>Set your step goal on the Tribe tab, then join.</span></div>`
+      : M.in && M.next ? `<div class="lgjoin in"><span><b>✓ You're in the League</b></span><button type="button" class="linkbtn" id="lgLeave">Leave from Monday</button></div>`
+      : M.in ? `<div class="lgjoin in"><span><b>In this week</b>, out from Monday</span><button type="button" class="linkbtn" id="lgJoin">Stay in</button></div>`
+      : M.next ? `<div class="lgjoin"><span><b>You're in from Monday</b></span><button type="button" class="linkbtn" id="lgLeave">Cancel</button></div>`
+      : `<button type="button" class="btn lgjoinb" id="lgJoin">Join the League</button>`;
+    const rv = (L.rivals || []).map((r) => { const lead = r.us === null || r.them === null ? 0 : Math.sign(Number(r.us) - Number(r.them));
       return `<div class="lgvs">
         <div class="lgside${lead > 0 ? " ahead" : ""}">${crestOf(myCrest, myName)}<b>${esc(myName)}</b><em>${sc(r.us)}</em></div>
         <span class="lgv">vs</span>
-        <div class="lgside${lead < 0 ? " ahead" : ""}">${crestOf(r.crest, r.name)}<b>${esc(r.name)}</b><em>${sc(r.them)}</em></div>
-      </div><p class="lgvsl">${r.them === null ? `${esc(r.name)} start once someone there sets a goal.` : lead > 0 ? "You're ahead. Keep it through Sunday." : lead < 0 ? `${esc(r.name)} lead. Every walk today counts.` : "Level. One walk breaks the tie."}</p>`; }).join("");
-    const lastm = (L.last || []).filter((r) => r.us !== null && r.them !== null).map((r) => { const d = Number(r.us) - Number(r.them);
-      return `<p class="lglast">Last week vs ${esc(r.name)}: <b>${d > 0 ? "you won" : d < 0 ? "they won" : "a tie"}</b>, ${sc(r.us)} to ${sc(r.them)}.</p>`; }).join("");
+        <div class="lgside${lead < 0 ? " ahead" : ""}">${crestOf(r.crest, r.name)}<b>${esc(r.name)}</b><em>${sc(r.them)}</em></div></div>`; }).join("");
+    const LW = L.lastw;
     return `<section class="htab hleague" aria-label="The League">
       <div class="htabh"><h2>League</h2><em>this week</em></div>
-      ${rv ? `<div class="lgrival"><p class="eyebrow">Your rival this week</p>${rv}</div>`
-        : `<div class="lgrival none"><p class="eyebrow">Your rival this week</p><p class="lgvsl">${me0 ? "Rivals are paired as more tribes join. Invite a family and they start as your rival." : `${esc(myName)} gets a rival once someone sets a goal and walks.`}</p></div>`}
-      ${lastm}
-      ${me0 ? `<div class="lgme"><b>${me0.rank}<small>${ordinal(me0.rank)}</small></b><span>of ${n} tribe${n === 1 ? "" : "s"}<em>${sc(me0.score)} points on average${me0.stars ? ` · ${me0.stars} ★` : ""}</em></span></div>` : ""}
-      <ol class="lglist">${T.map((t) => `<li class="${t.me ? "me" : ""}${t.rank <= 3 ? " top" + t.rank : ""}">
-          <span class="lgrk">${t.rank}</span>${crestOf(t.crest, t.name)}<span class="lgnm">${esc(t.name)}<small>${t.players} playing${t.stars ? ` · ${t.stars} ★` : ""}</small></span><b class="lgsc">${sc(t.score)}</b></li>`).join("")}</ol>
-      ${champ.length ? `<p class="lglast">Last week's champions: <b>${champ.map((t) => esc(t.name)).join(", ")}</b>, ${sc(champ[0].last)}.</p>` : ""}
-      <p class="lgrule">A tribe's score is the average of everyone's points this week (70 each Monday, 10 off per missed day). A ★ is a week where everyone kept 40+. New rivals every Monday.</p>
-      <button type="button" class="btn lginv" id="lgInvite">Challenge another family</button>
-      <p class="lginvs">They start their own tribe and face yours first.</p>
+      <ol class="grules lgrules">
+        <li><b>1</b><span>Join the League. Only members count for your tribe.</span></li>
+        <li><b>2</b><span>Your tribe's score is its members' average points this week.</span></li>
+        <li><b>3</b><span>Top 3 each week: <b>+${P[0]}</b> · <b>+${P[1]}</b> · <b>+${P[2]}</b> to every member who kept 40+.</span></li>
+      </ol>
+      ${join}
+      ${rv ? `<div class="lgrival"><p class="eyebrow">Your rival this week</p>${rv}</div>` : ""}
+      ${T.length ? `<ol class="lglist">${T.map((t) => `<li class="${t.me ? "me" : ""}${t.rank <= 3 ? " top" + t.rank : ""}">
+          <span class="lgrk">${t.rank}</span>${crestOf(t.crest, t.name)}<span class="lgnm">${esc(t.name)}<small>${t.players} in the League</small></span><b class="lgsc">${sc(t.score)}</b></li>`).join("")}</ol>`
+        : `<p class="lgnote">No tribe has joined yet this week. Be the first.</p>`}
+      ${LW ? `<p class="lglast">Last week: <b>${LW.rank}${ordinal(LW.rank)}</b> of ${LW.of}${M.award ? ` · <b>+${M.award}</b> to your bank` : ""}.</p>` : ""}
+      <p class="lgrule">Steps count when logged by the next day. Places with 2+ tribes playing (2nd needs 3, 3rd needs 4). Spend points under Tribe → Prizes.</p>
+      <button type="button" class="btn-quiet lginv" id="lgInvite">Challenge another family</button>
     </section>`;
   }
   const ordinal = (n) => n % 100 >= 11 && n % 100 <= 13 ? "th" : ["th", "st", "nd", "rd"][n % 10] || "th";
@@ -13164,8 +13324,8 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     if (state.workFull && state.work && state.work.run) { app.insertAdjacentHTML("beforeend", workFullView()); }
     wireWorkFull();
     if (v !== "session" && v !== "detail") {
-      app.insertAdjacentHTML("beforeend", stdSheet() + dialSheet() + homeSheet() + tribeSheet() + gameSheet() + pastSheet());
-      wireGame(); wirePast();
+      app.insertAdjacentHTML("beforeend", stdSheet() + dialSheet() + homeSheet() + tribeSheet() + gameSheet() + pastSheet() + shopSheet() + weekSheet() + inboxSheet());
+      wireGame(); wirePast(); wireShop(); wireWeek(); wireInbox();
       wireTribeSheet();
       wireStd();
       wireHomeSheet();
@@ -13771,6 +13931,11 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       state.homeTab = k; state.adding = false; render(); window.scrollTo(0, 0);
       if (k === "league") loadLeague();
     }));
+    const lgSet = async (on1) => { const res = await call("app_league_join", { p_code: state.code, p_person: state.meId, p_in: on1 });
+      if (res.error) { state.msg = res.offline ? "No signal. Try again in a moment." : res.error; state.msgKind = "bad"; render(); return; }
+      await loadLeague(true); };
+    on("lgJoin", "click", () => lgSet(true));
+    on("lgLeave", "click", () => lgSet(false));
     on("lgInvite", "click", async () => {
       // V7.3. A link to start their own tribe, already challenged by ours:
       // our public id, never our join code.
