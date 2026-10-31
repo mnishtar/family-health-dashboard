@@ -1340,6 +1340,30 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .lginv { width:100%; margin-top:16px; }
 /* V7.4. Feedback: one line and a send arrow. The owner's inbox above it. */
 .fbk { margin:22px 0 6px; }
+/* V7.5. Flame, yesterday first, the daily card, Apple Health, streak sheet. */
+.hflame { display:inline-flex; align-items:center; gap:3px; height:32px; padding:0 9px; margin-right:6px; border-radius:999px; border:1px solid var(--line); background:none; font:inherit; font-size:14px; color:var(--muted); cursor:pointer; filter:grayscale(1); opacity:.75; }
+.hflame.lit { filter:none; opacity:1; color:var(--ink); border-color:color-mix(in oklab, #f08a24 45%, var(--line)); background:color-mix(in oklab, #f08a24 12%, var(--surface)); }
+.hflame b { font-variant-numeric:tabular-nums; }
+.ydcard { margin:-4px 0 8px; padding:12px 14px; border-radius:16px; background:color-mix(in oklab, var(--accent) 12%, var(--surface)); border:1px solid color-mix(in oklab, var(--accent) 35%, var(--line)); }
+.ydcard p { margin:0 0 8px; font-size:14px; color:var(--ink-2); } .ydcard b { color:var(--ink); }
+.ydrow { display:flex; gap:8px; } .ydrow .field { flex:1; min-width:0; font-size:16px; }
+.dcard { margin:18px 0 4px; padding:16px; border-radius:18px; background:color-mix(in oklab, var(--ink) 5%, var(--surface)); }
+.dcard h3 { margin:2px 0 6px; font-family:var(--display); font-weight:500; font-size:21px; color:var(--ink); }
+.dcbody { margin:0; font-size:15px; line-height:1.5; color:var(--ink-2); }
+.dcsrc { margin:10px 0 0; font-size:12px; color:var(--muted); }
+.dcard.locked { display:flex; align-items:center; gap:12px; padding:14px 16px; border:1px dashed var(--line-strong); background:none; }
+.dcard.locked p { margin:0; display:flex; flex-direction:column; font-size:15px; color:var(--ink); } .dcard.locked small { font-size:13px; color:var(--muted); }
+.dclock { font-size:22px; }
+.hlrow { display:flex; align-items:center; gap:12px; width:100%; min-height:52px; margin:12px 0 0; padding:0 14px; border-radius:14px; border:1px solid var(--line); background:none; color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
+.hlrow > span:nth-child(2) { flex:1; display:flex; flex-direction:column; } .hlrow small { font-size:12.5px; color:var(--muted); } .hlrow i { font-style:normal; color:var(--muted); }
+.hlh { color:#ff3b5c; font-size:20px; }
+.stbig { display:flex; flex-direction:column; align-items:center; margin:4px 0 6px; }
+.stbig span { font-size:48px; line-height:1; } .stbig b { font-size:40px; font-weight:800; color:var(--ink); line-height:1.1; } .stbig small { font-size:13.5px; color:var(--muted); }
+.stline { text-align:center; margin:0 0 12px; font-size:14px; color:var(--ink-2); } .stline b { color:var(--ink); }
+.stwag { margin:12px 0 0; font-size:14px; color:var(--ink-2); } .stwag.ok { color:var(--green-ink, #4f9a6c); }
+.stwagb { width:100%; margin-top:12px; }
+.mileflame { font-size:72px; line-height:1; }
+.gwait { color:var(--accent); font-weight:600; }
 .fbt { display:block; margin:0 0 6px; font-size:13px; font-weight:600; color:var(--muted); }
 .fbrow { display:flex; gap:8px; align-items:center; }
 .fbin { flex:1; min-width:0; font-size:16px; }
@@ -1782,11 +1806,15 @@ button.fchip { padding:7px 13px; cursor:pointer; }
   border:1px solid var(--line); font-size:12.5px; color:var(--ink-2); }
 .netbar button { border:none; background:none; font-family:inherit; font-size:12.5px;
   font-weight:600; color:var(--warn); cursor:pointer; padding:2px 4px; }
-.undobar { display:flex; align-items:center; justify-content:space-between; gap:10px;
-  margin:2px 0 6px; padding:8px 12px; border-radius:10px; background:var(--surface-2);
-  font-size:12.5px; color:var(--ink-2); }
-.undobar button { border:none; background:none; font-family:inherit; font-size:12.5px;
-  font-weight:600; color:var(--accent); cursor:pointer; padding:2px 4px; }
+/* V7.5. Undo floats above everything at the bottom and leaves on its own. */
+.undobar { position:fixed; z-index:60; left:50%; transform:translateX(-50%); bottom:calc(18px + env(safe-area-inset-bottom, 0px));
+  display:flex; align-items:center; justify-content:space-between; gap:14px; width:max-content; max-width:calc(100% - 32px);
+  padding:10px 10px 10px 16px; border-radius:999px; background:var(--ink); color:var(--surface);
+  font-size:14px; box-shadow:0 8px 24px rgba(0,0,0,.3); animation:mfade .14s ease both; }
+.undobar span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.undobar button { flex:none; border:none; background:none; font-family:inherit; font-size:14px;
+  font-weight:700; color:var(--accent); cursor:pointer; padding:4px 8px; }
+#app:has(.tabbar) .undobar { bottom:calc(96px + env(safe-area-inset-bottom, 0px)); }
 .soon { margin-top:4px; padding-top:11px; border-top:1px solid var(--line);
   font-size:12px; color:var(--muted); letter-spacing:.01em; }
 .soon em { font-style:normal; margin-left:8px; font-size:9px; font-weight:600;
@@ -2843,7 +2871,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "7.4";
+  const APP_VERSION = "7.5";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -2913,7 +2941,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 
   // V6.7. Calls that only read. Any other call changes something, so the
   // next refresh must really go to the server.
-  const READS = new Set(["app_state", "app_history", "app_votes", "app_habits", "app_steps_game", "app_league", "app_tasks",
+  const READS = new Set(["app_state", "app_history", "app_votes", "app_habits", "app_steps_game", "app_league", "app_today", "app_tasks",
     "app_cycle", "app_med", "app_year", "app_work_day", "app_family", "app_ex_progress", "app_custom", "app_board", "app_lift_detail",
     "app_template", "app_lift_open", "app_lift_home"]);
   async function call(fn, args) {
@@ -3220,7 +3248,8 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   function goalSheet() {
     const Q = state.gameGoal; if (!Q) return "";
     const mine = gardenMe() || {}, base = mine.baseline ? Number(mine.baseline) : null;
-    const up = (f) => Math.ceil(base * (1 + f) / 100) * 100;
+    // V7.5. Never below 4,000, whatever the usual.
+    const up = (f) => Math.max(4000, Math.ceil(base * (1 + f) / 100) * 100);
     const opts = base ? [[0.33, up(0.33)], [0.4, up(0.4)], [0.5, up(0.5)]] : [];
     return `<div class="sheetbg" id="ggBg"></div>
       <div class="stdsheet ggsheet" role="dialog" aria-label="Your step goal">
@@ -3228,7 +3257,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         ${base ? `<p class="ggbase">Your usual: <b>${num(base)}</b> steps a day <small>(last 2 weeks)</small></p>
           <div class="ggopts">${opts.map(([f, v]) => `<button type="button" class="ggopt${Q.pick === v ? " on" : ""}" data-ggpick="${v}"><b>${num(v)}</b> <small>+${Math.round(f * 100)}%</small></button>`).join("")}</div>`
           : `<p class="hint">Log your steps for a few more days to see your usual. For now, pick a goal you can reach most days.</p>`}
-        <label class="gglab" for="ggOwn">${base ? "Or type any goal" : "Type any goal"} <small>(1,000 or more)</small></label>
+        <label class="gglab" for="ggOwn">${base ? "Or type any goal" : "Type any goal"} <small>(4,000 or more)</small></label>
         <input class="field" id="ggOwn" inputmode="numeric" autocomplete="off" placeholder="${num(base ? up(0.33) : stdOf(me(), "steps"))}" value="${esc(Q.own || "")}">
         <p class="ggpledge">“I’ll try my best to reach my goal every day.”</p>
         ${Q.err ? `<p class="hint bad">${esc(Q.err)}</p>` : ""}
@@ -3243,13 +3272,13 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     return `<div class="glines" id="gameCard">
         <ol class="grules">
           <li><b>1</b><span>Walk <b>${goal}</b> steps every day.</span></li>
-          <li><b>2</b><span>You start each week with <b>70</b> points. A missed day is <b>−10</b>.</span></li>
-          <li><b>3</b><span>Keep <b>40+</b> by Sunday and your badge goes up. What you keep goes to your bank.</span></li>
+          <li><b>2</b><span>Log by tomorrow night: <b>+10</b> to your bank (<b>+2</b> if you fell short). All 7 days: <b>+30</b>.</span></li>
+          <li><b>3</b><span>Each week starts at <b>70</b>; a missed day is <b>−10</b>. Keep <b>40+</b> by Sunday: badge up.</span></li>
         </ol>
         ${!mine.pledged ? `<button type="button" class="bset" id="gameGoal"><b>Set your step goal to start</b><small>10 seconds. Then your points go to your bank.</small></button>` : ""}
         <button type="button" class="gmline" id="gameOpen" aria-label="You: ${mine.points} of ${GAME_WEEK} points. How the game works">
           ${badgeSVG(mine.level, 30)}<span><b class="gpts">${mine.points}</b><small>/${GAME_WEEK}</small> <span class="${mine.yesterday ? "yok" : "yno"}">${mine.yesterday ? "✓" : "✗"} yesterday</span><em>${BD(mine.level)[0]}${rk ? ` · <b class="grk">${rk.label}</b> of ${rk.of}` : ""} · Sunday: ${fate(mine.points, mine.level)}</em></span><i aria-hidden="true">›</i></button>
-        ${mine.pledged ? `<button type="button" class="gbank" id="shopOpen"><span class="gbanki" aria-hidden="true">◈</span><span>Your bank <b>${num(bank)}</b> points</span><em>Prizes ›</em></button>` : ""}
+        ${mine.pledged ? `<button type="button" class="gbank" id="shopOpen"><span class="gbanki" aria-hidden="true">◈</span><span>Your bank <b>${num(bank)}</b> points${state.today ? (state.today.bank_today >= 10 ? ` \u00b7 <span class="yok">today +10 \u2713</span>` : state.today.bank_today ? ` \u00b7 today +2` : ` \u00b7 <span class="gwait">today: 10 waiting</span>`) : ""}</span><em>Prizes ›</em></button>` : ""}
       </div>
       ${mine.pledged ? `<button type="button" class="linkbtn gweek" id="weekOpen">Your week and record ›</button>` : ""}`;
   }
@@ -3274,7 +3303,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
           <li><b>70</b> Every Monday everyone gets 70 points.</li>
           <li><b>\u221210</b> Miss your step goal one day? You lose 10.</li>
           <li><b>40</b> Keep 40 or more (your goal 4 days of 7) and your badge goes up on Sunday. Less, it goes down. Everyone starts at Bronze.</li>
-          <li><b>\u25c8</b> The points you keep go to your bank. Spend them on prizes.</li>
+          <li><b>\u25c8</b> Each day you log by the next night: +10 to your bank (+2 if short). A perfect week: +30. Spend it on prizes.</li>
         </ul>
         <button type="button" class="linkbtn" id="gameGoal2">Change my goal (now ${num(stdOf(me(), "steps"))})</button>
         <p class="gsrc">From Penn Medicine’s STEP UP trial (2019): extra steps were still there 3 months after the game ended.</p>
@@ -3305,7 +3334,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       const own = Number(String(Q.own || "").replace(/[^0-9]/g, ""));
       const v = own || Q.pick;
       if (!v) { Q.err = base ? "Pick one of the three, or type your own." : "Type a goal."; render(); return; }
-      if (own && (own < 1000 || own > 60000)) { Q.err = "Pick a number from 1,000 to 60,000."; render(); return; }
+      if (own && (own < 4000 || own > 60000)) { Q.err = "Pick a number from 4,000 to 60,000."; render(); return; }
       const res = await call("app_game_goal", { p_code: state.code, p_person: state.meId, p_target: v });
       if (res.error) { Q.err = res.offline ? "No signal. Not saved yet." : res.error; render(); return; }
       state.gameGoal = null; await refresh(); render();
@@ -3404,7 +3433,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
             return `<li><span><b>${esc(r.name)}</b><small>${esc(r.blurb || "")}</small></span>
               <button type="button" class="shbuy${can ? " can" : ""}" data-shop="${r.id}" ${can ? "" : "disabled"} aria-label="${esc(r.name)}, ${num(r.points)} points">${num(r.points)}${can ? "" : `<small>${num(left)} to go</small>`}</button></li>`; }).join("")}</ul>
           ${(S.mine || []).length ? `<p class="dpg">Your requests</p><ul class="shmine">${S.mine.map((x) => `<li><span>${esc(x.name)}</span><em>${esc(ST[x.status] || x.status)}</em></li>`).join("")}</ul>` : ""}
-          <p class="hint shrule">Points come from the points you keep each week and League podiums. Steps count when logged by the next day.</p>
+          <p class="hint shrule">+10 a day you meet your goal and log it by the next night, +2 for a short day logged, +30 for a perfect week, plus League podiums.</p>
           <div class="stdbtns"><button type="button" class="btn" id="shDone">Done</button></div>`}
       </div>`;
   }
@@ -3656,7 +3685,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     // p_me + p_tz teach the server where this phone is, on every load. A
     // family member who only ever reads the board would otherwise keep the
     // group's zone for ever and see somebody else's day.
-    const side = state.meId ? Promise.all([loadHistory(), loadVotes(true), loadHabits(), loadGarden()]) : Promise.resolve();
+    const side = state.meId ? Promise.all([loadHistory(), loadVotes(true), loadHabits(), loadGarden(), loadToday()]) : Promise.resolve();
     if (state.meId && !state.league) loadLeague();   // V7.2. The League tab opens with its answer ready.
     const res = await callRetry("app_state", { p_code: state.code,
       p_me: state.meId || null, p_tz: deviceTZ() });
@@ -3686,7 +3715,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     if (!state.people.some((p) => p.id === state.meId)) state.meId = loadMe();
     if (!state.people.some((p) => p.id === state.meId)) state.meId = null;
     await side;
-    if (state.meId && !state.votes) await Promise.all([loadHistory(), loadVotes(true), loadHabits(), loadGarden()]);
+    if (state.meId && !state.votes) await Promise.all([loadHistory(), loadVotes(true), loadHabits(), loadGarden(), loadToday()]);
     // V7.3. A tribe started on this phone a moment ago: the welcome, once,
     // and nothing else on top of it this time.
     let welcomed = false;
@@ -6238,7 +6267,8 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   function armUndo(u) {
     state.undo = u;
     if (undoTimer) clearTimeout(undoTimer);
-    undoTimer = setTimeout(() => { state.undo = null; if (state.view === "board") render(); }, 6000);
+    // V7.5. The bar floats and leaves by itself (5 s for tasks).
+    undoTimer = setTimeout(() => { if (state.undo === u) { state.undo = null; render(); } }, u.ms || 6000);
   }
   function disarmUndo() {
     state.undo = null;
@@ -6472,7 +6502,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const head = `
       <div class="hbar">
         <b>${state.group.crest ? `<span class="hcrest" aria-hidden="true">${esc(state.group.crest)}</span>` : ""}${esc(state.group.name)}</b>
-        <span class="hright">${m ? `<label class="hwho"><select id="who" aria-label="Who are you">${whoOptions}</select>
+        <span class="hright">${m ? flameChip() : ""}${m ? `<label class="hwho"><select id="who" aria-label="Who are you">${whoOptions}</select>
           <i aria-hidden="true">&#9662;</i></label>` : ""}
           ${m ? `<button type="button" class="hinfo${tourSeen() ? "" : " new"}" id="tourBtn" aria-label="How Tribes works">i</button>` : ""}</span>
       </div>
@@ -6517,12 +6547,15 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       </section>`;
     else if (tab === "league") body = leagueView();
     else body = `
+      ${ydayCard()}
       ${editRowHTML()}
       ${homeDials(m)}
       <section class="htab hme" aria-label="Your dashboard">
         ${nav()}
         ${meRow ? `<div class="roster">${meDash(meRow)}</div>` : ""}
       </section>
+      ${dailyCard()}
+      ${healthRow()}
       ${feedbackCard()}`;
 
     return `${head}
@@ -6530,6 +6563,122 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       ${tab === "me" ? installHint() : ""}
       <p class="ver">v${APP_VERSION}</p>
       ${m ? tabBar(tab) : ""}`;
+  }
+
+  /* ---------- V7.5: logging every day -------------------------------
+     The daily bank (+10 a day met and logged by the next night, +2 for a
+     short day logged, +30 for a perfect week), the log streak with weekly
+     freezes, the wager, yesterday first, the daily card, Apple Health. */
+  async function loadToday() {
+    if (!state.meId) return;
+    const res = await call("app_today", { p_code: state.code, p_person: state.meId });
+    if (!res || res.error) return;
+    const before = state.today && state.today.streak ? state.today.streak.n : null;
+    state.today = res;
+    if (state.garden && typeof res.bank === "number") state.garden.bank = res.bank;
+    milestoneCheck(before);
+  }
+  const MILESTONES = [7, 30, 100, 365];
+  function milestoneCheck() {
+    const S = state.today && state.today.streak; if (!S || !S.today) return;
+    const hit = MILESTONES.includes(S.n) ? S.n : null; if (!hit) return;   // the day you reach it
+    const k = `fhd.mile.${state.meId}.${hit}`;
+    try { if (localStorage.getItem(k)) return; localStorage.setItem(k, "1"); } catch { return; }
+    setTimeout(() => openModal({ mark: `<span class="mileflame" aria-hidden="true">\u{1F525}</span>`, title: `${hit} days in a row!`,
+      body: hit === 7 ? "A week of logging every day. People who reach a week tend to keep going." : hit === 30 ? "A month without missing. This is a habit now." : hit === 100 ? "One hundred days. Very few people get here." : "A whole year, every single day.",
+      buttons: [{ label: "Keep it going", kind: "go" }] }), 600);
+  }
+  // The flame in the top bar: grey until today is logged, like Duolingo's.
+  function flameChip() {
+    const T = state.today; if (!T || !T.streak) return "";
+    const S = T.streak;
+    return `<button type="button" class="hflame${S.today ? " lit" : ""}" id="streakOpen" aria-label="${S.n} day streak${S.today ? "" : ", log today to keep it"}"><span aria-hidden="true">\u{1F525}</span><b>${S.n}</b></button>`;
+  }
+  // Yesterday first: if yesterday is empty, it is the first thing on Me.
+  function ydayCard() {
+    const T = state.today, mine = gardenMe(); if (!T || !T.yday || T.yday.logged || !mine || !mine.pledged) return "";
+    const Y = state.ydayIn || (state.ydayIn = { v: "", err: null });
+    return `<section class="ydcard" aria-label="Yesterday">
+      <p><b>Yesterday isn't logged.</b> Up to 10 points are waiting until midnight.</p>
+      <div class="ydrow"><input class="field" id="ydIn" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="Yesterday's steps" value="${esc(Y.v)}" aria-label="Yesterday's steps">
+        <button type="button" class="btn" id="ydGo">Save</button></div>
+      ${Y.err ? `<p class="hint bad">${esc(Y.err)}</p>` : ""}
+    </section>`;
+  }
+  // One card a day, opened by logging today. Only cards the owner approved.
+  function dailyCard() {
+    const C = state.today && state.today.card; if (!C) return "";
+    if (C.locked) return `<section class="dcard locked" aria-label="Today's card"><span class="dclock" aria-hidden="true">\u{1F512}</span><p><b>Today's card</b><small>Log today's steps to open it.</small></p></section>`;
+    return `<section class="dcard" aria-label="Today's card"><p class="eyebrow">Today's card</p><h3>${esc(C.title)}</h3><p class="dcbody">${esc(C.body)}</p>
+      <p class="dcsrc">${C.source ? esc(C.source) + " · " : ""}Reviewed by Dr. Nishtar</p></section>`;
+  }
+  // Apple Health: the row until steps have arrived from it in the last 3 days.
+  function healthRow() {
+    const H = state.today && state.today.health; if (!H || H.synced) return "";
+    if (!/iPhone|iPad|iPod/.test(navigator.userAgent) && !state.healthAny) return "";
+    return `<button type="button" class="hlrow" id="healthOpen"><span aria-hidden="true" class="hlh">♥</span><span><b>Steps from Apple Health</b><small>Log without typing</small></span><i aria-hidden="true">›</i></button>`;
+  }
+  function healthSheet() {
+    if (!state.healthOpen) return "";
+    const T = state.today || {}, H = T.health || {};
+    return `<div class="sheetbg" id="hlBg"></div>
+      <div class="stdsheet hlsheet" role="dialog" aria-label="Apple Health">
+        <p class="eyebrow">Steps from Apple Health</p>
+        <p class="hint" style="margin-top:0">Two minutes, once. After that your steps arrive every time you open WhatsApp.</p>
+        <ol class="grules">
+          <li><b>1</b><span>${H.shortcut ? `<a class="linkbtn" href="${esc(H.shortcut)}" target="_blank" rel="noopener">Get the Tribes shortcut</a> and tap <b>Add Shortcut</b>.` : "Ask your tribe's organizer for the Tribes shortcut link, then tap <b>Add Shortcut</b>."}</span></li>
+          <li><b>2</b><span>Open it in the Shortcuts app, tap the text box that says <b>PASTE KEY</b>, and paste your key: <button type="button" class="linkbtn" id="hlCopy">Copy my key</button></span></li>
+          <li><b>3</b><span>Shortcuts → <b>Automation</b> → <b>+</b> → <b>App</b> → WhatsApp → <b>Is Opened</b> → <b>Run Immediately</b> → pick <b>Tribes steps</b>.</span></li>
+          <li><b>4</b><span>Open WhatsApp once. Allow Health when asked. Your steps appear here.</span></li>
+        </ol>
+        <p class="hint" id="hlMsg" role="status"></p>
+        <div class="stdbtns"><button type="button" class="btn" id="hlDone">Done</button></div>
+      </div>`;
+  }
+  function streakSheet() {
+    if (!state.streakOpen) return "";
+    const T = state.today || {}, S = T.streak || {}, W = T.wager, bank = Number(T.bank) || 0;
+    const wag = W && W.status === "active" ? `<p class="stwag"><b>Wager running:</b> ${W.days} of 7 days logged. Make all 7 and get ${W.payout} back.</p>`
+      : `${W && W.status === "won" ? `<p class="stwag ok">Last wager won: +${W.payout}.</p>` : W && W.status === "lost" ? `<p class="stwag">Last wager lost. Try again.</p>` : ""}
+         <button type="button" class="btn stwagb" id="wagerGo" ${bank < 50 ? "disabled" : ""}>Bet 50: log 7 days in a row, win 100</button>
+         ${bank < 50 ? `<p class="hint">You need 50 points in your bank.</p>` : ""}`;
+    return `<div class="sheetbg" id="stBg"></div>
+      <div class="stdsheet stsheet" role="dialog" aria-label="Your streak">
+        <div class="stbig"><span aria-hidden="true">\u{1F525}</span><b>${S.n || 0}</b><small>day${S.n === 1 ? "" : "s"} in a row${S.today ? "" : " · log today to keep it"}</small></div>
+        <p class="stline">Best <b>${S.best || 0}</b> · Freezes <b>${"❄".repeat(S.freezes || 0) || "0"}</b></p>
+        <ol class="grules">
+          <li><b>1</b><span>Log your steps every day, by the next night.</span></li>
+          <li><b>2</b><span>Miss a day? A freeze saves your streak. You get one every Monday (hold 2).</span></li>
+          <li><b>3</b><span>Reach 7, 30, 100, 365 days for a celebration.</span></li>
+        </ol>
+        ${wag}
+        <div class="stdbtns"><button type="button" class="btn-quiet" id="stDone">Close</button></div>
+      </div>`;
+  }
+  function wireToday() {
+    on("streakOpen", "click", () => { state.streakOpen = true; render(); });
+    on("stDone", "click", () => { state.streakOpen = false; render(); });
+    on("stBg", "click", () => { state.streakOpen = false; render(); });
+    on("wagerGo", "click", async (e) => { e.target.disabled = true;
+      const res = await call("app_wager", { p_code: state.code, p_person: state.meId });
+      if (res.error) { state.msg = res.offline ? "No signal. Try again." : res.error; state.msgKind = "bad"; e.target.disabled = false; render(); return; }
+      await loadToday(); render(); });
+    on("healthOpen", "click", () => { state.healthOpen = true; render(); });
+    const hlClose = () => { state.healthOpen = false; render(); };
+    on("hlDone", "click", hlClose); on("hlBg", "click", hlClose);
+    on("hlCopy", "click", async () => { const k = (state.today || {}).key || ""; const m = document.getElementById("hlMsg");
+      try { await navigator.clipboard.writeText(k); if (m) m.textContent = "Key copied. Paste it into the shortcut."; }
+      catch { if (m) m.textContent = "Your key: " + k; } });
+    on("ydIn", "input", (e) => { state.ydayIn.v = e.target.value; });
+    const ydSave = async () => {
+      const Y = state.ydayIn, v = Number(String(Y.v || "").replace(/[^0-9]/g, ""));
+      if (!v) { Y.err = "Type yesterday's steps."; render(); return; }
+      const res = await call("app_log", { p_code: state.code, p_person: state.meId, p_value: v, p_metric: "steps", p_date: state.today.yday.date, p_tz: deviceTZ() });
+      if (res.error) { Y.err = res.offline ? "No signal. Not saved yet." : res.error; render(); return; }
+      state.ydayIn = null; await refresh(true); await loadToday(); render();
+    };
+    on("ydGo", "click", ydSave);
+    on("ydIn", "keydown", (e) => { if (e.key === "Enter") ydSave(); });
   }
 
   // V7.4. Feedback, at the foot of Me: one line and a send arrow. Saved
@@ -9727,6 +9876,19 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     // Every save also refreshes the copy kept on the phone, so the next
     // open draws what is true now.
     const save = (x) => { cacheTasks(); return taskCall("app_task_save", { p_task: taskPayload(x) }); };
+    // V7.5. Undo: the list as it was, offered for 5 seconds after a delete,
+    // a tick, a move or a clear. Whatever differs is saved back.
+    const offerUndo = (words, before) => armUndo({ words, ms: 5000, run: async () => {
+      if (!state.tasks || state.tasks !== t) return;
+      const now = t.list, same = (a, b) => JSON.stringify(taskPayload(a)) === JSON.stringify(taskPayload(b));
+      const back = before.filter((b) => { const c = now.find((y) => y.id === b.id); return !c || !same(c, b); });
+      t.list = before; t.edit = null; t.swiped = null; render(); cacheTasks();
+      for (const x of back.filter((y) => !y.parent_id)) await save(x);
+      for (const x of back.filter((y) => y.parent_id)) await save(x);
+      const r2 = await call("app_tasks", { p_code: state.code, p_person: state.meId });
+      if (state.tasks === t && r2 && r2.tasks) { t.list = r2.tasks; cacheTasks(); render(); }
+    } });
+    const shortT = (x) => { const w = (x && x.title) || "Task"; return w.length > 22 ? w.slice(0, 21) + "\u2026" : w; };
     const nextPos = (pred) => Math.max(-1, ...t.list.filter(pred).map((x) => x.position)) + 1;
     const lastIn = (q, not) => nextPos((y) => !y.parent_id && (y.quadrant || 1) === q && !y.done && y.id !== not);
     // Order inside a box: write 0, 1, 2… down it and send it.
@@ -9853,6 +10015,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         const mt = find(mid);
         if (mt && mt.repeat && !now && mt.next_id) { const nx = find(mt.next_id);
           if (!nx || !nx.done) t.list = t.list.filter((y) => y.id !== mt.next_id && y.parent_id !== mt.next_id); mt.next_id = null; }
+        if (!x.parent_id) offerUndo(`${x.done ? "Done" : "Back on the list"}: ${shortT(x)}`, before);
         render();
         const res = await save(x);
         if (res.error) {
@@ -9927,8 +10090,9 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     });
     document.querySelectorAll("[data-tdel]").forEach((el) =>
       el.addEventListener("click", async () => {
-        const id = el.dataset.tdel, x = find(id);
+        const id = el.dataset.tdel, x = find(id), before = JSON.parse(JSON.stringify(t.list));
         t.list = t.list.filter((y) => y.id !== id && y.parent_id !== id);
+        offerUndo(`Deleted: ${shortT(x)}`, before);
         if (x && x.parent_id) {
           const p = find(x.parent_id), sibs = kids(x.parent_id);
           if (p && sibs.length) p.done = sibs.every((c) => c.done);
@@ -10074,9 +10238,10 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       el.addEventListener("click", async () => {
         t.more = null;
         const [act, id] = el.dataset.tsw.split(":");
-        const x = find(id);
+        const x = find(id), before = JSON.parse(JSON.stringify(t.list));
         t.swiped = null;
         if (!x) { render(); return; }
+        if (act === "today" || act === "tomorrow" || act === "delete") offerUndo(`${act === "delete" ? "Deleted" : act === "today" ? "Moved to today" : "Moved to tomorrow"}: ${shortT(x)}`, before);
         const toBox = (q) => { x.quadrant = q; kids(x.id).forEach((c) => { c.quadrant = q; }); };
         if (act === "today") {
           if (!((x.quadrant || 1) === 1 && !waiting(x)) && doFull()) {
@@ -10112,6 +10277,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         t.swiped = null;
         if (!x || (x.quadrant || 1) === q) { render(); return; }
         if (q === 1 && doFull() && !waiting(x)) { t.err = `Do holds ${doLimit()}. Finish or move one first.`; render(); return; }
+        offerUndo(`Moved to ${(QUADS.find((Q) => Q.q === q) || {}).name || "a box"}: ${shortT(x)}`, JSON.parse(JSON.stringify(t.list)));
         x.quadrant = q;
         kids(x.id).forEach((c) => { c.quadrant = q; });
         x.position = lastIn(q, x.id);
@@ -10233,7 +10399,9 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         body: "They are deleted for good.",
         buttons: [
           { label: "Clear", kind: "bad", run: async () => {
+              const before = JSON.parse(JSON.stringify(t.list));
               const doneIds = new Set(t.list.filter((x) => x.done).map((x) => x.id));
+              offerUndo(`Cleared ${doneIds.size} done`, before);
               t.list = t.list.filter((x) => !doneIds.has(x.id) && !doneIds.has(x.parent_id));
               t.doneOpen = false; render(); cacheTasks();
               await taskCall("app_tasks_clear", {});
@@ -13324,8 +13492,8 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     if (state.workFull && state.work && state.work.run) { app.insertAdjacentHTML("beforeend", workFullView()); }
     wireWorkFull();
     if (v !== "session" && v !== "detail") {
-      app.insertAdjacentHTML("beforeend", stdSheet() + dialSheet() + homeSheet() + tribeSheet() + gameSheet() + pastSheet() + shopSheet() + weekSheet() + inboxSheet());
-      wireGame(); wirePast(); wireShop(); wireWeek(); wireInbox();
+      app.insertAdjacentHTML("beforeend", stdSheet() + dialSheet() + homeSheet() + tribeSheet() + gameSheet() + pastSheet() + shopSheet() + weekSheet() + inboxSheet() + streakSheet() + healthSheet());
+      wireGame(); wirePast(); wireShop(); wireWeek(); wireInbox(); wireToday();
       wireTribeSheet();
       wireStd();
       wireHomeSheet();
@@ -13820,6 +13988,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       const u = state.undo;
       if (!u) return;
       disarmUndo();
+      if (u.run) { await u.run(); return; }   // V7.5. Tasks bring their own undo.
       await call("app_unlog", { p_code: state.code, p_person: state.meId,
                                 p_metric: u.key, p_date: u.date });
       if (state.view === "diet") { await refresh(); await loadDietDay(); render(); return; }
