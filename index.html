@@ -1302,30 +1302,11 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .crest { display:inline-grid; place-items:center; width:32px; height:32px; border-radius:50%; font-size:19px; line-height:1;
   background:color-mix(in oklab, var(--ink) 7%, var(--surface)); }
 .crest.none { font-size:14px; font-weight:800; color:var(--ink-2); }
-.lgrival { margin:8px 0 12px; padding:14px 14px 12px; border-radius:20px; text-align:center;
-  background:linear-gradient(135deg, color-mix(in oklab, var(--accent) 16%, var(--surface)), color-mix(in oklab, #e5534b 12%, var(--surface)));
-  border:1px solid color-mix(in oklab, var(--accent) 30%, var(--line)); }
-.lgrival.none { background:color-mix(in oklab, var(--ink) 4%, var(--surface)); border-style:dashed; }
-.lgrival .eyebrow { margin:0 0 8px; }
-.lgvs { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:8px; }
-.lgvs + .lgvsl + .lgvs { margin-top:12px; padding-top:12px; border-top:1px solid var(--line); }
-.lgside { display:flex; flex-direction:column; align-items:center; gap:4px; min-width:0; opacity:.78; }
-.lgside.ahead { opacity:1; }
-.lgside .crest { width:48px; height:48px; font-size:28px; }
-.lgside b { max-width:100%; font-size:14px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--ink); }
-.lgside em { font-style:normal; font-size:30px; font-weight:800; font-variant-numeric:tabular-nums; color:var(--ink); line-height:1.05; }
-.lgside.ahead em { color:var(--green-ink, #4f9a6c); }
-.lgv { font-family:var(--display); font-size:18px; color:var(--muted); }
-.lgvsl { margin:8px 0 0; font-size:13.5px; color:var(--ink-2); }
 .crests { display:grid; grid-template-columns:repeat(8, 1fr); gap:6px; margin:6px 0 4px; }
 .crestb { aspect-ratio:1/1; display:grid; place-items:center; border-radius:12px; border:1.5px solid var(--line); background:var(--surface);
   font-size:clamp(18px, 5.4vw, 24px); line-height:1; padding:0; cursor:pointer; -webkit-tap-highlight-color:transparent; }
 .crestb.on { border-color:var(--accent); background:color-mix(in oklab, var(--accent) 18%, var(--surface)); transform:scale(1.06); }
 .hcrest { margin-right:6px; }
-.lgrules { margin:2px 0 12px; }
-.lgjoin { display:flex; align-items:center; justify-content:space-between; gap:10px; min-height:48px; margin:0 0 12px; padding:0 14px; border-radius:14px; border:1px dashed var(--line-strong); font-size:14px; color:var(--ink-2); }
-.lgjoin.in { border-style:solid; border-color:color-mix(in oklab, var(--green, #3f9a63) 50%, var(--line)); background:color-mix(in oklab, var(--green, #3f9a63) 10%, var(--surface)); }
-.lgjoin b { color:var(--ink); }
 .lgjoinb { width:100%; margin:0 0 12px; }
 .lginvs { margin:6px 0 0; text-align:center; font-size:12.5px; color:var(--muted); }
 .lglist li + li { border-top:1px solid var(--line); }
@@ -1335,8 +1316,6 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .lgnm small { font-size:12px; font-weight:400; color:var(--muted); }
 .lgsc { font-size:20px; font-weight:800; font-variant-numeric:tabular-nums; color:var(--ink); }
 .lglist li.me { background:color-mix(in oklab, var(--accent) 14%, var(--surface)); box-shadow:inset 3px 0 0 var(--accent); }
-.lglast { margin:12px 0 0; font-size:14px; color:var(--ink-2); }
-.lgrule { margin:8px 0 0; font-size:13px; line-height:1.45; color:var(--muted); }
 .lginv { width:100%; margin-top:16px; }
 /* V7.4. Feedback: one line and a send arrow. The owner's inbox above it. */
 .fbk { margin:22px 0 6px; }
@@ -1347,16 +1326,9 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .ydcard { margin:-4px 0 8px; padding:12px 14px; border-radius:16px; background:color-mix(in oklab, var(--accent) 12%, var(--surface)); border:1px solid color-mix(in oklab, var(--accent) 35%, var(--line)); }
 .ydcard p { margin:0 0 8px; font-size:14px; color:var(--ink-2); } .ydcard b { color:var(--ink); }
 .ydrow { display:flex; gap:8px; } .ydrow .field { flex:1; min-width:0; font-size:16px; }
-.dcard { margin:18px 0 4px; padding:16px; border-radius:18px; background:color-mix(in oklab, var(--ink) 5%, var(--surface)); }
-.dcard h3 { margin:2px 0 6px; font-family:var(--display); font-weight:500; font-size:21px; color:var(--ink); }
 .dcbody { margin:0; font-size:15px; line-height:1.5; color:var(--ink-2); }
 .dcsrc { margin:10px 0 0; font-size:12px; color:var(--muted); }
-.dcard.locked { display:flex; align-items:center; gap:12px; padding:14px 16px; border:1px dashed var(--line-strong); background:none; }
-.dcard.locked p { margin:0; display:flex; flex-direction:column; font-size:15px; color:var(--ink); } .dcard.locked small { font-size:13px; color:var(--muted); }
 .dclock { font-size:22px; }
-.hlrow { display:flex; align-items:center; gap:12px; width:100%; min-height:52px; margin:12px 0 0; padding:0 14px; border-radius:14px; border:1px solid var(--line); background:none; color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
-.hlrow > span:nth-child(2) { flex:1; display:flex; flex-direction:column; } .hlrow small { font-size:12.5px; color:var(--muted); } .hlrow i { font-style:normal; color:var(--muted); }
-.hlh { color:#ff3b5c; font-size:20px; }
 .stbig { display:flex; flex-direction:column; align-items:center; margin:4px 0 6px; }
 .stbig span { font-size:48px; line-height:1; } .stbig b { font-size:40px; font-weight:800; color:var(--ink); line-height:1.1; } .stbig small { font-size:13.5px; color:var(--muted); }
 .stline { text-align:center; margin:0 0 12px; font-size:14px; color:var(--ink-2); } .stline b { color:var(--ink); }
@@ -2860,54 +2832,11 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 /* ---------- V7.6: Tribe, simplified; the quest; Campfire ---------- */
 .htabt { display:flex; align-items:center; gap:6px; padding:0; border:none; background:none; color:var(--ink); font:inherit; cursor:pointer; }
 .htabt::after { content:"›"; font-size:20px; color:var(--muted); }
-.tcard { margin:6px 0 10px; padding:14px 16px 10px; border-radius:20px; background:var(--surface); border:1px solid var(--line); }
-.tctop { display:flex; align-items:center; gap:12px; }
-.tctop svg { flex:none; animation:tshine 4s ease-in-out infinite; }
-@keyframes tshine { 0%, 80%, 100% { filter:none; } 88% { filter:brightness(1.25) drop-shadow(0 0 6px rgba(255,210,80,.6)); } }
-.tcname { flex:1; display:flex; flex-direction:column; min-width:0; }
-.tcname b { font-family:var(--display); font-weight:500; font-size:21px; color:var(--ink); }
-.tcname small { font-size:13px; color:var(--muted); }
-.tnext { margin:6px 0 8px; text-align:center; font-size:15px; font-weight:600; color:var(--ink); }
-.wdots { display:flex; justify-content:space-between; gap:6px; margin:12px 0 4px; }
-.wdots i { flex:1; max-width:38px; aspect-ratio:1; display:grid; place-items:center; border-radius:50%; font-style:normal; font-size:11px; font-weight:700;
-  color:var(--muted); background:color-mix(in oklab, var(--ink) 7%, transparent); }
-.wdots i.on { background:#3fb96b; color:#fff; box-shadow:inset 0 -3px 0 rgba(0,0,0,.15); }
-.wdots i.miss { background:color-mix(in oklab, #e5534b 14%, transparent); color:color-mix(in oklab, #e5534b 70%, var(--muted)); }
-.wdots i.now { box-shadow:inset 0 0 0 2px var(--accent); color:var(--ink); }
-.wdots i.on.now { box-shadow:inset 0 0 0 2px #1f7a45; }
-.wdots.sm { gap:3px; margin:0; flex:none; }
-.wdots.sm i { width:9px; max-width:9px; flex:none; font-size:0; }
-.wdots.sm i.now { box-shadow:inset 0 0 0 1.5px var(--accent); }
-.tquest { display:flex; align-items:center; gap:12px; margin:0 0 12px; padding:12px 14px; border-radius:18px; border:1.5px solid var(--line); background:var(--surface); }
-.tquest.ready { border-color:#f2b631; background:color-mix(in oklab, #ffd23f 12%, var(--surface)); }
-.tquest.opened { opacity:.8; }
-.tqtext { flex:1; display:flex; flex-direction:column; gap:3px; min-width:0; }
-.tqtext small { font-size:11.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
-.tqtext b { font-size:16px; color:var(--ink); }
-.tqtext em { font-style:normal; font-size:12px; color:var(--muted); }
-.tqbar { display:block; height:10px; border-radius:6px; background:color-mix(in oklab, var(--ink) 9%, transparent); overflow:hidden; }
-.tqbar i { display:block; height:100%; border-radius:6px; background:linear-gradient(90deg, #ffb21e, #ff7a1a); transition:width .5s ease; }
-.tqchest { flex:none; display:flex; flex-direction:column; align-items:center; gap:0; min-width:64px; padding:0; border:none; background:none; color:var(--ink); font:inherit; font-size:13px; font-weight:800; cursor:pointer; }
-.tqchest:disabled { cursor:default; }
-.tquest.locked .tqchest svg { filter:grayscale(.8); opacity:.55; }
-.tquest.ready .tqchest svg { animation:tbob 1.4s ease-in-out infinite; transform-origin:50% 90%; }
 @keyframes tbob { 0%, 100% { transform:rotate(0) scale(1); } 25% { transform:rotate(-6deg) scale(1.06); } 75% { transform:rotate(6deg) scale(1.06); } }
 .chestwin { display:inline-flex; align-items:flex-end; gap:0; }
 .chestwin .chest { animation:tpop .5s cubic-bezier(.2,1.6,.4,1) both; }
 @keyframes tpop { from { transform:scale(.4); opacity:0; } to { transform:scale(1); opacity:1; } }
 .spark.glad { animation:tbob 1.6s ease-in-out infinite; }
-.rklist { list-style:none; margin:0; padding:0; border-radius:20px; background:var(--surface); border:1px solid var(--line); overflow:hidden; }
-.rklist li { display:flex; align-items:center; gap:8px; min-height:58px; padding:6px 10px 6px 12px; border-top:1px solid var(--line); }
-.rklist li:first-child { border-top:none; }
-.rklist li.me { background:color-mix(in oklab, var(--accent) 9%, transparent); }
-.trk { width:16px; flex:none; text-align:center; font-weight:800; font-size:14px; color:var(--muted); }
-.rklist li svg { flex:none; }
-.trn { flex:1; min-width:0; display:flex; flex-direction:column; align-items:flex-start; gap:1px; padding:6px 0; border:none; background:none; color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
-.trn b { font-size:15.5px; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.trn small { max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:12px; color:var(--muted); }
-.tarw { width:12px; flex:none; font-size:11px; text-align:center; }
-.tarw.up { color:#2f9e5b; } .tarw.dn { color:#e5534b; }
-.rklist .fchb, .rklist .fchn, .rklist li > span:last-child { width:30px; flex:none; text-align:center; }
 .faces { display:flex; gap:10px; overflow-x:auto; margin:2px -16px 12px; padding:4px 16px 2px; scrollbar-width:none; }
 .faces::-webkit-scrollbar { display:none; }
 .face { flex:none; width:58px; display:flex; flex-direction:column; align-items:center; gap:3px; padding:0; border:none; background:none; color:var(--ink-2); font:inherit; cursor:pointer; }
@@ -2965,6 +2894,58 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 .lnrow label { display:flex; align-items:center; gap:6px; font-size:14px; color:var(--muted); }
 .lnrow label .field { width:56px; margin:0; text-align:center; }
 .lnrow > .field { flex:1; margin:0; }
+
+/* ---------- V7.7: simpler Me, Tribe, League, Campfire ---------- */
+.wkrec.two { grid-template-columns:repeat(2, 1fr); }
+.faceswrap { margin:2px 0 12px; }
+.facesl { display:block; margin:0 0 6px; padding:0; border:none; background:none; color:var(--muted); font:inherit; font-size:12.5px; font-weight:600; cursor:pointer; }
+.faceswrap .faces { margin-bottom:0; }
+.qrow { display:flex; align-items:stretch; gap:8px; margin:8px 0 4px; }
+.qchest { flex:1; display:flex; align-items:center; gap:10px; min-height:58px; padding:6px 12px; border-radius:16px; border:1.5px solid var(--line);
+  background:var(--surface); color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
+.qchest:disabled { cursor:default; }
+.qchest span { display:flex; flex-direction:column; min-width:0; }
+.qchest b { font-size:15px; } .qchest small { font-size:12px; color:var(--muted); }
+.qrow.ready .qchest { border-color:#f2b631; background:color-mix(in oklab, #ffd23f 12%, var(--surface)); }
+.qrow.ready .qchest svg { animation:tbob 1.4s ease-in-out infinite; transform-origin:50% 90%; }
+.qrow.locked .qchest svg { filter:grayscale(.8); opacity:.55; }
+.qbank { flex:none; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0; min-width:84px; padding:6px 10px; border-radius:16px;
+  border:1.5px solid var(--line); background:var(--surface); color:var(--ink); font:inherit; cursor:pointer; }
+.qbank span { font-size:14px; color:var(--gold, #c9970f); line-height:1; } .qbank b { font-size:16px; font-variant-numeric:tabular-nums; }
+.qbank em { font-style:normal; font-size:11.5px; font-weight:700; color:var(--accent); }
+.tchest { display:flex; align-items:center; gap:12px; margin:4px 0 10px; padding:10px 14px; border-radius:18px; border:1.5px solid var(--line); background:var(--surface); }
+.tchest.won { border-color:#f2b631; background:color-mix(in oklab, #ffd23f 12%, var(--surface)); }
+.tcring { position:relative; flex:none; width:50px; height:50px; display:grid; place-items:center; }
+.tcring svg { position:absolute; inset:0; transform:rotate(-90deg); }
+.tcring circle { fill:none; stroke-width:5; } .tcring .tct { stroke:color-mix(in oklab, var(--ink) 10%, transparent); }
+.tcring .tcf { stroke:#3fb96b; stroke-linecap:round; transition:stroke-dashoffset .5s ease; }
+.tcring b { font-size:13px; font-weight:800; color:var(--ink); font-variant-numeric:tabular-nums; }
+.tctx { flex:1; display:flex; flex-direction:column; min-width:0; }
+.tctx b { font-size:15px; color:var(--ink); } .tctx small { font-size:12.5px; color:var(--muted); }
+.tchest .chest { flex:none; }
+.tmeline { display:flex; align-items:center; gap:8px; margin:0 0 10px; font-size:14px; color:var(--ink-2); }
+.tmeline > span { flex:1; min-width:0; } .tmeline b { color:var(--ink); }
+.tmeline svg { flex:none; }
+.ftbl th.fdy, .ftbl td.fdy { width:36px; font-weight:700; font-variant-numeric:tabular-nums; }
+.ftbl td.fdy.up { color:var(--green-ink, #3f9a5c); }
+.lgin { display:flex; align-items:center; justify-content:center; gap:10px; margin:10px 0 0; font-size:14.5px; font-weight:600; color:var(--ink); }
+.lgprize { margin:12px 0 10px; text-align:center; font-size:14px; color:var(--ink-2); } .lgprize b { color:var(--ink); }
+.lglist .lgrk { font-size:18px; }
+.lgsc { display:flex; flex-direction:column; align-items:flex-end; line-height:1.05; } .lgsc small { font-size:10.5px; font-weight:600; color:var(--muted); }
+.lginv { display:block; width:auto; margin:14px auto 0; }
+.cfseg { display:grid; grid-template-columns:1fr 1fr; gap:4px; margin:0 0 16px; padding:4px; border-radius:999px; background:color-mix(in oklab, var(--ink) 7%, transparent); }
+.cfseg button { min-height:38px; border:none; border-radius:999px; background:none; color:var(--muted); font:inherit; font-size:14.5px; font-weight:600; cursor:pointer; }
+.cfseg button.on { background:var(--surface); color:var(--ink); box-shadow:0 1px 3px rgba(0,0,0,.15); }
+.cfsv { font-style:normal; margin-left:4px; color:#e0a400; }
+.lsclaim { font-family:var(--display); font-size:20px; line-height:1.3; color:var(--ink); margin:0 0 12px; }
+.lslab { margin:14px 0 4px !important; font-size:11.5px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--tc); }
+.lsquote { margin:0 0 4px; padding:10px 14px; border-left:3px solid var(--tc); border-radius:0 12px 12px 0; background:color-mix(in oklab, var(--tc) 8%, transparent);
+  font-size:15px; line-height:1.5; font-style:italic; color:var(--ink); }
+.lsquote cite { display:block; margin-top:8px; font-style:normal; font-size:12.5px; color:var(--muted); }
+.lsquote a { color:var(--accent); font-weight:600; }
+.lsconc { font-weight:600; }
+.lssave.on { color:#e0a400; }
+.ifsheet .fbk { margin-top:14px; }
 </style>
 </head>
 <body>
@@ -2980,7 +2961,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "7.6";
+  const APP_VERSION = "7.7";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -3361,12 +3342,6 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
              : `<path d="M10 30q0-14 22-14t22 14z" fill="#c9844a" stroke="#7a4518" stroke-width="2"/><rect x="28" y="34" width="8" height="10" rx="2" fill="#f2c14e" stroke="#7a4518" stroke-width="1.5"/>`}
     </svg>`;
   }
-  // Seven dots, Monday to Sunday: filled when the goal was met; today ringed.
-  function weekDots(days, todayDow, small) {
-    const met = new Set(days || []);
-    return `<span class="wdots${small ? " sm" : ""}" aria-label="${met.size} of 7 days this week">${[1, 2, 3, 4, 5, 6, 7].map((d) =>
-      `<i class="${met.has(d) ? "on" : d < todayDow ? "miss" : d === todayDow ? "now" : ""}">${small ? "" : "MTWTFSS"[d - 1]}</i>`).join("")}</span>`;
-  }
   const garDow = () => { const G = state.garden; return G && G.day ? dowOf(G.day) : dowOf(todayISO()); };
   // The week in days, not points: 4 of 7 moves your badge up.
   function moveWords(x) {
@@ -3414,64 +3389,54 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         <div class="stdbtns"><button type="button" class="btn-quiet" id="ggX">Cancel</button><button type="button" class="btn" id="ggGo">I’m in</button></div>
       </div>`;
   }
-  // V7.6. Your card: badge, the week as seven dots, what it takes to move
-  // up, your bank. Rules live behind How to play.
-  function gameLines() {
-    const G = state.garden, mine = gardenMe(); if (!G || !mine) return "";
-    const rk = gameRank(), bank = Number(G.bank) || 0, T = state.today;
-    return `<div class="tcard" id="gameCard">
-        ${!mine.pledged ? `<button type="button" class="bset" id="gameGoal"><b>Set your step goal to start</b><small>10 seconds. Then every day counts.</small></button>` : ""}
-        <div class="tctop">${badgeSVG(mine.level, 46)}<div class="tcname"><b>${BD(mine.level)[0]}</b><small>${rk ? `${rk.label} in your tribe` : "This week"}</small></div>
-          <button type="button" class="linkbtn" id="gameOpen">How to play</button></div>
-        ${weekDots(mine.days, garDow())}
-        <p class="tnext">${esc(moveWords(mine))}</p>
-        ${mine.pledged ? `<button type="button" class="gbank" id="shopOpen"><span class="gbanki" aria-hidden="true">◈</span><span>Your bank <b>${num(bank)}</b> points${T ? (T.bank_today >= 10 ? ` · <span class="yok">today +10 ✓</span>` : T.bank_today ? ` · today +2` : ` · <span class="gwait">today: 10 waiting</span>`) : ""}</span><em>Prizes ›</em></button>` : ""}
-      </div>
-      ${questCard()}`;
-  }
-  // The daily quest: log today, open the chest.
-  function questCard() {
-    const T = state.today, mine = gardenMe(); if (!T || !mine || !mine.pledged) return "";
-    const logged = !!(T.streak && T.streak.today), C = T.chest || {};
-    const state3 = C.opened ? "opened" : logged ? "ready" : "locked";
-    return `<div class="tquest ${state3}">
-      <div class="tqtext"><small>Today's quest</small><b>Log your steps</b>
-        <span class="tqbar"><i style="width:${logged ? 100 : 0}%"></i></span><em>${logged ? "1 / 1" : "0 / 1"}</em></div>
-      <button type="button" class="tqchest" id="chestOpen" ${state3 === "ready" ? "" : "disabled"} aria-label="${C.opened ? `Opened: +${C.points} points` : logged ? "Open your chest" : "Log today to open the chest"}">
-        ${chestSVG(!!C.opened, 54)}<small>${C.opened ? `+${C.points}` : logged ? "Open!" : ""}</small></button>
+  // V7.7. Me: today's chest and your bank, one slim row. Not playing yet:
+  // the one button that starts the game.
+  function questRow() {
+    const G = state.garden, mine = gardenMe(), T = state.today; if (!G || !mine) return "";
+    if (!mine.pledged) return `<button type="button" class="bset" id="gameGoal"><b>Set your step goal to start playing</b><small>10 seconds. Then every day counts.</small></button>`;
+    const logged = !!(T && T.streak && T.streak.today), C = (T && T.chest) || {};
+    const st = C.opened ? "opened" : logged ? "ready" : "locked";
+    return `<div class="qrow ${st}">
+      <button type="button" class="qchest" id="chestOpen" ${st === "ready" ? "" : "disabled"}>${chestSVG(!!C.opened, 40)}
+        <span><b>${C.opened ? `+${C.points} today` : logged ? "Open your chest!" : "Today's chest"}</b><small>${C.opened ? "Back tomorrow" : logged ? "5 to 20 points" : "Log your steps to open it"}</small></span></button>
+      <button type="button" class="qbank" id="shopOpen"><span aria-hidden="true">◈</span><b>${num(Number(G.bank) || 0)}</b><em>Prizes ›</em></button>
     </div>`;
   }
-  // The ranked list: you on top, then everyone by days this week.
-  function rankList() {
-    const G = state.garden; if (!G || !(G.people || []).length) return "";
-    const dow = garDow(), all = G.people.slice();
-    const met = (x) => (x.days || []).length;
-    const ranked = all.slice().sort((a, b) => (met(b) - met(a)) || ((b.streak || 0) - (a.streak || 0)) || a.name.localeCompare(b.name));
-    const rankOf = (x) => 1 + all.filter((y) => met(y) > met(x)).length;
-    const list = ranked.filter((x) => x.id === state.meId).concat(ranked.filter((x) => x.id !== state.meId));
-    const peopleById = Object.fromEntries((state.people || []).map((p) => [p.id, p]));
-    return `<ol class="rklist" aria-label="Your tribe this week">${list.map((x) => {
-      const mine = x.id === state.meId, left = 7 - dow + (x.today ? 0 : 1), m = met(x);
-      const arrow = m >= 4 ? `<span class="tarw up" aria-label="moving up">▲</span>` : m + left < 4 ? `<span class="tarw dn" aria-label="moving down">▼</span>` : `<span class="tarw"></span>`;
-      const heart = mine ? (x.cheers ? `<span class="fchn" aria-label="${x.cheers} cheers today">❤${x.cheers > 1 ? x.cheers : ""}</span>` : `<span></span>`)
-        : x.today ? `<button type="button" class="fchb${x.cheered ? " on" : ""}" data-cheer="${x.id}" aria-pressed="${!!x.cheered}" aria-label="${x.cheered ? "You cheered" : "Cheer"} ${esc(x.name)}">${x.cheered ? "❤" : "♡"}</button>` : `<span></span>`;
-      const p = peopleById[x.id] || {};
-      return `<li class="${mine ? "me" : ""}" style="--hc:hsl(${p.hue || 200} 58% 48%)">
-        <span class="trk">${rankOf(x)}</span>${badgeSVG(x.level, 26)}
-        <button type="button" class="trn" ${mine ? 'id="streakOpen2"' : `data-pnudge="${x.id}"`}><b>${esc(x.name)}</b><small>${x.streak ? `\u{1F525} ${x.streak}` : "no streak"}${x.logged ? " · ✓ today" : ""}</small></button>
-        ${weekDots(x.days, dow, true)}${arrow}${heart}</li>`; }).join("")}</ol>`;
+  // V7.7. Tribe: the tribe chest. Everyone who has logged in the last 14
+  // days logs today, and each of them gets +5.
+  function tribeChest() {
+    const TT = state.garden && state.garden.tribe_today; if (!TT || TT.active < 2) return "";
+    const f = Math.min(1, TT.logged / TT.active), C = 2 * Math.PI * 21;
+    return `<div class="tchest${TT.won ? " won" : ""}">
+      <span class="tcring"><svg viewBox="0 0 50 50" aria-hidden="true"><circle cx="25" cy="25" r="21" class="tct"/><circle cx="25" cy="25" r="21" class="tcf" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${(C * (1 - f)).toFixed(1)}"/></svg><b>${TT.logged}/${TT.active}</b></span>
+      <span class="tctx"><b>${TT.won ? "Tribe chest open!" : "Tribe chest"}</b><small>${TT.won ? "Everyone logged today: +5 each" : `${TT.active - TT.logged} to go. Everyone logs, everyone gets +5.`}</small></span>
+      ${chestSVG(!!TT.won, 44)}</div>`;
   }
-  // Me: the family, as faces. A tick once they've logged today, and their flame.
+  // V7.7. One line about you: badge, days this week, what Sunday does.
+  function meLine() {
+    const mine = gardenMe(); if (!mine) return "";
+    if (!mine.pledged) return `<button type="button" class="bset" id="gameGoal"><b>Set your step goal to start playing</b><small>10 seconds. Then every day counts.</small></button>
+      <p class="tmeline"><span>Not playing yet</span><button type="button" class="linkbtn" id="gameOpen">How to play</button></p>`;
+    return `<p class="tmeline">${badgeSVG(mine.level, 24)}<span><b>${(mine.days || []).length} of 7 days</b> · ${esc(moveWords(mine))}</span>
+      <button type="button" class="linkbtn" id="gameOpen">How to play</button></p>`;
+  }
+  // V7.7. Me: the family's faces. Only people who logged in the last 14
+  // days, not you (your flame is in the top bar), highest streak first.
   function facesRow() {
-    const G = state.garden; if (!G || (G.people || []).length < 2) return "";
+    const G = state.garden; if (!G) return "";
     const peopleById = Object.fromEntries((state.people || []).map((p) => [p.id, p]));
-    const list = G.people.filter((x) => x.id === state.meId).concat(G.people.filter((x) => x.id !== state.meId));
-    return `<div class="faces" role="list" aria-label="Your tribe today">${list.map((x) => {
+    const list = (G.people || []).filter((x) => x.id !== state.meId && x.recent)
+      .sort((a, b) => ((b.streak || 0) - (a.streak || 0)) || a.name.localeCompare(b.name));
+    if (!list.length) return "";
+    const TT = G.tribe_today;
+    return `<div class="faceswrap">
+      ${TT && TT.active >= 2 ? `<button type="button" class="facesl" data-gotab="tribe">${TT.logged}/${TT.active} logged today · ${TT.won ? "tribe chest open ✓" : "tribe chest"} ›</button>` : ""}
+      <div class="faces" role="list" aria-label="Your tribe today">${list.map((x) => {
       const p = peopleById[x.id] || {}, ini = (x.name || "?").trim().split(/\s+/).slice(0, 2).map((w) => (w[0] || "").toUpperCase()).join("");
-      return `<button type="button" class="face${x.logged ? " done" : ""}${x.id === state.meId ? " me" : ""}" role="listitem" ${x.id === state.meId ? 'data-faceme="1"' : `data-pnudge="${x.id}"`}
+      return `<button type="button" class="face${x.logged ? " done" : ""}" role="listitem" data-pnudge="${x.id}"
         style="--hc:hsl(${p.hue || 200} 62% 48%)" aria-label="${esc(x.name)}${x.logged ? ", logged today" : ", not logged yet"}${x.streak ? `, ${x.streak} day streak` : ""}">
         <span class="fav">${esc(ini)}${x.logged ? `<i class="fck" aria-hidden="true">✓</i>` : ""}</span>
-        <small>${esc(x.id === state.meId ? "You" : x.name.split(/\s+/)[0])}</small><em>${x.streak ? `\u{1F525}${x.streak}` : " "}</em></button>`; }).join("")}</div>`;
+        <small>${esc(x.name.split(/\s+/)[0])}</small><em>${x.streak ? `\u{1F525}${x.streak}` : " "}</em></button>`; }).join("")}</div></div>`;
   }
   function cheerBanner() {
     const N = (state.garden && state.garden.cheers_new) || [];
@@ -3491,10 +3456,10 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         <p class="gnow"><b>${(mine.days || []).length}</b> of 7 days so far · ${esc(moveWords(mine))}</p>
         <p class="dpg">How it works</p>
         <ul class="gdhow gsimple">
-          <li><b>7</b> Each week has 7 dots. Hit your step goal and a dot fills.</li>
-          <li><b>4</b> Fill 4 or more by Sunday and your badge goes up. Fewer, it goes down. Everyone starts at Bronze.</li>
+          <li><b>4</b> Hit your step goal 4+ days a week and your badge goes up. Fewer, it goes down. Everyone starts at Bronze.</li>
           <li><b>\u{1F525}</b> Log every day to grow your streak. A freeze saves a missed day.</li>
-          <li><b>\u25c8</b> Log by the next night: +10 to your bank (+2 if short). Perfect week: +30. Spend it on prizes.</li>
+          <li><b>\u25c8</b> Log by the next night: +10 (+2 if short). Perfect week: +30. Spend it on prizes.</li>
+          <li><b>+5</b> Tribe chest: when everyone playing logs today, everyone gets +5.</li>
         </ul>
         <div class="glinks"><button type="button" class="linkbtn" id="gameGoal2">Change my goal (now ${num(stdOf(me(), "steps"))})</button>
           ${mine.pledged ? `<button type="button" class="linkbtn" id="weekOpen">Last week</button>` : ""}</div>
@@ -3572,16 +3537,14 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const mine = gardenMe() || {}, up = mine.prev_level != null && mine.level > mine.prev_level, dn = mine.prev_level != null && mine.level < mine.prev_level;
     const sc = (x) => x === null || x === undefined ? "–" : (Number.isInteger(Number(x)) ? String(Number(x)) : Number(x).toFixed(1));
     const span = W.week_start ? `${shortDay(W.week_start)} – ${shortDay(shiftISO(W.week_start, 6))}` : "";
-    const rv = (W.rival || [])[0], R = W.record || {}, L = W.league;
-    const res = rv && rv.us != null && rv.them != null ? (Number(rv.us) > Number(rv.them) ? "Won" : Number(rv.us) < Number(rv.them) ? "Lost" : "Tied") : null;
+    // V7.7. In days, no rivals. (70 kept = 7 days; 10 a day.)
+    const R = W.record || {}, L = W.league, days = W.kept == null ? 0 : Math.round(Number(W.kept) / 10);
     const body = W.busy ? `<p class="hint">Loading your week…</p>` : W.err ? `<p class="hint bad">${esc(W.err)}</p>` : `
-        <div class="wkrow"><span class="wkk">You</span><span><b>${W.kept}</b> of 70 kept · ${badgeSVG(mine.level, 18)} ${up ? `up to ${BD(mine.level)[0]}` : dn ? `down to ${BD(mine.level)[0]}` : BD(mine.level)[0]}${W.banked != null ? ` · <b>+${W.banked}</b> banked` : ""}</span></div>
-        ${rv ? `<div class="wkrow"><span class="wkk">Tribe</span><span>vs ${esc(rv.name)}: <b class="${res === "Won" ? "yok" : res === "Lost" ? "yno" : ""}">${res || "no score"}</b>${res ? ` ${sc(rv.us)}–${sc(rv.them)}` : ""}</span></div>` : ""}
+        <div class="wkrow"><span class="wkk">You</span><span><b>${days}</b> of 7 days · ${badgeSVG(mine.level, 18)} ${up ? `up to ${BD(mine.level)[0]}` : dn ? `down to ${BD(mine.level)[0]}` : BD(mine.level)[0]}${W.banked != null ? ` · <b>+${W.banked}</b> banked` : ""}</span></div>
         ${L ? `<div class="wkrow"><span class="wkk">League</span><span><b>${L.rank}${ordinal(L.rank)}</b> of ${L.of}${L.award ? ` · <b>+${L.award}</b> to you` : L.podium ? " · podium" : ""}</span></div>` : ""}
-        <div class="wkrec"><div><b>${R.me_w || 0}–${R.me_l || 0}</b><small>your weeks (40+ or not)</small></div>
-          <div><b>${R.tribe_w || 0}–${R.tribe_l || 0}</b><small>tribe vs rivals</small></div>
+        <div class="wkrec two"><div><b>${R.me_w || 0}–${R.me_l || 0}</b><small>your weeks (4+ days or not)</small></div>
           <div><b>${R.podiums || 0}</b><small>League podiums</small></div></div>
-        <p class="wkbank">Bank: <b>${num(W.bank || 0)}</b> points. Everyone is back to 70.</p>`;
+        <p class="wkbank">Bank: <b>${num(W.bank || 0)}</b> points. A fresh week starts now.</p>`;
     return `<div class="sheetbg" id="wkBg"></div>
       <div class="stdsheet wksheet" role="dialog" aria-label="Your week">
         <p class="eyebrow">Your week${span ? " · " + esc(span) : ""}</p>
@@ -3595,8 +3558,8 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const close = () => { state.weekCard = null; render(); };
     on("wkDone", "click", close); on("wkBg", "click", close);
     on("wkShare", "click", async () => {
-      const W = state.weekCard || {}, rv = (W.rival || [])[0], R = W.record || {};
-      const text = `My week on Tribes: ${W.kept}/70 kept${W.banked != null ? `, +${W.banked} banked` : ""}${rv && rv.us != null && rv.them != null ? `. ${state.group.name} vs ${rv.name}: ${Number(rv.us) > Number(rv.them) ? "won" : Number(rv.us) < Number(rv.them) ? "lost" : "tied"}` : ""}. Record ${R.me_w || 0}–${R.me_l || 0} 👟 ${location.origin}${location.pathname}`;
+      const W = state.weekCard || {}, R = W.record || {};
+      const text = `My week on Tribes: ${Math.round(Number(W.kept || 0) / 10)} of 7 days${W.banked != null ? `, +${W.banked} banked` : ""}. Record ${R.me_w || 0}–${R.me_l || 0} 👟 ${location.origin}${location.pathname}`;
       try { if (navigator.share) { await navigator.share({ text }); return; } } catch (e) { if (e && e.name === "AbortError") return; }
       window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank");
     });
@@ -6613,8 +6576,37 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
             <div class="pcells">${ks.map(cell).join("")}</div></div>`).join("")}
       </div>`;
     };
-    // V7.6. The family now lives in the Tribe tab's ranked list; this is
-    // only the empty state before anyone is added.
+    // V7.7. The tribe's full table is back: badge and name, streak, days
+    // this week, then a column per habit (yours), and a heart for anyone at
+    // today's goal. You first, then by days this week, then streak.
+    const gp = (id) => ((state.garden && state.garden.people) || []).find((x) => x.id === id) || null;
+    const famTable = (list0) => {
+      const G = !!(state.garden && (state.garden.people || []).length);
+      const met = (p) => { const x = gp(p.id); return x ? (x.days || []).length : -1; };
+      const list = list0.slice().sort((a, b) => (met(b) - met(a)) || (((gp(b.id) || {}).streak || 0) - ((gp(a.id) || {}).streak || 0)) || a.name.localeCompare(b.name));
+      const at = list.findIndex((p) => p.id === state.meId); if (at > 0) list.unshift(list.splice(at, 1)[0]);
+      const CH = G && !state.boardDay;
+      const cols = groups.flatMap(([, ks, gi]) => ks.map((k, j) => ({ k, gi, first: j === 0 })));
+      const ks = cols.map((c) => c.k), band = (i) => ` b${cols[i].gi}`, nc = ks.length, extra = G ? 2 : 0;
+      return `<div class="ftab"><table class="ftbl" style="width:min(100%, ${78 + (nc + extra) * 64}px);min-width:${78 + (nc + extra) * 27}px">
+        <thead><tr class="fgrp"><th class="fn"></th>${G ? `<th class="fpt"></th><th class="fdy"></th>` : ""}${groups.map(([g, gks, gi]) => `<th colspan="${gks.length}" class="b${gi}">${esc(gks.length < 2 ? ({ Meditation: "Med", Exercise: "Exer", "Great Work": "Work", "Your own": "Own" }[g] || g) : g)}</th>`).join("")}${CH ? `<th class="fch"></th>` : ""}</tr>
+          <tr><th class="fn"><span class="sr">Name</span></th>${G ? `<th class="fpt" title="Streak">\u{1F525}</th><th class="fdy" title="Days at goal this week">Days</th>` : ""}${ks.map((k, i) =>
+          `<th class="${cols[i].first ? "g0" : ""}${band(i)}" title="${esc(STD[k].label)}">${FAB[k] || esc(STD[k].label.slice(0, 3))}</th>`).join("")}${CH ? `<th class="fch" title="Cheers today"><span aria-hidden="true">❤</span><span class="sr">Cheers</span></th>` : ""}</tr></thead>
+        <tbody>${list.map((p) => {
+          const c = famCells(p), mine = p.id === state.meId, x = gp(p.id) || {};
+          const d = (x.days || []).length;
+          return `<tr${mine ? ` class="me"` : ""}><th class="fn" scope="row" style="--hc:hsl(${p.hue} 58% 42%)">
+              <button type="button" class="ftn" ${mine ? `id="streakOpen2"` : `data-pnudge="${p.id}"`} data-person="${p.id}">${G && x.level ? badgeSVG(x.level, 16) : `<i aria-hidden="true"></i>`}${esc(p.name)}</button></th>
+            ${G ? `<td class="fpt${x.streak ? "" : " nil"}">${x.streak || "–"}</td><td class="fdy${d >= 4 ? " up" : ""}${x.recent || mine ? "" : " nil"}">${x.recent || mine ? d + "/7" : "–"}</td>` : ""}
+            ${ks.map((k, i) => {
+              const v = c[k], nil = v === null || v === undefined, g = cols[i].first ? " g0" : "";
+              return `<td class="${nil ? "nil" : ""}${g}${band(i)}">${tiny(k, v)}</td>`;
+            }).join("")}
+            ${CH ? (mine ? `<td class="fch">${x.cheers ? `<span class="fchn" aria-label="${x.cheers} cheers today">❤${x.cheers > 1 ? x.cheers : ""}</span>` : ""}</td>`
+              : `<td class="fch">${x.today ? `<button type="button" class="fchb${x.cheered ? " on" : ""}" data-cheer="${p.id}" aria-pressed="${!!x.cheered}" aria-label="${x.cheered ? "You cheered" : "Cheer"} ${esc(p.name)}">${x.cheered ? "❤" : "♡"}</button>` : ""}</td>`) : ""}</tr>`;
+        }).join("")}</tbody></table></div>`;
+    };
+    // Before anyone is added.
     const roster = `<div class="dashed"><p class="note">Nobody has been added yet.
            Add the first name above.</p></div>`;
 
@@ -6632,10 +6624,10 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         <b>${state.group.crest ? `<span class="hcrest" aria-hidden="true">${esc(state.group.crest)}</span>` : ""}${esc(state.group.name)}</b>
         <span class="hright">${m ? flameChip() : ""}${m ? `<label class="hwho"><select id="who" aria-label="Who are you">${whoOptions}</select>
           <i aria-hidden="true">&#9662;</i></label>` : ""}
-          ${m ? `<button type="button" class="hinfo${tourSeen() ? "" : " new"}" id="tourBtn" aria-label="How Tribes works">i</button>` : ""}</span>
+          ${m ? `<button type="button" class="hinfo${tourSeen() && !ownerNews() ? "" : " new"}" id="tourBtn" aria-label="Help and feedback">i</button>` : ""}</span>
       </div>
       ${m ? cheerBanner() : ""}
-      ${m && homePast() && tab === "me" ? `<div class="hpast" role="status"><span>Showing <b>${esc(fullDate(state.boardDay))}</b></span><button type="button" class="hpastgo" id="hToday">Back to today</button></div>` : ""}`;
+      ${m && homePast() && (tab === "me" || tab === "tribe") ? `<div class="hpast" role="status"><span>Showing <b>${esc(fullDate(state.boardDay))}</b></span><button type="button" class="hpastgo" id="hToday">Back to today</button></div>` : ""}`;
     let body;
     // V7.3. Arriving by your family's link: type your name and you are in;
     // already in? pick yourself. One screen, two choices, nothing else.
@@ -6654,10 +6646,10 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         </section>`;
     else if (tab === "tribe") body = `
       <section class="htab htribe" aria-label="Your tribe">
-        <div class="htabh"><button type="button" class="htabt" id="tribeGoal" aria-label="Tribe name, crest and people"><h2>Tribe</h2></button>
-          <em>${state.garden && (state.garden.people || []).length ? `${state.garden.people.filter((x) => x.logged).length}/${state.garden.people.length} logged today` : ""}</em></div>
-        ${gameLines()}
-        ${rankList() || (state.people.length ? "" : roster)}
+        <div class="htabh"><button type="button" class="htabt" id="tribeGoal" aria-label="Tribe name, crest and people"><h2>Tribe</h2></button></div>
+        ${tribeChest()}
+        ${meLine()}
+        ${state.people.length ? `<div class="roster">${famTable(ordered)}</div>` : roster}
       </section>`;
     else if (tab === "league") body = leagueView();
     else if (tab === "campfire") body = campfireView();
@@ -6666,12 +6658,11 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       ${ydayCard()}
       ${editRowHTML()}
       ${homeDials(m)}
+      ${questRow()}
       <section class="htab hme" aria-label="Your dashboard">
         ${nav()}
         ${meRow ? `<div class="roster">${meDash(meRow)}</div>` : ""}
-      </section>
-      ${healthRow()}
-      ${feedbackCard()}`;
+      </section>`;
 
     return `${head}
       ${body}
@@ -6721,29 +6712,6 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     </section>`;
   }
   // One card a day, opened by logging today. Only cards the owner approved.
-  // Apple Health: the row until steps have arrived from it in the last 3 days.
-  function healthRow() {
-    const H = state.today && state.today.health; if (!H || H.synced) return "";
-    if (!/iPhone|iPad|iPod/.test(navigator.userAgent) && !state.healthAny) return "";
-    return `<button type="button" class="hlrow" id="healthOpen"><span aria-hidden="true" class="hlh">♥</span><span><b>Steps from Apple Health</b><small>Log without typing</small></span><i aria-hidden="true">›</i></button>`;
-  }
-  function healthSheet() {
-    if (!state.healthOpen) return "";
-    const T = state.today || {}, H = T.health || {};
-    return `<div class="sheetbg" id="hlBg"></div>
-      <div class="stdsheet hlsheet" role="dialog" aria-label="Apple Health">
-        <p class="eyebrow">Steps from Apple Health</p>
-        <p class="hint" style="margin-top:0">Two minutes, once. After that your steps arrive every time you open WhatsApp.</p>
-        <ol class="grules">
-          <li><b>1</b><span>${H.shortcut ? `<a class="linkbtn" href="${esc(H.shortcut)}" target="_blank" rel="noopener">Get the Tribes shortcut</a> and tap <b>Add Shortcut</b>.` : "Ask your tribe's organizer for the Tribes shortcut link, then tap <b>Add Shortcut</b>."}</span></li>
-          <li><b>2</b><span>Open it in the Shortcuts app, tap the text box that says <b>PASTE KEY</b>, and paste your key: <button type="button" class="linkbtn" id="hlCopy">Copy my key</button></span></li>
-          <li><b>3</b><span>Shortcuts → <b>Automation</b> → <b>+</b> → <b>App</b> → WhatsApp → <b>Is Opened</b> → <b>Run Immediately</b> → pick <b>Tribes steps</b>.</span></li>
-          <li><b>4</b><span>Open WhatsApp once. Allow Health when asked. Your steps appear here.</span></li>
-        </ol>
-        <p class="hint" id="hlMsg" role="status"></p>
-        <div class="stdbtns"><button type="button" class="btn" id="hlDone">Done</button></div>
-      </div>`;
-  }
   function streakSheet() {
     if (!state.streakOpen) return "";
     const T = state.today || {}, S = T.streak || {}, W = T.wager, bank = Number(T.bank) || 0;
@@ -6764,6 +6732,28 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         <div class="stdbtns"><button type="button" class="btn-quiet" id="stDone">Close</button></div>
       </div>`;
   }
+  // V7.7. The owner's news (new feedback, prize requests) puts a dot on the ⓘ.
+  function ownerNews() {
+    if (!(me() && me().owner)) return false;
+    const O = state.owner; if (!O && !state.ownerBusy) { setTimeout(() => loadOwner(), 0); return false; }
+    return !!(O && !O.err && (O.new_feedback || O.open_requests));
+  }
+  // V7.7. The ⓘ sheet: how Tribes works, feedback, and the owner's Inbox.
+  function infoSheet() {
+    if (!state.infoOpen) return "";
+    return `<div class="sheetbg" id="ifBg"></div>
+      <div class="stdsheet ifsheet" role="dialog" aria-label="Help and feedback">
+        <button type="button" class="ownrow" id="ifTour"><span>How Tribes works</span><em>a 30-second tour</em><i aria-hidden="true">›</i></button>
+        ${feedbackCard()}
+        <div class="stdbtns"><button type="button" class="btn-quiet" id="ifDone">Close</button></div>
+      </div>`;
+  }
+  function wireInfo() {
+    const close = () => { state.infoOpen = false; render(); };
+    on("ifDone", "click", close); on("ifBg", "click", close);
+    on("ifTour", "click", () => { state.infoOpen = false; render(); tour(0); });
+    wireFeedback();
+  }
   function wireToday() {
     const openStreak = () => { state.streakOpen = true; render(); };
     on("streakOpen", "click", openStreak); on("streakOpen2", "click", openStreak);
@@ -6783,12 +6773,6 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       const res = await call("app_wager", { p_code: state.code, p_person: state.meId });
       if (res.error) { state.msg = res.offline ? "No signal. Try again." : res.error; state.msgKind = "bad"; e.target.disabled = false; render(); return; }
       await loadToday(); render(); });
-    on("healthOpen", "click", () => { state.healthOpen = true; render(); });
-    const hlClose = () => { state.healthOpen = false; render(); };
-    on("hlDone", "click", hlClose); on("hlBg", "click", hlClose);
-    on("hlCopy", "click", async () => { const k = (state.today || {}).key || ""; const m = document.getElementById("hlMsg");
-      try { await navigator.clipboard.writeText(k); if (m) m.textContent = "Key copied. Paste it into the shortcut."; }
-      catch { if (m) m.textContent = "Your key: " + k; } });
     on("ydIn", "input", (e) => { state.ydayIn.v = e.target.value; });
     const ydSave = async () => {
       const Y = state.ydayIn, v = Number(String(Y.v || "").replace(/[^0-9]/g, ""));
@@ -6829,7 +6813,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     };
     on("fbGo", "click", send);
     on("fbIn", "keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); send(); } });
-    on("inboxOpen", "click", async () => { state.inboxOpen = true; await loadOwner(true); });
+    on("inboxOpen", "click", async () => { state.infoOpen = false; state.inboxOpen = true; await loadOwner(true); });
   }
   // V7.4. The owner's inbox: prize requests to approve, then feedback.
   async function loadOwner(force) {
@@ -6870,13 +6854,13 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   }
 
 
-  /* ---------- V7.6: Campfire ----------------------------------------
+  /* ---------- Campfire (V7.6; V7.7 sections and saves) ----------------
      One short lesson a day, opened by logging today's steps, and a library
-     by topic. Dr. Nishtar writes them in the app; the 30 drafted cards
-     seed it. */
-  const CF_TOPICS = [["Move", "\u{1F45F}", "#2f9e6e"], ["Sleep", "\u{1F319}", "#5b6cd6"], ["Eat", "\u{1F957}", "#d9821a"],
-    ["Checkups", "\u{1FA7A}", "#d4506a"], ["Mind", "\u{1F9E0}", "#8a5cc9"], ["Habits", "\u{1F501}", "#2c8fb8"]];
-  const cfTopic = (t) => CF_TOPICS.find((x) => x[0] === t) || CF_TOPICS[5];
+     in five sections. Every lesson: a claim, why, the proof (a direct quote
+     from the study, with its link) and what to do. Save any for later. */
+  const CF_TOPICS = [["Meditation", "\u{1F9D8}", "#8a5cc9"], ["Exercise", "\u{1F45F}", "#2f9e6e"], ["Diet", "\u{1F957}", "#d9821a"],
+    ["Sleep", "\u{1F319}", "#5b6cd6"], ["Great Work", "\u{1F3AF}", "#d4506a"]];
+  const cfTopic = (t) => CF_TOPICS.find((x) => x[0] === t) || CF_TOPICS[4];
   async function loadCampfire(force) {
     if (!state.meId) return;
     const C = state.camp;
@@ -6897,28 +6881,34 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const [, icon, hue] = cfTopic(x.topic), lock = locked && x.id === todayId;
     return `<button type="button" class="cfcard" data-lesson="${x.id}" style="--tc:${hue}">
       <span class="cfic" aria-hidden="true">${icon}</span><b>${esc(x.title)}</b>
-      <small>${lock ? "\u{1F512} Log to open" : `${x.minutes || 1} min`}${x.new ? ` <i class="cfnew">New</i>` : ""}</small></button>`;
+      <small>${lock ? "\u{1F512} Log to open" : `${x.minutes || 1} min read`}${x.new ? ` <i class="cfnew">New</i>` : ""}${x.saved ? ` <i class="cfsv" aria-label="Saved">★</i>` : ""}</small></button>`;
   }
   function campfireView() {
-    const C = state.camp || {};
-    const head = `<div class="htabh"><h2>Campfire</h2><em>a short read a day</em>${C.owner ? `<button type="button" class="linkbtn" id="cfNew">+ New lesson</button>` : ""}</div>`;
+    const C = state.camp || {}, seg = state.campSeg === "saved" ? "saved" : "library";
+    const head = `<div class="htabh"><h2>Campfire</h2><em>2 minutes a day</em>${C.owner ? `<button type="button" class="linkbtn" id="cfNew">+ New lesson</button>` : ""}</div>`;
     if (!C.library) { if (!C.busy) setTimeout(() => loadCampfire(), 0);
       return `<section class="htab hcamp">${head}${C.err ? `<p class="hint bad">${esc(C.err)}</p>` : `<p class="hint">Lighting the fire…</p>`}</section>`; }
     const T = C.today, L = C.library;
     if (!L.length) return `<section class="htab hcamp">${head}<div class="cfempty">${sparkSVG(72, "sleepy")}<p>The first lessons are on their way.</p></div></section>`;
     const [tn, ti, th] = T ? cfTopic(T.topic) : [];
     const today = !T ? "" : T.locked
-      ? `<button type="button" class="cftoday locked" id="cfToday" style="--tc:${th}"><span class="cfmeta">Today · ${esc(tn)}</span>
+      ? `<button type="button" class="cftoday locked" id="cfToday" style="--tc:${th}"><span class="cfmeta">Today's lesson · ${esc(tn)}</span>
           <b>${esc(T.title)}</b><span class="cflock">${sparkSVG(46, "sleepy")}<span>Log today's steps to open it.</span></span></button>`
-      : `<button type="button" class="cftoday" id="cfToday" data-lesson="${T.id}" style="--tc:${th}"><span class="cfmeta">Today · ${esc(tn)} · ${T.minutes || 1} min</span>
-          <b>${esc(T.title)}</b>${T.teaser ? `<span class="cfteaser">${esc(T.teaser)}</span>` : ""}<span class="cfgo">Read ›</span><span class="cfbig" aria-hidden="true">${ti}</span></button>`;
-    const shelves = CF_TOPICS.map(([t, icon]) => {
-      const xs = L.filter((x) => x.topic === t); if (!xs.length) return "";
-      return `<div class="cfshelf"><div class="cfsh"><h3><span aria-hidden="true">${icon}</span> ${t}</h3>${xs.length > 3 ? `<button type="button" class="linkbtn" data-cfall="${t}">View all ${xs.length}</button>` : ""}</div>
-        <div class="cfrow">${xs.slice(0, 8).map((x) => cfCard(x, T && T.id, T && T.locked)).join("")}</div></div>`; }).join("");
-    return `<section class="htab hcamp" aria-label="Campfire">${head}${today}${shelves}</section>`;
+      : `<button type="button" class="cftoday" id="cfToday" data-lesson="${T.id}" style="--tc:${th}"><span class="cfmeta">Today's lesson · ${esc(tn)} · ${T.minutes || 1} min</span>
+          <b>${esc(T.title)}</b>${T.teaser ? `<span class="cfteaser">${esc(T.teaser)}</span>` : ""}<span class="cfgo">Tap to read ›</span><span class="cfbig" aria-hidden="true">${ti}</span></button>`;
+    const segs = `<div class="cfseg" role="tablist"><button type="button" role="tab" class="${seg === "library" ? "on" : ""}" data-cfseg="library" aria-selected="${seg === "library"}">Library</button>
+      <button type="button" role="tab" class="${seg === "saved" ? "on" : ""}" data-cfseg="saved" aria-selected="${seg === "saved"}">Saved</button></div>`;
+    const saved = L.filter((x) => x.saved);
+    const body = seg === "saved"
+      ? (saved.length ? `<div class="calist">${saved.map((x) => cfCard(x, T && T.id, T && T.locked)).join("")}</div>`
+                      : `<div class="cfempty">${sparkSVG(56, "sleepy")}<p>Tap ☆ Save on any lesson to keep it here.</p></div>`)
+      : CF_TOPICS.map(([t, icon]) => {
+          const xs = L.filter((x) => x.topic === t); if (!xs.length) return "";
+          return `<div class="cfshelf"><div class="cfsh"><h3><span aria-hidden="true">${icon}</span> ${t}</h3>${xs.length > 2 ? `<button type="button" class="linkbtn" data-cfall="${t}">View all ›</button>` : ""}</div>
+            <div class="cfrow">${xs.slice(0, 8).map((x) => cfCard(x, T && T.id, T && T.locked)).join("")}</div></div>`; }).join("");
+    return `<section class="htab hcamp" aria-label="Campfire">${head}${today}${segs}${body}</section>`;
   }
-  // **bold**, "- " bullets and blank-line paragraphs: all a lesson needs.
+  // Old lessons (one body of text): **bold**, "- " bullets, blank-line paragraphs.
   function lessonHTML(body) {
     const inl = (t) => esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
     return String(body || "").split(/\n\s*\n/).map((blk) => {
@@ -6926,28 +6916,44 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       if (lines.length && lines.every((l) => /^\s*[-•]\s+/.test(l))) return `<ul>${lines.map((l) => `<li>${inl(l.replace(/^\s*[-•]\s+/, ""))}</li>`).join("")}</ul>`;
       return `<p>${lines.map(inl).join("<br>")}</p>`; }).join("");
   }
+  const safeUrl = (u) => /^https:\/\/[^\s"'<>]+$/.test(String(u || "")) ? String(u) : null;
+  function lessonParts(D) {
+    if (!D.claim) return `<div class="lsbody">${lessonHTML(D.body)}</div>`;
+    const url = safeUrl(D.url);
+    return `<div class="lsbody">
+      <p class="lsclaim">${esc(D.claim)}</p>
+      ${D.explain ? `<p class="lslab">Why</p><p>${esc(D.explain)}</p>` : ""}
+      <p class="lslab">Proof</p>
+      <blockquote class="lsquote">“${esc(D.proof)}”<cite>${esc(D.cite || "")}${url ? ` · <a href="${esc(url)}" target="_blank" rel="noopener noreferrer">Read the study ↗</a>` : ""}</cite></blockquote>
+      <p class="lslab">So</p><p class="lsconc">${esc(D.conclusion)}</p></div>`;
+  }
   function campSheet() {
     const R = state.lesson, A = state.campAll, N = state.lessonNew, C = state.camp || {};
-    if (N) return `<div class="sheetbg" id="lnBg"></div>
+    if (N) { const f = (id, ph, v, max, area) => area
+        ? `<textarea class="field lnbody" id="${id}" maxlength="${max}" placeholder="${ph}">${esc(v)}</textarea>`
+        : `<input class="field" id="${id}" maxlength="${max}" placeholder="${ph}" value="${esc(v)}">`;
+      return `<div class="sheetbg" id="lnBg"></div>
       <div class="stdsheet lnsheet" role="dialog" aria-label="New lesson">
-        <p class="eyebrow">New lesson</p>
-        <div class="lntopics" role="radiogroup" aria-label="Topic">${CF_TOPICS.map(([t, icon]) => `<button type="button" class="lnt${N.topic === t ? " on" : ""}" role="radio" aria-checked="${N.topic === t}" data-lntopic="${t}">${icon} ${t}</button>`).join("")}</div>
-        <input class="field" id="lnTitle" maxlength="120" placeholder="Title" value="${esc(N.title)}">
-        <textarea class="field lnbody" id="lnBody" maxlength="20000" placeholder="Write it here. A blank line starts a new paragraph. Start a line with - for a bullet, **like this** for bold.">${esc(N.body)}</textarea>
-        <div class="lnrow"><label>Minutes <input class="field" id="lnMin" inputmode="numeric" maxlength="2" value="${esc(String(N.minutes))}"></label>
-          <input class="field" id="lnSrc" maxlength="300" placeholder="Source (optional)" value="${esc(N.source)}"></div>
-        <p class="hint">It becomes everyone's lesson today, signed Dr. Nishtar.</p>
-        ${N.err ? `<p class="hint bad">${esc(N.err)}</p>` : ""}
+        <p class="eyebrow">New lesson · under 2 minutes</p>
+        <div class="lntopics" role="radiogroup" aria-label="Section">${CF_TOPICS.map(([t, icon]) => `<button type="button" class="lnt${N.topic === t ? " on" : ""}" role="radio" aria-checked="${N.topic === t}" data-lntopic="${t}">${icon} ${t}</button>`).join("")}</div>
+        ${f("lnTitle", "Title", N.title, 120)}
+        ${f("lnClaim", "Claim: the one thing to know", N.claim, 400, true)}
+        ${f("lnExplain", "Why: explain it in two or three lines", N.explain, 1200, true)}
+        ${f("lnProof", "Proof: paste a direct quote from the study", N.proof, 1200, true)}
+        ${f("lnCite", "Study, e.g. Banach et al., Eur J Prev Cardiol 2023", N.cite, 300)}
+        ${f("lnUrl", "Link to the study (https://pubmed…)", N.url, 500)}
+        ${f("lnConcl", "So: what to do", N.conclusion, 600, true)}
+        ${N.err ? `<p class="hint bad">${esc(N.err)}</p>` : `<p class="hint">It becomes everyone's lesson for 3 days, signed Dr. Nishtar.</p>`}
         <div class="stdbtns"><button type="button" class="btn-quiet" id="lnX">Cancel</button><button type="button" class="btn" id="lnGo" ${N.busy ? "disabled" : ""}>Publish</button></div>
-      </div>`;
+      </div>`; }
     if (R) { const D = R.data, [tn, ti, th] = cfTopic(D ? D.topic : R.topic);
       return `<div class="sheetbg" id="lsBg"></div>
       <div class="stdsheet lssheet" role="dialog" aria-label="Lesson" style="--tc:${th}">
         ${R.busy ? `<p class="hint">Opening…</p>` : R.err ? `<div class="cfempty">${sparkSVG(64, "sleepy")}<p>${esc(R.err)}</p></div>`
-          : `<p class="lsmeta"><span aria-hidden="true">${ti}</span> ${esc(tn)} · ${D.minutes || 1} min</p><h3 class="lstitle">${esc(D.title)}</h3>
-             <div class="lsbody">${lessonHTML(D.body)}</div>
-             <p class="lssrc">${D.source ? esc(D.source) + " · " : ""}by ${esc(D.author || "Dr. Nishtar")}</p>`}
-        <div class="stdbtns"><button type="button" class="btn" id="lsDone">Done</button></div>
+          : `<p class="lsmeta"><span aria-hidden="true">${ti}</span> ${esc(tn)} · ${D.minutes || 1} min read</p><h3 class="lstitle">${esc(D.title)}</h3>
+             ${lessonParts(D)}
+             <p class="lssrc">by ${esc(D.author || "Dr. Nishtar")}</p>`}
+        <div class="stdbtns">${D ? `<button type="button" class="btn-quiet lssave${D.saved ? " on" : ""}" id="lsSave" aria-pressed="${!!D.saved}">${D.saved ? "★ Saved" : "☆ Save"}</button>` : ""}<button type="button" class="btn" id="lsDone">Done</button></div>
       </div>`; }
     if (A) { const xs = (C.library || []).filter((x) => x.topic === A), T = C.today, [, icon] = cfTopic(A);
       return `<div class="sheetbg" id="caBg"></div>
@@ -6972,20 +6978,31 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     document.querySelectorAll("[data-lesson]").forEach((el) => el.addEventListener("click", () => openLesson(el.dataset.lesson)));
     on("cfToday", "click", (e) => { if (!e.currentTarget.dataset.lesson) { state.homeTab = "me"; render(); window.scrollTo(0, 0); } });
     document.querySelectorAll("[data-cfall]").forEach((el) => el.addEventListener("click", () => { state.campAll = el.dataset.cfall; render(); }));
+    document.querySelectorAll("[data-cfseg]").forEach((el) => el.addEventListener("click", () => { state.campSeg = el.dataset.cfseg; render(); }));
     const shut = () => { state.lesson = null; state.campAll = null; render(); };
     on("lsDone", "click", shut); on("lsBg", "click", shut); on("caDone", "click", shut); on("caBg", "click", shut);
-    on("cfNew", "click", () => { state.lessonNew = { topic: "Move", title: "", body: "", minutes: 2, source: "", err: null }; render(); });
+    on("lsSave", "click", async () => {
+      const R = state.lesson; if (!R || !R.data) return;
+      const on1 = !R.data.saved; R.data.saved = on1;
+      const x = ((state.camp && state.camp.library) || []).find((y) => String(y.id) === String(R.id)); if (x) x.saved = on1;
+      render();
+      const res = await call("app_lesson_keep", { p_code: state.code, p_person: state.meId, p_id: Number(R.id), p_on: on1 });
+      if (res.error) { R.data.saved = !on1; if (x) x.saved = !on1; state.msg = res.offline ? "No signal. Not saved yet." : res.error; state.msgKind = "bad"; render(); }
+    });
+    on("cfNew", "click", () => { state.lessonNew = { topic: "Exercise", title: "", claim: "", explain: "", proof: "", cite: "", url: "", conclusion: "", err: null }; render(); });
     const N = state.lessonNew; if (!N) return;
     const keep = () => { const g = (id) => { const el = document.getElementById(id); return el ? el.value : ""; };
-      N.title = g("lnTitle"); N.body = g("lnBody"); N.minutes = g("lnMin"); N.source = g("lnSrc"); };
+      N.title = g("lnTitle"); N.claim = g("lnClaim"); N.explain = g("lnExplain"); N.proof = g("lnProof"); N.cite = g("lnCite"); N.url = g("lnUrl"); N.conclusion = g("lnConcl"); };
     document.querySelectorAll("[data-lntopic]").forEach((el) => el.addEventListener("click", () => { keep(); N.topic = el.dataset.lntopic; render(); }));
     const close = () => { state.lessonNew = null; render(); };
     on("lnX", "click", close); on("lnBg", "click", close);
     on("lnGo", "click", async () => { keep();
-      if (!N.title.trim() || !N.body.trim()) { N.err = "A title and a few lines, please."; render(); return; }
+      if (!N.title.trim() || !N.claim.trim() || !N.proof.trim() || !N.conclusion.trim()) { N.err = "A title, the claim, the proof and what to do, please."; render(); return; }
+      if (!safeUrl(N.url.trim())) { N.err = "Add the link to the study (it starts with https://)."; render(); return; }
       N.busy = true; N.err = null; render();
       const res = await call("app_lesson_save", { p_code: state.code, p_person: state.meId,
-        p_lesson: { topic: N.topic, title: N.title.trim(), body: N.body.trim(), minutes: Number(N.minutes) || 2, source: N.source.trim() || null } });
+        p_lesson: { topic: N.topic, title: N.title.trim(), claim: N.claim.trim(), explain: N.explain.trim(), proof: N.proof.trim().replace(/^["“]|["”]$/g, ""),
+                    cite: N.cite.trim(), url: N.url.trim(), conclusion: N.conclusion.trim(), minutes: 2 } });
       if (res.error) { N.busy = false; N.err = res.offline ? "No signal. Not published yet." : res.error; render(); return; }
       state.lessonNew = null; await loadCampfire(true); render(); });
   }
@@ -7013,7 +7030,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     if (!force && L && (L.busy || Date.now() - L.at < 60000)) return;
     state.league = Object.assign({}, L || {}, { busy: true });
     const res = await call("app_league", { p_code: state.code, p_person: state.meId });
-    state.league = res && !res.error ? { tribes: res.tribes || [], me: res.me || null, lastw: res.last || null, podium: res.podium || [300, 200, 100], rivals: res.rivals || [], last: res.last_matches || [], pid: res.pid || null, at: Date.now(), busy: false }
+    state.league = res && !res.error ? { week_start: res.week_start || null, tribes: res.tribes || [], me: res.me || null, lastw: res.last || null, podium: res.podium || [300, 200, 100], rivals: res.rivals || [], last: res.last_matches || [], pid: res.pid || null, at: Date.now(), busy: false }
       : Object.assign({}, L || {}, { busy: false, at: Date.now(), err: res && res.offline ? "No signal." : (res && res.error) || "Could not load the League." });
     if (state.view === "board" && homeTab() === "league") render();
   }
@@ -7026,35 +7043,27 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const L = state.league || {};
     if (!L.tribes) { if (!L.busy) setTimeout(() => loadLeague(), 0);
       return `<section class="htab hleague"><div class="htabh"><h2>League</h2></div>${L.err ? `<p class="hint bad">${esc(L.err)}</p>` : `<p class="hint">Loading the League…</p>`}</section>`; }
+    // V7.7. Duolingo-simple: a countdown, the tribes ranked by their members'
+    // average days at goal, one prize line, one Join button.
     const T = L.tribes, M = L.me || {}, P = L.podium || [300, 200, 100];
     const sc = (x) => { if (x === null || x === undefined) return "–"; const v = Number(x); return Number.isInteger(v) ? String(v) : v.toFixed(1); };
-    const myName = state.group.name, myCrest = state.group.crest;
-    const join = !M.pledged ? `<div class="lgjoin"><span>Set your step goal on the Tribe tab, then join.</span></div>`
-      : M.in && M.next ? `<div class="lgjoin in"><span><b>✓ You're in the League</b></span><button type="button" class="linkbtn" id="lgLeave">Leave from Monday</button></div>`
-      : M.in ? `<div class="lgjoin in"><span><b>In this week</b>, out from Monday</span><button type="button" class="linkbtn" id="lgJoin">Stay in</button></div>`
-      : M.next ? `<div class="lgjoin"><span><b>You're in from Monday</b></span><button type="button" class="linkbtn" id="lgLeave">Cancel</button></div>`
+    const today = (state.garden && state.garden.day) || todayISO();
+    const left = L.week_start ? Math.max(0, 6 - Math.round((Date.parse(today) - Date.parse(L.week_start)) / 86400000)) : null;
+    const ends = left === null ? "this week" : left === 0 ? "ends today" : `ends in ${left} day${left === 1 ? "" : "s"}`;
+    const MED = ["\u{1F947}", "\u{1F948}", "\u{1F949}"];
+    const join = !M.pledged ? `<button type="button" class="btn lgjoinb" id="gameGoal">Set your step goal to join</button>`
+      : M.in && M.next ? `<p class="lgin">✓ You're in <button type="button" class="linkbtn" id="lgLeave">Leave</button></p>`
+      : M.in ? `<p class="lgin">In until Sunday <button type="button" class="linkbtn" id="lgJoin">Stay in</button></p>`
+      : M.next ? `<p class="lgin">You're in from Monday <button type="button" class="linkbtn" id="lgLeave">Cancel</button></p>`
       : `<button type="button" class="btn lgjoinb" id="lgJoin">Join the League</button>`;
-    const rv = (L.rivals || []).map((r) => { const lead = r.us === null || r.them === null ? 0 : Math.sign(Number(r.us) - Number(r.them));
-      return `<div class="lgvs">
-        <div class="lgside${lead > 0 ? " ahead" : ""}">${crestOf(myCrest, myName)}<b>${esc(myName)}</b><em>${sc(r.us)}</em></div>
-        <span class="lgv">vs</span>
-        <div class="lgside${lead < 0 ? " ahead" : ""}">${crestOf(r.crest, r.name)}<b>${esc(r.name)}</b><em>${sc(r.them)}</em></div></div>`; }).join("");
-    const LW = L.lastw;
     return `<section class="htab hleague" aria-label="The League">
-      <div class="htabh"><h2>League</h2><em>this week</em></div>
-      <ol class="grules lgrules">
-        <li><b>1</b><span>Join the League. Only members count for your tribe.</span></li>
-        <li><b>2</b><span>Your tribe's score is its members' average points this week.</span></li>
-        <li><b>3</b><span>Top 3 each week: <b>+${P[0]}</b> · <b>+${P[1]}</b> · <b>+${P[2]}</b> to every member with 4+ days.</span></li>
-      </ol>
-      ${join}
-      ${rv ? `<div class="lgrival"><p class="eyebrow">Your rival this week</p>${rv}</div>` : ""}
+      <div class="htabh"><h2>League</h2><em>${ends}</em></div>
       ${T.length ? `<ol class="lglist">${T.map((t) => `<li class="${t.me ? "me" : ""}${t.rank <= 3 ? " top" + t.rank : ""}">
-          <span class="lgrk">${t.rank}</span>${crestOf(t.crest, t.name)}<span class="lgnm">${esc(t.name)}<small>${t.players} in the League</small></span><b class="lgsc">${sc(t.score)}</b></li>`).join("")}</ol>`
+          <span class="lgrk">${t.rank <= 3 ? MED[t.rank - 1] : t.rank}</span>${crestOf(t.crest, t.name)}<span class="lgnm">${esc(t.name)}<small>${t.players} playing</small></span><b class="lgsc">${sc(t.score)}<small>days</small></b></li>`).join("")}</ol>`
         : `<div class="cfempty">${sparkSVG(64, "sleepy")}<p>No tribe has joined yet this week. Be the first.</p></div>`}
-      ${LW ? `<p class="lglast">Last week: <b>${LW.rank}${ordinal(LW.rank)}</b> of ${LW.of}${M.award ? ` · <b>+${M.award}</b> to your bank` : ""}.</p>` : ""}
-      <p class="lgrule">Steps count when logged by the next day. Places with 2+ tribes playing (2nd needs 3, 3rd needs 4). Spend points under Tribe → Prizes.</p>
-      <button type="button" class="btn-quiet lginv" id="lgInvite">Challenge another family</button>
+      <p class="lgprize">Top 3 tribes win <b>+${P[0]}</b> · <b>+${P[1]}</b> · <b>+${P[2]}</b> each (members with 4+ days).</p>
+      ${join}
+      <button type="button" class="linkbtn lginv" id="lgInvite">Invite another family</button>
     </section>`;
   }
   const ordinal = (n) => n % 100 >= 11 && n % 100 <= 13 ? "th" : ["th", "st", "nd", "rd"][n % 10] || "th";
@@ -7838,12 +7847,12 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       d: "Today against your standard. Tap the name to open it, the number to log. Swipe if you have more than one." },
     { at: ".pdash", tab: "me", t: "Your dashboard",
       d: "Your habits, one line each. Tap a number to open its page. The arrows above it go back a day, for the dial too." },
-    { at: ".tabbar", tab: "me", t: "Three tabs",
-      d: "Me is you. Tribe is your family's game and table. League ranks tribes against each other." },
-    { at: "#gameCard", tab: "tribe", t: "This week's game",
-      d: "70 points every Monday, minus 10 for each day you miss your step goal. Keep 40 and your badge moves up on Sunday. Everyone starts at Bronze." },
+    { at: ".tabbar", tab: "me", t: "Four tabs",
+      d: "Me is you. Tribe is your family's table. League ranks tribes. Campfire is a 2-minute lesson a day." },
+    { at: ".tmeline", tab: "tribe", t: "This week's game",
+      d: "Hit your step goal 4 of 7 days and your badge moves up on Sunday. Everyone starts at Bronze." },
     { at: ".lglist", tab: "league", t: "The League",
-      d: "Your tribe's score is everyone's average. Invite another family and race them." },
+      d: "Tribes ranked by their members' average days at goal. Top 3 win points every week." },
   ];
   // Until it is opened once, the ⓘ wears a small dot. That is the whole nudge.
   const tourSeen = () => { try { return !!localStorage.getItem("fhd.tour"); } catch { return true; } };
@@ -7852,7 +7861,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   let tourList = TOUR;
   function tour(i) {
     document.querySelector(".tourbg")?.remove();
-    if (i === 0) tourList = TOUR.filter((st) => (st.at !== "#gameCard" || gardenMe()) && (st.at !== ".lglist" || (state.league && state.league.tribes && state.league.tribes.length)));
+    if (i === 0) tourList = TOUR.filter((st) => (st.at !== ".tmeline" || gardenMe()) && (st.at !== ".lglist" || (state.league && state.league.tribes && state.league.tribes.length)));
     const TOUR_ = tourList;
     if (i >= TOUR_.length) { if (homeTab() !== "me") { state.homeTab = "me"; render(); window.scrollTo(0, 0); } return; }
     const st = TOUR_[i];
@@ -7879,10 +7888,12 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   }
 
   function wireHome() {
+    // V7.7. The ⓘ opens one small sheet: the tour, feedback, and (for the
+    // owner) the Inbox.
     on("tourBtn", "click", (e) => {
       try { localStorage.setItem("fhd.tour", "1"); } catch {}
       e.currentTarget.classList.remove("new");
-      tour(0);
+      state.infoOpen = true; render();
     });
     const box = document.getElementById("dials");
     if (box) {
@@ -13749,8 +13760,8 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     if (state.workFull && state.work && state.work.run) { app.insertAdjacentHTML("beforeend", workFullView()); }
     wireWorkFull();
     if (v !== "session" && v !== "detail") {
-      app.insertAdjacentHTML("beforeend", stdSheet() + dialSheet() + homeSheet() + tribeSheet() + gameSheet() + pastSheet() + shopSheet() + weekSheet() + inboxSheet() + streakSheet() + healthSheet() + campSheet());
-      wireGame(); wirePast(); wireShop(); wireWeek(); wireInbox(); wireToday(); wireCamp();
+      app.insertAdjacentHTML("beforeend", stdSheet() + dialSheet() + homeSheet() + tribeSheet() + gameSheet() + pastSheet() + shopSheet() + weekSheet() + inboxSheet() + streakSheet() + infoSheet() + campSheet());
+      wireGame(); wirePast(); wireShop(); wireWeek(); wireInbox(); wireToday(); wireCamp(); wireInfo();
       wireTribeSheet();
       wireStd();
       wireHomeSheet();
@@ -14348,10 +14359,9 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     on("bNext", "click", () => stepBoard(1));
     on("bToday", "click", () => state.homeToday());
     on("hToday", "click", () => state.homeToday());
-    wireFeedback();
-    // V7.2. The three home tabs. A tap switches; the page goes back to the top.
-    document.querySelectorAll("[data-htab]").forEach((el) => el.addEventListener("click", () => {
-      const k = el.dataset.htab; if (k === homeTab()) { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
+    // V7.2. The home tabs. A tap switches; the page goes back to the top.
+    document.querySelectorAll("[data-htab], [data-gotab]").forEach((el) => el.addEventListener("click", () => {
+      const k = el.dataset.htab || el.dataset.gotab; if (k === homeTab()) { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
       state.homeTab = k; state.adding = false; render(); window.scrollTo(0, 0);
       if (k === "league") loadLeague();
       if (k === "campfire") loadCampfire();
