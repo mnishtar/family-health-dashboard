@@ -2955,6 +2955,48 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 .tdayrow .daynav { flex:1; min-width:0; margin:0; }
 .lgsheet { max-height:88vh; overflow:auto; }
 .lgsheet .hleague .htabh { margin-top:0; }
+
+/* ---------- V8.2: Tribe card, goal line, people, celebration ---------- */
+.tgoal { display:block; margin:-4px 0 8px; padding:0; border:none; background:none; color:var(--ink-2); font:inherit; font-size:13.5px; text-align:left; cursor:pointer; }
+.tgoal b { color:var(--ink); }
+.tcard2 { margin:4px 0 12px; padding:10px 14px; border-radius:18px; border:1.5px solid var(--line); background:var(--surface); display:flex; flex-direction:column; gap:8px; }
+.tcard2 .tmeline { margin:0; }
+.tcrow { display:flex; align-items:center; gap:12px; padding-bottom:8px; border-bottom:1px solid var(--line); }
+.tcopen { flex:none; padding:0; border:none; background:none; cursor:pointer; }
+.tcopen:disabled { cursor:default; }
+.tcopen:disabled svg:not(.open) { filter:grayscale(.7); opacity:.6; }
+.tcopen.ready svg { animation:tbob 1.4s ease-in-out infinite; transform-origin:50% 90%; }
+.tmbadge { flex:none; display:grid; place-items:center; padding:2px; border:none; background:none; cursor:pointer; border-radius:50%; }
+.tspeople { list-style:none; margin:2px 0 10px; padding:0; }
+.tspeople li { display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:40px; border-top:1px solid var(--line); font-size:15px; color:var(--ink); }
+.tsdel { display:flex; gap:10px; align-items:center; }
+.tsdelgo { min-height:34px; padding:0 12px; font-size:13.5px; background:#c0392b; border-color:#c0392b; color:#fff; }
+.roster .tdayrow { padding:6px 8px 0 4px; margin:0; }
+.celeb { position:fixed; inset:0; z-index:200; display:grid; place-items:center; padding:24px max(16px, env(safe-area-inset-left, 0px));
+  background:radial-gradient(circle at 50% 40%, color-mix(in oklab, #ffd23f 30%, var(--ground)) 0%, color-mix(in oklab, var(--ground) 94%, transparent) 70%);
+  animation:celebin .25s ease-out both; }
+.celeb.out { animation:celebout .25s ease-in both; }
+.celebc { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+.celebin { position:relative; display:flex; flex-direction:column; align-items:center; gap:6px; text-align:center; max-width:340px; }
+.celebart { position:relative; display:flex; align-items:flex-end; }
+.celebart .chest { animation:celebpop .7s cubic-bezier(.2,1.7,.4,1) both; filter:drop-shadow(0 10px 30px rgba(255,190,40,.55)); }
+.celebart .spark { margin-left:-18px; }
+.celebicon { font-size:110px; line-height:1; animation:celebpop .7s cubic-bezier(.2,1.7,.4,1) both; }
+.celebpts { margin:4px 0 0; font-size:56px; font-weight:900; color:#f2b631; font-variant-numeric:tabular-nums; line-height:1; }
+.celeb h2 { margin:6px 0 0; font-family:var(--display); font-size:28px; font-weight:500; color:var(--ink); text-wrap:balance; }
+.celeb p { margin:0; font-size:15px; color:var(--ink-2); }
+.celebfam { margin-top:4px !important; font-weight:600; color:var(--ink) !important; }
+.celebok { margin-top:16px; min-width:180px; }
+.celeb.still, .celeb.still * { animation:none !important; }
+@keyframes celebin { from { opacity:0; } to { opacity:1; } }
+@keyframes celebout { to { opacity:0; } }
+@keyframes celebpop { 0% { transform:scale(.2) rotate(-12deg); opacity:0; } 60% { transform:scale(1.15) rotate(4deg); opacity:1; } 100% { transform:scale(1) rotate(0); } }
+
+.gone { margin:4px 0 0; font-family:var(--display); font-size:24px; color:var(--ink); text-wrap:balance; }
+.gonesub { margin:2px 0 12px; font-size:14px; color:var(--muted); }
+.gsimple li { display:flex; align-items:center; gap:12px; font-size:16px; }
+.gsimple li b { flex:none; width:30px; text-align:center; font-size:20px; }
+.stone { margin:6px 0 12px; text-align:center; font-size:15px; color:var(--ink-2); }
 </style>
 </head>
 <body>
@@ -2970,7 +3012,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "8.1";
+  const APP_VERSION = "8.2";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -3406,31 +3448,38 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   function questRow() {
     const G = state.garden, mine = gardenMe(), T = state.today; if (!G || !mine) return "";
     if (!mine.pledged) return `<button type="button" class="bset" id="gameGoal"><b>Set your step goal to start playing</b><small>10 seconds. Then every day counts.</small></button>`;
-    const logged = !!(T && T.streak && T.streak.today), C = (T && T.chest) || {};
-    const st = C.opened ? "opened" : logged ? "ready" : "locked";
+    // V8.2. The chest opens only once you hit today's step goal.
+    const met = !!mine.today, C = (T && T.chest) || {};
+    const st = C.opened ? "opened" : met ? "ready" : "locked";
     return `<div class="qrow ${st}">
       <button type="button" class="qchest" id="chestOpen" ${st === "ready" ? "" : "disabled"}>${chestSVG(!!C.opened, 40)}
-        <span><b>${C.opened ? `+${C.points} today` : logged ? "Open your chest!" : "Today's chest"}</b><small>${C.opened ? "Back tomorrow" : logged ? "5 to 20 points" : "Log your steps to open it"}</small></span></button>
+        <span><b>${C.opened ? `+${C.points} today` : met ? "Open your chest!" : "Today's chest"}</b><small>${C.opened ? "Back tomorrow" : met ? "2 to 8 points" : "Hit your step goal to open it"}</small></span></button>
       <button type="button" class="qbank" id="shopOpen"><span aria-hidden="true">◈</span><b>${num(Number(G.bank) || 0)}</b><em>Prizes ›</em></button>
     </div>`;
   }
-  // V7.7. Tribe: the tribe chest. Everyone who has logged in the last 14
-  // days logs today, and each of them gets +5.
-  function tribeChest() {
-    const TT = state.garden && state.garden.tribe_today; if (!TT || TT.active < 2) return "";
-    const f = Math.min(1, TT.logged / TT.active), C = 2 * Math.PI * 21;
-    return `<div class="tchest${TT.won ? " won" : ""}">
-      <span class="tcring"><svg viewBox="0 0 50 50" aria-hidden="true"><circle cx="25" cy="25" r="21" class="tct"/><circle cx="25" cy="25" r="21" class="tcf" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${(C * (1 - f)).toFixed(1)}"/></svg><b>${TT.logged}/${TT.active}</b></span>
-      <span class="tctx"><b>${TT.won ? "Tribe chest open!" : "Tribe chest"}</b><small>${TT.won ? "Everyone logged today: +5 each" : `${TT.active - TT.logged} to go. Everyone logs, everyone gets +5.`}</small></span>
-      ${chestSVG(!!TT.won, 44)}</div>`;
-  }
-  // V7.7. One line about you: badge, days this week, what Sunday does.
-  function meLine() {
+  // V8.2. Tribe's one card: the tribe chest ring (today only) and, under
+  // it, your badge line. Tap your badge for How to play; tap an open tribe
+  // chest to celebrate.
+  const tribeSeenKey = () => "fhd.tchest." + state.meId + "." + ((state.garden && state.garden.day) || todayISO());
+  function tribeCard() {
     const mine = gardenMe(); if (!mine) return "";
     if (!mine.pledged) return `<button type="button" class="bset" id="gameGoal"><b>Set your step goal to start playing</b><small>10 seconds. Then every day counts.</small></button>
       <p class="tmeline"><span>Not playing yet</span><button type="button" class="linkbtn" id="gameOpen">How to play</button></p>`;
-    return `<p class="tmeline">${badgeSVG(mine.level, 24)}<span><b>${(mine.days || []).length} of 7 days</b> · ${esc(moveWords(mine))}</span>
-      <button type="button" class="linkbtn" id="gameOpen">How to play</button></p>`;
+    const TT = state.garden.tribe_today, show = TT && TT.active >= 2 && !state.boardDay;
+    let seen = false; try { seen = !!localStorage.getItem(tribeSeenKey()); } catch {}
+    const C = 2 * Math.PI * 21, f = show ? Math.min(1, TT.logged / TT.active) : 0;
+    const top = show ? `<div class="tcrow">
+        <span class="tcring"><svg viewBox="0 0 50 50" aria-hidden="true"><circle cx="25" cy="25" r="21" class="tct"/><circle cx="25" cy="25" r="21" class="tcf" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${(C * (1 - f)).toFixed(1)}"/></svg><b>${TT.logged}/${TT.active}</b></span>
+        <span class="tctx"><b>${TT.won ? "Tribe chest open!" : `Tribe chest: ${TT.active - TT.logged} to go`}</b><small>${TT.won ? "Everyone logged: +5 each" : "Everyone logs today, everyone gets +5"}</small></span>
+        <button type="button" class="tcopen${TT.won && !seen ? " ready" : ""}" id="tribeChestOpen" ${TT.won && !seen ? "" : "disabled"} aria-label="${TT.won ? "Open the tribe chest" : "Tribe chest, locked"}">${chestSVG(!!TT.won && seen, 40)}</button></div>` : "";
+    return `<div class="tcard2">${top}
+      <p class="tmeline"><button type="button" class="tmbadge" id="gameOpen" aria-label="${BD(mine.level)[0]} badge: how to play">${badgeSVG(mine.level, 24)}</button><span><b>${(mine.days || []).length} of 7 days</b> · ${esc(moveWords(mine))}</span></p></div>`;
+  }
+  // V8.2. The family goal, one quiet line under the title.
+  function goalLine2() {
+    const g = state.group || {}; if (!g.goal) return "";
+    const n = goalDays();
+    return `<button type="button" class="tgoal" id="tribeGoal2"><span aria-hidden="true">⛰️</span> ${esc(g.goal)}${n !== null ? ` · <b>${esc(daysWords(n))}</b>` : ""}</button>`;
   }
   // V7.7. Me: the family's faces. Only people who logged in the last 14
   // days, not you (your flame is in the top bar), highest streak first.
@@ -3463,19 +3512,17 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const mine = gardenMe() || { level: 1, days: [] };
     return `<div class="sheetbg" id="gameBg"></div>
       <div class="stdsheet gsheet" role="dialog" aria-label="How the steps game works">
-        <p class="eyebrow">Your badge</p>
-        <div class="glevels">${BADGES.map(([n], i) => `<span class="glv${i + 1 === mine.level ? " on" : ""}">${badgeSVG(i + 1, i + 1 === mine.level ? 44 : 30)}<small>${n}</small></span>`).join("")}</div>
-        <p class="gnow"><b>${(mine.days || []).length}</b> of 7 days so far · ${esc(moveWords(mine))}</p>
-        <p class="dpg">How it works</p>
+        <p class="eyebrow">How to play</p>
+        <p class="gone">Log your steps every day.</p>
+        <p class="gonesub">That's the whole game. Everything else follows.</p>
         <ul class="gdhow gsimple">
-          <li><b>4</b> Everyone starts at Gold. 4+ days at your step goal moves you up a badge (+50 points); fewer drops you one.</li>
-          <li><b>\u{1F525}</b> Log every day to grow your streak. A freeze saves a missed day.</li>
-          <li><b>\u25c8</b> Log by the next night: +10 (+2 if short). Perfect week: +30. Spend it on prizes.</li>
-          <li><b>+5</b> Tribe chest: when everyone playing logs today, everyone gets +5.</li>
+          <li><b>\u{1F525}</b><span>Every day you log, your streak grows.</span></li>
+          <li><b>\u25c8</b><span>Every day you hit your goal: +10 points for prizes.</span></li>
+          <li><b>\u{1F3C5}</b><span>Hit it 4 days this week: your badge goes up.</span></li>
         </ul>
-        <div class="glinks"><button type="button" class="linkbtn" id="gameGoal2">Change my goal (now ${num(stdOf(me(), "steps"))})</button>
+        <div class="glevels">${BADGES.map(([n], i) => `<span class="glv${i + 1 === mine.level ? " on" : ""}">${badgeSVG(i + 1, i + 1 === mine.level ? 44 : 30)}<small>${n}</small></span>`).join("")}</div>
+        <div class="glinks"><button type="button" class="linkbtn" id="gameGoal2">My goal: ${num(stdOf(me(), "steps"))} steps</button>
           ${mine.pledged ? `<button type="button" class="linkbtn" id="weekOpen">Last week</button>` : ""}</div>
-        <p class="gsrc">From Penn Medicine’s STEP UP trial (2019): extra steps were still there 3 months after the game ended.</p>
         <div class="stdbtns"><button type="button" class="btn" id="gameDone">Done</button></div>
       </div>`;
   }
@@ -3520,8 +3567,8 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         buttons: [...cheer, ...(p.today ? [] : [{ label: `Nudge ${p.name}`, kind: "go", run: async () => {
             const link = `${location.origin}${location.pathname}?g=${encodeURIComponent(state.code || "")}`;
             const text = `${p.name}, time for your steps today 👟 Every day keeps your points. ${link}`;
-            try { if (navigator.share) { await navigator.share({ text }); return; } } catch (e) { if (e && e.name === "AbortError") return; }
-            window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank"); } }]), { label: "Rename", kind: "quiet", run: () => openEditor("name", p.id) }, { label: "Close", kind: "quiet" }] });
+            // V8.2. Straight to WhatsApp, no share sheet in between.
+            window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank"); } }]), { label: "Close", kind: "quiet" }] });
     }));
   }
   // Monday: how last week went, for you and the family, once on this phone.
@@ -3582,19 +3629,25 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   async function openShop() {
     state.shop = Object.assign({}, state.shop || {}, { open: true, busy: true, err: null }); render();
     const res = await call("app_shop", { p_code: state.code, p_person: state.meId });
-    state.shop = Object.assign(state.shop || {}, res && !res.error ? { busy: false, balance: res.balance, rewards: res.rewards || [], mine: res.mine || [] }
+    state.shop = Object.assign(state.shop || {}, res && !res.error ? { busy: false, balance: res.balance, rewards: res.rewards || [], streak: res.streak || [], tickets: res.tickets || {}, streak_n: res.streak_n || 0, mine: res.mine || [] }
       : { busy: false, err: res && res.offline ? "No signal." : (res && res.error) || "Could not open the prizes." });
     render();
   }
   function shopSheet() {
     const S = state.shop; if (!S || !S.open) return "";
-    const bal = Number(S.balance) || 0, pick = S.pick ? (S.rewards || []).find((r) => r.id === S.pick) : null;
+    const bal = Number(S.balance) || 0, pick = S.pick ? (S.rewards || []).concat(S.streak || []).find((r) => r.id === S.pick) : null;
+    const TK = S.tickets || {}, SN = Number(S.streak_n) || 0;
     const ST = { requested: "waiting", done: "on its way ✓", refused: "not approved, points back" };
     return `<div class="sheetbg" id="shBg"></div>
       <div class="stdsheet shsheet" role="dialog" aria-label="Prizes">
         <p class="eyebrow">Prizes</p>
         <p class="shbal">Your bank <b>${num(bal)}</b> points</p>
-        ${S.busy ? `<p class="hint">Loading…</p>` : S.err ? `<p class="hint bad">${esc(S.err)}</p>` : pick ? `
+        ${S.busy ? `<p class="hint">Loading…</p>` : S.err ? `<p class="hint bad">${esc(S.err)}</p>` : pick && pick.tier ? `
+          <p class="shpick"><b>${esc(pick.name)}</b> for your ${pick.tier}-day streak</p>
+          <label class="tlab" for="shNote">When would you like it? (optional)</label>
+          <input class="field" id="shNote" maxlength="200" placeholder="e.g. this Saturday" value="${esc(S.note || "")}">
+          ${S.msg ? `<p class="hint bad">${esc(S.msg)}</p>` : ""}
+          <div class="stdbtns"><button type="button" class="btn-quiet" id="shBack">Back</button><button type="button" class="btn" id="shGo">Claim</button></div>` : pick ? `
           <p class="shpick"><b>${esc(pick.name)}</b> for ${num(pick.points)} points</p>
           <label class="tlab" for="shNote">How should we reach you to send it?</label>
           <input class="field" id="shNote" maxlength="200" placeholder="Phone or email" value="${esc(S.note || "")}">
@@ -3603,6 +3656,10 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         : `<ul class="shlist">${(S.rewards || []).map((r) => { const can = bal >= r.points, left = r.points - bal;
             return `<li><span><b>${esc(r.name)}</b><small>${esc(r.blurb || "")}</small></span>
               <button type="button" class="shbuy${can ? " can" : ""}" data-shop="${r.id}" ${can ? "" : "disabled"} aria-label="${esc(r.name)}, ${num(r.points)} points">${num(r.points)}${can ? "" : `<small>${num(left)} to go</small>`}</button></li>`; }).join("")}</ul>
+          ${(S.streak || []).length ? `<p class="dpg">Streak prizes <small>\u{1F525} ${SN} days</small></p>
+          <ul class="shlist">${S.streak.map((r) => { const has = Number(TK[r.tier]) > 0;
+            return `<li><span><b>${esc(r.name)}</b><small>${esc(r.blurb || "")}</small></span>
+              <button type="button" class="shbuy${has ? " can" : ""}" data-shop="${r.id}" ${has ? "" : "disabled"} aria-label="${esc(r.name)}, ${r.tier}-day streak">${has ? "Claim" : `${r.tier}d`}${has ? "" : `<small>${Math.max(0, r.tier - SN)} to go</small>`}</button></li>`; }).join("")}</ul>` : ""}
           ${(S.mine || []).length ? `<p class="dpg">Your requests</p><ul class="shmine">${S.mine.map((x) => `<li><span>${esc(x.name)}</span><em>${esc(ST[x.status] || x.status)}</em></li>`).join("")}</ul>` : ""}
           <p class="hint shrule">+10 a day you meet your goal and log it by the next night, +2 for a short day logged, +30 for a perfect week, plus League podiums.</p>
           <div class="stdbtns"><button type="button" class="btn" id="shDone">Done</button></div>`}
@@ -3618,10 +3675,16 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     on("shBack", "click", () => { S.pick = null; S.msg = null; render(); });
     on("shNote", "input", (e) => { S.note = e.target.value; });
     on("shGo", "click", async () => {
-      if (!(S.note || "").trim()) { S.msg = "Tell us how to reach you."; render(); return; }
-      const res = await call("app_redeem", { p_code: state.code, p_person: state.meId, p_reward: S.pick, p_note: S.note.trim() });
+      const pk = (S.streak || []).find((r) => r.id === S.pick);
+      if (!pk && !(S.note || "").trim()) { S.msg = "Tell us how to reach you."; render(); return; }
+      const res = await call("app_redeem", { p_code: state.code, p_person: state.meId, p_reward: S.pick, p_note: (S.note || "").trim() });
       if (res.error) { S.msg = res.offline ? "No signal. Try again in a moment." : res.error; render(); return; }
       S.pick = null; S.note = ""; if (state.garden) state.garden.bank = res.balance;
+      if (pk) {   // V8.2. Tell the family.
+        celebrate({ title: pk.name, sub: "Claimed! The owner will confirm it.", icon: "\u{1F381}" });
+        const text = `\u{1F525} ${me() ? me().name : "I"} earned *${pk.name}* with a ${pk.tier}-day streak on Tribes! ${location.origin}${location.pathname}?g=${encodeURIComponent(state.code || "")}`;
+        setTimeout(() => window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank"), 1200);
+      }
       await openShop();
     });
   }
@@ -4500,9 +4563,13 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const logged = state.people.filter((p) => st(p) > 0).sort((a, b) => st(b) - st(a));
     const missing = state.people.filter((p) => st(p) <= 0);
     const lines = [`${g.crest ? g.crest + " " : ""}*${g.name}* \u00b7 ${day} \u00b7 ${logged.length}/${state.people.length} logged`, ""];
-    for (const p of logged) { const f = !past && gp(p.id).streak ? ` \u{1F525}${gp(p.id).streak}` : "";
-      lines.push(`${bdone(p) ? "\u2705" : "\u25ab\ufe0f"} ${p.name} ${num(st(p))}${f}`); }
+    // V8.2. Each person's steps as a % of their own standard: effort, not size.
+    const pct = (p) => { const t = target(p, "steps"); return t > 0 ? Math.round(st(p) / t * 100) : null; };
+    logged.sort((a, b) => (pct(b) ?? -1) - (pct(a) ?? -1));
+    for (const p of logged) { const f = !past && gp(p.id).streak ? ` \u{1F525}${gp(p.id).streak}` : "", q = pct(p);
+      lines.push(`${bdone(p) ? "\u2705" : "\u25ab\ufe0f"} ${p.name} ${q !== null ? q + "%" : num(st(p))}${f}`); }
     if (missing.length) lines.push("", `${past ? "Didn't log" : "Still to log"}: ${missing.map((p) => p.name).join(", ")}`);
+    if (g.goal) { const n = goalDays(); lines.push("", `\u26f0\ufe0f ${g.goal}${n !== null && n >= 0 ? ` \u00b7 ${n === 0 ? "today!" : n === 1 ? "1 day to go" : num(n) + " days to go"}` : ""}`); }
     lines.push("", `${location.origin}${location.pathname}?g=${state.code}`);
     return lines.join("\n");
   }
@@ -6308,8 +6375,13 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   function tribeSheet() {
     if (!state.tribeSheet) return "";
     const T = state.tribeSheet;
-    // V7.6. The tribe sheet is the tribe's name, crest and people. (The
-    // long-term tribe goal is gone from the app; its data is kept.)
+    // V8.2. Name, crest, the family goal and its date (the countdown on
+    // Tribe and in every report), and the people. The owner can remove
+    // someone for good, after a second tap.
+    const own = me() && me().owner;
+    const ppl = (state.people || []).map((p) => `<li><span>${esc(p.name)}</span>${own && p.id !== state.meId
+      ? (T.del === p.id ? `<span class="tsdel"><button type="button" class="linkbtn" data-tskeep="1">Keep</button><button type="button" class="btn bad tsdelgo" data-tsdelgo="${p.id}">Delete forever</button></span>`
+                        : `<button type="button" class="linkbtn tsrm" data-tsdel="${p.id}">Remove</button>`) : ""}</li>`).join("");
     return `
       <div class="sheetbg" id="tsBg"></div>
       <div class="stdsheet tsheet" role="dialog" aria-label="Your tribe">
@@ -6318,10 +6390,15 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         <input class="field" id="tsName" maxlength="60" value="${esc(T.name)}">
         <p class="tlab">Crest</p>
         ${crestPicker(T.crest, "tscrest")}
+        <label class="tlab" for="tsGoal">Family goal</label>
+        <input class="field" id="tsGoal" maxlength="120" placeholder="e.g. Hike Franconia Ridge together" value="${esc(T.goal || "")}">
+        <label class="tlab" for="tsBy">By</label>
+        <input class="field" id="tsBy" type="date" value="${esc(T.by || "")}">
         <p class="hint ${T.err ? "bad" : ""}" id="tsHint">${esc(T.err || "")}</p>
         <div class="stdbtns"><button type="button" class="btn-quiet" id="tsCancel">Close</button><button type="button" class="btn" id="tsSave">Save</button></div>
         <p class="dpg">People</p>
-        <p class="tspeople">${(state.people || []).map((p) => esc(p.name)).join(", ")}</p>
+        <ul class="tspeople">${ppl}</ul>
+        ${T.del ? `<p class="hint bad">This deletes ${esc(((state.people || []).find((p) => p.id === T.del) || {}).name || "them")} and everything they logged. It can't be undone.</p>` : ""}
         <div class="addrow"><input class="field" id="tsAddName" placeholder="Add someone" maxlength="40" autocomplete="off" aria-label="Name of the person to add">
           <button type="button" class="btn" id="tsAddSave">Add</button></div>
         <button type="button" class="linkbtn" id="tsInvite">Send the tribe link to family</button>
@@ -6334,6 +6411,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     `<button type="button" class="crestb${c === cur ? " on" : ""}" data-${key}="${c}" role="radio" aria-checked="${c === cur}" aria-label="Crest ${c}">${c}</button>`).join("")}</div>`;
   function wireTribeSheet() {
     on("tribeGoal", "click", () => { state.tribeSheet = {}; seedTribe(); render(); });
+    on("tribeGoal2", "click", () => { state.tribeSheet = {}; seedTribe(); render(); });
     if (!state.tribeSheet) return;
     const close = () => { state.tribeSheet = null; render(); };
     on("tsBg", "click", close); on("tsCancel", "click", close);
@@ -6347,6 +6425,15 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       T.err = `${name} is in.`; await refresh(true); render();
     });
     on("tsAddName", "keydown", (e) => { if (e.key === "Enter") document.getElementById("tsAddSave")?.click(); });
+    document.querySelectorAll("[data-tsdel]").forEach((el) => el.addEventListener("click", () => { T.del = el.dataset.tsdel; render(); }));
+    document.querySelectorAll("[data-tskeep]").forEach((el) => el.addEventListener("click", () => { T.del = null; render(); }));
+    document.querySelectorAll("[data-tsdelgo]").forEach((el) => el.addEventListener("click", async () => {
+      el.disabled = true;
+      const res = await call("app_remove_person", { p_code: state.code, p_owner: state.meId, p_person: el.dataset.tsdelgo });
+      if (res.error) { T.err = res.offline ? "No signal. Nothing was deleted." : res.error; T.del = null; render(); return; }
+      const nm = ((state.people || []).find((p) => p.id === T.del) || {}).name || "They";
+      T.del = null; T.err = `${nm} was removed.`; await refresh(true); await loadGarden(); render();
+    }));
     on("tsInvite", "click", async () => {
       const g = state.group || {}, link = `${location.origin}${location.pathname}?g=${encodeURIComponent(state.code || "")}`;
       const text = `Join ${g.crest ? g.crest + " " : ""}${g.name} on Tribes, our family steps game 👟 ${link}`;
@@ -6626,11 +6713,11 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         </section>`;
     else if (tab === "tribe") body = `
       <section class="htab htribe" aria-label="Your tribe">
-        <div class="htabh"><button type="button" class="htabt" id="tribeGoal" aria-label="Tribe name, crest and people"><h2>Tribe</h2></button>${leagueChip()}</div>
-        ${state.boardDay ? "" : tribeChest()}
-        ${meLine()}
-        ${state.people.length ? `<div class="tdayrow">${nav()}<button type="button" class="hshare" id="waShare" aria-label="Share ${state.boardDay ? esc(shortDay(famDayISO())) : "today"} on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11v9h12v-9"/></svg></button></div>
-          <div class="roster">${famTable(ordered)}</div>` : roster}
+        <div class="htabh"><button type="button" class="htabt" id="tribeGoal" aria-label="Tribe name, crest, goal and people"><h2>Tribe</h2></button>${leagueChip()}</div>
+        ${goalLine2()}
+        ${tribeCard()}
+        ${state.people.length ? `<div class="roster"><div class="tdayrow">${nav()}<button type="button" class="hshare" id="waShare" aria-label="Share ${state.boardDay ? esc(shortDay(famDayISO())) : "today"} on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11v9h12v-9"/></svg></button></div>
+          ${famTable(ordered)}</div>` : roster}
       </section>`;
     else if (tab === "campfire") body = campfireView();
     else body = `
@@ -6671,8 +6758,9 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const k = `fhd.mile.${state.meId}.${hit}`;
     try { if (localStorage.getItem(k)) return; localStorage.setItem(k, "1"); } catch { return; }
     setTimeout(() => openModal({ mark: `<span class="mileflame" aria-hidden="true">\u{1F525}</span>`, title: `${hit} days in a row!`,
-      body: hit === 7 ? "A week of logging every day. People who reach a week tend to keep going." : hit === 30 ? "A month without missing. This is a habit now." : hit === 100 ? "One hundred days. Very few people get here." : "A whole year, every single day.",
-      buttons: [{ label: "Keep it going", kind: "go" }] }), 600);
+      body: hit === 7 ? "A week of logging every day. People who reach a week tend to keep going." : hit === 30 ? "A month without missing. You earned a prize: pick it in Prizes." : hit === 100 ? "One hundred days. Very few people get here. A bigger prize is waiting in Prizes." : "A whole year, every single day. Your biggest prize is waiting in Prizes.",
+      buttons: [...(hit >= 30 ? [{ label: "Pick my prize", kind: "go", run: () => openShop() }] : []), { label: hit >= 30 ? "Later" : "Keep it going", kind: hit >= 30 ? "quiet" : "go" }] }), 600);
+    if (hit >= 30) setTimeout(() => celebrate({ title: `${hit} days!`, sub: "A prize ticket is yours", icon: "\u{1F525}" }), 300);
   }
   // The flame in the top bar: grey until today is logged, like Duolingo's.
   function flameChip() {
@@ -6694,23 +6782,54 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   // One card a day, opened by logging today. Only cards the owner approved.
   function streakSheet() {
     if (!state.streakOpen) return "";
-    const T = state.today || {}, S = T.streak || {}, W = T.wager, bank = Number(T.bank) || 0;
-    const wag = W && W.status === "active" ? `<p class="stwag"><b>Wager running:</b> ${W.days} of 7 days logged. Make all 7 and get ${W.payout} back.</p>`
-      : `${W && W.status === "won" ? `<p class="stwag ok">Last wager won: +${W.payout}.</p>` : W && W.status === "lost" ? `<p class="stwag">Last wager lost. Try again.</p>` : ""}
-         <button type="button" class="btn stwagb" id="wagerGo" ${bank < 50 ? "disabled" : ""}>Bet 50: log 7 days in a row, win 100</button>
-         ${bank < 50 ? `<p class="hint">You need 50 points in your bank.</p>` : ""}`;
+    const T = state.today || {}, S = T.streak || {}, n = S.n || 0;
+    // V8.2. The wager is gone; the next streak prize takes its place.
+    const next = [30, 100, 365].find((t) => n < t);
+    const prize = `<p class="stwag">${next ? `<b>${next - n}</b> more day${next - n === 1 ? "" : "s"} to a ${next}-day prize (movie night, dinner, a day out…)` : "Every prize unlocked. Legend."}${T.tickets ? ` · <b>${T.tickets}</b> prize ticket${T.tickets === 1 ? "" : "s"} waiting in Prizes` : ""}</p>`;
     return `<div class="sheetbg" id="stBg"></div>
       <div class="stdsheet stsheet" role="dialog" aria-label="Your streak">
         <div class="stbig"><span aria-hidden="true">\u{1F525}</span><b>${S.n || 0}</b><small>day${S.n === 1 ? "" : "s"} in a row${S.today ? "" : " · log today to keep it"}</small></div>
         <p class="stline">Best <b>${S.best || 0}</b> · Freezes <b>${"❄".repeat(S.freezes || 0) || "0"}</b></p>
-        <ol class="grules">
-          <li><b>1</b><span>Log your steps every day, by the next night.</span></li>
-          <li><b>2</b><span>Miss a day? A freeze saves your streak. You get one every Monday (hold 2).</span></li>
-          <li><b>3</b><span>Reach 7, 30, 100, 365 days for a celebration.</span></li>
-        </ol>
-        ${wag}
+        <p class="stone">Log every day. Miss one and a freeze \u2744 saves you.</p>
+        ${prize}
         <div class="stdbtns"><button type="button" class="btn-quiet" id="stDone">Close</button></div>
       </div>`;
+  }
+  // V8.2. The big moment: a full-screen burst, the chest flying open, the
+  // points counting up, confetti. Tap anywhere to close. Calm for anyone
+  // who asked their phone for less motion.
+  function celebrate({ points, title, sub, tribe, icon }) {
+    document.querySelector(".celeb")?.remove();
+    const still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const el = document.createElement("div");
+    el.className = "celeb" + (still ? " still" : ""); el.setAttribute("role", "dialog"); el.setAttribute("aria-label", title || "Celebration");
+    el.innerHTML = `<canvas class="celebc" aria-hidden="true"></canvas>
+      <div class="celebin">
+        <div class="celebart">${icon ? `<span class="celebicon">${icon}</span>` : chestSVG(true, 150)}${sparkSVG(64, "glad")}</div>
+        ${points != null ? `<p class="celebpts">+<b id="celebN">${still ? points : 0}</b></p>` : ""}
+        <h2>${esc(title || "")}</h2>${sub ? `<p>${esc(sub)}</p>` : ""}
+        ${tribe ? `<p class="celebfam">${(((state.garden && state.garden.people) || []).filter((x) => x.logged).map((x) => esc(x.name.split(/\s+/)[0])).join(" · "))}</p>` : ""}
+        <button type="button" class="btn celebok" id="celebOk">${points != null ? "Collect" : "Yay"}</button>
+      </div>`;
+    document.body.appendChild(el);
+    const close = () => { el.classList.add("out"); setTimeout(() => el.remove(), 250); };
+    el.addEventListener("click", (e) => { if (e.target === el || e.target.id === "celebOk") close(); });
+    el.querySelector("#celebOk").focus();
+    try { navigator.vibrate && navigator.vibrate([30, 40, 60]); } catch {}
+    if (still) return;
+    if (points != null) { const n = el.querySelector("#celebN"), t0 = performance.now();
+      const tick = (t) => { const k = Math.min(1, (t - t0) / 900); n.textContent = Math.round(points * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(tick); };
+      setTimeout(() => requestAnimationFrame(tick), 350); }
+    const c = el.querySelector("canvas"), x = c.getContext("2d"), W = c.width = innerWidth * devicePixelRatio, H = c.height = innerHeight * devicePixelRatio;
+    const cols = ["#ffd23f", "#ff7a1a", "#3fb96b", "#5b6cd6", "#e5534b", "#2c8fb8"];
+    const bits = Array.from({ length: 140 }, () => ({ x: W / 2, y: H * 0.42, vx: (Math.random() - 0.5) * 22 * devicePixelRatio, vy: (-Math.random() * 22 - 6) * devicePixelRatio,
+      r: (4 + Math.random() * 6) * devicePixelRatio, a: Math.random() * 6, va: (Math.random() - 0.5) * 0.4, c: cols[Math.floor(Math.random() * cols.length)] }));
+    const t0 = performance.now();
+    const frame = (t) => { if (!el.isConnected) return; x.clearRect(0, 0, W, H);
+      for (const b of bits) { b.vy += 0.55 * devicePixelRatio; b.vx *= 0.99; b.x += b.vx; b.y += b.vy; b.a += b.va;
+        x.save(); x.translate(b.x, b.y); x.rotate(b.a); x.fillStyle = b.c; x.fillRect(-b.r, -b.r / 2, b.r * 2, b.r); x.restore(); }
+      if (t - t0 < 3200) requestAnimationFrame(frame); else x.clearRect(0, 0, W, H); };
+    requestAnimationFrame(frame);
   }
   // V7.7. The owner's news (new feedback, prize requests) puts a dot on the ⓘ.
   function ownerNews() {
@@ -6764,15 +6883,16 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       if (res.error) { state.msg = res.offline ? "No signal. Try again." : res.error; state.msgKind = "bad"; render(); return; }
       if (state.today) state.today.chest = { opened: true, points: res.points };
       if (state.garden && res.balance != null) state.garden.bank = res.balance;
-      openModal({ mark: `<span class="chestwin">${chestSVG(true, 84)}${sparkSVG(44, "glad")}</span>`, title: `+${res.points} points`,
-        body: res.already ? "You already opened today's chest." : "In your bank. Come back tomorrow for another chest.", buttons: [{ label: "Nice", kind: "go" }] });
+      celebrate({ points: res.points, title: res.already ? "Already opened today" : "Chest opened!", sub: "Into your bank. Hit your goal tomorrow for another." });
       loadToday().then(render); });
+    // V8.2. The tribe chest: everyone logged today. +5 is already banked;
+    // opening it is the celebration, once per day per phone.
+    on("tribeChestOpen", "click", () => {
+      try { localStorage.setItem(tribeSeenKey(), "1"); } catch {}
+      celebrate({ points: 5, title: "Tribe chest!", sub: "Everyone logged today. +5 each, together.", tribe: true });
+      render(); });
     on("stDone", "click", () => { state.streakOpen = false; render(); });
     on("stBg", "click", () => { state.streakOpen = false; render(); });
-    on("wagerGo", "click", async (e) => { e.target.disabled = true;
-      const res = await call("app_wager", { p_code: state.code, p_person: state.meId });
-      if (res.error) { state.msg = res.offline ? "No signal. Try again." : res.error; state.msgKind = "bad"; e.target.disabled = false; render(); return; }
-      await loadToday(); render(); });
     on("ydIn", "input", (e) => { state.ydayIn.v = e.target.value; });
     const ydSave = async () => {
       const Y = state.ydayIn, v = Number(String(Y.v || "").replace(/[^0-9]/g, ""));
@@ -6834,7 +6954,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         ${O.err ? `<p class="hint bad">Could not load the inbox.</p>` : `
         <p class="dpg">Prize requests</p>
         ${req.length ? `<ul class="iblist">${req.map((x) => `<li class="${x.status === "requested" ? "new" : ""}">
-            <span><b>${esc(x.name)}</b> · ${num(x.points)} pts<small>${esc(x.person || "?")}, ${esc(x.tribe || "?")} · ${esc(x.at)} · ${esc(x.note)}</small></span>
+            <span><b>${esc(x.name)}</b> · ${x.points ? num(x.points) + " pts" : "\u{1F525} streak prize"}<small>${esc(x.person || "?")}, ${esc(x.tribe || "?")} · ${esc(x.at)} · ${esc(x.note)}</small></span>
             ${x.status === "requested" ? `<span class="ibact"><button type="button" class="btn-quiet" data-ibr="${x.id}:refused">Refuse</button><button type="button" class="btn" data-ibr="${x.id}:done">Sent</button></span>`
               : `<em>${x.status === "done" ? "sent ✓" : "refused"}</em>`}</li>`).join("")}</ul>` : `<p class="hint">None yet.</p>`}
         <p class="dpg">Feedback</p>
@@ -7860,8 +7980,8 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       d: "Your habits, one line each. Tap a number to open its page. The arrows above it go back a day, for the dial too." },
     { at: ".tabbar", tab: "me", t: "Three tabs",
       d: "Me is you. Tribe is your family's table and the League. Campfire is a 2-minute lesson a day." },
-    { at: ".tmeline", tab: "tribe", t: "This week's game",
-      d: "Everyone starts at Gold. 4+ days at your step goal moves your badge up on Sunday (+50 points); fewer drops it one." },
+    { at: ".tmeline", tab: "tribe", t: "Your badge",
+      d: "Hit your step goal 4 days this week and your badge goes up." },
     { at: ".lgchip", tab: "tribe", t: "The League",
       d: "Your tribe's place among tribes, by members' average days at goal. Tap it for the list. Top 3 win points every week." },
   ];
