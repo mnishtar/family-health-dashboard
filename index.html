@@ -2948,9 +2948,6 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 .ifsheet .fbk { margin-top:14px; }
 
 /* ---------- V8.1: Tribe days + share, League chip ---------- */
-.lgchip { display:inline-flex; align-items:center; gap:4px; margin-left:auto; min-height:32px; padding:0 10px; border-radius:999px; border:1px solid var(--line);
-  background:var(--surface); color:var(--ink); font:inherit; font-size:13.5px; font-weight:700; cursor:pointer; }
-.lgchip i { font-style:normal; color:var(--muted); }
 .tdayrow { display:flex; align-items:center; gap:4px; margin:0 0 6px; }
 .tdayrow .daynav { flex:1; min-width:0; margin:0; }
 .lgsheet { max-height:88vh; overflow:auto; }
@@ -2997,6 +2994,28 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 .gsimple li { display:flex; align-items:center; gap:12px; font-size:16px; }
 .gsimple li b { flex:none; width:30px; text-align:center; font-size:20px; }
 .stone { margin:6px 0 12px; text-align:center; font-size:15px; color:var(--ink-2); }
+
+/* ---------- V8.3 ---------- */
+.tgoal { display:flex; align-items:center; gap:6px; width:100%; margin:-2px 0 10px; }
+.tgoal i { margin-left:auto; font-style:normal; color:var(--muted); }
+.face.me .fav { box-shadow:0 0 0 2.5px var(--surface), 0 0 0 4.5px var(--accent); opacity:1; }
+.face.me small { font-weight:800; color:var(--ink); }
+.face em.cold { filter:grayscale(1); opacity:.6; }
+.qrow .qchest { flex:1 1 0; min-width:0; gap:8px; padding:6px 10px; }
+.qchest small { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.qtribe.ready { border-color:#f2b631; background:color-mix(in oklab, #ffd23f 12%, var(--surface)); }
+.qtribe.ready svg { animation:tbob 1.4s ease-in-out infinite; transform-origin:50% 90%; }
+.qtribe:not(.won) svg { filter:grayscale(.7); opacity:.6; }
+.lgline { display:flex; align-items:center; gap:6px; width:100%; margin:10px 0 0; padding:10px 4px; border:none; border-top:1px solid var(--line); background:none;
+  color:var(--ink-2); font:inherit; font-size:14px; text-align:left; cursor:pointer; }
+.lgline b { color:var(--ink); } .lgline i { margin-left:auto; font-style:normal; color:var(--muted); }
+.cfarch { display:flex; align-items:center; width:100%; padding:12px 4px; border:none; border-top:1px solid var(--line); background:none; color:var(--ink-2); font:inherit; font-size:14.5px; cursor:pointer; }
+.cfarch i { margin-left:auto; font-style:normal; color:var(--muted); }
+.pgnavw { display:flex; flex-direction:column; align-items:flex-end; gap:6px; }
+.pgnav { display:flex; align-items:center; gap:4px; font-size:13px; color:var(--ink-2); }
+.pgnav span { min-width:92px; text-align:center; font-weight:600; }
+.pgnav .dnav { width:32px; height:32px; }
+.pgnav .dnav:disabled { opacity:.3; }
 </style>
 </head>
 <body>
@@ -3012,7 +3031,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "8.2";
+  const APP_VERSION = "8.3";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -3400,8 +3419,8 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   function moveWords(x) {
     const met = (x.days || []).length, dow = garDow(), left = 7 - dow + (x.today ? 0 : 1);
     const s = (n) => `${n} more day${n === 1 ? "" : "s"}`;
-    if (met >= 4) return x.level >= 5 ? "Diamond kept ✓" : "Up on Sunday, +50 ✓";
-    if (met + left >= 4) return `${s(4 - met)} to move up (+50)`;
+    if (met >= 4) return x.level >= 5 ? "Diamond kept \u2713" : "Up on Sunday, +5 \u2713";
+    if (met + left >= 4) return `${s(4 - met)} to move up`;
     return x.level <= 1 ? "Bronze holds. Fresh week Monday." : "Down one on Sunday. Fresh week Monday.";
   }
   async function loadGarden() {
@@ -3452,10 +3471,19 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const met = !!mine.today, C = (T && T.chest) || {};
     const st = C.opened ? "opened" : met ? "ready" : "locked";
     return `<div class="qrow ${st}">
-      <button type="button" class="qchest" id="chestOpen" ${st === "ready" ? "" : "disabled"}>${chestSVG(!!C.opened, 40)}
-        <span><b>${C.opened ? `+${C.points} today` : met ? "Open your chest!" : "Today's chest"}</b><small>${C.opened ? "Back tomorrow" : met ? "2 to 8 points" : "Hit your step goal to open it"}</small></span></button>
+      <button type="button" class="qchest qme" id="chestOpen" ${st === "ready" ? "" : "disabled"}>${chestSVG(!!C.opened, 40)}
+        <span><b>${C.opened ? `+${C.points} \u2713` : met ? "Open!" : "Your chest"}</b><small>${C.opened ? "Back tomorrow" : met ? "2 to 8 points" : "Hit your goal"}</small></span></button>
+      ${tribeChestBtn()}
       <button type="button" class="qbank" id="shopOpen"><span aria-hidden="true">◈</span><b>${num(Number(G.bank) || 0)}</b><em>Prizes ›</em></button>
     </div>`;
+  }
+  // V8.3. The tribe chest sits beside yours on Me: claim both on one screen.
+  function tribeChestBtn() {
+    const TT = state.garden && state.garden.tribe_today; if (!TT || TT.active < 2) return "";
+    let seen = false; try { seen = !!localStorage.getItem(tribeSeenKey()); } catch {}
+    const ready = TT.won && !seen;
+    return `<button type="button" class="qchest qtribe${ready ? " ready" : ""}${TT.won ? " won" : ""}" id="tribeChestOpen" ${ready ? "" : "disabled"} aria-label="Tribe chest: ${TT.logged} of ${TT.active} logged${ready ? ", open it" : ""}">
+      ${chestSVG(TT.won && seen, 40)}<span><b>${ready ? "Open!" : TT.won ? "+5 \u2713" : `${TT.logged}/${TT.active}`}</b><small>Tribe chest</small></span></button>`;
   }
   // V8.2. Tribe's one card: the tribe chest ring (today only) and, under
   // it, your badge line. Tap your badge for How to play; tap an open tribe
@@ -3465,39 +3493,37 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const mine = gardenMe(); if (!mine) return "";
     if (!mine.pledged) return `<button type="button" class="bset" id="gameGoal"><b>Set your step goal to start playing</b><small>10 seconds. Then every day counts.</small></button>
       <p class="tmeline"><span>Not playing yet</span><button type="button" class="linkbtn" id="gameOpen">How to play</button></p>`;
-    const TT = state.garden.tribe_today, show = TT && TT.active >= 2 && !state.boardDay;
-    let seen = false; try { seen = !!localStorage.getItem(tribeSeenKey()); } catch {}
-    const C = 2 * Math.PI * 21, f = show ? Math.min(1, TT.logged / TT.active) : 0;
-    const top = show ? `<div class="tcrow">
-        <span class="tcring"><svg viewBox="0 0 50 50" aria-hidden="true"><circle cx="25" cy="25" r="21" class="tct"/><circle cx="25" cy="25" r="21" class="tcf" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${(C * (1 - f)).toFixed(1)}"/></svg><b>${TT.logged}/${TT.active}</b></span>
-        <span class="tctx"><b>${TT.won ? "Tribe chest open!" : `Tribe chest: ${TT.active - TT.logged} to go`}</b><small>${TT.won ? "Everyone logged: +5 each" : "Everyone logs today, everyone gets +5"}</small></span>
-        <button type="button" class="tcopen${TT.won && !seen ? " ready" : ""}" id="tribeChestOpen" ${TT.won && !seen ? "" : "disabled"} aria-label="${TT.won ? "Open the tribe chest" : "Tribe chest, locked"}">${chestSVG(!!TT.won && seen, 40)}</button></div>` : "";
-    return `<div class="tcard2">${top}
-      <p class="tmeline"><button type="button" class="tmbadge" id="gameOpen" aria-label="${BD(mine.level)[0]} badge: how to play">${badgeSVG(mine.level, 24)}</button><span><b>${(mine.days || []).length} of 7 days</b> · ${esc(moveWords(mine))}</span></p></div>`;
+    // V8.3. The tribe chest moved to Me (beside yours); this is your badge line.
+    return `<div class="tcard2"><p class="tmeline"><button type="button" class="tmbadge" id="gameOpen" aria-label="${BD(mine.level)[0]} badge: how to play">${badgeSVG(mine.level, 24)}</button><span><b>${(mine.days || []).length} of 7 days</b> · ${esc(moveWords(mine))}</span></p></div>`;
   }
   // V8.2. The family goal, one quiet line under the title.
   function goalLine2() {
     const g = state.group || {}; if (!g.goal) return "";
     const n = goalDays();
-    return `<button type="button" class="tgoal" id="tribeGoal2"><span aria-hidden="true">⛰️</span> ${esc(g.goal)}${n !== null ? ` · <b>${esc(daysWords(n))}</b>` : ""}</button>`;
+    return `<button type="button" class="tgoal" id="tribeGoal2"><span aria-hidden="true">⛰️</span> ${esc(g.goal)}${n !== null ? ` · <b>${esc(daysWords(n))}</b>` : ""}<i aria-hidden="true">\u203a</i></button>`;
   }
   // V7.7. Me: the family's faces. Only people who logged in the last 14
   // days, not you (your flame is in the top bar), highest streak first.
   function facesRow() {
     const G = state.garden; if (!G) return "";
     const peopleById = Object.fromEntries((state.people || []).map((p) => [p.id, p]));
-    const list = (G.people || []).filter((x) => x.id !== state.meId && x.recent)
-      .sort((a, b) => ((b.streak || 0) - (a.streak || 0)) || a.name.localeCompare(b.name));
+    // V8.3. You first, ringed, with your own flame (it left the top bar),
+    // then everyone who logged in the last 14 days, highest streak first.
+    const mineX = (G.people || []).find((x) => x.id === state.meId);
+    const list = (mineX ? [mineX] : []).concat((G.people || []).filter((x) => x.id !== state.meId && x.recent)
+      .sort((a, b) => ((b.streak || 0) - (a.streak || 0)) || a.name.localeCompare(b.name)));
     if (!list.length) return "";
+    const myS = (state.today && state.today.streak) || {};
     const TT = G.tribe_today;
     return `<div class="faceswrap">
       ${TT && TT.active >= 2 ? `<button type="button" class="facesl" data-gotab="tribe">${TT.logged}/${TT.active} logged today · ${TT.won ? "tribe chest open ✓" : "tribe chest"} ›</button>` : ""}
       <div class="faces" role="list" aria-label="Your tribe today">${list.map((x) => {
       const p = peopleById[x.id] || {}, ini = (x.name || "?").trim().split(/\s+/).slice(0, 2).map((w) => (w[0] || "").toUpperCase()).join("");
-      return `<button type="button" class="face${x.logged ? " done" : ""}" role="listitem" data-pnudge="${x.id}"
-        style="--hc:hsl(${p.hue || 200} 62% 48%)" aria-label="${esc(x.name)}${x.logged ? ", logged today" : ", not logged yet"}${x.streak ? `, ${x.streak} day streak` : ""}">
-        <span class="fav">${esc(ini)}${x.logged ? `<i class="fck" aria-hidden="true">✓</i>` : ""}</span>
-        <small>${esc(x.name.split(/\s+/)[0])}</small><em>${x.streak ? `\u{1F525}${x.streak}` : " "}</em></button>`; }).join("")}</div></div>`;
+      const mine = x.id === state.meId, sk = mine ? (myS.n || 0) : (x.streak || 0);
+      return `<button type="button" class="face${x.logged ? " done" : ""}${mine ? " me" : ""}" role="listitem" ${mine ? 'id="streakOpen" data-faceme="1"' : `data-pnudge="${x.id}"`}
+        style="--hc:hsl(${p.hue || 200} 62% 48%)" aria-label="${mine ? "You" : esc(x.name)}${x.logged ? ", logged today" : ", not logged yet"}${sk ? `, ${sk} day streak` : ""}">
+        <span class="fav">${esc(ini)}${x.logged ? `<i class="fck" aria-hidden="true">\u2713</i>` : ""}</span>
+        <small>${mine ? "You" : esc(x.name.split(/\s+/)[0])}</small><em class="${mine && !myS.today ? "cold" : ""}">${sk ? `\u{1F525}${sk}` : " "}</em></button>`; }).join("")}</div></div>`;
   }
   function cheerBanner() {
     const N = (state.garden && state.garden.cheers_new) || [];
@@ -3599,7 +3625,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     // V7.7. In days, no rivals. (70 kept = 7 days; 10 a day.)
     const R = W.record || {}, L = W.league, days = W.kept == null ? 0 : Math.round(Number(W.kept) / 10);
     const body = W.busy ? `<p class="hint">Loading your week…</p>` : W.err ? `<p class="hint bad">${esc(W.err)}</p>` : `
-        <div class="wkrow"><span class="wkk">You</span><span><b>${days}</b> of 7 days · ${badgeSVG(mine.level, 18)} ${up ? `up to ${BD(mine.level)[0]} · <b>+50</b>` : dn ? `down to ${BD(mine.level)[0]}` : BD(mine.level)[0]}${W.banked != null ? ` · <b>+${W.banked}</b> banked` : ""}</span></div>
+        <div class="wkrow"><span class="wkk">You</span><span><b>${days}</b> of 7 days · ${badgeSVG(mine.level, 18)} ${up ? `up to ${BD(mine.level)[0]} · <b>+5</b>` : dn ? `down to ${BD(mine.level)[0]} · \u22125` : BD(mine.level)[0]}${W.banked != null ? ` · <b>+${W.banked}</b> banked` : ""}</span></div>
         ${L ? `<div class="wkrow"><span class="wkk">League</span><span><b>${L.rank}${ordinal(L.rank)}</b> of ${L.of}${L.award ? ` · <b>+${L.award}</b> to you` : L.podium ? " · podium" : ""}</span></div>` : ""}
         <div class="wkrec two"><div><b>${R.me_w || 0}–${R.me_l || 0}</b><small>your weeks (4+ days or not)</small></div>
           <div><b>${R.podiums || 0}</b><small>League podiums</small></div></div>
@@ -3656,12 +3682,8 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         : `<ul class="shlist">${(S.rewards || []).map((r) => { const can = bal >= r.points, left = r.points - bal;
             return `<li><span><b>${esc(r.name)}</b><small>${esc(r.blurb || "")}</small></span>
               <button type="button" class="shbuy${can ? " can" : ""}" data-shop="${r.id}" ${can ? "" : "disabled"} aria-label="${esc(r.name)}, ${num(r.points)} points">${num(r.points)}${can ? "" : `<small>${num(left)} to go</small>`}</button></li>`; }).join("")}</ul>
-          ${(S.streak || []).length ? `<p class="dpg">Streak prizes <small>\u{1F525} ${SN} days</small></p>
-          <ul class="shlist">${S.streak.map((r) => { const has = Number(TK[r.tier]) > 0;
-            return `<li><span><b>${esc(r.name)}</b><small>${esc(r.blurb || "")}</small></span>
-              <button type="button" class="shbuy${has ? " can" : ""}" data-shop="${r.id}" ${has ? "" : "disabled"} aria-label="${esc(r.name)}, ${r.tier}-day streak">${has ? "Claim" : `${r.tier}d`}${has ? "" : `<small>${Math.max(0, r.tier - SN)} to go</small>`}</button></li>`; }).join("")}</ul>` : ""}
           ${(S.mine || []).length ? `<p class="dpg">Your requests</p><ul class="shmine">${S.mine.map((x) => `<li><span>${esc(x.name)}</span><em>${esc(ST[x.status] || x.status)}</em></li>`).join("")}</ul>` : ""}
-          <p class="hint shrule">+10 a day you meet your goal and log it by the next night, +2 for a short day logged, +30 for a perfect week, plus League podiums.</p>
+          <p class="hint shrule">+10 a day at your goal, +30 a perfect week, +5 a badge up, streak bonuses (+100 at 30 days, +300 at 100, +1,000 at 365), chests and League podiums.</p>
           <div class="stdbtns"><button type="button" class="btn" id="shDone">Done</button></div>`}
       </div>`;
   }
@@ -4563,11 +4585,9 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const logged = state.people.filter((p) => st(p) > 0).sort((a, b) => st(b) - st(a));
     const missing = state.people.filter((p) => st(p) <= 0);
     const lines = [`${g.crest ? g.crest + " " : ""}*${g.name}* \u00b7 ${day} \u00b7 ${logged.length}/${state.people.length} logged`, ""];
-    // V8.2. Each person's steps as a % of their own standard: effort, not size.
-    const pct = (p) => { const t = target(p, "steps"); return t > 0 ? Math.round(st(p) / t * 100) : null; };
-    logged.sort((a, b) => (pct(b) ?? -1) - (pct(a) ?? -1));
-    for (const p of logged) { const f = !past && gp(p.id).streak ? ` \u{1F525}${gp(p.id).streak}` : "", q = pct(p);
-      lines.push(`${bdone(p) ? "\u2705" : "\u25ab\ufe0f"} ${p.name} ${q !== null ? q + "%" : num(st(p))}${f}`); }
+    // V8.3: raw steps again (V8.2 showed % of each standard).
+    for (const p of logged) { const f = !past && gp(p.id).streak ? ` \u{1F525}${gp(p.id).streak}` : "";
+      lines.push(`${bdone(p) ? "\u2705" : "\u25ab\ufe0f"} ${p.name} ${num(st(p))}${f}`); }
     if (missing.length) lines.push("", `${past ? "Didn't log" : "Still to log"}: ${missing.map((p) => p.name).join(", ")}`);
     if (g.goal) { const n = goalDays(); lines.push("", `\u26f0\ufe0f ${g.goal}${n !== null && n >= 0 ? ` \u00b7 ${n === 0 ? "today!" : n === 1 ? "1 day to go" : num(n) + " days to go"}` : ""}`); }
     lines.push("", `${location.origin}${location.pathname}?g=${state.code}`);
@@ -6689,10 +6709,11 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const head = `
       <div class="hbar">
         <b>${state.group.crest ? `<span class="hcrest" aria-hidden="true">${esc(state.group.crest)}</span>` : ""}${esc(state.group.name)}</b>
-        <span class="hright">${m ? flameChip() : ""}${m ? `<label class="hwho"><select id="who" aria-label="Who are you">${whoOptions}</select>
+        <span class="hright">${m ? `<label class="hwho"><select id="who" aria-label="Who are you">${whoOptions}</select>
           <i aria-hidden="true">&#9662;</i></label>` : ""}
           ${m ? `<button type="button" class="hinfo${tourSeen() && !ownerNews() ? "" : " new"}" id="tourBtn" aria-label="Help and feedback">i</button>` : ""}</span>
       </div>
+      ${m ? goalLine2() : ""}
       ${m ? cheerBanner() : ""}
       ${m && homePast() && tab === "me" ? `<div class="hpast" role="status"><span>Showing <b>${esc(fullDate(state.boardDay))}</b></span><button type="button" class="hpastgo" id="hToday">Back to today</button></div>` : ""}`;
     let body;
@@ -6713,11 +6734,10 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         </section>`;
     else if (tab === "tribe") body = `
       <section class="htab htribe" aria-label="Your tribe">
-        <div class="htabh"><button type="button" class="htabt" id="tribeGoal" aria-label="Tribe name, crest, goal and people"><h2>Tribe</h2></button>${leagueChip()}</div>
-        ${goalLine2()}
+        <div class="htabh"><button type="button" class="htabt" id="tribeGoal" aria-label="Tribe name, crest, goal and people"><h2>Tribe</h2></button></div>
         ${tribeCard()}
         ${state.people.length ? `<div class="roster"><div class="tdayrow">${nav()}<button type="button" class="hshare" id="waShare" aria-label="Share ${state.boardDay ? esc(shortDay(famDayISO())) : "today"} on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11v9h12v-9"/></svg></button></div>
-          ${famTable(ordered)}</div>` : roster}
+          ${famTable(ordered)}</div>${leagueLine()}` : roster}
       </section>`;
     else if (tab === "campfire") body = campfireView();
     else body = `
@@ -6758,9 +6778,9 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const k = `fhd.mile.${state.meId}.${hit}`;
     try { if (localStorage.getItem(k)) return; localStorage.setItem(k, "1"); } catch { return; }
     setTimeout(() => openModal({ mark: `<span class="mileflame" aria-hidden="true">\u{1F525}</span>`, title: `${hit} days in a row!`,
-      body: hit === 7 ? "A week of logging every day. People who reach a week tend to keep going." : hit === 30 ? "A month without missing. You earned a prize: pick it in Prizes." : hit === 100 ? "One hundred days. Very few people get here. A bigger prize is waiting in Prizes." : "A whole year, every single day. Your biggest prize is waiting in Prizes.",
-      buttons: [...(hit >= 30 ? [{ label: "Pick my prize", kind: "go", run: () => openShop() }] : []), { label: hit >= 30 ? "Later" : "Keep it going", kind: hit >= 30 ? "quiet" : "go" }] }), 600);
-    if (hit >= 30) setTimeout(() => celebrate({ title: `${hit} days!`, sub: "A prize ticket is yours", icon: "\u{1F525}" }), 300);
+      body: hit === 7 ? "A week of logging every day. People who reach a week tend to keep going." : hit === 30 ? "A month without missing. +100 points in your bank." : hit === 100 ? "One hundred days. Very few people get here. +300 points." : "A whole year, every single day. +1,000 points.",
+      buttons: [{ label: "Keep it going", kind: "go" }] }), 600);
+    if (hit >= 30) setTimeout(() => celebrate({ points: { 30: 100, 100: 300, 365: 1000 }[hit], title: `${hit} days in a row!`, sub: "Streak bonus, into your bank.", icon: "\u{1F525}" }), 300);
   }
   // The flame in the top bar: grey until today is logged, like Duolingo's.
   function flameChip() {
@@ -6785,7 +6805,8 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const T = state.today || {}, S = T.streak || {}, n = S.n || 0;
     // V8.2. The wager is gone; the next streak prize takes its place.
     const next = [30, 100, 365].find((t) => n < t);
-    const prize = `<p class="stwag">${next ? `<b>${next - n}</b> more day${next - n === 1 ? "" : "s"} to a ${next}-day prize (movie night, dinner, a day out…)` : "Every prize unlocked. Legend."}${T.tickets ? ` · <b>${T.tickets}</b> prize ticket${T.tickets === 1 ? "" : "s"} waiting in Prizes` : ""}</p>`;
+    const PTS = { 30: 100, 100: 300, 365: 1000 };
+    const prize = `<p class="stwag">${next ? `<b>${next - n}</b> more day${next - n === 1 ? "" : "s"} to <b>+${num(PTS[next])}</b> points (${next}-day streak)` : "Every streak bonus earned. Legend."}</p>`;
     return `<div class="sheetbg" id="stBg"></div>
       <div class="stdsheet stsheet" role="dialog" aria-label="Your streak">
         <div class="stbig"><span aria-hidden="true">\u{1F525}</span><b>${S.n || 0}</b><small>day${S.n === 1 ? "" : "s"} in a row${S.today ? "" : " · log today to keep it"}</small></div>
@@ -7005,7 +7026,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   }
   function campfireView() {
     const C = state.camp || {}, seg = state.campSeg === "saved" ? "saved" : "library";
-    const head = `<div class="htabh"><h2>Campfire</h2><em>2 minutes a day</em>${C.owner ? `<button type="button" class="linkbtn" id="cfNew">+ New lesson</button>` : ""}</div>`;
+    const head = `<div class="htabh"><h2>Campfire</h2><em>one essay a day</em>${C.owner ? `<button type="button" class="linkbtn" id="cfNew">+ New lesson</button>` : ""}</div>`;
     if (!C.library) { if (!C.busy) setTimeout(() => loadCampfire(), 0);
       return `<section class="htab hcamp">${head}${C.err ? `<p class="hint bad">${esc(C.err)}</p>` : `<p class="hint">Lighting the fire…</p>`}</section>`; }
     const T = C.today, L = C.library;
@@ -7016,17 +7037,11 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
           <b>${esc(T.title)}</b><span class="cflock">${sparkSVG(46, "sleepy")}<span>Log today's steps to open it.</span></span></button>`
       : `<button type="button" class="cftoday" id="cfToday" data-lesson="${T.id}" style="--tc:${th}"><span class="cfmeta">Today's lesson · ${esc(tn)} · ${T.minutes || 1} min</span>
           <b>${esc(T.title)}</b>${T.teaser ? `<span class="cfteaser">${esc(T.teaser)}</span>` : ""}<span class="cfgo">Tap to read ›</span><span class="cfbig" aria-hidden="true">${ti}</span></button>`;
-    const segs = `<div class="cfseg" role="tablist"><button type="button" role="tab" class="${seg === "library" ? "on" : ""}" data-cfseg="library" aria-selected="${seg === "library"}">Library</button>
-      <button type="button" role="tab" class="${seg === "saved" ? "on" : ""}" data-cfseg="saved" aria-selected="${seg === "saved"}">Saved</button></div>`;
-    const saved = L.filter((x) => x.saved);
-    const body = seg === "saved"
-      ? (saved.length ? `<div class="calist">${saved.map((x) => cfCard(x, T && T.id, T && T.locked)).join("")}</div>`
-                      : `<div class="cfempty">${sparkSVG(56, "sleepy")}<p>Tap ☆ Save on any lesson to keep it here.</p></div>`)
-      : CF_TOPICS.map(([t, icon]) => {
-          const xs = L.filter((x) => x.topic === t); if (!xs.length) return "";
-          return `<div class="cfshelf"><div class="cfsh"><h3><span aria-hidden="true">${icon}</span> ${t}</h3>${xs.length > 2 ? `<button type="button" class="linkbtn" data-cfall="${t}">View all ›</button>` : ""}</div>
-            <div class="cfrow">${xs.slice(0, 8).map((x) => cfCard(x, T && T.id, T && T.locked)).join("")}</div></div>`; }).join("");
-    return `<section class="htab hcamp" aria-label="Campfire">${head}${today}${segs}${body}</section>`;
+    // V8.3. One essay a day. What you've opened or saved waits behind one
+    // quiet line; essays still to come stay hidden.
+    const past = L.filter((x) => x.read && (!T || x.id !== T.id)), saved = L.filter((x) => x.saved);
+    const body = past.length || saved.length ? `<button type="button" class="cfarch" id="cfArch">Past essays (${past.length}) \u00b7 Saved (${saved.length})<i aria-hidden="true">\u203a</i></button>` : "";
+    return `<section class="htab hcamp" aria-label="Campfire">${head}${today}${body}</section>`;
   }
   // Old lessons (one body of text): **bold**, "- " bullets, blank-line paragraphs.
   function lessonHTML(body) {
@@ -7075,10 +7090,15 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
              <p class="lssrc">by ${esc(D.author || "Dr. Nishtar")}</p>`}
         <div class="stdbtns">${D ? `<button type="button" class="btn-quiet lssave${D.saved ? " on" : ""}" id="lsSave" aria-pressed="${!!D.saved}">${D.saved ? "★ Saved" : "☆ Save"}</button>` : ""}<button type="button" class="btn" id="lsDone">Done</button></div>
       </div>`; }
-    if (A) { const xs = (C.library || []).filter((x) => x.topic === A), T = C.today, [, icon] = cfTopic(A);
+    if (A) { const T = C.today, arch = A === "past" || A === "saved";
+      const xs = arch ? (C.library || []).filter((x) => A === "saved" ? x.saved : x.read && (!T || x.id !== T.id)) : (C.library || []).filter((x) => x.topic === A);
+      const [, icon] = cfTopic(A);
       return `<div class="sheetbg" id="caBg"></div>
-      <div class="stdsheet casheet" role="dialog" aria-label="${esc(A)} lessons">
-        <p class="eyebrow">${icon} ${esc(A)}</p>
+      <div class="stdsheet casheet" role="dialog" aria-label="${arch ? "Your essays" : esc(A) + " lessons"}">
+        ${arch ? `<div class="cfseg" role="tablist"><button type="button" role="tab" class="${A === "past" ? "on" : ""}" data-cfall="past" aria-selected="${A === "past"}">Past</button>
+          <button type="button" role="tab" class="${A === "saved" ? "on" : ""}" data-cfall="saved" aria-selected="${A === "saved"}">Saved</button></div>
+          ${xs.length ? "" : `<p class="hint">${A === "saved" ? "Tap \u2606 Save on an essay to keep it here." : "Essays you open will be kept here."}</p>`}`
+          : `<p class="eyebrow">${icon} ${esc(A)}</p>`}
         <div class="calist">${xs.map((x) => cfCard(x, T && T.id, T && T.locked)).join("")}</div>
         <div class="stdbtns"><button type="button" class="btn-quiet" id="caDone">Close</button></div>
       </div>`; }
@@ -7090,6 +7110,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const res = await call("app_lesson", { p_code: state.code, p_person: state.meId, p_id: Number(id) });
     if (!state.lesson || String(state.lesson.id) !== String(id)) return;
     state.lesson = res && !res.error ? { id, data: res } : { id, topic: x.topic, err: res && res.offline ? "No signal. Try again." : (res && res.error) || "Could not open it." };
+    if (res && !res.error && x.id) x.read = true;
     const T = state.camp && state.camp.today;
     if (res && !res.error && T && String(T.id) === String(id)) { try { localStorage.setItem(campReadKey(), String(T.id)); } catch {} }
     render();
@@ -7098,6 +7119,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     document.querySelectorAll("[data-lesson]").forEach((el) => el.addEventListener("click", () => openLesson(el.dataset.lesson)));
     on("cfToday", "click", (e) => { if (!e.currentTarget.dataset.lesson) { state.homeTab = "me"; render(); window.scrollTo(0, 0); } });
     document.querySelectorAll("[data-cfall]").forEach((el) => el.addEventListener("click", () => { state.campAll = el.dataset.cfall; render(); }));
+    on("cfArch", "click", () => { state.campAll = "past"; render(); });
     document.querySelectorAll("[data-cfseg]").forEach((el) => el.addEventListener("click", () => { state.campSeg = el.dataset.cfseg; render(); }));
     const shut = () => { state.lesson = null; state.campAll = null; render(); };
     on("lsDone", "click", shut); on("lsBg", "click", shut); on("caDone", "click", shut); on("caBg", "click", shut);
@@ -7158,12 +7180,12 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     : `<span class="crest none" aria-hidden="true">${esc(((name || "?").trim()[0] || "?").toUpperCase())}</span>`;
   // V7.4. The League in three numbered rules, your place in it (join or
   // leave), this week's rival, the table and the challenge button.
-  // V8.1. The League is a chip beside the Tribe title: your tribe's place,
-  // one tap from the full list.
-  function leagueChip() {
+  // V8.3. The League as one plain sentence under the family table.
+  function leagueLine() {
     const L = state.league || {}; if (!L.tribes) return "";
     const t = L.tribes.find((x) => x.me), MED = ["\u{1F947}", "\u{1F948}", "\u{1F949}"];
-    return `<button type="button" class="lgchip" id="leagueOpen" aria-label="${t ? `League: ${t.rank}${ordinal(t.rank)} of ${L.tribes.length} tribes` : "The League"}">${t ? `${t.rank <= 3 ? MED[t.rank - 1] : "#" + t.rank} ${t.rank}${ordinal(t.rank)}` : "\u{1F3C6} League"}<i aria-hidden="true">\u203a</i></button>`;
+    return `<button type="button" class="lgline" id="leagueOpen">${t ? `${t.rank <= 3 ? MED[t.rank - 1] : "\u{1F3C6}"} Your tribe is <b>${t.rank}${ordinal(t.rank)} of ${L.tribes.length}</b> tribes this week`
+      : "\u{1F3C6} The League: tribes race each week. Join"}<i aria-hidden="true">\u203a</i></button>`;
   }
   function leagueSheet() {
     if (!state.leagueOpen) return "";
@@ -7415,10 +7437,23 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   const PROG_R = { w: "Week", m: "Month", y: "Year" };
   const progRange = () => { try { const v = localStorage.getItem("fhd.prog2"); return PROG_R[v] ? v : "m"; } catch { return "m"; } };
   const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  function progSpan(range, today) {
+  // V8.3. ‹ › walk back through earlier weeks, months and years.
+  const pgOff = () => Math.min(0, state.pgOff || 0);
+  function progRef(range, today, off) {
+    if (!off) return today;
+    if (range === "w") return shiftISO(today, 7 * off);
+    if (range === "y") return `${Number(today.slice(0, 4)) + off}-06-15`;
+    return monthShift(today.slice(0, 7), off) + "-15";
+  }
+  function progSpan(range, today0, off) {
+    const today = progRef(range, today0, off || 0);
+    if (off && range === "w") { const a = mondayOf(today); return { start: a, end: shiftISO(a, 6), label: `wk of ${shortDay(a).replace(/^[A-Za-z]+, /, "")}`, pStart: shiftISO(a, -7), pEnd: shiftISO(a, -1), pLabel: "the week before" }; }
     if (range === "w") { const a = mondayOf(today); return { start: a, end: shiftISO(a, 6), label: "this week", pStart: shiftISO(a, -7), pEnd: shiftISO(a, -1), pLabel: "last week" }; }
     const y = Number(today.slice(0, 4)), mo = Number(today.slice(5, 7));
     if (range === "y") return { start: `${y}-01-01`, end: `${y}-12-31`, label: String(y), pStart: `${y - 1}-01-01`, pEnd: `${y - 1}-12-31`, pLabel: String(y - 1) };
+    if (off) { const last0 = (yy, mm) => new Date(Date.UTC(yy, mm, 0)).getUTCDate(), pm0 = mo === 1 ? 12 : mo - 1, py0 = mo === 1 ? y - 1 : y;
+      return { start: `${y}-${pad(mo)}-01`, end: `${y}-${pad(mo)}-${pad(last0(y, mo))}`, label: `${MONTH_NAMES[mo - 1]} ${y}`,
+        pStart: `${py0}-${pad(pm0)}-01`, pEnd: `${py0}-${pad(pm0)}-${pad(last0(py0, pm0))}`, pLabel: MONTH_NAMES[pm0 - 1] }; }
     const last = (yy, mm) => new Date(Date.UTC(yy, mm, 0)).getUTCDate();
     const pm = mo === 1 ? 12 : mo - 1, py = mo === 1 ? y - 1 : y;
     return { start: `${y}-${pad(mo)}-01`, end: `${y}-${pad(mo)}-${pad(last(y, mo))}`, label: MONTH_NAMES[mo - 1],
@@ -7438,7 +7473,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       pts.forEach((p) => { p.hit = hitOf(p.v); });
       return { pts, std, n: range };
     }
-    const S = progSpan(range, today);
+    const S = progSpan(range, today, pgOff());
     if (range === "y") {
       for (let a = mondayOf(S.start), i = 0; a <= S.end; a = shiftISO(a, 7), i++) {
         const xs = [];
@@ -7524,9 +7559,10 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const sel = state.progSel && state.progSel.k === k && state.progSel.r === range ? pts[state.progSel.i] : null;
     const selWords = sel && sel.v !== null ? `${esc(range === "y" ? `Week of ${shortDay(sel.iso)}` : shortDay(sel.iso))} · ${esc(stdWords(k, sel.v))}${range === "y" ? ` average, ${sel.n} day${sel.n === 1 ? "" : "s"} logged` : ""}${sel.hit ? " · met" : ""}` : "";
     return `<section class="card pgcard" aria-label="${esc(STD[k].label)} over time">
-        <div class="pghead"><p class="pgsum"><b>${met}</b> of ${P.sofar} day${P.sofar === 1 ? "" : "s"} met ${range === "w" ? "this week" : `in ${esc(SP.label)}`}${avg !== null && !bin ? `<br><span class="pgavg">average <b>${esc(stdWords(k, avg))}</b></span>` : ""}${delta ? `<br>${delta}` : ""}</p>
-          <div class="range pgr" role="group" aria-label="Time range">${Object.entries(PROG_R).map(([v, t]) =>
-            `<button type="button" data-pgr="${v}" aria-pressed="${v === range}">${t}</button>`).join("")}</div></div>
+        <div class="pghead"><p class="pgsum"><b>${met}</b> of ${P.sofar} day${P.sofar === 1 ? "" : "s"} met ${range === "w" && !pgOff() ? "this week" : `in ${esc(SP.label)}`}${avg !== null && !bin ? `<br><span class="pgavg">average <b>${esc(stdWords(k, avg))}</b></span>` : ""}${delta ? `<br>${delta}` : ""}</p>
+          <div class="pgnavw"><div class="range pgr" role="group" aria-label="Time range">${Object.entries(PROG_R).map(([v, t]) =>
+            `<button type="button" data-pgr="${v}" aria-pressed="${v === range}">${t}</button>`).join("")}</div>
+            <div class="pgnav"><button type="button" class="dnav" data-pgoff="-1" aria-label="Earlier">${CHEV(-1)}</button><span>${esc(pgOff() ? SP.label : range === "w" ? "This week" : range === "m" ? "This month" : "This year")}</span><button type="button" class="dnav" data-pgoff="1" ${pgOff() ? "" : "disabled"} aria-label="Later">${CHEV(1)}</button></div></div></div>
         ${seen.length ? `<svg class="pgsvg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(STD[k].label)}, ${esc(SP.label)}: ${met} of ${P.sofar} days met your standard of ${esc(stdWords(k, std))}">
           <line x1="${L}" x2="${W - Rr}" y1="${T + ph + 6}" y2="${T + ph + 6}" class="pgbase"/>
           ${stdY !== null ? `<line x1="${L}" x2="${W - Rr}" y1="${stdY.toFixed(1)}" y2="${stdY.toFixed(1)}" class="pgstd"/>
@@ -7546,6 +7582,8 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       </section>`;
   }
   document.addEventListener("click", (e) => {
+    const o = e.target && e.target.closest ? e.target.closest("[data-pgoff]") : null;
+    if (o && !o.disabled) { state.pgOff = Math.min(0, pgOff() + Number(o.dataset.pgoff)); state.progSel = null; render(); return; }
     const t = e.target && e.target.closest ? e.target.closest("[data-pgmore]") : null; if (!t) return;
     state.pgOpen = state.pgOpen === t.dataset.pgmore ? null : t.dataset.pgmore; state.progSel = null; render();
   });
@@ -7721,7 +7759,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       if (pg && at) at.insertAdjacentHTML("afterend", pg);
       app.querySelectorAll("[data-pgr]").forEach((el) => el.addEventListener("click", () => {
         try { localStorage.setItem("fhd.prog2", el.dataset.pgr); } catch {}
-        state.progSel = null; render(); }));
+        state.progSel = null; state.pgOff = 0; render(); }));
       app.querySelector(".pgsvg")?.addEventListener("click", (e) => {
         const t = e.target.closest && e.target.closest("[data-pg]"); if (!t) return;
         const i = Number(t.dataset.pg), r0 = progRange();
@@ -7744,7 +7782,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       else app.querySelector(".astrip.foot")?.insertAdjacentHTML("beforebegin", pg);
       app.querySelectorAll("[data-pgr]").forEach((el) => el.addEventListener("click", () => {
         try { localStorage.setItem("fhd.prog2", el.dataset.pgr); } catch {}
-        state.progSel = null; render(); }));
+        state.progSel = null; state.pgOff = 0; render(); }));
       app.querySelector(".pgsvg")?.addEventListener("click", (e) => {
         const t = e.target.closest && e.target.closest("[data-pg]"); if (!t) return;
         const i = Number(t.dataset.pg), r0 = progRange();
@@ -7982,7 +8020,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       d: "Me is you. Tribe is your family's table and the League. Campfire is a 2-minute lesson a day." },
     { at: ".tmeline", tab: "tribe", t: "Your badge",
       d: "Hit your step goal 4 days this week and your badge goes up." },
-    { at: ".lgchip", tab: "tribe", t: "The League",
+    { at: ".lgline", tab: "tribe", t: "The League",
       d: "Your tribe's place among tribes, by members' average days at goal. Tap it for the list. Top 3 win points every week." },
   ];
   // Until it is opened once, the ⓘ wears a small dot. That is the whole nudge.
@@ -7992,7 +8030,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   let tourList = TOUR;
   function tour(i) {
     document.querySelector(".tourbg")?.remove();
-    if (i === 0) tourList = TOUR.filter((st) => (st.at !== ".tmeline" || gardenMe()) && (st.at !== ".lgchip" || (state.league && state.league.tribes)));
+    if (i === 0) tourList = TOUR.filter((st) => (st.at !== ".tmeline" || gardenMe()) && (st.at !== ".lgline" || (state.league && state.league.tribes)));
     const TOUR_ = tourList;
     if (i >= TOUR_.length) { if (homeTab() !== "me") { state.homeTab = "me"; render(); window.scrollTo(0, 0); } return; }
     const st = TOUR_[i];
