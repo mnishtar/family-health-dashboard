@@ -3009,6 +3009,20 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 .lgline { display:flex; align-items:center; gap:6px; width:100%; margin:10px 0 0; padding:10px 4px; border:none; border-top:1px solid var(--line); background:none;
   color:var(--ink-2); font:inherit; font-size:14px; text-align:left; cursor:pointer; }
 .lgline b { color:var(--ink); } .lgline i { margin-left:auto; font-style:normal; color:var(--muted); }
+.tgoal4 { display:flex; align-items:baseline; gap:10px; width:100%; margin:-2px 0 10px; }
+.tgoal4 .tgact { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--ink-2); }
+.tgoal4 .tgdays { flex:none; margin-left:auto; color:var(--green-ink, #2f9e6e); font-weight:700; }
+.facew { position:relative; flex:none; display:block; }
+.fcheer { position:absolute; top:-4px; right:0; width:24px; height:24px; display:grid; place-items:center; padding:0; border:none; border-radius:50%;
+  background:var(--surface); box-shadow:0 1px 4px rgba(0,0,0,.18); font-size:13px; line-height:1; cursor:pointer; }
+.fcheer.sent { color:#d4506a; font-size:12px; cursor:default; }
+.tbrule { margin:6px 0 0; font-size:12.5px; color:var(--muted); }
+.tbrule b { color:var(--ink-2); }
+.shearn { list-style:none; margin:4px 0 0; padding:0; display:grid; gap:5px; font-size:13px; color:var(--ink-2); }
+.shearn li { display:grid; grid-template-columns:52px minmax(0,1fr); gap:8px; }
+.shearn b { color:var(--ink); font-variant-numeric:tabular-nums; }
+.cflk { font-size:12.5px; color:var(--muted); white-space:nowrap; }
+.cffoot { margin-top:4px; text-align:center; }
 .cfarch { display:flex; align-items:center; width:100%; padding:12px 4px; border:none; border-top:1px solid var(--line); background:none; color:var(--ink-2); font:inherit; font-size:14.5px; cursor:pointer; }
 .cfarch i { margin-left:auto; font-style:normal; color:var(--muted); }
 .pgnavw { display:flex; flex-direction:column; align-items:flex-end; gap:6px; }
@@ -3031,7 +3045,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "8.3";
+  const APP_VERSION = "8.4";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -3472,7 +3486,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const st = C.opened ? "opened" : met ? "ready" : "locked";
     return `<div class="qrow ${st}">
       <button type="button" class="qchest qme" id="chestOpen" ${st === "ready" ? "" : "disabled"}>${chestSVG(!!C.opened, 40)}
-        <span><b>${C.opened ? `+${C.points} \u2713` : met ? "Open!" : "Your chest"}</b><small>${C.opened ? "Back tomorrow" : met ? "2 to 8 points" : "Hit your goal"}</small></span></button>
+        <span><b>${C.opened ? `+${C.points} \u2713` : met ? "Open!" : "Your chest"}</b><small>${C.opened ? "Back tomorrow" : met ? "2 to 10 points" : "Hit your goal"}</small></span></button>
       ${tribeChestBtn()}
       <button type="button" class="qbank" id="shopOpen"><span aria-hidden="true">◈</span><b>${num(Number(G.bank) || 0)}</b><em>Prizes ›</em></button>
     </div>`;
@@ -3480,27 +3494,28 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   // V8.3. The tribe chest sits beside yours on Me: claim both on one screen.
   function tribeChestBtn() {
     const TT = state.garden && state.garden.tribe_today; if (!TT || TT.active < 2) return "";
-    let seen = false; try { seen = !!localStorage.getItem(tribeSeenKey()); } catch {}
-    const ready = TT.won && !seen;
-    return `<button type="button" class="qchest qtribe${ready ? " ready" : ""}${TT.won ? " won" : ""}" id="tribeChestOpen" ${ready ? "" : "disabled"} aria-label="Tribe chest: ${TT.logged} of ${TT.active} logged${ready ? ", open it" : ""}">
-      ${chestSVG(TT.won && seen, 40)}<span><b>${ready ? "Open!" : TT.won ? "+5 \u2713" : `${TT.logged}/${TT.active}`}</b><small>Tribe chest</small></span></button>`;
+    // V8.4. Tap to claim: it opens when everyone active logs (any number of steps).
+    const ready = !!TT.claim, done = !!TT.claimed && !ready;
+    return `<button type="button" class="qchest qtribe${ready ? " ready" : ""}${done ? " won" : ""}" id="tribeChestOpen" ${ready ? "" : "disabled"} aria-label="Tribe chest: ${TT.logged} of ${TT.active} logged${ready ? ", open it" : ""}">
+      ${chestSVG(done, 40)}<span><b>${ready ? "Open!" : done ? "+5 \u2713" : `${TT.logged}/${TT.active}`}</b><small>${ready || done ? "Tribe chest" : "All log: +5"}</small></span></button>`;
   }
   // V8.2. Tribe's one card: the tribe chest ring (today only) and, under
   // it, your badge line. Tap your badge for How to play; tap an open tribe
   // chest to celebrate.
-  const tribeSeenKey = () => "fhd.tchest." + state.meId + "." + ((state.garden && state.garden.day) || todayISO());
   function tribeCard() {
     const mine = gardenMe(); if (!mine) return "";
     if (!mine.pledged) return `<button type="button" class="bset" id="gameGoal"><b>Set your step goal to start playing</b><small>10 seconds. Then every day counts.</small></button>
       <p class="tmeline"><span>Not playing yet</span><button type="button" class="linkbtn" id="gameOpen">How to play</button></p>`;
     // V8.3. The tribe chest moved to Me (beside yours); this is your badge line.
-    return `<div class="tcard2"><p class="tmeline"><button type="button" class="tmbadge" id="gameOpen" aria-label="${BD(mine.level)[0]} badge: how to play">${badgeSVG(mine.level, 24)}</button><span><b>${(mine.days || []).length} of 7 days</b> · ${esc(moveWords(mine))}</span></p></div>`;
+    return `<div class="tcard2"><p class="tmeline"><button type="button" class="tmbadge" id="gameOpen" aria-label="${BD(mine.level)[0]} badge: how to play">${badgeSVG(mine.level, 24)}</button><span><b>${(mine.days || []).length} of 7 days</b> · ${esc(moveWords(mine))}</span></p>
+      <p class="tbrule">Each Sunday: 4+ days at goal moves your badge up, <b>+5</b> points. Fewer moves it down, <b>\u22125</b>.</p></div>`;
   }
   // V8.2. The family goal, one quiet line under the title.
   function goalLine2() {
     const g = state.group || {}; if (!g.goal) return "";
     const n = goalDays();
-    return `<button type="button" class="tgoal" id="tribeGoal2"><span aria-hidden="true">⛰️</span> ${esc(g.goal)}${n !== null ? ` · <b>${esc(daysWords(n))}</b>` : ""}<i aria-hidden="true">\u203a</i></button>`;
+    // V8.4. Split: the goal on the left, the days to go on the right, in green.
+    return `<button type="button" class="tgoal tgoal4" id="tribeGoal2"><span class="tgact"><span aria-hidden="true">⛰️</span> ${esc(g.goal)}</span>${n !== null ? `<b class="tgdays">${esc(daysWords(n))}</b>` : ""}</button>`;
   }
   // V7.7. Me: the family's faces. Only people who logged in the last 14
   // days, not you (your flame is in the top bar), highest streak first.
@@ -3514,16 +3529,17 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       .sort((a, b) => ((b.streak || 0) - (a.streak || 0)) || a.name.localeCompare(b.name)));
     if (!list.length) return "";
     const myS = (state.today && state.today.streak) || {};
-    const TT = G.tribe_today;
     return `<div class="faceswrap">
-      ${TT && TT.active >= 2 ? `<button type="button" class="facesl" data-gotab="tribe">${TT.logged}/${TT.active} logged today · ${TT.won ? "tribe chest open ✓" : "tribe chest"} ›</button>` : ""}
       <div class="faces" role="list" aria-label="Your tribe today">${list.map((x) => {
       const p = peopleById[x.id] || {}, ini = (x.name || "?").trim().split(/\s+/).slice(0, 2).map((w) => (w[0] || "").toUpperCase()).join("");
       const mine = x.id === state.meId, sk = mine ? (myS.n || 0) : (x.streak || 0);
-      return `<button type="button" class="face${x.logged ? " done" : ""}${mine ? " me" : ""}" role="listitem" ${mine ? 'id="streakOpen" data-faceme="1"' : `data-pnudge="${x.id}"`}
-        style="--hc:hsl(${p.hue || 200} 62% 48%)" aria-label="${mine ? "You" : esc(x.name)}${x.logged ? ", logged today" : ", not logged yet"}${sk ? `, ${sk} day streak` : ""}">
+      // V8.4. At their goal today: a 🎉 beside them; one tap sends your cheer.
+      const ch = !mine && x.today ? (x.cheered ? `<span class="fcheer sent" aria-label="Cheered">\u2764</span>`
+        : `<button type="button" class="fcheer" data-cheer="${x.id}" aria-label="Cheer ${esc(x.name)}: they hit their goal">\u{1F389}</button>`) : "";
+      return `<span class="facew" role="listitem"><button type="button" class="face${x.logged ? " done" : ""}${mine ? " me" : ""}" ${mine ? 'id="streakOpen" data-faceme="1"' : `data-pnudge="${x.id}"`}
+        style="--hc:hsl(${p.hue || 200} 62% 48%)" aria-label="${mine ? "You" : esc(x.name)}${x.logged ? ", logged today" : ", not logged yet"}${sk ? `, logged steps ${sk} days in a row` : ""}">
         <span class="fav">${esc(ini)}${x.logged ? `<i class="fck" aria-hidden="true">\u2713</i>` : ""}</span>
-        <small>${mine ? "You" : esc(x.name.split(/\s+/)[0])}</small><em class="${mine && !myS.today ? "cold" : ""}">${sk ? `\u{1F525}${sk}` : " "}</em></button>`; }).join("")}</div></div>`;
+        <small>${mine ? "You" : esc(x.name.split(/\s+/)[0])}</small><em class="${mine && !myS.today ? "cold" : ""}">${sk ? `\u{1F525}${sk}` : " "}</em></button>${ch}</span>`; }).join("")}</div></div>`;
   }
   function cheerBanner() {
     const N = (state.garden && state.garden.cheers_new) || [];
@@ -3543,7 +3559,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
         <p class="gonesub">That's the whole game. Everything else follows.</p>
         <ul class="gdhow gsimple">
           <li><b>\u{1F525}</b><span>Every day you log, your streak grows.</span></li>
-          <li><b>\u25c8</b><span>Every day you hit your goal: +10 points for prizes.</span></li>
+          <li><b>\u25c8</b><span>+5 points a day you log, +10 when you hit your goal. Spend them on prizes.</span></li>
           <li><b>\u{1F3C5}</b><span>Hit it 4 days this week: your badge goes up.</span></li>
         </ul>
         <div class="glevels">${BADGES.map(([n], i) => `<span class="glv${i + 1 === mine.level ? " on" : ""}">${badgeSVG(i + 1, i + 1 === mine.level ? 44 : 30)}<small>${n}</small></span>`).join("")}</div>
@@ -3589,7 +3605,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
           p.cheered = true; p.cheers = (p.cheers || 0) + 1; render();
           const res = await call("app_cheer", { p_code: state.code, p_from: state.meId, p_to: p.id });
           if (res.error) { p.cheered = false; p.cheers = Math.max(0, p.cheers - 1); state.msg = res.offline ? "No signal. Not sent yet." : res.error; state.msgKind = "bad"; render(); } } }] : [];
-      openModal({ mark: badgeSVG(p.level, 56), title: p.name, body: `${BD(p.level)[0]} · ${(p.days || []).length} of 7 days this week${p.streak ? ` · \u{1F525} ${p.streak}` : ""}.${p.today ? " At their goal today." : p.logged ? " Logged today." : ""}`,
+      openModal({ mark: badgeSVG(p.level, 56), title: p.name, body: `${p.streak ? `\u{1F525} ${p.streak} day${p.streak === 1 ? "" : "s"} in a row logging steps. ` : "No streak yet: a streak counts days in a row with steps logged. "}${BD(p.level)[0]} badge · ${(p.days || []).length} of 7 days at goal this week.${p.today ? " At their goal today." : p.logged ? " Logged today." : " Not logged today."}`,
         buttons: [...cheer, ...(p.today ? [] : [{ label: `Nudge ${p.name}`, kind: "go", run: async () => {
             const link = `${location.origin}${location.pathname}?g=${encodeURIComponent(state.code || "")}`;
             const text = `${p.name}, time for your steps today 👟 Every day keeps your points. ${link}`;
@@ -3683,7 +3699,18 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
             return `<li><span><b>${esc(r.name)}</b><small>${esc(r.blurb || "")}</small></span>
               <button type="button" class="shbuy${can ? " can" : ""}" data-shop="${r.id}" ${can ? "" : "disabled"} aria-label="${esc(r.name)}, ${num(r.points)} points">${num(r.points)}${can ? "" : `<small>${num(left)} to go</small>`}</button></li>`; }).join("")}</ul>
           ${(S.mine || []).length ? `<p class="dpg">Your requests</p><ul class="shmine">${S.mine.map((x) => `<li><span>${esc(x.name)}</span><em>${esc(ST[x.status] || x.status)}</em></li>`).join("")}</ul>` : ""}
-          <p class="hint shrule">+10 a day at your goal, +30 a perfect week, +5 a badge up, streak bonuses (+100 at 30 days, +300 at 100, +1,000 at 365), chests and League podiums.</p>
+          <p class="dpg">How you earn</p>
+          <ul class="shearn">
+            <li><b>+5</b><span>each day you log your steps (by the next night)</span></li>
+            <li><b>+10</b><span>instead, on a day you hit your goal</span></li>
+            <li><b>+30</b><span>a perfect week: your goal all 7 days</span></li>
+            <li><b>2\u201310</b><span>your chest, on a goal day (tap to open)</span></li>
+            <li><b>+5</b><span>the tribe chest, when everyone logs (tap to open)</span></li>
+            <li><b>\u00b15</b><span>your badge moves up or down on Sunday</span></li>
+            <li><b>+100</b><span>a 30-day streak (+300 at 100 days, +1,000 at 365)</span></li>
+            <li><b>+300</b><span>a League win (+200 2nd, +100 3rd) if you had 4+ goal days</span></li>
+          </ul>
+          <p class="hint shrule">Points never expire. Your bank never goes below 0.</p>
           <div class="stdbtns"><button type="button" class="btn" id="shDone">Done</button></div>`}
       </div>`;
   }
@@ -6759,8 +6786,8 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   }
 
   /* ---------- V7.5: logging every day -------------------------------
-     The daily bank (+10 a day met and logged by the next night, +2 for a
-     short day logged, +30 for a perfect week), the log streak with weekly
+     The daily bank (+10 a day met and logged by the next night, +5 for a
+     short day logged (+2 before V8.4), +30 for a perfect week), the log streak with weekly
      freezes, the wager, yesterday first, the daily card, Apple Health. */
   async function loadToday() {
     if (!state.meId) return;
@@ -6809,7 +6836,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const prize = `<p class="stwag">${next ? `<b>${next - n}</b> more day${next - n === 1 ? "" : "s"} to <b>+${num(PTS[next])}</b> points (${next}-day streak)` : "Every streak bonus earned. Legend."}</p>`;
     return `<div class="sheetbg" id="stBg"></div>
       <div class="stdsheet stsheet" role="dialog" aria-label="Your streak">
-        <div class="stbig"><span aria-hidden="true">\u{1F525}</span><b>${S.n || 0}</b><small>day${S.n === 1 ? "" : "s"} in a row${S.today ? "" : " · log today to keep it"}</small></div>
+        <div class="stbig"><span aria-hidden="true">\u{1F525}</span><b>${S.n || 0}</b><small>day${S.n === 1 ? "" : "s"} in a row logging steps${S.today ? "" : " · log today to keep it"}</small></div>
         <p class="stline">Best <b>${S.best || 0}</b> · Freezes <b>${"❄".repeat(S.freezes || 0) || "0"}</b></p>
         <p class="stone">Log every day. Miss one and a freeze \u2744 saves you.</p>
         ${prize}
@@ -6906,12 +6933,15 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       if (state.garden && res.balance != null) state.garden.bank = res.balance;
       celebrate({ points: res.points, title: res.already ? "Already opened today" : "Chest opened!", sub: "Into your bank. Hit your goal tomorrow for another." });
       loadToday().then(render); });
-    // V8.2. The tribe chest: everyone logged today. +5 is already banked;
-    // opening it is the celebration, once per day per phone.
-    on("tribeChestOpen", "click", () => {
-      try { localStorage.setItem(tribeSeenKey(), "1"); } catch {}
-      celebrate({ points: 5, title: "Tribe chest!", sub: "Everyone logged today. +5 each, together.", tribe: true });
-      render(); });
+    // V8.4. The tribe chest: everyone logged. Tap to claim your +5.
+    on("tribeChestOpen", "click", async (e) => { e.currentTarget.disabled = true;
+      const res = await call("app_open_tribe_chest", { p_code: state.code, p_person: state.meId });
+      if (res.error) { state.msg = res.offline ? "No signal. Try again." : res.error; state.msgKind = "bad"; render(); return; }
+      const TT = state.garden && state.garden.tribe_today;
+      if (TT) { TT.claim = null; TT.claimed = true; }
+      if (state.garden) state.garden.bank = (Number(state.garden.bank) || 0) + (res.points || 5);
+      celebrate({ points: res.points || 5, title: "Tribe chest!", sub: "Everyone logged. +5 for each of you.", tribe: true });
+      render(); loadGarden().then(render); });
     on("stDone", "click", () => { state.streakOpen = false; render(); });
     on("stBg", "click", () => { state.streakOpen = false; render(); });
     on("ydIn", "input", (e) => { state.ydayIn.v = e.target.value; });
@@ -7008,7 +7038,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     if (!force && C && (C.busy || Date.now() - C.at < 60000)) return;
     state.camp = Object.assign({}, C || {}, { busy: true });
     const res = await call("app_campfire", { p_code: state.code, p_person: state.meId });
-    state.camp = res && !res.error ? { today: res.today || null, library: res.library || [], owner: !!res.owner, at: Date.now(), busy: false }
+    state.camp = res && !res.error ? { today: res.today || null, library: res.library || [], counts: res.counts || {}, owner: !!res.owner, at: Date.now(), busy: false }
       : Object.assign({}, C || {}, { busy: false, at: Date.now(), err: res && res.offline ? "No signal." : (res && res.error) || "Could not load Campfire." });
     if (state.view === "board" && homeTab() === "campfire") render();
   }
@@ -7019,14 +7049,14 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     return r !== String(T.id);
   }
   function cfCard(x, todayId, locked) {
-    const [, icon, hue] = cfTopic(x.topic), lock = locked && x.id === todayId;
+    const [, icon, hue] = cfTopic(x.topic), lock = !!locked && x.id === todayId;
     return `<button type="button" class="cfcard" data-lesson="${x.id}" style="--tc:${hue}">
       <span class="cfic" aria-hidden="true">${icon}</span><b>${esc(x.title)}</b>
       <small>${lock ? "\u{1F512} Log to open" : `${x.minutes || 1} min read`}${x.new ? ` <i class="cfnew">New</i>` : ""}${x.saved ? ` <i class="cfsv" aria-label="Saved">★</i>` : ""}</small></button>`;
   }
   function campfireView() {
-    const C = state.camp || {}, seg = state.campSeg === "saved" ? "saved" : "library";
-    const head = `<div class="htabh"><h2>Campfire</h2><em>one essay a day</em>${C.owner ? `<button type="button" class="linkbtn" id="cfNew">+ New lesson</button>` : ""}</div>`;
+    const C = state.camp || {};
+    const head = `<div class="htabh"><h2>Campfire</h2>${C.owner ? `<button type="button" class="linkbtn" id="cfNew">+ New lesson</button>` : ""}</div>`;
     if (!C.library) { if (!C.busy) setTimeout(() => loadCampfire(), 0);
       return `<section class="htab hcamp">${head}${C.err ? `<p class="hint bad">${esc(C.err)}</p>` : `<p class="hint">Lighting the fire…</p>`}</section>`; }
     const T = C.today, L = C.library;
@@ -7037,11 +7067,16 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
           <b>${esc(T.title)}</b><span class="cflock">${sparkSVG(46, "sleepy")}<span>Log today's steps to open it.</span></span></button>`
       : `<button type="button" class="cftoday" id="cfToday" data-lesson="${T.id}" style="--tc:${th}"><span class="cfmeta">Today's lesson · ${esc(tn)} · ${T.minutes || 1} min</span>
           <b>${esc(T.title)}</b>${T.teaser ? `<span class="cfteaser">${esc(T.teaser)}</span>` : ""}<span class="cfgo">Tap to read ›</span><span class="cfbig" aria-hidden="true">${ti}</span></button>`;
-    // V8.3. One essay a day. What you've opened or saved waits behind one
-    // quiet line; essays still to come stay hidden.
-    const past = L.filter((x) => x.read && (!T || x.id !== T.id)), saved = L.filter((x) => x.saved);
-    const body = past.length || saved.length ? `<button type="button" class="cfarch" id="cfArch">Past essays (${past.length}) \u00b7 Saved (${saved.length})<i aria-hidden="true">\u203a</i></button>` : "";
-    return `<section class="htab hcamp" aria-label="Campfire">${head}${today}${body}</section>`;
+    // V8.4. The five shelves are back. Each shows the essays you've opened
+    // (they stay open) and a count of the ones still locked: a new one
+    // opens each day you log.
+    const K = C.counts || {};
+    const shelves = CF_TOPICS.map(([t, icon]) => {
+      const xs = L.filter((x) => x.topic === t && (x.read || x.saved)), left = Math.max(0, (Number(K[t]) || 0) - xs.length);
+      if (!xs.length && !left) return "";
+      return `<div class="cfshelf"><div class="cfsh"><h3><span aria-hidden="true">${icon}</span> ${esc(t)}</h3>${left ? `<span class="cflk">\u{1F512} ${left} ${xs.length ? "more" : "to unlock"}</span>` : ""}</div>
+        ${xs.length ? `<div class="cfrow">${xs.map((x) => cfCard(x)).join("")}</div>` : ""}</div>`; }).join("");
+    return `<section class="htab hcamp" aria-label="Campfire">${head}${today}${shelves}<p class="hint cffoot">A new essay opens each day you log. Once open, it stays open.</p></section>`;
   }
   // Old lessons (one body of text): **bold**, "- " bullets, blank-line paragraphs.
   function lessonHTML(body) {
@@ -7119,7 +7154,6 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     document.querySelectorAll("[data-lesson]").forEach((el) => el.addEventListener("click", () => openLesson(el.dataset.lesson)));
     on("cfToday", "click", (e) => { if (!e.currentTarget.dataset.lesson) { state.homeTab = "me"; render(); window.scrollTo(0, 0); } });
     document.querySelectorAll("[data-cfall]").forEach((el) => el.addEventListener("click", () => { state.campAll = el.dataset.cfall; render(); }));
-    on("cfArch", "click", () => { state.campAll = "past"; render(); });
     document.querySelectorAll("[data-cfseg]").forEach((el) => el.addEventListener("click", () => { state.campSeg = el.dataset.cfseg; render(); }));
     const shut = () => { state.lesson = null; state.campAll = null; render(); };
     on("lsDone", "click", shut); on("lsBg", "click", shut); on("caDone", "click", shut); on("caBg", "click", shut);
