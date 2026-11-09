@@ -2944,6 +2944,8 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 .lsquote cite { display:block; margin-top:8px; font-style:normal; font-size:12.5px; color:var(--muted); }
 .lsquote a { color:var(--accent); font-weight:600; }
 .lsconc { font-weight:600; }
+.lsev { margin-top:14px; padding:10px 12px; border-radius:10px; background:color-mix(in oklab, var(--ink) 6%, transparent); font-size:12.5px; color:var(--ink-2); }
+.shone { margin:0 0 6px; font-weight:700; font-size:13.5px; color:var(--ink); }
 .lssave.on { color:#e0a400; }
 .ifsheet .fbk { margin-top:14px; }
 
@@ -3016,8 +3018,6 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 .fcheer { position:absolute; top:-4px; right:0; width:24px; height:24px; display:grid; place-items:center; padding:0; border:none; border-radius:50%;
   background:var(--surface); box-shadow:0 1px 4px rgba(0,0,0,.18); font-size:13px; line-height:1; cursor:pointer; }
 .fcheer.sent { color:#d4506a; font-size:12px; cursor:default; }
-.tbrule { margin:6px 0 0; font-size:12.5px; color:var(--muted); }
-.tbrule b { color:var(--ink-2); }
 .shearn { list-style:none; margin:4px 0 0; padding:0; display:grid; gap:5px; font-size:13px; color:var(--ink-2); }
 .shearn li { display:grid; grid-template-columns:52px minmax(0,1fr); gap:8px; }
 .shearn b { color:var(--ink); font-variant-numeric:tabular-nums; }
@@ -3080,7 +3080,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "8.6";
+  const APP_VERSION = "8.7";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -3466,6 +3466,13 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
   // V8.1. STEP UP's rule: 4+ days at goal moves you up one on Sunday
   // (+50), fewer drops you one. The badge carries over.
   function moveWords(x) {
+    // V8.7. The badge follows logging: 7 of 7 up, 6 holds, 5 or fewer down.
+    if (x.badge_rule === "log") {
+      const n = (x.days || []).length, dow = garDow(), missed = Math.max(0, (dow - 1) - (n - (x.logged ? 1 : 0)));
+      if (missed === 0) return n >= 7 ? (x.level >= 5 ? "Diamond kept \u2713" : "Up on Sunday \u2713") : "Log every day to move up";
+      if (missed === 1) return "Log every day left to hold";
+      return x.level <= 1 ? "Bronze holds. Fresh week Monday." : "Down one on Sunday. Fresh week Monday.";
+    }
     const met = (x.days || []).length, dow = garDow(), left = 7 - dow + (x.today ? 0 : 1);
     const s = (n) => `${n} more day${n === 1 ? "" : "s"}`;
     if (met >= 4) return x.level >= 5 ? "Diamond kept \u2713" : "Up on Sunday \u2713";
@@ -3527,12 +3534,14 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     </div>`;
   }
   // V8.3. The tribe chest sits beside yours on Me: claim both on one screen.
+  const RULE_LINE = "Log your steps every day. Everything else is a bonus.";
   function tribeChestBtn() {
     const TT = state.garden && state.garden.tribe_today; if (!TT || TT.active < 2) return "";
-    // V8.4. Tap to claim: it opens when everyone active logs (any number of steps).
-    const ready = !!TT.claim, done = !!TT.claimed && !ready;
-    return `<button type="button" class="qchest qtribe${ready ? " ready" : ""}${done ? " won" : ""}" id="tribeChestOpen" ${ready ? "" : "disabled"} aria-label="Tribe chest: ${TT.logged} of ${TT.active} logged${ready ? ", open it" : ""}">
-      ${chestSVG(done, 40)}<span><b>${ready ? "Open!" : done ? "+5 \u2713" : `${TT.logged}/${TT.active}`}</b><small>${ready || done ? "Tribe chest" : "All log: +5"}</small></span></button>`;
+    // V8.7. One Tribe counter: +2 for each relative who logs (on a day you
+    // log) and +10 when everyone logs. Tap to open the chest, or to see how.
+    const ready = !!TT.claim, done = !!TT.claimed && !ready, F = Number((state.today || {}).family_today) || 0;
+    return `<button type="button" class="qchest qtribe${ready ? " ready" : ""}${done ? " won" : ""}" id="${ready ? "tribeChestOpen" : "tribeInfo"}" aria-label="Tribe: ${TT.logged} of ${TT.active} logged${ready ? ", open the chest for +10" : ""}">
+      ${chestSVG(done, 40)}<span><b>${ready ? "Open +10" : done ? "+10 \u2713" : `${TT.logged}/${TT.active}`}</b><small>${F ? `+${F} so far` : "Tribe"}</small></span></button>`;
   }
   // V8.2. Tribe's one card: the tribe chest ring (today only) and, under
   // it, your badge line. Tap your badge for How to play; tap an open tribe
@@ -3542,8 +3551,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     if (!mine.pledged) return `<button type="button" class="bset" id="gameGoal"><b>Set your step goal to start playing</b><small>10 seconds. Then every day counts.</small></button>
       <p class="tmeline"><span>Not playing yet</span><button type="button" class="linkbtn" id="gameOpen">How to play</button></p>`;
     // V8.3. The tribe chest moved to Me (beside yours); this is your badge line.
-    return `<div class="tcard2"><p class="tmeline"><button type="button" class="tmbadge" id="gameOpen" aria-label="${BD(mine.level)[0]} badge: how to play">${badgeSVG(mine.level, 24)}</button><span><b>${(mine.days || []).length} of 7 days</b> · ${esc(moveWords(mine))}</span></p>
-      <p class="tbrule">Each Sunday: 4+ days at your goal moves your badge up; fewer moves it down.</p></div>`;
+    return `<div class="tcard2"><p class="tmeline"><button type="button" class="tmbadge" id="gameOpen" aria-label="${BD(mine.level)[0]} badge: how to play">${badgeSVG(mine.level, 24)}</button><span><b>${(mine.days || []).length} of 7 days${mine.badge_rule === "log" ? " logged" : ""}</b> · ${esc(moveWords(mine))}</span></p></div>`;
   }
   // V8.2. The family goal, one quiet line under the title.
   function goalLine2() {
@@ -3591,11 +3599,12 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       <div class="stdsheet gsheet" role="dialog" aria-label="How the steps game works">
         <p class="eyebrow">How to play</p>
         <p class="gone">Log your steps every day.</p>
-        <p class="gonesub">That's the whole game. Everything else follows.</p>
+        <p class="gonesub">Everything else is a bonus.</p>
         <ul class="gdhow gsimple">
           <li><b>\u{1F525}</b><span>Every day you log, your streak grows.</span></li>
-          <li><b>\u25c8</b><span>Your week pot starts at 35; each day you don't log costs 5. +10 when you hit your goal, +2 for each family member who logs. Spend points on prizes.</span></li>
-          <li><b>\u{1F3C5}</b><span>Hit it 4 days this week: your badge goes up.</span></li>
+          <li><b>\u25c8</b><span>Your week pot starts at 35; each day you don't log costs 5. +5 when you hit your goal. Spend points on prizes.</span></li>
+          <li><b>\u{1F46A}</b><span>+2 for each family member who logs, +10 each when everyone does.</span></li>
+          <li><b>\u{1F3C5}</b><span>Log all 7 days: your badge goes up. Miss 2: it goes down.</span></li>
         </ul>
         <div class="glevels">${BADGES.map(([n], i) => `<span class="glv${i + 1 === mine.level ? " on" : ""}">${badgeSVG(i + 1, i + 1 === mine.level ? 44 : 30)}<small>${n}</small></span>`).join("")}</div>
         <div class="glinks"><button type="button" class="linkbtn" id="gameGoal2">My goal: ${num(stdOf(me(), "steps"))} steps</button>
@@ -3735,12 +3744,12 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
               <button type="button" class="shbuy${can ? " can" : ""}" data-shop="${r.id}" ${can ? "" : "disabled"} aria-label="${esc(r.name)}, ${num(r.points)} points">${num(r.points)}${can ? "" : `<small>${num(left)} to go</small>`}</button></li>`; }).join("")}</ul>
           ${(S.mine || []).length ? `<p class="dpg">Your requests</p><ul class="shmine">${S.mine.map((x) => `<li><span>${esc(x.name)}</span><em>${esc(ST[x.status] || x.status)}</em></li>`).join("")}</ul>` : ""}
           <p class="dpg">How you earn</p>
+          <p class="shone">${RULE_LINE}</p>
           <ul class="shearn">
             <li><b>35</b><span>your week pot: starts full each Monday, \u22125 for each day you don't log (by the next night)</span></li>
-            <li><b>+10</b><span>each day you hit your goal</span></li>
+            <li><b>+5</b><span>each day you hit your goal</span></li>
             <li><b>+2</b><span>for each family member who logs on a day you log</span></li>
-            <li><b>+30</b><span>a perfect week: your goal all 7 days</span></li>
-            <li><b>+5</b><span>the tribe chest, when everyone logs (tap to open)</span></li>
+            <li><b>+10</b><span>the tribe chest, when everyone logs (tap to open)</span></li>
             <li><b>+100</b><span>a 30-day streak (+300 at 100 days, +1,000 at 365)</span></li>
             ${leaguePaused() ? "" : `<li><b>+300</b><span>a League win (+200 2nd, +100 3rd) if you had 4+ goal days</span></li>`}
           </ul>
@@ -6967,11 +6976,17 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
     const openStreak = () => { state.streakOpen = true; render(); };
     on("streakOpen", "click", openStreak); on("streakOpen2", "click", openStreak);
     document.querySelectorAll("[data-faceme]").forEach((el) => el.addEventListener("click", openStreak));
+    // V8.7. The Tribe counter, explained.
+    on("tribeInfo", "click", () => {
+      const TT = (state.garden && state.garden.tribe_today) || {}, F = Number((state.today || {}).family_today) || 0;
+      openModal({ title: `Tribe: ${TT.logged || 0} of ${TT.active || 0} logged`,
+        body: `${RULE_LINE} +2 for each family member who logs on a day you log (+${F} today${F ? ", yours once you log" : ""}). When everyone logs, open the tribe chest for +10 each.`,
+        buttons: [{ label: "Got it", kind: "quiet" }] }); });
     // V8.6. The pot, explained in one card.
     on("potOpen", "click", () => {
       const T = state.today || {}, P = T.pot || {}, F = Number(T.family_today) || 0;
       openModal({ title: `Week pot: ${P.left} of ${P.full}`,
-        body: `It starts full each Monday. Every day you don't log your steps (by the next night) costs 5. What's left goes into your bank when the week ends.${P.missed ? ` Missed so far: ${P.missed} day${P.missed === 1 ? "" : "s"}.` : " Nothing lost yet this week."} Family bonus today: +${F}${F ? `, yours once you log` : `, +2 for each family member who logs`}.`,
+        body: `${RULE_LINE} Your pot starts full each Monday. Every day you don't log your steps (by the next night) costs 5. What's left goes into your bank when the week ends.${P.missed ? ` Missed so far: ${P.missed} day${P.missed === 1 ? "" : "s"}.` : " Nothing lost yet this week."} Family bonus today: +${F}${F ? `, yours once you log` : `, +2 for each family member who logs`}.`,
         buttons: [{ label: "Got it", kind: "quiet" }] }); });
     // V8.4. The tribe chest: everyone logged. Tap to claim your +5.
     on("tribeChestOpen", "click", async (e) => { e.currentTarget.disabled = true;
@@ -6980,7 +6995,7 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       const TT = state.garden && state.garden.tribe_today;
       if (TT) { TT.claim = null; TT.claimed = true; }
       if (state.garden) state.garden.bank = (Number(state.garden.bank) || 0) + (res.points || 5);
-      celebrate({ points: res.points || 5, title: "Tribe chest!", sub: "Everyone logged. +5 for each of you.", tribe: true });
+      celebrate({ points: res.points || 10, title: "Tribe chest!", sub: `Everyone logged. +${res.points || 10} for each of you.`, tribe: true });
       render(); loadGarden().then(render); });
     on("stDone", "click", () => { state.streakOpen = false; render(); });
     on("stBg", "click", () => { state.streakOpen = false; render(); });
@@ -7140,7 +7155,8 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
       ${D.explain ? `<p class="lslab">Why</p><p>${esc(D.explain)}</p>` : ""}
       <p class="lslab">Proof</p>
       <blockquote class="lsquote">“${esc(D.proof)}”<cite>${esc(D.cite || "")}${url ? ` · <a href="${esc(url)}" target="_blank" rel="noopener noreferrer">Read the study ↗</a>` : ""}</cite></blockquote>
-      <p class="lslab">So</p><p class="lsconc">${esc(D.conclusion)}</p></div>`;
+      <p class="lslab">So</p><p class="lsconc">${esc(D.conclusion)}</p>
+      ${D.evidence ? `<p class="lsev">${esc(D.evidence)}</p>` : ""}</div>`;
   }
   function campSheet() {
     const R = state.lesson, A = state.campAll, N = state.lessonNew, C = state.camp || {};
