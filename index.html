@@ -3024,7 +3024,6 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 .cfcard.locked { opacity:.5; filter:saturate(.3); }
 .face.story .fav { box-shadow:0 0 0 2.5px var(--surface), 0 0 0 5px #f2a541, 0 0 0 6.5px #d4506a; }
 .face.story.slock .fav { filter:blur(.4px) saturate(.6); }
-.fcam { font-size:12px; }
 td.fblur { filter:blur(4px); user-select:none; }
 .logsee { margin:6px 0 2px; text-align:center; }
 .psph { margin:0 0 12px; border-radius:16px; overflow:hidden; background:color-mix(in oklab, var(--ink) 8%, transparent); }
@@ -3045,7 +3044,25 @@ td.fblur { filter:blur(4px); user-select:none; }
 .pgtiles div { padding:10px 8px; border-radius:12px; background:color-mix(in oklab, var(--ink) 6%, transparent); text-align:center; }
 .pgtiles b { display:block; font-size:18px; font-variant-numeric:tabular-nums; } .pgtiles small { font-size:11.5px; color:var(--muted); }
 .pglist { list-style:none; margin:0 0 10px; padding:0; }
-.pgm { display:flex; align-items:center; gap:10px; padding:9px 0; border-top:1px solid var(--line); }
+.pgm { display:grid; grid-template-columns:minmax(0,1fr) 96px 54px; align-items:center; gap:10px; padding:8px 0; border-top:1px solid var(--line); }
+.pgm > b { font-size:14px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.pgr { text-align:right; font-variant-numeric:tabular-nums; font-weight:700; } .pgr small { font-weight:500; color:var(--muted); font-size:11px; } .pgr i { margin-left:3px; }
+.pgbars .now { opacity:.55; }
+.snapbtn { display:flex; align-items:center; gap:12px; width:100%; margin:0 0 12px; padding:12px 14px; border:1px dashed color-mix(in oklab, var(--accent) 60%, var(--line)); border-radius:14px; background:color-mix(in oklab, var(--accent) 8%, transparent); color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
+.snapbtn > span:first-child { font-size:22px; } .snapbtn span:last-child { display:flex; flex-direction:column; gap:2px; } .snapbtn small { font-size:12px; color:var(--muted); }
+.feed { margin:0 0 16px; }
+.feedh { margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.feedlock { display:flex; align-items:center; gap:10px; padding:14px; border-radius:14px; background:color-mix(in oklab, var(--ink) 6%, transparent); font-size:14px; color:var(--ink-2); } .feedlock p { margin:0; }
+.fcard { margin:0 0 10px; padding:12px; border:1px solid var(--line); border-radius:16px; background:var(--surface); }
+.fcard header { display:flex; align-items:center; gap:8px; margin:0 0 8px; } .fcard header b { font-size:14.5px; }
+.fav.fsm { width:28px; height:28px; font-size:11.5px; flex:none; opacity:1; box-shadow:none; }
+.fst { margin-left:auto; font-size:12.5px; color:var(--muted); font-variant-numeric:tabular-nums; }
+.fimg { display:block; width:100%; max-height:420px; object-fit:cover; border-radius:12px; margin:0 0 8px; }
+.fadd { display:block; margin:2px 0 4px; }
+.frow { display:flex; flex-direction:column; gap:4px; }
+.psreact.sm { justify-content:flex-start; margin:0; gap:8px; } .psreact.sm button { width:38px; height:38px; font-size:18px; }
+.freacts, .ftodo { margin:4px 0 0; font-size:12.5px; color:var(--ink-2); }
+.fend { margin:8px 0 0; text-align:center; font-size:12.5px; color:var(--muted); }
 .pgm > div { flex:1; min-width:0; display:flex; flex-direction:column; gap:2px; }
 .pgm small { font-size:12px; color:var(--muted); } .pgm small b { color:var(--ink-2); }
 .pgm i { font-style:normal; } .pgm i.good, .pglab .good { color:#3fb96b; } .pgm i.bad, .pglab .bad { color:#e0ae72; }
@@ -3109,7 +3126,7 @@ td.fblur { filter:blur(4px); user-select:none; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "9.1";
+  const APP_VERSION = "9.2";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -3658,14 +3675,14 @@ td.fblur { filter:blur(4px); user-select:none; }
       const link = `${location.origin}${location.pathname}?g=${encodeURIComponent(state.code || "")}`;
       window.open("https://wa.me/?text=" + encodeURIComponent(`${x.name}, time for your steps today \u{1F45F} Every day keeps your points. ${link}`), "_blank"); });
     document.querySelectorAll("[data-react]").forEach((el) => el.addEventListener("click", async () => {
-      const id = state.person, S = soc(id), e = el.dataset.react, was = S.mine;
+      const id = el.dataset.to || state.person, S = soc(id), e = el.dataset.react, was = S.mine;
       S.mine = e; render();
       const r = await call("app_react", { p_code: state.code, p_from: state.meId, p_to: id, p_emoji: e });
       if (r.error) { S.mine = was; render(); toast(r.offline ? "No signal. Not sent yet." : r.error, "bad"); return; }
       loadSocial().then(render); }));
     // Your photo: the 📷 on your face, or from the You page.
     const pick = () => { const f = document.getElementById("photoFile"); if (f) f.click(); };
-    on("photoAdd", "click", pick); on("photoAdd2", "click", pick);
+    on("photoAdd", "click", pick); on("photoAdd2", "click", pick); on("photoAdd3", "click", pick);
     on("photoFile", "change", (e) => postPhoto(e.target.files && e.target.files[0]));
     on("photoDel", "click", async () => { await call("app_photo_delete", { p_code: state.code, p_person: state.meId }); await loadSocial(); render(); });
   }
@@ -3690,31 +3707,66 @@ td.fblur { filter:blur(4px); user-select:none; }
       default: return `${Math.round(x * 10) / 10}${m.unit ? " " + m.unit : ""}`;
     }
   }
-  function monthBars(m, today) {
-    const ends = new Date(today + "T00:00:00Z"), keys = [];
-    for (let i = 11; i >= 0; i--) { const d = new Date(Date.UTC(ends.getUTCFullYear(), ends.getUTCMonth() - i, 1)); keys.push(d.toISOString().slice(0, 7)); }
-    const by = Object.fromEntries((m.months || []).map((x) => [x.m, Number(x.avg)])), vals = keys.map((k) => by[k]);
-    const max = Math.max(...vals.filter((v) => v != null), 0) || 1;
-    return `<svg class="pgbars" viewBox="0 0 120 24" aria-hidden="true">${vals.map((v, i) => v == null ? `<rect x="${i * 10 + 1}" y="22" width="8" height="2" rx="1" class="nil"/>`
-      : `<rect x="${i * 10 + 1}" y="${24 - Math.max(2, v / max * 24)}" width="8" height="${Math.max(2, v / max * 24)}" rx="1.5"/>`).join("")}</svg>`;
+  // V9.2. 12 weeks, each bar = days you did it that week (0 to 7).
+  function weekBars(w) {
+    const ws = (w || []).map(Number);
+    return `<svg class="pgbars" viewBox="0 0 120 28" aria-hidden="true">${ws.map((v, i) =>
+      `<rect x="${i * 10 + 1}" y="${28 - Math.max(2, v / 7 * 28)}" width="8" height="${Math.max(2, v / 7 * 28)}" rx="1.5" class="${v ? (i === 11 ? "now" : "") : "nil"}"/>`).join("")}</svg>`;
   }
+  const PROG_PILLARS = [["meditation", "Meditation", "\u{1F9D8}"], ["exercise", "Exercise", "\u{1F45F}"], ["diet", "Diet", "\u{1F957}"], ["sleep", "Sleep", "\u{1F319}"], ["focus", "Great Work", "\u{1F3AF}"]];
   function progressBlock() {
     const P = state.progress;
-    if (!P || P.busy) return `<p class="hint">Gathering your progress…</p>`;
+    if (!P || P.busy) return `<p class="hint">Gathering your progress\u2026</p>`;
     if (P.err) return `<p class="hint bad">${esc(P.err)}</p>`;
     const since = new Date(P.since + "T00:00:00Z").toLocaleDateString(undefined, { timeZone: "UTC", month: "long", year: "numeric" });
     const steps = (P.metrics || []).find((m) => m.key === "steps"), S = P.streak || {}, L = P.labs || {};
-    const tiles = [[steps ? num(steps.days) : "0", "days logged"], [num(S.best || 0), "best streak"], [num(P.bank || 0), "points banked"],
-                   ...(P.essays ? [[num(P.essays), "essays read"]] : []), ...(P.workouts ? [[num(P.workouts), "workouts"]] : [])];
-    const row = (m) => {
-      const up = m.avg_30 != null && m.avg_all != null && Number(m.avg_30) !== Number(m.avg_all), better = MORE_BETTER.has(m.key) ? Number(m.avg_30) > Number(m.avg_all) : null;
-      return `<li class="pgm"><div><b>${esc(m.label)}</b><small>${num(m.days)} days${m.met != null ? ` · ${num(m.met)} at your standard` : ""} · since ${esc(shortDay(m.first))}</small>
-          <small>Last 30 days <b>${progFmt(m, m.avg_30)}</b> · all-time <b>${progFmt(m, m.avg_all)}</b>${up && better !== null ? ` <i class="${better ? "good" : "bad"}">${better ? "↑" : "↓"}</i>` : ""}</small></div>${monthBars(m, P.today)}</li>`; };
-    return `<p class="pgsince">Since ${esc(since)}</p>
+    const tiles = [[steps ? num(steps.days) : "0", "days logged"], [num(S.best || 0), "best streak"], [num(P.bank || 0), "points"]];
+    // Days a week over the last 4 full weeks, against the 4 before.
+    const rate = (w) => { const x = (w || []).map(Number); const a = (x[7] + x[8] + x[9] + x[10]) / 4, b = (x[3] + x[4] + x[5] + x[6]) / 4;
+      return { a, d: a - b }; };
+    const row = (label, w) => { const r = rate(w);
+      return `<li class="pgm"><b>${esc(label)}</b>${weekBars(w)}<span class="pgr">${r.a.toFixed(1).replace(/\.0$/, "")}<small>/wk</small>${Math.abs(r.d) >= 0.5 ? `<i class="${r.d > 0 ? "good" : "bad"}">${r.d > 0 ? "\u2191" : "\u2193"}</i>` : ""}</span></li>`; };
+    const groups = PROG_PILLARS.map(([k, name, icon]) => { const ms = (P.metrics || []).filter((m) => m.pillar === k && (m.weeks || []).some((v) => v > 0));
+      return ms.length ? `<p class="dpg">${icon} ${esc(name)}</p><ul class="pglist">${ms.map((m) => row(m.label, m.weeks)).join("")}</ul>` : ""; }).join("");
+    const own = (P.habits || []).filter((h) => (h.weeks || []).some((v) => v > 0));
+    return `<p class="pgsince">Since ${esc(since)} \u00b7 days per week, last 12 weeks</p>
       <div class="pgtiles">${tiles.map(([v, k]) => `<div><b>${v}</b><small>${k}</small></div>`).join("")}</div>
-      ${(P.metrics || []).length ? `<p class="dpg">Everything you track · last 12 months</p><ul class="pglist">${P.metrics.map(row).join("")}</ul>` : ""}
-      ${(P.habits || []).length ? `<p class="dpg">Your own habits</p><ul class="pglist">${P.habits.map((h) => `<li class="pgm"><div><b>${esc(h.name)}</b><small>${num(h.days)} days done · ${num(h.days_30)} in the last 30</small></div></li>`).join("")}</ul>` : ""}
-      ${L.reports ? `<p class="dpg">Lab results</p><p class="pglab">${num(L.reports)} report${L.reports === 1 ? "" : "s"} · ${num(L.markers)} markers · <b class="${L.attention ? "bad" : "good"}">${L.attention ? `${L.attention} need attention` : "all in range"}</b> · last ${esc(shortDay(L.last))}</p>` : ""}`;
+      ${groups}
+      ${own.length ? `<p class="dpg">\u2728 Your own</p><ul class="pglist">${own.map((h) => row(h.name, h.weeks)).join("")}</ul>` : ""}
+      ${L.reports ? `<p class="dpg">\u{1F9EA} Lab results</p><p class="pglab">${num(L.markers)} markers \u00b7 <b class="${L.attention ? "bad" : "good"}">${L.attention ? `${L.attention} need attention` : "all in range"}</b> \u00b7 last ${esc(shortDay(L.last))}</p>` : ""}`;
+  }
+
+  // V9.2. The snapshot sits where you just logged: one tap, no hunting.
+  function snapBtn() {
+    if (!iLogged() || soc(state.meId).photo || !state.social) return "";
+    return `<button type="button" class="snapbtn" id="photoAdd"><span aria-hidden="true">\u{1F4F7}</span><span><b>Add a snapshot of your day</b><small>A screenshot or a photo. Your family sees it for 24 hours.</small></span></button>`;
+  }
+  // V9.2. "Today in your tribe": a short, finite feed that ends. Locked
+  // until you log; each card is someone's day: steps, snapshot, reactions.
+  function tribeFeed() {
+    if (!state.garden || !state.social || famDayISO() !== familyISO()) return "";
+    const G = state.garden.people || [];
+    if (!iLogged()) return `<section class="feed"><p class="feedh">Today in your tribe</p>
+      <div class="feedlock"><span aria-hidden="true">\u{1F512}</span><p>Log today's steps to see your tribe's day.</p></div></section>`;
+    const pp = Object.fromEntries((state.people || []).map((p) => [p.id, p]));
+    const done = G.filter((x) => x.logged || soc(x.id).photo)
+      .sort((a, b) => (b.id === state.meId) - (a.id === state.meId) || String(soc(b.id).at || "").localeCompare(String(soc(a.id).at || "")) || a.name.localeCompare(b.name));
+    const todo = G.filter((x) => !x.logged && x.recent && x.id !== state.meId);
+    const card = (x) => {
+      const S = soc(x.id), p = pp[x.id] || {}, mine = x.id === state.meId, st = p.id ? Number(board(p).steps) || 0 : 0;
+      const ini = (x.name || "?").trim().split(/\s+/).slice(0, 2).map((w) => (w[0] || "").toUpperCase()).join("");
+      return `<article class="fcard">
+        <header><span class="fav fsm" style="--hc:hsl(${p.hue || 200} 62% 48%)">${esc(ini)}</span><b>${mine ? "You" : esc(x.name)}</b>
+          <span class="fst">${st ? `${num(st)} steps` : "logged"}${x.today ? " \u2713" : ""}${x.streak ? ` \u00b7 \u{1F525}${x.streak}` : ""}</span></header>
+        ${S.img ? `<img class="fimg" src="${esc(S.img)}" alt="${mine ? "Your" : esc(x.name) + "'s"} snapshot" loading="lazy">` : mine ? `<button type="button" class="linkbtn fadd" id="photoAdd3">\u{1F4F7} Add your snapshot</button>` : ""}
+        ${mine ? ((S.reacts || []).length ? `<p class="freacts">${S.reacts.map((r) => `${r.emoji} ${esc(r.name)}`).join(" \u00b7 ")}</p>` : "")
+          : `<div class="frow"><div class="psreact sm" role="group" aria-label="React to ${esc(x.name)}'s day">${EMO.map((e) => `<button type="button" class="${S.mine === e ? "on" : ""}" data-react="${e}" data-to="${x.id}" aria-pressed="${S.mine === e}" aria-label="React ${e}">${e}</button>`).join("")}</div>
+             ${(S.reacts || []).length ? `<p class="freacts">${S.reacts.map((r) => `${r.emoji} ${esc(r.name)}`).join(" \u00b7 ")}</p>` : ""}</div>`}
+      </article>`; };
+    return `<section class="feed" aria-label="Today in your tribe"><p class="feedh">Today in your tribe</p>
+      ${done.map(card).join("")}
+      ${todo.length ? `<p class="ftodo">Still to log: ${todo.map((x) => `<button type="button" class="linkbtn" data-pnudge="${x.id}">${esc(x.name.split(/\s+/)[0])}</button>`).join(", ")}</p>` : ""}
+      <p class="fend">You're all caught up.</p></section>`;
   }
   function facesRow() {
     const G = state.garden; if (!G) return "";
@@ -3734,14 +3786,14 @@ td.fblur { filter:blur(4px); user-select:none; }
       // V9.1. A ring when there's a photo (locked until you log); a 📷 on
       // yours once you've logged; 🎉 stays as the one-tap reaction on a goal.
       const S = soc(x.id), myR = S.mine;
-      const ch = mine ? (x.logged && !S.photo ? `<button type="button" class="fcheer fcam" id="photoAdd" aria-label="Share a photo for 24 hours">\u{1F4F7}</button>` : "")
+      const ch = mine ? ""
         : x.today ? (myR ? `<span class="fcheer sent" aria-label="You reacted ${myR}">${myR}</span>`
         : `<button type="button" class="fcheer" data-cheer="${x.id}" aria-label="React \u{1F389} to ${esc(x.name)}: they hit their goal">\u{1F389}</button>`) : "";
       return `<span class="facew" role="listitem"><button type="button" class="face${x.logged ? " done" : ""}${mine ? " me" : ""}${S.photo ? " story" : ""}${S.photo && !mine && !(state.social && state.social.open) ? " slock" : ""}" ${mine ? 'id="streakOpen" data-faceme="1"' : `data-pnudge="${x.id}"`}
         style="--hc:hsl(${p.hue || 200} 62% 48%)" aria-label="${mine ? "You" : esc(x.name)}${x.logged ? ", logged today" : ", not logged yet"}${sk ? `, logged steps ${sk} days in a row` : ""}">
         <span class="fav">${esc(ini)}${x.logged ? `<i class="fck" aria-hidden="true">\u2713</i>` : ""}</span>
         <small>${mine ? "You" : esc(x.name.split(/\s+/)[0])}</small><em class="${mine && !myS.today ? "cold" : ""}">${sk ? `\u{1F525}${sk}` : " "}</em></button>${ch}</span>`; }).join("")}</div>
-      <input type="file" id="photoFile" accept="image/*" hidden></div>`;
+</div>`;
   }
   function cheerBanner() {
     const R = (state.garden && state.garden.reacts_new) || [];
@@ -6871,6 +6923,7 @@ td.fblur { filter:blur(4px); user-select:none; }
     const head = `
       <div class="hbar">
         <b>${state.group.crest ? `<span class="hcrest" aria-hidden="true">${esc(state.group.crest)}</span>` : ""}${esc(state.group.name)}</b>
+        ${m ? `<input type="file" id="photoFile" accept="image/*" hidden>` : ""}
         <span class="hright">${m ? `<label class="hwho"><select id="who" aria-label="Who are you">${whoOptions}</select>
           <i aria-hidden="true">&#9662;</i></label>` : ""}
           ${m ? `<button type="button" class="hinfo${tourSeen() && !ownerNews() ? "" : " new"}" id="tourBtn" aria-label="Help and feedback">i</button>` : ""}</span>
@@ -6897,6 +6950,7 @@ td.fblur { filter:blur(4px); user-select:none; }
     else if (tab === "tribe") body = `
       <section class="htab htribe" aria-label="Your tribe">
         <div class="htabh"><button type="button" class="htabt" id="tribeGoal" aria-label="Tribe name, crest, goal and people"><h2>Tribe</h2></button></div>
+        ${tribeFeed()}
         ${tribeCard()}
         ${state.people.length ? `<div class="roster"><div class="tdayrow">${nav()}<button type="button" class="hshare" id="waShare" aria-label="Share ${state.boardDay ? esc(shortDay(famDayISO())) : "today"} on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11v9h12v-9"/></svg></button></div>
           ${state.garden && famDayISO() === familyISO() && !iLogged() ? `<p class="hint logsee">\u{1F512} Log today's steps to see everyone's numbers.</p>` : ""}${famTable(ordered)}</div>${leagueLine()}` : roster}
@@ -6907,6 +6961,7 @@ td.fblur { filter:blur(4px); user-select:none; }
       ${ydayCard()}
       ${editRowHTML()}
       ${homeDials(m)}
+      ${snapBtn()}
       ${questRow()}
       <section class="htab hme" aria-label="Your dashboard">
         ${nav()}
