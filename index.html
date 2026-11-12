@@ -1279,6 +1279,31 @@ button.fchip { padding:7px 13px; cursor:pointer; }
   border:none; border-radius:999px; background:none; color:var(--muted); font:inherit; font-size:12px; font-weight:600; cursor:pointer; -webkit-tap-highlight-color:transparent; }
 .tabb svg { width:24px; height:24px; fill:none; stroke:currentColor; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
 .tabb.on { color:var(--ink); background:color-mix(in oklab, var(--ink) 11%, transparent); }
+.tabbar { grid-template-columns:repeat(2, 1fr) 64px repeat(2, 1fr) !important; width:min(calc(100% - 24px), 440px) !important; align-items:center; }
+.tabb { font-size:11px; }
+.tablog { justify-self:center; width:58px; height:58px; display:grid; place-items:center; border:none; border-radius:50%; background:var(--ink); color:var(--surface); box-shadow:0 4px 14px rgba(0,0,0,.3); cursor:pointer; }
+.tablog svg { width:28px; height:28px; fill:none; stroke:currentColor; stroke-width:2.6; stroke-linecap:round; }
+.lslab2 { display:block; margin:4px 0 6px; font-weight:700; }
+.lgrow { display:flex; gap:8px; } .lgin { flex:1; font-size:22px; font-weight:700; font-variant-numeric:tabular-nums; } .lgrow .btn { flex:none; width:auto; margin:0; padding:0 22px; }
+.lgdone { margin:4px 0 12px; font-size:15px; }
+.logsheet .snapbtn { margin-top:12px; } .logsheet #lgCap { margin:8px 0 0; }
+.fcap { margin:-2px 0 8px; font-size:14px; color:var(--ink); }
+.fcoms { list-style:none; margin:6px 0 0; padding:0; font-size:13.5px; color:var(--ink-2); } .fcoms li { padding:2px 0; } .fcoms b { color:var(--ink); }
+.fcom { width:100%; margin:8px 0 0; padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:transparent; color:var(--ink); font:inherit; font-size:13.5px; }
+.youstreak { display:flex; align-items:center; gap:10px; margin:0 0 14px; padding:12px 14px; border-radius:14px; background:color-mix(in oklab, var(--ink) 6%, transparent); }
+.youstreak > span:first-child { font-size:28px; } .youstreak > b { font-size:28px; font-variant-numeric:tabular-nums; }
+.youstreak > span:last-child { display:flex; flex-direction:column; font-size:13.5px; color:var(--ink-2); } .youstreak small { font-size:12px; color:var(--muted); }
+.mem { margin:0 0 6px; }
+.memh { display:flex; align-items:center; justify-content:space-between; margin:0 0 8px; } .memh p { margin:0; text-align:center; display:flex; flex-direction:column; } .memh small { font-size:12px; color:var(--muted); }
+.pgarrow { width:36px; height:36px; border:1px solid var(--line); border-radius:50%; background:none; color:var(--ink); font-size:20px; cursor:pointer; } .pgarrow:disabled { opacity:.3; }
+.calgrid { display:grid; grid-template-columns:repeat(7, 1fr); gap:4px; }
+.caldow { text-align:center; font-size:11px; color:var(--muted); padding-bottom:2px; }
+.calcell { position:relative; aspect-ratio:1; border-radius:9px; background:color-mix(in oklab, var(--ink) 5%, transparent); background-size:cover; background-position:center; overflow:hidden; }
+.calcell.nil { background:none; }
+.calcell i { position:absolute; top:3px; left:5px; font-style:normal; font-size:10.5px; color:var(--muted); }
+.calcell.on { background-color:color-mix(in oklab, #3fb96b 22%, transparent); } .calcell.on b { position:absolute; inset:0; display:grid; place-items:center; color:#3fb96b; font-size:15px; }
+.calcell.ph i { color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.7); } .calcell.today { outline:2px solid var(--accent); outline-offset:-2px; }
+
 .tabb.on svg { stroke-width:2.3; }
 .tabb:active { transform:scale(.97); }
 .tabdot { position:absolute; top:7px; left:calc(50% + 8px); width:9px; height:9px; border-radius:50%; background:#e5534b; border:2px solid var(--surface); }
@@ -3126,7 +3151,7 @@ td.fblur { filter:blur(4px); user-select:none; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "9.2";
+  const APP_VERSION = "9.3";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -3623,26 +3648,27 @@ td.fblur { filter:blur(4px); user-select:none; }
   const photoAgo = (iso) => { if (!iso) return ""; const m = Math.max(1, Math.round((Date.now() - new Date(iso).getTime()) / 60000));
     return m < 60 ? `${m} min ago` : `${Math.round(m / 60)} h ago`; };
   // Shrink a picture on the phone: longest side 1080px, JPEG, under ~500 KB.
-  function shrinkPhoto(file) {
+  function shrinkPhoto(file, side = 1080, q0 = 0.8) {
     return new Promise((ok, bad) => {
       const img = new Image(), url = URL.createObjectURL(file);
-      img.onload = () => { const k = Math.min(1, 1080 / Math.max(img.width, img.height)), c = document.createElement("canvas");
+      img.onload = () => { const k = Math.min(1, side / Math.max(img.width, img.height)), c = document.createElement("canvas");
         c.width = Math.round(img.width * k); c.height = Math.round(img.height * k); c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
-        URL.revokeObjectURL(url); let q = 0.8, d = c.toDataURL("image/jpeg", q);
-        while (d.length > 500000 && q > 0.35) { q -= 0.1; d = c.toDataURL("image/jpeg", q); }
+        URL.revokeObjectURL(url); let q = q0, d = c.toDataURL("image/jpeg", q);
+        while (d.length > (side < 400 ? 38000 : 500000) && q > 0.3) { q -= 0.1; d = c.toDataURL("image/jpeg", q); }
         ok(d); };
       img.onerror = () => { URL.revokeObjectURL(url); bad(new Error("That file isn't a picture we can read.")); };
       img.src = url; });
   }
+  async function sendPhoto(img, thumb, cap) {
+    const r = await call("app_photo_post", { p_code: state.code, p_person: state.meId, p_img: img, p_caption: cap || "", p_thumb: thumb || null });
+    if (r.error) { toast(r.offline ? "No signal. Not shared yet." : r.error, "bad"); return false; }
+    await loadSocial(); state.mem = null; render(); toast("Shared with your family for 24 hours.", "ok"); return true;
+  }
   async function postPhoto(file) {
     if (!file) return;
-    toast("Sharing…");
-    try {
-      const d = await shrinkPhoto(file);
-      const r = await call("app_photo_post", { p_code: state.code, p_person: state.meId, p_img: d, p_caption: "" });
-      if (r.error) { toast(r.offline ? "No signal. Not shared yet." : r.error, "bad"); return; }
-      await loadSocial(); render(); toast("Shared with your family for 24 hours.", "ok");
-    } catch (e) { toast((e && e.message) || "Couldn't share that photo.", "bad"); }
+    toast("Sharing\u2026");
+    try { const [d, t] = await Promise.all([shrinkPhoto(file), shrinkPhoto(file, 160, 0.6)]); await sendPhoto(d, t, ""); }
+    catch (e) { toast((e && e.message) || "Couldn't share that photo.", "bad"); }
   }
   // A relative's card: their photo (once you've logged), their day, reactions.
   function personSheet() {
@@ -3683,7 +3709,18 @@ td.fblur { filter:blur(4px); user-select:none; }
     // Your photo: the 📷 on your face, or from the You page.
     const pick = () => { const f = document.getElementById("photoFile"); if (f) f.click(); };
     on("photoAdd", "click", pick); on("photoAdd2", "click", pick); on("photoAdd3", "click", pick);
-    on("photoFile", "change", (e) => postPhoto(e.target.files && e.target.files[0]));
+    on("photoFile", "change", async (e) => { const f = e.target.files && e.target.files[0], to = e.target.dataset.to; e.target.dataset.to = ""; e.target.value = "";
+      if (!f) return;
+      if (to === "log" && state.logSheet) { try { const [img, thumb] = await Promise.all([shrinkPhoto(f), shrinkPhoto(f, 160, 0.6)]); Object.assign(state.logSheet, { img, thumb }); render(); }
+        catch (err) { toast((err && err.message) || "Couldn't read that picture.", "bad"); } return; }
+      postPhoto(f); });
+    // V9.3. One-line comments on someone's day.
+    document.querySelectorAll("[data-com]").forEach((el) => el.addEventListener("keydown", async (e) => {
+      if (e.key !== "Enter") return; e.preventDefault();
+      const body = el.value.trim(); if (!body) return; el.disabled = true;
+      const r = await call("app_comment", { p_code: state.code, p_from: state.meId, p_to: el.dataset.com, p_body: body });
+      if (r.error) { el.disabled = false; toast(r.offline ? "No signal. Not sent yet." : r.error, "bad"); return; }
+      await loadSocial(); render(); }));
     on("photoDel", "click", async () => { await call("app_photo_delete", { p_code: state.code, p_person: state.meId }); await loadSocial(); render(); });
   }
 
@@ -3758,15 +3795,114 @@ td.fblur { filter:blur(4px); user-select:none; }
       return `<article class="fcard">
         <header><span class="fav fsm" style="--hc:hsl(${p.hue || 200} 62% 48%)">${esc(ini)}</span><b>${mine ? "You" : esc(x.name)}</b>
           <span class="fst">${st ? `${num(st)} steps` : "logged"}${x.today ? " \u2713" : ""}${x.streak ? ` \u00b7 \u{1F525}${x.streak}` : ""}</span></header>
-        ${S.img ? `<img class="fimg" src="${esc(S.img)}" alt="${mine ? "Your" : esc(x.name) + "'s"} snapshot" loading="lazy">` : mine ? `<button type="button" class="linkbtn fadd" id="photoAdd3">\u{1F4F7} Add your snapshot</button>` : ""}
+        ${S.img ? `<img class="fimg" src="${esc(S.img)}" alt="${mine ? "Your" : esc(x.name) + "'s"} snapshot" loading="lazy">${S.caption ? `<p class="fcap">${esc(S.caption)}</p>` : ""}` : mine ? `<button type="button" class="linkbtn fadd" id="photoAdd3">\u{1F4F7} Add your snapshot</button>` : ""}
         ${mine ? ((S.reacts || []).length ? `<p class="freacts">${S.reacts.map((r) => `${r.emoji} ${esc(r.name)}`).join(" \u00b7 ")}</p>` : "")
           : `<div class="frow"><div class="psreact sm" role="group" aria-label="React to ${esc(x.name)}'s day">${EMO.map((e) => `<button type="button" class="${S.mine === e ? "on" : ""}" data-react="${e}" data-to="${x.id}" aria-pressed="${S.mine === e}" aria-label="React ${e}">${e}</button>`).join("")}</div>
              ${(S.reacts || []).length ? `<p class="freacts">${S.reacts.map((r) => `${r.emoji} ${esc(r.name)}`).join(" \u00b7 ")}</p>` : ""}</div>`}
+        ${(S.comments || []).length ? `<ul class="fcoms">${S.comments.map((c) => `<li><b>${c.from === state.meId ? "You" : esc(c.name)}</b> ${esc(c.body)}</li>`).join("")}</ul>` : ""}
+        <input class="fcom" data-com="${x.id}" maxlength="140" enterkeyhint="send" autocomplete="off" placeholder="\u{1F4AC} ${mine ? "Reply" : `Say something to ${esc(x.name.split(/\s+/)[0])}`}\u2026" aria-label="Comment on ${mine ? "your" : esc(x.name) + "'s"} day">
       </article>`; };
     return `<section class="feed" aria-label="Today in your tribe"><p class="feedh">Today in your tribe</p>
       ${done.map(card).join("")}
       ${todo.length ? `<p class="ftodo">Still to log: ${todo.map((x) => `<button type="button" class="linkbtn" data-pnudge="${x.id}">${esc(x.name.split(/\s+/)[0])}</button>`).join(", ")}</p>` : ""}
       <p class="fend">You're all caught up.</p></section>`;
+  }
+  /* ---------- V9.3: the Log button, the You tab, Memories ------------ */
+  // The centre button: log today's steps, then (optional) a snapshot with a line.
+  function logSheet() {
+    const L = state.logSheet; if (!L) return "";
+    const me0 = gardenMe() || {}, logged = iLogged(), M = soc(state.meId);
+    const p = me(), cur = p ? Number(board(p).steps) || 0 : 0;
+    const steps = !logged || L.edit
+      ? `<label class="lslab2" for="lgSteps">Today's steps</label>
+         <div class="lgrow"><input class="field lgin" id="lgSteps" inputmode="numeric" pattern="[0-9]*" enterkeyhint="done" autocomplete="off" placeholder="e.g. 8,000" value="${esc(L.v || (cur ? String(cur) : ""))}">
+         <button type="button" class="btn" id="lgSave" ${L.busy ? "disabled" : ""}>${L.busy ? "Saving…" : "Log"}</button></div>
+         ${L.err ? `<p class="hint bad">${esc(L.err)}</p>` : `<p class="hint">Copy the number from your phone's Health app.</p>`}`
+      : `<p class="lgdone">✓ <b>${num(cur)}</b> steps logged today ${me0.today ? "· at your goal" : ""} <button type="button" class="linkbtn" id="lgEdit">Change</button></p>`;
+    const snap = !logged ? "" : L.img
+      ? `<figure class="psph"><img src="${esc(L.img)}" alt="Your snapshot"></figure>
+         <input class="field" id="lgCap" maxlength="80" placeholder="Add a line (optional)" value="${esc(L.cap || "")}">
+         <div class="stdbtns"><button type="button" class="btn-quiet" id="lgRe">Choose another</button><button type="button" class="btn" id="lgShare" ${L.busy ? "disabled" : ""}>Share for 24 hours</button></div>`
+      : `<button type="button" class="snapbtn" id="lgPick"><span aria-hidden="true">\u{1F4F7}</span><span><b>${M.photo ? "Replace today's snapshot" : "Add a snapshot of your day"}</b><small>A screenshot or a photo. Family sees it for 24 hours.</small></span></button>`;
+    return `<div class="sheetbg" id="lgBg"></div>
+      <div class="stdsheet logsheet" role="dialog" aria-label="Log today">
+        <p class="eyebrow">Today</p>
+        ${steps}
+        ${snap}
+        ${L.img ? "" : `<div class="stdbtns"><button type="button" class="btn-quiet" id="lgDone">Done</button></div>`}
+      </div>`;
+  }
+  function wireLog() {
+    on("logBtn", "click", () => { state.logSheet = {}; render(); setTimeout(() => { const f = document.getElementById("lgSteps"); if (f) f.focus(); }, 60); });
+    const L = state.logSheet; if (!L) return;
+    const shut = () => { state.logSheet = null; render(); };
+    on("lgBg", "click", shut); on("lgDone", "click", shut);
+    on("lgEdit", "click", () => { L.edit = true; render(); });
+    on("lgSteps", "input", (e) => { L.v = e.target.value; });
+    on("lgSteps", "keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); const b = document.getElementById("lgSave"); if (b) b.click(); } });
+    on("lgSave", "click", async () => {
+      const v = Number(String(L.v || (document.getElementById("lgSteps") || {}).value || "").replace(/[^0-9]/g, ""));
+      if (!v) { L.err = "Type today's steps."; render(); return; }
+      if (v > 150000) { L.err = "That's more steps than a day holds. Check the number."; render(); return; }
+      L.busy = true; L.err = null; render();
+      const res = await call("app_log", { p_code: state.code, p_person: state.meId, p_value: v, p_metric: "steps", p_date: null, p_tz: deviceTZ() });
+      L.busy = false;
+      if (res.error) { L.err = res.offline ? "No signal. Not saved yet." : res.error; render(); return; }
+      L.edit = false; L.v = ""; await refresh(true); render();
+    });
+    const pick = () => { const f = document.getElementById("photoFile"); if (f) { f.dataset.to = "log"; f.click(); } };
+    on("lgPick", "click", pick); on("lgRe", "click", pick);
+    on("lgCap", "input", (e) => { L.cap = e.target.value; });
+    on("lgShare", "click", async () => { L.busy = true; render();
+      const ok = await sendPhoto(L.img, L.thumb, L.cap || "");
+      L.busy = false; if (ok) { state.logSheet = null; state.homeTab = "tribe"; render(); window.scrollTo(0, 0); } else render(); });
+  }
+  // The You tab: your snapshot, your streak, Memories, your progress.
+  async function loadMemories(ym) {
+    const M = state.mem = Object.assign(state.mem || {}, { ym, busy: true }); render();
+    const r = await call("app_memories", { p_code: state.code, p_person: state.meId, p_month: ym });
+    Object.assign(M, r && !r.error ? { busy: false, logged: new Set(r.logged || []), thumbs: r.thumbs || {} } : { busy: false, err: (r && r.error) || "Couldn't load Memories." });
+    render();
+  }
+  function memoriesBlock() {
+    const today = familyISO(), M = state.mem;
+    if (!M) { setTimeout(() => loadMemories(today.slice(0, 7)), 0); return ""; }
+    const [y, mo] = M.ym.split("-").map(Number), first = new Date(Date.UTC(y, mo - 1, 1)), days = new Date(Date.UTC(y, mo, 0)).getUTCDate();
+    const lead = (first.getUTCDay() + 6) % 7, title = first.toLocaleDateString(undefined, { timeZone: "UTC", month: "long", year: "numeric" });
+    const cells = [];
+    for (let i = 0; i < lead; i++) cells.push(`<span class="calcell nil"></span>`);
+    for (let d = 1; d <= days; d++) {
+      const iso = `${M.ym}-${String(d).padStart(2, "0")}`, th = M.thumbs && M.thumbs[iso], on1 = M.logged && M.logged.has(iso);
+      cells.push(`<span class="calcell${on1 ? " on" : ""}${iso === today ? " today" : ""}${th ? " ph" : ""}"${th ? ` style="background-image:url('${th}')"` : ""}><i>${d}</i>${on1 && !th ? `<b aria-hidden="true">✓</b>` : ""}</span>`);
+    }
+    const n = M.logged ? M.logged.size : 0, atNow = M.ym >= today.slice(0, 7);
+    return `<section class="mem" aria-label="Memories">
+      <div class="memh"><button type="button" class="pgarrow" data-memgo="-1" aria-label="Previous month">‹</button>
+        <p><b>${esc(title)}</b><small>${M.busy ? "…" : `${n} day${n === 1 ? "" : "s"} logged`}</small></p>
+        <button type="button" class="pgarrow" data-memgo="1" ${atNow ? "disabled" : ""} aria-label="Next month">›</button></div>
+      <div class="calgrid">${["M", "T", "W", "T", "F", "S", "S"].map((d) => `<span class="caldow">${d}</span>`).join("")}${cells.join("")}</div>
+    </section>`;
+  }
+  function youView() {
+    const M = soc(state.meId), T = state.today || {}, S = T.streak || {}, n = S.n || 0;
+    if (!state.progress) setTimeout(() => loadProgress(), 0);
+    const next = [30, 100, 365].find((t) => n < t), PTS = { 30: 100, 100: 300, 365: 1000 };
+    const photo = M.photo && M.img
+      ? `<figure class="psph"><img src="${esc(M.img)}" alt="Your snapshot"><figcaption>${M.caption ? esc(M.caption) + " · " : ""}${esc(photoAgo(M.at))} · <button type="button" class="linkbtn" id="photoDel">Delete</button></figcaption></figure>
+         ${(M.reacts || []).length ? `<p class="psfrom">${M.reacts.map((r) => `${r.emoji} ${esc(r.name)}`).join(" · ")}</p>` : ""}`
+      : "";
+    return `<section class="htab hyou" aria-label="You">
+      <div class="htabh"><h2>You</h2></div>
+      ${photo}
+      <div class="youstreak"><span aria-hidden="true">\u{1F525}</span><b>${n}</b><span>day${n === 1 ? "" : "s"} in a row logging steps${S.today ? "" : " · log today to keep it"}<small>Best ${S.best || 0} · Freezes ${"❄".repeat(S.freezes || 0) || "0"}${next ? ` · ${next - n} to +${num(PTS[next])}` : ""}</small></span></div>
+      ${memoriesBlock()}
+      <div class="youprog">${progressBlock()}</div>
+    </section>`;
+  }
+  function wireYou() {
+    document.querySelectorAll("[data-memgo]").forEach((el) => el.addEventListener("click", () => {
+      const M = state.mem; if (!M) return; const [y, m] = M.ym.split("-").map(Number), d = new Date(Date.UTC(y, m - 1 + Number(el.dataset.memgo), 1));
+      loadMemories(d.toISOString().slice(0, 7)); }));
   }
   function facesRow() {
     const G = state.garden; if (!G) return "";
@@ -6956,6 +7092,7 @@ td.fblur { filter:blur(4px); user-select:none; }
           ${state.garden && famDayISO() === familyISO() && !iLogged() ? `<p class="hint logsee">\u{1F512} Log today's steps to see everyone's numbers.</p>` : ""}${famTable(ordered)}</div>${leagueLine()}` : roster}
       </section>`;
     else if (tab === "campfire") body = campfireView();
+    else if (tab === "you") body = youView();
     else body = `
       ${facesRow()}
       ${ydayCard()}
@@ -7126,7 +7263,7 @@ td.fblur { filter:blur(4px); user-select:none; }
     wireFeedback();
   }
   function wireToday() {
-    const openStreak = () => { state.streakOpen = true; loadProgress(); };
+    const openStreak = () => { state.homeTab = "you"; render(); window.scrollTo(0, 0); loadProgress(); };
     on("streakOpen", "click", openStreak); on("streakOpen2", "click", openStreak);
     document.querySelectorAll("[data-faceme]").forEach((el) => el.addEventListener("click", openStreak));
     // V8.7. The Tribe counter, explained.
@@ -7401,15 +7538,19 @@ td.fblur { filter:blur(4px); user-select:none; }
 
   // V7.2. The tab bar: a floating capsule; the open tab is a filled pill.
   const HOME_TABS = [
-    ["me", "Me", `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c.8-4 3.9-6 7.5-6s6.7 2 7.5 6"/></svg>`],
     ["tribe", "Tribe", `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8.5" r="3.2"/><circle cx="16.8" cy="9.6" r="2.5"/><path d="M2.8 19.5c.6-3.3 3-5 6.2-5s5.6 1.7 6.2 5M15.4 14.6c2.8-.3 5 1.1 5.8 4.4"/></svg>`],
+    ["me", "Me", `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c.8-4 3.9-6 7.5-6s6.7 2 7.5 6"/></svg>`],
     ["campfire", "Campfire", `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1.2 2.6 4.6 4.4 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-2 1-3.2 1.8-4 .3 1.4.9 2 1.7 2.3-.6-2.6 0-4.8 1.1-6.7zM4.5 20.5l15-3.5M19.5 20.5l-15-3.5"/></svg>`],
+    ["you", "You", `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="16" rx="3"/><path d="M3.5 9.5h17M8 3v3M16 3v3M8 14l2.5 2.5L16 12"/></svg>`],
   ];
   function homeTab() {
-    const t = state.homeTab; return t === "league" ? "tribe" : t === "tribe" || t === "campfire" ? t : "me";
+    // V9.3. Tribes opens on your tribe's day.
+    const t = state.homeTab; return t === "league" ? "tribe" : t === "me" || t === "campfire" || t === "you" ? t : "tribe";
   }
   function tabBar(tab) {
-    return `<nav class="tabbar" aria-label="Home">${HOME_TABS.map(([k, label, icon]) =>
+    // V9.3. The Log button sits in the middle, on every tab.
+    const logB = `<button type="button" class="tablog" id="logBtn" aria-label="Log today"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>`;
+    return `<nav class="tabbar" aria-label="Home">${HOME_TABS.map(([k, label, icon], i) => (i === 2 ? logB : "") +
       `<button type="button" class="tabb${k === tab ? " on" : ""}" data-htab="${k}" ${k === tab ? 'aria-current="page"' : ""}>${icon}<span>${label}</span>${
         k === "tribe" && gardenMe() && !gardenMe().pledged ? `<i class="tabdot" aria-label="Set your goal"></i>`
         : k === "campfire" && campUnread() ? `<i class="tabdot" aria-label="Today's lesson is ready"></i>` : ""}</button>`).join("")}</nav>`;
@@ -14406,8 +14547,8 @@ td.fblur { filter:blur(4px); user-select:none; }
     if (state.workFull && state.work && state.work.run) { app.insertAdjacentHTML("beforeend", workFullView()); }
     wireWorkFull();
     if (v !== "session" && v !== "detail") {
-      app.insertAdjacentHTML("beforeend", stdSheet() + dialSheet() + homeSheet() + tribeSheet() + gameSheet() + pastSheet() + shopSheet() + inboxSheet() + streakSheet() + personSheet() + infoSheet() + campSheet() + leagueSheet());
-      wireGame(); wirePast(); wireShop(); wireInbox(); wireToday(); wireSocial(); wireCamp(); wireInfo(); wireLeague();
+      app.insertAdjacentHTML("beforeend", stdSheet() + dialSheet() + homeSheet() + tribeSheet() + gameSheet() + pastSheet() + shopSheet() + inboxSheet() + personSheet() + logSheet() + infoSheet() + campSheet() + leagueSheet());
+      wireGame(); wirePast(); wireShop(); wireInbox(); wireToday(); wireSocial(); wireLog(); wireYou(); wireCamp(); wireInfo(); wireLeague();
       wireTribeSheet();
       wireStd();
       wireHomeSheet();
