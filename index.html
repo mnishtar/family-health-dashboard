@@ -3114,6 +3114,91 @@ td.fblur { filter:blur(4px); user-select:none; }
 .pgnav span { min-width:92px; text-align:center; font-weight:600; }
 .pgnav .dnav { width:32px; height:32px; }
 .pgnav .dnav:disabled { opacity:.3; }
+
+/* V9.5: five tabs, the centre one a ring; stories; nudges; feed days; Journey. */
+.ckday { display:flex; justify-content:center; margin:-4px 0 0; } .ckday .famnav { margin:0; }
+/* V9.5. Check in fits one phone screen: a smaller dial, tighter rows. */
+.dial { width:min(244px, 62vw); }
+.slide .slab { margin:2px 0 6px; }
+.faceswrap { margin:0 0 6px; }
+.qrow { margin:6px 0 8px; }
+#app:has(.ckday) { gap:12px; padding-top:18px; }
+#app:has(.ckday) .hbar { margin:0; }
+.tabbar { grid-template-columns:repeat(5, 1fr); width:min(calc(100% - 24px), 440px); }
+.tabb { font-size:11px; min-height:52px; }
+.tabb.ctr { overflow:visible; }
+.ctrring { position:relative; display:grid; place-items:center; width:40px; height:40px; margin-top:-16px; border-radius:50%; background:var(--surface); box-shadow:0 4px 14px rgba(0,0,0,.25); }
+.ctrring svg { position:absolute; inset:0; width:40px !important; height:40px !important; transform:rotate(-90deg); }
+.ctrt { fill:none; stroke:var(--line); stroke-width:3.5 !important; } .ctrf { fill:none; stroke:var(--accent); stroke-width:3.5 !important; stroke-linecap:round; }
+.ctrring b { position:relative; font-size:17px; color:var(--ink); }
+.ctrring.ok b { color:#2f9e6e; } .ctrring.ok .ctrf { stroke:#3fb96b; }
+.tabb.ctr.on { background:none; } .tabb.ctr.on span:last-child { color:var(--ink); }
+@media (prefers-reduced-motion: no-preference) { .tabb.ctr.due .ctrring { animation:ctrpulse 1.8s ease-in-out infinite; } }
+@keyframes ctrpulse { 0%, 100% { box-shadow:0 4px 14px rgba(0,0,0,.25), 0 0 0 0 color-mix(in oklab, var(--accent) 45%, transparent); } 50% { box-shadow:0 4px 14px rgba(0,0,0,.25), 0 0 0 8px transparent; } }
+.face.fresh .fav { opacity:1; box-shadow:0 0 0 2.5px var(--surface), 0 0 0 5px #f2a541, 0 0 0 6.5px #d4506a; }
+.face.seen .fav { opacity:1; box-shadow:0 0 0 2.5px var(--surface), 0 0 0 4.5px color-mix(in oklab, #3fb96b 35%, var(--line)); }
+.face.grey .fav { opacity:.55; filter:grayscale(.75); box-shadow:0 0 0 2.5px var(--surface), 0 0 0 4.5px var(--line); }
+.face.me.done .fav { box-shadow:0 0 0 2.5px var(--surface), 0 0 0 4.5px var(--accent); }
+.story { position:fixed; inset:0; z-index:60; display:flex; flex-direction:column; background:#101312; color:#fff;
+  padding:env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px); animation:mfade .14s ease both; }
+.stbars { display:flex; gap:4px; padding:10px 14px 6px; } .stbars i { flex:1; height:3px; border-radius:2px; background:rgba(255,255,255,.28); } .stbars i.on { background:#fff; }
+.sthead { display:flex; align-items:center; gap:10px; padding:4px 14px 10px; } .sthead b { font-size:18px; } .sthead .stk { font-size:15px; opacity:.85; }
+.stx { margin-left:auto; width:48px; height:48px; border:none; border-radius:50%; background:rgba(255,255,255,.14); color:#fff; font-size:22px; cursor:pointer; }
+.stbody { flex:1; min-height:0; overflow:auto; padding:0 14px; display:flex; flex-direction:column; gap:12px; }
+.stph { margin:0; } .stph img { display:block; width:100%; max-height:56vh; object-fit:contain; border-radius:16px; background:#000; }
+.stph figcaption { padding:8px 2px 0; font-size:16px; }
+.stnums { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:8px; }
+.stnums li { display:flex; flex-direction:column; gap:2px; padding:10px 12px; border-radius:14px; background:rgba(255,255,255,.09); }
+.stnums span { font-size:13px; opacity:.75; } .stnums b { font-size:22px; font-variant-numeric:tabular-nums; }
+.stnums li:first-child { grid-column:1 / -1; } .stnums li:first-child b { font-size:34px; }
+.stlock { margin:auto 0; display:grid; justify-items:center; gap:10px; text-align:center; font-size:30px; } .stlock p { margin:0; font-size:17px; }
+.stfoot { display:flex; flex-direction:column; gap:10px; padding:12px 14px 14px; }
+.stacts { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+.story .cheerbtn { background:rgba(255,255,255,.12); color:#fff; border-color:transparent; font-size:16px; padding:12px 20px; }
+.story .cheerbtn.sent { color:#ff9fb2; }
+.stfrom { margin:0; text-align:center; font-size:14px; opacity:.85; }
+.stnext { width:100%; min-height:54px; font-size:17px; }
+.nudgebtn { width:100%; min-height:52px; font-size:17px; margin:4px 0 6px; }
+.nudgehint { margin:0 0 10px; text-align:center; } .nudged { margin:6px 0 12px; text-align:center; font-weight:700; color:#2f9e6e; }
+button.feedlock { width:100%; border:none; font:inherit; text-align:left; cursor:pointer; color:var(--ink-2); } .feedlock b { color:var(--accent); }
+button.logsee { display:block; width:100%; text-align:center; }
+.fcap { margin:-2px 0 8px; font-size:14px; color:var(--ink-2); }
+.fmark { margin:0 0 8px; padding:8px 12px; border-radius:12px; background:color-mix(in oklab, #f2b631 14%, var(--surface)); font-size:14px; font-weight:600; }
+.fday header b { font-size:15px; }
+.fmos { display:grid; grid-template-columns:repeat(2, 1fr); gap:4px; margin:0 0 8px; }
+.fmos.n1 { grid-template-columns:1fr; }
+.fph { position:relative; display:block; aspect-ratio:1; border-radius:10px; overflow:hidden; background:color-mix(in oklab, var(--ink) 8%, transparent); }
+.fmos.n1 .fph { aspect-ratio:4 / 3; }
+.fph img { display:block; width:100%; height:100%; object-fit:cover; }
+.fph small { position:absolute; left:6px; bottom:6px; padding:2px 7px; border-radius:999px; background:rgba(0,0,0,.55); color:#fff; font-size:11.5px; font-weight:700; }
+.fph em { position:absolute; inset:0; display:grid; place-items:center; background:rgba(0,0,0,.45); color:#fff; font-style:normal; font-size:22px; font-weight:800; }
+.fppl { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill, minmax(140px, 1fr)); gap:4px 12px; }
+.fppl li { display:flex; align-items:baseline; gap:6px; font-size:14px; } .fppl span { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.fppl b { font-variant-numeric:tabular-nums; } .fppl em { font-style:normal; font-size:12px; }
+button.fendj { display:block; width:100%; margin:12px 0 0; padding:12px; border:1px dashed var(--line); border-radius:14px; background:none; font:inherit; font-size:14px; color:var(--muted); cursor:pointer; }
+button.fendj b { color:var(--accent); }
+.hmine .youcard { margin:0 0 14px; padding:14px; border:1px solid var(--line); border-radius:18px; background:var(--surface); }
+.youcard .stbig { margin:0 0 4px; } .youj { display:block; margin:10px auto 0; }
+.hmine .dedit { display:block; margin:14px auto 0; }
+.jtrail { margin:4px 0 6px; padding:14px; border:1px solid var(--line); border-radius:18px; background:var(--surface); }
+.jgoal { display:flex; align-items:baseline; gap:10px; margin:0 0 4px; } .jgoal b { flex:1; min-width:0; font-size:17px; } .jgoal span { color:#2f9e6e; font-weight:700; font-size:14px; }
+.jsvg { display:block; width:100%; height:auto; }
+.jpath { fill:none; stroke:var(--line); stroke-width:7; stroke-linecap:round; stroke-dasharray:1 10; }
+.jfill { fill:none; stroke:var(--accent); stroke-width:7; stroke-linecap:round; }
+.jdot { fill:var(--accent); } .jflag { fill:#e5534b; stroke:#e5534b; stroke-width:1.5; stroke-linejoin:round; }
+.jsub { margin:4px 0 0; font-size:14px; color:var(--ink-2); } .jsub .good { color:#2f9e6e; font-weight:700; } .jsub .bad { color:#d4506a; font-weight:700; }
+.jhow { margin:6px 0 0; font-size:12.5px; color:var(--muted); }
+.jshelf { list-style:none; margin:0; padding:0; }
+.jshelf li { display:flex; flex-direction:column; gap:6px; padding:10px 0; border-top:1px solid var(--line); } .jshelf li > b { font-size:15px; }
+.jchips { display:flex; flex-wrap:wrap; gap:6px; } .jchips i { font-style:normal; font-size:13px; padding:4px 10px; border-radius:999px; background:color-mix(in oklab, var(--ink) 7%, transparent); }
+.jmon { margin:0 0 10px; padding:12px 14px; border:1px solid var(--line); border-radius:16px; background:var(--surface); }
+.jmon header { display:flex; align-items:baseline; gap:8px; } .jmon header b { flex:1; font-size:15.5px; } .jmon header span { font-size:13px; color:var(--muted); }
+.jbar { height:8px; margin:8px 0; border-radius:999px; background:color-mix(in oklab, var(--ink) 8%, transparent); overflow:hidden; } .jbar i { display:block; height:100%; border-radius:inherit; background:#3fb96b; }
+.jstat { margin:0; font-size:14px; color:var(--ink-2); } .jstat b { color:var(--ink); font-variant-numeric:tabular-nums; }
+.jearn { list-style:none; margin:8px 0 0; padding:0; display:grid; gap:4px; font-size:13.5px; }
+.dnum:placeholder-shown:not(:focus) { font-family:inherit; font-size:20px; font-weight:600; letter-spacing:0; }
+.dnum:not(:focus)::placeholder { color:var(--accent); opacity:.85; }
+.dnum:focus::placeholder { color:transparent; }
 </style>
 </head>
 <body>
@@ -3129,7 +3214,7 @@ td.fblur { filter:blur(4px); user-select:none; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "9.4";
+  const APP_VERSION = "9.5";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -3590,7 +3675,7 @@ td.fblur { filter:blur(4px); user-select:none; }
     // log) and +10 when everyone logs. Tap to open the chest, or to see how.
     const ready = !!TT.claim, done = !!TT.claimed && !ready, F = Number((state.today || {}).family_today) || 0;
     return `<button type="button" class="qchest qtribe${ready ? " ready" : ""}${done ? " won" : ""}" id="${ready ? "tribeChestOpen" : "tribeInfo"}" aria-label="Tribe: ${TT.logged} of ${TT.active} logged${ready ? ", open the chest for +10" : ""}">
-      ${chestSVG(done, 40)}<span><b>${ready ? "Open +10" : done ? "+10 \u2713" : `${TT.logged}/${TT.active}`}</b><small>${F ? `+${F} so far` : "Tribe"}</small></span></button>`;
+      ${chestSVG(done, 40)}<span><b>${ready ? "Open +10" : done ? "+10 \u2713" : `${TT.logged}/${TT.active}`}</b><small>${F ? `+${F} pts` : "Tribe"}</small></span></button>`;
   }
   // V8.2. Tribe's one card: the tribe chest ring (today only) and, under
   // it, your badge line. Tap your badge for How to play; tap an open tribe
@@ -3623,7 +3708,7 @@ td.fblur { filter:blur(4px); user-select:none; }
   async function loadSocial() {
     if (!state.meId) return;
     const r = await call("app_social", { p_code: state.code, p_person: state.meId });
-    if (r && !r.error) state.social = { open: !!r.open, by: Object.fromEntries((r.people || []).map((x) => [x.id, x])) };
+    if (r && !r.error) state.social = { open: !!r.open, today: r.today || null, days: r.days || [], by: Object.fromEntries((r.people || []).map((x) => [x.id, x])) };
   }
   const soc = (id) => (state.social && state.social.by && state.social.by[id]) || {};
   const iLogged = () => !!(gardenMe() || {}).logged;
@@ -3648,44 +3733,119 @@ td.fblur { filter:blur(4px); user-select:none; }
       const d = await shrinkPhoto(file);
       const r = await call("app_photo_post", { p_code: state.code, p_person: state.meId, p_img: d, p_caption: "" });
       if (r.error) { toast(r.offline ? "No signal. Not shared yet." : r.error, "bad"); return; }
-      await loadSocial(); render(); toast("Shared with your family for 24 hours.", "ok");
+      await loadSocial(); render(); toast("Shared with your family. It stays for 7 days.", "ok");
     } catch (e) { toast((e && e.message) || "Couldn't share that photo.", "bad"); }
   }
-  // A relative's card: their photo (once you've logged), their day, reactions.
+  // V9.5. Stories and nudges. A face that logged today opens a tap-through
+  // story (big Next and ✕, no timers, no swipes); a grey face opens a nudge.
+  // The ring fades once you've seen that day's story on this phone.
+  const seenKey = () => `fhd.seen.${state.code}.${state.meId}`;
+  const storyStamp = (id) => `${(state.social && state.social.today) || ""}|${soc(id).at || ""}`;
+  function seenMap() { try { return JSON.parse(localStorage.getItem(seenKey()) || "{}") || {}; } catch { return {}; } }
+  const isSeen = (id) => seenMap()[id] === storyStamp(id);
+  function markSeen(id) { const m = seenMap(); if (m[id] === storyStamp(id)) return; m[id] = storyStamp(id);
+    try { localStorage.setItem(seenKey(), JSON.stringify(m)); } catch {} }
+  const gpx = (id) => ((state.garden && state.garden.people) || []).find((y) => y.id === id) || null;
+  const firstName = (x) => String((x && x.name) || "").split(/\s+/)[0];
+  const initials = (name) => (name || "?").trim().split(/\s+/).slice(0, 2).map((w) => (w[0] || "").toUpperCase()).join("");
+  // Everyone else who logged today, in the order the faces show them.
+  function storyList() {
+    return ((state.garden && state.garden.people) || []).filter((x) => x.id !== state.meId && x.logged)
+      .sort((a, b) => ((b.streak || 0) - (a.streak || 0)) || a.name.localeCompare(b.name));
+  }
+  let famCellsRef = null;
+  function storyNums(p) {
+    const c = famCellsRef ? famCellsRef(p) : { steps: Number(board(p).steps) || null };
+    const ks = Object.keys(c).filter((k) => STD[k] && c[k] !== null && c[k] !== undefined && c[k] !== false)
+      .sort((a, b) => (b === "steps") - (a === "steps"));
+    return ks.map((k) => `<li><span>${esc(STD[k].short || STD[k].label)}</span><b>${c[k] === true ? "\u2713" : esc(stdWords(k, c[k]))}</b></li>`).join("");
+  }
   function personSheet() {
     const id = state.person; if (!id) return "";
-    const x = ((state.garden && state.garden.people) || []).find((y) => y.id === id); if (!x) return "";
-    const S = soc(id), canReact = x.logged || S.photo, open = state.social && state.social.open;
-    const photo = !S.photo ? "" : S.img
-      ? `<figure class="psph"><img src="${esc(S.img)}" alt="${esc(x.name)}'s photo"><figcaption>${S.caption ? esc(S.caption) + " · " : ""}${esc(photoAgo(S.at))}</figcaption></figure>`
-      : `<div class="psph locked"><span aria-hidden="true">\u{1F512}</span><p>${open ? "" : `Log today's steps to see ${esc(x.name.split(/\s+/)[0])}'s photo.`}</p></div>`;
-    const day = `${x.streak ? `\u{1F525} ${x.streak} day${x.streak === 1 ? "" : "s"} in a row logging steps. ` : "No streak yet. "}${BD(x.level)[0]} badge · ${(x.days || []).length} of 7 days${x.badge_rule === "log" ? " logged" : ""} this week. ${x.today ? "At their goal today." : x.logged ? "Logged today." : "Not logged today."}`;
-    return `<div class="sheetbg" id="psBg"></div>
-      <div class="stdsheet pssheet" role="dialog" aria-label="${esc(x.name)}">
-        ${photo}
-        <h3 class="pstitle">${badgeSVG(x.level, 22)} ${esc(x.name)}</h3>
-        <p class="psline">${esc(day)}</p>
-        ${x.logged ? `<div class="pscheer">${cheerBtn(x, "cheerbtn")}</div>` : ""}
-        ${cheeredBy(S) ? `<p class="psfrom">${cheeredBy(S)}</p>` : ""}
-        <div class="stdbtns">${x.logged ? "" : `<button type="button" class="btn-quiet" id="psNudge">Nudge on WhatsApp</button>`}<button type="button" class="btn" id="psDone">Close</button></div>
+    const x = gpx(id); if (!x) return "";
+    const S = soc(id), first = firstName(x), p = (state.people || []).find((q) => q.id === id) || {};
+    if (!x.logged) return `<div class="sheetbg" id="psBg"></div>
+      <div class="stdsheet pssheet nudgesheet" role="dialog" aria-label="Nudge ${esc(x.name)}">
+        <h3 class="pstitle">${esc(x.name)} hasn't logged today</h3>
+        <p class="psline">${x.streak ? `\u{1F525} A ${x.streak}-day streak is on the line.` : "A word from family works better than any reminder."}</p>
+        ${S.nudged ? `<p class="nudged">\u2713 You nudged ${esc(first)} today</p>`
+          : `<button type="button" class="btn nudgebtn" id="psNudge">Nudge ${esc(first)}</button>
+             <p class="hint nudgehint">Opens WhatsApp or Messages with a short note and a link straight to their steps.</p>`}
+        <div class="stdbtns"><button type="button" class="btn-quiet" id="psDone">Close</button></div>
       </div>`;
+    const L = storyList(), i = Math.max(0, L.findIndex((y) => y.id === id)), open = iLogged(), last = i >= L.length - 1;
+    markSeen(id);
+    return `<div class="story" role="dialog" aria-label="${esc(x.name)}'s day">
+      <div class="stbars" aria-hidden="true">${L.map((y, j) => `<i class="${j <= i ? "on" : ""}"></i>`).join("")}</div>
+      <header class="sthead"><span class="fav fsm" style="--hc:hsl(${p.hue || 200} 62% 48%)">${esc(initials(x.name))}</span>
+        <b>${esc(x.name)}</b>${x.streak ? `<span class="stk">\u{1F525}${x.streak}</span>` : ""}
+        <button type="button" class="stx" id="psDone" aria-label="Close">\u2715</button></header>
+      <div class="stbody">${!open
+        ? `<div class="stlock"><span aria-hidden="true">\u{1F512}</span><p>Log today's steps to see ${esc(first)}'s day.</p>
+           <button type="button" class="btn" data-go="steps">Log my steps</button></div>`
+        : `${S.img ? `<figure class="stph"><img src="${esc(S.img)}" alt="${esc(first)}'s photo">${S.caption ? `<figcaption>${esc(S.caption)}</figcaption>` : ""}</figure>` : ""}
+           <ul class="stnums">${storyNums(p)}</ul>`}</div>
+      <footer class="stfoot">
+        ${open ? `<div class="stacts">${cheerBtn(x, "cheerbtn")}${S.img ? `<button type="button" class="cheerbtn stsave" id="stSave">Save photo</button>` : ""}</div>
+          ${cheeredBy(S) ? `<p class="stfrom">${cheeredBy(S)}</p>` : ""}` : ""}
+        <button type="button" class="btn stnext" id="${last ? "psDone2" : "stNext"}">${last ? "Done" : `Next: ${esc(firstName(L[i + 1]))} \u203a`}</button>
+      </footer></div>`;
+  }
+  async function sendNudge() {
+    const x = gpx(state.person); if (!x) return;
+    const first = firstName(x), link = `${location.origin}${location.pathname}?g=${encodeURIComponent(state.code || "")}&log=1`;
+    const text = `${first}, the tribe's waiting for your steps today \u{1F525} ${link}`;
+    let sent = false;
+    if (navigator.share) {
+      try { await navigator.share({ text }); sent = true; } catch (e) { if (e && e.name === "AbortError") return; }
+    }
+    if (!sent) {
+      try { await navigator.clipboard.writeText(text); toast(`Copied. Paste it to ${first} in WhatsApp.`, "ok"); }
+      catch { window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank"); }
+    }
+    const S = soc(x.id); S.nudged = true; if (state.social) state.social.by[x.id] = S; render();
+    const r = await call("app_nudge", { p_code: state.code, p_from: state.meId, p_to: x.id });
+    if (r && r.error && !r.offline) toast(r.error, "bad");
+  }
+  async function savePhoto() {
+    const S = soc(state.person), x = gpx(state.person); if (!S.img) return;
+    const name = `tribes-${firstName(x).toLowerCase() || "photo"}-${(state.social && state.social.today) || "today"}.jpg`;
+    try {
+      const blob = await (await fetch(S.img)).blob(), file = new File([blob], name, { type: "image/jpeg" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file] }); return; }
+    } catch (e) { if (e && e.name === "AbortError") return; }
+    const a = document.createElement("a"); a.href = S.img; a.download = name; document.body.appendChild(a); a.click(); a.remove();
   }
   function wireSocial() {
     document.querySelectorAll("[data-pnudge]").forEach((el) => el.addEventListener("click", () => {
-      const id = el.dataset.pnudge, x = ((state.garden && state.garden.people) || []).find((y) => y.id === id);
-      if (!x) return openEditor("name", id);
+      const id = el.dataset.pnudge;
+      if (!gpx(id)) return openEditor("name", id);
       state.person = id; render(); }));
     const shut = () => { state.person = null; render(); };
-    on("psDone", "click", shut); on("psBg", "click", shut);
-    on("psNudge", "click", () => {
-      const x = ((state.garden && state.garden.people) || []).find((y) => y.id === state.person) || {};
-      const link = `${location.origin}${location.pathname}?g=${encodeURIComponent(state.code || "")}`;
-      window.open("https://wa.me/?text=" + encodeURIComponent(`${x.name}, time for your steps today \u{1F45F} Every day keeps your points. ${link}`), "_blank"); });
-    // Your photo: the 📷 on your face, or from the You page.
+    on("psDone", "click", shut); on("psDone2", "click", shut); on("psBg", "click", shut);
+    on("stNext", "click", () => { const L = storyList(), i = L.findIndex((y) => y.id === state.person); state.person = (L[i + 1] || {}).id || null; render(); });
+    on("psNudge", "click", sendNudge);
+    // The story sits outside the page, so its "Log my steps" is wired here.
+    document.querySelectorAll(".story [data-go]").forEach((el) => el.addEventListener("click", () => { state.person = null; openExercise(el.dataset.go); }));
+    on("stSave", "click", savePhoto);
+    // Your photo: under your steps once you've logged, or from your face.
     const pick = () => { const f = document.getElementById("photoFile"); if (f) f.click(); };
     on("photoAdd", "click", pick); on("photoAdd2", "click", pick); on("photoAdd3", "click", pick);
     on("photoFile", "change", (e) => postPhoto(e.target.files && e.target.files[0]));
     on("photoDel", "click", async () => { await call("app_photo_delete", { p_code: state.code, p_person: state.meId }); await loadSocial(); render(); });
+    // V9.5. Earlier days' photos load as their card scrolls into view.
+    const els = [...document.querySelectorAll("[data-fday]")].filter((el) => !(state.snapDays || {})[el.dataset.fday]);
+    if (els.length && "IntersectionObserver" in window) {
+      const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { io.unobserve(e.target); loadSnapDay(e.target.dataset.fday); } }), { rootMargin: "400px" });
+      els.forEach((el) => io.observe(el));
+    } else els.forEach((el) => loadSnapDay(el.dataset.fday));
+  }
+  async function loadSnapDay(day) {
+    state.snapDays = state.snapDays || {}; if (state.snapDays[day]) return;
+    state.snapDays[day] = { busy: true };
+    const r = await call("app_snaps", { p_code: state.code, p_person: state.meId, p_day: day });
+    state.snapDays[day] = r && !r.error ? { by: Object.fromEntries((r.snaps || []).map((x) => [x.id, x])) } : null;
+    if (state.view === "board" && homeTab() === "tribe" && r && !r.error) render();
   }
 
   /* ---------- V9.1: your progress (only you see it) ------------------ */
@@ -3740,33 +3900,58 @@ td.fblur { filter:blur(4px); user-select:none; }
   // V9.2. The snapshot sits where you just logged: one tap, no hunting.
   function snapBtn() {
     if (!iLogged() || soc(state.meId).photo || !state.social) return "";
-    return `<button type="button" class="snapbtn" id="photoAdd"><span aria-hidden="true">\u{1F4F7}</span><span><b>Add a snapshot of your day</b><small>A screenshot or a photo. Your family sees it for 24 hours.</small></span></button>`;
+    return `<button type="button" class="snapbtn" id="photoAdd"><span aria-hidden="true">\u{1F4F7}</span><span><b>Add a snapshot of your day</b><small>A screenshot or a photo. Your family sees it for 7 days.</small></span></button>`;
   }
-  // V9.2. "Today in your tribe": a short, finite feed that ends. Locked
-  // until you log; each card is someone's day: steps, snapshot, reactions.
+  // V9.5. The family feed: today's cards, then a card for each of the six
+  // days before (photos, who logged, milestones), then it ends. Locked
+  // until you log today.
+  const MARK = { streak: (a) => `\u{1F525} ${a.who} reached a ${a.n}-day streak`, goal: (a) => `\u2b50 First goal day for ${a.who}`,
+    "10k": (a) => `\u{1F45F} First 10,000-step day for ${a.who}`, week: (a) => `\u2705 ${a.who} logged all 7 days` };
+  const andList = (xs) => xs.length < 2 ? xs.join("") : `${xs.slice(0, -1).join(", ")} and ${xs[xs.length - 1]}`;
+  // One line per kind of milestone: "You, Fatima and Mahd logged all 7 days".
+  function markLines(ms) {
+    const g = {};
+    (ms || []).forEach((m) => { if (!MARK[m.kind]) return; const k = m.kind + (m.n || ""); (g[k] = g[k] || { kind: m.kind, n: m.n, ids: [] }).ids.push(m); });
+    return Object.values(g).map((x) => {
+      const names = x.ids.sort((a, b) => (b.id === state.meId) - (a.id === state.meId)).map((m, i) => m.id === state.meId ? (i ? "you" : "You") : esc(firstName(m)));
+      const t = MARK[x.kind]({ who: andList(names), n: x.n });
+      return `<p class="fmark">${x.kind === "goal" || x.kind === "10k" ? t.replace(/for You\b/, "for you") : t}</p>`; }).join("");
+  }
   function tribeFeed() {
     if (!state.garden || !state.social || famDayISO() !== familyISO()) return "";
     const G = state.garden.people || [];
-    if (!iLogged()) return `<section class="feed"><p class="feedh">Today in your tribe</p>
-      <div class="feedlock"><span aria-hidden="true">\u{1F512}</span><p>Log today's steps to see your tribe's day.</p></div></section>`;
+    if (!iLogged()) return `<section class="feed"><p class="feedh">Your tribe this week</p>
+      <button type="button" class="feedlock" data-go="steps"><span aria-hidden="true">\u{1F512}</span><span>Log today's steps to see your tribe's week. <b>Log now \u203a</b></span></button></section>`;
     const pp = Object.fromEntries((state.people || []).map((p) => [p.id, p]));
     const done = G.filter((x) => x.logged || soc(x.id).photo)
       .sort((a, b) => (b.id === state.meId) - (a.id === state.meId) || String(soc(b.id).at || "").localeCompare(String(soc(a.id).at || "")) || a.name.localeCompare(b.name));
     const todo = G.filter((x) => !x.logged && x.recent && x.id !== state.meId);
     const card = (x) => {
       const S = soc(x.id), p = pp[x.id] || {}, mine = x.id === state.meId, st = p.id ? Number(board(p).steps) || 0 : 0;
-      const ini = (x.name || "?").trim().split(/\s+/).slice(0, 2).map((w) => (w[0] || "").toUpperCase()).join("");
       return `<article class="fcard">
-        <header><span class="fav fsm" style="--hc:hsl(${p.hue || 200} 62% 48%)">${esc(ini)}</span><b>${mine ? "You" : esc(x.name)}</b>
+        <header><span class="fav fsm" style="--hc:hsl(${p.hue || 200} 62% 48%)">${esc(initials(x.name))}</span><b>${mine ? "You" : esc(x.name)}</b>
           <span class="fst">${st ? `${num(st)} steps` : "logged"}${x.today ? " \u2713" : ""}${x.streak ? ` \u00b7 \u{1F525}${x.streak}` : ""}</span></header>
-        ${S.img ? `<img class="fimg" src="${esc(S.img)}" alt="${mine ? "Your" : esc(x.name) + "'s"} snapshot" loading="lazy">` : mine ? `<button type="button" class="linkbtn fadd" id="photoAdd3">\u{1F4F7} Add your snapshot</button>` : ""}
+        ${S.img ? `<img class="fimg" src="${esc(S.img)}" alt="${mine ? "Your" : esc(x.name) + "'s"} snapshot" loading="lazy">${S.caption ? `<p class="fcap">${esc(S.caption)}</p>` : ""}` : mine ? `<button type="button" class="linkbtn fadd" id="photoAdd3">\u{1F4F7} Add your snapshot</button>` : ""}
         ${mine ? (cheeredBy(S) ? `<p class="freacts">${cheeredBy(S)}</p>` : "")
           : `<div class="frow">${cheerBtn(x, "cheerbtn sm")}${cheeredBy(S) ? `<p class="freacts">${cheeredBy(S)}</p>` : ""}</div>`}
       </article>`; };
-    return `<section class="feed" aria-label="Today in your tribe"><p class="feedh">Today in your tribe</p>
+    const D = state.social.days || [], today = D[0] || {}, yday = shiftISO(state.social.today || familyISO(), -1);
+    const dayCard = (d) => {
+      const ph = (d.people || []).filter((x) => x.photo), L = (state.snapDays || {})[d.day], more = ph.length - 4;
+      const mos = ph.length ? `<div class="fmos n${Math.min(ph.length, 4)}" data-fday="${d.day}">${ph.slice(0, 4).map((x, j) => { const sn = L && L.by && L.by[x.id];
+          return `<span class="fph">${sn ? `<img src="${esc(sn.img)}" alt="${esc(firstName(x))}'s photo" loading="lazy">` : ""}<small>${esc(x.id === state.meId ? "You" : firstName(x))}</small>${j === 3 && more > 0 ? `<em>+${more}</em>` : ""}</span>`; }).join("")}</div>` : "";
+      return `<article class="fcard fday" aria-label="${esc(d.day === yday ? "Yesterday" : shortDay(d.day))}">
+        <header><b>${esc(d.day === yday ? "Yesterday" : shortDay(d.day))}</b><span class="fst">${d.people.length} logged</span></header>
+        ${markLines(d.marks)}
+        ${mos}
+        <ul class="fppl">${d.people.map((x) => `<li><span>${x.id === state.meId ? "You" : esc(firstName(x))}</span><b>${num(Math.round(Number(x.steps)))}${x.goal ? " \u2713" : ""}</b>${(x.cheers || []).length ? `<em aria-label="${x.cheers.length} cheers">\u{1F389}${x.cheers.length}</em>` : ""}</li>`).join("")}</ul>
+      </article>`; };
+    return `<section class="feed" aria-label="Your tribe this week"><p class="feedh">Today</p>
+      ${markLines(today.marks)}
       ${done.map(card).join("")}
-      ${todo.length ? `<p class="ftodo">Still to log: ${todo.map((x) => `<button type="button" class="linkbtn" data-pnudge="${x.id}">${esc(x.name.split(/\s+/)[0])}</button>`).join(", ")}</p>` : ""}
-      <p class="fend">You're all caught up.</p></section>`;
+      ${todo.length ? `<p class="ftodo">Still to log: ${todo.map((x) => `<button type="button" class="linkbtn" data-pnudge="${x.id}">${esc(firstName(x))}</button>`).join(", ")}</p>` : ""}
+      ${D.slice(1).filter((d) => (d.people || []).length).map(dayCard).join("")}
+      <button type="button" class="fend fendj" data-htab="journey">You're all caught up \u00b7 <b>See more in Journey \u203a</b></button></section>`;
   }
   function facesRow() {
     const G = state.garden; if (!G) return "";
@@ -3789,8 +3974,14 @@ td.fblur { filter:blur(4px); user-select:none; }
       const ch = mine ? ""
         : x.logged ? (myR ? `<span class="fcheer sent" aria-label="You cheered ${esc(x.name)}">\u2764</span>`
         : `<button type="button" class="fcheer" data-cheer="${x.id}" aria-label="Cheer ${esc(x.name)}: they logged today">\u{1F389}</button>`) : "";
-      return `<span class="facew" role="listitem"><button type="button" class="face${x.logged ? " done" : ""}${mine ? " me" : ""}${S.photo ? " story" : ""}${S.photo && !mine && !(state.social && state.social.open) ? " slock" : ""}" ${mine ? 'id="streakOpen" data-faceme="1"' : `data-pnudge="${x.id}"`}
-        style="--hc:hsl(${p.hue || 200} 62% 48%)" aria-label="${mine ? "You" : esc(x.name)}${x.logged ? ", logged today" : ", not logged yet"}${sk ? `, logged steps ${sk} days in a row` : ""}">
+      // V9.5. Rings: coloured = logged, story not seen yet; faded = seen;
+      // grey = not logged (tap to nudge; your own grey face opens your steps).
+      const ring = !x.logged ? " grey" : mine ? " done" : isSeen(x.id) ? " done seen" : " done fresh";
+      const act = mine ? (x.logged ? 'id="streakOpen" data-faceme="1"' : 'data-go="steps"') : `data-pnudge="${x.id}"`;
+      const say = mine ? (x.logged ? "You" : "You, not logged yet. Log your steps")
+        : `${esc(x.name)}${x.logged ? (isSeen(x.id) ? ", logged today, story seen" : ", logged today, new story") : ", not logged yet. Nudge"}`;
+      return `<span class="facew" role="listitem"><button type="button" class="face${ring}${mine ? " me" : ""}" ${act}
+        style="--hc:hsl(${p.hue || 200} 62% 48%)" aria-label="${say}${sk ? `, logged steps ${sk} days in a row` : ""}">
         <span class="fav">${esc(ini)}${x.logged ? `<i class="fck" aria-hidden="true">\u2713</i>` : ""}</span>
         <small>${mine ? "You" : esc(x.name.split(/\s+/)[0])}</small><em class="${mine && !myS.today ? "cold" : ""}">${sk ? `\u{1F525}${sk}` : " "}</em></button>${ch}</span>`; }).join("")}</div>
 </div>`;
@@ -4200,6 +4391,12 @@ td.fblur { filter:blur(4px); user-select:none; }
       await loadFamily();
     }
     render();
+    // V9.5. A nudge's link (?log=1) opens your steps, ready to type.
+    if (state.meId && !state.deepDone && new URLSearchParams(location.search).get("log")) {
+      state.deepDone = true;
+      try { const u = new URL(location.href); u.searchParams.delete("log"); history.replaceState(null, "", u.pathname + u.search + u.hash); } catch {}
+      openExercise("steps");
+    }
   }
 
   /* ---------- the clock ---------------------------------------------
@@ -6805,7 +7002,7 @@ td.fblur { filter:blur(4px); user-select:none; }
     // column compares like with like. No standards and no percentages
     // here; those are each person's own business. You come first, in your
     // own colour, so your row is the one the eye lands on.
-    const famCells = (p) => {
+    const famCells = famCellsRef = (p) => {
       const bd = board(p);
       const n = (x) => x === null || x === undefined || x === "" ? null : Number(x);
       const pos = (x) => Number(x) > 0 ? Number(x) : null;
@@ -6931,7 +7128,7 @@ td.fblur { filter:blur(4px); user-select:none; }
       </div>
       ${m ? goalLine2() : ""}
       ${m ? cheerBanner() : ""}
-      ${m && homePast() && tab === "me" ? `<div class="hpast" role="status"><span>Showing <b>${esc(fullDate(state.boardDay))}</b></span><button type="button" class="hpastgo" id="hToday">Back to today</button></div>` : ""}`;
+      ${m && homePast() && (tab === "today" || tab === "me") ? `<div class="hpast" role="status"><span>Showing <b>${esc(fullDate(state.boardDay))}</b></span><button type="button" class="hpastgo" id="hToday">Back to today</button></div>` : ""}`;
     let body;
     // V7.3. Arriving by your family's link: type your name and you are in;
     // already in? pick yourself. One screen, two choices, nothing else.
@@ -6951,27 +7148,39 @@ td.fblur { filter:blur(4px); user-select:none; }
     else if (tab === "tribe") body = `
       <section class="htab htribe" aria-label="Your tribe">
         <div class="htabh"><button type="button" class="htabt" id="tribeGoal" aria-label="Tribe name, crest, goal and people"><h2>Tribe</h2></button></div>
+        ${facesRow()}
         ${tribeFeed()}
         ${tribeCard()}
         ${state.people.length ? `<div class="roster"><div class="tdayrow">${nav()}<button type="button" class="hshare" id="waShare" aria-label="Share ${state.boardDay ? esc(shortDay(famDayISO())) : "today"} on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11v9h12v-9"/></svg></button></div>
-          ${state.garden && famDayISO() === familyISO() && !iLogged() ? `<p class="hint logsee">\u{1F512} Log today's steps to see everyone's numbers.</p>` : ""}${famTable(ordered)}</div>${leagueLine()}` : roster}
+          ${state.garden && famDayISO() === familyISO() && !iLogged() ? `<button type="button" class="linkbtn logsee" data-go="steps">\u{1F512} Log today's steps to see everyone's numbers \u203a</button>` : ""}${famTable(ordered)}</div>${leagueLine()}` : roster}
       </section>`;
     else if (tab === "campfire") body = campfireView();
+    else if (tab === "journey") body = journeyView();
+    // V9.5. Me is your record: today's photo and streak, then every habit,
+    // any day. Logging lives on Today.
+    else if (tab === "me") body = `
+      <section class="htab hme hmine" aria-label="You">
+        <div class="htabh"><h2>Me</h2></div>
+        ${youCard()}
+        ${nav()}
+        ${meRow ? `<div class="roster">${meDash(meRow)}</div>` : ""}
+        <button type="button" class="dedit" id="dialEdit2">Your habits</button>
+      </section>`;
+    // V9.5. Check in, the centre: who has logged, the day (‹ › to log a
+    // day you missed), your dial, the pot and prizes, and today's photo
+    // once you've logged. No scrolling to log.
     else body = `
       ${facesRow()}
       ${ydayCard()}
       ${editRowHTML()}
+      <div class="ckday">${nav()}</div>
       ${homeDials(m)}
-      ${snapBtn()}
       ${questRow()}
-      <section class="htab hme" aria-label="Your dashboard">
-        ${nav()}
-        ${meRow ? `<div class="roster">${meDash(meRow)}</div>` : ""}
-      </section>`;
+      ${snapBtn()}`;
 
     return `${head}
       ${body}
-      ${tab === "me" ? installHint() : ""}
+      ${tab === "today" ? installHint() : ""}
       <p class="ver">v${APP_VERSION}</p>
       ${m ? tabBar(tab) : ""}`;
   }
@@ -7026,26 +7235,23 @@ td.fblur { filter:blur(4px); user-select:none; }
     </section>`;
   }
   // One card a day, opened by logging today. Only cards the owner approved.
-  function streakSheet() {
-    if (!state.streakOpen) return "";
+  // V9.5. The streak card (it was a sheet behind your face) is the top of Me.
+  function streakSheet() { return ""; }
+  function youCard() {
     const T = state.today || {}, S = T.streak || {}, n = S.n || 0;
-    // V8.2. The wager is gone; the next streak prize takes its place.
     const next = [30, 100, 365].find((t) => n < t);
     const PTS = { 30: 100, 100: 300, 365: 1000 };
-    const prize = `<p class="stwag">${next ? `<b>${next - n}</b> more day${next - n === 1 ? "" : "s"} to <b>+${num(PTS[next])}</b> points (${next}-day streak)` : "Every streak bonus earned. Legend."}</p>`;
-    return `<div class="sheetbg" id="stBg"></div>
-      <div class="stdsheet stsheet yousheet" role="dialog" aria-label="You">
-        ${(() => { const M = soc(state.meId); return M.photo && M.img
-          ? `<figure class="psph"><img src="${esc(M.img)}" alt="Your photo"><figcaption>Live for 24 hours \u00b7 ${esc(photoAgo(M.at))} \u00b7 <button type="button" class="linkbtn" id="photoDel">Delete</button></figcaption></figure>
-             ${(M.reacts || []).length ? `<p class="psfrom">${M.reacts.map((r) => `${r.emoji} ${esc(r.name)}`).join(" \u00b7 ")}</p>` : ""}`
-          : iLogged() ? `<button type="button" class="btn-quiet youph" id="photoAdd2">\u{1F4F7} Share a photo for 24 hours</button>`
-          : `<p class="hint youph">Log today's steps to share a photo with your family.</p>`; })()}
-        <div class="stbig"><span aria-hidden="true">\u{1F525}</span><b>${S.n || 0}</b><small>day${S.n === 1 ? "" : "s"} in a row logging steps${S.today ? "" : " · log today to keep it"}</small></div>
-        <p class="stline">Best <b>${S.best || 0}</b> · Freezes <b>${"❄".repeat(S.freezes || 0) || "0"}</b></p>
-        <p class="stone">Log every day. Miss one and a freeze \u2744 saves you.</p>
-        ${prize}
-        <div class="youprog">${progressBlock()}</div>
-        <div class="stdbtns"><button type="button" class="btn-quiet" id="stDone">Close</button></div>
+    const M = soc(state.meId);
+    const photo = M.photo && M.img
+      ? `<figure class="psph"><img src="${esc(M.img)}" alt="Your photo"><figcaption>Today's photo, kept 7 days \u00b7 ${esc(photoAgo(M.at))} \u00b7 <button type="button" class="linkbtn" id="photoDel">Delete</button></figcaption></figure>
+         ${cheeredBy(M) ? `<p class="psfrom">${cheeredBy(M)}</p>` : ""}`
+      : iLogged() ? `<button type="button" class="btn-quiet youph" id="photoAdd2">\u{1F4F7} Share today's photo</button>` : "";
+    return `<div class="youcard">
+        <div class="stbig"><span aria-hidden="true">\u{1F525}</span><b>${n}</b><small>day${n === 1 ? "" : "s"} in a row logging steps${S.today ? "" : " \u00b7 log today to keep it"}</small></div>
+        <p class="stline">Best <b>${S.best || 0}</b> \u00b7 Freezes <b>${"\u2744".repeat(S.freezes || 0) || "0"}</b> \u00b7 a freeze saves a missed day</p>
+        <p class="stwag">${next ? `<b>${next - n}</b> more day${next - n === 1 ? "" : "s"} to <b>+${num(PTS[next])}</b> points (${next}-day streak)` : "Every streak bonus earned. Legend."}</p>
+        ${photo}
+        <button type="button" class="linkbtn youj" id="stJourney">Your progress and achievements are in Journey \u203a</button>
       </div>`;
   }
   // V8.2. The big moment: a full-screen burst, the chest flying open, the
@@ -7127,7 +7333,8 @@ td.fblur { filter:blur(4px); user-select:none; }
     wireFeedback();
   }
   function wireToday() {
-    const openStreak = () => { state.streakOpen = true; loadProgress(); };
+    const openStreak = () => { state.homeTab = "me"; state.person = null; render(); window.scrollTo(0, 0); };
+    on("stJourney", "click", () => { state.streakOpen = false; state.homeTab = "journey"; render(); window.scrollTo(0, 0); loadJourney(); loadProgress(); });
     on("streakOpen", "click", openStreak); on("streakOpen2", "click", openStreak);
     document.querySelectorAll("[data-faceme]").forEach((el) => el.addEventListener("click", openStreak));
     // V8.7. The Tribe counter, explained.
@@ -7367,7 +7574,7 @@ td.fblur { filter:blur(4px); user-select:none; }
   }
   function wireCamp() {
     document.querySelectorAll("[data-lesson]").forEach((el) => el.addEventListener("click", () => openLesson(el.dataset.lesson)));
-    on("cfToday", "click", (e) => { if (!e.currentTarget.dataset.lesson) { state.homeTab = "me"; render(); window.scrollTo(0, 0); } });
+    on("cfToday", "click", (e) => { if (!e.currentTarget.dataset.lesson) openExercise("steps"); });
     document.querySelectorAll("[data-cfall]").forEach((el) => el.addEventListener("click", () => { state.campAll = el.dataset.cfall; render(); }));
     document.querySelectorAll("[data-cfseg]").forEach((el) => el.addEventListener("click", () => { state.campSeg = el.dataset.cfseg; render(); }));
     document.querySelectorAll("[data-cflocked]").forEach((el) => el.addEventListener("click", () => {
@@ -7400,18 +7607,92 @@ td.fblur { filter:blur(4px); user-select:none; }
       state.lessonNew = null; await loadCampfire(true); render(); });
   }
 
+  /* ---------- V9.5: Journey -----------------------------------------
+     How far the family has come: the trail to the tribe goal, what each
+     person has earned (worked out from what's already logged), your own
+     12 weeks, and a card for every month back to the first day. */
+  async function loadJourney() {
+    if (state.journey && state.journey.busy) return;
+    state.journey = Object.assign({}, state.journey || {}, { busy: true });
+    const r = await call("app_journey", { p_code: state.code, p_person: state.meId });
+    state.journey = r && !r.error ? r : { err: r && r.offline ? "No signal. Try again in a moment." : (r && r.error) || "Couldn't load Journey." };
+    if (state.view === "board" && homeTab() === "journey") render();
+  }
+  const isoDays = (a, b) => Math.round((Date.parse(b + "T00:00:00Z") - Date.parse(a + "T00:00:00Z")) / 86400000);
+  function trailSVG(pct) {
+    const d = "M8 64 C 48 64, 52 22, 98 26 S 150 66, 196 52 S 262 8, 306 16";
+    return `<svg class="jsvg" viewBox="0 0 320 76" role="img" aria-label="${Math.round(pct)}% of the way">
+      <path d="${d}" class="jpath"/><path d="${d}" pathLength="100" class="jfill" stroke-dasharray="${pct.toFixed(1)} 100"/>
+      <circle cx="8" cy="64" r="5" class="jdot"/><path d="M306 16V2l10 4-10 4" class="jflag"/></svg>`;
+  }
+  const ACH = { streak: (a) => ["\u{1F525}", `${a.n}-day streak`], goal: () => ["\u2b50", "First goal day"], "10k": () => ["\u{1F45F}", "First 10,000-step day"], week: () => ["\u2705", "Perfect week"] };
+  function journeyView() {
+    const J = state.journey, head = `<div class="htabh"><h2>Journey</h2></div>`;
+    if (!J || (J.busy && !J.months)) return `<section class="htab hjour">${head}<p class="hint">Gathering your tribe's journey\u2026</p></section>`;
+    if (J.err) return `<section class="htab hjour">${head}<p class="hint bad">${esc(J.err)}</p></section>`;
+    const Gl = J.goal;
+    let trail = `<p class="hint jnone">Set a tribe goal (tap Tribe, then the title) and your trail appears here.</p>`;
+    if (Gl) {
+      const tot = Number(Gl.total) || 0, fill = Number(Gl.filled) || 0, pct = tot ? Math.min(100, fill / tot * 100) : 0;
+      // On pace: everyone logged every day up to yesterday (today is still open).
+      const past = Math.max(0, isoDays(Gl.start, J.today)), pace = Number(Gl.walkers) * past, on = fill >= pace * 0.9;
+      trail = `<section class="jtrail" aria-label="The trail to ${esc(Gl.name)}">
+        <p class="jgoal"><b>${esc(Gl.name)}</b>${Gl.days_left !== null && Gl.days_left !== undefined ? `<span>${Gl.days_left >= 0 ? `${num(Gl.days_left)} day${Gl.days_left === 1 ? "" : "s"} to go` : "Goal day has passed"}</span>` : ""}</p>
+        ${trailSVG(pct)}
+        <p class="jsub">${tot ? `<b>${Math.round(pct)}%</b> of the way \u00b7 ${num(fill)} of ${num(tot)} family days logged${past ? ` \u00b7 <span class="${on ? "good" : "bad"}">${on ? "on pace" : "behind pace"}</span>` : ""}`
+          : `${num(fill)} family days logged since the goal was set.`}</p>
+        <p class="jhow">Every day each of you logs moves the tribe along. Everyone logging every day reaches the flag on the day.</p>
+      </section>`;
+    }
+    const A = J.achievements || [], by = {};
+    A.forEach((a) => { (by[a.id] = by[a.id] || { name: a.name, list: [] }).list.push(a); });
+    const shelf = Object.entries(by).sort(([ia, a], [ib, b]) => (ib === state.meId) - (ia === state.meId) || b.list.length - a.list.length || a.name.localeCompare(b.name)).map(([id, P]) => {
+      const st = P.list.filter((a) => a.kind === "streak").reduce((x, a) => Math.max(x, a.n), 0), wk = P.list.filter((a) => a.kind === "week").length;
+      const chips = [st ? `\u{1F525} ${st}-day streak` : "", P.list.some((a) => a.kind === "goal") ? "\u2b50 Goal day" : "",
+        P.list.some((a) => a.kind === "10k") ? "\u{1F45F} 10k day" : "", wk ? `\u2705 Perfect week${wk > 1 ? ` \u00d7${wk}` : ""}` : ""].filter(Boolean);
+      return `<li><b>${id === state.meId ? "You" : esc(P.name)}</b><span class="jchips">${chips.map((c) => `<i>${c}</i>`).join("")}</span></li>`; }).join("");
+    const months = (J.months || []).map((M) => {
+      const pct = M.possible ? Math.round(M.logged / M.possible * 100) : 0, [y, mo] = M.m.split("-").map(Number);
+      const got = A.filter((a) => a.day.slice(0, 7) === M.m), wk = got.filter((a) => a.kind === "week").length;
+      const lines = got.filter((a) => a.kind !== "week").map((a) => { const [ic, t] = ACH[a.kind](a); return `<li>${ic} ${a.id === state.meId ? "You" : esc(firstName(a))}: ${t}</li>`; })
+        .concat(wk ? [`<li>\u2705 ${wk} perfect week${wk > 1 ? "s" : ""}</li>`] : []);
+      return `<article class="jmon" aria-label="${MONTH_NAMES[mo - 1]} ${y}"><header><b>${MONTH_NAMES[mo - 1]} ${y}</b><span>${pct}% of days logged</span></header>
+        <div class="jbar" aria-hidden="true"><i style="width:${pct}%"></i></div>
+        <p class="jstat"><b>${num(Math.round(Number(M.steps)))}</b> steps \u00b7 ${num(M.logged)} days logged</p>
+        ${lines.length ? `<ul class="jearn">${lines.join("")}</ul>` : ""}</article>`; }).join("");
+    return `<section class="htab hjour" aria-label="Journey">${head}
+      ${trail}
+      <p class="dpg">You \u00b7 last 12 weeks</p><div class="jyou">${progressBlock()}</div>
+      <p class="dpg">Achievements</p>
+      ${shelf ? `<ul class="jshelf">${shelf}</ul>` : `<p class="hint">Log 30 days in a row, hit your goal, or log a full week, and it shows up here.</p>`}
+      ${months ? `<p class="dpg">Month by month</p>${months}<p class="fend">That's every month since your tribe began.</p>` : ""}
+    </section>`;
+  }
+
   // V7.2. The tab bar: a floating capsule; the open tab is a filled pill.
   const HOME_TABS = [
     ["me", "Me", `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c.8-4 3.9-6 7.5-6s6.7 2 7.5 6"/></svg>`],
     ["tribe", "Tribe", `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8.5" r="3.2"/><circle cx="16.8" cy="9.6" r="2.5"/><path d="M2.8 19.5c.6-3.3 3-5 6.2-5s5.6 1.7 6.2 5M15.4 14.6c2.8-.3 5 1.1 5.8 4.4"/></svg>`],
+    ["today", "Check in", ""],
+    ["journey", "Journey", `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4.5M5 4.5h11.5l-2.2 3.6 2.2 3.6H5"/><path d="M9.5 20.5c2.6-.2 3.8-1.5 6.2-1.5s3 .7 4.3 1"/></svg>`],
     ["campfire", "Campfire", `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1.2 2.6 4.6 4.4 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-2 1-3.2 1.8-4 .3 1.4.9 2 1.7 2.3-.6-2.6 0-4.8 1.1-6.7zM4.5 20.5l15-3.5M19.5 20.5l-15-3.5"/></svg>`],
   ];
   function homeTab() {
-    const t = state.homeTab; return t === "league" ? "tribe" : t === "tribe" || t === "campfire" ? t : "me";
+    // V9.5. The app opens on Today, the centre: family faces and your dial.
+    const t = state.homeTab; return t === "league" ? "tribe" : t === "tribe" || t === "campfire" || t === "journey" || t === "me" ? t : "today";
+  }
+  // V9.5. The centre button is a small copy of your steps ring: it fills
+  // as you log and shows a tick once today is logged. It pulses until then.
+  function centreIcon() {
+    const m = me(), v = m ? Number(board(m).steps) || 0 : 0, std = m ? stdOf(m, "steps") : 8000, done = iLogged();
+    const f = Math.max(0, Math.min(1, std ? v / std : 0)), C = 2 * Math.PI * 15;
+    return `<span class="ctrring${done ? " ok" : ""}" aria-hidden="true"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" class="ctrt"/>
+      <circle cx="18" cy="18" r="15" class="ctrf" stroke-dasharray="${C.toFixed(2)}" stroke-dashoffset="${(C * (1 - f)).toFixed(2)}"/></svg>
+      <b>${done ? "\u2713" : "\u{1F45F}"}</b></span>`;
   }
   function tabBar(tab) {
     return `<nav class="tabbar" aria-label="Home">${HOME_TABS.map(([k, label, icon]) =>
-      `<button type="button" class="tabb${k === tab ? " on" : ""}" data-htab="${k}" ${k === tab ? 'aria-current="page"' : ""}>${icon}<span>${label}</span>${
+      `<button type="button" class="tabb${k === tab ? " on" : ""}${k === "today" ? " ctr" + (iLogged() ? "" : " due") : ""}" data-htab="${k}" ${k === tab ? 'aria-current="page"' : ""} ${k === "today" ? `aria-label="Check in${iLogged() ? ", logged today" : ", not logged yet today"}"` : ""}>${k === "today" ? centreIcon() : icon}<span>${label}</span>${
         k === "tribe" && gardenMe() && !gardenMe().pledged ? `<i class="tabdot" aria-label="Set your goal"></i>`
         : k === "campfire" && campUnread() ? `<i class="tabdot" aria-label="Today's lesson is ready"></i>` : ""}</button>`).join("")}</nav>`;
   }
@@ -7520,7 +7801,7 @@ td.fblur { filter:blur(4px); user-select:none; }
       ${n > 1 ? `<div class="ddots" role="tablist" aria-label="Your dials">${keys.map((k, j) => `
         <button type="button" class="ddot${j === i ? " on" : ""}" data-dot="${j}" role="tab"
           aria-selected="${j === i}" aria-label="${esc(STD[k].label)}"></button>`).join("")}</div>` : ""}
-      <button type="button" class="dedit" id="dialEdit">Your habits</button>`;
+`;
   }
   const ofWords = (k, std) => STD[k].kind === "time" ? `by ${clockWords(std)}`
     : STD[k].kind === "min" ? `of ${hm(std)}` : STD[k].kind === "pct" ? `of ${Math.round(std)}%`
@@ -7740,11 +8021,16 @@ td.fblur { filter:blur(4px); user-select:none; }
     }
     pts.forEach((p) => { p.hit = hitOf(p.v); });
     // Days met and days so far, counted by day even in the year view.
+    // V9.5. Counted from the day you joined (or first logged), not 1 January.
+    const meP = (state.people || []).find((q) => q.id === state.meId) || {};
+    const firstDay = Object.keys(days).sort()[0] || today;
+    let joined = firstDay; try { if (meP.created_at) joined = new Date(meP.created_at).toLocaleDateString("en-CA"); } catch {}
+    const from = [S.start, joined < firstDay ? joined : firstDay].sort()[1];
     let met = 0, sofar = 0, sum = 0, cnt = 0, psum = 0, pcnt = 0;
-    for (let iso = S.start; iso <= S.end && iso <= today; iso = shiftISO(iso, 1)) {
+    for (let iso = from; iso <= S.end && iso <= today; iso = shiftISO(iso, 1)) {
       sofar++; if (days[iso] !== undefined) { const x = val(days[iso]); sum += x; cnt++; if (hitOf(x)) met++; } }
     for (let iso = S.pStart; iso <= S.pEnd; iso = shiftISO(iso, 1)) if (days[iso] !== undefined) { psum += val(days[iso]); pcnt++; }
-    return { pts, std, n: pts.length, span: S, met, sofar, avg: cnt ? sum / cnt : null, prev: pcnt >= 3 ? psum / pcnt : null };
+    return { pts, std, n: pts.length, span: S, met, sofar, logged: cnt, avg: cnt ? sum / cnt : null, prev: pcnt >= 3 ? psum / pcnt : null };
   }
   // V6.5. First principles: the question on a habit page is "am I doing
   // it, and is it enough?". Two numbers answer it: days met this week, and
@@ -7813,11 +8099,11 @@ td.fblur { filter:blur(4px); user-select:none; }
     const sel = state.progSel && state.progSel.k === k && state.progSel.r === range ? pts[state.progSel.i] : null;
     const selWords = sel && sel.v !== null ? `${esc(range === "y" ? `Week of ${shortDay(sel.iso)}` : shortDay(sel.iso))} · ${esc(stdWords(k, sel.v))}${range === "y" ? ` average, ${sel.n} day${sel.n === 1 ? "" : "s"} logged` : ""}${sel.hit ? " · met" : ""}` : "";
     return `<section class="card pgcard" aria-label="${esc(STD[k].label)} over time">
-        <div class="pghead"><p class="pgsum"><b>${met}</b> of ${P.sofar} day${P.sofar === 1 ? "" : "s"} met ${range === "w" && !pgOff() ? "this week" : `in ${esc(SP.label)}`}${avg !== null && !bin ? `<br><span class="pgavg">average <b>${esc(stdWords(k, avg))}</b></span>` : ""}${delta ? `<br>${delta}` : ""}</p>
+        <div class="pghead"><p class="pgsum">Logged <b>${P.logged}</b> of ${P.sofar} day${P.sofar === 1 ? "" : "s"} ${range === "w" && !pgOff() ? "this week" : `in ${esc(SP.label)}`}${bin ? "" : `<br><span class="pgavg">met your goal <b>${met}</b> day${met === 1 ? "" : "s"}</span>`}${avg !== null && !bin ? `<br><span class="pgavg">average <b>${esc(stdWords(k, avg))}</b> on days logged</span>` : ""}${delta ? `<br>${delta}` : ""}</p>
           <div class="pgnavw"><div class="range pgr" role="group" aria-label="Time range">${Object.entries(PROG_R).map(([v, t]) =>
             `<button type="button" data-pgr="${v}" aria-pressed="${v === range}">${t}</button>`).join("")}</div>
             <div class="pgnav"><button type="button" class="dnav" data-pgoff="-1" aria-label="Earlier">${CHEV(-1)}</button><span>${esc(pgOff() ? SP.label : range === "w" ? "This week" : range === "m" ? "This month" : "This year")}</span><button type="button" class="dnav" data-pgoff="1" ${pgOff() ? "" : "disabled"} aria-label="Later">${CHEV(1)}</button></div></div></div>
-        ${seen.length ? `<svg class="pgsvg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(STD[k].label)}, ${esc(SP.label)}: ${met} of ${P.sofar} days met your standard of ${esc(stdWords(k, std))}">
+        ${seen.length ? `<svg class="pgsvg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(STD[k].label)}, ${esc(SP.label)}: logged ${P.logged} of ${P.sofar} days, met your standard of ${esc(stdWords(k, std))} on ${met}">
           <line x1="${L}" x2="${W - Rr}" y1="${T + ph + 6}" y2="${T + ph + 6}" class="pgbase"/>
           ${stdY !== null ? `<line x1="${L}" x2="${W - Rr}" y1="${stdY.toFixed(1)}" y2="${stdY.toFixed(1)}" class="pgstd"/>
             <text x="${W - Rr + 6}" y="${(stdY + 3.5).toFixed(1)}" class="pgt">${esc(stdWords(k, std))}</text>` : ""}
@@ -8204,7 +8490,7 @@ td.fblur { filter:blur(4px); user-select:none; }
         const shown = v === null ? "" : stdWords(k, v);
         centre = `<input class="dnum${S.kind === "min" ? " dmin" : ""}" ${clone ? 'tabindex="-1" readonly' : `data-dial="${k}" id="dial-${k}"`}
             type="text" inputmode="${S.kind === "min" ? "text" : S.kind === "weight" ? "decimal" : "numeric"}" ${S.kind === "min" || S.kind === "weight" ? "" : 'pattern="[0-9]*"'}
-            autocomplete="off" enterkeyhint="done" placeholder="0"
+            autocomplete="off" enterkeyhint="done" placeholder="Tap to enter"
             value="${esc(shown)}" data-raw="${raw}" data-show="${esc(shown)}"
             aria-label="${esc(S.label)} today${S.kind === "min" ? ", in minutes" : ""}, tap to type">`;
       } else if (S.kind === "time") {
@@ -8266,12 +8552,12 @@ td.fblur { filter:blur(4px); user-select:none; }
   // V7.2. The tour walks the three tabs: each stop names its tab, and the
   // tour opens that tab before it looks for the stop.
   const TOUR = [
-    { at: "#dials", tab: "me", t: "Your dial",
+    { at: "#dials", tab: "today", t: "Your dial",
       d: "Today against your standard. Tap the name to open it, the number to log. Swipe if you have more than one." },
     { at: ".pdash", tab: "me", t: "Your dashboard",
       d: "Your habits, one line each. Tap a number to open its page. The arrows above it go back a day, for the dial too." },
-    { at: ".tabbar", tab: "me", t: "Three tabs",
-      d: "Me is you. Tribe is your family's table and the League. Campfire is a 2-minute lesson a day." },
+    { at: ".tabbar", tab: "today", t: "Five tabs",
+      d: "Check in (the middle) is where you log, any day, and see who else has. Me is your record. Tribe is your family's week. Journey is how far you've come together. Campfire is a 2-minute lesson a day." },
     { at: ".tmeline", tab: "tribe", t: "Your badge",
       d: "Hit your step goal 4 days this week and your badge goes up." },
     { at: ".lgline", tab: "tribe", t: "The League",
@@ -8286,7 +8572,7 @@ td.fblur { filter:blur(4px); user-select:none; }
     document.querySelector(".tourbg")?.remove();
     if (i === 0) tourList = TOUR.filter((st) => (st.at !== ".tmeline" || gardenMe()) && (st.at !== ".lgline" || (state.league && state.league.tribes)));
     const TOUR_ = tourList;
-    if (i >= TOUR_.length) { if (homeTab() !== "me") { state.homeTab = "me"; render(); window.scrollTo(0, 0); } return; }
+    if (i >= TOUR_.length) { if (homeTab() !== "today") { state.homeTab = "today"; render(); window.scrollTo(0, 0); } return; }
     const st = TOUR_[i];
     if (st.tab && state.view === "board" && homeTab() !== st.tab) { state.homeTab = st.tab; render(); }
     const el = document.querySelector(st.at);
@@ -9070,7 +9356,7 @@ td.fblur { filter:blur(4px); user-select:none; }
         <div class="dial sdial">${dialRing(pct)}
           <div class="dcore">
             <input class="bigedit dnum" id="steps" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" enterkeyhint="done"
-                   value="${has ? num(Math.round(shown)) : ""}" placeholder="0" data-raw="${has ? Math.round(shown) : ""}"
+                   value="${has ? num(Math.round(shown)) : ""}" placeholder="Tap to enter" data-raw="${has ? Math.round(shown) : ""}"
                    aria-label="Steps on ${isToday ? "today" : esc(fullDate(iso))}, tap to type">
             <button type="button" class="dof" data-edit="goal" data-metric="steps">of ${num(Math.round(goal || 8000))} steps</button>
           </div>
@@ -9090,7 +9376,7 @@ td.fblur { filter:blur(4px); user-select:none; }
           <input class="bigedit" id="steps" type="text" inputmode="numeric"
                  pattern="[0-9]*" autocomplete="off" enterkeyhint="done"
                  style="color:${met.color}"
-                 value="${has ? num(Math.round(shown)) : ""}" placeholder="0"
+                 value="${has ? num(Math.round(shown)) : ""}" placeholder="Tap to enter"
                  data-raw="${has ? Math.round(shown) : ""}"
                  aria-label="${esc(met.label)} on ${isToday ? "today" : esc(fullDate(iso))}, tap to edit">
           <button type="button" class="of" data-edit="goal" data-metric="${k}">${goal
@@ -14855,6 +15141,7 @@ td.fblur { filter:blur(4px); user-select:none; }
     });
 
     on("dialEdit", "click", () => { state.dialPick = true; state.dialMsg = null; render(); });
+    on("dialEdit2", "click", () => { state.dialPick = true; state.dialMsg = null; render(); });
     const close = () => { state.dialPick = null; state.dialMsg = null; render(); };
     on("dialDone", "click", close);
     on("dialBg", "click", close);
@@ -15016,8 +15303,9 @@ td.fblur { filter:blur(4px); user-select:none; }
     // V7.2. The home tabs. A tap switches; the page goes back to the top.
     document.querySelectorAll("[data-htab], [data-gotab]").forEach((el) => el.addEventListener("click", () => {
       const k = el.dataset.htab || el.dataset.gotab; if (k === homeTab()) { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
-      state.homeTab = k; state.adding = false; render(); window.scrollTo(0, 0);
+      state.homeTab = k; state.adding = false; state.person = null; render(); window.scrollTo(0, 0);
       if (k === "campfire") loadCampfire();
+      if (k === "journey") { loadJourney(); loadProgress(); }
     }));
     on("foldBoard", "click", () => {
       try { localStorage.setItem("fhd.board", boardOpen() ? "shut" : "open"); } catch {}
