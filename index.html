@@ -3199,6 +3199,71 @@ button.fendj b { color:var(--accent); }
 .dnum:placeholder-shown:not(:focus) { font-family:inherit; font-size:20px; font-weight:600; letter-spacing:0; }
 .dnum:not(:focus)::placeholder { color:var(--accent); opacity:.85; }
 .dnum:focus::placeholder { color:transparent; }
+
+/* V9.6: one job per tab. */
+.teaser { display:flex; align-items:center; gap:10px; width:100%; margin:-4px 0 0; padding:9px 14px; border:1px solid color-mix(in oklab, var(--accent) 45%, var(--line)); border-radius:999px;
+  background:color-mix(in oklab, var(--accent) 10%, transparent); color:var(--ink-2); font:inherit; font-size:14px; text-align:left; cursor:pointer; }
+.teaser b { color:var(--ink); }
+.stmeta { margin:-4px 0 0; font-size:13px; opacity:.8; }
+.stwin { width:100%; min-height:52px; font-size:16px; }
+.stwait { margin:auto; opacity:.7; }
+.stend .sthead { justify-content:flex-end; }
+.stendb { align-items:center; justify-content:center; text-align:center; gap:14px; }
+.stendb h3 { margin:0; font-family:var(--display); font-weight:500; font-size:28px; } .stendb p { margin:0; opacity:.8; font-size:16px; }
+.stendok { display:grid; place-items:center; width:72px; height:72px; border-radius:50%; background:#3fb96b; color:#fff; font-size:36px; font-weight:900; }
+.stlesson { display:flex; flex-direction:column; gap:4px; width:100%; padding:14px 16px; border:none; border-radius:16px; background:rgba(255,255,255,.1); color:#fff; font:inherit; text-align:left; cursor:pointer; }
+.stlesson small { opacity:.75; font-size:12.5px; } .stlesson b { font-size:17px; }
+.stnext small { font-weight:500; opacity:.7; margin-left:6px; }
+.sdsheet .sdimg { display:block; width:100%; max-height:42vh; object-fit:cover; border-radius:14px; margin:0 0 12px; }
+.feedh { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.wkadd { font-size:13px; text-transform:none; letter-spacing:0; font-weight:600; }
+.wkph { margin:0 0 16px; }
+.wkph0 { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:0 0 16px; padding:12px 14px; border-radius:14px; background:color-mix(in oklab, var(--ink) 5%, transparent); }
+.wkph0 p { margin:0; font-size:14px; color:var(--ink-2); }
+.wkgrid { display:grid; grid-template-columns:repeat(3, 1fr); gap:4px; }
+.wkt { position:relative; display:block; aspect-ratio:1; padding:0; border:none; border-radius:10px; overflow:hidden; background:color-mix(in oklab, var(--ink) 8%, transparent); cursor:pointer; }
+.wkt img { display:block; width:100%; height:100%; object-fit:cover; }
+.wkt small { position:absolute; left:5px; bottom:5px; max-width:calc(100% - 10px); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding:2px 7px; border-radius:999px; background:rgba(0,0,0,.55); color:#fff; font-size:11px; font-weight:700; }
+.wkchart { margin:0 0 12px; }
+.wkhead, .wklist li { display:grid; grid-template-columns:minmax(0, 1fr) 168px 74px; align-items:center; gap:8px; }
+@media (max-width: 360px) { .wkhead, .wklist li { grid-template-columns:minmax(64px, 1fr) 126px 58px; gap:6px; } .wkd i { width:11px; height:11px; } .wkact { padding:6px 9px; } }
+.wkph0 .linkbtn, .wkadd { white-space:nowrap; }
+.wkhead { margin:0 0 2px; font-size:11px; color:var(--muted); }
+.wkhead .wkd b { font-weight:700; } .wkhead .wkd b.now { color:var(--ink); }
+.wkd { display:grid; grid-template-columns:repeat(7, 1fr); justify-items:center; }
+.wklist { list-style:none; margin:0; padding:0; }
+.wklist li { min-height:44px; border-top:1px solid var(--line); }
+.wkn { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding:10px 0; border:none; background:none; color:var(--ink); font:inherit; font-size:15px; font-weight:600; text-align:left; cursor:pointer; }
+.wkd i { display:block; width:14px; height:14px; border-radius:50%; }
+.wkd i.on { background:#3fb96b; } .wkd i.off { background:none; box-shadow:inset 0 0 0 2px color-mix(in oklab, var(--ink) 22%, transparent); }
+.wkd i.fut { width:6px; height:6px; margin:4px; background:color-mix(in oklab, var(--ink) 14%, transparent); }
+.wkd i.now.off { box-shadow:inset 0 0 0 2px #e5534b; }
+.wkstk { justify-self:end; font-size:13.5px; font-variant-numeric:tabular-nums; color:var(--ink-2); }
+.wkact { justify-self:end; padding:7px 12px; border:1px solid var(--line); border-radius:999px; background:var(--surface); color:var(--ink); font:inherit; font-size:13px; font-weight:700; cursor:pointer; }
+.wkact.done { color:#2f9e6e; border-color:transparent; background:color-mix(in oklab, #3fb96b 14%, transparent); }
+.allnums { display:block; width:100%; margin:4px 0 8px; padding:12px; border:1px solid var(--line); border-radius:14px; background:none; color:var(--ink-2); font:inherit; font-size:14px; font-weight:600; cursor:pointer; }
+.recap { margin:0 0 16px; padding:14px; border-radius:18px; border:1px solid color-mix(in oklab, #f2b631 50%, var(--line)); background:color-mix(in oklab, #f2b631 9%, var(--surface)); }
+.recap header { display:flex; align-items:baseline; gap:8px; margin:0 0 10px; } .recap header b { flex:1; font-size:17px; } .recap header span { font-size:13px; color:var(--muted); }
+.rcgrid { display:grid; grid-template-columns:repeat(3, 1fr); gap:4px; margin:0 0 10px; }
+.rct { display:block; aspect-ratio:1; border-radius:10px; overflow:hidden; background:color-mix(in oklab, var(--ink) 8%, transparent); } .rct img { display:block; width:100%; height:100%; object-fit:cover; }
+.rcstats { list-style:none; margin:0 0 12px; padding:0; display:grid; gap:6px; }
+.rcstats li { display:grid; grid-template-columns:150px minmax(0, 1fr) auto; gap:8px; align-items:baseline; font-size:14px; }
+.rcstats span { color:var(--ink-2); } .rcstats b { min-width:0; overflow:hidden; text-overflow:ellipsis; } .rcstats em { font-style:normal; color:var(--muted); font-variant-numeric:tabular-nums; }
+.rcshare { width:100%; }
+.hmine .htabh { justify-content:space-between; }
+.hmine .hwho { margin-left:auto; }
+.hmine .tcard2, .hmine .bset { margin:0 0 12px; }
+.mychips { display:flex; flex-wrap:wrap; gap:6px; margin:0 0 6px; } .mychips i { font-style:normal; font-size:13px; padding:5px 10px; border-radius:999px; background:color-mix(in oklab, var(--ink) 7%, transparent); }
+.hlrow { display:grid; grid-template-columns:minmax(0, 1fr) 96px 54px; align-items:center; gap:10px; padding:4px 0; border-top:1px solid var(--line); }
+.hlbtn { display:flex; flex-direction:column; align-items:flex-start; gap:1px; min-width:0; padding:8px 0; border:none; background:none; color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
+.hlbtn b { font-size:14.5px; font-weight:600; } .hlbtn span { font-size:13.5px; color:var(--ink-2); font-variant-numeric:tabular-nums; } .hlbtn span.nil { color:var(--muted); }
+.pgbars0 { display:block; }
+.hlist .pgsince { margin:10px 0 0; }
+.jgoal { width:100%; padding:0; border:none; background:none; color:inherit; font:inherit; text-align:left; cursor:pointer; }
+.jnone { display:block; width:100%; margin:4px 0 6px; padding:14px; border:1px dashed var(--line); border-radius:16px; background:none; color:var(--accent); font:inherit; font-weight:600; cursor:pointer; }
+.jdet summary { cursor:pointer; list-style:none; } .jdet summary::-webkit-details-marker { display:none; }
+.jdet summary::after { content:" \203a"; color:var(--muted); } .jdet[open] summary::after { content:" \2039"; }
+.jdet p { margin:4px 0 2px 24px; font-size:13px; color:var(--ink-2); }
 </style>
 </head>
 <body>
@@ -3214,7 +3279,7 @@ button.fendj b { color:var(--accent); }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "9.5";
+  const APP_VERSION = "9.6";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -3708,7 +3773,7 @@ button.fendj b { color:var(--accent); }
   async function loadSocial() {
     if (!state.meId) return;
     const r = await call("app_social", { p_code: state.code, p_person: state.meId });
-    if (r && !r.error) state.social = { open: !!r.open, today: r.today || null, days: r.days || [], by: Object.fromEntries((r.people || []).map((x) => [x.id, x])) };
+    if (r && !r.error) state.social = { open: !!r.open, today: r.today || null, week: r.week || [], by: Object.fromEntries((r.people || []).map((x) => [x.id, x])) };
   }
   const soc = (id) => (state.social && state.social.by && state.social.by[id]) || {};
   const iLogged = () => !!(gardenMe() || {}).logged;
@@ -3726,15 +3791,33 @@ button.fendj b { color:var(--accent); }
       img.onerror = () => { URL.revokeObjectURL(url); bad(new Error("That file isn't a picture we can read.")); };
       img.src = url; });
   }
+  // V9.6. "Share a win": pick a photo (camera or upload), add one optional
+  // line, share. The family sees it for 7 days.
   async function postPhoto(file) {
     if (!file) return;
-    toast("Sharing…");
     try {
       const d = await shrinkPhoto(file);
-      const r = await call("app_photo_post", { p_code: state.code, p_person: state.meId, p_img: d, p_caption: "" });
-      if (r.error) { toast(r.offline ? "No signal. Not shared yet." : r.error, "bad"); return; }
-      await loadSocial(); render(); toast("Shared with your family. It stays for 7 days.", "ok");
-    } catch (e) { toast((e && e.message) || "Couldn't share that photo.", "bad"); }
+      state.person = null; state.storyQ = null; state.photo = null;
+      state.snapDraft = { img: d, caption: "", busy: false, err: null }; render();
+    } catch (e) { toast((e && e.message) || "Couldn't read that photo.", "bad"); }
+  }
+  async function postDraft() {
+    const D = state.snapDraft; if (!D || D.busy) return;
+    D.busy = true; D.err = null; render();
+    const r = await call("app_photo_post", { p_code: state.code, p_person: state.meId, p_img: D.img, p_caption: (D.caption || "").trim().slice(0, 80) });
+    if (r.error) { D.busy = false; D.err = r.offline ? "No signal. Not shared yet." : r.error; render(); return; }
+    state.snapDraft = null; await loadSocial(); render(); toast("Shared with your family. It stays for 7 days.", "ok");
+  }
+  function snapSheet() {
+    const D = state.snapDraft; if (!D) return "";
+    return `<div class="sheetbg" id="sdBg"></div>
+      <div class="stdsheet sdsheet" role="dialog" aria-label="Share a win">
+        <img class="sdimg" src="${esc(D.img)}" alt="Your photo">
+        <label class="tlab" for="sdCap">What's the win? <small>(optional)</small></label>
+        <input class="field" id="sdCap" maxlength="80" autocomplete="off" enterkeyhint="done" placeholder="e.g. Walked to work today" value="${esc(D.caption || "")}">
+        ${D.err ? `<p class="hint bad">${esc(D.err)}</p>` : `<p class="hint">Your family sees it for 7 days.</p>`}
+        <div class="stdbtns"><button type="button" class="btn-quiet" id="sdX">Cancel</button><button type="button" class="btn" id="sdGo" ${D.busy ? "disabled" : ""}>${D.busy ? "Sharing\u2026" : "Share"}</button></div>
+      </div>`;
   }
   // V9.5. Stories and nudges. A face that logged today opens a tap-through
   // story (big Next and ✕, no timers, no swipes); a grey face opens a nudge.
@@ -3749,10 +3832,15 @@ button.fendj b { color:var(--accent); }
   const firstName = (x) => String((x && x.name) || "").split(/\s+/)[0];
   const initials = (name) => (name || "?").trim().split(/\s+/).slice(0, 2).map((w) => (w[0] || "").toUpperCase()).join("");
   // Everyone else who logged today, in the order the faces show them.
+  const loggedOthers = () => ((state.garden && state.garden.people) || []).filter((x) => x.id !== state.meId && x.logged)
+    .sort((a, b) => ((b.streak || 0) - (a.streak || 0)) || a.name.localeCompare(b.name));
+  // V9.6. The run of stories: the ones you haven't seen yet when they play
+  // by themselves, or everyone who logged when you tap a face.
   function storyList() {
-    return ((state.garden && state.garden.people) || []).filter((x) => x.id !== state.meId && x.logged)
-      .sort((a, b) => ((b.streak || 0) - (a.streak || 0)) || a.name.localeCompare(b.name));
+    const all = loggedOthers(); if (!state.storyQ) return all;
+    return state.storyQ.map((id) => all.find((x) => x.id === id)).filter(Boolean);
   }
+  const unseenIds = () => loggedOthers().filter((x) => !isSeen(x.id)).map((x) => x.id);
   let famCellsRef = null;
   function storyNums(p) {
     const c = famCellsRef ? famCellsRef(p) : { steps: Number(board(p).steps) || null };
@@ -3760,8 +3848,30 @@ button.fendj b { color:var(--accent); }
       .sort((a, b) => (b === "steps") - (a === "steps"));
     return ks.map((k) => `<li><span>${esc(STD[k].short || STD[k].label)}</span><b>${c[k] === true ? "\u2713" : esc(stdWords(k, c[k]))}</b></li>`).join("");
   }
+  // V9.6. Log first, then your tribe: once you've logged, the stories you
+  // haven't seen play by themselves (right after you log, and when you
+  // open the app with something new). Never over a sheet.
+  function maybeAutoplay(tries = 0) {
+    if (state.view !== "board" || state.person || state.photo || state.snapDraft || !iLogged() || !state.social) return;
+    if (document.querySelector(".stdsheet, .celeb, .tourbg")) { if (tries < 8) setTimeout(() => maybeAutoplay(tries + 1), 1500); return; }
+    const ids = unseenIds(); if (!ids.length) return;
+    state.storyQ = ids; state.person = ids[0]; state.homeTab = "today"; render(); window.scrollTo(0, 0);
+  }
+  // Not logged yet: a promise of what's waiting.
+  function teaser() {
+    if (!state.garden || !state.social || iLogged()) return "";
+    const n = unseenIds().length; if (!n) return "";
+    return `<button type="button" class="teaser" id="teaserGo"><span aria-hidden="true">\u{1F512}</span><span><b>${n} new</b> from your tribe \u00b7 log your steps to see</span></button>`;
+  }
+  const storyHead = (x, label, extra) => { const p = (state.people || []).find((q) => q.id === x.id) || {};
+    return `<header class="sthead"><span class="fav fsm" style="--hc:hsl(${p.hue || 200} 62% 48%)">${esc(initials(x.name))}</span>
+      <b>${label}</b>${extra || ""}<button type="button" class="stx" id="psDone" aria-label="Close">\u2715</button></header>`; };
   function personSheet() {
+    if (state.snapDraft) return snapSheet();
+    if (state.photo) return photoViewer();
     const id = state.person; if (!id) return "";
+    if (id === "__end") return storyEnd();
+    if (id === state.meId) return myStory();
     const x = gpx(id); if (!x) return "";
     const S = soc(id), first = firstName(x), p = (state.people || []).find((q) => q.id === id) || {};
     if (!x.logged) return `<div class="sheetbg" id="psBg"></div>
@@ -3777,9 +3887,7 @@ button.fendj b { color:var(--accent); }
     markSeen(id);
     return `<div class="story" role="dialog" aria-label="${esc(x.name)}'s day">
       <div class="stbars" aria-hidden="true">${L.map((y, j) => `<i class="${j <= i ? "on" : ""}"></i>`).join("")}</div>
-      <header class="sthead"><span class="fav fsm" style="--hc:hsl(${p.hue || 200} 62% 48%)">${esc(initials(x.name))}</span>
-        <b>${esc(x.name)}</b>${x.streak ? `<span class="stk">\u{1F525}${x.streak}</span>` : ""}
-        <button type="button" class="stx" id="psDone" aria-label="Close">\u2715</button></header>
+      ${storyHead(x, esc(x.name), x.streak ? `<span class="stk">\u{1F525}${x.streak}</span>` : "")}
       <div class="stbody">${!open
         ? `<div class="stlock"><span aria-hidden="true">\u{1F512}</span><p>Log today's steps to see ${esc(first)}'s day.</p>
            <button type="button" class="btn" data-go="steps">Log my steps</button></div>`
@@ -3788,7 +3896,49 @@ button.fendj b { color:var(--accent); }
       <footer class="stfoot">
         ${open ? `<div class="stacts">${cheerBtn(x, "cheerbtn")}${S.img ? `<button type="button" class="cheerbtn stsave" id="stSave">Save photo</button>` : ""}</div>
           ${cheeredBy(S) ? `<p class="stfrom">${cheeredBy(S)}</p>` : ""}` : ""}
-        <button type="button" class="btn stnext" id="${last ? "psDone2" : "stNext"}">${last ? "Done" : `Next: ${esc(firstName(L[i + 1]))} \u203a`}</button>
+        <button type="button" class="btn stnext" id="${last ? (open ? "stEnd" : "psDone2") : "stNext"}">${last ? (open ? "Finish \u203a" : "Done") : `Next: ${esc(firstName(L[i + 1]))} \u203a`}</button>
+      </footer></div>`;
+  }
+  // The end of the run: all caught up, then your win and today's lesson.
+  function storyEnd() {
+    const T = (state.camp || {}).today, M = soc(state.meId);
+    return `<div class="story stend" role="dialog" aria-label="All caught up">
+      <header class="sthead"><button type="button" class="stx" id="psDone" aria-label="Close">\u2715</button></header>
+      <div class="stbody stendb"><span class="stendok" aria-hidden="true">\u2713</span><h3>You're all caught up</h3>
+        <p>That's everyone who has logged today.</p>
+        ${iLogged() && !M.photo ? `<button type="button" class="btn stwin" id="photoAdd4">\u{1F4F7} Share a win from today</button>` : ""}
+        ${T && !T.locked ? `<button type="button" class="stlesson" data-lesson="${T.id}"><small>Today's lesson \u00b7 ${T.minutes || 1} min</small><b>${esc(T.title)}</b></button>` : ""}
+      </div>
+      <footer class="stfoot"><button type="button" class="btn-quiet stnext" id="psDone2">Back to Check in</button></footer></div>`;
+  }
+  // Your own day, as your family sees it: your photo (share, or delete),
+  // your numbers and who cheered you.
+  function myStory() {
+    const M = soc(state.meId), x = gpx(state.meId) || { id: state.meId, name: (me() || {}).name || "You" };
+    const p = (state.people || []).find((q) => q.id === state.meId) || {};
+    return `<div class="story" role="dialog" aria-label="Your day">
+      ${storyHead(x, "Your day", x.streak ? `<span class="stk">\u{1F525}${x.streak}</span>` : "")}
+      <div class="stbody">${M.photo && M.img ? `<figure class="stph"><img src="${esc(M.img)}" alt="Your photo">${M.caption ? `<figcaption>${esc(M.caption)}</figcaption>` : ""}</figure>
+          <p class="stmeta">Your family sees it for 7 days \u00b7 ${esc(photoAgo(M.at))} \u00b7 <button type="button" class="linkbtn" id="photoDel">Delete</button></p>`
+        : iLogged() ? `<button type="button" class="btn stwin" id="photoAdd2">\u{1F4F7} Share a win from today</button>` : ""}
+        <ul class="stnums">${storyNums(p)}</ul></div>
+      <footer class="stfoot"><p class="stfrom">${cheeredBy(M) || "No cheers yet today."}</p>
+        <button type="button" class="btn stnext" id="psDone2">Done</button></footer></div>`;
+  }
+  // V9.6. A photo from this week, full screen; Next walks the week.
+  const snapOf = (id, day) => state.social && day === state.social.today ? soc(id) : (((state.snapDays || {})[day] || {}).by || {})[id] || null;
+  const photoDay = (iso) => { const t = (state.social && state.social.today) || familyISO();
+    return iso === t ? "Today" : iso === shiftISO(t, -1) ? "Yesterday" : new Date(iso + "T00:00:00Z").toLocaleDateString(undefined, { weekday: "long", timeZone: "UTC" }); };
+  function photoViewer() {
+    const P = state.photo, it = P.list[P.i]; if (!it) return "";
+    const x = gpx(it.id) || { id: it.id, name: it.name || "" }, mine = it.id === state.meId, sn = snapOf(it.id, it.day);
+    const today = state.social && it.day === state.social.today, last = P.i >= P.list.length - 1;
+    return `<div class="story" role="dialog" aria-label="${mine ? "Your" : esc(x.name) + "'s"} photo">
+      ${storyHead(x, mine ? "You" : esc(x.name), `<span class="stk">${esc(photoDay(it.day))}</span>`)}
+      <div class="stbody">${sn && sn.img ? `<figure class="stph"><img src="${esc(sn.img)}" alt="${mine ? "Your" : esc(firstName(x)) + "'s"} photo">${sn.caption ? `<figcaption>${esc(sn.caption)}</figcaption>` : ""}</figure>` : `<p class="stwait">Loading\u2026</p>`}</div>
+      <footer class="stfoot">
+        <div class="stacts">${today && !mine && x.logged ? cheerBtn(x, "cheerbtn") : ""}${sn && sn.img ? `<button type="button" class="cheerbtn stsave" id="stSave">Save photo</button>` : ""}</div>
+        <button type="button" class="btn stnext" id="${last ? "psDone2" : "phNext"}">${last ? "Done" : `Next \u203a <small>${P.i + 2} of ${P.list.length}</small>`}</button>
       </footer></div>`;
   }
   async function sendNudge() {
@@ -3808,32 +3958,48 @@ button.fendj b { color:var(--accent); }
     if (r && r.error && !r.offline) toast(r.error, "bad");
   }
   async function savePhoto() {
-    const S = soc(state.person), x = gpx(state.person); if (!S.img) return;
-    const name = `tribes-${firstName(x).toLowerCase() || "photo"}-${(state.social && state.social.today) || "today"}.jpg`;
+    const P = state.photo, it = P ? P.list[P.i] : { id: state.person, day: state.social && state.social.today };
+    const sn = it && snapOf(it.id, it.day); if (!sn || !sn.img) return;
+    const name = `tribes-${firstName(gpx(it.id) || it).toLowerCase() || "photo"}-${it.day || "today"}.jpg`;
     try {
-      const blob = await (await fetch(S.img)).blob(), file = new File([blob], name, { type: "image/jpeg" });
+      const blob = await (await fetch(sn.img)).blob(), file = new File([blob], name, { type: "image/jpeg" });
       if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file] }); return; }
     } catch (e) { if (e && e.name === "AbortError") return; }
-    const a = document.createElement("a"); a.href = S.img; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    const a = document.createElement("a"); a.href = sn.img; a.download = name; document.body.appendChild(a); a.click(); a.remove();
   }
   function wireSocial() {
     document.querySelectorAll("[data-pnudge]").forEach((el) => el.addEventListener("click", () => {
       const id = el.dataset.pnudge;
-      if (!gpx(id)) return openEditor("name", id);
-      state.person = id; render(); }));
-    const shut = () => { state.person = null; render(); };
+      if (id !== state.meId && !gpx(id)) return openEditor("name", id);
+      state.storyQ = null; state.photo = null; state.person = id; render(); }));
+    const shut = () => { state.person = null; state.storyQ = null; state.photo = null; render(); };
     on("psDone", "click", shut); on("psDone2", "click", shut); on("psBg", "click", shut);
-    on("stNext", "click", () => { const L = storyList(), i = L.findIndex((y) => y.id === state.person); state.person = (L[i + 1] || {}).id || null; render(); });
+    on("stNext", "click", () => { const L = storyList(), i = L.findIndex((y) => y.id === state.person); state.person = (L[i + 1] || {}).id || "__end"; render(); });
+    on("stEnd", "click", () => { state.person = "__end"; render(); });
+    on("phNext", "click", () => { const P = state.photo; P.i++; const it = P.list[P.i]; if (it) loadSnapDay(it.day); render(); });
+    document.querySelectorAll("[data-ph]").forEach((el) => el.addEventListener("click", () => {
+      const list = ((state.social && state.social.week) || []).map((w) => ({ id: w.id, day: w.day, name: w.name }));
+      const [id, day] = el.dataset.ph.split("|"), i = Math.max(0, list.findIndex((w) => w.id === id && w.day === day));
+      state.person = null; state.storyQ = null; state.photo = { list, i }; if (state.social && day !== state.social.today) loadSnapDay(day); render(); }));
     on("psNudge", "click", sendNudge);
-    // The story sits outside the page, so its "Log my steps" is wired here.
-    document.querySelectorAll(".story [data-go]").forEach((el) => el.addEventListener("click", () => { state.person = null; openExercise(el.dataset.go); }));
     on("stSave", "click", savePhoto);
-    // Your photo: under your steps once you've logged, or from your face.
+    // The story sits outside the page, so its buttons are wired here.
+    document.querySelectorAll(".story [data-go]").forEach((el) => el.addEventListener("click", () => { state.person = null; state.storyQ = null; openExercise(el.dataset.go); }));
+    document.querySelectorAll(".story [data-lesson]").forEach((el) => el.addEventListener("click", () => { state.person = null; state.storyQ = null; render(); openLesson(el.dataset.lesson); }));
+    // Your photo: from your own story, the end of the stories, or Tribe.
     const pick = () => { const f = document.getElementById("photoFile"); if (f) f.click(); };
-    on("photoAdd", "click", pick); on("photoAdd2", "click", pick); on("photoAdd3", "click", pick);
+    ["photoAdd", "photoAdd2", "photoAdd3", "photoAdd4"].forEach((idn) => on(idn, "click", pick));
     on("photoFile", "change", (e) => postPhoto(e.target.files && e.target.files[0]));
     on("photoDel", "click", async () => { await call("app_photo_delete", { p_code: state.code, p_person: state.meId }); await loadSocial(); render(); });
-    // V9.5. Earlier days' photos load as their card scrolls into view.
+    on("sdCap", "input", (e) => { if (state.snapDraft) state.snapDraft.caption = e.target.value; });
+    on("sdCap", "keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); postDraft(); } });
+    on("sdGo", "click", postDraft);
+    const noDraft = () => { state.snapDraft = null; render(); };
+    on("sdX", "click", noDraft); on("sdBg", "click", noDraft);
+    on("teaserGo", "click", () => { const d = document.getElementById("dial-steps"); if (d) d.focus(); else openExercise("steps"); });
+    on("allNums", "click", () => { state.allNums = !state.allNums; render(); });
+    on("recapShare", "click", shareRecap);
+    // Earlier days' photos load as they scroll into view.
     const els = [...document.querySelectorAll("[data-fday]")].filter((el) => !(state.snapDays || {})[el.dataset.fday]);
     if (els.length && "IntersectionObserver" in window) {
       const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { io.unobserve(e.target); loadSnapDay(e.target.dataset.fday); } }), { rootMargin: "400px" });
@@ -3841,11 +4007,11 @@ button.fendj b { color:var(--accent); }
     } else els.forEach((el) => loadSnapDay(el.dataset.fday));
   }
   async function loadSnapDay(day) {
-    state.snapDays = state.snapDays || {}; if (state.snapDays[day]) return;
+    state.snapDays = state.snapDays || {}; if (!day || state.snapDays[day]) return;
     state.snapDays[day] = { busy: true };
     const r = await call("app_snaps", { p_code: state.code, p_person: state.meId, p_day: day });
     state.snapDays[day] = r && !r.error ? { by: Object.fromEntries((r.snaps || []).map((x) => [x.id, x])) } : null;
-    if (state.view === "board" && homeTab() === "tribe" && r && !r.error) render();
+    if (state.view === "board" && r && !r.error) render();
   }
 
   /* ---------- V9.1: your progress (only you see it) ------------------ */
@@ -3875,83 +4041,119 @@ button.fendj b { color:var(--accent); }
       `<rect x="${i * 10 + 1}" y="${28 - Math.max(2, v / 7 * 28)}" width="8" height="${Math.max(2, v / 7 * 28)}" rx="1.5" class="${v ? (i === 11 ? "now" : "") : "nil"}"/>`).join("")}</svg>`;
   }
   const PROG_PILLARS = [["meditation", "Meditation", "\u{1F9D8}"], ["exercise", "Exercise", "\u{1F45F}"], ["diet", "Diet", "\u{1F957}"], ["sleep", "Sleep", "\u{1F319}"], ["focus", "Great Work", "\u{1F3AF}"]];
-  function progressBlock() {
-    const P = state.progress;
-    if (!P || P.busy) return `<p class="hint">Gathering your progress\u2026</p>`;
-    if (P.err) return `<p class="hint bad">${esc(P.err)}</p>`;
-    const since = new Date(P.since + "T00:00:00Z").toLocaleDateString(undefined, { timeZone: "UTC", month: "long", year: "numeric" });
-    const steps = (P.metrics || []).find((m) => m.key === "steps"), S = P.streak || {}, L = P.labs || {};
-    const tiles = [[steps ? num(steps.days) : "0", "days logged"], [num(S.best || 0), "best streak"], [num(P.bank || 0), "points"]];
-    // Days a week over the last 4 full weeks, against the 4 before.
-    const rate = (w) => { const x = (w || []).map(Number); const a = (x[7] + x[8] + x[9] + x[10]) / 4, b = (x[3] + x[4] + x[5] + x[6]) / 4;
-      return { a, d: a - b }; };
-    const row = (label, w) => { const r = rate(w);
-      return `<li class="pgm"><b>${esc(label)}</b>${weekBars(w)}<span class="pgr">${r.a.toFixed(1).replace(/\.0$/, "")}<small>/wk</small>${Math.abs(r.d) >= 0.5 ? `<i class="${r.d > 0 ? "good" : "bad"}">${r.d > 0 ? "\u2191" : "\u2193"}</i>` : ""}</span></li>`; };
-    const groups = PROG_PILLARS.map(([k, name, icon]) => { const ms = (P.metrics || []).filter((m) => m.pillar === k && (m.weeks || []).some((v) => v > 0));
-      return ms.length ? `<p class="dpg">${icon} ${esc(name)}</p><ul class="pglist">${ms.map((m) => row(m.label, m.weeks)).join("")}</ul>` : ""; }).join("");
-    const own = (P.habits || []).filter((h) => (h.weeks || []).some((v) => v > 0));
-    return `<p class="pgsince">Since ${esc(since)} \u00b7 days per week, last 12 weeks</p>
-      <div class="pgtiles">${tiles.map(([v, k]) => `<div><b>${v}</b><small>${k}</small></div>`).join("")}</div>
-      ${groups}
-      ${own.length ? `<p class="dpg">\u2728 Your own</p><ul class="pglist">${own.map((h) => row(h.name, h.weeks)).join("")}</ul>` : ""}
-      ${L.reports ? `<p class="dpg">\u{1F9EA} Lab results</p><p class="pglab">${num(L.markers)} markers \u00b7 <b class="${L.attention ? "bad" : "good"}">${L.attention ? `${L.attention} need attention` : "all in range"}</b> \u00b7 last ${esc(shortDay(L.last))}</p>` : ""}`;
-  }
+  // Days a week over the last 4 full weeks, against the 4 before.
+  const rateOf = (w) => { const x = (w || []).map(Number); const a = (x[7] + x[8] + x[9] + x[10]) / 4, b = (x[3] + x[4] + x[5] + x[6]) / 4; return { a, d: a - b }; };
 
   // V9.2. The snapshot sits where you just logged: one tap, no hunting.
   function snapBtn() {
     if (!iLogged() || soc(state.meId).photo || !state.social) return "";
-    return `<button type="button" class="snapbtn" id="photoAdd"><span aria-hidden="true">\u{1F4F7}</span><span><b>Add a snapshot of your day</b><small>A screenshot or a photo. Your family sees it for 7 days.</small></span></button>`;
+    return `<button type="button" class="snapbtn" id="photoAdd"><span aria-hidden="true">\u{1F4F7}</span><span><b>Share a win from today</b><small>A photo or an upload, with a line about it. Your family sees it for 7 days.</small></span></button>`;
   }
-  // V9.5. The family feed: today's cards, then a card for each of the six
-  // days before (photos, who logged, milestones), then it ends. Locked
-  // until you log today.
-  const MARK = { streak: (a) => `\u{1F525} ${a.who} reached a ${a.n}-day streak`, goal: (a) => `\u2b50 First goal day for ${a.who}`,
-    "10k": (a) => `\u{1F45F} First 10,000-step day for ${a.who}`, week: (a) => `\u2705 ${a.who} logged all 7 days` };
   const andList = (xs) => xs.length < 2 ? xs.join("") : `${xs.slice(0, -1).join(", ")} and ${xs[xs.length - 1]}`;
-  // One line per kind of milestone: "You, Fatima and Mahd logged all 7 days".
-  function markLines(ms) {
-    const g = {};
-    (ms || []).forEach((m) => { if (!MARK[m.kind]) return; const k = m.kind + (m.n || ""); (g[k] = g[k] || { kind: m.kind, n: m.n, ids: [] }).ids.push(m); });
-    return Object.values(g).map((x) => {
-      const names = x.ids.sort((a, b) => (b.id === state.meId) - (a.id === state.meId)).map((m, i) => m.id === state.meId ? (i ? "you" : "You") : esc(firstName(m)));
-      const t = MARK[x.kind]({ who: andList(names), n: x.n });
-      return `<p class="fmark">${x.kind === "goal" || x.kind === "10k" ? t.replace(/for You\b/, "for you") : t}</p>`; }).join("");
+  // V9.6. Tribe is this week: the week's photos, who logged which day,
+  // and on Sunday evening and Monday, the week in one card.
+  const WD = ["M", "T", "W", "T", "F", "S", "S"];
+  const shortWd = (iso) => new Date(iso + "T00:00:00Z").toLocaleDateString(undefined, { weekday: "short", timeZone: "UTC" });
+  function weekPhotos() {
+    if (!state.garden || !state.social) return "";
+    if (!iLogged()) return `<button type="button" class="feedlock" data-go="steps"><span aria-hidden="true">\u{1F512}</span><span>Log today's steps to see this week's photos. <b>Log now \u203a</b></span></button>`;
+    const W = state.social.week || [], t = state.social.today, add = soc(state.meId).photo ? "" : `<button type="button" class="linkbtn wkadd" id="photoAdd3">\u{1F4F7} Share a win</button>`;
+    if (!W.length) return `<div class="wkph0"><p>No photos yet this week.</p>${add}</div>`;
+    const tile = (w) => { const sn = snapOf(w.id, w.day), mine = w.id === state.meId;
+      return `<button type="button" class="wkt" data-ph="${w.id}|${w.day}" ${w.day !== t ? `data-fday="${w.day}"` : ""} aria-label="${mine ? "Your" : esc(firstName(w)) + "'s"} photo, ${esc(photoDay(w.day))}${w.caption ? ": " + esc(w.caption) : ""}">${sn && sn.img ? `<img src="${esc(sn.img)}" alt="" loading="lazy">` : ""}<small>${mine ? "You" : esc(firstName(w))} \u00b7 ${w.day === t ? "today" : esc(shortWd(w.day))}</small></button>`; };
+    return `<section class="wkph" aria-label="This week's photos"><p class="feedh"><span>This week's photos</span>${add}</p>
+      <div class="wkgrid">${W.map(tile).join("")}</div></section>`;
   }
-  function tribeFeed() {
-    if (!state.garden || !state.social || famDayISO() !== familyISO()) return "";
-    const G = state.garden.people || [];
-    if (!iLogged()) return `<section class="feed"><p class="feedh">Your tribe this week</p>
-      <button type="button" class="feedlock" data-go="steps"><span aria-hidden="true">\u{1F512}</span><span>Log today's steps to see your tribe's week. <b>Log now \u203a</b></span></button></section>`;
-    const pp = Object.fromEntries((state.people || []).map((p) => [p.id, p]));
-    const done = G.filter((x) => x.logged || soc(x.id).photo)
-      .sort((a, b) => (b.id === state.meId) - (a.id === state.meId) || String(soc(b.id).at || "").localeCompare(String(soc(a.id).at || "")) || a.name.localeCompare(b.name));
-    const todo = G.filter((x) => !x.logged && x.recent && x.id !== state.meId);
-    const card = (x) => {
-      const S = soc(x.id), p = pp[x.id] || {}, mine = x.id === state.meId, st = p.id ? Number(board(p).steps) || 0 : 0;
-      return `<article class="fcard">
-        <header><span class="fav fsm" style="--hc:hsl(${p.hue || 200} 62% 48%)">${esc(initials(x.name))}</span><b>${mine ? "You" : esc(x.name)}</b>
-          <span class="fst">${st ? `${num(st)} steps` : "logged"}${x.today ? " \u2713" : ""}${x.streak ? ` \u00b7 \u{1F525}${x.streak}` : ""}</span></header>
-        ${S.img ? `<img class="fimg" src="${esc(S.img)}" alt="${mine ? "Your" : esc(x.name) + "'s"} snapshot" loading="lazy">${S.caption ? `<p class="fcap">${esc(S.caption)}</p>` : ""}` : mine ? `<button type="button" class="linkbtn fadd" id="photoAdd3">\u{1F4F7} Add your snapshot</button>` : ""}
-        ${mine ? (cheeredBy(S) ? `<p class="freacts">${cheeredBy(S)}</p>` : "")
-          : `<div class="frow">${cheerBtn(x, "cheerbtn sm")}${cheeredBy(S) ? `<p class="freacts">${cheeredBy(S)}</p>` : ""}</div>`}
-      </article>`; };
-    const D = state.social.days || [], today = D[0] || {}, yday = shiftISO(state.social.today || familyISO(), -1);
-    const dayCard = (d) => {
-      const ph = (d.people || []).filter((x) => x.photo), L = (state.snapDays || {})[d.day], more = ph.length - 4;
-      const mos = ph.length ? `<div class="fmos n${Math.min(ph.length, 4)}" data-fday="${d.day}">${ph.slice(0, 4).map((x, j) => { const sn = L && L.by && L.by[x.id];
-          return `<span class="fph">${sn ? `<img src="${esc(sn.img)}" alt="${esc(firstName(x))}'s photo" loading="lazy">` : ""}<small>${esc(x.id === state.meId ? "You" : firstName(x))}</small>${j === 3 && more > 0 ? `<em>+${more}</em>` : ""}</span>`; }).join("")}</div>` : "";
-      return `<article class="fcard fday" aria-label="${esc(d.day === yday ? "Yesterday" : shortDay(d.day))}">
-        <header><b>${esc(d.day === yday ? "Yesterday" : shortDay(d.day))}</b><span class="fst">${d.people.length} logged</span></header>
-        ${markLines(d.marks)}
-        ${mos}
-        <ul class="fppl">${d.people.map((x) => `<li><span>${x.id === state.meId ? "You" : esc(firstName(x))}</span><b>${num(Math.round(Number(x.steps)))}${x.goal ? " \u2713" : ""}</b>${(x.cheers || []).length ? `<em aria-label="${x.cheers.length} cheers">\u{1F389}${x.cheers.length}</em>` : ""}</li>`).join("")}</ul>
-      </article>`; };
-    return `<section class="feed" aria-label="Your tribe this week"><p class="feedh">Today</p>
-      ${markLines(today.marks)}
-      ${done.map(card).join("")}
-      ${todo.length ? `<p class="ftodo">Still to log: ${todo.map((x) => `<button type="button" class="linkbtn" data-pnudge="${x.id}">${esc(firstName(x))}</button>`).join(", ")}</p>` : ""}
-      ${D.slice(1).filter((d) => (d.people || []).length).map(dayCard).join("")}
-      <button type="button" class="fend fendj" data-htab="journey">You're all caught up \u00b7 <b>See more in Journey \u203a</b></button></section>`;
+  function weekChart() {
+    const G = state.garden; if (!G) return "";
+    const dow = garDow();
+    const rows = (G.people || []).filter((x) => x.id === state.meId || x.recent || (x.days || []).length)
+      .sort((a, b) => (b.id === state.meId) - (a.id === state.meId) || (b.days || []).length - (a.days || []).length || (b.streak || 0) - (a.streak || 0) || a.name.localeCompare(b.name));
+    const row = (x) => { const mine = x.id === state.meId, ds = new Set(x.days || []);
+      const cells = WD.map((d, i) => `<i class="${i + 1 > dow ? "fut" : ds.has(i + 1) ? "on" : "off"}${i + 1 === dow ? " now" : ""}"></i>`).join("");
+      const end = x.logged ? `<span class="wkstk">${x.streak ? `\u{1F525}${x.streak}` : "\u2713"}</span>`
+        : mine ? `<button type="button" class="wkact" data-go="steps">Log</button>`
+        : `<button type="button" class="wkact${soc(x.id).nudged ? " done" : ""}" data-pnudge="${x.id}">${soc(x.id).nudged ? "Nudged" : "Nudge"}</button>`;
+      return `<li><button type="button" class="wkn" data-pnudge="${x.id}" aria-label="${mine ? "You" : esc(x.name)}: ${ds.size} of ${dow} days logged this week">${mine ? "You" : esc(firstName(x))}</button><span class="wkd" aria-hidden="true">${cells}</span>${end}</li>`; };
+    return `<section class="wkchart" aria-label="Who logged which day this week"><p class="feedh"><span>Who logged this week</span></p>
+      <div class="wkhead" aria-hidden="true"><span></span><span class="wkd">${WD.map((d, i) => `<b class="${i + 1 === dow ? "now" : ""}">${d}</b>`).join("")}</span><span></span></div>
+      <ul class="wklist">${rows.map(row).join("")}</ul></section>`;
+  }
+  // Sunday from 6 pm: this week. Monday: last week. (Photos last 7 days,
+  // so by Tuesday the week's first photos are gone.)
+  function recapWeek() { const d = new Date(), w = d.getDay(), t = todayISO();
+    if (w === 0 && d.getHours() >= 18) return mondayOf(t); if (w === 1) return shiftISO(mondayOf(t), -7); return null; }
+  async function loadRecap(wk) {
+    state.recap = { week: wk, busy: true };
+    const r = await call("app_recap", { p_code: state.code, p_person: state.meId, p_week: wk });
+    state.recap = r && !r.error ? Object.assign(r, { week: wk }) : { week: wk, err: true };
+    if (state.view === "board" && homeTab() === "tribe") render();
+  }
+  // For a picture or message shared outside the app, real first names
+  // (never "You"), at most three, then "and N more".
+  function recapStats(R, out) {
+    const P = (R.people || []).filter((x) => Number(x.days) > 0); if (!P.length) return null;
+    const top = (f) => { const v = Math.max(...P.map(f)); return { v, who: P.filter((x) => f(x) === v) }; };
+    const st = top((x) => Number(x.steps)), cons = top((x) => Number(x.days));
+    const cb = P.map((x) => ({ x, d: Number(x.days) - Number(x.prev) })).filter((y) => y.d > 0).sort((a, b) => b.d - a.d)[0];
+    const nm = (xs) => { const ns = xs.slice().sort((a, b) => out ? 0 : (b.id === state.meId) - (a.id === state.meId)).map((x) => !out && x.id === state.meId ? "You" : firstName(x));
+      return out && ns.length > 3 ? `${ns.slice(0, 2).join(", ")} and ${ns.length - 2} more` : andList(ns); };
+    return { steps: [nm(st.who), st.v], cons: [nm(cons.who), cons.v], back: cb ? [nm([cb.x]), Number(cb.x.prev), Number(cb.x.days)] : null };
+  }
+  function recapCard() {
+    const wk = recapWeek(); if (!wk || !state.meId) return "";
+    if (!state.recap || state.recap.week !== wk) { if (!(state.recap && state.recap.busy)) setTimeout(() => loadRecap(wk), 0); return ""; }
+    const R = state.recap; if (R.busy || R.err) return "";
+    const S = recapStats(R); if (!S) return "";
+    const snaps = (R.snaps || []).slice(0, 6), md = (iso) => shortDay(iso).replace(/^[A-Za-z]+, /, "");
+    return `<section class="recap" aria-label="Your tribe's week">
+      <header><b>Your tribe's week</b><span>${esc(md(R.week))} \u2013 ${esc(md(shiftISO(R.week, 6)))}</span></header>
+      ${R.open ? (snaps.length ? `<div class="rcgrid">${snaps.map((x) => { const sn = snapOf(x.id, x.day);
+          return `<span class="rct" data-fday="${x.day}">${sn && sn.img ? `<img src="${esc(sn.img)}" alt="${esc(firstName(x))}'s photo">` : ""}</span>`; }).join("")}</div>` : "")
+        : `<p class="hint">\u{1F512} Log today's steps to see the week's photos.</p>`}
+      <ul class="rcstats">
+        <li><span>\u{1F45F} Most steps</span><b>${esc(S.steps[0])}</b><em>${num(Math.round(S.steps[1]))}</em></li>
+        <li><span>\u2705 Most consistent</span><b>${esc(S.cons[0])}</b><em>${S.cons[1]} of 7 days</em></li>
+        ${S.back ? `<li><span>\u{1F4C8} Best comeback</span><b>${esc(S.back[0])}</b><em>${S.back[1]} \u2192 ${S.back[2]} days</em></li>` : ""}
+      </ul>
+      <button type="button" class="btn rcshare" id="recapShare">Share the week</button></section>`;
+  }
+  // The week as one picture to share, with a link to start a tribe (our
+  // public id, never our join code).
+  async function recapImage(R, S) {
+    const W = 1080, H = 1350, c = document.createElement("canvas"); c.width = W; c.height = H; const g = c.getContext("2d");
+    g.fillStyle = "#14171a"; g.fillRect(0, 0, W, H);
+    g.fillStyle = "#f3efe6"; g.font = "600 58px system-ui, sans-serif"; g.fillText(state.group.name, 72, 124);
+    g.font = "400 36px system-ui, sans-serif"; g.fillStyle = "#a9a39a"; const md = (iso) => shortDay(iso).replace(/^[A-Za-z]+, /, "");
+    g.fillText(`Our week \u00b7 ${md(R.week)} \u2013 ${md(shiftISO(R.week, 6))}`, 72, 180);
+    const srcs = (R.snaps || []).slice(0, 6).map((x) => (snapOf(x.id, x.day) || {}).img).filter(Boolean);
+    const ims = (await Promise.all(srcs.map((src) => new Promise((ok) => { const im = new Image(); im.onload = () => ok(im); im.onerror = () => ok(null); im.src = src; })))).filter(Boolean);
+    const cell = (W - 144 - 24) / 3, top = 236;
+    ims.forEach((im, i) => { const x = 72 + (i % 3) * (cell + 12), y = top + Math.floor(i / 3) * (cell + 12), k = Math.max(cell / im.width, cell / im.height), w = cell / k, h = cell / k;
+      g.save(); g.beginPath(); g.rect(x, y, cell, cell); g.clip(); g.drawImage(im, (im.width - w) / 2, (im.height - h) / 2, w, h, x, y, cell, cell); g.restore(); });
+    let y = top + Math.ceil(ims.length / 3) * (cell + 12) + 70;
+    const line = (a, b) => { g.font = "400 34px system-ui, sans-serif"; g.fillStyle = "#a9a39a"; g.fillText(a, 72, y);
+      let fs = 42; do { g.font = `700 ${fs}px system-ui, sans-serif`; fs -= 2; } while (g.measureText(b).width > W - 144 && fs > 26);
+      g.fillStyle = "#f3efe6"; g.fillText(b, 72, y + 52, W - 144); y += 126; };
+    line("Most steps", `${S.steps[0]} \u00b7 ${num(Math.round(S.steps[1]))}`);
+    line("Most consistent", `${S.cons[0]} \u00b7 ${S.cons[1]} of 7 days`);
+    if (S.back) line("Best comeback", `${S.back[0]} \u00b7 ${S.back[1]} \u2192 ${S.back[2]} days`);
+    g.font = "600 34px system-ui, sans-serif"; g.fillStyle = "#e0b04a"; g.fillText("Tribes \u00b7 families who show up for each other", 72, H - 72);
+    const blob = await new Promise((ok) => c.toBlob(ok, "image/jpeg", 0.88));
+    return blob ? new File([blob], "tribes-week.jpg", { type: "image/jpeg" }) : null;
+  }
+  async function shareRecap() {
+    const R = state.recap, S = R && !R.busy && !R.err && recapStats(R, true); if (!S) return;
+    const pid = (state.league && state.league.pid) || state.group.pid;
+    const link = `${location.origin}${location.pathname}${pid ? "?rival=" + encodeURIComponent(pid) : ""}`;
+    const text = `Our week on Tribes (${state.group.name}): most steps ${S.steps[0]} (${num(Math.round(S.steps[1]))}), most consistent ${S.cons[0]} (${S.cons[1]} of 7 days)${S.back ? `, best comeback ${S.back[0]}` : ""}. Start your family's tribe \u{1F45F} ${link}`;
+    let file = null; try { file = await recapImage(R, S); } catch {}
+    try {
+      if (file && navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], text }); return; }
+      if (navigator.share) { await navigator.share({ text }); return; }
+    } catch (e) { if (e && e.name === "AbortError") return; }
+    try { await navigator.clipboard.writeText(text); toast("Copied. Paste it in WhatsApp.", "ok"); }
+    catch { window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank"); }
   }
   function facesRow() {
     const G = state.garden; if (!G) return "";
@@ -3977,7 +4179,7 @@ button.fendj b { color:var(--accent); }
       // V9.5. Rings: coloured = logged, story not seen yet; faded = seen;
       // grey = not logged (tap to nudge; your own grey face opens your steps).
       const ring = !x.logged ? " grey" : mine ? " done" : isSeen(x.id) ? " done seen" : " done fresh";
-      const act = mine ? (x.logged ? 'id="streakOpen" data-faceme="1"' : 'data-go="steps"') : `data-pnudge="${x.id}"`;
+      const act = mine ? (x.logged ? `data-pnudge="${x.id}"` : 'data-go="steps"') : `data-pnudge="${x.id}"`;
       const say = mine ? (x.logged ? "You" : "You, not logged yet. Log your steps")
         : `${esc(x.name)}${x.logged ? (isSeen(x.id) ? ", logged today, story seen" : ", logged today, new story") : ", not logged yet. Nudge"}`;
       return `<span class="facew" role="listitem"><button type="button" class="face${ring}${mine ? " me" : ""}" ${act}
@@ -4391,6 +4593,14 @@ button.fendj b { color:var(--accent); }
       await loadFamily();
     }
     render();
+    // V9.6. Log first, then your tribe: stories play right after you log,
+    // and when you open the app (or come back to it) with something new.
+    if (state.meId && state.social && state.garden) {
+      const now = iLogged();
+      if (state.wasLogged === false && now) { if (state.view === "board") setTimeout(maybeAutoplay, 800); else state.storyPending = true; }
+      else if (state.autoOpen !== false && now) setTimeout(maybeAutoplay, 300);
+      state.autoOpen = false; state.wasLogged = now;
+    }
     // V9.5. A nudge's link (?log=1) opens your steps, ready to type.
     if (state.meId && !state.deepDone && new URLSearchParams(location.search).get("log")) {
       state.deepDone = true;
@@ -4434,6 +4644,7 @@ button.fendj b { color:var(--accent); }
     let hiddenAt = 0;
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) { hiddenAt = Date.now(); return; }
+      if (hiddenAt && Date.now() - hiddenAt > 60000) state.autoOpen = true;   // V9.6. Back after a minute: new stories play.
       // V7.1. Home always opens on today: away 10 minutes or more, it
       // comes back to today from any past day.
       if (state.boardDay && hiddenAt && Date.now() - hiddenAt > 600000) {
@@ -7073,6 +7284,25 @@ button.fendj b { color:var(--accent); }
             <div class="pcells">${ks.map(cell).join("")}</div></div>`).join("")}
       </div>`;
     };
+    // V9.6. Me: one list of your habits, each with today's number (tap to
+    // open it) and the days a week over the last 12 weeks.
+    const habitList = (p) => {
+      const c = famCells(p), P = state.progress && !state.progress.busy && !state.progress.err ? state.progress : null;
+      const ALIAS = { sleep: ["sleep_pct", "sleep_items"] };
+      const weeksOf = (k) => { if (!P) return null;
+        if (STD[k].custom) { const h = (P.habits || []).find((x) => x.name === STD[k].label); return h ? h.weeks : null; }
+        const keys = ALIAS[k] || [STD[k].key], mt = (P.metrics || []).find((x) => keys.includes(x.key)); return mt ? mt.weeks : null; };
+      const row = (k) => { const v = c[k], nil = v === null || v === undefined, w = weeksOf(k), r = w ? rateOf(w) : null;
+        return `<li class="hlrow"><button type="button" class="hlbtn" data-go="${k}" aria-label="${esc(STD[k].label)}${nil ? ", not logged" : ": " + stdWords(k, v)}. Open">
+            <b>${esc(STD[k].short || STD[k].label)}</b><span class="${nil ? "nil" : ""}">${nil ? "\u2013" : v === true ? "\u2713" : esc(stdWords(k, v))}</span></button>
+          ${w ? weekBars(w) : `<span class="pgbars0"></span>`}
+          <span class="pgr">${r ? `${r.a.toFixed(1).replace(/\.0$/, "")}<small>/wk</small>${Math.abs(r.d) >= 0.5 ? `<i class="${r.d > 0 ? "good" : "bad"}">${r.d > 0 ? "\u2191" : "\u2193"}</i>` : ""}` : ""}</span></li>`; };
+      const L = P && P.labs || {};
+      return `<div class="hlist" aria-label="Your habits">
+        ${groups.map(([g, ks]) => `<p class="dpg">${esc(g)}</p><ul class="pglist">${ks.map(row).join("")}</ul>`).join("")}
+        ${L.reports ? `<p class="pglab">\u{1F9EA} ${num(L.markers)} lab markers \u00b7 <b class="${L.attention ? "bad" : "good"}">${L.attention ? `${L.attention} need attention` : "all in range"}</b> \u00b7 last ${esc(shortDay(L.last))}</p>` : ""}
+        <p class="pgsince">Today, then days a week over the last 12 weeks. Tap a habit to log any day or see its history.</p></div>`;
+    };
     // V7.7. The tribe's full table is back: badge and name, streak, days
     // this week, then a column per habit (yours), and a heart for anyone at
     // today's goal. You first, then by days this week, then streak.
@@ -7122,11 +7352,9 @@ button.fendj b { color:var(--accent); }
       <div class="hbar">
         <b>${state.group.crest ? `<span class="hcrest" aria-hidden="true">${esc(state.group.crest)}</span>` : ""}${esc(state.group.name)}</b>
         ${m ? `<input type="file" id="photoFile" accept="image/*" hidden>` : ""}
-        <span class="hright">${m ? `<label class="hwho"><select id="who" aria-label="Who are you">${whoOptions}</select>
-          <i aria-hidden="true">&#9662;</i></label>` : ""}
+        <span class="hright">
           ${m ? `<button type="button" class="hinfo${tourSeen() && !ownerNews() ? "" : " new"}" id="tourBtn" aria-label="Help and feedback">i</button>` : ""}</span>
       </div>
-      ${m ? goalLine2() : ""}
       ${m ? cheerBanner() : ""}
       ${m && homePast() && (tab === "today" || tab === "me") ? `<div class="hpast" role="status"><span>Showing <b>${esc(fullDate(state.boardDay))}</b></span><button type="button" class="hpastgo" id="hToday">Back to today</button></div>` : ""}`;
     let body;
@@ -7149,21 +7377,27 @@ button.fendj b { color:var(--accent); }
       <section class="htab htribe" aria-label="Your tribe">
         <div class="htabh"><button type="button" class="htabt" id="tribeGoal" aria-label="Tribe name, crest, goal and people"><h2>Tribe</h2></button></div>
         ${facesRow()}
-        ${tribeFeed()}
-        ${tribeCard()}
-        ${state.people.length ? `<div class="roster"><div class="tdayrow">${nav()}<button type="button" class="hshare" id="waShare" aria-label="Share ${state.boardDay ? esc(shortDay(famDayISO())) : "today"} on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11v9h12v-9"/></svg></button></div>
-          ${state.garden && famDayISO() === familyISO() && !iLogged() ? `<button type="button" class="linkbtn logsee" data-go="steps">\u{1F512} Log today's steps to see everyone's numbers \u203a</button>` : ""}${famTable(ordered)}</div>${leagueLine()}` : roster}
+        ${recapCard()}
+        ${weekPhotos()}
+        ${weekChart()}
+        ${state.people.length ? `<button type="button" class="allnums" id="allNums" aria-expanded="${!!state.allNums}">${state.allNums ? "Hide the numbers" : "All numbers \u203a"}</button>
+          ${state.allNums ? `<div class="roster"><div class="tdayrow">${nav()}<button type="button" class="hshare" id="waShare" aria-label="Share ${state.boardDay ? esc(shortDay(famDayISO())) : "today"} on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11v9h12v-9"/></svg></button></div>
+          ${state.garden && famDayISO() === familyISO() && !iLogged() ? `<button type="button" class="linkbtn logsee" data-go="steps">\u{1F512} Log today's steps to see everyone's numbers \u203a</button>` : ""}${famTable(ordered)}</div>` : ""}` : roster}
+        ${leaguePaused() ? "" : leagueLine()}
       </section>`;
     else if (tab === "campfire") body = campfireView();
     else if (tab === "journey") body = journeyView();
     // V9.5. Me is your record: today's photo and streak, then every habit,
     // any day. Logging lives on Today.
+    // V9.6. Me: who you are, your badge and streak, your milestones, then
+    // one list of your habits: today's number and the last 12 weeks.
     else if (tab === "me") body = `
       <section class="htab hme hmine" aria-label="You">
-        <div class="htabh"><h2>Me</h2></div>
+        <div class="htabh"><h2>Me</h2><label class="hwho"><select id="who" aria-label="Who are you">${whoOptions}</select><i aria-hidden="true">&#9662;</i></label></div>
+        ${tribeCard()}
         ${youCard()}
-        ${nav()}
-        ${meRow ? `<div class="roster">${meDash(meRow)}</div>` : ""}
+        ${myMilestones()}
+        ${meRow ? habitList(meRow) : ""}
         <button type="button" class="dedit" id="dialEdit2">Your habits</button>
       </section>`;
     // V9.5. Check in, the centre: who has logged, the day (‹ › to log a
@@ -7171,6 +7405,7 @@ button.fendj b { color:var(--accent); }
     // once you've logged. No scrolling to log.
     else body = `
       ${facesRow()}
+      ${teaser()}
       ${ydayCard()}
       ${editRowHTML()}
       <div class="ckday">${nav()}</div>
@@ -7241,18 +7476,19 @@ button.fendj b { color:var(--accent); }
     const T = state.today || {}, S = T.streak || {}, n = S.n || 0;
     const next = [30, 100, 365].find((t) => n < t);
     const PTS = { 30: 100, 100: 300, 365: 1000 };
-    const M = soc(state.meId);
-    const photo = M.photo && M.img
-      ? `<figure class="psph"><img src="${esc(M.img)}" alt="Your photo"><figcaption>Today's photo, kept 7 days \u00b7 ${esc(photoAgo(M.at))} \u00b7 <button type="button" class="linkbtn" id="photoDel">Delete</button></figcaption></figure>
-         ${cheeredBy(M) ? `<p class="psfrom">${cheeredBy(M)}</p>` : ""}`
-      : iLogged() ? `<button type="button" class="btn-quiet youph" id="photoAdd2">\u{1F4F7} Share today's photo</button>` : "";
     return `<div class="youcard">
         <div class="stbig"><span aria-hidden="true">\u{1F525}</span><b>${n}</b><small>day${n === 1 ? "" : "s"} in a row logging steps${S.today ? "" : " \u00b7 log today to keep it"}</small></div>
         <p class="stline">Best <b>${S.best || 0}</b> \u00b7 Freezes <b>${"\u2744".repeat(S.freezes || 0) || "0"}</b> \u00b7 a freeze saves a missed day</p>
         <p class="stwag">${next ? `<b>${next - n}</b> more day${next - n === 1 ? "" : "s"} to <b>+${num(PTS[next])}</b> points (${next}-day streak)` : "Every streak bonus earned. Legend."}</p>
-        ${photo}
-        <button type="button" class="linkbtn youj" id="stJourney">Your progress and achievements are in Journey \u203a</button>
       </div>`;
+  }
+  function myMilestones() {
+    const J = state.journey; if (!J || !J.achievements) return "";
+    const A = J.achievements.filter((x) => x.id === state.meId); if (!A.length) return "";
+    const st = A.filter((x) => x.kind === "streak").reduce((v, x) => Math.max(v, x.n), 0), wk = A.filter((x) => x.kind === "week").length;
+    const chips = [st ? `\u{1F525} ${st}-day streak` : "", A.some((x) => x.kind === "goal") ? "\u2b50 First goal day" : "",
+      A.some((x) => x.kind === "10k") ? "\u{1F45F} First 10k day" : "", wk ? `\u2705 Perfect week${wk > 1 ? ` \u00d7${wk}` : ""}` : ""].filter(Boolean);
+    return `<div class="mychips" aria-label="Your milestones">${chips.map((x) => `<i>${x}</i>`).join("")}</div>`;
   }
   // V8.2. The big moment: a full-screen burst, the chest flying open, the
   // points counting up, confetti. Tap anywhere to close. Calm for anyone
@@ -7333,7 +7569,7 @@ button.fendj b { color:var(--accent); }
     wireFeedback();
   }
   function wireToday() {
-    const openStreak = () => { state.homeTab = "me"; state.person = null; render(); window.scrollTo(0, 0); };
+    const openStreak = () => { state.homeTab = "me"; state.person = null; render(); window.scrollTo(0, 0); loadProgress(); loadJourney(); };
     on("stJourney", "click", () => { state.streakOpen = false; state.homeTab = "journey"; render(); window.scrollTo(0, 0); loadJourney(); loadProgress(); });
     on("streakOpen", "click", openStreak); on("streakOpen2", "click", openStreak);
     document.querySelectorAll("[data-faceme]").forEach((el) => el.addEventListener("click", openStreak));
@@ -7616,7 +7852,7 @@ button.fendj b { color:var(--accent); }
     state.journey = Object.assign({}, state.journey || {}, { busy: true });
     const r = await call("app_journey", { p_code: state.code, p_person: state.meId });
     state.journey = r && !r.error ? r : { err: r && r.offline ? "No signal. Try again in a moment." : (r && r.error) || "Couldn't load Journey." };
-    if (state.view === "board" && homeTab() === "journey") render();
+    if (state.view === "board" && (homeTab() === "journey" || homeTab() === "me")) render();
   }
   const isoDays = (a, b) => Math.round((Date.parse(b + "T00:00:00Z") - Date.parse(a + "T00:00:00Z")) / 86400000);
   function trailSVG(pct) {
@@ -7631,40 +7867,43 @@ button.fendj b { color:var(--accent); }
     if (!J || (J.busy && !J.months)) return `<section class="htab hjour">${head}<p class="hint">Gathering your tribe's journey\u2026</p></section>`;
     if (J.err) return `<section class="htab hjour">${head}<p class="hint bad">${esc(J.err)}</p></section>`;
     const Gl = J.goal;
-    let trail = `<p class="hint jnone">Set a tribe goal (tap Tribe, then the title) and your trail appears here.</p>`;
+    let trail = `<button type="button" class="jnone" id="tribeGoal2">+ Set your tribe's goal to see your trail</button>`;
     if (Gl) {
       const tot = Number(Gl.total) || 0, fill = Number(Gl.filled) || 0, pct = tot ? Math.min(100, fill / tot * 100) : 0;
       // On pace: everyone logged every day up to yesterday (today is still open).
       const past = Math.max(0, isoDays(Gl.start, J.today)), pace = Number(Gl.walkers) * past, on = fill >= pace * 0.9;
       trail = `<section class="jtrail" aria-label="The trail to ${esc(Gl.name)}">
-        <p class="jgoal"><b>${esc(Gl.name)}</b>${Gl.days_left !== null && Gl.days_left !== undefined ? `<span>${Gl.days_left >= 0 ? `${num(Gl.days_left)} day${Gl.days_left === 1 ? "" : "s"} to go` : "Goal day has passed"}</span>` : ""}</p>
+        <button type="button" class="jgoal" id="tribeGoal2" aria-label="Your tribe's goal: ${esc(Gl.name)}. Open"><b>${esc(Gl.name)}</b>${Gl.days_left !== null && Gl.days_left !== undefined ? `<span>${Gl.days_left >= 0 ? `${num(Gl.days_left)} day${Gl.days_left === 1 ? "" : "s"} to go` : "Goal day has passed"}</span>` : ""}</button>
         ${trailSVG(pct)}
         <p class="jsub">${tot ? `<b>${Math.round(pct)}%</b> of the way \u00b7 ${num(fill)} of ${num(tot)} family days logged${past ? ` \u00b7 <span class="${on ? "good" : "bad"}">${on ? "on pace" : "behind pace"}</span>` : ""}`
           : `${num(fill)} family days logged since the goal was set.`}</p>
         <p class="jhow">Every day each of you logs moves the tribe along. Everyone logging every day reaches the flag on the day.</p>
       </section>`;
     }
-    const A = J.achievements || [], by = {};
-    A.forEach((a) => { (by[a.id] = by[a.id] || { name: a.name, list: [] }).list.push(a); });
-    const shelf = Object.entries(by).sort(([ia, a], [ib, b]) => (ib === state.meId) - (ia === state.meId) || b.list.length - a.list.length || a.name.localeCompare(b.name)).map(([id, P]) => {
-      const st = P.list.filter((a) => a.kind === "streak").reduce((x, a) => Math.max(x, a.n), 0), wk = P.list.filter((a) => a.kind === "week").length;
-      const chips = [st ? `\u{1F525} ${st}-day streak` : "", P.list.some((a) => a.kind === "goal") ? "\u2b50 Goal day" : "",
-        P.list.some((a) => a.kind === "10k") ? "\u{1F45F} 10k day" : "", wk ? `\u2705 Perfect week${wk > 1 ? ` \u00d7${wk}` : ""}` : ""].filter(Boolean);
-      return `<li><b>${id === state.meId ? "You" : esc(P.name)}</b><span class="jchips">${chips.map((c) => `<i>${c}</i>`).join("")}</span></li>`; }).join("");
+    // Milestones, grouped: one line per kind, names one tap away.
+    const A = J.achievements || [], who = (x) => x.id === state.meId ? "You" : firstName(x);
+    const ORDER = { streak: 0, week: 1, goal: 2, "10k": 3 };
+    const lines = (got) => { const g = {};
+      got.forEach((x) => { const k = x.kind + (x.kind === "streak" ? x.n : ""); (g[k] = g[k] || { kind: x.kind, n: x.n, xs: [] }).xs.push(x); });
+      return Object.values(g).sort((a, b) => ORDER[a.kind] - ORDER[b.kind] || b.n - a.n).map((G) => {
+        const names = [...new Set(G.xs.map(who))], many = names.length > 2;
+        let head;
+        if (G.kind === "week") { const cnt = {}; G.xs.forEach((x) => { cnt[who(x)] = (cnt[who(x)] || 0) + 1; });
+          head = `\u2705 ${G.xs.length} perfect week${G.xs.length === 1 ? "" : "s"}`;
+          return `<li><details class="jdet"><summary>${head}</summary><p>${Object.entries(cnt).map(([k, v]) => `${esc(k)}${v > 1 ? ` \u00d7${v}` : ""}`).join(", ")}</p></details></li>`; }
+        const what = G.kind === "streak" ? `reached a ${G.n}-day streak` : G.kind === "goal" ? "had a first goal day" : "had a first 10,000-step day";
+        const ic = G.kind === "streak" ? "\u{1F525}" : G.kind === "goal" ? "\u2b50" : "\u{1F45F}";
+        if (!many) return `<li>${ic} ${esc(andList(names))} ${what}</li>`;
+        return `<li><details class="jdet"><summary>${ic} ${names.length} people ${what}</summary><p>${esc(andList(names))}</p></details></li>`; }).join(""); };
     const months = (J.months || []).map((M) => {
       const pct = M.possible ? Math.round(M.logged / M.possible * 100) : 0, [y, mo] = M.m.split("-").map(Number);
-      const got = A.filter((a) => a.day.slice(0, 7) === M.m), wk = got.filter((a) => a.kind === "week").length;
-      const lines = got.filter((a) => a.kind !== "week").map((a) => { const [ic, t] = ACH[a.kind](a); return `<li>${ic} ${a.id === state.meId ? "You" : esc(firstName(a))}: ${t}</li>`; })
-        .concat(wk ? [`<li>\u2705 ${wk} perfect week${wk > 1 ? "s" : ""}</li>`] : []);
+      const got = A.filter((x) => x.day.slice(0, 7) === M.m);
       return `<article class="jmon" aria-label="${MONTH_NAMES[mo - 1]} ${y}"><header><b>${MONTH_NAMES[mo - 1]} ${y}</b><span>${pct}% of days logged</span></header>
         <div class="jbar" aria-hidden="true"><i style="width:${pct}%"></i></div>
         <p class="jstat"><b>${num(Math.round(Number(M.steps)))}</b> steps \u00b7 ${num(M.logged)} days logged</p>
-        ${lines.length ? `<ul class="jearn">${lines.join("")}</ul>` : ""}</article>`; }).join("");
+        ${got.length ? `<ul class="jearn">${lines(got)}</ul>` : ""}</article>`; }).join("");
     return `<section class="htab hjour" aria-label="Journey">${head}
       ${trail}
-      <p class="dpg">You \u00b7 last 12 weeks</p><div class="jyou">${progressBlock()}</div>
-      <p class="dpg">Achievements</p>
-      ${shelf ? `<ul class="jshelf">${shelf}</ul>` : `<p class="hint">Log 30 days in a row, hit your goal, or log a full week, and it shows up here.</p>`}
       ${months ? `<p class="dpg">Month by month</p>${months}<p class="fend">That's every month since your tribe began.</p>` : ""}
     </section>`;
   }
@@ -8557,8 +8796,8 @@ button.fendj b { color:var(--accent); }
     { at: ".pdash", tab: "me", t: "Your dashboard",
       d: "Your habits, one line each. Tap a number to open its page. The arrows above it go back a day, for the dial too." },
     { at: ".tabbar", tab: "today", t: "Five tabs",
-      d: "Check in (the middle) is where you log, any day, and see who else has. Me is your record. Tribe is your family's week. Journey is how far you've come together. Campfire is a 2-minute lesson a day." },
-    { at: ".tmeline", tab: "tribe", t: "Your badge",
+      d: "Check in (the middle) is where you log, any day, and see who else has. Me is your record. Tribe is this week. Journey is your tribe's story so far. Campfire is a 2-minute lesson a day." },
+    { at: ".tmeline", tab: "me", t: "Your badge",
       d: "Hit your step goal 4 days this week and your badge goes up." },
     { at: ".lgline", tab: "tribe", t: "The League",
       d: "Your tribe's place among tribes, by members' average days at goal. Tap it for the list. Top 3 win points every week." },
@@ -8570,7 +8809,7 @@ button.fendj b { color:var(--accent); }
   let tourList = TOUR;
   function tour(i) {
     document.querySelector(".tourbg")?.remove();
-    if (i === 0) tourList = TOUR.filter((st) => (st.at !== ".tmeline" || gardenMe()) && (st.at !== ".lgline" || (state.league && state.league.tribes)));
+    if (i === 0) tourList = TOUR.filter((st) => (st.at !== ".tmeline" || gardenMe()) && (st.at !== ".lgline" || (state.league && state.league.tribes && !leaguePaused())));
     const TOUR_ = tourList;
     if (i >= TOUR_.length) { if (homeTab() !== "today") { state.homeTab = "today"; render(); window.scrollTo(0, 0); } return; }
     const st = TOUR_[i];
@@ -14699,6 +14938,8 @@ button.fendj b { color:var(--accent); }
       wireStd();
       wireHomeSheet();
     }
+    // V9.6. Logged on a habit's page: the stories wait for Check in.
+    if (v === "board" && state.storyPending) { state.storyPending = false; setTimeout(maybeAutoplay, 500); }
 
     if (keep) {
       const el = document.getElementById(keep.id);
@@ -15305,7 +15546,8 @@ button.fendj b { color:var(--accent); }
       const k = el.dataset.htab || el.dataset.gotab; if (k === homeTab()) { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
       state.homeTab = k; state.adding = false; state.person = null; render(); window.scrollTo(0, 0);
       if (k === "campfire") loadCampfire();
-      if (k === "journey") { loadJourney(); loadProgress(); }
+      if (k === "journey") loadJourney();
+      if (k === "me") { loadProgress(); loadJourney(); }
     }));
     on("foldBoard", "click", () => {
       try { localStorage.setItem("fhd.board", boardOpen() ? "shut" : "open"); } catch {}
