@@ -1394,9 +1394,26 @@ button.fchip { padding:7px 13px; cursor:pointer; }
 .ddsup { margin:16px 0 2px; }
 .dbig { display:flex; align-items:baseline; justify-content:center; gap:6px; margin:10px auto 4px; }
 .dbigb { border:none; background:none; cursor:pointer; padding:0; font:inherit; color:inherit; width:100%; }
-.dbig b, .dbigin { font-family:var(--mono); font-size:52px; line-height:1.05; font-weight:500; font-variant-numeric:tabular-nums; }
-.dbigin { width:5.4ch; text-align:center; border:none; border-bottom:2px solid var(--dc); background:none; color:var(--ink); padding:0; }
-.dbigin:focus { outline:none; }
+.dbig b, .dbigin, .dbigx { font-family:var(--mono); font-size:52px; line-height:1.05; font-weight:500; font-variant-numeric:tabular-nums; }
+.dbigin, .dbigx { width:5.4ch; text-align:center; border:none; border-bottom:2px solid var(--dc); background:none; color:var(--ink); padding:0; }
+.dbigin:focus, .dbigx:focus { outline:none; }
+.dsec.dmini .dbigx { font-size:28px; }
+.dsh .mrm { border:none; background:none; color:var(--muted); font-size:20px; line-height:1; padding:2px 4px; margin-left:4px; cursor:pointer; }
+.trbig { display:inline-flex; align-items:baseline; justify-content:center; gap:4px; }
+.trbig .bigedit { width:4ch; text-align:center; }
+.trbig small { font-size:15px; color:var(--muted); }
+.mjtop { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:6px 0 4px; }
+.mjdots { display:flex; gap:5px; flex-wrap:wrap; }
+.mjdots i { width:12px; height:12px; border-radius:50%; border:2px solid var(--med, #8a7bd1); }
+.mjdots i.on { background:var(--med, #8a7bd1); }
+.mjtop .mjcount { margin:0; display:flex; align-items:baseline; gap:4px; }
+.mjtop .mjcount b { font-size:22px; }
+.mjstd { border:none; background:none; padding:0; color:var(--muted); font:inherit; font-size:15px; text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
+.mjh { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.mjpen { border:none; background:none; color:var(--muted); font-size:16px; cursor:pointer; padding:2px 6px; }
+.mjedit { display:grid; gap:6px; margin:6px 0; }
+.mjeb { display:flex; justify-content:space-between; align-items:center; }
+.mjnew { display:block; width:100%; margin:10px 0 2px; padding:10px; border:1.5px dashed var(--line); border-radius:12px; background:none; color:var(--muted); font:inherit; cursor:pointer; }
 .dunit { font-size:15px; color:var(--muted); }
 .dchips { display:flex; justify-content:center; gap:8px; margin-top:6px; }
 .dchip { border:1.5px solid var(--dc); color:var(--dc); background:color-mix(in oklab, var(--dc) 8%, var(--surface));
@@ -3008,6 +3025,11 @@ body.tdragging ul.tl[data-tgroup="1"]:empty { min-height:48px; border:1.5px dash
 .qtribe.ready { border-color:#f2b631; background:color-mix(in oklab, #ffd23f 12%, var(--surface)); }
 .qtribe.ready svg { animation:tbob 1.4s ease-in-out infinite; transform-origin:50% 90%; }
 .qtribe:not(.won) svg { filter:grayscale(.7); opacity:.6; }
+.qrow .qchest.qdots { flex-direction:column; align-items:stretch; justify-content:center; gap:4px; padding:5px 10px; }
+.qrow .qchest.qdots .tdots { display:flex; flex-direction:row; flex-wrap:wrap; gap:4px; justify-content:center; }
+.qdots .tdots i { width:11px; height:11px; border-radius:50%; box-shadow:inset 0 0 0 1.5px color-mix(in oklab, var(--ink) 25%, transparent); }
+.qdots .tdots i.on { box-shadow:none; background:radial-gradient(circle at 35% 35%, #ffe08a, #e0b04a 60%, #b8862a); }
+.qrow .qchest.qdots .potv { display:flex; flex-direction:row; align-items:baseline; justify-content:center; gap:6px; }
 .lgline { display:flex; align-items:center; gap:6px; width:100%; margin:10px 0 0; padding:10px 4px; border:none; border-top:1px solid var(--line); background:none;
   color:var(--ink-2); font:inherit; font-size:14px; text-align:left; cursor:pointer; }
 .lgline b { color:var(--ink); } .lgline i { margin-left:auto; font-style:normal; color:var(--muted); }
@@ -3226,8 +3248,11 @@ button.fendj b { color:var(--accent); }
 .wkt img { display:block; width:100%; height:100%; object-fit:cover; }
 .wkt small { position:absolute; left:5px; bottom:5px; max-width:calc(100% - 10px); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding:2px 7px; border-radius:999px; background:rgba(0,0,0,.55); color:#fff; font-size:11px; font-weight:700; }
 .wkchart { margin:0 0 12px; }
-.wkhead, .wklist li { display:grid; grid-template-columns:minmax(0, 1fr) 168px 74px; align-items:center; gap:8px; }
-@media (max-width: 360px) { .wkhead, .wklist li { grid-template-columns:minmax(64px, 1fr) 126px 58px; gap:6px; } .wkd i { width:11px; height:11px; } .wkact { padding:6px 9px; } }
+.wkhead, .wklist li { display:grid; grid-template-columns:minmax(0, 1fr) 150px 112px; align-items:center; gap:6px; }
+@media (max-width: 380px) { .wkhead, .wklist li { grid-template-columns:minmax(52px, 1fr) 118px 104px; gap:5px; } .wkd i { width:11px; height:11px; } .wkact { padding:6px 8px; } }
+.wkend { justify-self:end; display:flex; align-items:center; gap:6px; }
+.wkfire { font-size:13px; font-variant-numeric:tabular-nums; color:var(--ink-2); white-space:nowrap; }
+.wkfire.cold { filter:grayscale(1); opacity:.55; }
 .wkph0 .linkbtn, .wkadd { white-space:nowrap; }
 .wkhead { margin:0 0 2px; font-size:11px; color:var(--muted); }
 .wkhead .wkd b { font-weight:700; } .wkhead .wkd b.now { color:var(--ink); }
@@ -3352,6 +3377,129 @@ button.fendj b { color:var(--accent); }
 .cfsec .cfrow { margin:0; padding:2px 14px 14px; }
 .cfnone { margin:0; padding:0 14px 14px; }
 .cfrd { font-style:normal; color:#2f9e6e; font-weight:700; }
+
+/* ---------- V10.1 ---------- */
+/* Tribe: the steps line, the goal rail, the feed */
+.sfold { display:flex; align-items:center; gap:10px; width:100%; margin:0 0 12px; padding:12px 14px; border:1px solid var(--line); border-radius:16px; background:var(--surface); color:var(--ink-2); font:inherit; font-size:14.5px; text-align:left; cursor:pointer; }
+.sfold b { color:var(--ink); }
+.sfold > i { font-style:normal; color:var(--muted); }
+.sflab { white-space:nowrap; }
+.sfdots { display:flex; gap:3px; flex-wrap:wrap; justify-content:flex-end; max-width:104px; margin-left:auto; }
+.sfdots i { width:7px; height:7px; border-radius:50%; background:color-mix(in oklab, var(--ink) 15%, transparent); }
+.sfdots i.on { background:#3fb96b; }
+.sfold.on { border-bottom-left-radius:6px; border-bottom-right-radius:6px; margin-bottom:6px; }
+.sfold + .wkchart { margin:0 0 16px; }
+.hits { margin:0 0 14px; }
+.hitrow { display:flex; gap:14px; overflow-x:auto; padding:4px 2px 6px; scrollbar-width:none; }
+.hitrow::-webkit-scrollbar { display:none; }
+.hit { position:relative; flex:none; display:flex; flex-direction:column; align-items:center; gap:2px; width:64px; }
+.hit .fav { width:52px; height:52px; font-size:17px; box-shadow:0 0 0 2.5px var(--surface), 0 0 0 5px #f2b631; }
+.hit b { font-size:12.5px; max-width:64px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.hit small { font-size:11px; color:var(--muted); font-variant-numeric:tabular-nums; }
+.hitc { position:absolute; top:-4px; right:0; width:26px; height:26px; border-radius:50%; border:none; background:var(--surface); box-shadow:0 1px 4px rgba(0,0,0,.25); font-size:14px; cursor:pointer; display:grid; place-items:center; }
+.hitc.sent { color:#d4506a; }
+.feedadd { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; margin:4px 0 12px; padding:12px; border:1.5px dashed var(--line); border-radius:16px; background:none; color:var(--ink-2); font:inherit; font-weight:700; cursor:pointer; }
+.feedadd span { display:grid; place-items:center; width:24px; height:24px; border-radius:50%; background:var(--accent); color:#1a1408; font-weight:800; }
+.feed { display:grid; gap:16px; }
+.feedempty { padding:22px 10px; text-align:center; color:var(--ink-2); }
+.feedend { text-align:center; margin:14px 0 4px; }
+.post { border-radius:18px; overflow:hidden; background:var(--surface); border:1px solid var(--line); }
+.phead { display:flex; align-items:center; gap:8px; padding:10px 12px; }
+.phead .fav { width:30px; height:30px; font-size:12px; }
+.phead b { font-size:14.5px; } .phead small { color:var(--muted); font-size:12.5px; }
+.phead .pdel { margin-left:auto; font-size:12.5px; color:var(--muted); }
+.pmedia { position:relative; display:block; width:100%; background:#101312; cursor:pointer; -webkit-tap-highlight-color:transparent; user-select:none; -webkit-user-select:none; }
+.pmedia img { display:block; width:100%; aspect-ratio:4 / 5; object-fit:cover; }
+.pmedia.ptext { background:none; }
+.pmedia.plock { display:grid; place-items:center; gap:8px; aspect-ratio:4 / 3; padding:20px; text-align:center; color:#fff; background:linear-gradient(135deg, #2a3138, #14171a); cursor:default; }
+.pmedia.plock > span { font-size:30px; } .pmedia.plock p { margin:0; font-size:14.5px; opacity:.85; }
+.pburst { position:absolute; left:50%; top:50%; font-size:84px; transform:translate(-50%, -50%) scale(0); opacity:0; pointer-events:none; filter:drop-shadow(0 4px 12px rgba(0,0,0,.35)); }
+.burst .pburst { animation:pburst .85s ease-out; }
+@keyframes pburst { 0% { transform:translate(-50%, -50%) scale(.2); opacity:0; } 18% { transform:translate(-50%, -50%) scale(1.15); opacity:1; } 40% { transform:translate(-50%, -50%) scale(.95); opacity:1; } 100% { transform:translate(-50%, -60%) scale(1); opacity:0; } }
+@media (prefers-reduced-motion: reduce) { .burst .pburst { animation:none; } }
+.pfoot { display:flex; align-items:center; gap:8px; padding:8px 12px 4px; min-height:44px; }
+.pcheer { width:40px; height:40px; border-radius:50%; border:1px solid var(--line); background:var(--surface); font-size:20px; cursor:pointer; filter:grayscale(1); opacity:.7; transition:transform .15s; }
+.pcheer.on { filter:none; opacity:1; border-color:#f2b631; background:color-mix(in oklab, #f2b631 14%, var(--surface)); }
+.pcheer:active { transform:scale(.9); }
+.pnames { font-size:13px; color:var(--ink-2); line-height:1.3; }
+.pcap { margin:0; padding:0 12px 12px; font-size:14.5px; } .pcap b { margin-right:4px; }
+/* A win in words */
+.wtext { display:grid; place-items:center; aspect-ratio:4 / 5; padding:28px 22px; background:radial-gradient(120% 90% at 20% 10%, color-mix(in oklab, var(--wb) 70%, #fff), var(--wb) 55%, color-mix(in oklab, var(--wb) 70%, #000)); color:#fff; text-align:center; }
+.wtext p { margin:0; font-family:var(--display); font-size:clamp(22px, 7vw, 30px); line-height:1.25; font-weight:600; text-wrap:balance; overflow-wrap:anywhere; text-shadow:0 1px 2px rgba(0,0,0,.2); }
+.wtext.feedt { aspect-ratio:1 / 1; }
+.wtext.big { aspect-ratio:auto; min-height:220px; border-radius:16px; margin:0 0 10px; }
+.wtext.big textarea { width:100%; border:none; background:none; color:#fff; text-align:center; resize:none; font-family:var(--display); font-size:24px; line-height:1.3; font-weight:600; }
+.wtext.big textarea::placeholder { color:rgba(255,255,255,.75); }
+.wtext.big textarea:focus { outline:none; }
+.wtext.mini { display:block; width:100%; height:100%; aspect-ratio:auto; padding:0; border-radius:inherit; }
+.sdthumb.wtext.mini { width:56px; height:56px; border-radius:10px; }
+.stph .wtext.big { min-height:46vh; }
+.sdbgs { display:flex; justify-content:center; gap:10px; margin:0 0 8px; }
+.sdbg { width:30px; height:30px; border-radius:50%; border:2px solid transparent; background:var(--wb); cursor:pointer; box-shadow:0 0 0 1px var(--line); }
+.sdbg.on { border-color:var(--surface); box-shadow:0 0 0 2.5px var(--ink); }
+.smrow { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:6px 0 4px; }
+.smbtn { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; min-height:112px; border:1px solid var(--line); border-radius:18px; background:var(--surface); color:var(--ink); font:inherit; cursor:pointer; }
+.smbtn span { font-size:32px; line-height:1; }
+.smbtn#smText span { font-family:var(--display); font-weight:700; color:#fff; background:var(--wb); width:52px; height:52px; border-radius:14px; display:grid; place-items:center; font-size:22px; }
+/* Full screen, one win after another */
+.reel { position:fixed; inset:0; z-index:70; overflow-y:auto; scroll-snap-type:y mandatory; background:#000; color:#fff; overscroll-behavior:contain; }
+.reelx { position:fixed; top:max(12px, env(safe-area-inset-top)); right:12px; z-index:2; width:40px; height:40px; border:none; border-radius:50%; background:rgba(0,0,0,.45); color:#fff; font-size:18px; cursor:pointer; }
+.rslide { position:relative; height:100dvh; scroll-snap-align:start; scroll-snap-stop:always; display:grid; place-items:center; }
+.rmedia { position:relative; width:100%; height:100%; display:grid; place-items:center; }
+.rmedia img { width:100%; height:100%; object-fit:contain; }
+.rmedia .wtext { width:100%; height:100%; aspect-ratio:auto; }
+.rinfo { position:absolute; left:0; right:72px; bottom:0; padding:16px 16px max(22px, env(safe-area-inset-bottom)); background:linear-gradient(transparent, rgba(0,0,0,.6)); }
+.rinfo p { margin:0 0 4px; font-size:15px; } .rinfo small { opacity:.7; } .rnames { opacity:.85; font-size:13.5px; }
+.rcheer { position:absolute; right:14px; bottom:max(26px, env(safe-area-inset-bottom)); width:52px; height:52px; font-size:24px; background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.3); }
+/* Journey › Me */
+.jtiles { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:8px; margin:0 0 12px; }
+.jtile { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; min-height:70px; padding:8px 4px; border:1px solid var(--line); border-radius:16px; background:var(--surface); color:var(--ink); font:inherit; text-align:center; cursor:default; }
+button.jtile { cursor:pointer; }
+.jtile b { display:flex; align-items:center; gap:4px; font-size:21px; font-variant-numeric:tabular-nums; }
+.jtile b.good { color:#2f9e6e; }
+.jtile small { font-size:11.5px; color:var(--muted); line-height:1.2; }
+.jrange { display:grid; grid-template-columns:repeat(3, 1fr); gap:4px; margin:0 0 10px; padding:3px; border-radius:999px; background:color-mix(in oklab, var(--ink) 7%, transparent); }
+.jrange button { min-height:32px; border:none; border-radius:999px; background:none; color:var(--muted); font:inherit; font-size:13px; font-weight:600; cursor:pointer; }
+.jrange button[aria-pressed="true"] { background:var(--surface); color:var(--ink); box-shadow:0 1px 3px rgba(0,0,0,.15); }
+.jhab { list-style:none; margin:0; padding:0; }
+.jhab li + li { border-top:1px solid var(--line); }
+.jhab button { display:grid; grid-template-columns:76px minmax(0, 1fr) 46px; align-items:center; gap:8px; width:100%; min-height:44px; padding:6px 0; border:none; background:none; color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
+.jhn { font-size:13.5px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.jhs { justify-self:end; font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums; } .jhs b { color:var(--ink); font-size:14px; }
+.jhd { display:grid; gap:2px; align-items:center; }
+.r7 .jhd { grid-template-columns:repeat(7, minmax(0, 1fr)); gap:5px; } .r30 .jhd { grid-template-columns:repeat(30, minmax(0, 1fr)); } .r90 .jhd { grid-template-columns:repeat(13, minmax(0, 1fr)); gap:3px; }
+.jhd { min-width:0; align-self:center; }
+.jhd i, .jkey i { display:block; width:100%; height:auto; aspect-ratio:1; border-radius:50%; background:color-mix(in oklab, var(--ink) 10%, transparent); }
+.jhd i.log, .jkey i.log { background:none; box-shadow:inset 0 0 0 1.5px #3fb96b; }
+.jhd i.hit, .jkey i.hit { background:#3fb96b; }
+.r7 .jhd i { max-width:20px; justify-self:center; width:100%; }
+.jhd i.wk { border-radius:3px; background:color-mix(in oklab, #3fb96b calc(var(--f) * 100%), color-mix(in oklab, var(--ink) 9%, transparent)); }
+.jkey { display:flex; gap:14px; justify-content:center; margin:8px 0 0; font-size:11.5px; color:var(--muted); }
+.jkey span { display:flex; align-items:center; gap:5px; } .jkey i { width:9px; }
+.jhowb { display:block; margin:0 auto 8px; }
+.jhow { margin:0 0 14px; padding:10px 14px; border-radius:14px; background:color-mix(in oklab, var(--ink) 5%, transparent); font-size:13.5px; color:var(--ink-2); }
+.jhow p { margin:4px 0; }
+/* Campfire: evidence, quotes */
+.lsevh { display:block; margin:0 0 3px; font-weight:700; color:var(--ink); font-size:13px; letter-spacing:.02em; }
+.lsevs { color:#e0b04a; letter-spacing:1px; }
+.qchips { display:flex; gap:6px; overflow-x:auto; margin:0 0 12px; padding:2px 0 4px; scrollbar-width:none; }
+.qchips::-webkit-scrollbar { display:none; }
+.qchips button { flex:none; min-height:34px; padding:0 13px; border:1px solid var(--line); border-radius:999px; background:var(--surface); color:var(--ink-2); font:inherit; font-size:13px; font-weight:600; cursor:pointer; }
+.qchips button[aria-pressed="true"] { background:var(--ink); color:var(--surface); border-color:var(--ink); }
+.qlist { display:grid; gap:12px; }
+.qcard { position:relative; border-radius:18px; border:1px solid var(--line); border-left:4px solid var(--qc); background:var(--surface); }
+.qbody { display:block; width:100%; padding:18px 46px 14px 16px; border:none; background:none; color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
+.qt { display:block; font-family:var(--display); font-size:19px; line-height:1.4; text-wrap:pretty; }
+.qa { display:block; margin-top:8px; font-size:13.5px; color:var(--muted); font-weight:600; }
+.qsave { position:absolute; top:8px; right:6px; width:40px; height:40px; border:none; background:none; color:var(--muted); font-size:20px; cursor:pointer; }
+.qsave.on { color:#e0b04a; }
+.qmore { display:grid; grid-template-columns:max-content 1fr; gap:4px 12px; margin:0; padding:0 16px 12px; font-size:13px; }
+.qmore dt { color:var(--muted); font-weight:700; } .qmore dd { margin:0; color:var(--ink-2); overflow-wrap:anywhere; }
+.qcard .gdel { margin:0 16px 12px; }
+.qadd { display:block; width:100%; margin:0 0 12px; padding:11px; border:1.5px dashed var(--line); border-radius:14px; background:none; color:var(--ink-2); font:inherit; font-weight:700; cursor:pointer; }
+.qform textarea { width:100%; font-size:14px; }
+.qend { text-align:center; margin:14px 0 4px; }
+.qmore-sentinel { height:1px; }
 </style>
 </head>
 <body>
@@ -3367,7 +3515,7 @@ button.fendj b { color:var(--accent); }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "9.7";
+  const APP_VERSION = "10.1";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -3439,7 +3587,9 @@ button.fendj b { color:var(--accent); }
   // next refresh must really go to the server.
   const READS = new Set(["app_state", "app_history", "app_votes", "app_habits", "app_steps_game", "app_league", "app_today", "app_campfire", "app_lesson", "app_tasks",
     "app_cycle", "app_med", "app_year", "app_work_day", "app_family", "app_ex_progress", "app_custom", "app_board", "app_lift_detail",
-    "app_template", "app_lift_open", "app_lift_home"]);
+    "app_template", "app_lift_open", "app_lift_home",
+    // V10.1. Reads, so opening them never marks the page as changed.
+    "app_feed", "app_quotes", "app_win_img", "app_wins", "app_person_week", "app_spotlight", "app_social", "app_journey", "app_recap"]);
   async function call(fn, args) {
     if (!READS.has(fn)) state.dirty = true;
     try {
@@ -3675,7 +3825,11 @@ button.fendj b { color:var(--accent); }
     // V5.1. Meditation. Reflection is done or not; Prayers is a standard
     // that lives under Silence, not a dial of its own.
     attn:    { label:"Attention",  kind:"pct",   def:80,   key:"attn_pct" },
-    refl:    { label:"Reflection", kind:"count", def:1,    key:"refl_done" },
+    refl:    { label:"Reflection", kind:"count", def:3,    key:"refl_done", unit:"lines" },
+    // V10.1. Macros beyond protein and calories, each with its own standard.
+    carbs:   { label:"Carbs",      kind:"count", def:0,    key:"carbs_g",    unit:"g", hidden:true },
+    fat:     { label:"Fat",        kind:"count", def:0,    key:"fat_g",      unit:"g", hidden:true },
+    fiber:   { label:"Fiber",      kind:"count", def:0,    key:"fiber_g",    unit:"g", hidden:true },
     silence: { label:"Silence",    kind:"min",   def:20,   key:"meditation_min" },
     prayers: { label:"Prayers",    kind:"count", def:5,    key:"prayers", unit:"prayers", hidden:true },
   };
@@ -3830,8 +3984,11 @@ button.fendj b { color:var(--accent); }
     // V8.7. One Tribe counter: +2 for each relative who logs (on a day you
     // log) and +10 when everyone logs. Tap to open the chest, or to see how.
     const ready = !!TT.claim, done = !!TT.claimed && !ready, F = Number((state.today || {}).family_today) || 0;
-    return `<button type="button" class="qchest qtribe${ready ? " ready" : ""}${done ? " won" : ""}" id="${ready ? "tribeChestOpen" : "tribeInfo"}" aria-label="Tribe: ${TT.logged} of ${TT.active} logged${ready ? ", open the chest for +10" : ""}">
-      ${chestSVG(done, 40)}<span><b>${ready ? "Open +10" : done ? "+10 \u2713" : `${TT.logged}/${TT.active}`}</b>${ready ? "" : `<small>${F ? `+${F} pts` : "Tribe"}</small>`}</span></button>`;
+    // V10.1. Like your coins: a dot for each of you, gold once logged. All gold opens +10.
+    const dots = Array.from({ length: TT.active }, (_, i) => `<i class="${i < TT.logged ? "on" : ""}"></i>`).join("");
+    return `<button type="button" class="qchest qtribe qdots${ready ? " ready" : ""}${done ? " won" : ""}" id="${ready ? "tribeChestOpen" : "tribeInfo"}" aria-label="Tribe: ${TT.logged} of ${TT.active} logged${ready ? ", open the chest for +10" : done ? ", chest opened" : ", all logged opens +10"}">
+      <span class="tdots" aria-hidden="true">${dots}</span>
+      <span class="potv"><b>${ready ? "Open +10" : done ? "+10 \u2713" : `${TT.logged}/${TT.active}`}</b>${ready || done ? "" : `<small>${F ? `+${F} pts` : "tribe +10"}</small>`}</span></button>`;
   }
   // V8.2. Tribe's one card: the tribe chest ring (today only) and, under
   // it, your badge line. Tap your badge for How to play; tap an open tribe
@@ -3899,19 +4056,31 @@ button.fendj b { color:var(--accent); }
     if (myWins() >= 3) { toast("Three wins a day. Delete one to share another.", "bad"); return; }
     try {
       const d = await shrinkPhoto(file), t = await thumbOf(d);
-      state.person = null; state.storyQ = null; state.storyDay = null;
+      state.person = null; state.storyQ = null; state.storyDay = null; state.shareMenu = false;
       state.snapDraft = { img: d, thumb: t, caption: "", busy: false, err: null }; render();
     } catch (e) { toast((e && e.message) || "Couldn't read that photo.", "bad"); }
   }
+  // V10.1. A win in words: a line on a coloured card, like an Instagram text post.
+  const WIN_BG = ["#e0b04a", "#3fb96b", "#4a8fe0", "#c45fd6", "#e0604a", "#1f2a33"];
+  const winBg = (n) => WIN_BG[Math.max(0, Math.min(5, Number(n) || 0))];
+  const winText = (w, cls) => `<div class="wtext ${cls || ""}" style="--wb:${winBg(w.bg)}"><p>${esc(w.caption || "")}</p></div>`;
+  function writeWin() {
+    if (myWins() >= 3) { toast("Three wins a day. Delete one to share another.", "bad"); return; }
+    state.person = null; state.storyQ = null; state.storyDay = null; state.shareMenu = false;
+    state.snapDraft = { text: true, img: null, thumb: null, caption: "", bg: Math.floor(Math.random() * 6), busy: false, err: null }; render();
+    setTimeout(() => document.getElementById("sdCap")?.focus(), 30);
+  }
   async function postDraft() {
     const D = state.snapDraft; if (!D || D.busy || D.done) return;
+    if (D.text && !(D.caption || "").trim()) { D.err = "Write your win first."; render(); return; }
     D.busy = true; D.err = null; render();
-    const r = await call("app_win_post", { p_code: state.code, p_person: state.meId, p_img: D.img, p_thumb: D.thumb, p_caption: (D.caption || "").trim().slice(0, 80) });
+    const r = await call("app_win_share", { p_code: state.code, p_person: state.meId, p_img: D.text ? null : D.img, p_thumb: D.text ? null : D.thumb,
+      p_caption: (D.caption || "").trim().slice(0, D.text ? 160 : 80), p_bg: D.text ? D.bg : 0 });
     if (r.error) { D.busy = false; D.err = r.offline ? "No signal. Not shared yet." : r.error; render(); return; }
     D.busy = false; D.done = true;
     if (state.winFull) Object.keys(state.winFull).forEach((k) => { if (k.startsWith(state.meId + "|")) delete state.winFull[k]; });
     if (state.pweek) delete state.pweek[state.meId];
-    await loadSocial(); render();
+    await Promise.all([loadSocial(), loadFeed(true)]); render();
   }
   // After sharing: one tap rings the family on WhatsApp. The photo stays here.
   async function ringFamily() {
@@ -3927,10 +4096,17 @@ button.fendj b { color:var(--accent); }
     const D = state.snapDraft; if (!D) return "";
     if (D.done) return `<div class="sheetbg" id="sdBg"></div>
       <div class="stdsheet sdsheet" role="dialog" aria-label="Shared">
-        <div class="sdokrow"><img class="sdthumb" src="${esc(D.thumb || D.img)}" alt=""><div><h3 class="sdok">Shared ✓</h3>
+        <div class="sdokrow">${D.text ? `<span class="sdthumb wtext mini" style="--wb:${winBg(D.bg)}"></span>` : `<img class="sdthumb" src="${esc(D.thumb || D.img)}" alt="">`}<div><h3 class="sdok">Shared ✓</h3>
           <p class="hint">Your family sees it for 7 days.</p></div></div>
         <button type="button" class="btn sdring" id="sdRing">Tell the family on WhatsApp</button>
         <div class="stdbtns"><button type="button" class="btn-quiet" id="sdX">Done</button></div>
+      </div>`;
+    if (D.text) return `<div class="sheetbg" id="sdBg"></div>
+      <div class="stdsheet sdsheet" role="dialog" aria-label="Write a win">
+        <div class="wtext big" id="sdPrev" style="--wb:${winBg(D.bg)}"><textarea id="sdCap" maxlength="160" rows="3" placeholder="What's your win today?" aria-label="Your win">${esc(D.caption || "")}</textarea></div>
+        <div class="sdbgs" role="radiogroup" aria-label="Colour">${WIN_BG.map((c, i) => `<button type="button" class="sdbg${D.bg === i ? " on" : ""}" data-sdbg="${i}" style="--wb:${c}" role="radio" aria-checked="${D.bg === i}" aria-label="Colour ${i + 1}"></button>`).join("")}</div>
+        ${D.err ? `<p class="hint bad">${esc(D.err)}</p>` : `<p class="hint">Your family sees it for 7 days.</p>`}
+        <div class="stdbtns"><button type="button" class="btn-quiet" id="sdX">Cancel</button><button type="button" class="btn" id="sdGo" ${D.busy ? "disabled" : ""}>${D.busy ? "Sharing…" : "Share"}</button></div>
       </div>`;
     return `<div class="sheetbg" id="sdBg"></div>
       <div class="stdsheet sdsheet" role="dialog" aria-label="Share a win">
@@ -4014,17 +4190,29 @@ button.fendj b { color:var(--accent); }
     if (!W || W.busy) return S.photo || (state.storyDay && state.storyDay.id === id) ? `<p class="stwait">Loading…</p>` : "";
     if (W.err) return "";
     const who = mine ? "Your" : esc(firstName(gpx(id))) + "'s";
-    return W.list.map((w, j) => `<figure class="stph"><img src="${esc(w.img)}" alt="${who} photo">
-      <figcaption>${w.caption ? `<span>${esc(w.caption)}</span>` : ""}<span class="stphb"><button type="button" class="linkbtn" data-winsave="${id}|${day}|${j}">Save</button>${mine ? ` · <button type="button" class="linkbtn" data-windel="${w.id}">Delete</button>` : ""}</span></figcaption></figure>`).join("");
+    return W.list.map((w, j) => w.img ? `<figure class="stph"><img src="${esc(w.img)}" alt="${who} photo">
+      <figcaption>${w.caption ? `<span>${esc(w.caption)}</span>` : ""}<span class="stphb"><button type="button" class="linkbtn" data-winsave="${id}|${day}|${j}">Save</button>${mine ? ` · <button type="button" class="linkbtn" data-windel="${w.id}">Delete</button>` : ""}</span></figcaption></figure>`
+      : `<figure class="stph">${winText(w, "big")}${mine ? `<figcaption><span class="stphb"><button type="button" class="linkbtn" data-windel="${w.id}">Delete</button></span></figcaption>` : ""}</figure>`).join("");
   }
   function weekStrip(id) {
     const P = (state.pweek || {})[id]; if (!P || !P.wins || !P.open) return "";
     const day = storyDayOf(id), first = {}; P.wins.forEach((w) => { if (!first[w.day]) first[w.day] = w; });
     const days = Object.keys(first).sort().reverse(); if (!days.length || (days.length === 1 && days[0] === day)) return "";
-    return `<div class="stweek"><p>Last 7 days</p><div>${days.map((d) => `<button type="button" class="stwk${d === day ? " on" : ""}" data-sday="${id}|${d}" aria-label="${esc(photoDay(d))}">${first[d].thumb ? `<img src="${esc(first[d].thumb)}" alt="">` : ""}<small>${d === P.today ? "Today" : esc(shortWd(d))}</small></button>`).join("")}</div></div>`;
+    return `<div class="stweek"><p>Last 7 days</p><div>${days.map((d) => `<button type="button" class="stwk${d === day ? " on" : ""}" data-sday="${id}|${d}" aria-label="${esc(photoDay(d))}">${first[d].thumb ? `<img src="${esc(first[d].thumb)}" alt="">` : first[d].pic === false ? `<span class="wtext mini" style="--wb:${winBg(first[d].bg)}"></span>` : ""}<small>${d === P.today ? "Today" : esc(shortWd(d))}</small></button>`).join("")}</div></div>`;
+  }
+  function shareMenu() {
+    return `<div class="sheetbg" id="smBg"></div>
+      <div class="stdsheet smsheet" role="dialog" aria-label="Share a win">
+        <p class="eyebrow">Share a win${myWins() ? ` \u00b7 ${3 - myWins()} more today` : ""}</p>
+        <div class="smrow"><button type="button" class="smbtn" id="smPhoto"><span aria-hidden="true">\u{1F4F7}</span><b>Photo</b></button>
+          <button type="button" class="smbtn" id="smText" style="--wb:${WIN_BG[0]}"><span aria-hidden="true">Aa</span><b>Write it</b></button></div>
+        <div class="stdbtns"><button type="button" class="btn-quiet" id="smX">Cancel</button></div>
+      </div>`;
   }
   function personSheet() {
+    if (state.reel) return reelView();
     if (state.snapDraft) return snapSheet();
+    if (state.shareMenu) return shareMenu();
     const id = state.person; if (!id) return "";
     if (id === "__end") return storyEnd();
     if (id === state.meId) return myStory();
@@ -4118,21 +4306,32 @@ button.fendj b { color:var(--accent); }
       if (w) savePhoto(w.img, `tribes-${(firstName(gpx(id) || me() || {}) || "photo").toLowerCase()}-${d}-${Number(j) + 1}.jpg`); }));
     document.querySelectorAll("[data-windel]").forEach((el) => el.addEventListener("click", () => {
       const wid = Number(el.dataset.windel);
-      openModal({ title: "Delete this photo?", body: "It leaves your family's screens too.", buttons: [{ label: "Delete", kind: "bad", run: async () => {
+      openModal({ title: "Delete this win?", body: "It leaves your family's screens too.", buttons: [{ label: "Delete", kind: "bad", run: async () => {
         await call("app_win_delete", { p_code: state.code, p_person: state.meId, p_id: wid });
         if (state.winFull) Object.keys(state.winFull).forEach((k) => { if (k.startsWith(state.meId + "|")) delete state.winFull[k]; });
         if (state.pweek) delete state.pweek[state.meId];
-        await loadSocial(); render(); } }, { label: "Keep" }] }); }));
+        state.reel = null;
+        await Promise.all([loadSocial(), loadFeed(true)]); render(); } }, { label: "Keep" }] }); }));
+    wireFeed();
     on("psNudge", "click", sendNudge);
     // The story sits outside the page, so its buttons are wired here.
     document.querySelectorAll(".story [data-go]").forEach((el) => el.addEventListener("click", () => { state.person = null; state.storyQ = null; openExercise(el.dataset.go); }));
     document.querySelectorAll(".story [data-lesson]").forEach((el) => el.addEventListener("click", () => { state.person = null; state.storyQ = null; render(); openLesson(el.dataset.lesson); }));
     // Share a win: the + on your circle, your own story, the end of the stories.
-    const pick = () => { const f = document.getElementById("photoFile"); if (f) f.click(); };
-    ["faceAdd", "photoAdd2", "photoAdd4"].forEach((idn) => on(idn, "click", pick));
+    const pick = () => { state.shareMenu = false; render(); const f = document.getElementById("photoFile"); if (f) f.click(); };
+    const menu = () => { if (myWins() >= 3) { toast("Three wins a day. Delete one to share another.", "bad"); return; }
+      state.person = null; state.storyQ = null; state.shareMenu = true; render(); };
+    ["faceAdd", "photoAdd2", "photoAdd4", "feedAdd"].forEach((idn) => on(idn, "click", menu));
+    on("smPhoto", "click", pick); on("smText", "click", writeWin);
+    const noMenu = () => { state.shareMenu = false; render(); };
+    on("smX", "click", noMenu); on("smBg", "click", noMenu);
+    document.querySelectorAll("[data-sdbg]").forEach((el) => el.addEventListener("click", () => {
+      const D = state.snapDraft; if (!D) return; D.bg = Number(el.dataset.sdbg);
+      const pv = document.getElementById("sdPrev"); if (pv) pv.style.setProperty("--wb", winBg(D.bg));
+      document.querySelectorAll("[data-sdbg]").forEach((x) => { x.classList.toggle("on", x === el); x.setAttribute("aria-checked", String(x === el)); }); }));
     on("photoFile", "change", (e) => postPhoto(e.target.files && e.target.files[0]));
     on("sdCap", "input", (e) => { if (state.snapDraft) state.snapDraft.caption = e.target.value; });
-    on("sdCap", "keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); postDraft(); } });
+    on("sdCap", "keydown", (e) => { if (e.key === "Enter" && !(state.snapDraft && state.snapDraft.text)) { e.preventDefault(); postDraft(); } });
     on("sdGo", "click", postDraft);
     on("sdRing", "click", ringFamily);
     const noDraft = () => { state.snapDraft = null; render(); };
@@ -4144,6 +4343,8 @@ button.fendj b { color:var(--accent); }
     on("myWeekShare", "click", shareMyWeek);
     document.querySelectorAll("[data-jseg]").forEach((el) => el.addEventListener("click", () => { state.jSeg = el.dataset.jseg; render(); }));
     document.querySelectorAll("[data-jh]").forEach((el) => el.addEventListener("click", () => { state.jHabit = el.dataset.jh; render(); }));
+    document.querySelectorAll("[data-jr]").forEach((el) => el.addEventListener("click", () => { state.jRange = Number(el.dataset.jr); render(); }));
+    on("jHow", "click", () => { state.jHow = !state.jHow; render(); });
   }
 
   /* ---------- V9.1: your progress (only you see it) ------------------ */
@@ -4188,13 +4389,135 @@ button.fendj b { color:var(--accent); }
       .sort((a, b) => (b.id === state.meId) - (a.id === state.meId) || (b.days || []).length - (a.days || []).length || (b.streak || 0) - (a.streak || 0) || a.name.localeCompare(b.name));
     const row = (x) => { const mine = x.id === state.meId, ds = new Set(x.days || []);
       const cells = WD.map((d, i) => `<i class="${i + 1 > dow ? "fut" : ds.has(i + 1) ? "on" : "off"}${i + 1 === dow ? " now" : ""}"></i>`).join("");
-      const end = x.logged ? `<span class="wkstk">${x.streak ? `\u{1F525}${x.streak}` : "\u2713"}</span>`
-        : mine ? `<button type="button" class="wkact" data-go="steps">Log</button>`
-        : `<button type="button" class="wkact${soc(x.id).nudged ? " done" : ""}" data-pnudge="${x.id}">${soc(x.id).nudged ? "Nudged" : "Nudge"}</button>`;
+      // V10.1. Everyone's flame beside their row; grey until they log today.
+      const fire = `<span class="wkfire${x.logged ? "" : " cold"}" aria-label="${x.streak || 0}-day streak">\u{1F525}${x.streak || 0}</span>`;
+      const end = x.logged ? `<span class="wkend">${fire}</span>`
+        : `<span class="wkend">${fire}${mine ? `<button type="button" class="wkact" data-go="steps">Log</button>`
+        : `<button type="button" class="wkact${soc(x.id).nudged ? " done" : ""}" data-pnudge="${x.id}">${soc(x.id).nudged ? "Nudged" : "Nudge"}</button>`}</span>`;
       return `<li><button type="button" class="wkn" data-pnudge="${x.id}" aria-label="${mine ? "You" : esc(x.name)}: ${ds.size} of ${dow} days logged this week">${mine ? "You" : esc(firstName(x))}</button><span class="wkd" aria-hidden="true">${cells}</span>${end}</li>`; };
-    return `<section class="wkchart" aria-label="Who logged which day this week"><p class="feedh"><span>Who logged this week</span></p>
+    return `<section class="wkchart" aria-label="Who logged steps which day this week">
       <div class="wkhead" aria-hidden="true"><span></span><span class="wkd">${WD.map((d, i) => `<b class="${i + 1 === dow ? "now" : ""}">${d}</b>`).join("")}</span><span></span></div>
       <ul class="wklist">${rows.map(row).join("")}</ul></section>`;
+  }
+  /* ---------- V10.1: Tribe is the feed --------------------------------
+     One scroll of the last 7 days: photo wins and written wins, newest
+     first, with who cheered each. Above it, who reached their step goal
+     today and the Spotlight (comebacks and milestones). The week's who-
+     logged chart folds into one line. Double-tap a win to cheer it; tap
+     it to see the wins full screen, one after another. */
+  async function loadFeed(force) {
+    const F = state.feed; if (!state.meId || (!force && F && (F.busy || Date.now() - (F.at || 0) < 45000))) return;
+    state.feed = Object.assign({}, F || {}, { busy: true });
+    const r = await call("app_feed", { p_code: state.code, p_person: state.meId });
+    state.feed = r && !r.error ? Object.assign(r, { at: Date.now() }) : Object.assign({}, F || {}, { at: Date.now(), busy: false, err: !F });
+    if (state.view === "board" && homeTab() === "tribe" && !document.querySelector(".htribe :focus")) render();
+  }
+  const winAgo = (iso) => { const m = Math.max(1, Math.round((Date.now() - new Date(iso).getTime()) / 60000));
+    return m < 60 ? `${m}m` : m < 1440 ? `${Math.round(m / 60)}h` : `${Math.round(m / 1440)}d`; };
+  async function loadWinImg(id) {
+    state.winImg = state.winImg || {};
+    if (state.winImg[id]) return;
+    state.winImg[id] = "busy";
+    const r = await call("app_win_img", { p_code: state.code, p_person: state.meId, p_win: id });
+    if (r && r.img) { state.winImg[id] = r.img; document.querySelectorAll(`img[data-full="${id}"]`).forEach((im) => { im.src = r.img; }); }
+    else delete state.winImg[id];
+  }
+  const fullOf = (p) => { const W = state.winImg || {}; return typeof W[p.id] === "string" && W[p.id] !== "busy" ? W[p.id] : p.thumb; };
+  const cheerNames = (p) => { const ns = (p.cheers || []).map((n) => String(n).split(/\s+/)[0]); if (!ns.length) return "";
+    return `\u{1F389} ${esc(ns.length > 3 ? `${ns.slice(0, 2).join(", ")} and ${ns.length - 2} others` : andList(ns))}`; };
+  function postCard(p, F, i) {
+    const mine = p.pid === state.meId, first = mine ? "You" : esc(firstName(p)), open = F.open || mine;
+    const head = `<header class="phead"><span class="fav fsm" style="--hc:hsl(${p.hue || 200} 62% 48%)">${esc(initials(p.name))}</span><b>${mine ? "You" : esc(p.name)}</b><small>${winAgo(p.at)}</small>
+      ${mine ? `<button type="button" class="linkbtn pdel" data-windel="${p.id}">Delete</button>` : ""}</header>`;
+    if (!open) return `<article class="post locked">${head}<div class="pmedia plock"><span aria-hidden="true">\u{1F512}</span><p>Log today's steps to see ${first}'s win</p>
+      ${i === 0 ? `<button type="button" class="btn" data-go="steps">Log my steps</button>` : ""}</div></article>`;
+    const media = p.pic ? `<img src="${esc(fullOf(p) || "")}" data-full="${p.id}" alt="${first}'s win" loading="lazy">` : winText(p, "feedt");
+    return `<article class="post" data-post="${p.id}">${head}
+      <div class="pmedia${p.pic ? "" : " ptext"}" data-pdbl="${p.id}" role="button" tabindex="0" aria-label="${first}'s win. Double-tap to cheer, tap to open">${media}<span class="pburst" aria-hidden="true">\u{1F389}</span></div>
+      <footer class="pfoot">${mine ? "" : `<button type="button" class="pcheer${p.mine ? " on" : ""}" data-pcheer="${p.id}" aria-pressed="${!!p.mine}" aria-label="${p.mine ? "Cheered" : "Cheer"}">\u{1F389}</button>`}
+        <span class="pnames">${cheerNames(p) || (mine ? "No cheers yet" : "")}</span></footer>
+      ${p.pic && p.caption ? `<p class="pcap"><b>${first}</b> ${esc(p.caption)}</p>` : ""}</article>`;
+  }
+  function stepsFold() {
+    const G = state.garden; if (!G) return "";
+    if (state.stepsOpen === undefined) { try { state.stepsOpen = !!localStorage.getItem("fhd.stepsOpen"); } catch { state.stepsOpen = false; } }
+    const ps = (G.people || []).filter((x) => x.id === state.meId || x.recent), n = ps.filter((x) => x.logged).length, open = !!state.stepsOpen;
+    return `<button type="button" class="sfold${open ? " on" : ""}" id="stepsFold" aria-expanded="${open}"><span aria-hidden="true">\u{1F45F}</span>
+        <span class="sflab">Steps logged today: <b>${n}/${ps.length}</b></span><span class="sfdots" aria-hidden="true">${ps.map((x) => `<i class="${x.logged ? "on" : ""}"></i>`).join("")}</span><i aria-hidden="true">${open ? "\u25b4" : "\u25be"}</i></button>
+      ${open ? weekChart() : ""}`;
+  }
+  // Who reached their step goal today: the ones to celebrate, not just who logged.
+  function hitsRail() {
+    const F = state.feed; if (!F || !(F.hits || []).length) return "";
+    return `<section class="hits" aria-label="Hit their step goal today"><p class="feedh"><span>\u{1F3AF} Hit their goal today</span></p>
+      <div class="hitrow">${F.hits.map((x) => { const mine = x.id === state.meId, ch = mine ? "" : x.cheered || soc(x.id).mine
+          ? `<span class="hitc sent" aria-label="You cheered ${esc(x.name)}">\u2764</span>` : `<button type="button" class="hitc" data-cheer="${x.id}" aria-label="Cheer ${esc(x.name)}">\u{1F389}</button>`;
+        return `<span class="hit"><span class="fav" style="--hc:hsl(${x.hue || 200} 62% 48%)">${esc(initials(x.name))}</span>${ch}
+          <b>${mine ? "You" : esc(firstName(x))}</b><small>${num(Math.round(Number(x.steps)))}</small></span>`; }).join("")}</div></section>`;
+  }
+  function feedPosts() {
+    const F = state.feed;
+    if (!F || (!F.busy && (Date.now() - (F.at || 0) > 45000 || (!F.open && iLogged() && Date.now() - (F.at || 0) > 5000)))) setTimeout(() => loadFeed(!!F), 0);
+    if (!F || !F.posts) return `<p class="hint">Loading your tribe's wins\u2026</p>`;
+    const P = F.posts || [];
+    const add = myWins() < 3 ? `<button type="button" class="feedadd" id="feedAdd"><span aria-hidden="true">+</span> Share a win</button>` : "";
+    if (!P.length) return `${add}<div class="feedempty"><p>No wins shared this week yet.</p><p class="hint">A photo or a line about something you did. Your family sees it for 7 days.</p></div>`;
+    let lockShown = false;
+    return `${add}<div class="feed">${P.map((p) => { const lk = !F.open && p.pid !== state.meId, i = lk && !lockShown ? 0 : 1; if (lk) lockShown = true; return postCard(p, F, i); }).join("")}</div>
+      <p class="hint feedend">That's the last 7 days.</p>`;
+  }
+  // Full screen, one win after another: swipe up for the next.
+  function reelView() {
+    const F = state.feed || {}, P = (F.posts || []).filter((p) => F.open || p.pid === state.meId);
+    if (!P.length) { state.reel = null; return ""; }
+    return `<div class="reel" role="dialog" aria-label="Wins, full screen"><button type="button" class="reelx" id="reelX" aria-label="Close">\u2715</button>
+      ${P.map((p) => { const mine = p.pid === state.meId;
+        return `<section class="rslide" id="rs-${p.id}"><div class="rmedia${p.pic ? "" : " ptext"}" data-pdbl="${p.id}">${p.pic ? `<img src="${esc(fullOf(p) || "")}" data-full="${p.id}" alt="">` : winText(p, "reelt")}<span class="pburst" aria-hidden="true">\u{1F389}</span></div>
+          <div class="rinfo"><p><b>${mine ? "You" : esc(p.name)}</b> <small>${winAgo(p.at)}</small></p>${p.pic && p.caption ? `<p>${esc(p.caption)}</p>` : ""}
+            <p class="rnames">${cheerNames(p)}</p></div>
+          ${mine ? "" : `<button type="button" class="rcheer pcheer${p.mine ? " on" : ""}" data-pcheer="${p.id}" aria-pressed="${!!p.mine}" aria-label="${p.mine ? "Cheered" : "Cheer"}">\u{1F389}</button>`}</section>`; }).join("")}</div>`;
+  }
+  async function cheerPost(id, on, el) {
+    const F = state.feed, p = F && (F.posts || []).find((x) => x.id === id); if (!p || p.pid === state.meId) return;
+    if (!F.open) { toast("Log today's steps to cheer.", "bad"); return; }
+    if (on === undefined) on = !p.mine;
+    const nm = (me() || {}).name || "You";
+    p.mine = on; p.cheers = on ? (p.cheers || []).filter((n) => n !== nm).concat([nm]) : (p.cheers || []).filter((n) => n !== nm);
+    if (el) { el.classList.remove("burst"); void el.offsetWidth; if (on) el.classList.add("burst"); setTimeout(() => el.classList.remove("burst"), 900); }
+    try { navigator.vibrate && on && navigator.vibrate(18); } catch {}
+    paintPost(p);
+    const r = await call("app_win_cheer", { p_code: state.code, p_person: state.meId, p_win: id, p_on: on });
+    if (r && r.error) { if (!r.offline) toast(r.error, "bad"); p.mine = !on; await loadFeed(true); render(); return; }
+    if (r && Array.isArray(r.names)) { p.cheers = r.names; paintPost(p); }
+  }
+  // Repaint one win's cheers without redrawing the page (and the scroll).
+  function paintPost(p) {
+    document.querySelectorAll(`[data-pcheer="${p.id}"]`).forEach((b) => { b.classList.toggle("on", !!p.mine); b.setAttribute("aria-pressed", String(!!p.mine)); });
+    const s = document.querySelector(`[data-post="${p.id}"] .pnames`); if (s) s.innerHTML = cheerNames(p);
+    const r = document.querySelector(`#rs-${p.id} .rnames`); if (r) r.innerHTML = cheerNames(p);
+  }
+  function wireFeed() {
+    on("stepsFold", "click", () => { state.stepsOpen = !state.stepsOpen; try { localStorage.setItem("fhd.stepsOpen", state.stepsOpen ? "1" : ""); } catch {} render(); });
+    document.querySelectorAll("[data-pcheer]").forEach((el) => el.addEventListener("click", (e) => { e.stopPropagation();
+      const id = Number(el.dataset.pcheer), m0 = el.closest("[data-post], .rslide"); cheerPost(id, undefined, m0 && m0.querySelector("[data-pdbl]")); }));
+    document.querySelectorAll("[data-pdbl]").forEach((el) => {
+      let t = null, last = 0;
+      const id = Number(el.dataset.pdbl), inReel = !!el.closest(".reel");
+      el.addEventListener("click", () => {
+        const now = Date.now();
+        if (now - last < 320) { clearTimeout(t); last = 0; const p = ((state.feed || {}).posts || []).find((x) => x.id === id);
+          if (p && p.pid !== state.meId) cheerPost(id, true, el); return; }
+        last = now;
+        if (!inReel) t = setTimeout(() => { state.reel = { at: id }; render(); }, 320);
+      });
+      el.addEventListener("keydown", (e) => { if (e.key === "Enter" && !inReel) { state.reel = { at: id }; render(); } });
+    });
+    on("reelX", "click", () => { state.reel = null; render(); });
+    const rs = state.reel && document.getElementById("rs-" + state.reel.at);
+    if (rs && !state.reel.done) { state.reel.done = true; rs.scrollIntoView({ block: "start" }); }
+    // Photos at full size, a few at a time, once you can see them.
+    const ids = [...document.querySelectorAll("img[data-full]")].map((im) => Number(im.dataset.full)).filter((id, i, a) => a.indexOf(id) === i && !(state.winImg || {})[id]);
+    ids.slice(0, 6).forEach((id) => loadWinImg(id));
   }
   // V9.7. Spotlight: up to three things worth a cheer, worked out from what
   // is already logged (a comeback, a milestone, a day everyone logged...).
@@ -4217,7 +4540,7 @@ button.fendj b { color:var(--accent); }
       case "full": return ["\u{1F389}", `Everyone logged ${it.day === "today" ? "today" : "yesterday"}`];
       case "cheered": return ["❤", `${who} got ${it.n} cheers this week`];
       case "wins": return ["\u{1F4F7}", `${who} shared ${it.n} wins this week`];
-      case "lead": return ["\u{1F3C6}", `${who} ${mine ? "lead" : "leads"} with a ${it.n}-day streak`];
+      case "up": return ["\u{1F4C8}", `${who} logged ${it.n} days this week, up from ${it.was}`];
       default: return null;
     }
   }
@@ -4377,6 +4700,7 @@ button.fendj b { color:var(--accent); }
       S.mine = "\u{1F389}"; if (state.social) state.social.by[id] = S; render();
       const res = await call("app_react", { p_code: state.code, p_from: state.meId, p_to: id, p_emoji: "\u{1F389}" });
       if (res.error) { S.mine = null; toast(res.offline ? "No signal. Not sent yet." : res.error, "bad"); render(); return; }
+      const h = ((state.feed || {}).hits || []).find((x) => x.id === id); if (h) h.cheered = true;
       loadSocial().then(render);
     }));
     on("gameOpen", "click", () => { state.gameOpen = true; render(); });
@@ -4482,20 +4806,31 @@ button.fendj b { color:var(--accent); }
     for (const k of Object.keys(STD)) if (isCustom(k)) delete STD[k];
     for (const h of (state.habits && state.habits.list) || [])
       STD["c:" + h.id] = { label: h.name, kind: h.kind === "min" ? "min" : "count", def: Number(h.std) || 1, key: null,
-        unit: h.kind === "number" ? h.unit : "", custom: true, hk: h.kind, tribe: !!h.tribe, mine: !!h.mine, short: h.name };
+        unit: h.kind === "number" ? h.unit : "", custom: true, hk: h.kind, tribe: false, mine: true, short: h.name };
+    // V10.1. Your own habits get a habit sentence like the built-in ones.
+    for (const k of Object.keys(ATOM_HOW)) if (isCustom(k)) { delete ATOM_HOW[k]; delete ATOM_WHO[k]; }
+    for (const h of (state.habits && state.habits.list) || []) {
+      const nm = String(h.name || "").toLowerCase();
+      ATOM_HOW["c:" + h.id] = [nm, `${nm} for two minutes`, `start ${nm}`];
+      ATOM_WHO["c:" + h.id] = "someone who keeps their word";
+    }
   }
   async function loadHabits() {
     if (!state.meId) return;
     const res = await call("app_habits", { p_code: state.code, p_person: state.meId, p_day: state.boardDay || null });
     if (!res || res.error) return;
-    state.habits = { list: res.habits || [], today: res.today || {}, fam: res.fam || {}, loaded: true };
+    state.habits = { list: res.habits || [], today: res.today || {}, fam: res.fam || {}, loaded: true,
+      targets: res.targets || {}, refl_heads: res.refl_heads || {} };
     registerHabits();
   }
   // The groups as the sheet, dashboard and tribe table show them: the five,
   // then "Your own" when there is anything in it.
   const habitGroups = () => customKeys().length ? STD_GROUPS.concat([["Your own", customKeys()]]) : STD_GROUPS;
+  // V10.1. Standards the board doesn't carry come with your habits.
+  const TGT_KEY = { refl: "refl_done", carbs: "carbs_g", fat: "fat_g", fiber: "fiber_g" };
   function stdOf(p, k) {
     if (isCustom(k)) return STD[k] ? STD[k].def : 1;
+    if (TGT_KEY[k]) { const t = Number((((state.habits || {}).targets) || {})[TGT_KEY[k]]); return t > 0 ? t : STD[k].def; }
     if (k === "tasks") return 1;   // V6.4. No standard: a task done meets the day.
     const v = p ? p[STD_FIELD[k]] : null;
     return v === null || v === undefined || v === "" ? STD[k].def : Number(v);
@@ -4522,7 +4857,7 @@ button.fendj b { color:var(--accent); }
       case "kcal":    return n(p.kcal);
       case "weight":  return n(p.weight);
       case "attn":    return n(p.attn_pct);
-      case "refl":    return p.refl_done ? 1 : null;
+      case "refl":    return reflOf(p, (state.votes && state.votes.today) || todayISO());
       case "silence": return Number(p.silence_min) > 0 ? Number(p.silence_min) : null;
       case "prayers": return n(p.prayers);
     }
@@ -4550,10 +4885,16 @@ button.fendj b { color:var(--accent); }
       case "dd": return bd.dd_items === null || bd.dd_items === undefined ? null : ddCount(bd.dd_items);
       case "macros": return n(bd.protein_g);
       case "attn": return n(bd.attn_pct);
-      case "refl": return bd.refl_done ? 1 : null;
+      case "refl": return reflOf(p, famDayISO(), bd.refl_done);
       case "silence": return pos(bd.silence_min);
     }
     return null;
+  }
+  // V10.1. Reflection is the number of lines you wrote; others see only that you wrote.
+  function reflOf(p, iso, wrote) {
+    if (p && p.id === state.meId) { const V = votesOf("refl"), d = V && V.days && !Array.isArray(V.days) ? V.days : null;
+      if (d) return d[iso] === undefined ? null : Number(d[iso]); }
+    return (wrote === undefined ? p && p.refl_done : wrote) ? 1 : null;
   }
   // How far toward the standard, 0 to 100. A time is the other way round:
   // on or before the standard is 100, and an hour late is 0.
@@ -4572,7 +4913,7 @@ button.fendj b { color:var(--accent); }
   function stdWords(k, v) {
     if (v === null || v === undefined) return "\u2013";
     if (STD[k] && STD[k].custom && STD[k].hk === "done") return Number(v) > 0 ? "\u2713" : "\u2013";
-    if (k === "refl") return Number(v) > 0 ? "\u2713" : "\u2013";
+    if (k === "refl") return v === true ? "\u2713" : num(Math.round(Number(v)));   // V10.1. Lines written.
     const kind = STD[k].kind;
     if (kind === "time") return clockWords(v);
     if (kind === "pct")  return Math.round(Number(v)) + "%";
@@ -7384,7 +7725,7 @@ button.fendj b { color:var(--accent); }
         // Your latest weigh-in; for everyone else a tick on a weigh-in day.
         weight: p.id === state.meId ? n(p.weight) : bd.weighed ? true : null,
         // V5.1. Meditation: Attention and Silence as numbers; Reflection a tick.
-        attn: n(bd.attn_pct), refl: bd.refl_done ? true : null, silence: pos(bd.silence_min),
+        attn: n(bd.attn_pct), refl: p.id === state.meId ? reflOf(p, famDayISO(), bd.refl_done) : bd.refl_done ? true : null, silence: pos(bd.silence_min),
         // V6.1. Your own habits, on the tribe's day.
         ...Object.fromEntries(customKeys().map((k) => { const v = ((state.habits.fam || {})[p.id] || {})[k.slice(2)];
           return [k, v === undefined || v === null ? null : STD[k].hk === "done" ? true : Number(v)]; })),
@@ -7525,9 +7866,11 @@ button.fendj b { color:var(--accent); }
     else if (tab === "tribe") body = `
       <section class="htab htribe" aria-label="Your tribe">
         <div class="htabh"><button type="button" class="htabt" id="tribeGoal" aria-label="Tribe name, crest, goal and people"><h2>Tribe</h2></button></div>
-        ${recapCard()}
+        ${stepsFold()}
+        ${hitsRail()}
         ${spotlight()}
-        ${weekChart()}
+        ${recapCard()}
+        ${feedPosts()}
         ${state.people.length ? `<button type="button" class="allnums" id="allNums" aria-expanded="${!!state.allNums}">${state.allNums ? "Hide the numbers" : "All numbers \u203a"}</button>
           ${state.allNums ? `<div class="roster"><div class="tdayrow">${nav()}<button type="button" class="hshare" id="waShare" aria-label="Share ${state.boardDay ? esc(shortDay(famDayISO())) : "today"} on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11v9h12v-9"/></svg></button></div>
           ${state.garden && famDayISO() === familyISO() && !iLogged() ? `<button type="button" class="linkbtn logsee" data-go="steps">\u{1F512} Log today's steps to see everyone's numbers \u203a</button>` : ""}${famTable(ordered)}</div>` : ""}` : roster}
@@ -7827,7 +8170,7 @@ button.fendj b { color:var(--accent); }
      from the study, with its link) and what to do. Save any for later. */
   const CF_TOPICS = [["Meditation", "\u{1F9D8}", "#8a5cc9"], ["Exercise", "\u{1F45F}", "#2f9e6e"], ["Diet", "\u{1F957}", "#d9821a"],
     ["Sleep", "\u{1F319}", "#5b6cd6"], ["Great Work", "\u{1F3AF}", "#d4506a"]];
-  const cfTopic = (t) => CF_TOPICS.find((x) => x[0] === t) || CF_TOPICS[4];
+  const cfTopic = (t) => CF_TOPICS.find((x) => x[0] === t) || (t === "Character" ? ["Character", "\u{1F9ED}", "#b8862a"] : t === "Wisdom" ? ["Wisdom", "\u{1F989}", "#5f7d8c"] : CF_TOPICS[4]);
   async function loadCampfire(force) {
     if (!state.meId) return;
     const C = state.camp;
@@ -7851,10 +8194,117 @@ button.fendj b { color:var(--accent); }
       <span class="cfic" aria-hidden="true">${icon}</span><b>${esc(x.title)}</b>
       <small>${x.open ? (x.read ? `<i class="cfrd">\u2713 Read</i>` : `${x.minutes || 1} min read`) : "\u{1F512} Locked"}${x.new ? ` <i class="cfnew">New</i>` : ""}${x.saved ? ` <i class="cfsv" aria-label="Saved">\u2605</i>` : ""}</small></button>`;
   }
+  // V10.1. Quotes: micro-learning instead of doomscrolling. A handful of
+  // public-domain lines ship with the app, each checked word for word
+  // against its source; the tribe's owner adds the rest.
+  const QUOTES0 = [
+    { k: "s1", t: "Never suffer an exception to occur till the new habit is securely rooted in your life.", a: "William James", s: "The Principles of Psychology, ch. IV, Habit (1890)", p: "Character", u: "https://psychclassics.yorku.ca/James/Principles/prin4.htm" },
+    { k: "s2", t: "A strong body makes the mind strong.", a: "Thomas Jefferson", s: "Letter to Peter Carr, 19 August 1785", p: "Exercise", u: "https://founders.archives.gov/documents/Jefferson/01-08-02-0319" },
+    { k: "s3", t: "Early to Bed, and early to rise, makes a Man healthy, wealthy and wise.", a: "Benjamin Franklin", s: "The Way to Wealth (1758)", p: "Sleep", u: "https://founders.archives.gov/documents/Franklin/01-07-02-0146" },
+    { k: "s4", t: "Temperance. Eat not to dullness; drink not to elevation.", a: "Benjamin Franklin", s: "Autobiography, the thirteen virtues", p: "Diet", u: "https://www.ushistory.org/franklin/autobiography/page38.htm" },
+    { k: "s5", t: "Lay hold of to-day\u2019s task, and you will not need to depend so much upon to-morrow\u2019s.", a: "Seneca", s: "Letters to Lucilius, I, tr. R. M. Gummere (1917)", p: "Great Work", u: "https://www.stoics.com/seneca_epistles_book_1.html" },
+    { k: "s6", t: "Nothing can bring you peace but yourself.", a: "Ralph Waldo Emerson", s: "Self-Reliance (1841)", p: "Meditation", u: "https://www.gutenberg.org/files/2944/2944-h/2944-h.htm" },
+  ];
+  const Q_PILLARS = ["Exercise", "Diet", "Sleep", "Meditation", "Great Work", "Character", "Wisdom"];
+  async function loadQuotes() {
+    if (!state.meId || (state.quotes && state.quotes.busy)) return;
+    state.quotes = Object.assign({}, state.quotes || {}, { busy: true });
+    const r = await call("app_quotes", { p_code: state.code, p_person: state.meId });
+    state.quotes = r && !r.error ? { owner: !!r.owner, list: r.list || [], saved: r.saved || [] } : Object.assign({}, state.quotes, { busy: false, err: true });
+    if (state.view === "board" && homeTab() === "campfire") render();
+  }
+  const allQuotes = () => QUOTES0.concat(((state.quotes || {}).list || []).map((q) => ({ k: "q" + q.id, id: q.id, t: q.t, a: q.a, s: q.s, p: q.p, u: q.u, n: q.n, mine: true })));
+  // A steady shuffle for the day, so the scroll isn't the same order each visit.
+  function dayShuffle(xs) {
+    let h = 0; for (const c of todayISO()) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+    const a = xs.slice(); for (let i = a.length - 1; i > 0; i--) { h = (h * 1103515245 + 12345) >>> 0; const j = h % (i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a;
+  }
+  function quotesView() {
+    const Q = state.quotes; if (!Q || (!Q.list && !Q.err)) { if (!(Q && Q.busy)) setTimeout(() => loadQuotes(), 0); }
+    const saved = new Set((Q && Q.saved) || []), f = state.qFilter || "all";
+    const pool = allQuotes(), present = Q_PILLARS.filter((p) => pool.some((q) => q.p === p));
+    let xs = f === "saved" ? pool.filter((q) => saved.has(q.k)) : f === "all" ? dayShuffle(pool) : pool.filter((q) => q.p === f);
+    // Endless once there are enough to keep it fresh; until then, a clear end.
+    const loop = xs.length >= 30 && f !== "saved", n = loop ? (state.qN || 20) : xs.length;
+    const shown = loop ? Array.from({ length: n }, (_, i) => xs[i % xs.length]) : xs;
+    const chips = `<div class="qchips" role="group" aria-label="Show">${[["all", "All"], ["saved", `\u2605 Saved${saved.size ? " " + saved.size : ""}`]].concat(present.map((p) => [p, p])).map(([v, t]) =>
+      `<button type="button" data-qf="${esc(v)}" aria-pressed="${f === v}">${esc(t)}</button>`).join("")}</div>`;
+    const card = (q, i) => { const op = state.qOpen === q.k + ":" + i, sv = saved.has(q.k);
+      return `<article class="qcard${op ? " open" : ""}" style="--qc:${(cfTopic(q.p) || [])[2] || "var(--accent)"}">
+        <button type="button" class="qbody" data-qopen="${q.k}:${i}" aria-expanded="${op}"><span class="qt">\u201c${esc(q.t.replace(/^[\u201c"]|[\u201d"]$/g, ""))}\u201d</span>
+          <span class="qa">\u2014 ${esc(q.a || "Unknown")}</span></button>
+        ${op ? `<dl class="qmore">${q.s ? `<dt>Source</dt><dd>${esc(q.s)}</dd>` : ""}${q.p ? `<dt>Tag</dt><dd>${esc(q.p)}</dd>` : ""}${q.n ? `<dt>Note</dt><dd>${esc(q.n)}</dd>` : ""}
+          ${safeUrl(q.u) ? `<dt>Link</dt><dd><a href="${esc(q.u)}" target="_blank" rel="noopener noreferrer">Read the source \u2197</a></dd>` : ""}</dl>
+          ${q.mine && Q && Q.owner ? `<button type="button" class="linkbtn gdel" data-qdel="${q.id}">Remove from the tribe's quotes</button>` : ""}` : ""}
+        <button type="button" class="qsave${sv ? " on" : ""}" data-qsave="${q.k}" aria-pressed="${sv}" aria-label="${sv ? "Saved" : "Save"}">${sv ? "\u2605" : "\u2606"}</button></article>`; };
+    const add = Q && Q.owner && f === "all" ? (state.qAdd ? quoteForm() : `<button type="button" class="qadd" id="qAdd">+ Add quotes</button>`) : "";
+    const end = !shown.length ? `<div class="cfempty"><p>${f === "saved" ? "Tap \u2606 on a quote to keep it here." : "No quotes here yet."}</p></div>`
+      : loop ? `<div class="qmore-sentinel" id="qMore" aria-hidden="true"></div>` : `<p class="hint qend">That's all ${shown.length}.${f === "all" ? " New ones as your tribe adds them." : ""}</p>`;
+    return `${chips}${add}<div class="qlist">${shown.map(card).join("")}</div>${end}`;
+  }
+  function quoteForm() {
+    const A = state.qAdd;
+    return `<section class="card qform"><p class="eyebrow">Add quotes</p>
+      <textarea class="field" id="qaText" rows="7" placeholder="Paste one or many. A blank line between quotes. End each with its author:\n\nThe quote itself.\n\u2014 Author, Source">${esc(A.text || "")}</textarea>
+      <label class="tlab" for="qaP">Tag them</label>
+      <select class="field" id="qaP"><option value="">No tag</option>${Q_PILLARS.map((p) => `<option${A.p === p ? " selected" : ""}>${esc(p)}</option>`).join("")}</select>
+      ${A.err ? `<p class="hint bad">${esc(A.err)}</p>` : `<p class="hint">Only words you have the right to share: your own notes, or public-domain text.</p>`}
+      <div class="stdbtns"><button type="button" class="btn-quiet" id="qaX">Cancel</button><button type="button" class="btn" id="qaGo" ${A.busy ? "disabled" : ""}>${A.busy ? "Adding\u2026" : "Add"}</button></div></section>`;
+  }
+  // "Quote. — Author, Source" blocks, a blank line apart.
+  function parseQuotes(raw, pillar) {
+    return String(raw || "").split(/\n\s*\n/).map((b) => b.trim()).filter(Boolean).map((b) => {
+      let lines = b.split("\n").map((l) => l.trim()).filter(Boolean), who = "";
+      const last = lines[lines.length - 1];
+      if (lines.length > 1 && /^[\u2014\u2013-]{1,2}\s*/.test(last)) { who = last.replace(/^[\u2014\u2013-]{1,2}\s*/, ""); lines = lines.slice(0, -1); }
+      let t = lines.join(" ");
+      const one = !who && t.match(/^(.*\S)\s+[\u2014\u2013]\s*([^\u2014\u2013]+)$/); if (one) { t = one[1]; who = one[2]; }
+      t = t.replace(/^["\u201c]+|["\u201d]+$/g, "").trim();
+      const c = who.indexOf(","), a = c > 0 ? who.slice(0, c).trim() : who.trim(), s = c > 0 ? who.slice(c + 1).trim() : "";
+      return { t, a, s, p: pillar || "" };
+    }).filter((q) => q.t);
+  }
+  function wireQuotes() {
+    document.querySelectorAll("[data-cft]").forEach((el) => el.addEventListener("click", () => { state.cfTab = el.dataset.cft; state.qN = 20; render(); }));
+    document.querySelectorAll("[data-qf]").forEach((el) => el.addEventListener("click", () => { state.qFilter = el.dataset.qf; state.qOpen = null; state.qN = 20; render(); }));
+    document.querySelectorAll("[data-qopen]").forEach((el) => el.addEventListener("click", () => { state.qOpen = state.qOpen === el.dataset.qopen ? null : el.dataset.qopen; render(); }));
+    document.querySelectorAll("[data-qsave]").forEach((el) => el.addEventListener("click", async () => {
+      const Q = state.quotes || (state.quotes = { saved: [] }), k = el.dataset.qsave, on = !(Q.saved || []).includes(k);
+      Q.saved = on ? [k].concat(Q.saved || []) : (Q.saved || []).filter((x) => x !== k); render();
+      const r = await call("app_quote_save", { p_code: state.code, p_person: state.meId, p_key: k, p_on: on });
+      if (r && r.error) { toast(r.offline ? "No signal. Not saved yet." : r.error, "bad"); await loadQuotes(); }
+    }));
+    document.querySelectorAll("[data-qdel]").forEach((el) => el.addEventListener("click", () => {
+      openModal({ title: "Remove this quote?", body: "It leaves everyone's Quotes and Saved.", buttons: [{ label: "Remove", kind: "bad", run: async () => {
+        await call("app_quote_delete", { p_code: state.code, p_person: state.meId, p_id: Number(el.dataset.qdel) }); state.qOpen = null; await loadQuotes(); render(); } }, { label: "Keep", kind: "quiet" }] }); }));
+    on("qAdd", "click", () => { state.qAdd = { text: "", p: "", err: null }; render(); document.getElementById("qaText")?.focus(); });
+    on("qaX", "click", () => { state.qAdd = null; render(); });
+    on("qaText", "input", (e) => { if (state.qAdd) state.qAdd.text = e.target.value; });
+    on("qaP", "change", (e) => { if (state.qAdd) state.qAdd.p = e.target.value; });
+    on("qaGo", "click", async () => {
+      const A = state.qAdd; if (!A || A.busy) return;
+      const list = parseQuotes(A.text, A.p);
+      if (!list.length) { A.err = "Paste at least one quote."; render(); return; }
+      A.busy = true; A.err = null; render();
+      const r = await call("app_quote_add", { p_code: state.code, p_person: state.meId, p_list: list });
+      if (r.error) { A.busy = false; A.err = r.offline ? "No signal. Not added yet." : r.error; render(); return; }
+      state.qAdd = null; toast(`Added ${r.added} quote${r.added === 1 ? "" : "s"}.`, "ok"); await loadQuotes(); render();
+    });
+    const s = document.getElementById("qMore");
+    if (s && "IntersectionObserver" in window) {
+      const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { io.disconnect(); state.qN = (state.qN || 20) + 20; render(); } }, { rootMargin: "600px" });
+      io.observe(s);
+    }
+  }
   function campfireView() {
     const C = state.camp || {}, seg = state.campSeg === "saved" ? "saved" : "library";
     // V8.5. Lessons are written with Claude now, so no "+ New lesson" here.
-    const head = `<div class="htabh"><h2>Campfire</h2></div>`;
+    // V10.1. Two tabs: Studies (the essays) and Quotes.
+    const tab = state.cfTab === "quotes" ? "quotes" : "studies";
+    const head = `<div class="htabh"><h2>Campfire</h2></div>
+      <div class="cfseg" role="tablist" aria-label="Studies or Quotes"><button type="button" role="tab" class="${tab === "studies" ? "on" : ""}" data-cft="studies" aria-selected="${tab === "studies"}">Studies</button>
+        <button type="button" role="tab" class="${tab === "quotes" ? "on" : ""}" data-cft="quotes" aria-selected="${tab === "quotes"}">Quotes</button></div>`;
+    if (tab === "quotes") return `<section class="htab hcamp hquotes" aria-label="Campfire: quotes">${head}${quotesView()}</section>`;
     if (!C.library) { if (!C.busy) setTimeout(() => loadCampfire(), 0);
       return `<section class="htab hcamp">${head}${C.err ? `<p class="hint bad">${esc(C.err)}</p>` : `<p class="hint">Lighting the fire…</p>`}</section>`; }
     const T = C.today, L = C.library;
@@ -7913,7 +8363,14 @@ button.fendj b { color:var(--accent); }
       <p class="lslab">Proof</p>
       <blockquote class="lsquote">“${esc(D.proof)}”<cite>${esc(D.cite || "")}${url ? ` · <a href="${esc(url)}" target="_blank" rel="noopener noreferrer">Read the study ↗</a>` : ""}</cite></blockquote>
       <p class="lslab">So</p><p class="lsconc">${esc(D.conclusion)}</p>
-      ${D.evidence ? `<p class="lsev">${esc(D.evidence)}</p>` : ""}</div>`;
+      ${D.evidence ? evidenceLine(D.evidence) : ""}</div>`;
+  }
+  // V10.1. "★★ Second rung" said nothing on its own: the stars and the rung
+  // are the evidence ladder (3 stars: trials pooled; ☆: a link, not proof).
+  function evidenceLine(t) {
+    const m = String(t).match(/^([\u2605\u2606]+)\s*/), n = m ? (m[1].match(/\u2605/g) || []).length : null;
+    const rest = (m ? String(t).slice(m[0].length) : String(t)).replace(/\bSecond rung\.?/g, "Second rung of the evidence ladder.").replace(/\bTop of the ladder\b/g, "Top of the evidence ladder");
+    return `<p class="lsev"><span class="lsevh">Evidence${n !== null ? ` <span class="lsevs" aria-label="${n} of 3 stars">${"\u2605".repeat(n)}${"\u2606".repeat(3 - n)}</span> ${n} of 3` : ""}</span>${esc(rest)}</p>`;
   }
   function campSheet() {
     const R = state.lesson, A = state.campAll, N = state.lessonNew, C = state.camp || {};
@@ -7969,6 +8426,7 @@ button.fendj b { color:var(--accent); }
     render();
   }
   function wireCamp() {
+    wireQuotes();
     document.querySelectorAll("[data-lesson]").forEach((el) => el.addEventListener("click", () => openLesson(el.dataset.lesson)));
     on("cfToday", "click", (e) => { if (!e.currentTarget.dataset.lesson) openExercise("steps"); });
     document.querySelectorAll("[data-cfall]").forEach((el) => el.addEventListener("click", () => { state.campAll = el.dataset.cfall; render(); }));
@@ -8030,7 +8488,7 @@ button.fendj b { color:var(--accent); }
   function habitDots() {
     const ks = myDials().filter((k) => STD[k] && votesOf(k)); if (!ks.length) return "";
     const k = ks.includes(state.jHabit) ? state.jHabit : ks[0], P = progPoints(k, 30); if (!P) return "";
-    const pts = P.pts, seen = pts.filter((x) => x.v !== null), bin = k === "refl" || (STD[k].custom && STD[k].hk === "done");
+    const pts = P.pts, seen = pts.filter((x) => x.v !== null), bin = STD[k].custom && STD[k].hk === "done";
     const W = 320, H = bin ? 64 : 132, L = 6, R = 52, T = 10, B = 20, pw = W - L - R, ph = H - T - B;
     const vs = seen.map((x) => x.v).concat(!bin && P.std > 0 ? [P.std] : []);
     const time = STD[k].kind === "time", lo = bin ? 0 : time ? Math.min(...vs) - 20 : 0, hi = bin ? 2 : Math.max(lo + 1, ...vs) * (time ? 1 : 1.1) + (time ? 20 : 0);
@@ -8064,8 +8522,42 @@ button.fendj b { color:var(--accent); }
     try { if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file] }); return; } } catch (e) { if (e && e.name === "AbortError") return; }
     const u = URL.createObjectURL(file), a = document.createElement("a"); a.href = u; a.download = file.name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 4000);
   }
+  // V10.1. Me at a glance: three numbers, then every habit you have on as
+  // one row of dots (a dot a day; a square a week over 90 days). Pick the
+  // span; tap a row to open that habit. The how-to text waits behind "How".
   function journeyMe() {
-    return `${tribeCard()}${youCard()}${myMilestones()}${habitDots()}${myWeekCard()}`;
+    const mine = gardenMe(), T = state.today || {}, S = T.streak || {};
+    if (mine && !mine.pledged) return tribeCard();
+    const R = [7, 30, 90].includes(state.jRange) ? state.jRange : 30;
+    const ks = myDials().filter((k) => STD[k] && votesOf(k) && k !== "weight" && k !== "tasks");
+    const rows = ks.map((k) => { const P = progPoints(k, R); if (!P) return null;
+      const V = votesOf(k), d0 = Object.keys((V && V.days && !Array.isArray(V.days) ? V.days : {}) || {}).sort()[0];
+      const avail = d0 ? P.pts.filter((p) => p.iso >= d0).length : 0;
+      return { k, P, avail, hit: P.pts.filter((p) => p.hit).length, log: P.pts.filter((p) => p.v !== null).length }; }).filter(Boolean);
+    const hit = rows.reduce((a, r) => a + r.hit, 0), all = rows.reduce((a, r) => a + r.avail, 0), pct = all ? Math.round(hit / all * 100) : 0;
+    const lvl = mine ? mine.level : 1, wk = mine ? (mine.days || []).length : 0;
+    const tiles = `<div class="jtiles">
+        <div class="jtile"><b>\u{1F525} ${S.n || 0}</b><small>day streak${S.today ? "" : " \u00b7 log today"}</small></div>
+        <button type="button" class="jtile" id="gameOpen" aria-label="${BD(lvl)[0]} badge: how to play"><b>${badgeSVG(lvl, 22)} ${wk}/7</b><small>${esc(BD(lvl)[0])} \u00b7 this week</small></button>
+        <div class="jtile"><b class="${pct >= 70 ? "good" : ""}">${pct}%</b><small>goals hit \u00b7 ${R} days</small></div></div>`;
+    const span = `<div class="jrange" role="group" aria-label="How far back">${[7, 30, 90].map((n) => `<button type="button" data-jr="${n}" aria-pressed="${n === R}">${n} days</button>`).join("")}</div>`;
+    const dots = (r) => {
+      if (R === 90) { const w = []; for (let i = 0; i < r.P.pts.length; i += 7) { const xs = r.P.pts.slice(i, i + 7); w.push(xs.filter((p) => p.hit).length / xs.length); }
+        return w.map((f) => `<i class="wk" style="--f:${f.toFixed(2)}"></i>`).join(""); }
+      return r.P.pts.map((p) => `<i class="${p.hit ? "hit" : p.v !== null ? "log" : ""}"></i>`).join("");
+    };
+    const list = rows.length ? `<ul class="jhab r${R}">${rows.map((r) => `<li><button type="button" data-go="${r.k}" aria-label="${esc(STD[r.k].label)}: goal hit ${r.hit} of ${R} days, logged ${r.log}">
+        <span class="jhn">${esc(STD[r.k].short || STD[r.k].label)}</span><span class="jhd" aria-hidden="true">${dots(r)}</span><span class="jhs"><b>${r.hit}</b>/${r.avail || R}</span></button></li>`).join("")}</ul>
+        <p class="jkey"><span><i class="hit"></i>goal hit</span><span><i class="log"></i>logged</span><span><i></i>not logged</span></p>`
+      : `<p class="hint">Turn habits on under Me and log them: they show up here.</p>`;
+    const next = [30, 100, 365].find((t) => (S.n || 0) < t), PTS = { 30: 100, 100: 300, 365: 1000 };
+    const how = state.jHow ? `<div class="jhow"><p>Best streak <b>${S.best || 0}</b> \u00b7 Freezes <b>${"\u2744".repeat(S.freezes || 0) || "0"}</b> (a freeze saves a missed day).</p>
+        ${next ? `<p><b>${next - (S.n || 0)}</b> more day${next - (S.n || 0) === 1 ? "" : "s"} to <b>+${num(PTS[next])}</b> points (${next}-day streak).</p>` : ""}
+        ${mine ? `<p>${esc(moveWords(mine))}</p>` : ""}</div>` : "";
+    return `${tiles}<section class="jcard jall" aria-label="All your habits">${span}${list}</section>
+      ${myMilestones()}
+      <button type="button" class="linkbtn jhowb" id="jHow" aria-expanded="${!!state.jHow}">${state.jHow ? "Hide" : "How streaks and badges work \u203a"}</button>${how}
+      ${myWeekCard()}`;
   }
   function journeyTribe(J) {
     const Gl = J.goal;
@@ -8497,7 +8989,7 @@ button.fendj b { color:var(--accent); }
     const P = progPoints(k, 28); if (!P) return "";
     const today = state.votes.today || todayISO(), mon = mondayOf(today);
     const wk = P.pts.filter((p) => p.iso >= mon), metW = wk.filter((p) => p.hit).length;
-    const seen = P.pts.filter((p) => p.v !== null), bin = k === "refl" || (STD[k].custom && STD[k].hk === "done");
+    const seen = P.pts.filter((p) => p.v !== null), bin = STD[k].custom && STD[k].hk === "done";
     const avg = seen.length ? seen.reduce((a, p) => a + p.v, 0) / seen.length : null;
     const time = STD[k].kind === "time";
     const good = avg !== null && (stdPct(k, avg, P.std) || 0) >= 100;
@@ -8520,7 +9012,7 @@ button.fendj b { color:var(--accent); }
     const range = progRange(), P = progPoints(k, range);
     if (!P) return "";
     const { pts, std, n } = P, seen = pts.filter((p) => p.v !== null);
-    const time = STD[k].kind === "time", bin = k === "refl" || (STD[k].custom && STD[k].hk === "done");
+    const time = STD[k].kind === "time", bin = STD[k].custom && STD[k].hk === "done";
     const W = 320, H = bin ? 56 : 132, L = 6, Rr = 44, T = bin ? 18 : 12, B = 22, ph = H - T - B, pw = W - L - Rr;
     let lo, hi;
     if (bin) { lo = 0; hi = 2; }
@@ -8610,7 +9102,7 @@ button.fendj b { color:var(--accent); }
     const head = `
       <div class="topbar"><button class="backlink" id="back">&larr; ${esc(state.group.name)}</button></div>
       <header class="masthead">
-        <p class="eyebrow">${S && S.tribe ? "Tribe habit" : "Your own"}</p>
+        <p class="eyebrow">Your own</p>
         <h1>${esc(S ? S.label : "Habit")}</h1>
         <p class="sub">${!S ? "" : S.hk === "done" ? "Once a day." : S.hk === "min" ? `${hm(S.def)} a day.` : `${num(S.def)}${S.unit ? " " + esc(S.unit) : ""} a day.`}${h && h.mine ? ` <button type="button" class="linkbtn" id="cEditH">Edit</button>` : ""}</p>
       </header>`;
@@ -8670,7 +9162,7 @@ button.fendj b { color:var(--accent); }
     const v = votesOf(k); if (!v) return "";
     const days = v.days && !Array.isArray(v.days) ? v.days : {};
     if (!Object.prototype.hasOwnProperty.call(days, iso)) return "";
-    if (k === "refl" || k === "weight") return "met";
+    if (k === "weight") return "met";
     const m = me() || {}, std = k === "rise" || k === "rest" ? (hasTarget(m, k) ? target(m, k) : STD[k].def) : stdOf(m, k);
     const raw = days[iso], val = k === "dd" ? ddCount(raw) : k === "sleep" ? scorePct(raw) : Number(raw);
     return (stdPct(k, val, std) ?? 100) >= 100 ? "met" : "log";
@@ -8750,7 +9242,8 @@ button.fendj b { color:var(--accent); }
   function injectAtoms() {
     const k = pageHabit();
     // V6.1. Your own habits: votes and the run of days, then the plot.
-    if (k && isCustom(k) && STD[k]) {
+    const custom = !!(k && isCustom(k) && STD[k]);
+    if (custom) {
       // V6.5. No votes or run counters here either.
       const pg = progressCard(k), at = app.querySelector(".cday");
       if (pg && at) at.insertAdjacentHTML("afterend", pg);
@@ -8761,7 +9254,6 @@ button.fendj b { color:var(--accent); }
         const t = e.target.closest && e.target.closest("[data-pg]"); if (!t) return;
         const i = Number(t.dataset.pg), r0 = progRange();
         state.progSel = state.progSel && state.progSel.k === k && state.progSel.i === i ? null : { k, i, r: r0 }; render(); });
-      return;
     }
     if (!k || !ATOM_HOW[k]) return;
     if (k === "tasks") return;   // V7.2. Tasks is a list: no habit line, no chart under it.
@@ -8771,7 +9263,7 @@ button.fendj b { color:var(--accent); }
     const foot = app.querySelector("p.ver");
     if (foot) foot.insertAdjacentHTML("beforebegin", atomsStrip(k).replace('<section class="astrip">', '<section class="astrip foot">'));
     // V5.6. Progress sits under the dial, where the page has one.
-    const pg = progressCard(k);
+    const pg = custom ? "" : progressCard(k);
     if (pg) {
       const dial = app.querySelector(".msil, .msess, #mGrid, .wtoday") || app.querySelector(".dring, .dbig, .ctot, .mdial, .stamp");
       const at = dial && dial.closest("section");
@@ -8984,7 +9476,7 @@ button.fendj b { color:var(--accent); }
           ${ring}
           <div class="dcore">
             ${centre}
-            ${k === "tasks" ? `<span class="dof">done ${past ? "that day" : "today"}</span>` : k === "refl" ? `<span class="dof">${v ? `written ${past ? "that day" : "today"}` : "gratitude and lessons"}</span>` : `<button type="button" class="dof" ${clone ? 'tabindex="-1"' : `data-edit="goal" data-metric="${k}"`}>${
+            ${k === "tasks" ? `<span class="dof">done ${past ? "that day" : "today"}</span>` : `<button type="button" class="dof" ${clone ? 'tabindex="-1"' : `data-edit="goal" data-metric="${k}"`}>${
               k === "work" ? `${hm(v || 0)} of ${hm(std)}${past ? "" : " today"}` : ofWords(k, std)}</button>`}
             ${extra}
           </div>
@@ -9791,15 +10283,19 @@ button.fendj b { color:var(--accent); }
     if (met.time) return timeCard(k, iso, isToday, m, rec, goal);
     const shown = isToday ? val(m, k) : rec.value;
     const has = isToday ? (k === "steps" ? !!m.steps_logged : shown > 0) : rec.logged;
-    // V5.4. Train's minutes are the sum of its workouts: shown, never typed.
+    // V10.1. Train's minutes: type the day's number (above the standard),
+    // or let the workouts add up. Typing changes only that day's number;
+    // the workouts in History stay as they are.
     if (k === "train") return `
       <section class="card">
         ${dayNav({ label: isToday ? "Today" : esc(fullDate(iso)), atToday: isToday, unit: "day" })}
         <div class="domino" style="padding-top:10px">
-          <b class="big" style="color:${has ? met.color : "var(--muted)"}">${has ? hm(shown) : "0m"}</b>
+          <span class="trbig"><input class="bigedit" id="steps" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" enterkeyhint="done"
+                 style="color:${met.color}" value="${has ? Math.round(shown) : ""}" placeholder="0" data-raw="${has ? Math.round(shown) : ""}"
+                 aria-label="Train minutes on ${isToday ? "today" : esc(fullDate(iso))}, tap to type"><small>min</small></span>
           <button type="button" class="of" data-edit="goal" data-metric="${k}">${goal ? `of <b>${hm(goal)}</b>` : "set a train target"}</button>
         </div>
-        <p class="hint dshint" style="text-align:center">The sum of ${isToday ? "today's" : "this day's"} workouts.</p>
+        <p class="hint dshint ${state.msgKind || ""}" id="hint" style="text-align:center">${state.msg ? esc(state.msg) : `Tap the number to type ${isToday ? "today's" : "this day's"} minutes. Workouts add to it.`}</p>
       </section>`;
 
     // V7.3. Steps: the home dial's ring around the number, the standard
@@ -10225,14 +10721,25 @@ button.fendj b { color:var(--accent); }
       { v: round50(tdee + 250), t: "Build muscle", d: "250 over, a lean gain" },
     ] };
   }
-  const calcStd = (which) => (which === "protein" ? "macros" : "kcal");
+  const calcStd = (which) => (which === "protein" ? "macros" : which);
+  // V10.1. Carbs and fat from your calorie standard (the Institute of
+  // Medicine's ranges: carbs 45-65%, fat 20-35% of calories); fiber at
+  // 14 g per 1,000 kcal (Dietary Guidelines for Americans).
+  function macroOptions(which, kcal) {
+    if (!(kcal > 0)) return null;
+    if (which === "carbs") return [[0.45, "Lower end", "45% of calories"], [0.55, "Middle", "55% of calories"], [0.65, "Upper end", "65% of calories"]].map(([f, t, d]) => ({ v: round5(kcal * f / 4), t, d }));
+    if (which === "fat") return [[0.2, "Lower end", "20% of calories"], [0.3, "Middle", "30% of calories"], [0.35, "Upper end", "35% of calories"]].map(([f, t, d]) => ({ v: round5(kcal * f / 9), t, d }));
+    if (which === "fiber") return [{ v: Math.round(kcal / 1000 * 14), t: "Recommended", d: "14 g per 1,000 kcal" }];
+    return null;
+  }
   function calcPanel(which) {
     const b = getBody(), m = me() || {};
     const cur = stdOf(m, calcStd(which));
     const field = (id, val, ph, label, w) => `<label class="cbf"${w ? ` style="flex:${w}"` : ""}><span>${label}</span>
       <input class="field" id="${id}" inputmode="numeric" pattern="[0-9]*" autocomplete="off" value="${esc(val)}" placeholder="${ph}"></label>`;
-    const opts = which === "protein" ? proteinOptions(b) : (kcalOptions(b) || {}).list;
-    const k = which === "protein" ? null : kcalOptions(b);
+    const mac = which === "carbs" || which === "fat" || which === "fiber", kc = stdOf(m, "kcal");
+    const opts = which === "protein" ? proteinOptions(b) : mac ? macroOptions(which, kc) : (kcalOptions(b) || {}).list;
+    const k = which === "kcal" ? kcalOptions(b) : null;
     return `
       <div class="calc" id="calc">
         ${which === "kcal" ? `<div class="cbrow"><div class="cbf cbsex"><span>Body</span><div class="range" role="group" aria-label="Body">
@@ -10242,15 +10749,16 @@ button.fendj b { color:var(--accent); }
           <div class="cbrow"><label class="cbf"><span>Activity</span>
             <select class="field" id="cAct">${ACTIVITY.map((a, i) =>
               `<option value="${i}"${Number(b.act) === i ? " selected" : ""}>${esc(a.t)}</option>`).join("")}</select></label></div>`
-          : `<div class="cbrow">${field("cLb", b.lb, "170", "Your weight, pounds", 1)}</div>`}
+          : mac ? "" : `<div class="cbrow">${field("cLb", b.lb, "170", "Your weight, pounds", 1)}</div>`}
         <div class="copts" id="cOpts">${opts ? opts.map((o) => `
           <button type="button" class="copt${Math.round(cur) === o.v ? " on" : ""}" data-cset="${o.v}" data-cfor="${which}">
             <span><b>${esc(o.t)}</b><small>${esc(o.d)}</small></span>
-            <em>${num(o.v)}<small>${which === "protein" ? "g" : "kcal"}</small></em></button>`).join("")
+            <em>${num(o.v)}<small>${which === "kcal" ? "kcal" : "g"}</small></em></button>`).join("")
           : `<p class="hint">${which === "protein" ? "Type your weight to see your target."
               : "Fill in all five to see your three targets."}</p>`}</div>
         ${k && k.list[0].v < k.floor ? `<p class="hint bad">Lose fat comes out under ${num(k.floor)} kcal. Below that, ask a clinician first.</p>` : ""}
-        <p class="cnote">${which === "protein"
+        <p class="cnote">${mac ? `From your calorie standard, ${num(kc)} kcal. ${which === "fiber" ? "14 g per 1,000 kcal is the Dietary Guidelines' amount." : "The range is the Institute of Medicine's (2005)."} Change Calories and this changes too.`
+          : which === "protein"
           ? "Protein: 0.8 g/kg is the RDA; 1.6 g/kg is where muscle gains level off (Morton 2018)."
           : `Mifflin-St Jeor × your activity. Resting: ${k ? num(k.bmr) + " kcal" : "–"}. An estimate: adjust by what Weight does over 2–3 weeks.`}
           Your body numbers stay on this phone.</p>
@@ -10368,14 +10876,33 @@ button.fendj b { color:var(--accent); }
         ${D.calc === "protein" ? calcPanel("protein") : ""}
       </section>
       ${!extraOn("kcal") ? "" : `<section class="card dsec dmini" id="diet-kcal" style="--dc:var(--diet)">
-        <div class="dsh"><h2>Calories</h2><span class="dss">optional</span>
-          <button type="button" class="of dofx" data-edit="goal" data-metric="kcal">of <b>${num(sK)}</b></button></div>
+        <div class="dsh"><h2>Calories</h2>
+          <button type="button" class="of dofx" data-edit="goal" data-metric="kcal">of <b>${num(sK)}</b></button>
+          <button type="button" class="mrm" data-mrm="kcal" aria-label="Stop tracking Calories">&times;</button></div>
         ${big("kcal", V.kcal, "kcal", sK, "kcal")}
         ${dietMsg(D, "kcal")}
         <button type="button" class="linkbtn dcalc" data-dcalc="kcal" aria-expanded="${D.calc === "kcal"}">${D.calc === "kcal" ? "Close the calculator" : "Calculate my target"}</button>
         ${D.calc === "kcal" ? calcPanel("kcal") : ""}
       </section>`}
+      ${MACRO_X.filter(([f]) => extraOn(f)).map((x) => macroCard(D, x)).join("")}
       ${extrasCard(D, "macros")}`;
+  }
+  // V10.1. Carbs, fat and fiber: a card each, like Calories, with a
+  // standard and a calculator. Remove any with the \u00d7.
+  const MACRO_X = [["carbs_g", "Carbs", "carbs"], ["fat_g", "Fat", "fat"], ["fiber_g", "Fiber", "fiber"]];
+  function macroCard(D, [f, label, sk]) {
+    const x = (D.xv || {})[f] || {}, v = x.v == null ? null : Number(x.v), t = stdOf(me(), sk);
+    const col = v === null ? "var(--muted)" : t > 0 ? dialColor(stdPct(sk, v, t)) : "var(--ink)";
+    return `<section class="card dsec dmini" id="diet-${f}" style="--dc:var(--diet)">
+        <div class="dsh"><h2>${label}</h2>
+          <button type="button" class="of dofx" data-edit="goal" data-metric="${sk}">${t > 0 ? `of <b>${num(t)} g</b>` : "set a standard"}</button>
+          <button type="button" class="mrm" data-mrm="${f}" aria-label="Stop tracking ${label}">&times;</button></div>
+        ${D.xedit === f ? `<div class="dbig"><input class="dbigx xin" id="xIn" data-x="${f}" inputmode="decimal" enterkeyhint="done" autocomplete="off" placeholder="0" value="${v === null ? "" : fmtNum(v)}" aria-label="${label}, grams"><span class="dunit">g</span></div>`
+          : `<button type="button" class="dbig dbigb" data-xedit="${f}" aria-label="${label}: ${v === null ? "nothing yet" : fmtNum(v) + " g"}. Tap to type the day's total"><b style="color:${col}">${v === null ? "0" : fmtNum(v)}</b><span class="dunit">g</span></button>`}
+        ${dietMsg(D, sk)}
+        <button type="button" class="linkbtn dcalc" data-dcalc="${sk}" aria-expanded="${D.calc === sk}">${D.calc === sk ? "Close the calculator" : "Calculate my target"}</button>
+        ${D.calc === sk ? calcPanel(sk) : ""}
+      </section>`;
   }
 
   const lb1 = (v) => (Math.round(Number(v) * 10) / 10).toFixed(1);
@@ -10702,7 +11229,7 @@ button.fendj b { color:var(--accent); }
       <span class="xsx"><span>${esc(shortDay(all.reduce((a, p) => p[0] < a ? p[0] : a, all[0][0])))}</span><span>latest</span></span></li>`;
   }
   function extrasCard(D, page) {
-    const list = EXTRAS[page], on = list.filter(([k]) => k !== "kcal" && k !== "bodyfat_pct" && extraOn(k));
+    const list = EXTRAS[page], on = list.filter(([k]) => k !== "kcal" && k !== "bodyfat_pct" && !MACRO_X.some(([f]) => f === k) && extraOn(k));
     const row = ([k, label, unit, mode]) => {
       const x = (D.xv || {})[k] || {}, ed = D.xedit === k;
       const val = k === "bp" ? (x.v != null && x.v2 != null ? `${fmtNum(x.v)}/${fmtNum(x.v2)}` : null)
@@ -10725,7 +11252,7 @@ button.fendj b { color:var(--accent); }
           <em>${esc(c.u || "")}</em></li>${page === "weight" ? miniPlot(c.hist || [], (v) => fmtNum(Number(v))) : ""}`; };
     return `${on.length || mine.length ? `<section class="card dsec dmini xcard2" style="--dc:var(--diet)"><ul class="xlist">${on.map(row).join("")}${mine.map(crow).join("")}</ul>
         ${D.msg && D.msgFor === "extra" ? `<p class="hint bad">${esc(D.msg)}</p>` : ""}</section>` : ""}
-      <button type="button" class="linkbtn xmore" id="xMore" aria-expanded="${pick}">${pick ? "Done" : "+ Track more"}</button>
+      <button type="button" class="linkbtn xmore" id="xMore" aria-expanded="${pick}">${pick ? "Done" : page === "macros" ? "+ Add a macro" : "+ Track more"}</button>
       ${pick ? `<div class="xpick">${list.map(([k, label]) => `<button type="button" class="achip${extraOn(k) ? " on" : ""}" data-xpick="${k}" aria-pressed="${extraOn(k)}">${esc(label)}</button>`).join("")}
           ${mine.map((c) => `<span class="achip on xmine">${esc(c.n)}<button type="button" data-xcdel="${esc(c.id)}" aria-label="Stop tracking ${esc(c.n)}">&times;</button></span>`).join("")}
           ${D.xother ? "" : `<button type="button" class="achip" id="xOther">Other\u2026</button>`}</div>
@@ -10883,6 +11410,11 @@ button.fendj b { color:var(--accent); }
         { label: "Delete", kind: "bad", run: () => saveCustom((D.custom || []).filter((x) => x.id !== c.id).map(({ id, n, u, page }) => ({ id, n, u, page }))) },
         { label: "Keep", kind: "quiet" }] });
     }));
+    document.querySelectorAll("[data-mrm]").forEach((el) => el.addEventListener("click", () => {
+      const k = el.dataset.mrm;
+      try { localStorage.setItem(extraKey(), JSON.stringify(extraList().filter((x) => x !== k))); } catch {}
+      D.xoff = Object.assign({}, D.xoff, { [k]: true }); if (D.calc && calcStd(D.calc) && STD[D.calc] && STD[D.calc].key === k) D.calc = null; render();
+    }));
     document.querySelectorAll("[data-xpick]").forEach((el) =>
       el.addEventListener("click", () => {
         const k = el.dataset.xpick, l = extraList(), was = extraOn(k);
@@ -11002,7 +11534,8 @@ button.fendj b { color:var(--accent); }
       document.querySelectorAll("[data-cset]").forEach((el) =>
         el.addEventListener("click", async () => {
           const k = calcStd(el.dataset.cfor), v = Number(el.dataset.cset);
-          const m = me(); if (m) m[STD_FIELD[k]] = v;
+          const m = me(); if (m && STD_FIELD[k]) m[STD_FIELD[k]] = v;
+          if (TGT_KEY[k] && state.habits) state.habits.targets = Object.assign({}, state.habits.targets, { [TGT_KEY[k]]: v });
           D.calc = null; D.msg = null; render();
           const res = await call("app_set_goal", { p_code: state.code, p_person: state.meId, p_target: v, p_metric: STD[k].key });
           if (res.error) { D.msg = res.offline ? "No signal. Not saved yet." : res.error; D.msgFor = el.dataset.cfor; }
@@ -14347,34 +14880,54 @@ button.fendj b { color:var(--accent); }
     { k: "l", h: "Lesson", one: "Lesson", ph: ["Today taught me…", "And…"], area: true },
     { k: "c", h: "Change", one: "Change", ph: ["When ___, I will ___"], area: false },
   ];
+  // V10.1. Up to six prompts: the three built in (rename or remove them)
+  // and three of your own. The day's number is the lines you wrote.
+  const REFL_KEYS = ["g", "l", "c", "d", "e", "f"];
+  function reflPrompts() {
+    const H = ((state.habits || {}).refl_heads) || {}, R = state.med.rows || { g: 1, l: 1, c: 1 };
+    return REFL_KEYS.filter((k) => (R[k] || 0) > 0).map((k) => {
+      const b = REFL.find((x) => x.k === k) || { k, h: "Your prompt", one: "Line", ph: ["Write here\u2026", "And\u2026"], area: false };
+      const own = H[k] || {};
+      return Object.assign({}, b, { h: own.h || b.h, one: own.h || b.one, ph: own.ph ? [own.ph, "And\u2026"] : b.ph, custom: !!own.h });
+    });
+  }
   function reflView() {
     const j = (state.med.day || {}).journal || {}, R = state.med.rows || { g: 1, l: 1, c: 1 };
-    const total = R.g + R.l + R.c;
+    const total = REFL_KEYS.reduce((a, k) => a + (R[k] || 0), 0), std = stdOf(me(), "refl");
     const lines = (x) => (Array.isArray(j[x.k]) ? j[x.k] : []);
     let filled = 0;
+    const E = state.reflEdit;
     const sec = (x) => {
       const L = lines(x), n = R[x.k] || 0;
       const row = (i) => {
         const v = L[i] || "", ph = x.ph ? x.ph[Math.min(i, x.ph.length - 1)] : (i === 0 ? gratToday() : "And…");
         if (v.trim()) filled++;
-        const lab = `${x.one} ${i + 1}`;
+        const lab = `${esc(x.one)} ${i + 1}`;
         const input = x.area
-          ? `<textarea class="field mjin" id="mj-${x.k}${i}" data-mj="${x.k}:${i}" rows="2" maxlength="500" placeholder="${ph}" aria-label="${lab}">${esc(v)}</textarea>`
-          : `<input class="field mjin" id="mj-${x.k}${i}" data-mj="${x.k}:${i}" maxlength="500" placeholder="${ph}" value="${esc(v)}" aria-label="${lab}">`;
+          ? `<textarea class="field mjin" id="mj-${x.k}${i}" data-mj="${x.k}:${i}" rows="2" maxlength="500" placeholder="${esc(ph)}" aria-label="${lab}">${esc(v)}</textarea>`
+          : `<input class="field mjin" id="mj-${x.k}${i}" data-mj="${x.k}:${i}" maxlength="500" placeholder="${esc(ph)}" value="${esc(v)}" aria-label="${lab}">`;
         return `<div class="mjrow">${input}${total > 1 ? `<button type="button" class="mjx" data-mjx="${x.k}:${i}" aria-label="Remove ${lab.toLowerCase()}">&times;</button>` : ""}</div>`;
       };
+      const head = E && E.k === x.k
+        ? `<div class="mjedit"><input class="field" id="mjeH" maxlength="40" autocomplete="off" value="${esc(E.h)}" placeholder="Heading, e.g. Wins" aria-label="Heading">
+            <input class="field" id="mjeP" maxlength="120" autocomplete="off" value="${esc(E.ph)}" placeholder="A hint in the box (optional)" aria-label="Hint">
+            <div class="mjeb"><button type="button" class="linkbtn gdel" data-mjrm="${x.k}">Remove prompt</button><button type="button" class="btn" id="mjeSave">Save</button></div></div>`
+        : `<h2 class="mjh"><span>${esc(x.h)}</span><button type="button" class="mjpen" data-mjedit="${x.k}" aria-label="Change or remove ${esc(x.h)}">\u270e</button></h2>`;
       return `<div class="mjsec">
-          <h2 class="mjh">${x.h}</h2>
+          ${head}
           ${n ? `<div class="mjl">${Array.from({ length: n }, (_, i) => row(i)).join("")}</div>` : ""}
-          ${n < 5 ? `<button type="button" class="mjadd" data-mjadd="${x.k}">+ ${n ? "Add a line" : `Add ${x.h === "Change" ? "a change" : "a " + x.one.toLowerCase()}`}</button>` : ""}
+          ${n < 5 ? `<button type="button" class="mjadd" data-mjadd="${x.k}">+ Add a line</button>` : ""}
         </div>`;
     };
-    const body = REFL.map(sec).join("");
+    const P = reflPrompts(), body = P.map(sec).join("");
+    const dots = Array.from({ length: Math.max(std, filled) }, (_, i) => `<i class="${i < filled ? "on" : ""}"></i>`).join("");
     return `
       <section class="card mjournal">
         ${medNav("day")}
+        <div class="mjtop"><span class="mjdots" aria-hidden="true">${dots}</span>
+          <span class="mjcount${filled >= std ? " ok" : ""}"><b>${filled}</b> ${filled >= std ? "\u2713" : ""}<button type="button" class="mjstd" data-edit="goal" data-metric="refl">of ${std}</button></span></div>
         ${body}
-        <p class="mjcount${filled >= total ? " ok" : ""}">${filled >= total ? "Done for today" : `${filled} of ${total} written`}</p>
+        ${P.length < 6 ? `<button type="button" class="mjnew" id="mjNew">+ Add a prompt</button>` : ""}
         <p class="mpriv">${I_LOCK}<span>Private. Your tribe sees only that you wrote today, never the words.</span></p>
         <p class="msaved${state.medSaved === "Saved" ? " ok" : ""}" id="mSaved" role="status">${esc(state.medSaved || "")}</p>
       </section>`;
@@ -14909,17 +15462,18 @@ button.fendj b { color:var(--accent); }
 
     // Reflection: saved as you type.
     const jour = () => {
-      const j = day.journal = Object.assign({ g: [], l: [], c: [] }, day.journal || {});
-      for (const k of ["g", "l", "c"]) j[k] = (Array.isArray(j[k]) ? j[k] : []).slice();
+      const j = day.journal = Object.assign({}, day.journal || {});
+      for (const k of REFL_KEYS) j[k] = (Array.isArray(j[k]) ? j[k] : []).slice();
       return j;
     };
-    const sendJ = (j, delay) => medSave({ journal: { g: j.g.map((x) => x || ""), l: j.l.map((x) => x || ""), c: j.c.map((x) => x || "") } }, delay);
+    const sendJ = (j, delay) => medSave({ journal: Object.fromEntries(REFL_KEYS.map((k) => [k, (j[k] || []).map((x) => x || "")])) }, delay);
     const countLine = () => {
-      const R = state.med.rows, j = day.journal || {};
-      let f = 0, t = 0;
-      for (const k of ["g", "l", "c"]) for (let i = 0; i < (R[k] || 0); i++) { t++; if (String(((j[k] || [])[i]) || "").trim()) f++; }
-      const el = document.querySelector(".mjcount");
-      if (el) { el.textContent = f >= t ? "Done for today" : `${f} of ${t} written`; el.className = "mjcount" + (f >= t ? " ok" : ""); }
+      const R = state.med.rows, j = day.journal || {}, std = stdOf(me(), "refl");
+      let f = 0;
+      for (const k of REFL_KEYS) for (let i = 0; i < (R[k] || 0); i++) if (String(((j[k] || [])[i]) || "").trim()) f++;
+      const b = document.querySelector(".mjcount b"); if (b) b.textContent = f;
+      document.querySelector(".mjcount")?.classList.toggle("ok", f >= std);
+      document.querySelectorAll(".mjdots i").forEach((el, i) => el.classList.toggle("on", i < f));
     };
     document.querySelectorAll("[data-mj]").forEach((el) => el.addEventListener("input", () => {
       const [kind, i] = el.dataset.mj.split(":");
@@ -14948,12 +15502,41 @@ button.fendj b { color:var(--accent); }
     }));
     document.querySelectorAll("[data-mjx]").forEach((el) => el.addEventListener("click", () => {
       const [k, i] = el.dataset.mjx.split(":"), R = Object.assign({}, state.med.rows);
-      if (R.g + R.l + R.c <= 1) return;
+      if (REFL_KEYS.reduce((a, x) => a + (R[x] || 0), 0) <= 1) return;
       const j = jour();
       if (+i < j[k].length) { j[k].splice(+i, 1); sendJ(j, 0); }
       R[k] = Math.max(0, (R[k] || 0) - 1);
       setRows(R);
     }));
+    // V10.1. Rename a prompt, give it your own hint, remove it, or add one.
+    const heads = () => Object.assign({}, ((state.habits || {}).refl_heads) || {});
+    const saveHeads = async (H) => {
+      if (state.habits) state.habits.refl_heads = H;
+      state.reflEdit = null; render();
+      const res = await call("app_set_refl_heads", { p_code: state.code, p_person: state.meId, p_heads: H });
+      if (res.error) { state.medMsg = res.offline ? "No signal. Not saved yet." : res.error; render(); }
+    };
+    document.querySelectorAll("[data-mjedit]").forEach((el) => el.addEventListener("click", () => {
+      const k = el.dataset.mjedit, x = reflPrompts().find((y) => y.k === k) || {}, own = heads()[k] || {};
+      state.reflEdit = { k, h: own.h || x.h || "", ph: own.ph || "" }; render(); document.getElementById("mjeH")?.focus(); }));
+    on("mjeSave", "click", () => {
+      const E = state.reflEdit; if (!E) return;
+      const h = (document.getElementById("mjeH")?.value || "").trim(), ph = (document.getElementById("mjeP")?.value || "").trim();
+      const H = heads();
+      if (h) H[E.k] = { h, ph }; else delete H[E.k];
+      saveHeads(H);
+    });
+    document.querySelectorAll("[data-mjrm]").forEach((el) => el.addEventListener("click", () => {
+      const k = el.dataset.mjrm, R = Object.assign({}, state.med.rows);
+      if (REFL_KEYS.reduce((a, x) => a + (x === k ? 0 : (R[x] || 0)), 0) < 1) { state.medMsg = "Keep at least one prompt."; render(); return; }
+      R[k] = 0; state.reflEdit = null; setRows(R);
+    }));
+    on("mjNew", "click", () => {
+      const R = Object.assign({}, state.med.rows), k = REFL_KEYS.find((x) => !(R[x] > 0)); if (!k) return;
+      R[k] = 1; const own = heads()[k] || {}, b = REFL.find((x) => x.k === k);
+      state.reflEdit = { k, h: own.h || (b ? b.h : ""), ph: own.ph || "" };
+      setRows(R).then(() => document.getElementById("mjeH")?.focus());
+    });
 
     // Silence.
     const c = silCfg();
@@ -15452,7 +16035,8 @@ button.fendj b { color:var(--accent); }
       return;
     }
     // Show it at once; the refresh confirms it.
-    const m = me(); if (m) m[STD_FIELD[k]] = r.v;
+    const m = me(); if (m && STD_FIELD[k]) m[STD_FIELD[k]] = r.v;
+    if (TGT_KEY[k] && state.habits) state.habits.targets = Object.assign({}, state.habits.targets, { [TGT_KEY[k]]: r.v });
     state.editing = null; state.editDraft = null;
     render();
     await refresh();
@@ -15512,9 +16096,7 @@ button.fendj b { color:var(--accent); }
         ${E.kind === "done" ? "" : `<div class="hfrow">
           <label><span class="tlab">Daily standard</span><input class="field" id="hfStd" inputmode="decimal" autocomplete="off" placeholder="${E.kind === "min" ? "20" : "8"}" value="${esc(E.std == null ? "" : String(E.std))}" aria-label="Daily standard"></label>
           ${E.kind === "number" ? `<label><span class="tlab">Unit</span><input class="field" id="hfUnit" maxlength="16" autocomplete="off" placeholder="glasses" value="${esc(E.unit || "")}" aria-label="Unit"></label>` : `<span class="hfmin">minutes</span>`}</div>`}
-        <p class="tlab">For</p>
-        ${seg("tribe", [["false", "Just me"], ["true", "The whole tribe"]])}
-        <p class="hint">${E.tribe ? "Everyone in the tribe can turn it on, and it gets a column in your tribe table." : "Private: only you see it."}</p>
+        <p class="hint">Only you see it. Like any habit, it can be a dial, have a habit sentence, and shows its dots over time.</p>
         ${E.err ? `<p class="hint bad">${esc(E.err)}</p>` : ""}
         <div class="stdbtns">${E.id ? `<button type="button" class="btn-quiet bad" id="hfDel">Remove</button>` : `<button type="button" class="btn-quiet" id="hfCancel">Cancel</button>`}
           <button type="button" class="btn" id="hfSave">${E.id ? "Save" : "Add"}</button></div>
@@ -15552,7 +16134,13 @@ button.fendj b { color:var(--accent); }
     try { localStorage.setItem("fhd.dials." + state.meId, JSON.stringify(h)); localStorage.setItem("fhd.pins." + state.meId, JSON.stringify(p)); } catch {}
     state.dialMsg = null;
     render();
-    await call("app_set_habits", { p_code: state.code, p_person: state.meId, p_habits: h, p_pins: p });
+    const res = await call("app_set_habits", { p_code: state.code, p_person: state.meId, p_habits: h, p_pins: p });
+    if (res && res.error) { state.dialMsg = res.offline ? "No signal. Saved on this phone; it syncs when you're back online." : res.error; render(); return; }
+    if (res && Array.isArray(res.habits) && m) {
+      m.dials = res.habits; m.pins = res.pins || m.pins;
+      try { localStorage.setItem("fhd.dials." + state.meId, JSON.stringify(m.dials)); localStorage.setItem("fhd.pins." + state.meId, JSON.stringify(m.pins)); } catch {}
+      if (res.habits.length !== h.length) render();
+    }
   }
   function tapHabit(k) {
     const h = myDials().slice(), p = myPins().slice();
@@ -15622,7 +16210,7 @@ button.fendj b { color:var(--accent); }
       if (!String(E.name || "").trim()) { E.err = "Give it a name."; render(); return; }
       if (E.kind !== "done" && !(std > 0)) { E.err = "Set a daily standard above 0."; render(); return; }
       const res = await call("app_habit_save", { p_code: state.code, p_person: state.meId,
-        p_habit: { id: E.id || null, name: E.name.trim(), kind: E.kind, unit: E.unit || "", std, tribe: !!E.tribe } });
+        p_habit: { id: E.id || null, name: E.name.trim(), kind: E.kind, unit: E.unit || "", std } });
       if (res.error) { E.err = res.offline ? "No signal. Not saved yet." : res.error; render(); return; }
       const fresh = !E.id, back = E.back;
       state.habEdit = null; if (back) state.dialPick = null;
