@@ -3378,6 +3378,31 @@ button.fendj b { color:var(--accent); }
 .cfnone { margin:0; padding:0 14px 14px; }
 .cfrd { font-style:normal; color:#2f9e6e; font-weight:700; }
 
+/* ---------- V10.2 ---------- */
+.cmts { margin:-4px 0 14px; padding:0 2px; }
+.cmt { margin:0 0 6px; font-size:14.5px; line-height:1.35; color:#fff; overflow-wrap:anywhere; } .cmt b { margin-right:4px; }
+.cmx { border:none; background:none; color:rgba(255,255,255,.55); font-size:16px; padding:0 4px; cursor:pointer; }
+.cmform { display:flex; gap:8px; margin-top:8px; }
+.cmin { flex:1; min-width:0; min-height:40px; padding:0 14px; border:1px solid rgba(255,255,255,.25); border-radius:999px; background:rgba(255,255,255,.08); color:#fff; font:inherit; font-size:14.5px; }
+.cmin::placeholder { color:rgba(255,255,255,.55); }
+.cmgo { border:none; background:none; color:#e0b04a; font:inherit; font-weight:700; cursor:pointer; padding:0 6px; }
+.wklegend { display:flex; gap:14px; margin:-2px 0 8px; font-size:12px; color:var(--muted); }
+.wklegend span { display:flex; align-items:center; gap:5px; }
+.wklegend i, .wkd i { display:inline-grid; place-items:center; font-style:normal; }
+.wklegend i { width:13px; height:13px; border-radius:50%; font-size:9px; }
+.wkd i.met, .wklegend i.met { background:#e0b04a; color:#1a1408; font-weight:900; font-size:9px; box-shadow:none; }
+.wklegend i.on { background:#3fb96b; }
+.wklegend i.off { box-shadow:inset 0 0 0 1.5px color-mix(in oklab, var(--ink) 25%, transparent); }
+.wktoday { font-size:12px; letter-spacing:.04em; text-transform:none; } .wktoday b { color:var(--ink); }
+.wkchart { margin:0 0 16px; }
+.wfstop { display:block; margin:26px auto 0; padding:12px 26px; border:1px solid rgba(242,230,204,.35); border-radius:999px; background:none; color:#f2e6cc; font:inherit; font-weight:700; cursor:pointer; }
+.cday .dial { margin-left:auto; margin-right:auto; }
+.cday { display:flex; flex-direction:column; align-items:center; }
+.cdel { display:block; margin:18px auto 0; }
+.dpedit { border:none; background:none; color:var(--muted); font-size:14px; padding:0 4px; cursor:pointer; }
+.qtopics { display:flex; flex-wrap:wrap; gap:6px; margin:0 0 10px; }
+.hquotes .qadd { margin-top:0; }
+
 /* ---------- V10.1 ---------- */
 /* Tribe: the steps line, the goal rail, the feed */
 .sfold { display:flex; align-items:center; gap:10px; width:100%; margin:0 0 12px; padding:12px 14px; border:1px solid var(--line); border-radius:16px; background:var(--surface); color:var(--ink-2); font:inherit; font-size:14.5px; text-align:left; cursor:pointer; }
@@ -3515,7 +3540,7 @@ button.jtile { cursor:pointer; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "10.1";
+  const APP_VERSION = "10.2";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -3968,7 +3993,7 @@ button.jtile { cursor:pointer; }
     // for each day you don't log. Losing works better than earning.
     const P = (T && T.pot) || null;
     return `<div class="qrow">
-      ${P && P.full ? (P.days ? `<button type="button" class="qchest qpot qcoins${P.missed ? " hurt" : ""}" id="potOpen" aria-label="This week: ${P.left} points kept of ${P.full}. A coin for each day you log. Tap to see how it works">
+      ${false && P && P.full ? (P.days ? `<button type="button" class="qchest qpot qcoins${P.missed ? " hurt" : ""}" id="potOpen" aria-label="This week: ${P.left} points kept of ${P.full}. A coin for each day you log. Tap to see how it works">
         <span class="coins" aria-hidden="true">${P.days.map((c, i) => `<span class="cn ${c}"><i></i><small>${WD[i]}</small></span>`).join("")}</span>
         <span class="potv"><b>${P.left}</b><small>pts this week</small></span></button>`
         : `<button type="button" class="qchest qpot${P.missed ? " hurt" : ""}" id="potOpen" aria-label="This week's pot: ${P.left} of ${P.full} points left">
@@ -3988,7 +4013,7 @@ button.jtile { cursor:pointer; }
     const dots = Array.from({ length: TT.active }, (_, i) => `<i class="${i < TT.logged ? "on" : ""}"></i>`).join("");
     return `<button type="button" class="qchest qtribe qdots${ready ? " ready" : ""}${done ? " won" : ""}" id="${ready ? "tribeChestOpen" : "tribeInfo"}" aria-label="Tribe: ${TT.logged} of ${TT.active} logged${ready ? ", open the chest for +10" : done ? ", chest opened" : ", all logged opens +10"}">
       <span class="tdots" aria-hidden="true">${dots}</span>
-      <span class="potv"><b>${ready ? "Open +10" : done ? "+10 \u2713" : `${TT.logged}/${TT.active}`}</b>${ready || done ? "" : `<small>${F ? `+${F} pts` : "tribe +10"}</small>`}</span></button>`;
+      <span class="potv"><b>${ready ? "Open +10" : done ? "+10 \u2713" : `${TT.logged}/${TT.active}`}</b>${ready || done ? "" : `<small>${iLogged() ? `+${2 * TT.logged} pts today` : "log for +2 each"}</small>`}</span></button>`;
   }
   // V8.2. Tribe's one card: the tribe chest ring (today only) and, under
   // it, your badge line. Tap your badge for How to play; tap an open tribe
@@ -4020,9 +4045,27 @@ button.jtile { cursor:pointer; }
     : `<button type="button" class="${cls}" data-cheer="${x.id}" aria-label="Cheer ${esc(x.name)}">\u{1F389} Cheer ${esc(x.name.split(/\s+/)[0])}</button>`;
   async function loadSocial() {
     if (!state.meId) return;
-    const r = await call("app_social", { p_code: state.code, p_person: state.meId });
+    const [r, c] = await Promise.all([call("app_social", { p_code: state.code, p_person: state.meId }),
+      call("app_comments_new", { p_code: state.code, p_person: state.meId })]);
     if (r && !r.error) state.social = { open: !!r.open, today: r.today || null, week: r.week || [], by: Object.fromEntries((r.people || []).map((x) => [x.id, x])) };
+    if (c && !c.error) state.cmNew = c.names || [];
   }
+  // V10.2. Comments on a win: everyone sees them; they go when the win goes.
+  function commentsBlock(w, id, day) {
+    const cs = w.comments || [];
+    return `<div class="cmts">${cs.map((c) => `<p class="cmt"><b>${c.mine ? "You" : esc(firstName(c))}</b> ${esc(c.body)}${c.del
+        ? ` <button type="button" class="cmx" data-cmdel="${c.id}|${id}|${day}" aria-label="Delete this comment">\u00d7</button>` : ""}</p>`).join("")}
+      <form class="cmform" data-cmform="${w.id}|${id}|${day}"><input class="cmin" maxlength="140" autocomplete="off" enterkeyhint="send" placeholder="Add a comment\u2026" aria-label="Add a comment">
+        <button type="submit" class="cmgo">Send</button></form></div>`;
+  }
+  function commentsBanner() {
+    const N = state.cmNew || []; if (!N.length) return "";
+    const names = N.length > 2 ? `${N.slice(0, 2).map((x) => firstName({ name: x })).join(", ")} and ${N.length - 2} more` : N.map((x) => firstName({ name: x })).join(" and ");
+    return `<div class="hcheer hcmt" role="status"><span class="hcheerh" aria-hidden="true">\u{1F4AC}</span><span><b>${esc(names)}</b> commented on your win</span>
+      <button type="button" class="hcheerok" id="cmSee">See</button></div>`;
+  }
+  async function seenComments() { if (!(state.cmNew || []).length) return; state.cmNew = [];
+    await call("app_comments_new", { p_code: state.code, p_person: state.meId, p_seen: true }); }
   const soc = (id) => (state.social && state.social.by && state.social.by[id]) || {};
   const iLogged = () => !!(gardenMe() || {}).logged;
   const photoAgo = (iso) => { if (!iso) return ""; const m = Math.max(1, Math.round((Date.now() - new Date(iso).getTime()) / 60000));
@@ -4049,7 +4092,7 @@ button.jtile { cursor:pointer; }
       img.onerror = () => ok(null); img.src = src; });
   }
   // V9.7. "Share a win": any time of day, up to three a day, with an
-  // optional line. Your family sees it for 7 days (once they've logged).
+  // optional line. V10.2: it lasts 24 hours, like a story (others see it once they've logged).
   const myWins = () => (soc(state.meId).wins || []).length;
   async function postPhoto(file) {
     if (!file) return;
@@ -4080,7 +4123,7 @@ button.jtile { cursor:pointer; }
     D.busy = false; D.done = true;
     if (state.winFull) Object.keys(state.winFull).forEach((k) => { if (k.startsWith(state.meId + "|")) delete state.winFull[k]; });
     if (state.pweek) delete state.pweek[state.meId];
-    await Promise.all([loadSocial(), loadFeed(true)]); render();
+    await loadSocial(); render();
   }
   // After sharing: one tap rings the family on WhatsApp. The photo stays here.
   async function ringFamily() {
@@ -4097,7 +4140,7 @@ button.jtile { cursor:pointer; }
     if (D.done) return `<div class="sheetbg" id="sdBg"></div>
       <div class="stdsheet sdsheet" role="dialog" aria-label="Shared">
         <div class="sdokrow">${D.text ? `<span class="sdthumb wtext mini" style="--wb:${winBg(D.bg)}"></span>` : `<img class="sdthumb" src="${esc(D.thumb || D.img)}" alt="">`}<div><h3 class="sdok">Shared ✓</h3>
-          <p class="hint">Your family sees it for 7 days.</p></div></div>
+          <p class="hint">Your family sees it for 24 hours.</p></div></div>
         <button type="button" class="btn sdring" id="sdRing">Tell the family on WhatsApp</button>
         <div class="stdbtns"><button type="button" class="btn-quiet" id="sdX">Done</button></div>
       </div>`;
@@ -4105,7 +4148,7 @@ button.jtile { cursor:pointer; }
       <div class="stdsheet sdsheet" role="dialog" aria-label="Write a win">
         <div class="wtext big" id="sdPrev" style="--wb:${winBg(D.bg)}"><textarea id="sdCap" maxlength="160" rows="3" placeholder="What's your win today?" aria-label="Your win">${esc(D.caption || "")}</textarea></div>
         <div class="sdbgs" role="radiogroup" aria-label="Colour">${WIN_BG.map((c, i) => `<button type="button" class="sdbg${D.bg === i ? " on" : ""}" data-sdbg="${i}" style="--wb:${c}" role="radio" aria-checked="${D.bg === i}" aria-label="Colour ${i + 1}"></button>`).join("")}</div>
-        ${D.err ? `<p class="hint bad">${esc(D.err)}</p>` : `<p class="hint">Your family sees it for 7 days.</p>`}
+        ${D.err ? `<p class="hint bad">${esc(D.err)}</p>` : `<p class="hint">Your family sees it for 24 hours.</p>`}
         <div class="stdbtns"><button type="button" class="btn-quiet" id="sdX">Cancel</button><button type="button" class="btn" id="sdGo" ${D.busy ? "disabled" : ""}>${D.busy ? "Sharing…" : "Share"}</button></div>
       </div>`;
     return `<div class="sheetbg" id="sdBg"></div>
@@ -4113,7 +4156,7 @@ button.jtile { cursor:pointer; }
         <img class="sdimg" src="${esc(D.img)}" alt="Your photo">
         <label class="tlab" for="sdCap">What's the win? <small>(optional)</small></label>
         <input class="field" id="sdCap" maxlength="80" autocomplete="off" enterkeyhint="done" placeholder="e.g. Ran 3 miles" value="${esc(D.caption || "")}">
-        ${D.err ? `<p class="hint bad">${esc(D.err)}</p>` : `<p class="hint">Your family sees it for 7 days.</p>`}
+        ${D.err ? `<p class="hint bad">${esc(D.err)}</p>` : `<p class="hint">Your family sees it for 24 hours.</p>`}
         <div class="stdbtns"><button type="button" class="btn-quiet" id="sdX">Cancel</button><button type="button" class="btn" id="sdGo" ${D.busy ? "disabled" : ""}>${D.busy ? "Sharing…" : "Share"}</button></div>
       </div>`;
   }
@@ -4179,22 +4222,22 @@ button.jtile { cursor:pointer; }
     state.pweek[id] = Object.assign({}, P || {}, { busy: true });
     const r = await call("app_person_week", { p_code: state.code, p_person: state.meId, p_of: id });
     state.pweek[id] = r && !r.error ? Object.assign(r, { at: Date.now() }) : { at: Date.now(), err: true };
-    if (state.person === id || (id === state.meId && state.view === "board" && homeTab() === "journey")) render();
+    if (state.person === id || (id === state.meId && state.view === "board" && homeTab() === "me")) render();
   }
   const storyDayOf = (id) => state.storyDay && state.storyDay.id === id ? state.storyDay.day
     : (((state.pweek || {})[id] || {}).today || (state.social && state.social.today) || familyISO());
   function storyPhotos(id, mine) {
     const day = storyDayOf(id), W = (state.winFull || {})[winKey(id, day)], S = soc(id);
     if (!W) setTimeout(() => loadWins(id, day), 0);
-    if (!(state.pweek || {})[id]) setTimeout(() => loadPersonWeek(id), 0);
     if (!W || W.busy) return S.photo || (state.storyDay && state.storyDay.id === id) ? `<p class="stwait">Loading…</p>` : "";
     if (W.err) return "";
     const who = mine ? "Your" : esc(firstName(gpx(id))) + "'s";
-    return W.list.map((w, j) => w.img ? `<figure class="stph"><img src="${esc(w.img)}" alt="${who} photo">
+    return W.list.map((w, j) => (w.img ? `<figure class="stph"><img src="${esc(w.img)}" alt="${who} photo">
       <figcaption>${w.caption ? `<span>${esc(w.caption)}</span>` : ""}<span class="stphb"><button type="button" class="linkbtn" data-winsave="${id}|${day}|${j}">Save</button>${mine ? ` · <button type="button" class="linkbtn" data-windel="${w.id}">Delete</button>` : ""}</span></figcaption></figure>`
-      : `<figure class="stph">${winText(w, "big")}${mine ? `<figcaption><span class="stphb"><button type="button" class="linkbtn" data-windel="${w.id}">Delete</button></span></figcaption>` : ""}</figure>`).join("");
+      : `<figure class="stph">${winText(w, "big")}${mine ? `<figcaption><span class="stphb"><button type="button" class="linkbtn" data-windel="${w.id}">Delete</button></span></figcaption>` : ""}</figure>`) + commentsBlock(w, id, day)).join("");
   }
-  function weekStrip(id) {
+  function weekStrip() { return ""; }   // V10.2: wins last 24 hours, so no week strip.
+  function weekStripOld(id) {
     const P = (state.pweek || {})[id]; if (!P || !P.wins || !P.open) return "";
     const day = storyDayOf(id), first = {}; P.wins.forEach((w) => { if (!first[w.day]) first[w.day] = w; });
     const days = Object.keys(first).sort().reverse(); if (!days.length || (days.length === 1 && days[0] === day)) return "";
@@ -4210,7 +4253,6 @@ button.jtile { cursor:pointer; }
       </div>`;
   }
   function personSheet() {
-    if (state.reel) return reelView();
     if (state.snapDraft) return snapSheet();
     if (state.shareMenu) return shareMenu();
     const id = state.person; if (!id) return "";
@@ -4256,6 +4298,7 @@ button.jtile { cursor:pointer; }
   // Your own day as your family sees it: your wins (share, save, delete),
   // your numbers and who cheered you.
   function myStory() {
+    if ((state.cmNew || []).length) setTimeout(() => seenComments(), 0);
     const M = soc(state.meId), x = gpx(state.meId) || { id: state.meId, name: (me() || {}).name || "You" }, n = myWins();
     const p = (state.people || []).find((q) => q.id === state.meId) || {};
     return `<div class="story" role="dialog" aria-label="Your day">
@@ -4310,10 +4353,20 @@ button.jtile { cursor:pointer; }
         await call("app_win_delete", { p_code: state.code, p_person: state.meId, p_id: wid });
         if (state.winFull) Object.keys(state.winFull).forEach((k) => { if (k.startsWith(state.meId + "|")) delete state.winFull[k]; });
         if (state.pweek) delete state.pweek[state.meId];
-        state.reel = null;
-        await Promise.all([loadSocial(), loadFeed(true)]); render(); } }, { label: "Keep" }] }); }));
-    wireFeed();
+        await loadSocial(); render(); } }, { label: "Keep" }] }); }));
     on("psNudge", "click", sendNudge);
+    const reloadWins = async (id, day) => { if (state.winFull) delete state.winFull[winKey(id, day)]; await loadWins(id, day); render(); };
+    document.querySelectorAll("[data-cmform]").forEach((el) => el.addEventListener("submit", async (e) => {
+      e.preventDefault(); const [wid, id, day] = el.dataset.cmform.split("|"), f = el.querySelector(".cmin"), body = (f.value || "").trim(); if (!body) return;
+      f.disabled = true;
+      const r = await call("app_win_comment", { p_code: state.code, p_person: state.meId, p_win: Number(wid), p_body: body });
+      if (r.error) { f.disabled = false; toast(r.offline ? "No signal. Not sent yet." : r.error, "bad"); return; }
+      await reloadWins(id, day); }));
+    document.querySelectorAll("[data-cmdel]").forEach((el) => el.addEventListener("click", async () => {
+      const [cid, id, day] = el.dataset.cmdel.split("|");
+      const r = await call("app_comment_delete", { p_code: state.code, p_person: state.meId, p_id: Number(cid) });
+      if (r.error && !r.offline) toast(r.error, "bad"); await reloadWins(id, day); }));
+    on("cmSee", "click", () => { state.storyQ = null; state.storyDay = null; state.person = state.meId; seenComments().then(render); render(); });
     // The story sits outside the page, so its buttons are wired here.
     document.querySelectorAll(".story [data-go]").forEach((el) => el.addEventListener("click", () => { state.person = null; state.storyQ = null; openExercise(el.dataset.go); }));
     document.querySelectorAll(".story [data-lesson]").forEach((el) => el.addEventListener("click", () => { state.person = null; state.storyQ = null; render(); openLesson(el.dataset.lesson); }));
@@ -4343,6 +4396,8 @@ button.jtile { cursor:pointer; }
     on("myWeekShare", "click", shareMyWeek);
     document.querySelectorAll("[data-jseg]").forEach((el) => el.addEventListener("click", () => { state.jSeg = el.dataset.jseg; render(); }));
     document.querySelectorAll("[data-jh]").forEach((el) => el.addEventListener("click", () => { state.jHabit = el.dataset.jh; render(); }));
+    document.querySelectorAll("[data-seg2]").forEach((el) => el.addEventListener("click", () => {
+      const [k, v] = el.dataset.seg2.split(":"); state[k] = v; render(); if (v === "progress") loadJourney(); }));
     document.querySelectorAll("[data-jr]").forEach((el) => el.addEventListener("click", () => { state.jRange = Number(el.dataset.jr); render(); }));
     on("jHow", "click", () => { state.jHow = !state.jHow; render(); });
   }
@@ -4387,15 +4442,21 @@ button.jtile { cursor:pointer; }
     const dow = garDow();
     const rows = (G.people || []).filter((x) => x.id === state.meId || x.recent || (x.days || []).length)
       .sort((a, b) => (b.id === state.meId) - (a.id === state.meId) || (b.days || []).length - (a.days || []).length || (b.streak || 0) - (a.streak || 0) || a.name.localeCompare(b.name));
-    const row = (x) => { const mine = x.id === state.meId, ds = new Set(x.days || []);
-      const cells = WD.map((d, i) => `<i class="${i + 1 > dow ? "fut" : ds.has(i + 1) ? "on" : "off"}${i + 1 === dow ? " now" : ""}"></i>`).join("");
+    const T = state.tday; if (!T || Date.now() - (T.at || 0) > 45000) setTimeout(() => loadTribeDay(), 0);
+    const met = (T && T.met) || {};
+    const row = (x) => { const mine = x.id === state.meId, ds = new Set(x.days || []), ms = new Set(met[x.id] || []);
+      // V10.2. ✓ = at their step goal, ● = logged, ○ = missed.
+      const cells = WD.map((d, i) => `<i class="${i + 1 > dow ? "fut" : ms.has(i + 1) ? "met" : ds.has(i + 1) ? "on" : "off"}${i + 1 === dow ? " now" : ""}">${ms.has(i + 1) && i + 1 <= dow ? "\u2713" : ""}</i>`).join("");
       // V10.1. Everyone's flame beside their row; grey until they log today.
       const fire = `<span class="wkfire${x.logged ? "" : " cold"}" aria-label="${x.streak || 0}-day streak">\u{1F525}${x.streak || 0}</span>`;
       const end = x.logged ? `<span class="wkend">${fire}</span>`
         : `<span class="wkend">${fire}${mine ? `<button type="button" class="wkact" data-go="steps">Log</button>`
         : `<button type="button" class="wkact${soc(x.id).nudged ? " done" : ""}" data-pnudge="${x.id}">${soc(x.id).nudged ? "Nudged" : "Nudge"}</button>`}</span>`;
       return `<li><button type="button" class="wkn" data-pnudge="${x.id}" aria-label="${mine ? "You" : esc(x.name)}: ${ds.size} of ${dow} days logged this week">${mine ? "You" : esc(firstName(x))}</button><span class="wkd" aria-hidden="true">${cells}</span>${end}</li>`; };
-    return `<section class="wkchart" aria-label="Who logged steps which day this week">
+    const lg = (G.people || []).filter((x) => (x.id === state.meId || x.recent) && x.logged).length, all = (G.people || []).filter((x) => x.id === state.meId || x.recent).length;
+    return `<section class="wkchart" aria-label="Steps this week: who logged and who hit their goal">
+      <p class="feedh"><span>\u{1F45F} Steps this week</span><span class="wktoday">today <b>${lg}/${all}</b></span></p>
+      <p class="wklegend"><span><i class="met">\u2713</i>hit goal</span><span><i class="on"></i>logged</span><span><i class="off"></i>missed</span></p>
       <div class="wkhead" aria-hidden="true"><span></span><span class="wkd">${WD.map((d, i) => `<b class="${i + 1 === dow ? "now" : ""}">${d}</b>`).join("")}</span><span></span></div>
       <ul class="wklist">${rows.map(row).join("")}</ul></section>`;
   }
@@ -4405,119 +4466,22 @@ button.jtile { cursor:pointer; }
      today and the Spotlight (comebacks and milestones). The week's who-
      logged chart folds into one line. Double-tap a win to cheer it; tap
      it to see the wins full screen, one after another. */
-  async function loadFeed(force) {
-    const F = state.feed; if (!state.meId || (!force && F && (F.busy || Date.now() - (F.at || 0) < 45000))) return;
-    state.feed = Object.assign({}, F || {}, { busy: true });
-    const r = await call("app_feed", { p_code: state.code, p_person: state.meId });
-    state.feed = r && !r.error ? Object.assign(r, { at: Date.now() }) : Object.assign({}, F || {}, { at: Date.now(), busy: false, err: !F });
-    if (state.view === "board" && homeTab() === "tribe" && !document.querySelector(".htribe :focus")) render();
-  }
-  const winAgo = (iso) => { const m = Math.max(1, Math.round((Date.now() - new Date(iso).getTime()) / 60000));
-    return m < 60 ? `${m}m` : m < 1440 ? `${Math.round(m / 60)}h` : `${Math.round(m / 1440)}d`; };
-  async function loadWinImg(id) {
-    state.winImg = state.winImg || {};
-    if (state.winImg[id]) return;
-    state.winImg[id] = "busy";
-    const r = await call("app_win_img", { p_code: state.code, p_person: state.meId, p_win: id });
-    if (r && r.img) { state.winImg[id] = r.img; document.querySelectorAll(`img[data-full="${id}"]`).forEach((im) => { im.src = r.img; }); }
-    else delete state.winImg[id];
-  }
-  const fullOf = (p) => { const W = state.winImg || {}; return typeof W[p.id] === "string" && W[p.id] !== "busy" ? W[p.id] : p.thumb; };
-  const cheerNames = (p) => { const ns = (p.cheers || []).map((n) => String(n).split(/\s+/)[0]); if (!ns.length) return "";
-    return `\u{1F389} ${esc(ns.length > 3 ? `${ns.slice(0, 2).join(", ")} and ${ns.length - 2} others` : andList(ns))}`; };
-  function postCard(p, F, i) {
-    const mine = p.pid === state.meId, first = mine ? "You" : esc(firstName(p)), open = F.open || mine;
-    const head = `<header class="phead"><span class="fav fsm" style="--hc:hsl(${p.hue || 200} 62% 48%)">${esc(initials(p.name))}</span><b>${mine ? "You" : esc(p.name)}</b><small>${winAgo(p.at)}</small>
-      ${mine ? `<button type="button" class="linkbtn pdel" data-windel="${p.id}">Delete</button>` : ""}</header>`;
-    if (!open) return `<article class="post locked">${head}<div class="pmedia plock"><span aria-hidden="true">\u{1F512}</span><p>Log today's steps to see ${first}'s win</p>
-      ${i === 0 ? `<button type="button" class="btn" data-go="steps">Log my steps</button>` : ""}</div></article>`;
-    const media = p.pic ? `<img src="${esc(fullOf(p) || "")}" data-full="${p.id}" alt="${first}'s win" loading="lazy">` : winText(p, "feedt");
-    return `<article class="post" data-post="${p.id}">${head}
-      <div class="pmedia${p.pic ? "" : " ptext"}" data-pdbl="${p.id}" role="button" tabindex="0" aria-label="${first}'s win. Double-tap to cheer, tap to open">${media}<span class="pburst" aria-hidden="true">\u{1F389}</span></div>
-      <footer class="pfoot">${mine ? "" : `<button type="button" class="pcheer${p.mine ? " on" : ""}" data-pcheer="${p.id}" aria-pressed="${!!p.mine}" aria-label="${p.mine ? "Cheered" : "Cheer"}">\u{1F389}</button>`}
-        <span class="pnames">${cheerNames(p) || (mine ? "No cheers yet" : "")}</span></footer>
-      ${p.pic && p.caption ? `<p class="pcap"><b>${first}</b> ${esc(p.caption)}</p>` : ""}</article>`;
-  }
-  function stepsFold() {
-    const G = state.garden; if (!G) return "";
-    if (state.stepsOpen === undefined) { try { state.stepsOpen = !!localStorage.getItem("fhd.stepsOpen"); } catch { state.stepsOpen = false; } }
-    const ps = (G.people || []).filter((x) => x.id === state.meId || x.recent), n = ps.filter((x) => x.logged).length, open = !!state.stepsOpen;
-    return `<button type="button" class="sfold${open ? " on" : ""}" id="stepsFold" aria-expanded="${open}"><span aria-hidden="true">\u{1F45F}</span>
-        <span class="sflab">Steps logged today: <b>${n}/${ps.length}</b></span><span class="sfdots" aria-hidden="true">${ps.map((x) => `<i class="${x.logged ? "on" : ""}"></i>`).join("")}</span><i aria-hidden="true">${open ? "\u25b4" : "\u25be"}</i></button>
-      ${open ? weekChart() : ""}`;
+  // V10.2. Who hit their goal which day this week, and who is there today.
+  async function loadTribeDay(force) {
+    const T = state.tday; if (!state.meId || (!force && T && (T.busy || Date.now() - (T.at || 0) < 45000))) return;
+    state.tday = Object.assign({}, T || {}, { busy: true });
+    const r = await call("app_tribe_day", { p_code: state.code, p_person: state.meId });
+    state.tday = r && !r.error ? Object.assign(r, { at: Date.now() }) : Object.assign({}, T || {}, { busy: false, at: Date.now() });
+    if (state.view === "board" && homeTab() === "tribe") render();
   }
   // Who reached their step goal today: the ones to celebrate, not just who logged.
   function hitsRail() {
-    const F = state.feed; if (!F || !(F.hits || []).length) return "";
+    const F = state.tday; if (!F || !(F.hits || []).length) return "";
     return `<section class="hits" aria-label="Hit their step goal today"><p class="feedh"><span>\u{1F3AF} Hit their goal today</span></p>
       <div class="hitrow">${F.hits.map((x) => { const mine = x.id === state.meId, ch = mine ? "" : x.cheered || soc(x.id).mine
           ? `<span class="hitc sent" aria-label="You cheered ${esc(x.name)}">\u2764</span>` : `<button type="button" class="hitc" data-cheer="${x.id}" aria-label="Cheer ${esc(x.name)}">\u{1F389}</button>`;
         return `<span class="hit"><span class="fav" style="--hc:hsl(${x.hue || 200} 62% 48%)">${esc(initials(x.name))}</span>${ch}
           <b>${mine ? "You" : esc(firstName(x))}</b><small>${num(Math.round(Number(x.steps)))}</small></span>`; }).join("")}</div></section>`;
-  }
-  function feedPosts() {
-    const F = state.feed;
-    if (!F || (!F.busy && (Date.now() - (F.at || 0) > 45000 || (!F.open && iLogged() && Date.now() - (F.at || 0) > 5000)))) setTimeout(() => loadFeed(!!F), 0);
-    if (!F || !F.posts) return `<p class="hint">Loading your tribe's wins\u2026</p>`;
-    const P = F.posts || [];
-    const add = myWins() < 3 ? `<button type="button" class="feedadd" id="feedAdd"><span aria-hidden="true">+</span> Share a win</button>` : "";
-    if (!P.length) return `${add}<div class="feedempty"><p>No wins shared this week yet.</p><p class="hint">A photo or a line about something you did. Your family sees it for 7 days.</p></div>`;
-    let lockShown = false;
-    return `${add}<div class="feed">${P.map((p) => { const lk = !F.open && p.pid !== state.meId, i = lk && !lockShown ? 0 : 1; if (lk) lockShown = true; return postCard(p, F, i); }).join("")}</div>
-      <p class="hint feedend">That's the last 7 days.</p>`;
-  }
-  // Full screen, one win after another: swipe up for the next.
-  function reelView() {
-    const F = state.feed || {}, P = (F.posts || []).filter((p) => F.open || p.pid === state.meId);
-    if (!P.length) { state.reel = null; return ""; }
-    return `<div class="reel" role="dialog" aria-label="Wins, full screen"><button type="button" class="reelx" id="reelX" aria-label="Close">\u2715</button>
-      ${P.map((p) => { const mine = p.pid === state.meId;
-        return `<section class="rslide" id="rs-${p.id}"><div class="rmedia${p.pic ? "" : " ptext"}" data-pdbl="${p.id}">${p.pic ? `<img src="${esc(fullOf(p) || "")}" data-full="${p.id}" alt="">` : winText(p, "reelt")}<span class="pburst" aria-hidden="true">\u{1F389}</span></div>
-          <div class="rinfo"><p><b>${mine ? "You" : esc(p.name)}</b> <small>${winAgo(p.at)}</small></p>${p.pic && p.caption ? `<p>${esc(p.caption)}</p>` : ""}
-            <p class="rnames">${cheerNames(p)}</p></div>
-          ${mine ? "" : `<button type="button" class="rcheer pcheer${p.mine ? " on" : ""}" data-pcheer="${p.id}" aria-pressed="${!!p.mine}" aria-label="${p.mine ? "Cheered" : "Cheer"}">\u{1F389}</button>`}</section>`; }).join("")}</div>`;
-  }
-  async function cheerPost(id, on, el) {
-    const F = state.feed, p = F && (F.posts || []).find((x) => x.id === id); if (!p || p.pid === state.meId) return;
-    if (!F.open) { toast("Log today's steps to cheer.", "bad"); return; }
-    if (on === undefined) on = !p.mine;
-    const nm = (me() || {}).name || "You";
-    p.mine = on; p.cheers = on ? (p.cheers || []).filter((n) => n !== nm).concat([nm]) : (p.cheers || []).filter((n) => n !== nm);
-    if (el) { el.classList.remove("burst"); void el.offsetWidth; if (on) el.classList.add("burst"); setTimeout(() => el.classList.remove("burst"), 900); }
-    try { navigator.vibrate && on && navigator.vibrate(18); } catch {}
-    paintPost(p);
-    const r = await call("app_win_cheer", { p_code: state.code, p_person: state.meId, p_win: id, p_on: on });
-    if (r && r.error) { if (!r.offline) toast(r.error, "bad"); p.mine = !on; await loadFeed(true); render(); return; }
-    if (r && Array.isArray(r.names)) { p.cheers = r.names; paintPost(p); }
-  }
-  // Repaint one win's cheers without redrawing the page (and the scroll).
-  function paintPost(p) {
-    document.querySelectorAll(`[data-pcheer="${p.id}"]`).forEach((b) => { b.classList.toggle("on", !!p.mine); b.setAttribute("aria-pressed", String(!!p.mine)); });
-    const s = document.querySelector(`[data-post="${p.id}"] .pnames`); if (s) s.innerHTML = cheerNames(p);
-    const r = document.querySelector(`#rs-${p.id} .rnames`); if (r) r.innerHTML = cheerNames(p);
-  }
-  function wireFeed() {
-    on("stepsFold", "click", () => { state.stepsOpen = !state.stepsOpen; try { localStorage.setItem("fhd.stepsOpen", state.stepsOpen ? "1" : ""); } catch {} render(); });
-    document.querySelectorAll("[data-pcheer]").forEach((el) => el.addEventListener("click", (e) => { e.stopPropagation();
-      const id = Number(el.dataset.pcheer), m0 = el.closest("[data-post], .rslide"); cheerPost(id, undefined, m0 && m0.querySelector("[data-pdbl]")); }));
-    document.querySelectorAll("[data-pdbl]").forEach((el) => {
-      let t = null, last = 0;
-      const id = Number(el.dataset.pdbl), inReel = !!el.closest(".reel");
-      el.addEventListener("click", () => {
-        const now = Date.now();
-        if (now - last < 320) { clearTimeout(t); last = 0; const p = ((state.feed || {}).posts || []).find((x) => x.id === id);
-          if (p && p.pid !== state.meId) cheerPost(id, true, el); return; }
-        last = now;
-        if (!inReel) t = setTimeout(() => { state.reel = { at: id }; render(); }, 320);
-      });
-      el.addEventListener("keydown", (e) => { if (e.key === "Enter" && !inReel) { state.reel = { at: id }; render(); } });
-    });
-    on("reelX", "click", () => { state.reel = null; render(); });
-    const rs = state.reel && document.getElementById("rs-" + state.reel.at);
-    if (rs && !state.reel.done) { state.reel.done = true; rs.scrollIntoView({ block: "start" }); }
-    // Photos at full size, a few at a time, once you can see them.
-    const ids = [...document.querySelectorAll("img[data-full]")].map((im) => Number(im.dataset.full)).filter((id, i, a) => a.indexOf(id) === i && !(state.winImg || {})[id]);
-    ids.slice(0, 6).forEach((id) => loadWinImg(id));
   }
   // V9.7. Spotlight: up to three things worth a cheer, worked out from what
   // is already logged (a comeback, a milestone, a day everyone logged...).
@@ -4682,8 +4646,7 @@ button.jtile { cursor:pointer; }
         <p class="gonesub">Everything else is a bonus.</p>
         <ul class="gdhow gsimple">
           <li><b>\u{1F525}</b><span>Every day you log, your streak grows.</span></li>
-          <li><b>\u25c8</b><span>Your week pot starts at 35; each day you don't log costs 5. +5 when you hit your goal. Spend points on prizes.</span></li>
-          <li><b>\u{1F46A}</b><span>+2 for each family member who logs, +10 each when everyone does.</span></li>
+          <li><b>\u{1F46A}</b><span>On a day you log: +2 for each of you who logs, you included. +10 each when everyone does. Spend points on prizes.</span></li>
           <li><b>\u{1F3C5}</b><span>Log all 7 days: your badge goes up. Miss 2: it goes down.</span></li>
         </ul>
         <div class="glevels">${BADGES.map(([n], i) => `<span class="glv${i + 1 === mine.level ? " on" : ""}">${badgeSVG(i + 1, i + 1 === mine.level ? 44 : 30)}<small>${n}</small></span>`).join("")}</div>
@@ -4700,7 +4663,7 @@ button.jtile { cursor:pointer; }
       S.mine = "\u{1F389}"; if (state.social) state.social.by[id] = S; render();
       const res = await call("app_react", { p_code: state.code, p_from: state.meId, p_to: id, p_emoji: "\u{1F389}" });
       if (res.error) { S.mine = null; toast(res.offline ? "No signal. Not sent yet." : res.error, "bad"); render(); return; }
-      const h = ((state.feed || {}).hits || []).find((x) => x.id === id); if (h) h.cheered = true;
+      const h = ((state.tday || {}).hits || []).find((x) => x.id === id); if (h) h.cheered = true;
       loadSocial().then(render);
     }));
     on("gameOpen", "click", () => { state.gameOpen = true; render(); });
@@ -4760,9 +4723,7 @@ button.jtile { cursor:pointer; }
           <p class="dpg">How you earn</p>
           <p class="shone">${RULE_LINE}</p>
           <ul class="shearn">
-            <li><b>35</b><span>your week pot: starts full each Monday, \u22125 for each day you don't log (by the next night)</span></li>
-            <li><b>+5</b><span>each day you hit your goal</span></li>
-            <li><b>+2</b><span>for each family member who logs on a day you log</span></li>
+            <li><b>+2</b><span>for each of you who logs (you included), on a day you log (by the next night)</span></li>
             <li><b>+10</b><span>the tribe chest, when everyone logs (tap to open)</span></li>
             <li><b>+100</b><span>a 30-day streak (+300 at 100 days, +1,000 at 365)</span></li>
             ${leaguePaused() ? "" : `<li><b>+300</b><span>a League win (+200 2nd, +100 3rd) if you had 4+ goal days</span></li>`}
@@ -7845,7 +7806,7 @@ button.jtile { cursor:pointer; }
         <span class="hright">
           ${m ? `<button type="button" class="hinfo${tourSeen() && !ownerNews() ? "" : " new"}" id="tourBtn" aria-label="Help and feedback">i</button>` : ""}</span>
       </div>
-      ${m ? cheerBanner() : ""}
+      ${m ? cheerBanner() + commentsBanner() : ""}
       ${m && homePast() && (tab === "today" || tab === "me") ? `<div class="hpast" role="status"><span>Showing <b>${esc(fullDate(state.boardDay))}</b></span><button type="button" class="hpastgo" id="hToday">Back to today</button></div>` : ""}`;
     let body;
     // V7.3. Arriving by your family's link: type your name and you are in;
@@ -7866,18 +7827,19 @@ button.jtile { cursor:pointer; }
     else if (tab === "tribe") body = `
       <section class="htab htribe" aria-label="Your tribe">
         <div class="htabh"><button type="button" class="htabt" id="tribeGoal" aria-label="Tribe name, crest, goal and people"><h2>Tribe</h2></button></div>
-        ${stepsFold()}
+        ${segTabs("trSeg", state.trSeg)}
+        ${state.trSeg === "progress" ? journeyTribeBody() : `
+        ${weekChart()}
         ${hitsRail()}
         ${spotlight()}
-        ${recapCard()}
-        ${feedPosts()}
-        ${state.people.length ? `<button type="button" class="allnums" id="allNums" aria-expanded="${!!state.allNums}">${state.allNums ? "Hide the numbers" : "All numbers \u203a"}</button>
+        ${recapCard()}`}
+        ${state.trSeg === "progress" ? "" : state.people.length ? `<button type="button" class="allnums" id="allNums" aria-expanded="${!!state.allNums}">${state.allNums ? "Hide the numbers" : "All numbers \u203a"}</button>
           ${state.allNums ? `<div class="roster"><div class="tdayrow">${nav()}<button type="button" class="hshare" id="waShare" aria-label="Share ${state.boardDay ? esc(shortDay(famDayISO())) : "today"} on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11v9h12v-9"/></svg></button></div>
           ${state.garden && famDayISO() === familyISO() && !iLogged() ? `<button type="button" class="linkbtn logsee" data-go="steps">\u{1F512} Log today's steps to see everyone's numbers \u203a</button>` : ""}${famTable(ordered)}</div>` : ""}` : roster}
-        ${leaguePaused() ? "" : leagueLine()}
+        ${leaguePaused() || state.trSeg === "progress" ? "" : leagueLine()}
       </section>`;
-    else if (tab === "campfire") body = campfireView();
-    else if (tab === "journey") body = journeyView();
+    else if (tab === "evidence") body = campfireView();
+    else if (tab === "sparks") body = sparksView();
     // V9.5. Me is your record: today's photo and streak, then every habit,
     // any day. Logging lives on Today.
     // V9.7. Me is your habits, nothing else. (Streak, badge and milestones
@@ -7885,7 +7847,8 @@ button.jtile { cursor:pointer; }
     else if (tab === "me") body = `
       <section class="htab hme hmine" aria-label="You">
         <div class="htabh"><h2>Me</h2><label class="hwho"><select id="who" aria-label="Who are you">${whoOptions}</select><i aria-hidden="true">&#9662;</i></label></div>
-        ${meRow ? habitGrid(meRow) : ""}
+        ${segTabs("meSeg", state.meSeg)}
+        ${state.meSeg === "progress" ? journeyMe() : meRow ? habitGrid(meRow) : ""}
       </section>`;
     // V9.5. Check in, the centre: who has logged, the day (‹ › to log a
     // day you missed), your dial, the pot and prizes, and today's photo
@@ -8056,8 +8019,8 @@ button.jtile { cursor:pointer; }
     wireFeedback();
   }
   function wireToday() {
-    const openStreak = () => { state.homeTab = "journey"; state.jSeg = "me"; state.person = null; render(); window.scrollTo(0, 0); loadJourney(); };
-    on("stJourney", "click", () => { state.streakOpen = false; state.homeTab = "journey"; render(); window.scrollTo(0, 0); loadJourney(); loadProgress(); });
+    const openStreak = () => { state.homeTab = "me"; state.meSeg = "progress"; state.person = null; render(); window.scrollTo(0, 0); loadJourney(); };
+    on("stJourney", "click", () => { state.streakOpen = false; state.homeTab = "me"; state.meSeg = "progress"; render(); window.scrollTo(0, 0); loadJourney(); loadProgress(); });
     on("streakOpen", "click", openStreak); on("streakOpen2", "click", openStreak);
     document.querySelectorAll("[data-faceme]").forEach((el) => el.addEventListener("click", openStreak));
     // V8.7. The Tribe counter, explained.
@@ -8179,7 +8142,7 @@ button.jtile { cursor:pointer; }
     const res = await call("app_campfire", { p_code: state.code, p_person: state.meId });
     state.camp = res && !res.error ? { today: res.today || null, library: res.library || [], counts: res.counts || {}, owner: !!res.owner, at: Date.now(), busy: false }
       : Object.assign({}, C || {}, { busy: false, at: Date.now(), err: res && res.offline ? "No signal." : (res && res.error) || "Could not load Campfire." });
-    if (state.view === "board" && homeTab() === "campfire") render();
+    if (state.view === "board" && homeTab() === "evidence") render();
   }
   const campReadKey = () => "fhd.camp.read." + state.meId;
   function campUnread() {
@@ -8198,31 +8161,33 @@ button.jtile { cursor:pointer; }
   // public-domain lines ship with the app, each checked word for word
   // against its source; the tribe's owner adds the rest.
   const QUOTES0 = [
-    { k: "s1", t: "Never suffer an exception to occur till the new habit is securely rooted in your life.", a: "William James", s: "The Principles of Psychology, ch. IV, Habit (1890)", p: "Character", u: "https://psychclassics.yorku.ca/James/Principles/prin4.htm" },
     { k: "s2", t: "A strong body makes the mind strong.", a: "Thomas Jefferson", s: "Letter to Peter Carr, 19 August 1785", p: "Exercise", u: "https://founders.archives.gov/documents/Jefferson/01-08-02-0319" },
     { k: "s3", t: "Early to Bed, and early to rise, makes a Man healthy, wealthy and wise.", a: "Benjamin Franklin", s: "The Way to Wealth (1758)", p: "Sleep", u: "https://founders.archives.gov/documents/Franklin/01-07-02-0146" },
     { k: "s4", t: "Temperance. Eat not to dullness; drink not to elevation.", a: "Benjamin Franklin", s: "Autobiography, the thirteen virtues", p: "Diet", u: "https://www.ushistory.org/franklin/autobiography/page38.htm" },
     { k: "s5", t: "Lay hold of to-day\u2019s task, and you will not need to depend so much upon to-morrow\u2019s.", a: "Seneca", s: "Letters to Lucilius, I, tr. R. M. Gummere (1917)", p: "Great Work", u: "https://www.stoics.com/seneca_epistles_book_1.html" },
     { k: "s6", t: "Nothing can bring you peace but yourself.", a: "Ralph Waldo Emerson", s: "Self-Reliance (1841)", p: "Meditation", u: "https://www.gutenberg.org/files/2944/2944-h/2944-h.htm" },
   ];
-  const Q_PILLARS = ["Exercise", "Diet", "Sleep", "Meditation", "Great Work", "Character", "Wisdom"];
+  const Q_PILLARS = ["Meditation", "Exercise", "Diet", "Sleep", "Great Work"];   // V10.2. These five, in this order.
   async function loadQuotes() {
     if (!state.meId || (state.quotes && state.quotes.busy)) return;
     state.quotes = Object.assign({}, state.quotes || {}, { busy: true });
     const r = await call("app_quotes", { p_code: state.code, p_person: state.meId });
     state.quotes = r && !r.error ? { owner: !!r.owner, list: r.list || [], saved: r.saved || [] } : Object.assign({}, state.quotes, { busy: false, err: true });
-    if (state.view === "board" && homeTab() === "campfire") render();
+    if (state.view === "board" && homeTab() === "sparks") render();
   }
-  const allQuotes = () => QUOTES0.concat(((state.quotes || {}).list || []).map((q) => ({ k: "q" + q.id, id: q.id, t: q.t, a: q.a, s: q.s, p: q.p, u: q.u, n: q.n, mine: true })));
+  const allQuotes = () => QUOTES0.concat(((state.quotes || {}).list || []).map((q) => ({ k: "q" + q.id, id: q.id, t: q.t, a: q.a, s: q.s, p: q.p, u: q.u, n: q.n, by: q.by, own: !!q.mine, mine: true })));
   // A steady shuffle for the day, so the scroll isn't the same order each visit.
   function dayShuffle(xs) {
     let h = 0; for (const c of todayISO()) h = (h * 31 + c.charCodeAt(0)) >>> 0;
     const a = xs.slice(); for (let i = a.length - 1; i > 0; i--) { h = (h * 1103515245 + 12345) >>> 0; const j = h % (i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a;
   }
+  function sparksView() {
+    return `<section class="htab hcamp hquotes" aria-label="Sparks"><div class="htabh"><h2>Sparks</h2></div>${quotesView()}</section>`;
+  }
   function quotesView() {
     const Q = state.quotes; if (!Q || (!Q.list && !Q.err)) { if (!(Q && Q.busy)) setTimeout(() => loadQuotes(), 0); }
     const saved = new Set((Q && Q.saved) || []), f = state.qFilter || "all";
-    const pool = allQuotes(), present = Q_PILLARS.filter((p) => pool.some((q) => q.p === p));
+    const pool = allQuotes(), present = Q_PILLARS;
     let xs = f === "saved" ? pool.filter((q) => saved.has(q.k)) : f === "all" ? dayShuffle(pool) : pool.filter((q) => q.p === f);
     // Endless once there are enough to keep it fresh; until then, a clear end.
     const loop = xs.length >= 30 && f !== "saved", n = loop ? (state.qN || 20) : xs.length;
@@ -8233,22 +8198,21 @@ button.jtile { cursor:pointer; }
       return `<article class="qcard${op ? " open" : ""}" style="--qc:${(cfTopic(q.p) || [])[2] || "var(--accent)"}">
         <button type="button" class="qbody" data-qopen="${q.k}:${i}" aria-expanded="${op}"><span class="qt">\u201c${esc(q.t.replace(/^[\u201c"]|[\u201d"]$/g, ""))}\u201d</span>
           <span class="qa">\u2014 ${esc(q.a || "Unknown")}</span></button>
-        ${op ? `<dl class="qmore">${q.s ? `<dt>Source</dt><dd>${esc(q.s)}</dd>` : ""}${q.p ? `<dt>Tag</dt><dd>${esc(q.p)}</dd>` : ""}${q.n ? `<dt>Note</dt><dd>${esc(q.n)}</dd>` : ""}
+        ${op ? `<dl class="qmore">${q.s ? `<dt>Source</dt><dd>${esc(q.s)}</dd>` : ""}${q.p ? `<dt>Topic</dt><dd>${esc(q.p)}</dd>` : ""}${q.n ? `<dt>Note</dt><dd>${esc(q.n)}</dd>` : ""}${q.by ? `<dt>Added by</dt><dd>${q.own ? "You" : esc(firstName({ name: q.by }))}</dd>` : ""}
           ${safeUrl(q.u) ? `<dt>Link</dt><dd><a href="${esc(q.u)}" target="_blank" rel="noopener noreferrer">Read the source \u2197</a></dd>` : ""}</dl>
-          ${q.mine && Q && Q.owner ? `<button type="button" class="linkbtn gdel" data-qdel="${q.id}">Remove from the tribe's quotes</button>` : ""}` : ""}
+          ${q.mine && (q.own || (Q && Q.owner)) ? `<button type="button" class="linkbtn gdel" data-qdel="${q.id}">Remove</button>` : ""}` : ""}
         <button type="button" class="qsave${sv ? " on" : ""}" data-qsave="${q.k}" aria-pressed="${sv}" aria-label="${sv ? "Saved" : "Save"}">${sv ? "\u2605" : "\u2606"}</button></article>`; };
-    const add = Q && Q.owner && f === "all" ? (state.qAdd ? quoteForm() : `<button type="button" class="qadd" id="qAdd">+ Add quotes</button>`) : "";
-    const end = !shown.length ? `<div class="cfempty"><p>${f === "saved" ? "Tap \u2606 on a quote to keep it here." : "No quotes here yet."}</p></div>`
+    const add = f === "saved" ? "" : state.qAdd ? quoteForm() : `<button type="button" class="qadd" id="qAdd">+ Add a spark</button>`;
+    const end = !shown.length ? `<div class="cfempty"><p>${f === "saved" ? "Tap \u2606 on a spark to keep it here." : "Nothing here yet. Add the first one."}</p></div>`
       : loop ? `<div class="qmore-sentinel" id="qMore" aria-hidden="true"></div>` : `<p class="hint qend">That's all ${shown.length}.${f === "all" ? " New ones as your tribe adds them." : ""}</p>`;
     return `${chips}${add}<div class="qlist">${shown.map(card).join("")}</div>${end}`;
   }
   function quoteForm() {
     const A = state.qAdd;
-    return `<section class="card qform"><p class="eyebrow">Add quotes</p>
-      <textarea class="field" id="qaText" rows="7" placeholder="Paste one or many. A blank line between quotes. End each with its author:\n\nThe quote itself.\n\u2014 Author, Source">${esc(A.text || "")}</textarea>
-      <label class="tlab" for="qaP">Tag them</label>
-      <select class="field" id="qaP"><option value="">No tag</option>${Q_PILLARS.map((p) => `<option${A.p === p ? " selected" : ""}>${esc(p)}</option>`).join("")}</select>
-      ${A.err ? `<p class="hint bad">${esc(A.err)}</p>` : `<p class="hint">Only words you have the right to share: your own notes, or public-domain text.</p>`}
+    return `<section class="card qform"><p class="eyebrow">Add a spark</p>
+      <div class="qtopics" role="radiogroup" aria-label="Topic">${Q_PILLARS.map((p) => `<button type="button" class="achip${A.p === p ? " on" : ""}" data-qtopic="${esc(p)}" role="radio" aria-checked="${A.p === p}">${(cfTopic(p) || [])[1] || ""} ${esc(p)}</button>`).join("")}</div>
+      <textarea class="field" id="qaText" rows="5" placeholder="A quote or one thing you learned. To add several, leave a blank line between them. Add who said it on its own line:\n\u2014 Author, Source">${esc(A.text || "")}</textarea>
+      ${A.err ? `<p class="hint bad">${esc(A.err)}</p>` : `<p class="hint">Your tribe sees it. Only words you have the right to share: your own, or public-domain text.</p>`}
       <div class="stdbtns"><button type="button" class="btn-quiet" id="qaX">Cancel</button><button type="button" class="btn" id="qaGo" ${A.busy ? "disabled" : ""}>${A.busy ? "Adding\u2026" : "Add"}</button></div></section>`;
   }
   // "Quote. — Author, Source" blocks, a blank line apart.
@@ -8265,7 +8229,6 @@ button.jtile { cursor:pointer; }
     }).filter((q) => q.t);
   }
   function wireQuotes() {
-    document.querySelectorAll("[data-cft]").forEach((el) => el.addEventListener("click", () => { state.cfTab = el.dataset.cft; state.qN = 20; render(); }));
     document.querySelectorAll("[data-qf]").forEach((el) => el.addEventListener("click", () => { state.qFilter = el.dataset.qf; state.qOpen = null; state.qN = 20; render(); }));
     document.querySelectorAll("[data-qopen]").forEach((el) => el.addEventListener("click", () => { state.qOpen = state.qOpen === el.dataset.qopen ? null : el.dataset.qopen; render(); }));
     document.querySelectorAll("[data-qsave]").forEach((el) => el.addEventListener("click", async () => {
@@ -8275,20 +8238,23 @@ button.jtile { cursor:pointer; }
       if (r && r.error) { toast(r.offline ? "No signal. Not saved yet." : r.error, "bad"); await loadQuotes(); }
     }));
     document.querySelectorAll("[data-qdel]").forEach((el) => el.addEventListener("click", () => {
-      openModal({ title: "Remove this quote?", body: "It leaves everyone's Quotes and Saved.", buttons: [{ label: "Remove", kind: "bad", run: async () => {
+      openModal({ title: "Remove this spark?", body: "It leaves everyone's Sparks and Saved.", buttons: [{ label: "Remove", kind: "bad", run: async () => {
         await call("app_quote_delete", { p_code: state.code, p_person: state.meId, p_id: Number(el.dataset.qdel) }); state.qOpen = null; await loadQuotes(); render(); } }, { label: "Keep", kind: "quiet" }] }); }));
     on("qAdd", "click", () => { state.qAdd = { text: "", p: "", err: null }; render(); document.getElementById("qaText")?.focus(); });
     on("qaX", "click", () => { state.qAdd = null; render(); });
     on("qaText", "input", (e) => { if (state.qAdd) state.qAdd.text = e.target.value; });
-    on("qaP", "change", (e) => { if (state.qAdd) state.qAdd.p = e.target.value; });
+    document.querySelectorAll("[data-qtopic]").forEach((el) => el.addEventListener("click", () => {
+      const A = state.qAdd; if (!A) return; A.text = document.getElementById("qaText")?.value || A.text; A.p = el.dataset.qtopic; A.err = null; render(); }));
     on("qaGo", "click", async () => {
       const A = state.qAdd; if (!A || A.busy) return;
+      A.text = document.getElementById("qaText")?.value || A.text;
+      if (!A.p) { A.err = "Pick a topic first."; render(); return; }
       const list = parseQuotes(A.text, A.p);
-      if (!list.length) { A.err = "Paste at least one quote."; render(); return; }
+      if (!list.length) { A.err = "Write at least one."; render(); return; }
       A.busy = true; A.err = null; render();
       const r = await call("app_quote_add", { p_code: state.code, p_person: state.meId, p_list: list });
       if (r.error) { A.busy = false; A.err = r.offline ? "No signal. Not added yet." : r.error; render(); return; }
-      state.qAdd = null; toast(`Added ${r.added} quote${r.added === 1 ? "" : "s"}.`, "ok"); await loadQuotes(); render();
+      state.qAdd = null; toast(`Added ${r.added} spark${r.added === 1 ? "" : "s"}.`, "ok"); await loadQuotes(); render();
     });
     const s = document.getElementById("qMore");
     if (s && "IntersectionObserver" in window) {
@@ -8299,12 +8265,8 @@ button.jtile { cursor:pointer; }
   function campfireView() {
     const C = state.camp || {}, seg = state.campSeg === "saved" ? "saved" : "library";
     // V8.5. Lessons are written with Claude now, so no "+ New lesson" here.
-    // V10.1. Two tabs: Studies (the essays) and Quotes.
-    const tab = state.cfTab === "quotes" ? "quotes" : "studies";
-    const head = `<div class="htabh"><h2>Campfire</h2></div>
-      <div class="cfseg" role="tablist" aria-label="Studies or Quotes"><button type="button" role="tab" class="${tab === "studies" ? "on" : ""}" data-cft="studies" aria-selected="${tab === "studies"}">Studies</button>
-        <button type="button" role="tab" class="${tab === "quotes" ? "on" : ""}" data-cft="quotes" aria-selected="${tab === "quotes"}">Quotes</button></div>`;
-    if (tab === "quotes") return `<section class="htab hcamp hquotes" aria-label="Campfire: quotes">${head}${quotesView()}</section>`;
+    // V10.2. Its own tab: Evidence, an essay a day built on studies.
+    const head = `<div class="htabh"><h2>Evidence</h2></div>`;
     if (!C.library) { if (!C.busy) setTimeout(() => loadCampfire(), 0);
       return `<section class="htab hcamp">${head}${C.err ? `<p class="hint bad">${esc(C.err)}</p>` : `<p class="hint">Lighting the fire…</p>`}</section>`; }
     const T = C.today, L = C.library;
@@ -8323,13 +8285,13 @@ button.jtile { cursor:pointer; }
         const op = xs.filter((x) => x.open).length, rd = xs.filter((x) => x.read).length;
         return sec(t, icon, t, xs, `${op} of ${xs.length} open${rd ? ` \u00b7 ${rd} read` : ""}`); }).join("");
       const sv = L.filter((x) => x.saved);
-      return `<section class="htab hcamp" aria-label="Campfire">${head}${today0}<div class="cfsecs">${secs}${sec("__saved", "\u2605", "Saved", sv, String(sv.length))}</div>
+      return `<section class="htab hcamp" aria-label="Evidence">${head}${today0}<div class="cfsecs">${secs}${sec("__saved", "\u2605", "Saved", sv, String(sv.length))}</div>
         <p class="hint cffoot">One essay opens each day you log. Once open, it stays open.</p></section>`; }
     const segs = `<div class="cfseg" role="tablist" aria-label="Library or saved">
       <button type="button" role="tab" class="${seg === "library" ? "on" : ""}" data-cfseg="library" aria-selected="${seg === "library"}">Library</button>
       <button type="button" role="tab" class="${seg === "saved" ? "on" : ""}" data-cfseg="saved" aria-selected="${seg === "saved"}">Saved</button></div>`;
     if (seg === "saved") { const xs = L.filter((x) => x.saved);
-      return `<section class="htab hcamp" aria-label="Campfire">${head}${segs}${xs.length ? `<div class="calist">${xs.map(cfCard).join("")}</div>`
+      return `<section class="htab hcamp" aria-label="Evidence">${head}${segs}${xs.length ? `<div class="calist">${xs.map(cfCard).join("")}</div>`
         : `<div class="cfempty">${sparkSVG(64, "sleepy")}<p>Tap \u2606 Save on an essay to keep it here.</p></div>`}</section>`; }
     const [tn, ti, th] = T ? cfTopic(T.topic) : [];
     const today = !T ? "" : T.locked
@@ -8343,7 +8305,7 @@ button.jtile { cursor:pointer; }
       const open = xs.filter((x) => x.open).length;
       return `<div class="cfshelf"><div class="cfsh"><h3><span aria-hidden="true">${icon}</span> ${esc(t)}</h3><span class="cflk">${open} of ${xs.length} open</span></div>
         <div class="cfrow">${xs.map(cfCard).join("")}</div></div>`; }).join("");
-    return `<section class="htab hcamp" aria-label="Campfire">${head}${segs}${today}${shelves}<p class="hint cffoot">One essay opens each day you log. Once open, it stays open.</p></section>`;
+    return `<section class="htab hcamp" aria-label="Evidence">${head}${segs}${today}${shelves}<p class="hint cffoot">One essay opens each day you log. Once open, it stays open.</p></section>`;
   }
   // Old lessons (one body of text): **bold**, "- " bullets, blank-line paragraphs.
   function lessonHTML(body) {
@@ -8426,7 +8388,7 @@ button.jtile { cursor:pointer; }
     render();
   }
   function wireCamp() {
-    wireQuotes();
+    wireQuotes();   // Sparks (V10.2: a tab of its own; same wiring)
     document.querySelectorAll("[data-lesson]").forEach((el) => el.addEventListener("click", () => openLesson(el.dataset.lesson)));
     on("cfToday", "click", (e) => { if (!e.currentTarget.dataset.lesson) openExercise("steps"); });
     document.querySelectorAll("[data-cfall]").forEach((el) => el.addEventListener("click", () => { state.campAll = el.dataset.cfall; render(); }));
@@ -8472,7 +8434,7 @@ button.jtile { cursor:pointer; }
     state.journey = Object.assign({}, state.journey || {}, { busy: true });
     const r = await call("app_journey", { p_code: state.code, p_person: state.meId });
     state.journey = r && !r.error ? r : { err: r && r.offline ? "No signal. Try again in a moment." : (r && r.error) || "Couldn't load Journey." };
-    if (state.view === "board" && homeTab() === "journey") render();
+    if (state.view === "board" && (homeTab() === "me" || homeTab() === "tribe")) render();
   }
   const isoDays = (a, b) => Math.round((Date.parse(b + "T00:00:00Z") - Date.parse(a + "T00:00:00Z")) / 86400000);
   function trailSVG(pct) {
@@ -8557,7 +8519,7 @@ button.jtile { cursor:pointer; }
     return `${tiles}<section class="jcard jall" aria-label="All your habits">${span}${list}</section>
       ${myMilestones()}
       <button type="button" class="linkbtn jhowb" id="jHow" aria-expanded="${!!state.jHow}">${state.jHow ? "Hide" : "How streaks and badges work \u203a"}</button>${how}
-      ${myWeekCard()}`;
+`;
   }
   function journeyTribe(J) {
     const Gl = J.goal;
@@ -8608,6 +8570,15 @@ button.jtile { cursor:pointer; }
         ${got.length ? `<ul class="jearn">${lines(got)}</ul>` : ""}</article>`; }).join("");
     return `${goal}${line}${dots}${months ? `<p class="dpg">Month by month</p>${months}` : ""}`;
   }
+  // V10.2. Journey's two halves live in Me and Tribe, behind Today | Progress.
+  const segTabs = (key, cur) => `<div class="cfseg" role="tablist" aria-label="Today or progress">${[["today", "Today"], ["progress", "Progress"]].map(([v, t]) =>
+    `<button type="button" role="tab" class="${(cur || "today") === v ? "on" : ""}" data-seg2="${key}:${v}" aria-selected="${(cur || "today") === v}">${t}</button>`).join("")}</div>`;
+  function journeyTribeBody() {
+    const J = state.journey;
+    if (!J || (J.busy && !J.months)) { if (!(J && J.busy)) setTimeout(() => loadJourney(), 0); return `<p class="hint">Gathering your tribe's journey\u2026</p>`; }
+    if (J.err) return `<p class="hint bad">${esc(J.err)}</p>`;
+    return journeyTribe(J);
+  }
   function journeyView() {
     const J = state.journey, seg = state.jSeg === "tribe" ? "tribe" : "me";
     const head = `<div class="htabh"><h2>Journey</h2></div>
@@ -8624,12 +8595,13 @@ button.jtile { cursor:pointer; }
     ["me", "Me", `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c.8-4 3.9-6 7.5-6s6.7 2 7.5 6"/></svg>`],
     ["tribe", "Tribe", `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8.5" r="3.2"/><circle cx="16.8" cy="9.6" r="2.5"/><path d="M2.8 19.5c.6-3.3 3-5 6.2-5s5.6 1.7 6.2 5M15.4 14.6c2.8-.3 5 1.1 5.8 4.4"/></svg>`],
     ["today", "Check in", ""],
-    ["journey", "Journey", `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4.5M5 4.5h11.5l-2.2 3.6 2.2 3.6H5"/><path d="M9.5 20.5c2.6-.2 3.8-1.5 6.2-1.5s3 .7 4.3 1"/></svg>`],
-    ["campfire", "Campfire", `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1.2 2.6 4.6 4.4 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-2 1-3.2 1.8-4 .3 1.4.9 2 1.7 2.3-.6-2.6 0-4.8 1.1-6.7zM4.5 20.5l15-3.5M19.5 20.5l-15-3.5"/></svg>`],
+    // V10.2. Sparks: a scroll of short learning your tribe adds to. Evidence: the essays built on studies.
+    ["sparks", "Sparks", `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5v4M12 17.5v4M2.5 12h4M17.5 12h4M5.3 5.3l2.8 2.8M15.9 15.9l2.8 2.8M5.3 18.7l2.8-2.8M15.9 8.1l2.8-2.8"/><circle cx="12" cy="12" r="2.2"/></svg>`],
+    ["evidence", "Evidence", `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6.2L4.8 18.4A1.8 1.8 0 0 0 6.4 21h11.2a1.8 1.8 0 0 0 1.6-2.6L14 9.2V3"/><path d="M7.4 15h9.2"/></svg>`],
   ];
   function homeTab() {
     // V9.5. The app opens on Today, the centre: family faces and your dial.
-    const t = state.homeTab; return t === "league" ? "tribe" : t === "tribe" || t === "campfire" || t === "journey" || t === "me" ? t : "today";
+    const t = state.homeTab; return t === "league" ? "tribe" : t === "journey" ? "me" : t === "campfire" ? "evidence" : t === "tribe" || t === "sparks" || t === "evidence" || t === "me" ? t : "today";
   }
   // V9.5. The centre button is a small copy of your steps ring: it fills
   // as you log and shows a tick once today is logged. It pulses until then.
@@ -8644,7 +8616,7 @@ button.jtile { cursor:pointer; }
     return `<nav class="tabbar" aria-label="Home">${HOME_TABS.map(([k, label, icon]) =>
       `<button type="button" class="tabb${k === tab ? " on" : ""}${k === "today" ? " ctr" + (iLogged() ? "" : " due") : ""}" data-htab="${k}" ${k === tab ? 'aria-current="page"' : ""} ${k === "today" ? `aria-label="Check in${iLogged() ? ", logged today" : ", not logged yet today"}"` : ""}>${k === "today" ? centreIcon() : icon}<span>${label}</span>${
         k === "tribe" && gardenMe() && !gardenMe().pledged ? `<i class="tabdot" aria-label="Set your goal"></i>`
-        : k === "campfire" && campUnread() ? `<i class="tabdot" aria-label="Today's lesson is ready"></i>` : ""}</button>`).join("")}</nav>`;
+        : k === "evidence" && campUnread() ? `<i class="tabdot" aria-label="Today's essay is ready"></i>` : ""}</button>`).join("")}</nav>`;
   }
   // V7.2. The League: every tribe that is playing, ranked by the average
   // points of the people in it who pledged. Names of tribes only.
@@ -9007,7 +8979,7 @@ button.jtile { cursor:pointer; }
       </section>`;
   }
   function progressCard(k) {
-    if (!(ATOM_HOW[k] || (isCustom(k) && STD[k])) || k === "weight" || !votesOf(k) || !votesOf(k).total) return "";
+    if (!(ATOM_HOW[k] || (isCustom(k) && STD[k])) || k === "weight" || !votesOf(k) || (!votesOf(k).total && !isCustom(k))) return "";
     if (state.pgOpen !== k) return progressMini(k);
     const range = progRange(), P = progPoints(k, range);
     if (!P) return "";
@@ -9089,6 +9061,7 @@ button.jtile { cursor:pointer; }
     if (!state.meId || !STD[k]) return;
     stopTicking();
     state.seg = k; state.view = "custom"; state.entryDate = null; state.cMsg = null; state.cEdit = false;
+    state.pgOpen = k;   // V10.2. Your own habit opens with its dots showing.
     render(); window.scrollTo(0, 0);
     await loadVotes(false); render();
   }
@@ -9120,6 +9093,7 @@ button.jtile { cursor:pointer; }
         ${S.hk === "done" ? "" : `<p class="hint" style="text-align:center">${state.cEdit ? "Type, then Return." : "Tap the number to change it."}</p>`}
         ${state.cMsg ? `<p class="hint bad" style="text-align:center">${esc(state.cMsg)}</p>` : ""}
       </section>
+      <button type="button" class="linkbtn gdel cdel" id="cDel">Delete this habit</button>
       <p class="ver">v${APP_VERSION}</p>`;
   }
   function wireCustom() {
@@ -9146,6 +9120,13 @@ button.jtile { cursor:pointer; }
       f.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); f.blur(); } if (e.key === "Escape") { state.cEdit = false; render(); } });
       f.addEventListener("blur", done);
     }
+    on("cDel", "click", () => { const h = habitOf(k); if (!h) return;
+      openModal({ title: `Delete ${h.name}?`, body: "It leaves your habits. What you logged is kept.",
+        buttons: [{ label: "Delete", kind: "bad", run: async () => {
+          await call("app_habit_delete", { p_code: state.code, p_person: state.meId, p_id: h.id });
+          state.view = "board"; state.homeTab = "me";
+          await loadHabits(); await saveHabits(myDials().filter((x) => x !== k), myPins().filter((x) => x !== k)); refresh(); } },
+          { label: "Keep", kind: "quiet" }] }); });
     on("cEditH", "click", () => { const h = habitOf(k); if (!h) return;
       state.habEdit = { id: h.id, name: h.name, kind: h.kind, unit: h.unit, std: h.kind === "min" ? hm(h.std).replace(/\s/g, "") : h.std, tribe: !!h.tribe, back: true };
       render(); });
@@ -9506,9 +9487,7 @@ button.jtile { cursor:pointer; }
     { at: ".hgrid", tab: "me", t: "Your habits",
       d: "A small dial for each habit you have on. Tap one to log it or see its history; + adds or removes habits." },
     { at: ".tabbar", tab: "today", t: "Five tabs",
-      d: "Check in (the middle) is where you log, any day, and see who else has. Me is your record. Tribe is this week. Journey is your tribe's story so far. Campfire is a 2-minute lesson a day." },
-    { at: ".tmeline", tab: "journey", t: "Your badge",
-      d: "Hit your step goal 4 days this week and your badge goes up." },
+      d: "Check in (the middle) is where you log and share a win. Me is your habits and your progress. Tribe is the family's week and its story. Sparks is quick learning your tribe adds to. Evidence is an essay a day, built on studies." },
     { at: ".lgline", tab: "tribe", t: "The League",
       d: "Your tribe's place among tribes, by members' average days at goal. Tap it for the list. Top 3 win points every week." },
   ];
@@ -14224,6 +14203,7 @@ button.jtile { cursor:pointer; }
             <button type="button" class="wfpp" id="wfPP" aria-label="${r.pausedAt ? "Continue" : "Pause"}">${r.pausedAt ? I_PLAY : I_PAUSE}</button>
             <button type="button" class="wfstep" id="wfPlus" aria-label="${WORK_STEP} minutes more">+${WORK_STEP}</button>
           </div>
+          <button type="button" class="wfstop" id="wfStop">Stop and log</button>
         </div>
       </div>`;
   }
@@ -14237,6 +14217,7 @@ button.jtile { cursor:pointer; }
     const st = (d) => { const r = state.work.run; if (!r) return; const floor = Math.ceil(workElapsed(r) / 60000) + 1;
       r.len = Math.max(floor, Math.min(WORK_MAX, r.len + d)); if (workLeft(r) > 0) r.over = false; saveWorkLocal(); render(); };
     on("wfMinus", "click", () => st(-WORK_STEP));
+    on("wfStop", "click", () => workEndAsk());
     on("wfPlus", "click", () => st(WORK_STEP));
     wfTick = setInterval(async () => {
       const r = state.work && state.work.run;
@@ -16098,7 +16079,7 @@ button.jtile { cursor:pointer; }
           ${E.kind === "number" ? `<label><span class="tlab">Unit</span><input class="field" id="hfUnit" maxlength="16" autocomplete="off" placeholder="glasses" value="${esc(E.unit || "")}" aria-label="Unit"></label>` : `<span class="hfmin">minutes</span>`}</div>`}
         <p class="hint">Only you see it. Like any habit, it can be a dial, have a habit sentence, and shows its dots over time.</p>
         ${E.err ? `<p class="hint bad">${esc(E.err)}</p>` : ""}
-        <div class="stdbtns">${E.id ? `<button type="button" class="btn-quiet bad" id="hfDel">Remove</button>` : `<button type="button" class="btn-quiet" id="hfCancel">Cancel</button>`}
+        <div class="stdbtns">${E.id ? `<button type="button" class="btn-quiet bad" id="hfDel">Delete</button>` : `<button type="button" class="btn-quiet" id="hfCancel">Cancel</button>`}
           <button type="button" class="btn" id="hfSave">${E.id ? "Save" : "Add"}</button></div>
       </div>`;
   }
@@ -16117,7 +16098,7 @@ button.jtile { cursor:pointer; }
           <p class="dpg">${esc(g)}</p>
           <ul class="dplist">${ks.map((k) => {
             const on = h.includes(k), pin = on && p.includes(k), lab = esc(STD[k].label);
-            return `<li class="${on ? "on" : ""}"><span class="dpn">${lab}${STD[k].custom && STD[k].tribe ? ` <small class="dptr">tribe</small>` : ""}</span>
+            return `<li class="${on ? "on" : ""}"><span class="dpn">${lab}${STD[k].custom ? ` <button type="button" class="dpedit" data-hedit="${k}" aria-label="Change or delete ${lab}">\u270e</button>` : ""}</span>
               ${on ? `<button type="button" class="dpstar${pin ? " on" : ""}" data-dpin="${k}" aria-pressed="${pin}" aria-label="${pin ? "Remove" : "Make"} ${lab} ${pin ? "from" : "a dial on"} Check in">${pin ? "\u2605" : "\u2606"}</button>` : `<span class="dpstar0"></span>`}
               <button type="button" class="dpsw${on ? " on" : ""}" data-dpk="${k}" role="switch" aria-checked="${on}" aria-label="${lab}"><i></i></button></li>`;
           }).join("")}</ul>`).join("")}
@@ -16221,8 +16202,8 @@ button.jtile { cursor:pointer; }
     });
     on("hfDel", "click", () => {
       const E = state.habEdit;
-      openModal({ title: `Remove ${E.name}?`, body: "It leaves everyone's lists. What was logged is kept.",
-        buttons: [{ label: "Remove", kind: "bad", run: async () => {
+      openModal({ title: `Delete ${E.name}?`, body: "It leaves your habits. What you logged is kept.",
+        buttons: [{ label: "Delete", kind: "bad", run: async () => {
           await call("app_habit_delete", { p_code: state.code, p_person: state.meId, p_id: E.id });
           state.habEdit = null; state.dialPick = null;
           if (state.view === "custom") { state.view = "board"; }
@@ -16230,6 +16211,8 @@ button.jtile { cursor:pointer; }
           refresh(); } }, { label: "Cancel", kind: "quiet" }] });
     });
     document.querySelectorAll("[data-dpin]").forEach((el) => el.addEventListener("click", () => tapPin(el.dataset.dpin)));
+    document.querySelectorAll("[data-hedit]").forEach((el) => el.addEventListener("click", () => { const h = habitOf(el.dataset.hedit); if (!h) return;
+      state.habEdit = { id: h.id, name: h.name, kind: h.kind, unit: h.unit, std: h.kind === "min" ? hm(h.std).replace(/\s/g, "") : h.std }; render(); }));
   }
 
   function wireNet() {
@@ -16352,9 +16335,10 @@ button.jtile { cursor:pointer; }
     document.querySelectorAll("[data-htab], [data-gotab]").forEach((el) => el.addEventListener("click", () => {
       const k = el.dataset.htab || el.dataset.gotab; if (k === homeTab()) { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
       state.homeTab = k; state.adding = false; state.person = null; render(); window.scrollTo(0, 0);
-      if (k === "campfire") loadCampfire();
-      if (k === "journey") loadJourney();
-      if (k === "tribe") loadSpotlight(true);
+      if (k === "evidence") loadCampfire();
+      if (k === "sparks") loadQuotes();
+      if (k === "me" || k === "tribe") loadJourney();
+      if (k === "tribe") { loadSpotlight(true); loadTribeDay(true); }
     }));
     on("foldBoard", "click", () => {
       try { localStorage.setItem("fhd.board", boardOpen() ? "shut" : "open"); } catch {}
