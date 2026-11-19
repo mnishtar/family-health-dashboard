@@ -3378,6 +3378,52 @@ button.fendj b { color:var(--accent); }
 .cfnone { margin:0; padding:0 14px 14px; }
 .cfrd { font-style:normal; color:#2f9e6e; font-weight:700; }
 
+/* ---------- V10.3 ---------- */
+.wkchart .wkd i.on, .wkchart .wklegend i.on { background:#e0b04a; }
+.wkchart .wkd i.met, .wkchart .wklegend i.met { background:#3fb96b; color:#fff; }
+.hit { border:none; background:none; color:inherit; font:inherit; padding:0; cursor:pointer; }
+.hit:disabled { cursor:default; opacity:1; }
+.hit.on .fav { box-shadow:0 0 0 2.5px var(--surface), 0 0 0 5px var(--accent); }
+.hpick { display:flex; align-items:center; gap:8px; margin:8px 0 0; padding:8px 10px; border-radius:999px; background:var(--surface); border:1px solid var(--line); width:max-content; max-width:100%; }
+.hpick span { font-size:13px; color:var(--muted); margin-right:2px; }
+.hpe { width:40px; height:40px; border-radius:50%; border:1px solid transparent; background:none; font-size:22px; cursor:pointer; }
+.hpe.on { border-color:var(--accent); background:color-mix(in oklab, var(--accent) 14%, transparent); }
+.jcmp li { padding:10px 0; }
+.jrow1 { display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin:0 0 7px; }
+.jcmp .jhn { border:none; background:none; padding:0; color:var(--ink); font:inherit; font-size:14.5px; font-weight:700; cursor:pointer; text-align:left; }
+.jtn { font-size:13.5px; color:var(--muted); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.jtn b { color:var(--ink); }
+.jtn em { font-style:normal; font-weight:700; margin-left:4px; } .jtn em.up { color:#2f9e6e; } .jtn em.down { color:#d4506a; }
+.jcmp .jhd { display:grid; width:100%; }
+.jcmp .jhd i { cursor:pointer; }
+.jhitbox { fill:transparent; cursor:pointer; }
+.jsel { stroke:var(--ink); stroke-width:2; }
+.jwsel { margin-top:4px; }
+.jmd i[data-jm] { cursor:pointer; }
+.qcard.sp { border:none; border-left:none; background:var(--surface-2); border-radius:18px; }
+.qcard.sp .qbody { padding:30px 24px; }
+.qcard.sp .qa { display:block; margin:0 0 8px; font-size:17px; font-weight:700; color:var(--ink); }
+.qcard.sp .qt { font-family:inherit; font-size:17px; line-height:1.6; color:var(--ink-2); }
+.qcard.sp .qsv { font-style:normal; color:#e0b04a; font-size:14px; }
+.qcard.sp .qmore { padding:0 24px 12px; }
+.qcard.sp .qsave { position:static; display:block; width:auto; height:auto; margin:0 24px 18px; padding:8px 14px; border:1px solid var(--line); border-radius:999px; font-size:14px; }
+.qcard.sp .qsave.on { color:#e0b04a; border-color:#e0b04a; }
+.qcard.sp .gdel { margin:0 24px 12px; }
+.hquotes .qlist { gap:16px; }
+.qform input.field { margin-top:8px; }
+.qend { text-align:center; padding:22px 0 8px; } .qend p { margin:0 0 10px; color:var(--ink-2); }
+.evtoday { margin:0 0 18px; padding:18px 18px 14px; border-radius:20px; background:var(--surface); border:1px solid var(--line); border-top:4px solid var(--tc); }
+.evtoday .lstitle { margin:4px 0 10px; }
+.evlock { display:grid; justify-items:center; gap:8px; padding:18px 0 6px; text-align:center; color:var(--ink-2); } .evlock span { font-size:28px; } .evlock p { margin:0; }
+.evfoot { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:12px; }
+.evfoot .lssrc { margin:0; }
+.evrows { border-top:1px solid var(--line); }
+.evsec { border-bottom:1px solid var(--line); }
+.evrow { display:flex; align-items:center; gap:10px; width:100%; min-height:52px; padding:0 4px; border:none; background:none; color:var(--ink); font:inherit; text-align:left; cursor:pointer; }
+.evrow b { font-size:15.5px; } .evrow small { color:var(--muted); font-size:13px; } .evrow i { margin-left:auto; font-style:normal; color:var(--muted); font-size:18px; }
+.evgrp { margin:4px 0 12px; } .evgh { margin:0 0 6px; font-size:13px; font-weight:700; color:var(--ink-2); } .evgh small { font-weight:500; color:var(--muted); margin-left:4px; }
+.evsaved { margin:0 0 12px; }
+
 /* ---------- V10.2 ---------- */
 .cmts { margin:-4px 0 14px; padding:0 2px; }
 .cmt { margin:0 0 6px; font-size:14.5px; line-height:1.35; color:#fff; overflow-wrap:anywhere; } .cmt b { margin-right:4px; }
@@ -3540,7 +3586,7 @@ button.jtile { cursor:pointer; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "10.2";
+  const APP_VERSION = "10.3";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -4398,6 +4444,13 @@ button.jtile { cursor:pointer; }
     document.querySelectorAll("[data-jh]").forEach((el) => el.addEventListener("click", () => { state.jHabit = el.dataset.jh; render(); }));
     document.querySelectorAll("[data-seg2]").forEach((el) => el.addEventListener("click", () => {
       const [k, v] = el.dataset.seg2.split(":"); state[k] = v; render(); if (v === "progress") loadJourney(); }));
+    // V10.3. Tap a dot to read it.
+    document.querySelectorAll("[data-jdot]").forEach((el) => el.addEventListener("click", () => {
+      const [k, iso] = el.dataset.jdot.split("|"), V = votesOf(k), d = V && V.days && !Array.isArray(V.days) ? V.days : {};
+      const raw = d[iso], v = raw === undefined ? null : k === "dd" ? ddCount(raw) : k === "sleep" ? scorePct(raw) : Number(raw);
+      toast(`${STD[k].short || STD[k].label}, ${shortDay(iso)}: ${v === null ? "not logged" : stdWords(k, v)}${el.classList.contains("hit") ? " \u00b7 goal hit" : ""}`); }));
+    document.querySelectorAll("[data-jw]").forEach((el) => el.addEventListener("click", () => { state.jwSel = Number(el.dataset.jw); render(); }));
+    document.querySelectorAll("[data-jm]").forEach((el) => el.addEventListener("click", () => toast(el.dataset.jm)));
     document.querySelectorAll("[data-jr]").forEach((el) => el.addEventListener("click", () => { state.jRange = Number(el.dataset.jr); render(); }));
     on("jHow", "click", () => { state.jHow = !state.jHow; render(); });
   }
@@ -4477,11 +4530,15 @@ button.jtile { cursor:pointer; }
   // Who reached their step goal today: the ones to celebrate, not just who logged.
   function hitsRail() {
     const F = state.tday; if (!F || !(F.hits || []).length) return "";
-    return `<section class="hits" aria-label="Hit their step goal today"><p class="feedh"><span>\u{1F3AF} Hit their goal today</span></p>
-      <div class="hitrow">${F.hits.map((x) => { const mine = x.id === state.meId, ch = mine ? "" : x.cheered || soc(x.id).mine
-          ? `<span class="hitc sent" aria-label="You cheered ${esc(x.name)}">\u2764</span>` : `<button type="button" class="hitc" data-cheer="${x.id}" aria-label="Cheer ${esc(x.name)}">\u{1F389}</button>`;
-        return `<span class="hit"><span class="fav" style="--hc:hsl(${x.hue || 200} 62% 48%)">${esc(initials(x.name))}</span>${ch}
-          <b>${mine ? "You" : esc(firstName(x))}</b><small>${num(Math.round(Number(x.steps)))}</small></span>`; }).join("")}</div></section>`;
+    // V10.3. Tap a face to react: 🔥 👏 💪 🎉.
+    const pick = state.hreact && F.hits.find((x) => x.id === state.hreact && x.id !== state.meId);
+    return `<section class="hits" aria-label="Hit their step goal today"><p class="feedh"><span>\u{1F3AF} Hit their goal today</span>${F.hits.some((x) => x.id !== state.meId) ? `<span class="wktoday">tap to react</span>` : ""}</p>
+      <div class="hitrow">${F.hits.map((x) => { const mine = x.id === state.meId, sent = soc(x.id).mine;
+        const badge = mine ? "" : `<span class="hitc${sent ? " sent" : ""}" aria-hidden="true">${sent || "\u{1F389}"}</span>`;
+        return `<button type="button" class="hit${pick && pick.id === x.id ? " on" : ""}" ${mine ? "disabled" : `data-hreact="${x.id}"`} aria-label="${mine ? "You hit your goal" : `React to ${esc(x.name)}${sent ? `, you sent ${sent}` : ""}`}"><span class="fav" style="--hc:hsl(${x.hue || 200} 62% 48%)">${esc(initials(x.name))}</span>${badge}
+          <b>${mine ? "You" : esc(firstName(x))}</b><small>${num(Math.round(Number(x.steps)))}</small></button>`; }).join("")}</div>
+      ${pick ? `<div class="hpick" role="group" aria-label="React to ${esc(pick.name)}"><span>${esc(firstName(pick))}</span>${["\u{1F525}", "\u{1F44F}", "\u{1F4AA}", "\u{1F389}"].map((e) =>
+        `<button type="button" class="hpe${soc(pick.id).mine === e ? " on" : ""}" data-hre="${pick.id}|${e}" aria-label="Send ${e}">${e}</button>`).join("")}</div>` : ""}</section>`;
   }
   // V9.7. Spotlight: up to three things worth a cheer, worked out from what
   // is already logged (a comeback, a milestone, a day everyone logged...).
@@ -4666,6 +4723,13 @@ button.jtile { cursor:pointer; }
       const h = ((state.tday || {}).hits || []).find((x) => x.id === id); if (h) h.cheered = true;
       loadSocial().then(render);
     }));
+    document.querySelectorAll("[data-hreact]").forEach((el) => el.addEventListener("click", () => { state.hreact = state.hreact === el.dataset.hreact ? null : el.dataset.hreact; render(); }));
+    document.querySelectorAll("[data-hre]").forEach((el) => el.addEventListener("click", async () => {
+      const [id, e] = el.dataset.hre.split("|"), S = soc(id), was = S.mine;
+      S.mine = e; if (state.social) state.social.by[id] = S; state.hreact = null; render();
+      const res = await call("app_react", { p_code: state.code, p_from: state.meId, p_to: id, p_emoji: e });
+      if (res.error) { S.mine = was; toast(res.offline ? "No signal. Not sent yet." : res.error, "bad"); render(); return; }
+      toast(`Sent ${e} to ${firstName(gpx(id) || {})}`, "ok"); loadSocial().then(render); }));
     on("gameOpen", "click", () => { state.gameOpen = true; render(); });
     const close = () => { state.gameOpen = false; render(); };
     on("gameDone", "click", close); on("gameBg", "click", close);
@@ -8160,7 +8224,7 @@ button.jtile { cursor:pointer; }
   // V10.1. Quotes: micro-learning instead of doomscrolling. A handful of
   // public-domain lines ship with the app, each checked word for word
   // against its source; the tribe's owner adds the rest.
-  const QUOTES0 = [
+  const QUOTES0 = [   // V10.3: each with who said it and where
     { k: "s2", t: "A strong body makes the mind strong.", a: "Thomas Jefferson", s: "Letter to Peter Carr, 19 August 1785", p: "Exercise", u: "https://founders.archives.gov/documents/Jefferson/01-08-02-0319" },
     { k: "s3", t: "Early to Bed, and early to rise, makes a Man healthy, wealthy and wise.", a: "Benjamin Franklin", s: "The Way to Wealth (1758)", p: "Sleep", u: "https://founders.archives.gov/documents/Franklin/01-07-02-0146" },
     { k: "s4", t: "Temperance. Eat not to dullness; drink not to elevation.", a: "Benjamin Franklin", s: "Autobiography, the thirteen virtues", p: "Diet", u: "https://www.ushistory.org/franklin/autobiography/page38.htm" },
@@ -8189,29 +8253,32 @@ button.jtile { cursor:pointer; }
     const saved = new Set((Q && Q.saved) || []), f = state.qFilter || "all";
     const pool = allQuotes(), present = Q_PILLARS;
     let xs = f === "saved" ? pool.filter((q) => saved.has(q.k)) : f === "all" ? dayShuffle(pool) : pool.filter((q) => q.p === f);
-    // Endless once there are enough to keep it fresh; until then, a clear end.
-    const loop = xs.length >= 30 && f !== "saved", n = loop ? (state.qN || 20) : xs.length;
-    const shown = loop ? Array.from({ length: n }, (_, i) => xs[i % xs.length]) : xs;
+    // V10.3. One long scroll, 15 at a time as you reach the bottom, then an honest end.
+    const n = Math.min(xs.length, state.qN || 15), more = n < xs.length, shown = xs.slice(0, n);
     const chips = `<div class="qchips" role="group" aria-label="Show">${[["all", "All"], ["saved", `\u2605 Saved${saved.size ? " " + saved.size : ""}`]].concat(present.map((p) => [p, p])).map(([v, t]) =>
       `<button type="button" data-qf="${esc(v)}" aria-pressed="${f === v}">${esc(t)}</button>`).join("")}</div>`;
     const card = (q, i) => { const op = state.qOpen === q.k + ":" + i, sv = saved.has(q.k);
-      return `<article class="qcard${op ? " open" : ""}" style="--qc:${(cfTopic(q.p) || [])[2] || "var(--accent)"}">
-        <button type="button" class="qbody" data-qopen="${q.k}:${i}" aria-expanded="${op}"><span class="qt">\u201c${esc(q.t.replace(/^[\u201c"]|[\u201d"]$/g, ""))}\u201d</span>
-          <span class="qa">\u2014 ${esc(q.a || "Unknown")}</span></button>
+      return `<article class="qcard sp${op ? " open" : ""}${sv ? " saved" : ""}">
+        <button type="button" class="qbody" data-qopen="${q.k}:${i}" aria-expanded="${op}"><span class="qa">${esc(q.a || "Unknown")}${sv ? ` <i class="qsv" aria-label="Saved">\u2605</i>` : ""}</span>
+          <span class="qt">${esc(q.t.replace(/^[\u201c"]+|[\u201d"]+$/g, ""))}</span></button>
         ${op ? `<dl class="qmore">${q.s ? `<dt>Source</dt><dd>${esc(q.s)}</dd>` : ""}${q.p ? `<dt>Topic</dt><dd>${esc(q.p)}</dd>` : ""}${q.n ? `<dt>Note</dt><dd>${esc(q.n)}</dd>` : ""}${q.by ? `<dt>Added by</dt><dd>${q.own ? "You" : esc(firstName({ name: q.by }))}</dd>` : ""}
           ${safeUrl(q.u) ? `<dt>Link</dt><dd><a href="${esc(q.u)}" target="_blank" rel="noopener noreferrer">Read the source \u2197</a></dd>` : ""}</dl>
           ${q.mine && (q.own || (Q && Q.owner)) ? `<button type="button" class="linkbtn gdel" data-qdel="${q.id}">Remove</button>` : ""}` : ""}
-        <button type="button" class="qsave${sv ? " on" : ""}" data-qsave="${q.k}" aria-pressed="${sv}" aria-label="${sv ? "Saved" : "Save"}">${sv ? "\u2605" : "\u2606"}</button></article>`; };
+        ${op ? `<button type="button" class="qsave${sv ? " on" : ""}" data-qsave="${q.k}" aria-pressed="${sv}">${sv ? "\u2605 Saved" : "\u2606 Save"}</button>` : ""}</article>`; };
     const add = f === "saved" ? "" : state.qAdd ? quoteForm() : `<button type="button" class="qadd" id="qAdd">+ Add a spark</button>`;
     const end = !shown.length ? `<div class="cfempty"><p>${f === "saved" ? "Tap \u2606 on a spark to keep it here." : "Nothing here yet. Add the first one."}</p></div>`
-      : loop ? `<div class="qmore-sentinel" id="qMore" aria-hidden="true"></div>` : `<p class="hint qend">That's all ${shown.length}.${f === "all" ? " New ones as your tribe adds them." : ""}</p>`;
+      : more ? `<div class="qmore-sentinel" id="qMore" aria-hidden="true"></div>`
+      : `<div class="qend"><p><b>You're caught up.</b></p>${f === "saved" ? "" : `<button type="button" class="qadd" id="qAdd2">+ Add a spark</button>`}</div>`;
     return `${chips}${add}<div class="qlist">${shown.map(card).join("")}</div>${end}`;
   }
   function quoteForm() {
     const A = state.qAdd;
     return `<section class="card qform"><p class="eyebrow">Add a spark</p>
       <div class="qtopics" role="radiogroup" aria-label="Topic">${Q_PILLARS.map((p) => `<button type="button" class="achip${A.p === p ? " on" : ""}" data-qtopic="${esc(p)}" role="radio" aria-checked="${A.p === p}">${(cfTopic(p) || [])[1] || ""} ${esc(p)}</button>`).join("")}</div>
-      <textarea class="field" id="qaText" rows="5" placeholder="A quote or one thing you learned. To add several, leave a blank line between them. Add who said it on its own line:\n\u2014 Author, Source">${esc(A.text || "")}</textarea>
+      <textarea class="field" id="qaText" rows="4" maxlength="600" placeholder="The words, exactly as written or said">${esc(A.text || "")}</textarea>
+      <input class="field" id="qaA" maxlength="80" autocomplete="off" placeholder="Who said it" value="${esc(A.a || "")}" aria-label="Who said it">
+      <input class="field" id="qaS" maxlength="160" autocomplete="off" placeholder="Where: book, article, podcast or video title" value="${esc(A.s || "")}" aria-label="Source">
+      <input class="field" id="qaU" maxlength="400" autocomplete="off" inputmode="url" placeholder="Link (optional)" value="${esc(A.u || "")}" aria-label="Link, optional">
       ${A.err ? `<p class="hint bad">${esc(A.err)}</p>` : `<p class="hint">Your tribe sees it. Only words you have the right to share: your own, or public-domain text.</p>`}
       <div class="stdbtns"><button type="button" class="btn-quiet" id="qaX">Cancel</button><button type="button" class="btn" id="qaGo" ${A.busy ? "disabled" : ""}>${A.busy ? "Adding\u2026" : "Add"}</button></div></section>`;
   }
@@ -8229,7 +8296,7 @@ button.jtile { cursor:pointer; }
     }).filter((q) => q.t);
   }
   function wireQuotes() {
-    document.querySelectorAll("[data-qf]").forEach((el) => el.addEventListener("click", () => { state.qFilter = el.dataset.qf; state.qOpen = null; state.qN = 20; render(); }));
+    document.querySelectorAll("[data-qf]").forEach((el) => el.addEventListener("click", () => { state.qFilter = el.dataset.qf; state.qOpen = null; state.qN = 15; render(); }));
     document.querySelectorAll("[data-qopen]").forEach((el) => el.addEventListener("click", () => { state.qOpen = state.qOpen === el.dataset.qopen ? null : el.dataset.qopen; render(); }));
     document.querySelectorAll("[data-qsave]").forEach((el) => el.addEventListener("click", async () => {
       const Q = state.quotes || (state.quotes = { saved: [] }), k = el.dataset.qsave, on = !(Q.saved || []).includes(k);
@@ -8243,14 +8310,20 @@ button.jtile { cursor:pointer; }
     on("qAdd", "click", () => { state.qAdd = { text: "", p: "", err: null }; render(); document.getElementById("qaText")?.focus(); });
     on("qaX", "click", () => { state.qAdd = null; render(); });
     on("qaText", "input", (e) => { if (state.qAdd) state.qAdd.text = e.target.value; });
+    const keepQ = () => { const A = state.qAdd; if (!A) return; const g = (id) => (document.getElementById(id) || {}).value;
+      A.text = g("qaText") ?? A.text; A.a = g("qaA") ?? A.a; A.s = g("qaS") ?? A.s; A.u = g("qaU") ?? A.u; };
     document.querySelectorAll("[data-qtopic]").forEach((el) => el.addEventListener("click", () => {
-      const A = state.qAdd; if (!A) return; A.text = document.getElementById("qaText")?.value || A.text; A.p = el.dataset.qtopic; A.err = null; render(); }));
+      const A = state.qAdd; if (!A) return; keepQ(); A.p = el.dataset.qtopic; A.err = null; render(); }));
+    on("qAdd2", "click", () => { state.qAdd = { text: "", p: "", err: null }; render(); window.scrollTo(0, 0); document.getElementById("qaText")?.focus(); });
     on("qaGo", "click", async () => {
       const A = state.qAdd; if (!A || A.busy) return;
-      A.text = document.getElementById("qaText")?.value || A.text;
+      keepQ();
       if (!A.p) { A.err = "Pick a topic first."; render(); return; }
-      const list = parseQuotes(A.text, A.p);
-      if (!list.length) { A.err = "Write at least one."; render(); return; }
+      const t = String(A.text || "").trim().replace(/^["\u201c]+|["\u201d]+$/g, "").trim();
+      if (!t) { A.err = "Write the words first."; render(); return; }
+      if (!String(A.a || "").trim() || !String(A.s || "").trim()) { A.err = "Add who said it and where (a book, article, podcast or video)."; render(); return; }
+      if (String(A.u || "").trim() && !safeUrl(String(A.u).trim())) { A.err = "A link starts with https://"; render(); return; }
+      const list = [{ t, a: A.a.trim(), s: A.s.trim(), u: String(A.u || "").trim(), p: A.p }];
       A.busy = true; A.err = null; render();
       const r = await call("app_quote_add", { p_code: state.code, p_person: state.meId, p_list: list });
       if (r.error) { A.busy = false; A.err = r.offline ? "No signal. Not added yet." : r.error; render(); return; }
@@ -8258,7 +8331,7 @@ button.jtile { cursor:pointer; }
     });
     const s = document.getElementById("qMore");
     if (s && "IntersectionObserver" in window) {
-      const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { io.disconnect(); state.qN = (state.qN || 20) + 20; render(); } }, { rootMargin: "600px" });
+      const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { io.disconnect(); state.qN = (state.qN || 15) + 15; render(); } }, { rootMargin: "600px" });
       io.observe(s);
     }
   }
@@ -8272,6 +8345,7 @@ button.jtile { cursor:pointer; }
     const T = C.today, L = C.library;
     if (!L.length) return `<section class="htab hcamp">${head}<div class="cfempty">${sparkSVG(72, "sleepy")}<p>The first lessons are on their way.</p></div></section>`;
     // V9.7. Today's essay on top; every pillar (and Saved) folded until tapped; ✓ Read on the ones you've read.
+    return evidenceView(C);
     if (true) { const O = state.cfOpen || {}, T0 = C.today;
       const today0 = !T0 ? "" : T0.locked
         ? `<button type="button" class="cftoday locked" id="cfToday" style="--tc:${cfTopic(T0.topic)[2]}"><span class="cfmeta">Today's lesson \u00b7 ${esc(cfTopic(T0.topic)[0])}</span>
@@ -8308,6 +8382,41 @@ button.jtile { cursor:pointer; }
     return `<section class="htab hcamp" aria-label="Evidence">${head}${segs}${today}${shelves}<p class="hint cffoot">One essay opens each day you log. Once open, it stays open.</p></section>`;
   }
   // Old lessons (one body of text): **bold**, "- " bullets, blank-line paragraphs.
+  // V10.3. Evidence opens on today's essay, written out in full. Below it,
+  // two quiet lines: Archive (every essay, by pillar) and Saved.
+  async function loadEvToday(id) {
+    if (state.evToday && String(state.evToday.id) === String(id)) return;
+    state.evToday = { id, busy: true };
+    const res = await call("app_lesson", { p_code: state.code, p_person: state.meId, p_id: Number(id) });
+    if (!state.evToday || String(state.evToday.id) !== String(id)) return;
+    state.evToday = res && !res.error ? { id, data: res } : { id, err: (res && res.offline) ? "No signal. Pull to try again." : (res && res.error) || "Could not open it." };
+    const x = ((state.camp && state.camp.library) || []).find((y) => String(y.id) === String(id));
+    if (res && !res.error && x) { x.read = true; x.open = true; try { localStorage.setItem(campReadKey(), String(id)); } catch {} }
+    if (state.view === "board" && homeTab() === "evidence") render();
+  }
+  function evidenceView(C) {
+    const T = C.today, L = C.library || [], O = state.cfOpen || {}, head = `<div class="htabh"><h2>Evidence</h2></div>`;
+    let today = "";
+    if (T) { const [tn, ti, th] = cfTopic(T.topic);
+      if (T.locked) today = `<article class="evtoday locked" style="--tc:${th}"><p class="lsmeta"><span aria-hidden="true">${ti}</span> Today \u00b7 ${esc(tn)}</p>
+          <h3 class="lstitle">${esc(T.title)}</h3><div class="evlock"><span aria-hidden="true">\u{1F512}</span><p>Log today's steps to read it.</p><button type="button" class="btn" data-go="steps">Log my steps</button></div></article>`;
+      else { const E = state.evToday && String(state.evToday.id) === String(T.id) ? state.evToday : null;
+        if (!E) setTimeout(() => loadEvToday(T.id), 0);
+        const D = E && E.data;
+        today = `<article class="evtoday" style="--tc:${th}"><p class="lsmeta"><span aria-hidden="true">${ti}</span> Today \u00b7 ${esc(tn)} \u00b7 ${T.minutes || 1} min read</p>
+          <h3 class="lstitle">${esc(T.title)}</h3>
+          ${D ? `${lessonParts(D)}<div class="evfoot"><span class="lssrc">by ${esc(D.author || "Dr. Nishtar")}</span>
+              <button type="button" class="btn-quiet lssave${D.saved ? " on" : ""}" id="evSave" aria-pressed="${!!D.saved}">${D.saved ? "\u2605 Saved" : "\u2606 Save"}</button></div>`
+            : E && E.err ? `<p class="hint bad">${esc(E.err)}</p>` : `<p class="hint">Opening\u2026</p>`}</article>`; } }
+    const op = L.filter((x) => x.open).length, sv = L.filter((x) => x.saved);
+    const arch = O.__arch ? CF_TOPICS.map(([t, icon]) => { const xs = L.filter((x) => x.topic === t); if (!xs.length) return "";
+        return `<div class="evgrp"><p class="evgh"><span aria-hidden="true">${icon}</span> ${esc(t)} <small>${xs.filter((x) => x.open).length} of ${xs.length} open</small></p><div class="cfrow">${xs.map(cfCard).join("")}</div></div>`; }).join("") : "";
+    const row = (key, label, meta, body) => `<div class="evsec${O[key] ? " on" : ""}"><button type="button" class="evrow" data-cfsec="${key}" aria-expanded="${!!O[key]}"><b>${label}</b><small>${meta}</small><i aria-hidden="true">${O[key] ? "\u2212" : "+"}</i></button>${O[key] ? body : ""}</div>`;
+    return `<section class="htab hcamp hev" aria-label="Evidence">${head}${today}
+      <div class="evrows">${row("__arch", "Archive", `${op} of ${L.length} open`, arch)}
+        ${row("__saved", "Saved", String(sv.length), sv.length ? `<div class="cfrow evsaved">${sv.map(cfCard).join("")}</div>` : `<p class="hint cfnone">Tap \u2606 Save on an essay to keep it here.</p>`)}</div>
+      <p class="hint cffoot">One essay opens each day you log. Once open, it stays open.</p></section>`;
+  }
   function lessonHTML(body) {
     const inl = (t) => esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
     return String(body || "").split(/\n\s*\n/).map((blk) => {
@@ -8399,6 +8508,14 @@ button.jtile { cursor:pointer; }
       toast("Locked for now. One essay opens each day you log; once open, it stays open."); }));
     const shut = () => { state.lesson = null; state.campAll = null; render(); };
     on("lsDone", "click", shut); on("lsBg", "click", shut); on("caDone", "click", shut); on("caBg", "click", shut);
+    on("evSave", "click", async () => {
+      const E = state.evToday; if (!E || !E.data) return;
+      const on1 = !E.data.saved; E.data.saved = on1;
+      const x = ((state.camp && state.camp.library) || []).find((y) => String(y.id) === String(E.id)); if (x) x.saved = on1;
+      render();
+      const res = await call("app_lesson_keep", { p_code: state.code, p_person: state.meId, p_id: Number(E.id), p_on: on1 });
+      if (res.error) { E.data.saved = !on1; if (x) x.saved = !on1; toast(res.offline ? "No signal. Not saved yet." : res.error, "bad"); render(); }
+    });
     on("lsSave", "click", async () => {
       const R = state.lesson; if (!R || !R.data) return;
       const on1 = !R.data.saved; R.data.saved = on1;
@@ -8492,10 +8609,12 @@ button.jtile { cursor:pointer; }
     if (mine && !mine.pledged) return tribeCard();
     const R = [7, 30, 90].includes(state.jRange) ? state.jRange : 30;
     const ks = myDials().filter((k) => STD[k] && votesOf(k) && k !== "weight" && k !== "tasks");
-    const rows = ks.map((k) => { const P = progPoints(k, R); if (!P) return null;
+    // V10.3. Each habit: its average over the span against the span before.
+    const rows = ks.map((k) => { const P2 = progPoints(k, 2 * R); if (!P2) return null;
+      const P = { pts: P2.pts.slice(R).map((p, i) => Object.assign({}, p, { i })), std: P2.std }, before = P2.pts.slice(0, R);
       const V = votesOf(k), d0 = Object.keys((V && V.days && !Array.isArray(V.days) ? V.days : {}) || {}).sort()[0];
       const avail = d0 ? P.pts.filter((p) => p.iso >= d0).length : 0;
-      return { k, P, avail, hit: P.pts.filter((p) => p.hit).length, log: P.pts.filter((p) => p.v !== null).length }; }).filter(Boolean);
+      return { k, P, before, avail, hit: P.pts.filter((p) => p.hit).length, log: P.pts.filter((p) => p.v !== null).length }; }).filter(Boolean);
     const hit = rows.reduce((a, r) => a + r.hit, 0), all = rows.reduce((a, r) => a + r.avail, 0), pct = all ? Math.round(hit / all * 100) : 0;
     const lvl = mine ? mine.level : 1, wk = mine ? (mine.days || []).length : 0;
     const tiles = `<div class="jtiles">
@@ -8506,11 +8625,11 @@ button.jtile { cursor:pointer; }
     const dots = (r) => {
       if (R === 90) { const w = []; for (let i = 0; i < r.P.pts.length; i += 7) { const xs = r.P.pts.slice(i, i + 7); w.push(xs.filter((p) => p.hit).length / xs.length); }
         return w.map((f) => `<i class="wk" style="--f:${f.toFixed(2)}"></i>`).join(""); }
-      return r.P.pts.map((p) => `<i class="${p.hit ? "hit" : p.v !== null ? "log" : ""}"></i>`).join("");
+      return r.P.pts.map((p) => `<i class="${p.hit ? "hit" : p.v !== null ? "log" : ""}" data-jdot="${r.k}|${p.iso}"></i>`).join("");
     };
-    const list = rows.length ? `<ul class="jhab r${R}">${rows.map((r) => `<li><button type="button" data-go="${r.k}" aria-label="${esc(STD[r.k].label)}: goal hit ${r.hit} of ${R} days, logged ${r.log}">
-        <span class="jhn">${esc(STD[r.k].short || STD[r.k].label)}</span><span class="jhd" aria-hidden="true">${dots(r)}</span><span class="jhs"><b>${r.hit}</b>/${r.avail || R}</span></button></li>`).join("")}</ul>
-        <p class="jkey"><span><i class="hit"></i>goal hit</span><span><i class="log"></i>logged</span><span><i></i>not logged</span></p>`
+    const list = rows.length ? `<ul class="jhab jcmp r${R}">${rows.map((r) => `<li><div class="jrow1"><button type="button" class="jhn" data-go="${r.k}">${esc(STD[r.k].short || STD[r.k].label)}</button>${thenNow(r)}</div>
+        <span class="jhd">${dots(r)}</span></li>`).join("")}</ul>
+        <p class="jkey"><span>${R} days vs the ${R} before</span><span><i class="hit"></i>goal hit</span><span><i class="log"></i>logged</span></p>`
       : `<p class="hint">Turn habits on under Me and log them: they show up here.</p>`;
     const next = [30, 100, 365].find((t) => (S.n || 0) < t), PTS = { 30: 100, 100: 300, 365: 1000 };
     const how = state.jHow ? `<div class="jhow"><p>Best streak <b>${S.best || 0}</b> \u00b7 Freezes <b>${"\u2744".repeat(S.freezes || 0) || "0"}</b> (a freeze saves a missed day).</p>
@@ -8520,6 +8639,23 @@ button.jtile { cursor:pointer; }
       ${myMilestones()}
       <button type="button" class="linkbtn jhowb" id="jHow" aria-expanded="${!!state.jHow}">${state.jHow ? "Hide" : "How streaks and badges work \u203a"}</button>${how}
 `;
+  }
+  // "6,012 → 9,874 ▲64%": the average on the days you logged, then and now.
+  // Earlier is better for a time (Rise, Rest); more is better for the rest.
+  function thenNow(r) {
+    const S = STD[r.k], bin = S.custom && S.hk === "done";
+    const seen = (xs) => xs.filter((p) => p.v !== null);
+    const a = seen(r.before), b = seen(r.P.pts);
+    if (bin) { const d = b.length - a.length;
+      return `<span class="jtn">${a.length} \u2192 <b>${b.length}</b> days${d ? ` <em class="${d > 0 ? "up" : "down"}">${d > 0 ? "\u25b2" : "\u25bc"}${Math.abs(d)}</em>` : ""}</span>`; }
+    const avg = (xs) => xs.length ? xs.reduce((s, p) => s + p.v, 0) / xs.length : null;
+    const x = avg(a), y = avg(b);
+    if (y === null) return `<span class="jtn">${x === null ? "not logged yet" : `${esc(stdWords(r.k, x))} \u2192 \u2013`}</span>`;
+    if (x === null) return `<span class="jtn">now <b>${esc(stdWords(r.k, y))}</b></span>`;
+    let tag = "";
+    if (S.kind === "time") { const d = Math.round(y - x); if (Math.abs(d) >= 5) tag = `<em class="${d < 0 ? "up" : "down"}">${hm(Math.abs(d))} ${d < 0 ? "earlier" : "later"}</em>`; }
+    else if (x > 0) { const pc = Math.round((y - x) / x * 100); if (pc) tag = `<em class="${pc > 0 ? "up" : "down"}">${pc > 0 ? "\u25b2" : "\u25bc"}${Math.abs(pc)}%</em>`; }
+    return `<span class="jtn">${esc(stdWords(r.k, x))} \u2192 <b>${esc(stdWords(r.k, y))}</b> ${tag}</span>`;
   }
   function journeyTribe(J) {
     const Gl = J.goal;
@@ -8531,7 +8667,7 @@ button.jtile { cursor:pointer; }
       goal = `<section class="jcard" aria-label="Your tribe's goal">
         <button type="button" class="jgoal" id="tribeGoal2" aria-label="Your tribe's goal: ${esc(Gl.name)}. Open"><b>${esc(Gl.name)}</b>${Gl.days_left !== null && Gl.days_left !== undefined ? `<span>${Gl.days_left >= 0 ? `${num(Gl.days_left)} day${Gl.days_left === 1 ? "" : "s"} to go` : "Goal day has passed"}</span>` : ""}</button>
         ${tot ? `<div class="jprog" aria-hidden="true"><i style="width:${pct.toFixed(1)}%"></i>${now !== null ? `<em style="left:${now.toFixed(1)}%"></em>` : ""}</div>
-        <p class="jsum"><b>${Math.round(pct)}%</b> of family days logged${past ? ` \u00b7 <span class="${on ? "good" : "bad"}">${on ? "on pace" : "behind pace"}</span>` : ""}</p>` : ""}
+        <p class="jsum">${past ? `<b class="${fill >= pace * 0.9 ? "good" : ""}">${Math.min(100, Math.round(fill / Math.max(1, pace) * 100))}%</b> of family days logged since ${esc(shortDay(Gl.start).replace(/^[A-Za-z]+, /, ""))} \u00b7 aim for 90%` : "Starts today. Aim to log 90% of family days."}</p>` : ""}
       </section>`;
     }
     const Wk = J.weeks || [];
@@ -8544,14 +8680,16 @@ button.jtile { cursor:pointer; }
         <svg class="jline" viewBox="0 0 ${W} ${H}" role="img" aria-label="This week ${pc[n - 1]}% of days logged">
           ${[0, 50, 100].map((v) => `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" class="jgrid"/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end" class="jtx">${v}%</text>`).join("")}
           <polyline class="jln2" points="${pc.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ")}"/>
-          ${pc.map((v, i) => `<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="${i === n - 1 ? 5 : 3.4}" class="${i === n - 1 ? "jnow" : "jpt"}"/>`).join("")}
-          <text x="${L}" y="${H - 4}" class="jtx">${esc(md(Wk[0].w))}</text><text x="${W - R}" y="${H - 4}" text-anchor="end" class="jtx">this week \u00b7 ${pc[n - 1]}%</text></svg></section>`;
+          ${pc.map((v, i) => `<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="${i === n - 1 || i === state.jwSel ? 5 : 3.4}" class="${i === n - 1 ? "jnow" : "jpt"}${i === state.jwSel ? " jsel" : ""}"/>`).join("")}
+          ${pc.map((v, i) => `<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="13" class="jhitbox" data-jw="${i}"><title>${esc(md(Wk[i].w))}: ${v}%</title></circle>`).join("")}
+          <text x="${L}" y="${H - 4}" class="jtx">${esc(md(Wk[0].w))}</text><text x="${W - R}" y="${H - 4}" text-anchor="end" class="jtx">this week \u00b7 ${pc[n - 1]}%</text></svg>
+        <p class="jsum jwsel">${state.jwSel !== undefined && state.jwSel !== null && Wk[state.jwSel] ? `Week of ${esc(md(Wk[state.jwSel].w))}: <b>${pc[state.jwSel]}%</b> \u00b7 ${Wk[state.jwSel].logged} of ${Wk[state.jwSel].possible} family days logged` : "Tap a week to read it."}</p></section>`;
     }
     const Ms = J.members || [];
     const dots = Ms.length ? `<section class="jcard" aria-label="Each of you, last 8 weeks"><p class="jct">Each of you, last 8 weeks</p>
       <ul class="jmem">${Ms.map((m0) => `<li><span>${m0.id === state.meId ? "You" : esc(firstName(m0))}</span><span class="jmd">${(m0.weeks || []).map((v, i) => v === null ? `<i class="na"></i>`
-          : `<i style="--d:${Math.max(0.12, v / 7)}" class="${v >= 7 ? "all" : ""}${i === m0.weeks.length - 1 ? " now" : ""}" title="${v} of 7"></i>`).join("")}</span></li>`).join("")}</ul>
-      <p class="jsum">Each dot is a week. Bigger means more days logged.</p></section>` : "";
+          : `<i style="--d:${Math.max(0.12, v / 7)}" class="${v >= 7 ? "all" : ""}${i === m0.weeks.length - 1 ? " now" : ""}" title="${v} of 7" data-jm="${esc(m0.id === state.meId ? "You" : firstName(m0))}, week of ${esc(shortDay(shiftISO(mondayOf(J.today), -7 * (m0.weeks.length - 1 - i))).replace(/^[A-Za-z]+, /, ""))}: ${v} of 7 days logged"></i>`).join("")}</span></li>`).join("")}</ul>
+      <p class="jsum">Each dot is a week. Bigger means more days logged. Tap one to read it.</p></section>` : "";
     const A = J.achievements || [], who = (q) => q.id === state.meId ? "You" : firstName(q), ORDER = { streak: 0, week: 1, goal: 2, "10k": 3 };
     const lines = (got) => { const g = {};
       got.forEach((q) => { const k = q.kind + (q.kind === "streak" ? q.n : ""); (g[k] = g[k] || { kind: q.kind, n: q.n, xs: [] }).xs.push(q); });
@@ -9226,8 +9364,7 @@ button.jtile { cursor:pointer; }
     const custom = !!(k && isCustom(k) && STD[k]);
     if (custom) {
       // V6.5. No votes or run counters here either.
-      const pg = progressCard(k), at = app.querySelector(".cday");
-      if (pg && at) at.insertAdjacentHTML("afterend", pg);
+      // V10.3. Progress lives in Me › Progress, not on the habit's page.
       app.querySelectorAll("[data-pgr]").forEach((el) => el.addEventListener("click", () => {
         try { localStorage.setItem("fhd.prog2", el.dataset.pgr); } catch {}
         state.progSel = null; state.pgOff = 0; render(); }));
@@ -9244,7 +9381,7 @@ button.jtile { cursor:pointer; }
     const foot = app.querySelector("p.ver");
     if (foot) foot.insertAdjacentHTML("beforebegin", atomsStrip(k).replace('<section class="astrip">', '<section class="astrip foot">'));
     // V5.6. Progress sits under the dial, where the page has one.
-    const pg = custom ? "" : progressCard(k);
+    const pg = "";   // V10.3. Progress lives in Me › Progress.
     if (pg) {
       const dial = app.querySelector(".msil, .msess, #mGrid, .wtoday") || app.querySelector(".dring, .dbig, .ctot, .mdial, .stamp");
       const at = dial && dial.closest("section");
@@ -9457,8 +9594,8 @@ button.jtile { cursor:pointer; }
           ${ring}
           <div class="dcore">
             ${centre}
-            ${k === "tasks" ? `<span class="dof">done ${past ? "that day" : "today"}</span>` : `<button type="button" class="dof" ${clone ? 'tabindex="-1"' : `data-edit="goal" data-metric="${k}"`}>${
-              k === "work" ? `${hm(v || 0)} of ${hm(std)}${past ? "" : " today"}` : ofWords(k, std)}</button>`}
+            ${k === "tasks" ? `<span class="dof">done ${past ? "that day" : "today"}</span>` : `<span class="dof">${
+              k === "work" ? `${hm(v || 0)} of ${hm(std)}${past ? "" : " today"}` : ofWords(k, std)}</span>`}
             ${extra}
           </div>
         </div>`}
