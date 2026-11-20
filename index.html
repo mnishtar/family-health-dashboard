@@ -3378,6 +3378,61 @@ button.fendj b { color:var(--accent); }
 .cfnone { margin:0; padding:0 14px 14px; }
 .cfrd { font-style:normal; color:#2f9e6e; font-weight:700; }
 
+/* ---------- V10.4 ---------- */
+.jall .jhd i.hit, .jall .jkey i.hit { background:#3fb96b; box-shadow:none; }
+.jall .jhd i.log, .jall .jkey i.log { background:#e0b04a; box-shadow:none; }
+.jall .jhd i.fut { background:none; box-shadow:inset 0 0 0 1px color-mix(in oklab, var(--ink) 12%, transparent); }
+.jct { margin:2px 0 6px; }
+.sw .jhd { grid-template-columns:repeat(7, minmax(0, 1fr)); gap:8px; }
+.sw .jhd i { max-width:26px; justify-self:center; }
+.jwk { display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); gap:8px; margin:0 0 3px; }
+.jwk small { text-align:center; font-size:10.5px; color:var(--muted); }
+.sm .jhd { grid-template-columns:repeat(16, minmax(0, 1fr)); gap:4px; }
+.sy .jhd { grid-template-columns:repeat(12, minmax(0, 1fr)); gap:4px; }
+.jhd i.mo { aspect-ratio:auto; height:30px; border-radius:6px; display:grid; place-items:end center; padding-bottom:2px;
+  background:color-mix(in oklab, #3fb96b calc(var(--f) * 100%), color-mix(in oklab, var(--ink) 8%, transparent)); cursor:pointer; }
+.jall .jhd i.mo.log { background:color-mix(in oklab, #3fb96b calc(var(--f) * 100%), color-mix(in oklab, var(--ink) 8%, transparent)); box-shadow:inset 0 0 0 2px #e0b04a; }
+.jhd i.mo b { font-size:9.5px; font-weight:600; color:var(--ink-2); font-style:normal; }
+.stgo { display:flex; justify-content:space-between; align-items:baseline; width:100%; border:none; background:none; color:inherit; font:inherit; padding:0; cursor:pointer; text-align:left; }
+.hchat { position:relative; width:30px; height:30px; display:grid; place-items:center; border:none; background:none; color:var(--ink); cursor:pointer; margin-right:6px; }
+.hchat svg { width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linejoin:round; }
+.hchat i { position:absolute; top:-3px; right:-5px; min-width:17px; height:17px; padding:0 4px; border-radius:9px; background:#e5534b; color:#fff; font-style:normal; font-size:10.5px; font-weight:800; display:grid; place-items:center; }
+.chat { position:fixed; inset:0; z-index:75; display:flex; flex-direction:column; background:var(--ground, #141414); color:var(--ink); }
+.chhead { display:flex; align-items:center; gap:10px; padding:max(12px, env(safe-area-inset-top)) 14px 10px; border-bottom:1px solid var(--line); }
+.chhead b { flex:1; font-size:17px; } .chhead small { color:var(--muted); font-weight:500; font-size:12px; }
+.chhead .stx { position:static; }
+.chback { border:none; background:none; color:var(--ink); font-size:30px; line-height:1; padding:0 6px; cursor:pointer; }
+.chlist { list-style:none; margin:0; padding:6px 0; overflow-y:auto; }
+.chrow { display:flex; align-items:center; gap:12px; width:100%; padding:10px 16px; border:none; background:none; color:inherit; font:inherit; text-align:left; cursor:pointer; }
+.chrow .fav { width:44px; height:44px; flex:none; font-size:16px; }
+.chmid { flex:1; min-width:0; display:flex; flex-direction:column; gap:2px; }
+.chmid b { font-size:15px; } .chmid small { color:var(--muted); font-size:13.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.chrow.new .chmid small { color:var(--ink); font-weight:600; }
+.chend { display:flex; flex-direction:column; align-items:flex-end; gap:4px; } .chend small { color:var(--muted); font-size:12px; }
+.chend i { min-width:20px; height:20px; padding:0 6px; border-radius:10px; background:#3fb96b; color:#fff; font-style:normal; font-size:11.5px; font-weight:800; display:grid; place-items:center; }
+.chbody { flex:1; overflow-y:auto; padding:10px 12px 16px; display:flex; flex-direction:column; gap:6px; }
+.chday { align-self:center; margin:8px 0 2px; font-size:11.5px; color:var(--muted); }
+.chmsg { max-width:78%; align-self:flex-start; padding:8px 12px 6px; border-radius:18px 18px 18px 6px; background:var(--surface-2); }
+.chmsg.me { align-self:flex-end; border-radius:18px 18px 6px 18px; background:color-mix(in oklab, #3fb96b 30%, var(--surface)); cursor:pointer; }
+.chmsg.sel { outline:2px solid var(--accent); }
+.chmsg p { margin:0; font-size:15px; line-height:1.35; overflow-wrap:anywhere; white-space:pre-wrap; }
+.chmsg img { display:block; max-width:100%; border-radius:12px; margin:2px 0 4px; }
+.chwho { display:block; font-size:11.5px; font-weight:700; color:var(--accent); margin-bottom:2px; }
+.chat2 { display:block; margin-top:2px; font-size:10.5px; color:var(--muted); text-align:right; }
+.chmore { align-self:center; margin:4px 0; }
+.chnone { text-align:center; margin-top:30vh; }
+.chform { display:flex; align-items:center; gap:8px; padding:8px 10px max(10px, env(safe-area-inset-bottom)); border-top:1px solid var(--line); background:var(--surface); }
+.chpic { border:none; background:none; font-size:22px; cursor:pointer; padding:0 2px; }
+.chin { flex:1; min-width:0; min-height:42px; padding:0 16px; border:1px solid var(--line); border-radius:999px; background:var(--ground, #141414); color:var(--ink); font:inherit; font-size:16px; }
+.chsend { width:42px; height:42px; border-radius:50%; border:none; background:#3fb96b; color:#fff; font-size:20px; font-weight:800; cursor:pointer; }
+.qfmt { margin-top:-4px; }
+.qshuf { margin-left:auto; }
+.qshuf.on { background:var(--ink) !important; color:var(--surface) !important; }
+.lsex, .lssteps { margin:4px 0 8px; padding-left:20px; }
+.lsex li, .lssteps li { margin:0 0 6px; line-height:1.45; }
+.lssteps li::marker { font-weight:800; color:var(--tc, var(--accent)); }
+.lsfine { display:block; margin-top:8px; }
+
 /* ---------- V10.3 ---------- */
 .wkchart .wkd i.on, .wkchart .wklegend i.on { background:#e0b04a; }
 .wkchart .wkd i.met, .wkchart .wklegend i.met { background:#3fb96b; color:#fff; }
@@ -3586,7 +3641,7 @@ button.jtile { cursor:pointer; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "10.3";
+  const APP_VERSION = "10.4";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -3660,7 +3715,7 @@ button.jtile { cursor:pointer; }
     "app_cycle", "app_med", "app_year", "app_work_day", "app_family", "app_ex_progress", "app_custom", "app_board", "app_lift_detail",
     "app_template", "app_lift_open", "app_lift_home",
     // V10.1. Reads, so opening them never marks the page as changed.
-    "app_feed", "app_quotes", "app_win_img", "app_wins", "app_person_week", "app_spotlight", "app_social", "app_journey", "app_recap"]);
+    "app_feed", "app_quotes", "app_win_img", "app_wins", "app_person_week", "app_spotlight", "app_social", "app_journey", "app_recap", "app_chats"]);
   async function call(fn, args) {
     if (!READS.has(fn)) state.dirty = true;
     try {
@@ -4231,9 +4286,12 @@ button.jtile { cursor:pointer; }
   let famCellsRef = null;
   function storyNums(p) {
     const c = famCellsRef ? famCellsRef(p) : { steps: Number(board(p).steps) || null };
+    const mine = p && p.id === state.meId;
     const ks = Object.keys(c).filter((k) => STD[k] && c[k] !== null && c[k] !== undefined && c[k] !== false)
       .sort((a, b) => (b === "steps") - (a === "steps"));
-    return ks.map((k) => `<li><span>${esc(STD[k].short || STD[k].label)}</span><b>${c[k] === true ? "✓" : esc(stdWords(k, c[k]))}</b></li>`).join("");
+    // V10.4. On your own day, each habit opens its page.
+    return ks.map((k) => mine ? `<li><button type="button" class="stgo" data-go="${k}"><span>${esc(STD[k].short || STD[k].label)}</span><b>${c[k] === true ? "✓" : esc(stdWords(k, c[k]))} \u203a</b></button></li>`
+      : `<li><span>${esc(STD[k].short || STD[k].label)}</span><b>${c[k] === true ? "✓" : esc(stdWords(k, c[k]))}</b></li>`).join("");
   }
   // V9.6. Log first, then your tribe: once you've logged, the stories you
   // haven't seen play by themselves. Never over a sheet.
@@ -4289,6 +4347,96 @@ button.jtile { cursor:pointer; }
     const days = Object.keys(first).sort().reverse(); if (!days.length || (days.length === 1 && days[0] === day)) return "";
     return `<div class="stweek"><p>Last 7 days</p><div>${days.map((d) => `<button type="button" class="stwk${d === day ? " on" : ""}" data-sday="${id}|${d}" aria-label="${esc(photoDay(d))}">${first[d].thumb ? `<img src="${esc(first[d].thumb)}" alt="">` : first[d].pic === false ? `<span class="wtext mini" style="--wb:${winBg(first[d].bg)}"></span>` : ""}<small>${d === P.today ? "Today" : esc(shortWd(d))}</small></button>`).join("")}</div></div>`;
   }
+  /* ---------- V10.4: chat ----------------------------------------------
+     A family thread and a thread with each person, one tap from any tab.
+     No notifications: an unread count on the bubble, refreshed as you use
+     the app, and every few seconds while a chat is open. */
+  async function loadChats() {
+    if (!state.meId) return;
+    const r = await call("app_chats", { p_code: state.code, p_person: state.meId });
+    if (r && !r.error) state.chats = r.threads || [];
+  }
+  const chatUnread = () => (state.chats || []).reduce((s, t) => s + Number(t.unread || 0), 0);
+  function chatBtn() {
+    const n = chatUnread();
+    return `<button type="button" class="hchat" id="chatOpen" aria-label="Chats${n ? `, ${n} unread` : ""}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16v10H9.5L5 19.5v-4H4z"/></svg>${n ? `<i>${n > 9 ? "9+" : n}</i>` : ""}</button>`;
+  }
+  const chatAgo = (iso) => { const m = Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60000));
+    return m < 1 ? "now" : m < 60 ? `${m}m` : m < 1440 ? `${Math.round(m / 60)}h` : `${Math.round(m / 1440)}d`; };
+  async function openThread(th) {
+    const C = state.chat = Object.assign(state.chat || {}, { thread: th, msgs: (state.chat && state.chat.thread === th && state.chat.msgs) || null, draft: "" });
+    render();
+    await loadThread();
+  }
+  async function loadThread(older) {
+    const C = state.chat; if (!C || !C.thread) return;
+    const th = C.thread, before = older && C.msgs && C.msgs.length ? C.msgs[0].id : null;
+    const r = await call("app_chat", { p_code: state.code, p_person: state.meId, p_thread: th, p_before: before });
+    if (!state.chat || state.chat.thread !== th || !r || r.error) return;
+    const got = r.messages || [];
+    const prevLast = C.msgs && C.msgs.length ? C.msgs[C.msgs.length - 1].id : 0;
+    C.msgs = older ? got.concat(C.msgs || []) : got; C.more = got.length === 60;
+    const t = (state.chats || []).find((x) => x.thread === th); if (t) t.unread = 0;
+    const lastNow = C.msgs.length ? C.msgs[C.msgs.length - 1].id : 0;
+    if (older || lastNow !== prevLast || !C.drawn) { C.drawn = true; C.stick = !older; render(); }
+  }
+  let chatTick = null;
+  function chatView() {
+    const C = state.chat; if (!C) return "";
+    if (!C.thread) {
+      const T = state.chats || [];
+      return `<div class="chat" role="dialog" aria-label="Chats"><header class="chhead"><b>Chats</b><button type="button" class="stx" id="chatX" aria-label="Close">\u2715</button></header>
+        <ul class="chlist">${T.map((t) => { const x = t.with_id ? (state.people || []).find((q) => q.id === t.with_id) || {} : null;
+          return `<li><button type="button" class="chrow${t.unread ? " new" : ""}" data-thread="${esc(t.thread)}">
+            <span class="fav" style="--hc:hsl(${x ? x.hue || 200 : 40} 62% 48%)">${t.with_id ? esc(initials(t.name)) : (state.group.crest ? esc(state.group.crest) : "\u{1F46A}")}</span>
+            <span class="chmid"><b>${t.with_id ? esc(t.name) : `${esc(t.name)} <small>family</small>`}</b><small>${t.last ? `${t.last.mine ? "You" : esc(firstName(t.last))}: ${esc(t.last.body)}` : "Say hello"}</small></span>
+            <span class="chend">${t.last ? `<small>${chatAgo(t.last.at)}</small>` : ""}${t.unread ? `<i>${t.unread}</i>` : ""}</span></button></li>`; }).join("")}</ul></div>`;
+    }
+    const t = (state.chats || []).find((x) => x.thread === C.thread) || { name: "Chat" }, fam = C.thread === "family";
+    const msgs = C.msgs || [];
+    let lastDay = "";
+    const body = msgs.map((m0) => { const d = new Date(m0.at), day = d.toDateString(), sep = day !== lastDay ? `<p class="chday">${d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}</p>` : ""; lastDay = day;
+      return `${sep}<div class="chmsg${m0.mine ? " me" : ""}${C.sel === m0.id ? " sel" : ""}" ${m0.mine ? `data-chsel="${m0.id}"` : ""}>${fam && !m0.mine ? `<small class="chwho">${esc(firstName(m0))}</small>` : ""}
+        ${m0.img ? `<img src="${esc(m0.img)}" alt="Photo from ${esc(m0.name)}">` : ""}${m0.body ? `<p>${esc(m0.body)}</p>` : ""}
+        <small class="chat2">${d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}${m0.mine && C.sel === m0.id ? ` \u00b7 <button type="button" class="linkbtn" data-chdel="${m0.id}">Delete</button>` : ""}</small></div>`; }).join("");
+    return `<div class="chat" role="dialog" aria-label="Chat with ${esc(t.name)}"><header class="chhead"><button type="button" class="chback" id="chatBack" aria-label="All chats">\u2039</button><b>${esc(t.name)}${fam ? " <small>family</small>" : ""}</b><button type="button" class="stx" id="chatX" aria-label="Close">\u2715</button></header>
+      <div class="chbody" id="chBody">${C.more ? `<button type="button" class="linkbtn chmore" id="chMore">Earlier messages</button>` : ""}${C.msgs ? (body || `<p class="hint chnone">No messages yet. Say hello.</p>`) : `<p class="hint chnone">Loading\u2026</p>`}</div>
+      <form class="chform" id="chForm"><button type="button" class="chpic" id="chPic" aria-label="Send a photo">\u{1F4F7}</button><input type="file" id="chFile" accept="image/*" hidden>
+        <input class="chin" id="chIn" maxlength="1000" autocomplete="off" enterkeyhint="send" placeholder="Message" value="${esc(C.draft || "")}" aria-label="Message">
+        <button type="submit" class="chsend" id="chSend" aria-label="Send">\u2191</button></form></div>`;
+  }
+  function wireChat() {
+    clearInterval(chatTick); chatTick = null;
+    on("chatOpen", "click", () => { state.chat = { thread: null }; state.person = null; render(); loadChats().then(() => { if (state.chat && !state.chat.thread) render(); }); });
+    if (!state.chat) return;
+    const close = () => { state.chat = null; render(); };
+    on("chatX", "click", close);
+    on("chatBack", "click", () => { state.chat = { thread: null }; render(); loadChats().then(render); });
+    document.querySelectorAll("[data-thread]").forEach((el) => el.addEventListener("click", () => openThread(el.dataset.thread)));
+    const C = state.chat; if (!C.thread) return;
+    const box = document.getElementById("chBody"), inp = document.getElementById("chIn");
+    if (box && C.stick) { box.scrollTop = box.scrollHeight; C.stick = false; }
+    if (inp) { inp.addEventListener("input", () => { C.draft = inp.value; });
+      if (C.typing) { inp.focus(); try { inp.setSelectionRange(inp.value.length, inp.value.length); } catch {} }
+      inp.addEventListener("focus", () => { C.typing = true; }); inp.addEventListener("blur", () => { C.typing = false; }); }
+    const send = async (img) => {
+      const body = img ? "" : (inp && inp.value || "").trim(); if (!body && !img) return;
+      if (!img) { C.draft = ""; if (inp) inp.value = ""; }
+      const r = await call("app_chat_send", { p_code: state.code, p_person: state.meId, p_thread: C.thread, p_body: body, p_img: img || null });
+      if (r.error) { if (!img) C.draft = body; toast(r.offline ? "No signal. Not sent yet." : r.error, "bad"); render(); return; }
+      C.stick = true; await loadThread();
+    };
+    on("chForm", "submit", (e) => { e.preventDefault(); C.typing = true; send(); });
+    on("chPic", "click", () => document.getElementById("chFile")?.click());
+    on("chFile", "change", async (e) => { const f = e.target.files && e.target.files[0]; if (!f) return;
+      try { const d = await shrinkPhoto(f); send(d); } catch (er) { toast((er && er.message) || "Couldn't read that photo.", "bad"); } });
+    on("chMore", "click", () => loadThread(true));
+    document.querySelectorAll("[data-chsel]").forEach((el) => el.addEventListener("click", () => { const id = Number(el.dataset.chsel); C.sel = C.sel === id ? null : id; render(); }));
+    document.querySelectorAll("[data-chdel]").forEach((el) => el.addEventListener("click", async (e) => { e.stopPropagation();
+      const r = await call("app_chat_delete", { p_code: state.code, p_person: state.meId, p_id: Number(el.dataset.chdel) });
+      if (r.error && !r.offline) toast(r.error, "bad"); C.sel = null; C.msgs = (C.msgs || []).filter((x) => x.id !== Number(el.dataset.chdel)); render(); }));
+    chatTick = setInterval(() => { if (!state.chat || !state.chat.thread || document.hidden) return; loadThread(); }, 4000);
+  }
   function shareMenu() {
     return `<div class="sheetbg" id="smBg"></div>
       <div class="stdsheet smsheet" role="dialog" aria-label="Share a win">
@@ -4299,6 +4447,7 @@ button.jtile { cursor:pointer; }
       </div>`;
   }
   function personSheet() {
+    if (state.chat) return chatView();
     if (state.snapDraft) return snapSheet();
     if (state.shareMenu) return shareMenu();
     const id = state.person; if (!id) return "";
@@ -4401,6 +4550,7 @@ button.jtile { cursor:pointer; }
         if (state.pweek) delete state.pweek[state.meId];
         await loadSocial(); render(); } }, { label: "Keep" }] }); }));
     on("psNudge", "click", sendNudge);
+    wireChat();
     const reloadWins = async (id, day) => { if (state.winFull) delete state.winFull[winKey(id, day)]; await loadWins(id, day); render(); };
     document.querySelectorAll("[data-cmform]").forEach((el) => el.addEventListener("submit", async (e) => {
       e.preventDefault(); const [wid, id, day] = el.dataset.cmform.split("|"), f = el.querySelector(".cmin"), body = (f.value || "").trim(); if (!body) return;
@@ -4451,6 +4601,7 @@ button.jtile { cursor:pointer; }
       toast(`${STD[k].short || STD[k].label}, ${shortDay(iso)}: ${v === null ? "not logged" : stdWords(k, v)}${el.classList.contains("hit") ? " \u00b7 goal hit" : ""}`); }));
     document.querySelectorAll("[data-jw]").forEach((el) => el.addEventListener("click", () => { state.jwSel = Number(el.dataset.jw); render(); }));
     document.querySelectorAll("[data-jm]").forEach((el) => el.addEventListener("click", () => toast(el.dataset.jm)));
+    document.querySelectorAll("[data-js]").forEach((el) => el.addEventListener("click", () => { state.jSpan = el.dataset.js; render(); }));
     document.querySelectorAll("[data-jr]").forEach((el) => el.addEventListener("click", () => { state.jRange = Number(el.dataset.jr); render(); }));
     on("jHow", "click", () => { state.jHow = !state.jHow; render(); });
   }
@@ -4562,13 +4713,15 @@ button.jtile { cursor:pointer; }
       case "cheered": return ["❤", `${who} got ${it.n} cheers this week`];
       case "wins": return ["\u{1F4F7}", `${who} shared ${it.n} wins this week`];
       case "up": return ["\u{1F4C8}", `${who} logged ${it.n} days this week, up from ${it.was}`];
+      case "pbweek": return ["\u{1F3C5}", `${who} had ${mine ? "your" : "a"} best week ever: ${num(Math.round(it.n))} steps`];
+      case "jump": return ["\u{1F680}", `${who} walked ${it.n}% more a day last week (${num(Math.round(it.was))} \u2192 ${num(Math.round(it.now))})`];
       default: return null;
     }
   }
   function spotlight() {
     const S = state.spot;
     if (!S || !S.items) { if (!(S && S.busy)) setTimeout(() => loadSpotlight(), 0); return ""; }
-    const rows = S.items.map((it) => [it, spotLine(it)]).filter(([, l]) => l).slice(0, 3); if (!rows.length) return "";
+    const rows = S.items.map((it) => [it, spotLine(it)]).filter(([, l]) => l).slice(0, 8); if (!rows.length) return "";
     const cheer = (it) => { const x = it.id && it.id !== state.meId ? gpx(it.id) : null; if (!x || !(x.logged || soc(x.id).photo)) return "";
       return soc(x.id).mine ? `<span class="spc sent" aria-label="You cheered ${esc(x.name)}">❤</span>`
         : `<button type="button" class="spc" data-cheer="${x.id}" aria-label="Cheer ${esc(x.name)}">\u{1F389}</button>`; };
@@ -5067,7 +5220,7 @@ button.jtile { cursor:pointer; }
     // p_me + p_tz teach the server where this phone is, on every load. A
     // family member who only ever reads the board would otherwise keep the
     // group's zone for ever and see somebody else's day.
-    const side = state.meId ? Promise.all([loadHistory(), loadVotes(true), loadHabits(), loadGarden(), loadToday(), loadCampfire(true), loadSocial()]) : Promise.resolve();
+    const side = state.meId ? Promise.all([loadHistory(), loadVotes(true), loadHabits(), loadGarden(), loadToday(), loadCampfire(true), loadSocial(), loadChats()]) : Promise.resolve();
     if (state.meId && !state.league) loadLeague();   // V7.2. The League tab opens with its answer ready.
     const res = await callRetry("app_state", { p_code: state.code,
       p_me: state.meId || null, p_tz: deviceTZ() });
@@ -7868,6 +8021,7 @@ button.jtile { cursor:pointer; }
         <b>${state.group.crest ? `<span class="hcrest" aria-hidden="true">${esc(state.group.crest)}</span>` : ""}${esc(state.group.name)}</b>
         ${m ? `<input type="file" id="photoFile" accept="image/*" hidden>` : ""}
         <span class="hright">
+          ${m ? chatBtn() : ""}
           ${m ? `<button type="button" class="hinfo${tourSeen() && !ownerNews() ? "" : " new"}" id="tourBtn" aria-label="Help and feedback">i</button>` : ""}</span>
       </div>
       ${m ? cheerBanner() + commentsBanner() : ""}
@@ -8224,12 +8378,12 @@ button.jtile { cursor:pointer; }
   // V10.1. Quotes: micro-learning instead of doomscrolling. A handful of
   // public-domain lines ship with the app, each checked word for word
   // against its source; the tribe's owner adds the rest.
-  const QUOTES0 = [   // V10.3: each with who said it and where
-    { k: "s2", t: "A strong body makes the mind strong.", a: "Thomas Jefferson", s: "Letter to Peter Carr, 19 August 1785", p: "Exercise", u: "https://founders.archives.gov/documents/Jefferson/01-08-02-0319" },
-    { k: "s3", t: "Early to Bed, and early to rise, makes a Man healthy, wealthy and wise.", a: "Benjamin Franklin", s: "The Way to Wealth (1758)", p: "Sleep", u: "https://founders.archives.gov/documents/Franklin/01-07-02-0146" },
-    { k: "s4", t: "Temperance. Eat not to dullness; drink not to elevation.", a: "Benjamin Franklin", s: "Autobiography, the thirteen virtues", p: "Diet", u: "https://www.ushistory.org/franklin/autobiography/page38.htm" },
-    { k: "s5", t: "Lay hold of to-day\u2019s task, and you will not need to depend so much upon to-morrow\u2019s.", a: "Seneca", s: "Letters to Lucilius, I, tr. R. M. Gummere (1917)", p: "Great Work", u: "https://www.stoics.com/seneca_epistles_book_1.html" },
-    { k: "s6", t: "Nothing can bring you peace but yourself.", a: "Ralph Waldo Emerson", s: "Self-Reliance (1841)", p: "Meditation", u: "https://www.gutenberg.org/files/2944/2944-h/2944-h.htm" },
+  const QUOTES0 = [   // V10.3: each with who said it and where. V10.4: and its format
+    { k: "s2", t: "A strong body makes the mind strong.", a: "Thomas Jefferson", s: "Letter to Peter Carr, 19 August 1785", p: "Exercise", f: "Book", u: "https://founders.archives.gov/documents/Jefferson/01-08-02-0319" },
+    { k: "s3", t: "Early to Bed, and early to rise, makes a Man healthy, wealthy and wise.", a: "Benjamin Franklin", s: "The Way to Wealth (1758)", p: "Sleep", f: "Book", u: "https://founders.archives.gov/documents/Franklin/01-07-02-0146" },
+    { k: "s4", t: "Temperance. Eat not to dullness; drink not to elevation.", a: "Benjamin Franklin", s: "Autobiography, the thirteen virtues", p: "Diet", f: "Book", u: "https://www.ushistory.org/franklin/autobiography/page38.htm" },
+    { k: "s5", t: "Lay hold of to-day\u2019s task, and you will not need to depend so much upon to-morrow\u2019s.", a: "Seneca", s: "Letters to Lucilius, I, tr. R. M. Gummere (1917)", p: "Great Work", f: "Book", u: "https://www.stoics.com/seneca_epistles_book_1.html" },
+    { k: "s6", t: "Nothing can bring you peace but yourself.", a: "Ralph Waldo Emerson", s: "Self-Reliance (1841)", p: "Meditation", f: "Book", u: "https://www.gutenberg.org/files/2944/2944-h/2944-h.htm" },
   ];
   const Q_PILLARS = ["Meditation", "Exercise", "Diet", "Sleep", "Great Work"];   // V10.2. These five, in this order.
   async function loadQuotes() {
@@ -8239,7 +8393,9 @@ button.jtile { cursor:pointer; }
     state.quotes = r && !r.error ? { owner: !!r.owner, list: r.list || [], saved: r.saved || [] } : Object.assign({}, state.quotes, { busy: false, err: true });
     if (state.view === "board" && homeTab() === "sparks") render();
   }
-  const allQuotes = () => QUOTES0.concat(((state.quotes || {}).list || []).map((q) => ({ k: "q" + q.id, id: q.id, t: q.t, a: q.a, s: q.s, p: q.p, u: q.u, n: q.n, by: q.by, own: !!q.mine, mine: true })));
+  // V10.4. Your tribe's newest first (the server sends them newest first), then the starter ones.
+  const allQuotes = () => ((state.quotes || {}).list || []).map((q) => ({ k: "q" + q.id, id: q.id, t: q.t, a: q.a, s: q.s, p: q.p, f: q.f, u: q.u, n: q.n, by: q.by, own: !!q.mine, mine: true, at: q.at })).concat(QUOTES0);
+  const Q_FMT = ["Book", "Tweet", "Article", "Video"];
   // A steady shuffle for the day, so the scroll isn't the same order each visit.
   function dayShuffle(xs) {
     let h = 0; for (const c of todayISO()) h = (h * 31 + c.charCodeAt(0)) >>> 0;
@@ -8252,16 +8408,21 @@ button.jtile { cursor:pointer; }
     const Q = state.quotes; if (!Q || (!Q.list && !Q.err)) { if (!(Q && Q.busy)) setTimeout(() => loadQuotes(), 0); }
     const saved = new Set((Q && Q.saved) || []), f = state.qFilter || "all";
     const pool = allQuotes(), present = Q_PILLARS;
-    let xs = f === "saved" ? pool.filter((q) => saved.has(q.k)) : f === "all" ? dayShuffle(pool) : pool.filter((q) => q.p === f);
+    const ff = state.qFmt || "";
+    let xs = f === "saved" ? pool.filter((q) => saved.has(q.k)) : f === "all" ? pool : pool.filter((q) => q.p === f);
+    if (ff) xs = xs.filter((q) => q.f === ff);
+    if (state.qShuffle) xs = dayShuffle(xs);
     // V10.3. One long scroll, 15 at a time as you reach the bottom, then an honest end.
     const n = Math.min(xs.length, state.qN || 15), more = n < xs.length, shown = xs.slice(0, n);
+    const fchips = `<div class="qchips qfmt" role="group" aria-label="Format">${[["", "All formats"]].concat(Q_FMT.map((x) => [x, x])).map(([v, t]) =>
+      `<button type="button" data-qfmt="${v}" aria-pressed="${ff === v}">${t}</button>`).join("")}<button type="button" class="qshuf${state.qShuffle ? " on" : ""}" id="qShuf" aria-pressed="${!!state.qShuffle}">\u{1F500} ${state.qShuffle ? "Shuffled" : "Shuffle"}</button></div>`;
     const chips = `<div class="qchips" role="group" aria-label="Show">${[["all", "All"], ["saved", `\u2605 Saved${saved.size ? " " + saved.size : ""}`]].concat(present.map((p) => [p, p])).map(([v, t]) =>
       `<button type="button" data-qf="${esc(v)}" aria-pressed="${f === v}">${esc(t)}</button>`).join("")}</div>`;
     const card = (q, i) => { const op = state.qOpen === q.k + ":" + i, sv = saved.has(q.k);
       return `<article class="qcard sp${op ? " open" : ""}${sv ? " saved" : ""}">
         <button type="button" class="qbody" data-qopen="${q.k}:${i}" aria-expanded="${op}"><span class="qa">${esc(q.a || "Unknown")}${sv ? ` <i class="qsv" aria-label="Saved">\u2605</i>` : ""}</span>
           <span class="qt">${esc(q.t.replace(/^[\u201c"]+|[\u201d"]+$/g, ""))}</span></button>
-        ${op ? `<dl class="qmore">${q.s ? `<dt>Source</dt><dd>${esc(q.s)}</dd>` : ""}${q.p ? `<dt>Topic</dt><dd>${esc(q.p)}</dd>` : ""}${q.n ? `<dt>Note</dt><dd>${esc(q.n)}</dd>` : ""}${q.by ? `<dt>Added by</dt><dd>${q.own ? "You" : esc(firstName({ name: q.by }))}</dd>` : ""}
+        ${op ? `<dl class="qmore">${q.s ? `<dt>Source</dt><dd>${esc(q.s)}</dd>` : ""}${q.f ? `<dt>Format</dt><dd>${esc(q.f)}</dd>` : ""}${q.p ? `<dt>Topic</dt><dd>${esc(q.p)}</dd>` : ""}${q.n ? `<dt>Note</dt><dd>${esc(q.n)}</dd>` : ""}${q.by ? `<dt>Added by</dt><dd>${q.own ? "You" : esc(firstName({ name: q.by }))}</dd>` : ""}
           ${safeUrl(q.u) ? `<dt>Link</dt><dd><a href="${esc(q.u)}" target="_blank" rel="noopener noreferrer">Read the source \u2197</a></dd>` : ""}</dl>
           ${q.mine && (q.own || (Q && Q.owner)) ? `<button type="button" class="linkbtn gdel" data-qdel="${q.id}">Remove</button>` : ""}` : ""}
         ${op ? `<button type="button" class="qsave${sv ? " on" : ""}" data-qsave="${q.k}" aria-pressed="${sv}">${sv ? "\u2605 Saved" : "\u2606 Save"}</button>` : ""}</article>`; };
@@ -8269,15 +8430,16 @@ button.jtile { cursor:pointer; }
     const end = !shown.length ? `<div class="cfempty"><p>${f === "saved" ? "Tap \u2606 on a spark to keep it here." : "Nothing here yet. Add the first one."}</p></div>`
       : more ? `<div class="qmore-sentinel" id="qMore" aria-hidden="true"></div>`
       : `<div class="qend"><p><b>You're caught up.</b></p>${f === "saved" ? "" : `<button type="button" class="qadd" id="qAdd2">+ Add a spark</button>`}</div>`;
-    return `${chips}${add}<div class="qlist">${shown.map(card).join("")}</div>${end}`;
+    return `${chips}${fchips}${add}<div class="qlist">${shown.map(card).join("")}</div>${end}`;
   }
   function quoteForm() {
     const A = state.qAdd;
     return `<section class="card qform"><p class="eyebrow">Add a spark</p>
       <div class="qtopics" role="radiogroup" aria-label="Topic">${Q_PILLARS.map((p) => `<button type="button" class="achip${A.p === p ? " on" : ""}" data-qtopic="${esc(p)}" role="radio" aria-checked="${A.p === p}">${(cfTopic(p) || [])[1] || ""} ${esc(p)}</button>`).join("")}</div>
+      <div class="qtopics" role="radiogroup" aria-label="Format">${Q_FMT.map((x) => `<button type="button" class="achip${A.f === x ? " on" : ""}" data-qfm="${x}" role="radio" aria-checked="${A.f === x}">${x}</button>`).join("")}</div>
       <textarea class="field" id="qaText" rows="4" maxlength="600" placeholder="The words, exactly as written or said">${esc(A.text || "")}</textarea>
       <input class="field" id="qaA" maxlength="80" autocomplete="off" placeholder="Who said it" value="${esc(A.a || "")}" aria-label="Who said it">
-      <input class="field" id="qaS" maxlength="160" autocomplete="off" placeholder="Where: book, article, podcast or video title" value="${esc(A.s || "")}" aria-label="Source">
+      <input class="field" id="qaS" maxlength="160" autocomplete="off" placeholder="Title of the book, tweet, article or video" value="${esc(A.s || "")}" aria-label="Source">
       <input class="field" id="qaU" maxlength="400" autocomplete="off" inputmode="url" placeholder="Link (optional)" value="${esc(A.u || "")}" aria-label="Link, optional">
       ${A.err ? `<p class="hint bad">${esc(A.err)}</p>` : `<p class="hint">Your tribe sees it. Only words you have the right to share: your own, or public-domain text.</p>`}
       <div class="stdbtns"><button type="button" class="btn-quiet" id="qaX">Cancel</button><button type="button" class="btn" id="qaGo" ${A.busy ? "disabled" : ""}>${A.busy ? "Adding\u2026" : "Add"}</button></div></section>`;
@@ -8296,6 +8458,8 @@ button.jtile { cursor:pointer; }
     }).filter((q) => q.t);
   }
   function wireQuotes() {
+    document.querySelectorAll("[data-qfmt]").forEach((el) => el.addEventListener("click", () => { state.qFmt = el.dataset.qfmt; state.qOpen = null; state.qN = 15; render(); }));
+    on("qShuf", "click", () => { state.qShuffle = !state.qShuffle; state.qN = 15; render(); });
     document.querySelectorAll("[data-qf]").forEach((el) => el.addEventListener("click", () => { state.qFilter = el.dataset.qf; state.qOpen = null; state.qN = 15; render(); }));
     document.querySelectorAll("[data-qopen]").forEach((el) => el.addEventListener("click", () => { state.qOpen = state.qOpen === el.dataset.qopen ? null : el.dataset.qopen; render(); }));
     document.querySelectorAll("[data-qsave]").forEach((el) => el.addEventListener("click", async () => {
@@ -8314,16 +8478,19 @@ button.jtile { cursor:pointer; }
       A.text = g("qaText") ?? A.text; A.a = g("qaA") ?? A.a; A.s = g("qaS") ?? A.s; A.u = g("qaU") ?? A.u; };
     document.querySelectorAll("[data-qtopic]").forEach((el) => el.addEventListener("click", () => {
       const A = state.qAdd; if (!A) return; keepQ(); A.p = el.dataset.qtopic; A.err = null; render(); }));
+    document.querySelectorAll("[data-qfm]").forEach((el) => el.addEventListener("click", () => {
+      const A = state.qAdd; if (!A) return; keepQ(); A.f = el.dataset.qfm; A.err = null; render(); }));
     on("qAdd2", "click", () => { state.qAdd = { text: "", p: "", err: null }; render(); window.scrollTo(0, 0); document.getElementById("qaText")?.focus(); });
     on("qaGo", "click", async () => {
       const A = state.qAdd; if (!A || A.busy) return;
       keepQ();
       if (!A.p) { A.err = "Pick a topic first."; render(); return; }
+      if (!A.f) { A.err = "Pick where it's from: book, tweet, article or video."; render(); return; }
       const t = String(A.text || "").trim().replace(/^["\u201c]+|["\u201d]+$/g, "").trim();
       if (!t) { A.err = "Write the words first."; render(); return; }
-      if (!String(A.a || "").trim() || !String(A.s || "").trim()) { A.err = "Add who said it and where (a book, article, podcast or video)."; render(); return; }
+      if (!String(A.a || "").trim() || !String(A.s || "").trim()) { A.err = "Add who said it and where (the title of the book, tweet, article or video)."; render(); return; }
       if (String(A.u || "").trim() && !safeUrl(String(A.u).trim())) { A.err = "A link starts with https://"; render(); return; }
-      const list = [{ t, a: A.a.trim(), s: A.s.trim(), u: String(A.u || "").trim(), p: A.p }];
+      const list = [{ t, a: A.a.trim(), s: A.s.trim(), u: String(A.u || "").trim(), p: A.p, f: A.f }];
       A.busy = true; A.err = null; render();
       const r = await call("app_quote_add", { p_code: state.code, p_person: state.meId, p_list: list });
       if (r.error) { A.busy = false; A.err = r.offline ? "No signal. Not added yet." : r.error; render(); return; }
@@ -8428,6 +8595,16 @@ button.jtile { cursor:pointer; }
   function lessonParts(D) {
     if (!D.claim) return `<div class="lsbody">${lessonHTML(D.body)}</div>`;
     const url = safeUrl(D.url);
+    const L = (x) => Array.isArray(x) ? x : [];
+    if (D.why || L(D.steps).length) return `<div class="lsbody">
+      <p class="lsclaim">${esc(D.claim)}</p>
+      ${D.explain ? `<p class="lslab">What they found</p><p>${esc(D.explain)}</p>` : ""}
+      <blockquote class="lsquote">\u201c${esc(D.proof)}\u201d<cite>${esc(D.cite || "")}${url ? ` \u00b7 <a href="${esc(url)}" target="_blank" rel="noopener noreferrer">Read the study \u2197</a>` : ""}</cite></blockquote>
+      ${D.why ? `<p class="lslab">Why it works</p><p>${esc(D.why)}</p>` : ""}
+      ${L(D.examples).length ? `<p class="lslab">In real life</p><ul class="lsex">${L(D.examples).map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+      ${L(D.steps).length ? `<p class="lslab">Do this</p><ol class="lssteps">${L(D.steps).map((x) => `<li>${esc(x)}</li>`).join("")}</ol>` : ""}
+      <p class="lslab">So</p><p class="lsconc">${esc(D.conclusion)}</p>
+      ${D.evidence ? evidenceLine(D.evidence, D.fine) : ""}</div>`;
     return `<div class="lsbody">
       <p class="lsclaim">${esc(D.claim)}</p>
       ${D.explain ? `<p class="lslab">Why</p><p>${esc(D.explain)}</p>` : ""}
@@ -8438,10 +8615,10 @@ button.jtile { cursor:pointer; }
   }
   // V10.1. "★★ Second rung" said nothing on its own: the stars and the rung
   // are the evidence ladder (3 stars: trials pooled; ☆: a link, not proof).
-  function evidenceLine(t) {
+  function evidenceLine(t, fine) {
     const m = String(t).match(/^([\u2605\u2606]+)\s*/), n = m ? (m[1].match(/\u2605/g) || []).length : null;
     const rest = (m ? String(t).slice(m[0].length) : String(t)).replace(/\bSecond rung\.?/g, "Second rung of the evidence ladder.").replace(/\bTop of the ladder\b/g, "Top of the evidence ladder");
-    return `<p class="lsev"><span class="lsevh">Evidence${n !== null ? ` <span class="lsevs" aria-label="${n} of 3 stars">${"\u2605".repeat(n)}${"\u2606".repeat(3 - n)}</span> ${n} of 3` : ""}</span>${esc(rest)}</p>`;
+    return `<p class="lsev"><span class="lsevh">Evidence${n !== null ? ` <span class="lsevs" aria-label="${n} of 3 stars">${"\u2605".repeat(n)}${"\u2606".repeat(3 - n)}</span> ${n} of 3` : ""}</span>${esc(rest)}${fine ? `<span class="lsfine"><b>The fine print.</b> ${esc(fine)}</span>` : ""}</p>`;
   }
   function campSheet() {
     const R = state.lesson, A = state.campAll, N = state.lessonNew, C = state.camp || {};
@@ -8604,41 +8781,78 @@ button.jtile { cursor:pointer; }
   // V10.1. Me at a glance: three numbers, then every habit you have on as
   // one row of dots (a dot a day; a square a week over 90 days). Pick the
   // span; tap a row to open that habit. The how-to text waits behind "How".
+  // V10.4. Me › Progress: this week (Monday to Sunday), this month, or the
+  // last 12 months. Green = goal hit, yellow = logged but short. Each habit
+  // shows its average then and now (last week, last month, or 12 months ago).
+  function spanDays(span, off) {
+    const today = (state.votes && state.votes.today) || todayISO();
+    if (span === "w") { const a = shiftISO(mondayOf(today), 7 * off); return Array.from({ length: 7 }, (_, i) => shiftISO(a, i)); }
+    const y0 = Number(today.slice(0, 4)), m0 = Number(today.slice(5, 7)) - 1 + off, d = new Date(Date.UTC(y0, m0, 1));
+    const y = d.getUTCFullYear(), mo = d.getUTCMonth() + 1, n = new Date(Date.UTC(y, mo, 0)).getUTCDate();
+    return Array.from({ length: n }, (_, i) => `${y}-${pad(mo)}-${pad(i + 1)}`);
+  }
+  function habitSpan(k, days) {
+    const V = votesOf(k), D = V && V.days && !Array.isArray(V.days) ? V.days : {}, today = (state.votes && state.votes.today) || todayISO();
+    const m = me() || {}, std = k === "rise" || k === "rest" ? (hasTarget(m, k) ? target(m, k) : STD[k].def) : stdOf(m, k);
+    const val = (raw) => k === "dd" ? ddCount(raw) : k === "sleep" ? scorePct(raw) : Number(raw);
+    return days.map((iso) => { const v = D[iso] === undefined ? null : val(D[iso]);
+      return { iso, v, fut: iso > today, hit: v !== null && (stdPct(k, v, std) || 0) >= 100 }; });
+  }
   function journeyMe() {
-    const mine = gardenMe(), T = state.today || {}, S = T.streak || {};
+    const mine = gardenMe(), S = (state.today || {}).streak || {};
     if (mine && !mine.pledged) return tribeCard();
-    const R = [7, 30, 90].includes(state.jRange) ? state.jRange : 30;
+    const span = ["w", "m", "y"].includes(state.jSpan) ? state.jSpan : "w";
     const ks = myDials().filter((k) => STD[k] && votesOf(k) && k !== "weight" && k !== "tasks");
-    // V10.3. Each habit: its average over the span against the span before.
-    const rows = ks.map((k) => { const P2 = progPoints(k, 2 * R); if (!P2) return null;
-      const P = { pts: P2.pts.slice(R).map((p, i) => Object.assign({}, p, { i })), std: P2.std }, before = P2.pts.slice(0, R);
-      const V = votesOf(k), d0 = Object.keys((V && V.days && !Array.isArray(V.days) ? V.days : {}) || {}).sort()[0];
-      const avail = d0 ? P.pts.filter((p) => p.iso >= d0).length : 0;
-      return { k, P, before, avail, hit: P.pts.filter((p) => p.hit).length, log: P.pts.filter((p) => p.v !== null).length }; }).filter(Boolean);
-    const hit = rows.reduce((a, r) => a + r.hit, 0), all = rows.reduce((a, r) => a + r.avail, 0), pct = all ? Math.round(hit / all * 100) : 0;
-    const lvl = mine ? mine.level : 1, wk = mine ? (mine.days || []).length : 0;
-    const tiles = `<div class="jtiles">
-        <div class="jtile"><b>\u{1F525} ${S.n || 0}</b><small>day streak${S.today ? "" : " \u00b7 log today"}</small></div>
-        <button type="button" class="jtile" id="gameOpen" aria-label="${BD(lvl)[0]} badge: how to play"><b>${badgeSVG(lvl, 22)} ${wk}/7</b><small>${esc(BD(lvl)[0])} \u00b7 this week</small></button>
-        <div class="jtile"><b class="${pct >= 70 ? "good" : ""}">${pct}%</b><small>goals hit \u00b7 ${R} days</small></div></div>`;
-    const span = `<div class="jrange" role="group" aria-label="How far back">${[7, 30, 90].map((n) => `<button type="button" data-jr="${n}" aria-pressed="${n === R}">${n} days</button>`).join("")}</div>`;
-    const dots = (r) => {
-      if (R === 90) { const w = []; for (let i = 0; i < r.P.pts.length; i += 7) { const xs = r.P.pts.slice(i, i + 7); w.push(xs.filter((p) => p.hit).length / xs.length); }
-        return w.map((f) => `<i class="wk" style="--f:${f.toFixed(2)}"></i>`).join(""); }
-      return r.P.pts.map((p) => `<i class="${p.hit ? "hit" : p.v !== null ? "log" : ""}" data-jdot="${r.k}|${p.iso}"></i>`).join("");
-    };
-    const list = rows.length ? `<ul class="jhab jcmp r${R}">${rows.map((r) => `<li><div class="jrow1"><button type="button" class="jhn" data-go="${r.k}">${esc(STD[r.k].short || STD[r.k].label)}</button>${thenNow(r)}</div>
-        <span class="jhd">${dots(r)}</span></li>`).join("")}</ul>
-        <p class="jkey"><span>${R} days vs the ${R} before</span><span><i class="hit"></i>goal hit</span><span><i class="log"></i>logged</span></p>`
-      : `<p class="hint">Turn habits on under Me and log them: they show up here.</p>`;
+    const today = (state.votes && state.votes.today) || todayISO();
+    let rows;
+    if (span === "y") {
+      const months = Array.from({ length: 12 }, (_, i) => spanDays("m", i - 11));
+      rows = ks.map((k) => { const ms = months.map((ds) => { const P = habitSpan(k, ds).filter((p) => !p.fut), L = P.filter((p) => p.v !== null);
+          return { m: ds[0].slice(0, 7), n: L.length, hit: P.filter((p) => p.hit).length, of: P.length, avg: L.length ? L.reduce((s, p) => s + p.v, 0) / L.length : null }; });
+        const first = ms.find((x) => x.avg !== null), last = ms[11];
+        return { k, ms, before: first && first !== last ? [{ v: first.avg, m: first.m }] : [], now: last.avg !== null ? [{ v: last.avg }] : [], firstM: first && first.m }; });
+    } else {
+      rows = ks.map((k) => ({ k, pts: habitSpan(k, spanDays(span, 0)), prev: habitSpan(k, spanDays(span, -1)) }));
+    }
+    const MS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const tabs = `<div class="jrange" role="group" aria-label="Span">${[["w", "Week"], ["m", "Month"], ["y", "Year"]].map(([v, t]) => `<button type="button" data-js="${v}" aria-pressed="${v === span}">${t}</button>`).join("")}</div>`;
+    const label = span === "w" ? `This week vs last week` : span === "m" ? `${MONTH_NAMES[Number(today.slice(5, 7)) - 1]} vs ${MONTH_NAMES[(Number(today.slice(5, 7)) + 10) % 12]}` : "The last 12 months";
+    const cell = (p, k) => `<i class="${p.fut ? "fut" : p.hit ? "hit" : p.v !== null ? "log" : ""}" ${p.fut ? "" : `data-jdot="${k}|${p.iso}"`}></i>`;
+    const list = !rows.length ? `<p class="hint">Turn habits on under Me and log them: they show up here.</p>`
+      : `<ul class="jhab jcmp s${span}">${rows.map((r) => {
+        const S2 = STD[r.k], bin = S2.custom && S2.hk === "done";
+        let tn, cells;
+        if (span === "y") {
+          tn = r.firstM && r.before.length && r.now.length && !bin
+            ? cmpWords(r.k, r.before[0].v, r.now[0].v, MS[Number(r.firstM.slice(5, 7)) - 1], MS[Number(today.slice(5, 7)) - 1])
+            : `<span class="jtn">${r.ms.filter((x) => x.n).length} of 12 months logged</span>`;
+          cells = r.ms.map((x) => `<i class="mo${x.n ? (x.hit ? "" : " log") : ""}" style="--f:${x.of ? (x.hit / x.of).toFixed(2) : 0}" data-jm="${esc(S2.short || S2.label)}, ${MS[Number(x.m.slice(5, 7)) - 1]}: ${x.n ? `goal hit ${x.hit} of ${x.of} days${x.avg !== null && !bin ? `, avg ${esc(stdWords(r.k, x.avg))}` : ""}` : "not logged"}"><b>${MS[Number(x.m.slice(5, 7)) - 1][0]}</b></i>`).join("");
+        } else {
+          const seen = (xs) => xs.filter((p) => p.v !== null), avg = (xs) => xs.length ? xs.reduce((s, p) => s + p.v, 0) / xs.length : null;
+          const a = seen(r.prev), b = seen(r.pts);
+          tn = bin ? `<span class="jtn">${a.length} \u2192 <b>${b.length}</b> days</span>` : cmpWords(r.k, avg(a), avg(b), span === "w" ? "last wk" : "last mo", span === "w" ? "this wk" : "this mo");
+          cells = r.pts.map((p) => cell(p, r.k)).join("");
+        }
+        return `<li><div class="jrow1"><button type="button" class="jhn" data-go="${r.k}">${esc(S2.short || S2.label)}</button>${tn}</div>
+          ${span === "w" ? `<span class="jwk">${WD.map((d) => `<small>${d}</small>`).join("")}</span>` : ""}<span class="jhd">${cells}</span></li>`; }).join("")}</ul>
+        <p class="jkey"><span><i class="hit"></i>goal hit</span><span><i class="log"></i>logged, short</span><span><i></i>not logged</span></p>`;
     const next = [30, 100, 365].find((t) => (S.n || 0) < t), PTS = { 30: 100, 100: 300, 365: 1000 };
-    const how = state.jHow ? `<div class="jhow"><p>Best streak <b>${S.best || 0}</b> \u00b7 Freezes <b>${"\u2744".repeat(S.freezes || 0) || "0"}</b> (a freeze saves a missed day).</p>
+    const how = state.jHow ? `<div class="jhow"><p>\u{1F525} Streak <b>${S.n || 0}</b> \u00b7 best <b>${S.best || 0}</b> \u00b7 Freezes <b>${"\u2744".repeat(S.freezes || 0) || "0"}</b> (a freeze saves a missed day).</p>
         ${next ? `<p><b>${next - (S.n || 0)}</b> more day${next - (S.n || 0) === 1 ? "" : "s"} to <b>+${num(PTS[next])}</b> points (${next}-day streak).</p>` : ""}
-        ${mine ? `<p>${esc(moveWords(mine))}</p>` : ""}</div>` : "";
-    return `${tiles}<section class="jcard jall" aria-label="All your habits">${span}${list}</section>
+        ${mine ? `<p>${badgeSVG(mine.level, 16)} ${esc(BD(mine.level)[0])}: ${esc(moveWords(mine))}</p>` : ""}</div>` : "";
+    return `<section class="jcard jall" aria-label="All your habits">${tabs}<p class="jct">${label}</p>${list}</section>
       ${myMilestones()}
-      <button type="button" class="linkbtn jhowb" id="jHow" aria-expanded="${!!state.jHow}">${state.jHow ? "Hide" : "How streaks and badges work \u203a"}</button>${how}
-`;
+      <button type="button" class="linkbtn jhowb" id="jHow" aria-expanded="${!!state.jHow}">${state.jHow ? "Hide" : "Streak, badge and points \u203a"}</button>${how}`;
+  }
+  // "6,012 → 9,874 ▲64%" between two averages; for a time, earlier is better.
+  function cmpWords(k, x, y, l1, l2) {
+    const S = STD[k];
+    if (y === null || y === undefined) return `<span class="jtn">${x === null || x === undefined ? "not logged yet" : `${l1} ${esc(stdWords(k, x))}`}</span>`;
+    if (x === null || x === undefined) return `<span class="jtn">${l2} <b>${esc(stdWords(k, y))}</b></span>`;
+    let tag = "";
+    if (S.kind === "time") { const d = Math.round(y - x); if (Math.abs(d) >= 5) tag = `<em class="${d < 0 ? "up" : "down"}">${hm(Math.abs(d))} ${d < 0 ? "earlier" : "later"}</em>`; }
+    else if (x > 0) { const pc = Math.round((y - x) / x * 100); if (pc) tag = `<em class="${pc > 0 ? "up" : "down"}">${pc > 0 ? "\u25b2" : "\u25bc"}${Math.abs(pc)}%</em>`; }
+    return `<span class="jtn" title="${esc(l1)} \u2192 ${esc(l2)}">${esc(stdWords(k, x))} \u2192 <b>${esc(stdWords(k, y))}</b> ${tag}</span>`;
   }
   // "6,012 → 9,874 ▲64%": the average on the days you logged, then and now.
   // Earlier is better for a time (Rise, Rest); more is better for the rest.
