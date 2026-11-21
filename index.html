@@ -3378,6 +3378,56 @@ button.fendj b { color:var(--accent); }
 .cfnone { margin:0; padding:0 14px 14px; }
 .cfrd { font-style:normal; color:#2f9e6e; font-weight:700; }
 
+/* ---------- V10.5 ---------------------------------------------------- */
+/* Tasks: a step's box is square, half a step in from its task's circle. */
+.ts .tck.sm { border-radius:5px; }
+.tl .ts, .tl .ts.tsv { margin-left:0; padding-left:12px; }
+.tl .tm:has(.trank) .ts, .tl .tm:has(.trank) .ts.tsv { padding-left:42px; }
+/* Insights: quiet chips, nothing picked means all. */
+.hquotes .htabh { display:flex; align-items:center; justify-content:space-between; }
+.qplus { width:34px; height:34px; border-radius:50%; border:1.5px solid var(--line-strong); background:none; color:var(--ink); font-size:20px; line-height:1; cursor:pointer; padding:0; }
+.qtag { margin:-4px 0 12px; font-size:14px; color:var(--muted); }
+.hquotes .qchips { display:flex; flex-wrap:wrap; gap:6px; margin:0 0 8px; }
+.hquotes .qchips .qc { border:1px solid var(--line); background:none; color:var(--ink-2); border-radius:99px; padding:5px 12px;
+  font:inherit; font-size:13px; cursor:pointer; min-height:0; box-shadow:none; }
+.hquotes .qchips .qc[aria-pressed="true"] { background:var(--ink); border-color:var(--ink); color:var(--ground); }
+.hquotes .qchips .qshuf { padding:5px 9px; margin-left:auto; }
+.hquotes .qfmt { margin-bottom:14px; }
+.qend { text-align:center; padding:6px 0 26px; }
+.qround { display:flex; flex-direction:column; align-items:center; gap:2px; width:100%; border:1.5px dashed var(--line-strong); background:none;
+  border-radius:14px; padding:16px 12px; font:inherit; color:var(--ink); cursor:pointer; }
+.qround b { font-size:15.5px; } .qround small { color:var(--muted); font-size:13px; }
+.qadd3 { margin-top:12px; }
+.qapaste { position:relative; } .qapaste .linkbtn { position:absolute; right:10px; bottom:12px; font-size:13px; }
+/* Proof: hook, proof, one action. */
+.pf .pfcat { margin:0 0 6px; font-size:12px; letter-spacing:.08em; font-weight:700; color:var(--tc); }
+.pf .pfhook { margin:0 0 8px; font-size:25px; line-height:1.18; font-weight:750; letter-spacing:-.01em; color:var(--ink); }
+.pf .pfwho { margin:0 0 12px; font-size:14px; color:var(--ink-2); }
+.pf .pfwho .lsevs { color:#e0b04a; letter-spacing:1px; }
+.pf .pfq { margin:0 0 14px; }
+.pf .pfq cite a { text-decoration:none; font-weight:700; }
+.pfdo { border-left:3px solid var(--tc); background:color-mix(in oklab, var(--tc) 9%, var(--surface)); border-radius:0 12px 12px 0; padding:10px 14px; margin:0 0 12px; }
+.pfdo small { display:block; font-size:11.5px; letter-spacing:.1em; font-weight:800; color:var(--tc); }
+.pfdo p { margin:3px 0 0; font-size:16.5px; line-height:1.35; color:var(--ink); font-weight:600; }
+.pfbar { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.pfgo { flex:none; } .pfgo.done { background:var(--green, #2f9e6e); border-color:transparent; color:#fff; opacity:1; }
+.pfmore { font-size:14px; }
+.pfrest { margin-top:14px; border-top:1px solid var(--line); padding-top:8px; }
+.pfrest .lssave { margin-top:10px; }
+/* Check in: Paste beside Photo. */
+.smsheet .smrow { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:10px; }
+.smsheet .smrow .smbtn { min-width:0; width:auto; } .smhint { text-align:center; margin:6px 0 0; }
+/* Chat: groups. */
+.chhead .chnewg { margin-left:auto; border:1px solid var(--line-strong); background:none; border-radius:99px; padding:5px 12px; font:inherit; font-size:13px; color:var(--ink); cursor:pointer; }
+.chhead .chdots { margin-left:auto; border:none; background:none; font-size:22px; color:var(--ink-2); cursor:pointer; padding:0 6px; }
+.chgnew { padding:14px 16px; overflow-y:auto; }
+.chpick { list-style:none; margin:0 0 14px; padding:0; }
+.chpk { display:flex; align-items:center; gap:10px; width:100%; border:none; border-bottom:1px solid var(--line); background:none; padding:9px 2px; font:inherit; color:var(--ink); cursor:pointer; text-align:left; }
+.chpk b { flex:1; font-weight:600; } .chpk i { font-style:normal; color:var(--green, #2f9e6e); font-weight:800; width:18px; }
+.chpk.on b { color:var(--ink); } .chgnew .btn { width:100%; }
+.chopt { padding:10px 16px; border-bottom:1px solid var(--line); background:var(--surface); }
+.chren { display:flex; gap:8px; } .chren .field { flex:1; margin:0; }
+.chopt .hint { margin:8px 0 4px; }
 /* ---------- V10.4 ---------- */
 .jall .jhd i.hit, .jall .jkey i.hit { background:#3fb96b; box-shadow:none; }
 .jall .jhd i.log, .jall .jkey i.log { background:#e0b04a; box-shadow:none; }
@@ -3641,7 +3691,7 @@ button.jtile { cursor:pointer; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "10.4";
+  const APP_VERSION = "10.5";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -4295,7 +4345,9 @@ button.jtile { cursor:pointer; }
   }
   // V9.6. Log first, then your tribe: once you've logged, the stories you
   // haven't seen play by themselves. Never over a sheet.
+  // V10.5. Never pops up on its own: stories open when you tap a face.
   function maybeAutoplay(tries = 0) {
+    return;
     if (state.view !== "board" || state.person || state.snapDraft || !iLogged() || !state.social) return;
     if (document.querySelector(".stdsheet, .celeb, .tourbg")) { if (tries < 8) setTimeout(() => maybeAutoplay(tries + 1), 1500); return; }
     const ids = unseenIds(); if (!ids.length) return;
@@ -4383,23 +4435,35 @@ button.jtile { cursor:pointer; }
   let chatTick = null;
   function chatView() {
     const C = state.chat; if (!C) return "";
+    // V10.5. A group of the people you pick.
+    if (C.newGroup) { const G = C.newGroup, others = (state.people || []).filter((q) => q.id !== state.meId);
+      return `<div class="chat" role="dialog" aria-label="New group"><header class="chhead"><button type="button" class="chback" id="chatBack" aria-label="All chats">\u2039</button><b>New group</b><button type="button" class="stx" id="chatX" aria-label="Close">\u2715</button></header>
+        <div class="chgnew"><input class="field" id="chgName" maxlength="40" autocomplete="off" placeholder="Name it (optional)" value="${esc(G.name || "")}" aria-label="Group name">
+          <p class="hint">Pick two or more.</p>
+          <ul class="chpick">${others.map((q) => { const on = G.sel.includes(q.id);
+            return `<li><button type="button" class="chpk${on ? " on" : ""}" data-chpick="${q.id}" aria-pressed="${on}"><span class="fav" style="--hc:hsl(${q.hue || 200} 62% 48%)">${esc(initials(q.name))}</span><b>${esc(q.name)}</b><i aria-hidden="true">${on ? "\u2713" : ""}</i></button></li>`; }).join("")}</ul>
+          ${G.err ? `<p class="hint bad">${esc(G.err)}</p>` : ""}
+          <button type="button" class="btn" id="chgGo" ${G.sel.length < 2 || G.busy ? "disabled" : ""}>${G.busy ? "Starting\u2026" : G.sel.length < 2 ? "Pick two or more" : `Start a group of ${G.sel.length + 1}`}</button></div></div>`; }
     if (!C.thread) {
       const T = state.chats || [];
-      return `<div class="chat" role="dialog" aria-label="Chats"><header class="chhead"><b>Chats</b><button type="button" class="stx" id="chatX" aria-label="Close">\u2715</button></header>
-        <ul class="chlist">${T.map((t) => { const x = t.with_id ? (state.people || []).find((q) => q.id === t.with_id) || {} : null;
+      return `<div class="chat" role="dialog" aria-label="Chats"><header class="chhead"><b>Chats</b><button type="button" class="chnewg" id="chNewGrp">+ Group</button><button type="button" class="stx" id="chatX" aria-label="Close">\u2715</button></header>
+        <ul class="chlist">${T.map((t) => { const x = t.with_id ? (state.people || []).find((q) => q.id === t.with_id) || {} : null, grp = /^grp:/.test(t.thread);
           return `<li><button type="button" class="chrow${t.unread ? " new" : ""}" data-thread="${esc(t.thread)}">
-            <span class="fav" style="--hc:hsl(${x ? x.hue || 200 : 40} 62% 48%)">${t.with_id ? esc(initials(t.name)) : (state.group.crest ? esc(state.group.crest) : "\u{1F46A}")}</span>
-            <span class="chmid"><b>${t.with_id ? esc(t.name) : `${esc(t.name)} <small>family</small>`}</b><small>${t.last ? `${t.last.mine ? "You" : esc(firstName(t.last))}: ${esc(t.last.body)}` : "Say hello"}</small></span>
+            <span class="fav" style="--hc:hsl(${x ? x.hue || 200 : grp ? 260 : 40} 62% 48%)">${t.with_id ? esc(initials(t.name)) : grp ? "\u{1F465}" : (state.group.crest ? esc(state.group.crest) : "\u{1F46A}")}</span>
+            <span class="chmid"><b>${t.with_id ? esc(t.name) : `${esc(t.name)} <small>${grp ? (t.members || []).length + " people" : "family"}</small>`}</b><small>${t.last ? `${t.last.mine ? "You" : esc(firstName(t.last))}: ${esc(t.last.body)}` : "Say hello"}</small></span>
             <span class="chend">${t.last ? `<small>${chatAgo(t.last.at)}</small>` : ""}${t.unread ? `<i>${t.unread}</i>` : ""}</span></button></li>`; }).join("")}</ul></div>`;
     }
-    const t = (state.chats || []).find((x) => x.thread === C.thread) || { name: "Chat" }, fam = C.thread === "family";
+    const t = (state.chats || []).find((x) => x.thread === C.thread) || { name: "Chat" }, grp = /^grp:/.test(C.thread), fam = C.thread === "family" || grp;
     const msgs = C.msgs || [];
     let lastDay = "";
     const body = msgs.map((m0) => { const d = new Date(m0.at), day = d.toDateString(), sep = day !== lastDay ? `<p class="chday">${d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}</p>` : ""; lastDay = day;
       return `${sep}<div class="chmsg${m0.mine ? " me" : ""}${C.sel === m0.id ? " sel" : ""}" ${m0.mine ? `data-chsel="${m0.id}"` : ""}>${fam && !m0.mine ? `<small class="chwho">${esc(firstName(m0))}</small>` : ""}
         ${m0.img ? `<img src="${esc(m0.img)}" alt="Photo from ${esc(m0.name)}">` : ""}${m0.body ? `<p>${esc(m0.body)}</p>` : ""}
         <small class="chat2">${d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}${m0.mine && C.sel === m0.id ? ` \u00b7 <button type="button" class="linkbtn" data-chdel="${m0.id}">Delete</button>` : ""}</small></div>`; }).join("");
-    return `<div class="chat" role="dialog" aria-label="Chat with ${esc(t.name)}"><header class="chhead"><button type="button" class="chback" id="chatBack" aria-label="All chats">\u2039</button><b>${esc(t.name)}${fam ? " <small>family</small>" : ""}</b><button type="button" class="stx" id="chatX" aria-label="Close">\u2715</button></header>
+    const opt = grp && C.opt ? `<div class="chopt"><div class="chren"><input class="field" id="chRename" maxlength="40" autocomplete="off" value="${esc(t.name)}" aria-label="Group name"><button type="button" class="btn-quiet" id="chRenGo">Rename</button></div>
+        <p class="hint">${(t.members || []).map((q) => esc(q.id === state.meId ? "You" : q.name)).join(", ")}</p>
+        <button type="button" class="linkbtn gdel" id="chLeave">Leave this group</button></div>` : "";
+    return `<div class="chat" role="dialog" aria-label="Chat with ${esc(t.name)}"><header class="chhead"><button type="button" class="chback" id="chatBack" aria-label="All chats">\u2039</button><b>${esc(t.name)}${C.thread === "family" ? " <small>family</small>" : grp ? ` <small>${(t.members || []).length} people</small>` : ""}</b>${grp ? `<button type="button" class="chdots" id="chOpt" aria-expanded="${!!C.opt}" aria-label="Group settings">\u22ef</button>` : ""}<button type="button" class="stx" id="chatX" aria-label="Close">\u2715</button></header>${opt}
       <div class="chbody" id="chBody">${C.more ? `<button type="button" class="linkbtn chmore" id="chMore">Earlier messages</button>` : ""}${C.msgs ? (body || `<p class="hint chnone">No messages yet. Say hello.</p>`) : `<p class="hint chnone">Loading\u2026</p>`}</div>
       <form class="chform" id="chForm"><button type="button" class="chpic" id="chPic" aria-label="Send a photo">\u{1F4F7}</button><input type="file" id="chFile" accept="image/*" hidden>
         <input class="chin" id="chIn" maxlength="1000" autocomplete="off" enterkeyhint="send" placeholder="Message" value="${esc(C.draft || "")}" aria-label="Message">
@@ -4411,9 +4475,37 @@ button.jtile { cursor:pointer; }
     if (!state.chat) return;
     const close = () => { state.chat = null; render(); };
     on("chatX", "click", close);
-    on("chatBack", "click", () => { state.chat = { thread: null }; render(); loadChats().then(render); });
+    const back = () => { state.chat = { thread: null }; render(); loadChats().then(render); };
+    on("chatBack", "click", back);
+    // V10.5. Swipe right to go back: a thread or a new group to the list, the list closes.
+    const sheet = document.querySelector(".chat");
+    if (sheet) { let x0 = null, y0 = 0;
+      sheet.addEventListener("touchstart", (e) => { const t = e.touches[0]; x0 = t.clientX; y0 = t.clientY; }, { passive: true });
+      sheet.addEventListener("touchend", (e) => { if (x0 === null) return; const t = e.changedTouches[0], dx = t.clientX - x0, dy = Math.abs(t.clientY - y0); x0 = null;
+        if (dx > 70 && dy < 60) { if (state.chat && (state.chat.thread || state.chat.newGroup)) back(); else close(); } }, { passive: true }); }
     document.querySelectorAll("[data-thread]").forEach((el) => el.addEventListener("click", () => openThread(el.dataset.thread)));
+    on("chNewGrp", "click", () => { state.chat = { thread: null, newGroup: { sel: [], name: "" } }; render(); });
+    const G = state.chat.newGroup;
+    if (G) {
+      on("chgName", "input", (e) => { G.name = e.target.value; });
+      document.querySelectorAll("[data-chpick]").forEach((el) => el.addEventListener("click", () => { const id = el.dataset.chpick;
+        G.sel = G.sel.includes(id) ? G.sel.filter((x) => x !== id) : G.sel.concat(id); G.err = null; render(); }));
+      on("chgGo", "click", async () => { if (G.busy || G.sel.length < 2) return; G.busy = true; render();
+        const r = await call("app_chat_group_new", { p_code: state.code, p_person: state.meId, p_name: G.name || "", p_members: G.sel });
+        if (r.error) { G.busy = false; G.err = r.offline ? "No signal. Try again." : r.error; render(); return; }
+        await loadChats(); state.chat = { thread: null }; openThread(r.thread); });
+      return;
+    }
     const C = state.chat; if (!C.thread) return;
+    on("chOpt", "click", () => { C.opt = !C.opt; render(); });
+    const gid = /^grp:/.test(C.thread) ? Number(C.thread.slice(4)) : null;
+    on("chRenGo", "click", async () => { const v = (document.getElementById("chRename") || {}).value || "";
+      const r = await call("app_chat_group_set", { p_code: state.code, p_person: state.meId, p_chat: gid, p_name: v, p_leave: false });
+      if (r.error) { toast(r.offline ? "No signal." : r.error, "bad"); return; }
+      C.opt = false; await loadChats(); render(); });
+    on("chLeave", "click", () => openModal({ title: "Leave this group?", body: "You stop seeing its messages. The others carry on.", buttons: [{ label: "Leave", kind: "bad", run: async () => {
+      const r = await call("app_chat_group_set", { p_code: state.code, p_person: state.meId, p_chat: gid, p_name: null, p_leave: true });
+      if (r.error && !r.offline) { toast(r.error, "bad"); return; } back(); } }, { label: "Stay", kind: "quiet" }] }));
     const box = document.getElementById("chBody"), inp = document.getElementById("chIn");
     if (box && C.stick) { box.scrollTop = box.scrollHeight; C.stick = false; }
     if (inp) { inp.addEventListener("input", () => { C.draft = inp.value; });
@@ -4437,12 +4529,19 @@ button.jtile { cursor:pointer; }
       if (r.error && !r.offline) toast(r.error, "bad"); C.sel = null; C.msgs = (C.msgs || []).filter((x) => x.id !== Number(el.dataset.chdel)); render(); }));
     chatTick = setInterval(() => { if (!state.chat || !state.chat.thread || document.hidden) return; loadThread(); }, 4000);
   }
+  document.addEventListener("paste", (e) => {
+    try { if (!state.shareMenu) return; } catch { return; }
+    const f = [...((e.clipboardData && e.clipboardData.files) || [])].find((x) => /^image\//.test(x.type));
+    if (f) { e.preventDefault(); postPhoto(f); }
+  });
   function shareMenu() {
     return `<div class="sheetbg" id="smBg"></div>
       <div class="stdsheet smsheet" role="dialog" aria-label="Share a win">
         <p class="eyebrow">Share a win${myWins() ? ` \u00b7 ${3 - myWins()} more today` : ""}</p>
         <div class="smrow"><button type="button" class="smbtn" id="smPhoto"><span aria-hidden="true">\u{1F4F7}</span><b>Photo</b></button>
+          <button type="button" class="smbtn" id="smPaste"><span aria-hidden="true">\u{1F4CB}</span><b>Paste</b></button>
           <button type="button" class="smbtn" id="smText" style="--wb:${WIN_BG[0]}"><span aria-hidden="true">Aa</span><b>Write it</b></button></div>
+        <p class="hint smhint">Copied a screenshot or photo? Tap Paste.</p>
         <div class="stdbtns"><button type="button" class="btn-quiet" id="smX">Cancel</button></div>
       </div>`;
   }
@@ -4572,6 +4671,16 @@ button.jtile { cursor:pointer; }
       state.person = null; state.storyQ = null; state.shareMenu = true; render(); };
     ["faceAdd", "photoAdd2", "photoAdd4", "feedAdd"].forEach((idn) => on(idn, "click", menu));
     on("smPhoto", "click", pick); on("smText", "click", writeWin);
+    // V10.5. Paste what you just copied: no saving to the phone first.
+    on("smPaste", "click", async () => {
+      try {
+        if (!navigator.clipboard || !navigator.clipboard.read) throw new Error("none");
+        const items = await navigator.clipboard.read();
+        for (const it of items) { const ty = it.types.find((t) => t.startsWith("image/"));
+          if (ty) { const b = await it.getType(ty); postPhoto(new File([b], "pasted." + (ty.split("/")[1] || "png"), { type: ty })); return; } }
+        toast("Nothing to paste. Copy a photo or screenshot first.", "bad");
+      } catch (e) { toast(e && e.message === "none" ? "This browser can't paste here. Use Photo instead." : "Nothing to paste. Copy a photo or screenshot first.", "bad"); }
+    });
     const noMenu = () => { state.shareMenu = false; render(); };
     on("smX", "click", noMenu); on("smBg", "click", noMenu);
     document.querySelectorAll("[data-sdbg]").forEach((el) => el.addEventListener("click", () => {
@@ -8047,9 +8156,9 @@ button.jtile { cursor:pointer; }
         <div class="htabh"><button type="button" class="htabt" id="tribeGoal" aria-label="Tribe name, crest, goal and people"><h2>Tribe</h2></button></div>
         ${segTabs("trSeg", state.trSeg)}
         ${state.trSeg === "progress" ? journeyTribeBody() : `
+        ${spotlight()}
         ${weekChart()}
         ${hitsRail()}
-        ${spotlight()}
         ${recapCard()}`}
         ${state.trSeg === "progress" ? "" : state.people.length ? `<button type="button" class="allnums" id="allNums" aria-expanded="${!!state.allNums}">${state.allNums ? "Hide the numbers" : "All numbers \u203a"}</button>
           ${state.allNums ? `<div class="roster"><div class="tdayrow">${nav()}<button type="button" class="hshare" id="waShare" aria-label="Share ${state.boardDay ? esc(shortDay(famDayISO())) : "today"} on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11v9h12v-9"/></svg></button></div>
@@ -8371,19 +8480,43 @@ button.jtile { cursor:pointer; }
   function cfCard(x) {
     const [, icon, hue] = cfTopic(x.topic);
     // V8.5. Locked: the title shows, the card is dimmed, a lock instead of the time.
-    return `<button type="button" class="cfcard${x.open ? "" : " locked"}" ${x.open ? `data-lesson="${x.id}"` : `data-cflocked="1"`} style="--tc:${hue}" aria-label="${esc(x.title)}${x.open ? "" : ", locked"}">
+    // V10.5. Everything is open.
+    return `<button type="button" class="cfcard" data-lesson="${x.id}" style="--tc:${hue}" aria-label="${esc(x.title)}">
       <span class="cfic" aria-hidden="true">${icon}</span><b>${esc(x.title)}</b>
-      <small>${x.open ? (x.read ? `<i class="cfrd">\u2713 Read</i>` : `${x.minutes || 1} min read`) : "\u{1F512} Locked"}${x.new ? ` <i class="cfnew">New</i>` : ""}${x.saved ? ` <i class="cfsv" aria-label="Saved">\u2605</i>` : ""}</small></button>`;
+      <small>${x.read ? `<i class="cfrd">\u2713 Read</i>` : "1 min"}${x.new ? ` <i class="cfnew">New</i>` : ""}${x.saved ? ` <i class="cfsv" aria-label="Saved">\u2605</i>` : ""}</small></button>`;
   }
   // V10.1. Quotes: micro-learning instead of doomscrolling. A handful of
   // public-domain lines ship with the app, each checked word for word
   // against its source; the tribe's owner adds the rest.
-  const QUOTES0 = [   // V10.3: each with who said it and where. V10.4: and its format
-    { k: "s2", t: "A strong body makes the mind strong.", a: "Thomas Jefferson", s: "Letter to Peter Carr, 19 August 1785", p: "Exercise", f: "Book", u: "https://founders.archives.gov/documents/Jefferson/01-08-02-0319" },
-    { k: "s3", t: "Early to Bed, and early to rise, makes a Man healthy, wealthy and wise.", a: "Benjamin Franklin", s: "The Way to Wealth (1758)", p: "Sleep", f: "Book", u: "https://founders.archives.gov/documents/Franklin/01-07-02-0146" },
-    { k: "s4", t: "Temperance. Eat not to dullness; drink not to elevation.", a: "Benjamin Franklin", s: "Autobiography, the thirteen virtues", p: "Diet", f: "Book", u: "https://www.ushistory.org/franklin/autobiography/page38.htm" },
-    { k: "s5", t: "Lay hold of to-day\u2019s task, and you will not need to depend so much upon to-morrow\u2019s.", a: "Seneca", s: "Letters to Lucilius, I, tr. R. M. Gummere (1917)", p: "Great Work", f: "Book", u: "https://www.stoics.com/seneca_epistles_book_1.html" },
+  // V10.5. Five per topic, all public domain, each checked word for word
+  // against the page linked. (Living authors' words are copyrighted, so
+  // the app ships none; people in your tribe add lines they may share.)
+  const QUOTES0 = [
     { k: "s6", t: "Nothing can bring you peace but yourself.", a: "Ralph Waldo Emerson", s: "Self-Reliance (1841)", p: "Meditation", f: "Book", u: "https://www.gutenberg.org/files/2944/2944-h/2944-h.htm" },
+    { k: "s7", t: "Silence. Speak not but what may benefit others or yourself; avoid trifling conversation.", a: "Benjamin Franklin", s: "Autobiography, the thirteen virtues", p: "Meditation", f: "Book", u: "https://www.ushistory.org/franklin/autobiography/page38.htm" },
+    { k: "s8", t: "Tranquillity. Be not disturbed at trifles, or at accidents common or unavoidable.", a: "Benjamin Franklin", s: "Autobiography, the thirteen virtues", p: "Meditation", f: "Book", u: "https://www.ushistory.org/franklin/autobiography/page38.htm" },
+    { k: "s9", t: "A man cannot any whither retire better than to his own soul\u2026", a: "Marcus Aurelius", s: "Meditations, Book IV, tr. Meric Casaubon", p: "Meditation", f: "Book", u: "https://www.gutenberg.org/files/2680/2680-h/2680-h.htm" },
+    { k: "s10", t: "Everywhere means nowhere.", a: "Seneca", s: "Letters to Lucilius, II, tr. R. M. Gummere (1917)", p: "Meditation", f: "Book", u: "https://www.stoics.com/seneca_epistles_book_1.html" },
+    { k: "s2", t: "A strong body makes the mind strong.", a: "Thomas Jefferson", s: "Letter to Peter Carr, 19 August 1785", p: "Exercise", f: "Book", u: "https://founders.archives.gov/documents/Jefferson/01-08-02-0319" },
+    { k: "s11", t: "Walking is the best possible exercise.", a: "Thomas Jefferson", s: "Letter to Peter Carr, 19 August 1785", p: "Exercise", f: "Book", u: "https://founders.archives.gov/documents/Jefferson/01-08-02-0319" },
+    { k: "s12", t: "Keep the faculty of effort alive in you by a little gratuitous exercise every day.", a: "William James", s: "The Principles of Psychology, ch. IV, Habit (1890)", p: "Exercise", f: "Book", u: "https://psychclassics.yorku.ca/James/Principles/prin4.htm" },
+    { k: "s13", t: "I think that I cannot preserve my health and spirits, unless I spend four hours a day at least\u2026", a: "Henry David Thoreau", s: "Walking (1862)", p: "Exercise", f: "Book", u: "https://www.gutenberg.org/files/1022/1022-h/1022-h.htm" },
+    { k: "s14", t: "Now there are short and simple exercises which tire the body rapidly, and so save our time\u2026", a: "Seneca", s: "Letters to Lucilius, XV, tr. R. M. Gummere (1917)", p: "Exercise", f: "Book", u: "https://www.stoics.com/seneca_epistles_book_1.html" },
+    { k: "s4", t: "Temperance. Eat not to dullness; drink not to elevation.", a: "Benjamin Franklin", s: "Autobiography, the thirteen virtues", p: "Diet", f: "Book", u: "https://www.ushistory.org/franklin/autobiography/page38.htm" },
+    { k: "s15", t: "Eat to live, and not live to eat.", a: "Benjamin Franklin", s: "Poor Richard (1733)", p: "Diet", f: "Book", u: "https://founders.archives.gov/documents/Franklin/01-01-02-0093" },
+    { k: "s16", t: "To lengthen thy Life, lessen thy Meals.", a: "Benjamin Franklin", s: "Poor Richard (1733)", p: "Diet", f: "Book", u: "https://founders.archives.gov/documents/Franklin/01-01-02-0093" },
+    { k: "s17", t: "Cheese and salt meat, should be sparingly eat.", a: "Benjamin Franklin", s: "Poor Richard (1733)", p: "Diet", f: "Book", u: "https://founders.archives.gov/documents/Franklin/01-01-02-0093" },
+    { k: "s18", t: "Hunger never saw bad bread.", a: "Benjamin Franklin", s: "Poor Richard (1733)", p: "Diet", f: "Book", u: "https://founders.archives.gov/documents/Franklin/01-01-02-0093" },
+    { k: "s3", t: "Early to Bed, and early to rise, makes a Man healthy, wealthy and wise.", a: "Benjamin Franklin", s: "The Way to Wealth (1758)", p: "Sleep", f: "Book", u: "https://founders.archives.gov/documents/Franklin/01-07-02-0146" },
+    { k: "s19", t: "In the morning when thou findest thyself unwilling to rise, consider with thyself presently, it is to go about a man\u2019s work\u2026", a: "Marcus Aurelius", s: "Meditations, Book V, tr. Meric Casaubon", p: "Sleep", f: "Book", u: "https://www.gutenberg.org/files/2680/2680-h/2680-h.htm" },
+    { k: "s20", t: "Sleep that knits up the ravell'd sleeve of care, The death of each day's life, sore labour's bath\u2026", a: "William Shakespeare", s: "Macbeth, Act 2, Scene 2", p: "Sleep", f: "Book", u: "https://shakespeare.mit.edu/macbeth/macbeth.2.2.html" },
+    { k: "s21", t: "Balm of hurt minds, great nature's second course, Chief nourisher in life's feast\u2026", a: "William Shakespeare", s: "Macbeth, Act 2, Scene 2", p: "Sleep", f: "Book", u: "https://shakespeare.mit.edu/macbeth/macbeth.2.2.html" },
+    { k: "s22", t: "He that riseth late, must trot all Day, and shall scarce overtake his Business at Night.", a: "Benjamin Franklin", s: "The Way to Wealth (1758)", p: "Sleep", f: "Book", u: "https://founders.archives.gov/documents/Franklin/01-07-02-0146" },
+    { k: "s5", t: "Lay hold of to-day\u2019s task, and you will not need to depend so much upon to-morrow\u2019s.", a: "Seneca", s: "Letters to Lucilius, I, tr. R. M. Gummere (1917)", p: "Great Work", f: "Book", u: "https://www.stoics.com/seneca_epistles_book_1.html" },
+    { k: "s23", t: "Seize the very first possible opportunity to act on every resolution you make\u2026", a: "William James", s: "The Principles of Psychology, ch. IV, Habit (1890)", p: "Great Work", f: "Book", u: "https://psychclassics.yorku.ca/James/Principles/prin4.htm" },
+    { k: "s24", t: "\u2026dost thou love Life, then do not squander Time, for that\u2019s the Stuff Life is made of\u2026", a: "Benjamin Franklin", s: "The Way to Wealth (1758)", p: "Great Work", f: "Book", u: "https://founders.archives.gov/documents/Franklin/01-07-02-0146" },
+    { k: "s25", t: "Sloth, like Rust, consumes faster than Labour wears, while the used Key is always bright\u2026", a: "Benjamin Franklin", s: "The Way to Wealth (1758)", p: "Great Work", f: "Book", u: "https://founders.archives.gov/documents/Franklin/01-07-02-0146" },
+    { k: "s26", t: "Industry. Lose no time; be always employed in something useful; cut off all unnecessary actions.", a: "Benjamin Franklin", s: "Autobiography, the thirteen virtues", p: "Great Work", f: "Book", u: "https://www.ushistory.org/franklin/autobiography/page38.htm" },
   ];
   const Q_PILLARS = ["Meditation", "Exercise", "Diet", "Sleep", "Great Work"];   // V10.2. These five, in this order.
   async function loadQuotes() {
@@ -8394,7 +8527,10 @@ button.jtile { cursor:pointer; }
     if (state.view === "board" && homeTab() === "sparks") render();
   }
   // V10.4. Your tribe's newest first (the server sends them newest first), then the starter ones.
-  const allQuotes = () => ((state.quotes || {}).list || []).map((q) => ({ k: "q" + q.id, id: q.id, t: q.t, a: q.a, s: q.s, p: q.p, f: q.f, u: q.u, n: q.n, by: q.by, own: !!q.mine, mine: true, at: q.at })).concat(QUOTES0);
+  const allQuotes = () => ((state.quotes || {}).list || []).map((q) => ({ k: "q" + q.id, id: q.id, t: q.t, a: q.a, s: q.s, p: q.p, f: q.f, u: q.u, n: q.n, by: q.by, own: !!q.mine, mine: true, at: q.at })).concat(quotesMixed());
+  // V10.5. The starters take turns by topic, so the feed mixes from the first card.
+  const quotesMixed = () => { const by = Q_PILLARS.map((p) => QUOTES0.filter((q) => q.p === p)), out = [];
+    for (let i = 0; by.some((g) => i < g.length); i++) by.forEach((g) => { if (g[i]) out.push(g[i]); }); return out; };
   const Q_FMT = ["Book", "Tweet", "Article", "Video"];
   // A steady shuffle for the day, so the scroll isn't the same order each visit.
   function dayShuffle(xs) {
@@ -8402,22 +8538,23 @@ button.jtile { cursor:pointer; }
     const a = xs.slice(); for (let i = a.length - 1; i > 0; i--) { h = (h * 1103515245 + 12345) >>> 0; const j = h % (i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a;
   }
   function sparksView() {
-    return `<section class="htab hcamp hquotes" aria-label="Sparks"><div class="htabh"><h2>Sparks</h2></div>${quotesView()}</section>`;
+    return `<section class="htab hcamp hquotes" aria-label="Insights"><div class="htabh"><h2>Insights</h2><button type="button" class="qplus" id="qAdd" aria-label="Add an insight">+</button></div><p class="qtag">Replace doomscrolling with micro-learning</p>${quotesView()}</section>`;
   }
   function quotesView() {
     const Q = state.quotes; if (!Q || (!Q.list && !Q.err)) { if (!(Q && Q.busy)) setTimeout(() => loadQuotes(), 0); }
-    const saved = new Set((Q && Q.saved) || []), f = state.qFilter || "all";
-    const pool = allQuotes(), present = Q_PILLARS;
-    const ff = state.qFmt || "";
-    let xs = f === "saved" ? pool.filter((q) => saved.has(q.k)) : f === "all" ? pool : pool.filter((q) => q.p === f);
+    const saved = new Set((Q && Q.saved) || []), f = state.qFilter && state.qFilter !== "all" ? state.qFilter : "", ff = state.qFmt || "";
+    const pool = allQuotes();
+    let xs = f === "saved" ? pool.filter((q) => saved.has(q.k)) : f ? pool.filter((q) => q.p === f) : pool;
     if (ff) xs = xs.filter((q) => q.f === ff);
     if (state.qShuffle) xs = dayShuffle(xs);
-    // V10.3. One long scroll, 15 at a time as you reach the bottom, then an honest end.
-    const n = Math.min(xs.length, state.qN || 15), more = n < xs.length, shown = xs.slice(0, n);
-    const fchips = `<div class="qchips qfmt" role="group" aria-label="Format">${[["", "All formats"]].concat(Q_FMT.map((x) => [x, x])).map(([v, t]) =>
-      `<button type="button" data-qfmt="${v}" aria-pressed="${ff === v}">${t}</button>`).join("")}<button type="button" class="qshuf${state.qShuffle ? " on" : ""}" id="qShuf" aria-pressed="${!!state.qShuffle}">\u{1F500} ${state.qShuffle ? "Shuffled" : "Shuffle"}</button></div>`;
-    const chips = `<div class="qchips" role="group" aria-label="Show">${[["all", "All"], ["saved", `\u2605 Saved${saved.size ? " " + saved.size : ""}`]].concat(present.map((p) => [p, p])).map(([v, t]) =>
-      `<button type="button" data-qf="${esc(v)}" aria-pressed="${f === v}">${esc(t)}</button>`).join("")}</div>`;
+    // V10.5. At the end: one more round. Each round is the same insights in a new order.
+    const rounds = f === "saved" ? 1 : Math.max(1, state.qRounds || 1);
+    let all = xs.slice(); for (let r = 1; r < rounds; r++) all = all.concat(roundShuffle(xs, r));
+    const n = Math.min(all.length, state.qN || 15), more = n < all.length, shown = all.slice(0, n);
+    const chip = (attr, v, label, on) => `<button type="button" class="qc" ${attr}="${esc(v)}" aria-pressed="${on}">${esc(label)}</button>`;
+    const fchips = `<div class="qchips qfmt" role="group" aria-label="Format">${Q_FMT.map((x) => chip("data-qfmt", x, x, ff === x)).join("")}
+      <button type="button" class="qc qshuf${state.qShuffle ? " on" : ""}" id="qShuf" aria-pressed="${!!state.qShuffle}" aria-label="Shuffle">\u{1F500}</button></div>`;
+    const chips = `<div class="qchips qtop" role="group" aria-label="Topic">${Q_PILLARS.map((p) => chip("data-qf", p, p, f === p)).join("")}${chip("data-qf", "saved", `\u2605 Saved${saved.size ? " " + saved.size : ""}`, f === "saved")}</div>`;
     const card = (q, i) => { const op = state.qOpen === q.k + ":" + i, sv = saved.has(q.k);
       return `<article class="qcard sp${op ? " open" : ""}${sv ? " saved" : ""}">
         <button type="button" class="qbody" data-qopen="${q.k}:${i}" aria-expanded="${op}"><span class="qa">${esc(q.a || "Unknown")}${sv ? ` <i class="qsv" aria-label="Saved">\u2605</i>` : ""}</span>
@@ -8426,18 +8563,25 @@ button.jtile { cursor:pointer; }
           ${safeUrl(q.u) ? `<dt>Link</dt><dd><a href="${esc(q.u)}" target="_blank" rel="noopener noreferrer">Read the source \u2197</a></dd>` : ""}</dl>
           ${q.mine && (q.own || (Q && Q.owner)) ? `<button type="button" class="linkbtn gdel" data-qdel="${q.id}">Remove</button>` : ""}` : ""}
         ${op ? `<button type="button" class="qsave${sv ? " on" : ""}" data-qsave="${q.k}" aria-pressed="${sv}">${sv ? "\u2605 Saved" : "\u2606 Save"}</button>` : ""}</article>`; };
-    const add = f === "saved" ? "" : state.qAdd ? quoteForm() : `<button type="button" class="qadd" id="qAdd">+ Add a spark</button>`;
-    const end = !shown.length ? `<div class="cfempty"><p>${f === "saved" ? "Tap \u2606 on a spark to keep it here." : "Nothing here yet. Add the first one."}</p></div>`
+    const add = f === "saved" ? "" : state.qAdd ? quoteForm() : "";
+    const end = !shown.length ? `<div class="cfempty"><p>${f === "saved" ? "Tap \u2606 Save on an insight to keep it here." : "Nothing here yet. Add the first one."}</p>${f === "saved" ? "" : `<button type="button" class="qadd" id="qAdd2">+ Add an insight</button>`}</div>`
       : more ? `<div class="qmore-sentinel" id="qMore" aria-hidden="true"></div>`
-      : `<div class="qend"><p><b>You're caught up.</b></p>${f === "saved" ? "" : `<button type="button" class="qadd" id="qAdd2">+ Add a spark</button>`}</div>`;
+      : f === "saved" ? `<div class="qend"><p>That's all you've saved.</p></div>`
+      : `<div class="qend"><button type="button" class="qround" id="qRound"><b>One more round of insights</b><small>(tap to load)</small></button>
+          <button type="button" class="linkbtn qadd3" id="qAdd2">+ Add an insight</button></div>`;
     return `${chips}${fchips}${add}<div class="qlist">${shown.map(card).join("")}</div>${end}`;
+  }
+  function roundShuffle(xs, r) {
+    let h = 2166136261 ^ r; for (const c of todayISO()) h = Math.imul(h ^ c.charCodeAt(0), 16777619) >>> 0;
+    const a = xs.slice(); for (let i = a.length - 1; i > 0; i--) { h = (Math.imul(h, 1103515245) + 12345) >>> 0; const j = h % (i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a;
   }
   function quoteForm() {
     const A = state.qAdd;
-    return `<section class="card qform"><p class="eyebrow">Add a spark</p>
+    return `<section class="card qform"><p class="eyebrow">Add an insight</p>
       <div class="qtopics" role="radiogroup" aria-label="Topic">${Q_PILLARS.map((p) => `<button type="button" class="achip${A.p === p ? " on" : ""}" data-qtopic="${esc(p)}" role="radio" aria-checked="${A.p === p}">${(cfTopic(p) || [])[1] || ""} ${esc(p)}</button>`).join("")}</div>
       <div class="qtopics" role="radiogroup" aria-label="Format">${Q_FMT.map((x) => `<button type="button" class="achip${A.f === x ? " on" : ""}" data-qfm="${x}" role="radio" aria-checked="${A.f === x}">${x}</button>`).join("")}</div>
-      <textarea class="field" id="qaText" rows="4" maxlength="600" placeholder="The words, exactly as written or said">${esc(A.text || "")}</textarea>
+      <div class="qapaste"><textarea class="field" id="qaText" rows="4" maxlength="600" placeholder="The words, exactly as written or said">${esc(A.text || "")}</textarea>
+        <button type="button" class="linkbtn" id="qaPaste">Paste</button></div>
       <input class="field" id="qaA" maxlength="80" autocomplete="off" placeholder="Who said it" value="${esc(A.a || "")}" aria-label="Who said it">
       <input class="field" id="qaS" maxlength="160" autocomplete="off" placeholder="Title of the book, tweet, article or video" value="${esc(A.s || "")}" aria-label="Source">
       <input class="field" id="qaU" maxlength="400" autocomplete="off" inputmode="url" placeholder="Link (optional)" value="${esc(A.u || "")}" aria-label="Link, optional">
@@ -8458,9 +8602,10 @@ button.jtile { cursor:pointer; }
     }).filter((q) => q.t);
   }
   function wireQuotes() {
-    document.querySelectorAll("[data-qfmt]").forEach((el) => el.addEventListener("click", () => { state.qFmt = el.dataset.qfmt; state.qOpen = null; state.qN = 15; render(); }));
+    document.querySelectorAll("[data-qfmt]").forEach((el) => el.addEventListener("click", () => { state.qFmt = state.qFmt === el.dataset.qfmt ? "" : el.dataset.qfmt; state.qOpen = null; state.qN = 15; state.qRounds = 1; render(); }));
+    on("qRound", "click", () => { state.qRounds = (state.qRounds || 1) + 1; state.qN = (state.qN || 15) + 15; render(); });
     on("qShuf", "click", () => { state.qShuffle = !state.qShuffle; state.qN = 15; render(); });
-    document.querySelectorAll("[data-qf]").forEach((el) => el.addEventListener("click", () => { state.qFilter = el.dataset.qf; state.qOpen = null; state.qN = 15; render(); }));
+    document.querySelectorAll("[data-qf]").forEach((el) => el.addEventListener("click", () => { state.qFilter = state.qFilter === el.dataset.qf ? "" : el.dataset.qf; state.qOpen = null; state.qN = 15; state.qRounds = 1; render(); }));
     document.querySelectorAll("[data-qopen]").forEach((el) => el.addEventListener("click", () => { state.qOpen = state.qOpen === el.dataset.qopen ? null : el.dataset.qopen; render(); }));
     document.querySelectorAll("[data-qsave]").forEach((el) => el.addEventListener("click", async () => {
       const Q = state.quotes || (state.quotes = { saved: [] }), k = el.dataset.qsave, on = !(Q.saved || []).includes(k);
@@ -8469,7 +8614,7 @@ button.jtile { cursor:pointer; }
       if (r && r.error) { toast(r.offline ? "No signal. Not saved yet." : r.error, "bad"); await loadQuotes(); }
     }));
     document.querySelectorAll("[data-qdel]").forEach((el) => el.addEventListener("click", () => {
-      openModal({ title: "Remove this spark?", body: "It leaves everyone's Sparks and Saved.", buttons: [{ label: "Remove", kind: "bad", run: async () => {
+      openModal({ title: "Remove this insight?", body: "It leaves everyone's Insights and Saved.", buttons: [{ label: "Remove", kind: "bad", run: async () => {
         await call("app_quote_delete", { p_code: state.code, p_person: state.meId, p_id: Number(el.dataset.qdel) }); state.qOpen = null; await loadQuotes(); render(); } }, { label: "Keep", kind: "quiet" }] }); }));
     on("qAdd", "click", () => { state.qAdd = { text: "", p: "", err: null }; render(); document.getElementById("qaText")?.focus(); });
     on("qaX", "click", () => { state.qAdd = null; render(); });
@@ -8481,6 +8626,10 @@ button.jtile { cursor:pointer; }
     document.querySelectorAll("[data-qfm]").forEach((el) => el.addEventListener("click", () => {
       const A = state.qAdd; if (!A) return; keepQ(); A.f = el.dataset.qfm; A.err = null; render(); }));
     on("qAdd2", "click", () => { state.qAdd = { text: "", p: "", err: null }; render(); window.scrollTo(0, 0); document.getElementById("qaText")?.focus(); });
+    // V10.5. Paste the words you copied.
+    on("qaPaste", "click", async () => { const A = state.qAdd; if (!A) return; keepQ();
+      try { const t = await navigator.clipboard.readText(); if (t && t.trim()) { A.text = t.trim().slice(0, 600); render(); } else toast("Nothing to paste. Copy the words first.", "bad"); }
+      catch { toast("Long-press the box and choose Paste.", "bad"); } });
     on("qaGo", "click", async () => {
       const A = state.qAdd; if (!A || A.busy) return;
       keepQ();
@@ -8494,7 +8643,7 @@ button.jtile { cursor:pointer; }
       A.busy = true; A.err = null; render();
       const r = await call("app_quote_add", { p_code: state.code, p_person: state.meId, p_list: list });
       if (r.error) { A.busy = false; A.err = r.offline ? "No signal. Not added yet." : r.error; render(); return; }
-      state.qAdd = null; toast(`Added ${r.added} spark${r.added === 1 ? "" : "s"}.`, "ok"); await loadQuotes(); render();
+      state.qAdd = null; toast(`Added ${r.added} insight${r.added === 1 ? "" : "s"}.`, "ok"); await loadQuotes(); render();
     });
     const s = document.getElementById("qMore");
     if (s && "IntersectionObserver" in window) {
@@ -8561,28 +8710,45 @@ button.jtile { cursor:pointer; }
     if (res && !res.error && x) { x.read = true; x.open = true; try { localStorage.setItem(campReadKey(), String(id)); } catch {} }
     if (state.view === "board" && homeTab() === "evidence") render();
   }
+  // V10.5. Proof: today's study as one screen. The number, who was studied,
+  // the study's own words, and one thing to do today. The rest folds away.
   function evidenceView(C) {
-    const T = C.today, L = C.library || [], O = state.cfOpen || {}, head = `<div class="htabh"><h2>Evidence</h2></div>`;
+    const T = C.today, L = C.library || [], O = state.cfOpen || {}, head = `<div class="htabh"><h2>Proof</h2></div>`;
     let today = "";
-    if (T) { const [tn, ti, th] = cfTopic(T.topic);
-      if (T.locked) today = `<article class="evtoday locked" style="--tc:${th}"><p class="lsmeta"><span aria-hidden="true">${ti}</span> Today \u00b7 ${esc(tn)}</p>
-          <h3 class="lstitle">${esc(T.title)}</h3><div class="evlock"><span aria-hidden="true">\u{1F512}</span><p>Log today's steps to read it.</p><button type="button" class="btn" data-go="steps">Log my steps</button></div></article>`;
-      else { const E = state.evToday && String(state.evToday.id) === String(T.id) ? state.evToday : null;
-        if (!E) setTimeout(() => loadEvToday(T.id), 0);
-        const D = E && E.data;
-        today = `<article class="evtoday" style="--tc:${th}"><p class="lsmeta"><span aria-hidden="true">${ti}</span> Today \u00b7 ${esc(tn)} \u00b7 ${T.minutes || 1} min read</p>
-          <h3 class="lstitle">${esc(T.title)}</h3>
-          ${D ? `${lessonParts(D)}<div class="evfoot"><span class="lssrc">by ${esc(D.author || "Dr. Nishtar")}</span>
-              <button type="button" class="btn-quiet lssave${D.saved ? " on" : ""}" id="evSave" aria-pressed="${!!D.saved}">${D.saved ? "\u2605 Saved" : "\u2606 Save"}</button></div>`
-            : E && E.err ? `<p class="hint bad">${esc(E.err)}</p>` : `<p class="hint">Opening\u2026</p>`}</article>`; } }
-    const op = L.filter((x) => x.open).length, sv = L.filter((x) => x.saved);
+    if (T) { const [, , th] = cfTopic(T.topic);
+      const E = state.evToday && String(state.evToday.id) === String(T.id) ? state.evToday : null;
+      if (!E) setTimeout(() => loadEvToday(T.id), 0);
+      const D = E && E.data;
+      today = `<article class="evtoday pf" style="--tc:${th}">${D ? proofCard(D, "ev")
+        : E && E.err ? `<p class="hint bad">${esc(E.err)}</p>` : `<h3 class="lstitle">${esc(T.title)}</h3><p class="hint">Opening\u2026</p>`}</article>`; }
+    const sv = L.filter((x) => x.saved);
     const arch = O.__arch ? CF_TOPICS.map(([t, icon]) => { const xs = L.filter((x) => x.topic === t); if (!xs.length) return "";
-        return `<div class="evgrp"><p class="evgh"><span aria-hidden="true">${icon}</span> ${esc(t)} <small>${xs.filter((x) => x.open).length} of ${xs.length} open</small></p><div class="cfrow">${xs.map(cfCard).join("")}</div></div>`; }).join("") : "";
+        return `<div class="evgrp"><p class="evgh"><span aria-hidden="true">${icon}</span> ${esc(t)} <small>${xs.length}</small></p><div class="cfrow">${xs.map(cfCard).join("")}</div></div>`; }).join("") : "";
     const row = (key, label, meta, body) => `<div class="evsec${O[key] ? " on" : ""}"><button type="button" class="evrow" data-cfsec="${key}" aria-expanded="${!!O[key]}"><b>${label}</b><small>${meta}</small><i aria-hidden="true">${O[key] ? "\u2212" : "+"}</i></button>${O[key] ? body : ""}</div>`;
-    return `<section class="htab hcamp hev" aria-label="Evidence">${head}${today}
-      <div class="evrows">${row("__arch", "Archive", `${op} of ${L.length} open`, arch)}
-        ${row("__saved", "Saved", String(sv.length), sv.length ? `<div class="cfrow evsaved">${sv.map(cfCard).join("")}</div>` : `<p class="hint cfnone">Tap \u2606 Save on an essay to keep it here.</p>`)}</div>
-      <p class="hint cffoot">One essay opens each day you log. Once open, it stays open.</p></section>`;
+    return `<section class="htab hcamp hev" aria-label="Proof">${head}${today}
+      <div class="evrows">${row("__arch", "All studies", String(L.length), arch)}
+        ${row("__saved", "Saved", String(sv.length), sv.length ? `<div class="cfrow evsaved">${sv.map(cfCard).join("")}</div>` : `<p class="hint cfnone">Tap \u2606 Save on a study to keep it here.</p>`)}</div></section>`;
+  }
+  const proofDid = () => { try { return JSON.parse(localStorage.getItem("fhd.proof.did." + state.meId) || "{}"); } catch { return {}; } };
+  function proofCard(D, where) {
+    if (!D.hook) return `<h3 class="lstitle">${esc(D.title)}</h3>${lessonParts(D)}`;
+    const [tn, ti] = cfTopic(D.topic), url = safeUrl(D.url), L = (x) => Array.isArray(x) ? x : [];
+    const m = String(D.evidence || "").match(/^([\u2605\u2606]+)/), n = m ? (m[1].match(/\u2605/g) || []).length : null;
+    const did = proofDid()[D.id] === todayISO(), open = state.pfMore === String(D.id);
+    return `<p class="pfcat"><span aria-hidden="true">${ti}</span> ${esc(tn).toUpperCase()}</p>
+      <h3 class="pfhook">${esc(D.hook)}</h3>
+      <p class="pfwho">${esc(D.who || "")}${n !== null ? ` \u00b7 <span class="lsevs" aria-label="Evidence: ${n} of 3 stars">${"\u2605".repeat(n)}${"\u2606".repeat(3 - n)}</span>` : ""}</p>
+      <blockquote class="lsquote pfq">\u201c${esc(D.proof)}\u201d<cite>${esc(D.cite || "")}${url ? ` <a href="${esc(url)}" target="_blank" rel="noopener noreferrer">\u2197</a>` : ""}</cite></blockquote>
+      <div class="pfdo"><small>TODAY</small><p>${esc(D.act || "")}</p></div>
+      <div class="pfbar"><button type="button" class="btn pfgo${did ? " done" : ""}" data-pfdo="${D.id}" ${did ? "disabled" : ""}>${did ? "\u2713 On today's list" : "I'll do it"}</button>
+        <button type="button" class="linkbtn pfmore" data-pfmore="${D.id}" aria-expanded="${open}">${open ? "Less \u2303" : "More \u2304"}</button></div>
+      ${open ? `<div class="lsbody pfrest">
+        <p class="lsclaim">${esc(D.claim || "")}</p>
+        ${D.why ? `<p class="lslab">Why it works</p><p>${esc(D.why)}</p>` : ""}
+        ${L(D.examples).length ? `<p class="lslab">In real life</p><ul class="lsex">${L(D.examples).map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+        ${L(D.steps).length ? `<p class="lslab">Make it stick</p><ol class="lssteps">${L(D.steps).map((x) => `<li>${esc(x)}</li>`).join("")}</ol>` : ""}
+        ${D.evidence ? evidenceLine(D.evidence, D.fine) : ""}
+        <button type="button" class="btn-quiet lssave${D.saved ? " on" : ""}" id="${where === "ev" ? "evSave" : "lsSave"}" aria-pressed="${!!D.saved}">${D.saved ? "\u2605 Saved" : "\u2606 Save"}</button></div>` : ""}`;
   }
   function lessonHTML(body) {
     const inl = (t) => esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
@@ -8643,10 +8809,11 @@ button.jtile { cursor:pointer; }
       return `<div class="sheetbg" id="lsBg"></div>
       <div class="stdsheet lssheet" role="dialog" aria-label="Lesson" style="--tc:${th}">
         ${R.busy ? `<p class="hint">Opening…</p>` : R.err ? `<div class="cfempty">${sparkSVG(64, "sleepy")}<p>${esc(R.err)}</p></div>`
+          : D.hook ? `<div class="pf">${proofCard(D, "ls")}</div>`
           : `<p class="lsmeta"><span aria-hidden="true">${ti}</span> ${esc(tn)} · ${D.minutes || 1} min read</p><h3 class="lstitle">${esc(D.title)}</h3>
              ${lessonParts(D)}
              <p class="lssrc">by ${esc(D.author || "Dr. Nishtar")}</p>`}
-        <div class="stdbtns">${D ? `<button type="button" class="btn-quiet lssave${D.saved ? " on" : ""}" id="lsSave" aria-pressed="${!!D.saved}">${D.saved ? "★ Saved" : "☆ Save"}</button>` : ""}<button type="button" class="btn" id="lsDone">Done</button></div>
+        <div class="stdbtns">${D && !D.hook ? `<button type="button" class="btn-quiet lssave${D.saved ? " on" : ""}" id="lsSave" aria-pressed="${!!D.saved}">${D.saved ? "★ Saved" : "☆ Save"}</button>` : ""}<button type="button" class="btn" id="lsDone">Done</button></div>
       </div>`; }
     if (A) { const T = C.today, arch = A === "past" || A === "saved";
       const xs = arch ? (C.library || []).filter((x) => A === "saved" ? x.saved : x.read && (!T || x.id !== T.id)) : (C.library || []).filter((x) => x.topic === A);
@@ -8681,8 +8848,20 @@ button.jtile { cursor:pointer; }
     document.querySelectorAll("[data-cfseg]").forEach((el) => el.addEventListener("click", () => { state.campSeg = el.dataset.cfseg; render(); }));
     document.querySelectorAll("[data-cfsec]").forEach((el) => el.addEventListener("click", () => {
       const k = el.dataset.cfsec; state.cfOpen = Object.assign({}, state.cfOpen || {}); state.cfOpen[k] = !state.cfOpen[k]; render(); }));
-    document.querySelectorAll("[data-cflocked]").forEach((el) => el.addEventListener("click", () => {
-      toast("Locked for now. One essay opens each day you log; once open, it stays open."); }));
+    document.querySelectorAll("[data-pfmore]").forEach((el) => el.addEventListener("click", () => {
+      state.pfMore = state.pfMore === el.dataset.pfmore ? null : el.dataset.pfmore; render(); }));
+    // V10.5. "I'll do it": today's action goes on your task list (Do, today) and the study is saved.
+    document.querySelectorAll("[data-pfdo]").forEach((el) => el.addEventListener("click", async () => {
+      const id = el.dataset.pfdo, D = [state.evToday, state.lesson].map((x) => x && x.data).find((x) => x && String(x.id) === id);
+      if (!D || !D.act) return; el.disabled = true;
+      const x = { id: uuid(), parent_id: null, quadrant: 1, title: D.act.slice(0, 200), done: false, position: 0,
+                  sched_date: todayISO(), sched_start: null, sched_min: null };
+      const r = await call("app_task_save", { p_code: state.code, p_person: state.meId, p_task: taskPayload(x) });
+      if (r.error) { el.disabled = false; toast(r.offline ? "No signal. Not added yet." : r.error, "bad"); return; }
+      const did = proofDid(); did[id] = todayISO(); try { localStorage.setItem("fhd.proof.did." + state.meId, JSON.stringify(did)); } catch {}
+      if (!D.saved) { D.saved = true; const y = ((state.camp && state.camp.library) || []).find((q) => String(q.id) === id); if (y) y.saved = true;
+        call("app_lesson_keep", { p_code: state.code, p_person: state.meId, p_id: Number(id), p_on: true }); }
+      toast("On today's list in Tasks. Saved in Proof.", "ok"); render(); }));
     const shut = () => { state.lesson = null; state.campAll = null; render(); };
     on("lsDone", "click", shut); on("lsBg", "click", shut); on("caDone", "click", shut); on("caBg", "click", shut);
     on("evSave", "click", async () => {
@@ -8947,9 +9126,10 @@ button.jtile { cursor:pointer; }
     ["me", "Me", `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c.8-4 3.9-6 7.5-6s6.7 2 7.5 6"/></svg>`],
     ["tribe", "Tribe", `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8.5" r="3.2"/><circle cx="16.8" cy="9.6" r="2.5"/><path d="M2.8 19.5c.6-3.3 3-5 6.2-5s5.6 1.7 6.2 5M15.4 14.6c2.8-.3 5 1.1 5.8 4.4"/></svg>`],
     ["today", "Check in", ""],
-    // V10.2. Sparks: a scroll of short learning your tribe adds to. Evidence: the essays built on studies.
-    ["sparks", "Sparks", `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5v4M12 17.5v4M2.5 12h4M17.5 12h4M5.3 5.3l2.8 2.8M15.9 15.9l2.8 2.8M5.3 18.7l2.8-2.8M15.9 8.1l2.8-2.8"/><circle cx="12" cy="12" r="2.2"/></svg>`],
-    ["evidence", "Evidence", `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6.2L4.8 18.4A1.8 1.8 0 0 0 6.4 21h11.2a1.8 1.8 0 0 0 1.6-2.6L14 9.2V3"/><path d="M7.4 15h9.2"/></svg>`],
+    // V10.2. A scroll of short learning your tribe adds to, and the essays built on studies.
+    // V10.5. Named Insights and Proof.
+    ["sparks", "Insights", `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5v4M12 17.5v4M2.5 12h4M17.5 12h4M5.3 5.3l2.8 2.8M15.9 15.9l2.8 2.8M5.3 18.7l2.8-2.8M15.9 8.1l2.8-2.8"/><circle cx="12" cy="12" r="2.2"/></svg>`],
+    ["evidence", "Proof", `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6.2L4.8 18.4A1.8 1.8 0 0 0 6.4 21h11.2a1.8 1.8 0 0 0 1.6-2.6L14 9.2V3"/><path d="M7.4 15h9.2"/></svg>`],
   ];
   function homeTab() {
     // V9.5. The app opens on Today, the centre: family faces and your dial.
@@ -9838,7 +10018,7 @@ button.jtile { cursor:pointer; }
     { at: ".hgrid", tab: "me", t: "Your habits",
       d: "A small dial for each habit you have on. Tap one to log it or see its history; + adds or removes habits." },
     { at: ".tabbar", tab: "today", t: "Five tabs",
-      d: "Check in (the middle) is where you log and share a win. Me is your habits and your progress. Tribe is the family's week and its story. Sparks is quick learning your tribe adds to. Evidence is an essay a day, built on studies." },
+      d: "Check in (the middle) is where you log and share a win. Me is your habits and your progress. Tribe is the family's week and its story. Insights is quick learning your tribe adds to. Proof is a study a day, with one thing to do." },
     { at: ".lgline", tab: "tribe", t: "The League",
       d: "Your tribe's place among tribes, by members' average days at goal. Tap it for the list. Top 3 win points every week." },
   ];
