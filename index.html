@@ -3378,6 +3378,74 @@ button.fendj b { color:var(--accent); }
 .cfnone { margin:0; padding:0 14px 14px; }
 .cfrd { font-style:normal; color:#2f9e6e; font-weight:700; }
 
+/* ---------- V10.6 ---------------------------------------------------- */
+/* Insights › Family */
+.qmine { margin:0 0 12px; } .qmine .field { margin:0 0 8px; resize:vertical; }
+.qmrow { display:flex; gap:8px; align-items:flex-start; } .qmtop { flex:1; display:flex; flex-wrap:wrap; gap:6px; }
+.qmine .qc { border:1px solid var(--line); background:none; color:var(--ink-2); border-radius:99px; padding:5px 11px; font:inherit; font-size:12.5px; cursor:pointer; }
+.qmine .qc[aria-pressed="true"] { background:var(--ink); border-color:var(--ink); color:var(--ground); }
+.qmgo { flex:none; padding:8px 16px; }
+.hquotes .cfseg { margin:0 0 12px; }
+.hquotes .qcard.qfam .qa { display:flex; align-items:center; gap:6px; }
+.qmine textarea { font:inherit; font-size:15.5px; }
+.qmopen { width:100%; border:1.5px dashed var(--line-strong); background:none; border-radius:14px; padding:13px; font:inherit; font-size:15px; color:var(--ink-2); cursor:pointer; margin:0 0 12px; }
+.qmine .linkbtn { font-size:13px; margin-top:6px; }
+.smsheet .smbtn > span:first-child { height:46px; display:grid; place-items:center; } .qfam .qa small { color:var(--muted); font-weight:500; }
+.qfam .fav.fsm { width:22px; height:22px; font-size:10px; }
+.qfbar { display:flex; align-items:center; gap:14px; padding:0 18px 14px; }
+/* Evidence: essays */
+.hev .htabh { display:flex; align-items:center; justify-content:space-between; }
+.hev .cfseg { margin:0 0 12px; }
+.eslist { display:flex; flex-direction:column; gap:10px; margin:0 0 14px; }
+.escard { display:flex; flex-direction:column; gap:5px; text-align:left; border:1px solid var(--line); border-left:3px solid var(--tc); border-radius:14px; background:var(--surface); padding:14px 16px; font:inherit; color:var(--ink); cursor:pointer; }
+.escard .esmeta { font-size:11.5px; letter-spacing:.06em; font-weight:700; color:var(--tc); }
+.escard b { font-size:18px; line-height:1.25; } .escard .esidea { font-size:14px; color:var(--ink-2); line-height:1.4; }
+.esline { margin:0 0 6px; font-size:16px; color:var(--ink-2); line-height:1.4; }
+.esbody p { line-height:1.6; }
+.escites { padding-left:22px; font-size:13px; color:var(--ink-2); line-height:1.45; } .escites li { margin:0 0 6px; overflow-wrap:anywhere; }
+.esbar { display:flex; align-items:center; justify-content:space-between; margin-top:12px; }
+.esform textarea { resize:vertical; }
+.evsvlist { list-style:none; margin:0; padding:0 0 10px; display:flex; flex-direction:column; gap:8px; }
+.evsvlist li { display:flex; align-items:center; gap:8px; } .evsvlist .cfcard { flex:1; min-width:0; }
+.evunsave { flex:none; width:34px; height:34px; border-radius:50%; border:1px solid var(--line-strong); background:none; color:var(--ink-2); font-size:18px; cursor:pointer; }
+/* Chat: reactions, replies, story replies */
+.chmsg { cursor:pointer; position:relative; }
+.chmsg.hasr { margin-bottom:14px; }
+.chreacts { position:absolute; bottom:-12px; right:8px; display:flex; gap:2px; background:var(--surface); border:1px solid var(--line); border-radius:99px; padding:1px 6px; font-size:12.5px; }
+.chmsg.me .chreacts { right:auto; left:8px; }
+.chreacts i { font-style:normal; } .chreacts i.mine { font-weight:700; }
+.chacts { display:flex; align-items:center; gap:4px; flex-wrap:wrap; margin-top:6px; padding-top:6px; border-top:1px solid color-mix(in oklab, var(--ink) 12%, transparent); }
+.chemo { border:none; background:none; font-size:20px; padding:2px 3px; cursor:pointer; border-radius:8px; }
+.chemo.on { background:color-mix(in oklab, var(--ink) 14%, transparent); }
+.chacts .linkbtn { margin-left:8px; font-size:13px; }
+.chquote { border-left:3px solid var(--gold, #c9a45c); padding:3px 8px; margin:0 0 5px; border-radius:4px; background:color-mix(in oklab, var(--ink) 7%, transparent); font-size:13px; display:flex; flex-direction:column; }
+.chquote span { color:var(--ink-2); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:220px; }
+.chstory { display:flex; flex-direction:column; gap:4px; margin:0 0 6px; } .chstory small { font-size:11.5px; color:var(--muted); }
+.chstory img { width:84px; height:120px; object-fit:cover; border-radius:10px; } .chstory i { font-size:12.5px; color:var(--ink-2); }
+.chstory .wtext.mini { width:84px; min-height:84px; display:grid; place-items:center; padding:6px; border-radius:10px; font-size:11px; text-align:center; }
+.chreplybar { display:flex; align-items:center; gap:8px; padding:8px 14px; border-top:1px solid var(--line); background:var(--surface); font-size:13px; }
+.chreplybar span { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--ink-2); }
+.chreplybar .stx { width:28px; height:28px; font-size:13px; }
+.streply { display:flex; gap:8px; margin-top:10px; } .streply .chin { flex:1; min-width:0; }
+/* Workout post */
+.smsheet .smrow { grid-template-columns:repeat(2, minmax(0, 1fr)) !important; }
+.smsheet .smrow .smbtn { min-height:84px; }
+.wksheet .cfseg { margin:4px 0 12px; }
+.wkmin { display:flex; align-items:baseline; gap:10px; margin:0 0 12px; }
+.wkmin .field { width:120px; font-size:32px; font-weight:700; text-align:center; margin:0; }
+.wkmin span { color:var(--muted); font-size:16px; }
+.wkpics { display:flex; gap:8px; margin:0 0 10px; } .wkpics .btn-quiet { flex:1; }
+.wkprev { position:relative; margin:0 0 10px; } .wkprev img { width:100%; max-height:220px; object-fit:cover; border-radius:14px; display:block; }
+.wkprev .stx { position:absolute; top:8px; right:8px; }
+/* Tribe: the weekly challenge */
+.chal { border:1px solid var(--line); border-radius:16px; padding:12px 14px; margin:0 0 14px; background:var(--surface); }
+.chal.won { border-color:color-mix(in oklab, var(--green, #2f9e6e) 55%, var(--line)); }
+.chalh { margin:0; font-size:12px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--ink-2); display:flex; justify-content:space-between; }
+.chalh small { text-transform:none; letter-spacing:0; font-weight:500; color:var(--muted); }
+.chalt { margin:4px 0 8px; font-size:15px; color:var(--ink); }
+.chalbar { height:8px; border-radius:99px; background:color-mix(in oklab, var(--ink) 10%, transparent); overflow:hidden; }
+.chalbar i { display:block; height:100%; border-radius:99px; background:var(--gold, #c9a45c); }
+.chal.won .chalbar i { background:var(--green, #2f9e6e); }
 /* ---------- V10.5 ---------------------------------------------------- */
 /* Tasks: a step's box is square, half a step in from its task's circle. */
 .ts .tck.sm { border-radius:5px; }
@@ -3691,7 +3759,7 @@ button.jtile { cursor:pointer; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "10.5";
+  const APP_VERSION = "10.6";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -3765,7 +3833,7 @@ button.jtile { cursor:pointer; }
     "app_cycle", "app_med", "app_year", "app_work_day", "app_family", "app_ex_progress", "app_custom", "app_board", "app_lift_detail",
     "app_template", "app_lift_open", "app_lift_home",
     // V10.1. Reads, so opening them never marks the page as changed.
-    "app_feed", "app_quotes", "app_win_img", "app_wins", "app_person_week", "app_spotlight", "app_social", "app_journey", "app_recap", "app_chats"]);
+    "app_feed", "app_quotes", "app_win_img", "app_wins", "app_person_week", "app_spotlight", "app_challenge", "app_social", "app_journey", "app_recap", "app_chats"]);
   async function call(fn, args) {
     if (!READS.has(fn)) state.dirty = true;
     try {
@@ -4429,10 +4497,12 @@ button.jtile { cursor:pointer; }
     const prevLast = C.msgs && C.msgs.length ? C.msgs[C.msgs.length - 1].id : 0;
     C.msgs = older ? got.concat(C.msgs || []) : got; C.more = got.length === 60;
     const t = (state.chats || []).find((x) => x.thread === th); if (t) t.unread = 0;
-    const lastNow = C.msgs.length ? C.msgs[C.msgs.length - 1].id : 0;
-    if (older || lastNow !== prevLast || !C.drawn) { C.drawn = true; C.stick = !older; render(); }
+    const lastNow = C.msgs.length ? C.msgs[C.msgs.length - 1].id : 0, sig = JSON.stringify(C.msgs.map((m) => [m.id, m.reacts]));
+    if (older || lastNow !== prevLast || !C.drawn) { C.drawn = true; C.sig = sig; C.stick = !older; render(); }
+    else if (sig !== C.sig) { C.sig = sig; render(); }
   }
   let chatTick = null;
+  const CH_EMO = ["\u2764\ufe0f", "\u{1F525}", "\u{1F44F}", "\u{1F602}", "\u{1F64F}"];
   function chatView() {
     const C = state.chat; if (!C) return "";
     // V10.5. A group of the people you pick.
@@ -4457,14 +4527,23 @@ button.jtile { cursor:pointer; }
     const msgs = C.msgs || [];
     let lastDay = "";
     const body = msgs.map((m0) => { const d = new Date(m0.at), day = d.toDateString(), sep = day !== lastDay ? `<p class="chday">${d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}</p>` : ""; lastDay = day;
-      return `${sep}<div class="chmsg${m0.mine ? " me" : ""}${C.sel === m0.id ? " sel" : ""}" ${m0.mine ? `data-chsel="${m0.id}"` : ""}>${fam && !m0.mine ? `<small class="chwho">${esc(firstName(m0))}</small>` : ""}
+      const sel = C.sel === m0.id, R = m0.reply, X = m0.ctx;
+      // V10.6. Tap a message: react, reply, or (yours) delete.
+      return `${sep}<div class="chmsg${m0.mine ? " me" : ""}${sel ? " sel" : ""}${(m0.reacts || []).length ? " hasr" : ""}" data-chsel="${m0.id}">${fam && !m0.mine ? `<small class="chwho">${esc(firstName(m0))}</small>` : ""}
+        ${X ? `<div class="chstory"><small>${m0.mine ? "You replied to their story" : "Replied to your story"}</small>${X.thumb ? `<img src="${esc(X.thumb)}" alt="">` : `<span class="wtext mini" style="--wb:${winBg(X.bg)}">${esc(X.caption || "")}</span>`}${X.thumb && X.caption ? `<i>${esc(X.caption)}</i>` : ""}</div>` : ""}
+        ${R ? `<div class="chquote"><b>${R.mine ? "You" : esc(firstName(R))}</b><span>${esc(R.body || "")}</span></div>` : ""}
         ${m0.img ? `<img src="${esc(m0.img)}" alt="Photo from ${esc(m0.name)}">` : ""}${m0.body ? `<p>${esc(m0.body)}</p>` : ""}
-        <small class="chat2">${d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}${m0.mine && C.sel === m0.id ? ` \u00b7 <button type="button" class="linkbtn" data-chdel="${m0.id}">Delete</button>` : ""}</small></div>`; }).join("");
+        <small class="chat2">${d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}</small>
+        ${(m0.reacts || []).length ? `<span class="chreacts">${m0.reacts.map((r) => `<i class="${r.mine ? "mine" : ""}">${r.e}${r.n > 1 ? r.n : ""}</i>`).join("")}</span>` : ""}
+        ${sel ? `<div class="chacts">${CH_EMO.map((e) => `<button type="button" class="chemo${(m0.reacts || []).some((r) => r.mine && r.e === e) ? " on" : ""}" data-chreact="${m0.id}|${e}" aria-label="React ${e}">${e}</button>`).join("")}
+          <button type="button" class="linkbtn" data-chreply="${m0.id}">Reply</button>${m0.mine ? `<button type="button" class="linkbtn gdel" data-chdel="${m0.id}">Delete</button>` : ""}</div>` : ""}</div>`; }).join("");
     const opt = grp && C.opt ? `<div class="chopt"><div class="chren"><input class="field" id="chRename" maxlength="40" autocomplete="off" value="${esc(t.name)}" aria-label="Group name"><button type="button" class="btn-quiet" id="chRenGo">Rename</button></div>
         <p class="hint">${(t.members || []).map((q) => esc(q.id === state.meId ? "You" : q.name)).join(", ")}</p>
         <button type="button" class="linkbtn gdel" id="chLeave">Leave this group</button></div>` : "";
     return `<div class="chat" role="dialog" aria-label="Chat with ${esc(t.name)}"><header class="chhead"><button type="button" class="chback" id="chatBack" aria-label="All chats">\u2039</button><b>${esc(t.name)}${C.thread === "family" ? " <small>family</small>" : grp ? ` <small>${(t.members || []).length} people</small>` : ""}</b>${grp ? `<button type="button" class="chdots" id="chOpt" aria-expanded="${!!C.opt}" aria-label="Group settings">\u22ef</button>` : ""}<button type="button" class="stx" id="chatX" aria-label="Close">\u2715</button></header>${opt}
       <div class="chbody" id="chBody">${C.more ? `<button type="button" class="linkbtn chmore" id="chMore">Earlier messages</button>` : ""}${C.msgs ? (body || `<p class="hint chnone">No messages yet. Say hello.</p>`) : `<p class="hint chnone">Loading\u2026</p>`}</div>
+      ${C.replyTo ? (() => { const r = (C.msgs || []).find((x) => x.id === C.replyTo) || {};
+        return `<div class="chreplybar"><span><b>Replying to ${r.mine ? "yourself" : esc(firstName(r))}</b> ${esc(String(r.body || (r.img ? "Photo" : "")).slice(0, 80))}</span><button type="button" class="stx" id="chReplyX" aria-label="Cancel reply">\u2715</button></div>`; })() : ""}
       <form class="chform" id="chForm"><button type="button" class="chpic" id="chPic" aria-label="Send a photo">\u{1F4F7}</button><input type="file" id="chFile" accept="image/*" hidden>
         <input class="chin" id="chIn" maxlength="1000" autocomplete="off" enterkeyhint="send" placeholder="Message" value="${esc(C.draft || "")}" aria-label="Message">
         <button type="submit" class="chsend" id="chSend" aria-label="Send">\u2191</button></form></div>`;
@@ -4514,16 +4593,27 @@ button.jtile { cursor:pointer; }
     const send = async (img) => {
       const body = img ? "" : (inp && inp.value || "").trim(); if (!body && !img) return;
       if (!img) { C.draft = ""; if (inp) inp.value = ""; }
-      const r = await call("app_chat_send", { p_code: state.code, p_person: state.meId, p_thread: C.thread, p_body: body, p_img: img || null });
+      const r = await call("app_chat_send", { p_code: state.code, p_person: state.meId, p_thread: C.thread, p_body: body, p_img: img || null, p_reply: C.replyTo || null });
       if (r.error) { if (!img) C.draft = body; toast(r.offline ? "No signal. Not sent yet." : r.error, "bad"); render(); return; }
-      C.stick = true; await loadThread();
+      C.replyTo = null; C.stick = true; await loadThread(); render();
     };
     on("chForm", "submit", (e) => { e.preventDefault(); C.typing = true; send(); });
     on("chPic", "click", () => document.getElementById("chFile")?.click());
     on("chFile", "change", async (e) => { const f = e.target.files && e.target.files[0]; if (!f) return;
       try { const d = await shrinkPhoto(f); send(d); } catch (er) { toast((er && er.message) || "Couldn't read that photo.", "bad"); } });
     on("chMore", "click", () => loadThread(true));
-    document.querySelectorAll("[data-chsel]").forEach((el) => el.addEventListener("click", () => { const id = Number(el.dataset.chsel); C.sel = C.sel === id ? null : id; render(); }));
+    document.querySelectorAll("[data-chsel]").forEach((el) => el.addEventListener("click", (e) => { if (e.target.closest("a, .chacts")) return; const id = Number(el.dataset.chsel); C.sel = C.sel === id ? null : id; render(); }));
+    document.querySelectorAll("[data-chreact]").forEach((el) => el.addEventListener("click", async (e) => { e.stopPropagation();
+      const [id0, emo] = el.dataset.chreact.split("|"), id = Number(id0), m = (C.msgs || []).find((x) => x.id === id); if (!m) return;
+      const had = (m.reacts || []).find((r) => r.mine), off = had && had.e === emo;
+      m.reacts = (m.reacts || []).map((r) => r.mine ? Object.assign({}, r, { n: r.n - 1, mine: false }) : r).filter((r) => r.n > 0);
+      if (!off) { const r = m.reacts.find((x) => x.e === emo); if (r) { r.n++; r.mine = true; } else m.reacts.push({ e: emo, n: 1, mine: true }); }
+      C.sel = null; render();
+      const r = await call("app_chat_react", { p_code: state.code, p_person: state.meId, p_id: id, p_emoji: off ? "" : emo });
+      if (r.error && !r.offline) toast(r.error, "bad"); }));
+    document.querySelectorAll("[data-chreply]").forEach((el) => el.addEventListener("click", (e) => { e.stopPropagation();
+      C.replyTo = Number(el.dataset.chreply); C.sel = null; C.typing = true; render(); }));
+    on("chReplyX", "click", () => { C.replyTo = null; render(); });
     document.querySelectorAll("[data-chdel]").forEach((el) => el.addEventListener("click", async (e) => { e.stopPropagation();
       const r = await call("app_chat_delete", { p_code: state.code, p_person: state.meId, p_id: Number(el.dataset.chdel) });
       if (r.error && !r.offline) toast(r.error, "bad"); C.sel = null; C.msgs = (C.msgs || []).filter((x) => x.id !== Number(el.dataset.chdel)); render(); }));
@@ -4540,13 +4630,32 @@ button.jtile { cursor:pointer; }
         <p class="eyebrow">Share a win${myWins() ? ` \u00b7 ${3 - myWins()} more today` : ""}</p>
         <div class="smrow"><button type="button" class="smbtn" id="smPhoto"><span aria-hidden="true">\u{1F4F7}</span><b>Photo</b></button>
           <button type="button" class="smbtn" id="smPaste"><span aria-hidden="true">\u{1F4CB}</span><b>Paste</b></button>
-          <button type="button" class="smbtn" id="smText" style="--wb:${WIN_BG[0]}"><span aria-hidden="true">Aa</span><b>Write it</b></button></div>
+          <button type="button" class="smbtn" id="smText" style="--wb:${WIN_BG[0]}"><span aria-hidden="true">Aa</span><b>Write it</b></button>
+          <button type="button" class="smbtn" id="smWork"><span aria-hidden="true">\u{1F3C3}</span><b>Workout</b></button></div>
         <p class="hint smhint">Copied a screenshot or photo? Tap Paste.</p>
         <div class="stdbtns"><button type="button" class="btn-quiet" id="smX">Cancel</button></div>
       </div>`;
   }
+  // V10.6. A workout post: Train or Cardio, minutes, and a screenshot if you
+  // have one. It logs the minutes and becomes your story. Not in the chat.
+  function workSheet() {
+    const W = state.workDraft;
+    return `<div class="sheetbg" id="wkBg"></div>
+      <div class="stdsheet wksheet" role="dialog" aria-label="Post a workout">
+        <p class="eyebrow">Post a workout</p>
+        <div class="cfseg" role="radiogroup" aria-label="Train or Cardio">${[["train", "\u{1F3CB}\ufe0f Train"], ["cardio", "\u{1F3C3} Cardio"]].map(([v, t]) => `<button type="button" role="radio" class="${W.kind === v ? "on" : ""}" data-wkk="${v}" aria-checked="${W.kind === v}">${t}</button>`).join("")}</div>
+        <label class="wkmin"><input class="field" id="wkMin" inputmode="numeric" pattern="[0-9]*" maxlength="3" autocomplete="off" placeholder="0" value="${esc(W.min || "")}" aria-label="Minutes"><span>minutes</span></label>
+        ${W.img ? `<div class="wkprev"><img src="${esc(W.img)}" alt="Your screenshot"><button type="button" class="stx" id="wkImgX" aria-label="Remove the photo">\u2715</button></div>`
+          : `<div class="wkpics"><button type="button" class="btn-quiet" id="wkPhoto">\u{1F4F7} Add a photo</button><button type="button" class="btn-quiet" id="wkPaste">\u{1F4CB} Paste</button></div>`}
+        <input class="field" id="wkCap" maxlength="60" autocomplete="off" placeholder="Add a note (optional)" value="${esc(W.cap || "")}" aria-label="Note">
+        ${W.err ? `<p class="hint bad">${esc(W.err)}</p>` : `<p class="hint">Adds to today's ${W.kind === "cardio" ? "Cardio" : "Train"} minutes and goes on your story.</p>`}
+        <input type="file" id="wkFile" accept="image/*" hidden>
+        <div class="stdbtns"><button type="button" class="btn-quiet" id="wkX">Cancel</button><button type="button" class="btn" id="wkGo" ${W.busy ? "disabled" : ""}>${W.busy ? "Posting\u2026" : "Post"}</button></div>
+      </div>`;
+  }
   function personSheet() {
     if (state.chat) return chatView();
+    if (state.workDraft) return workSheet();
     if (state.snapDraft) return snapSheet();
     if (state.shareMenu) return shareMenu();
     const id = state.person; if (!id) return "";
@@ -4574,7 +4683,8 @@ button.jtile { cursor:pointer; }
            <button type="button" class="btn" data-go="steps">Log my steps</button></div>`
         : `${storyPhotos(id, false)}${x.logged ? `<ul class="stnums">${storyNums(p)}</ul>` : nolog}${weekStrip(id)}`}</div>
       <footer class="stfoot">
-        ${open ? `<div class="stacts">${cheerBtn(x, "cheerbtn")}</div>${cheeredBy(S) ? `<p class="stfrom">${cheeredBy(S)}</p>` : ""}` : ""}
+        ${open ? `<div class="stacts">${cheerBtn(x, "cheerbtn")}</div>${cheeredBy(S) ? `<p class="stfrom">${cheeredBy(S)}</p>` : ""}
+          <form class="streply" id="stReply" data-to="${id}"><input class="chin" id="stReplyIn" maxlength="1000" autocomplete="off" enterkeyhint="send" placeholder="Reply to ${esc(first)}\u2026" aria-label="Reply to ${esc(first)}"><button type="submit" class="chsend" aria-label="Send">\u2191</button></form>` : ""}
         <button type="button" class="btn stnext" id="${last ? (open ? "stEnd" : "psDone2") : "stNext"}">${last ? (open ? "Finish ›" : "Done") : `Next: ${esc(firstName(L[i + 1]))} ›`}</button>
       </footer></div>`;
   }
@@ -4665,6 +4775,15 @@ button.jtile { cursor:pointer; }
     // The story sits outside the page, so its buttons are wired here.
     document.querySelectorAll(".story [data-go]").forEach((el) => el.addEventListener("click", () => { state.person = null; state.storyQ = null; openExercise(el.dataset.go); }));
     document.querySelectorAll(".story [data-lesson]").forEach((el) => el.addEventListener("click", () => { state.person = null; state.storyQ = null; render(); openLesson(el.dataset.lesson); }));
+    // V10.6. Reply to a story: a private message, with a small copy of it.
+    on("stReply", "submit", async (e) => { e.preventDefault();
+      const f = e.currentTarget, to = f.dataset.to, inp = document.getElementById("stReplyIn"), body = (inp && inp.value || "").trim(); if (!body) return;
+      const day = storyDayOf(to), W = (state.winFull || {})[winKey(to, day)], w = W && W.list && W.list[0];
+      let ctx = null; try { ctx = w ? { caption: w.caption || "", bg: w.bg || 0, thumb: w.img ? await thumbOf(w.img) : null } : null; } catch { ctx = { caption: (w && w.caption) || "" }; }
+      const th = ((state.chats || []).find((t) => t.with_id === to) || {}).thread || "dm:" + [state.meId, to].sort().join(":");
+      inp.value = ""; const r = await call("app_chat_send", { p_code: state.code, p_person: state.meId, p_thread: th, p_body: body, p_img: null, p_ctx: ctx });
+      if (r.error) { inp.value = body; toast(r.offline ? "No signal. Not sent yet." : r.error, "bad"); return; }
+      toast(`Sent to ${firstName(gpx(to) || {})}. It's in your chat.`, "ok"); loadChats(); });
     // Share a win: the + on your circle, your own story, the end of the stories.
     const pick = () => { state.shareMenu = false; render(); const f = document.getElementById("photoFile"); if (f) f.click(); };
     const menu = () => { if (myWins() >= 3) { toast("Three wins a day. Delete one to share another.", "bad"); return; }
@@ -4682,6 +4801,29 @@ button.jtile { cursor:pointer; }
       } catch (e) { toast(e && e.message === "none" ? "This browser can't paste here. Use Photo instead." : "Nothing to paste. Copy a photo or screenshot first.", "bad"); }
     });
     const noMenu = () => { state.shareMenu = false; render(); };
+    on("smWork", "click", () => { state.shareMenu = false; state.workDraft = { kind: "cardio", min: "", cap: "", img: null }; render(); document.getElementById("wkMin")?.focus(); });
+    const WD = state.workDraft;
+    if (WD) {
+      const keepW = () => { const g = (id) => (document.getElementById(id) || {}).value; WD.min = g("wkMin") ?? WD.min; WD.cap = g("wkCap") ?? WD.cap; };
+      const takeImg = async (f) => { try { keepW(); WD.img = await shrinkPhoto(f); WD.thumb = await thumbOf(WD.img); WD.err = null; render(); } catch (er) { toast((er && er.message) || "Couldn't read that photo.", "bad"); } };
+      document.querySelectorAll("[data-wkk]").forEach((el) => el.addEventListener("click", () => { keepW(); WD.kind = el.dataset.wkk; render(); }));
+      on("wkPhoto", "click", () => { keepW(); document.getElementById("wkFile")?.click(); });
+      on("wkFile", "change", (e) => { const f = e.target.files && e.target.files[0]; if (f) takeImg(f); });
+      on("wkPaste", "click", async () => { try { const items = await navigator.clipboard.read();
+          for (const it of items) { const ty = it.types.find((t) => t.startsWith("image/")); if (ty) { takeImg(new File([await it.getType(ty)], "pasted", { type: ty })); return; } }
+          toast("Nothing to paste. Copy a screenshot first.", "bad"); } catch { toast("Nothing to paste. Copy a screenshot first.", "bad"); } });
+      on("wkImgX", "click", () => { keepW(); WD.img = null; WD.thumb = null; render(); });
+      const shut = () => { state.workDraft = null; render(); };
+      on("wkX", "click", shut); on("wkBg", "click", shut);
+      on("wkGo", "click", async () => { if (WD.busy) return; keepW();
+        const n = Math.round(Number(WD.min)); if (!(n >= 1 && n <= 600)) { WD.err = "How many minutes? 1 to 600."; render(); return; }
+        WD.busy = true; WD.err = null; render();
+        const r = await call("app_workout_post", { p_code: state.code, p_person: state.meId, p_kind: WD.kind, p_min: n, p_img: WD.img || null, p_thumb: WD.thumb || null, p_caption: WD.cap || "" });
+        if (r.error) { WD.busy = false; WD.err = r.offline ? "No signal. Not posted yet." : r.error; render(); return; }
+        state.workDraft = null;
+        toast(`${WD.kind === "cardio" ? "Cardio" : "Train"} +${n} min (${r.total} today)${r.story ? " \u00b7 on your story" : ". Three stories today already, so it's logged only."}`, "ok");
+        await Promise.all([loadSocial(), loadToday(), loadVotes(true)]); render(); });
+    }
     on("smX", "click", noMenu); on("smBg", "click", noMenu);
     document.querySelectorAll("[data-sdbg]").forEach((el) => el.addEventListener("click", () => {
       const D = state.snapDraft; if (!D) return; D.bg = Number(el.dataset.sdbg);
@@ -4802,6 +4944,24 @@ button.jtile { cursor:pointer; }
   }
   // V9.7. Spotlight: up to three things worth a cheer, worked out from what
   // is already logged (a comeback, a milestone, a day everyone logged...).
+  // V10.6. The family's week: beat last week's steps, together.
+  async function loadChallenge(force) {
+    const H = state.chal; if (!state.meId || (!force && H && (H.busy || Date.now() - (H.at || 0) < 60000))) return;
+    state.chal = Object.assign({}, H || {}, { busy: true });
+    const r = await call("app_challenge", { p_code: state.code, p_person: state.meId });
+    state.chal = r && !r.error ? Object.assign(r, { at: Date.now() }) : Object.assign({}, H || {}, { busy: false, at: Date.now() });
+    if (state.view === "board" && homeTab() === "tribe") render();
+  }
+  function challengeBar() {
+    const H = state.chal; if (!H || H.this === undefined) { if (!(H && H.busy)) setTimeout(() => loadChallenge(), 0); return ""; }
+    const now = Number(H.this) || 0, last = Number(H.last) || 0, left = Number(H.days_left), f = (x) => Math.round(x).toLocaleString();
+    const when = left === 0 ? "last day" : left === 1 ? "1 day left" : `${left} days left`;
+    if (!last) return `<section class="chal"><p class="chalh">This week</p><p class="chalt"><b>${f(now)}</b> family steps so far. Next week, beat it.</p></section>`;
+    const pct = Math.min(100, Math.round(100 * now / last)), won = now > last;
+    return `<section class="chal${won ? " won" : ""}" aria-label="Weekly challenge"><p class="chalh">Beat last week's family steps <small>${when}</small></p>
+      <p class="chalt">${won ? `\u{1F389} <b>Beaten by ${f(now - last)}</b> steps. Keep going.` : `<b>${f(now)}</b> of ${f(last)} \u00b7 ${f(last - now)} to go`}</p>
+      <div class="chalbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}"><i style="width:${pct}%"></i></div></section>`;
+  }
   async function loadSpotlight(force) {
     const S = state.spot; if (!state.meId || (!force && S && (S.busy || Date.now() - (S.at || 0) < 60000))) return;
     state.spot = Object.assign({}, S || {}, { busy: true });
@@ -8156,6 +8316,7 @@ button.jtile { cursor:pointer; }
         <div class="htabh"><button type="button" class="htabt" id="tribeGoal" aria-label="Tribe name, crest, goal and people"><h2>Tribe</h2></button></div>
         ${segTabs("trSeg", state.trSeg)}
         ${state.trSeg === "progress" ? journeyTribeBody() : `
+        ${challengeBar()}
         ${spotlight()}
         ${weekChart()}
         ${hitsRail()}
@@ -8527,7 +8688,9 @@ button.jtile { cursor:pointer; }
     if (state.view === "board" && homeTab() === "sparks") render();
   }
   // V10.4. Your tribe's newest first (the server sends them newest first), then the starter ones.
-  const allQuotes = () => ((state.quotes || {}).list || []).map((q) => ({ k: "q" + q.id, id: q.id, t: q.t, a: q.a, s: q.s, p: q.p, f: q.f, u: q.u, n: q.n, by: q.by, own: !!q.mine, mine: true, at: q.at })).concat(quotesMixed());
+  const allQuotes = () => ((state.quotes || {}).list || []).filter((q) => !q.own).map((q) => ({ k: "q" + q.id, id: q.id, t: q.t, a: q.a, s: q.s, p: q.p, f: q.f, u: q.u, n: q.n, by: q.by, own: !!q.mine, mine: true, at: q.at })).concat(quotesMixed());
+  // V10.6. Insights › Family: what your tribe learned, in their own words.
+  const familyInsights = () => ((state.quotes || {}).list || []).filter((q) => q.own).map((q) => ({ k: "q" + q.id, id: q.id, t: q.t, a: q.a, p: q.p, pid: q.pid, own: !!q.mine, at: q.at }));
   // V10.5. The starters take turns by topic, so the feed mixes from the first card.
   const quotesMixed = () => { const by = Q_PILLARS.map((p) => QUOTES0.filter((q) => q.p === p)), out = [];
     for (let i = 0; by.some((g) => i < g.length); i++) by.forEach((g) => { if (g[i]) out.push(g[i]); }); return out; };
@@ -8538,7 +8701,27 @@ button.jtile { cursor:pointer; }
     const a = xs.slice(); for (let i = a.length - 1; i > 0; i--) { h = (h * 1103515245 + 12345) >>> 0; const j = h % (i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a;
   }
   function sparksView() {
-    return `<section class="htab hcamp hquotes" aria-label="Insights"><div class="htabh"><h2>Insights</h2><button type="button" class="qplus" id="qAdd" aria-label="Add an insight">+</button></div><p class="qtag">Replace doomscrolling with micro-learning</p>${quotesView()}</section>`;
+    return `<section class="htab hcamp hquotes" aria-label="Insights"><div class="htabh"><h2>Insights</h2>${state.qSeg === "family" ? "" : `<button type="button" class="qplus" id="qAdd" aria-label="Add a quote">+</button>`}</div><p class="qtag">Replace doomscrolling with micro-learning</p>
+      <div class="cfseg" role="tablist" aria-label="Quotes or family">${[["quotes", "Quotes"], ["family", "Family"]].map(([v, t]) => `<button type="button" role="tab" class="${(state.qSeg || "quotes") === v ? "on" : ""}" data-qseg="${v}" aria-selected="${(state.qSeg || "quotes") === v}">${t}</button>`).join("")}</div>
+      ${state.qSeg === "family" ? familyView() : quotesView()}</section>`;
+  }
+  function familyView() {
+    const Q = state.quotes; if (!Q || (!Q.list && !Q.err)) { if (!(Q && Q.busy)) setTimeout(() => loadQuotes(), 0); }
+    const saved = new Set((Q && Q.saved) || []), f = state.qFilter && state.qFilter !== "all" ? state.qFilter : "", D = state.qMine || (state.qMine = { t: "", p: "" });
+    let xs = familyInsights(); xs = f === "saved" ? xs.filter((q) => saved.has(q.k)) : f ? xs.filter((q) => q.p === f) : xs;
+    const chip = (v, label, on) => `<button type="button" class="qc" data-qf="${esc(v)}" aria-pressed="${on}">${esc(label)}</button>`;
+    const compose = !D.open ? `<button type="button" class="qmopen" id="qmOpen">+ Share what you learned</button>` : `<section class="qmine"><textarea class="field" id="qmText" rows="2" maxlength="280" placeholder="What did you learn? Your words.">${esc(D.t)}</textarea>
+      <div class="qmrow"><div class="qmtop" role="radiogroup" aria-label="Topic">${Q_PILLARS.map((p) => `<button type="button" class="qc" data-qmp="${esc(p)}" role="radio" aria-checked="${D.p === p}" aria-pressed="${D.p === p}">${esc(p)}</button>`).join("")}</div>
+        <button type="button" class="btn qmgo" id="qmGo" ${D.busy ? "disabled" : ""}>Share</button></div>${D.err ? `<p class="hint bad">${esc(D.err)}</p>` : ""}
+        <button type="button" class="linkbtn" id="qmX">Cancel</button></section>`;
+    const card = (q) => { const op = state.qOpen === q.k, sv = saved.has(q.k), x = (state.people || []).find((y) => y.id === q.pid) || {};
+      return `<article class="qcard sp qfam${op ? " open" : ""}"><button type="button" class="qbody" data-qopen="${q.k}" aria-expanded="${op}">
+          <span class="qa"><span class="fav fsm" style="--hc:hsl(${x.hue || 200} 62% 48%)">${esc(initials(q.a || "?"))}</span> ${esc(q.own ? "You" : firstName({ name: q.a }))} <small>\u00b7 ${esc(q.p)} \u00b7 ${chatAgo(q.at)}</small>${sv ? ` <i class="qsv" aria-label="Saved">\u2605</i>` : ""}</span>
+          <span class="qt">${esc(q.t)}</span></button>
+        ${op ? `<div class="qfbar"><button type="button" class="qsave${sv ? " on" : ""}" data-qsave="${q.k}" aria-pressed="${sv}">${sv ? "\u2605 Saved" : "\u2606 Save"}</button>${q.own || (Q && Q.owner) ? `<button type="button" class="linkbtn gdel" data-qdel="${q.id}">Remove</button>` : ""}</div>` : ""}</article>`; };
+    return `${compose}<div class="qchips qtop" role="group" aria-label="Topic">${Q_PILLARS.map((p) => chip(p, p, f === p)).join("")}${chip("saved", "\u2605 Saved", f === "saved")}</div>
+      <div class="qlist">${xs.map(card).join("")}</div>
+      ${xs.length ? `<div class="qend"><p>That's everything your family has shared${f ? " here" : ""}.</p></div>` : `<div class="cfempty"><p>${f === "saved" ? "Tap \u2606 Save on one to keep it here." : "Nothing yet. Share the first thing you learned."}</p></div>`}`;
   }
   function quotesView() {
     const Q = state.quotes; if (!Q || (!Q.list && !Q.err)) { if (!(Q && Q.busy)) setTimeout(() => loadQuotes(), 0); }
@@ -8603,6 +8786,18 @@ button.jtile { cursor:pointer; }
   }
   function wireQuotes() {
     document.querySelectorAll("[data-qfmt]").forEach((el) => el.addEventListener("click", () => { state.qFmt = state.qFmt === el.dataset.qfmt ? "" : el.dataset.qfmt; state.qOpen = null; state.qN = 15; state.qRounds = 1; render(); }));
+    document.querySelectorAll("[data-qseg]").forEach((el) => el.addEventListener("click", () => { state.qSeg = el.dataset.qseg; state.qOpen = null; state.qN = 15; state.qRounds = 1; render(); }));
+    on("qmText", "input", (e) => { if (state.qMine) state.qMine.t = e.target.value; });
+    on("qmOpen", "click", () => { state.qMine = Object.assign(state.qMine || { t: "", p: "" }, { open: true }); render(); document.getElementById("qmText")?.focus(); });
+    on("qmX", "click", () => { state.qMine = { t: "", p: "" }; render(); });
+    document.querySelectorAll("[data-qmp]").forEach((el) => el.addEventListener("click", () => { const D = state.qMine; D.t = (document.getElementById("qmText") || {}).value ?? D.t; D.p = el.dataset.qmp; D.err = null; render(); }));
+    on("qmGo", "click", async () => { const D = state.qMine; if (!D || D.busy) return; D.t = (document.getElementById("qmText") || {}).value ?? D.t;
+      if (!D.t.trim()) { D.err = "Write what you learned."; render(); return; }
+      if (!D.p) { D.err = "Pick a topic."; render(); return; }
+      D.busy = true; D.err = null; render();
+      const r = await call("app_insight_add", { p_code: state.code, p_person: state.meId, p_text: D.t, p_topic: D.p });
+      if (r.error) { D.busy = false; D.err = r.offline ? "No signal. Not shared yet." : r.error; render(); return; }
+      state.qMine = { t: "", p: "" }; toast("Shared with your tribe.", "ok"); await loadQuotes(); render(); });
     on("qRound", "click", () => { state.qRounds = (state.qRounds || 1) + 1; state.qN = (state.qN || 15) + 15; render(); });
     on("qShuf", "click", () => { state.qShuffle = !state.qShuffle; state.qN = 15; render(); });
     document.querySelectorAll("[data-qf]").forEach((el) => el.addEventListener("click", () => { state.qFilter = state.qFilter === el.dataset.qf ? "" : el.dataset.qf; state.qOpen = null; state.qN = 15; state.qRounds = 1; render(); }));
@@ -8712,8 +8907,24 @@ button.jtile { cursor:pointer; }
   }
   // V10.5. Proof: today's study as one screen. The number, who was studied,
   // the study's own words, and one thing to do today. The rest folds away.
+  // V10.6. Evidence: Studies (one a day, as one screen) | Essays (the owner's,
+  // read in full with their sources). Saved items come off with \u00d7.
   function evidenceView(C) {
-    const T = C.today, L = C.library || [], O = state.cfOpen || {}, head = `<div class="htabh"><h2>Proof</h2></div>`;
+    const T = C.today, L = C.library || [], O = state.cfOpen || {}, seg = state.evSeg === "essays" ? "essays" : "studies";
+    const head = `<div class="htabh"><h2>Evidence</h2>${seg === "essays" && C.owner ? `<button type="button" class="qplus" id="esNew" aria-label="Add an essay">+</button>` : ""}</div>
+      <div class="cfseg" role="tablist" aria-label="Studies or essays">${[["studies", "Studies"], ["essays", "Essays"]].map(([v, t]) => `<button type="button" role="tab" class="${seg === v ? "on" : ""}" data-evseg="${v}" aria-selected="${seg === v}">${t}</button>`).join("")}</div>`;
+    const ST = L.filter((x) => (x.kind || "study") === "study"), ES = L.filter((x) => x.kind === "essay");
+    const row = (key, label, meta, body) => `<div class="evsec${O[key] ? " on" : ""}"><button type="button" class="evrow" data-cfsec="${key}" aria-expanded="${!!O[key]}"><b>${label}</b><small>${meta}</small><i aria-hidden="true">${O[key] ? "\u2212" : "+"}</i></button>${O[key] ? body : ""}</div>`;
+    const savedRow = (xs, key) => row(key, "Saved", String(xs.length), xs.length ? `<ul class="evsvlist">${xs.map((x) => `<li>${cfCard(x)}<button type="button" class="evunsave" data-unsave="${x.id}" aria-label="Remove ${esc(x.title)} from Saved">\u00d7</button></li>`).join("")}</ul>`
+      : `<p class="hint cfnone">Tap \u2606 Save on one to keep it here.</p>`);
+    if (seg === "essays") {
+      const card = (x) => { const [, icon, hue] = cfTopic(x.topic);
+        return `<button type="button" class="escard" data-lesson="${x.id}" style="--tc:${hue}"><span class="esmeta"><span aria-hidden="true">${icon}</span> ${esc(x.topic).toUpperCase()} \u00b7 ${x.minutes || 1} min${x.ncites ? ` \u00b7 ${x.ncites} source${x.ncites === 1 ? "" : "s"}` : ""}${x.new ? ` <i class="cfnew">New</i>` : ""}${x.read ? ` <i class="cfrd">\u2713</i>` : ""}</span>
+          <b>${esc(x.title)}</b>${x.idea ? `<span class="esidea">${esc(x.idea)}</span>` : ""}</button>`; };
+      return `<section class="htab hcamp hev" aria-label="Evidence">${head}${state.essayNew ? essayForm() : ""}
+        ${ES.length ? `<div class="eslist">${ES.map(card).join("")}</div>` : `<div class="cfempty"><p>${C.owner ? "No essays yet. Tap + to paste your first." : "No essays yet."}</p></div>`}
+        <div class="evrows">${savedRow(ES.filter((x) => x.saved), "__esaved")}</div></section>`;
+    }
     let today = "";
     if (T) { const [, , th] = cfTopic(T.topic);
       const E = state.evToday && String(state.evToday.id) === String(T.id) ? state.evToday : null;
@@ -8721,34 +8932,54 @@ button.jtile { cursor:pointer; }
       const D = E && E.data;
       today = `<article class="evtoday pf" style="--tc:${th}">${D ? proofCard(D, "ev")
         : E && E.err ? `<p class="hint bad">${esc(E.err)}</p>` : `<h3 class="lstitle">${esc(T.title)}</h3><p class="hint">Opening\u2026</p>`}</article>`; }
-    const sv = L.filter((x) => x.saved);
-    const arch = O.__arch ? CF_TOPICS.map(([t, icon]) => { const xs = L.filter((x) => x.topic === t); if (!xs.length) return "";
+    const arch = O.__arch ? CF_TOPICS.map(([t, icon]) => { const xs = ST.filter((x) => x.topic === t); if (!xs.length) return "";
         return `<div class="evgrp"><p class="evgh"><span aria-hidden="true">${icon}</span> ${esc(t)} <small>${xs.length}</small></p><div class="cfrow">${xs.map(cfCard).join("")}</div></div>`; }).join("") : "";
-    const row = (key, label, meta, body) => `<div class="evsec${O[key] ? " on" : ""}"><button type="button" class="evrow" data-cfsec="${key}" aria-expanded="${!!O[key]}"><b>${label}</b><small>${meta}</small><i aria-hidden="true">${O[key] ? "\u2212" : "+"}</i></button>${O[key] ? body : ""}</div>`;
-    return `<section class="htab hcamp hev" aria-label="Proof">${head}${today}
-      <div class="evrows">${row("__arch", "All studies", String(L.length), arch)}
-        ${row("__saved", "Saved", String(sv.length), sv.length ? `<div class="cfrow evsaved">${sv.map(cfCard).join("")}</div>` : `<p class="hint cfnone">Tap \u2606 Save on a study to keep it here.</p>`)}</div></section>`;
+    return `<section class="htab hcamp hev" aria-label="Evidence">${head}${today}
+      <div class="evrows">${row("__arch", "All studies", String(ST.length), arch)}
+        ${savedRow(ST.filter((x) => x.saved), "__saved")}</div></section>`;
   }
-  const proofDid = () => { try { return JSON.parse(localStorage.getItem("fhd.proof.did." + state.meId) || "{}"); } catch { return {}; } };
+  function essayForm() {
+    const N = state.essayNew;
+    return `<section class="card qform esform"><p class="eyebrow">${N.id ? "Edit essay" : "Add an essay"}</p>
+      <div class="qtopics" role="radiogroup" aria-label="Topic">${CF_TOPICS.map(([t, icon]) => `<button type="button" class="achip${N.topic === t ? " on" : ""}" data-estopic="${esc(t)}" role="radio" aria-checked="${N.topic === t}">${icon} ${esc(t)}</button>`).join("")}</div>
+      <input class="field" id="esTitle" maxlength="140" autocomplete="off" placeholder="Title" value="${esc(N.title || "")}" aria-label="Title">
+      <input class="field" id="esIdea" maxlength="240" autocomplete="off" placeholder="The big idea, in one line" value="${esc(N.idea || "")}" aria-label="The big idea">
+      <textarea class="field" id="esBody" rows="8" maxlength="60000" placeholder="Paste the essay. A blank line starts a new paragraph." aria-label="Essay">${esc(N.body || "")}</textarea>
+      <textarea class="field" id="esCites" rows="4" maxlength="40000" placeholder="Sources, one per line (paste the reference list)" aria-label="Sources">${esc(N.cites || "")}</textarea>
+      <input class="field" id="esLink" maxlength="400" autocomplete="off" inputmode="url" placeholder="Link to it on NishtarNotes.com (optional)" value="${esc(N.link || "")}" aria-label="Link">
+      ${N.err ? `<p class="hint bad">${esc(N.err)}</p>` : `<p class="hint">Everyone in your tribe can read it.</p>`}
+      <div class="stdbtns"><button type="button" class="btn-quiet" id="esX">Cancel</button><button type="button" class="btn" id="esGo" ${N.busy ? "disabled" : ""}>${N.busy ? "Saving\u2026" : N.id ? "Save" : "Add"}</button></div></section>`;
+  }
+  // An essay, read in full: paragraphs, then the numbered sources (links tap through).
+  function essayView(D) {
+    const [tn, ti] = cfTopic(D.topic), cites = Array.isArray(D.cites) ? D.cites : [], link = safeUrl(D.link);
+    const linkify = (t) => esc(t).replace(/https:\/\/[^\s<>"']+/g, (u) => `<a href="${u}" target="_blank" rel="noopener noreferrer">${u.length > 48 ? u.slice(0, 46) + "\u2026" : u}</a>`);
+    return `<p class="pfcat"><span aria-hidden="true">${ti}</span> ${esc(tn).toUpperCase()} \u00b7 ESSAY \u00b7 ${D.minutes || 1} MIN</p>
+      <h3 class="pfhook">${esc(D.title)}</h3>${D.idea ? `<p class="esline">${esc(D.idea)}</p>` : ""}
+      <p class="lssrc">by ${esc(D.author || "")}</p>
+      <div class="lsbody esbody">${lessonHTML(D.body)}</div>
+      ${cites.length ? `<p class="lslab">Sources</p><ol class="escites">${cites.map((c) => `<li>${linkify(String(c).replace(/^\s*\[?\d+[.)\]]\s*/, ""))}</li>`).join("")}</ol>` : ""}
+      ${link ? `<p><a href="${esc(link)}" target="_blank" rel="noopener noreferrer">Read it on NishtarNotes \u2197</a></p>` : ""}
+      <div class="esbar"><button type="button" class="btn-quiet lssave${D.saved ? " on" : ""}" id="lsSave" aria-pressed="${!!D.saved}">${D.saved ? "\u2605 Saved" : "\u2606 Save"}</button>
+        ${D.owner ? `<span><button type="button" class="linkbtn" id="esEdit">Edit</button> \u00b7 <button type="button" class="linkbtn gdel" id="esDel">Delete</button></span>` : ""}</div>`;
+  }
   function proofCard(D, where) {
     if (!D.hook) return `<h3 class="lstitle">${esc(D.title)}</h3>${lessonParts(D)}`;
     const [tn, ti] = cfTopic(D.topic), url = safeUrl(D.url), L = (x) => Array.isArray(x) ? x : [];
     const m = String(D.evidence || "").match(/^([\u2605\u2606]+)/), n = m ? (m[1].match(/\u2605/g) || []).length : null;
-    const did = proofDid()[D.id] === todayISO(), open = state.pfMore === String(D.id);
+    const open = state.pfMore === String(D.id);
     return `<p class="pfcat"><span aria-hidden="true">${ti}</span> ${esc(tn).toUpperCase()}</p>
       <h3 class="pfhook">${esc(D.hook)}</h3>
       <p class="pfwho">${esc(D.who || "")}${n !== null ? ` \u00b7 <span class="lsevs" aria-label="Evidence: ${n} of 3 stars">${"\u2605".repeat(n)}${"\u2606".repeat(3 - n)}</span>` : ""}</p>
       <blockquote class="lsquote pfq">\u201c${esc(D.proof)}\u201d<cite>${esc(D.cite || "")}${url ? ` <a href="${esc(url)}" target="_blank" rel="noopener noreferrer">\u2197</a>` : ""}</cite></blockquote>
       <div class="pfdo"><small>TODAY</small><p>${esc(D.act || "")}</p></div>
-      <div class="pfbar"><button type="button" class="btn pfgo${did ? " done" : ""}" data-pfdo="${D.id}" ${did ? "disabled" : ""}>${did ? "\u2713 On today's list" : "I'll do it"}</button>
+      <div class="pfbar"><button type="button" class="btn-quiet lssave${D.saved ? " on" : ""}" id="${where === "ev" ? "evSave" : "lsSave"}" aria-pressed="${!!D.saved}">${D.saved ? "\u2605 Saved" : "\u2606 Save"}</button>
         <button type="button" class="linkbtn pfmore" data-pfmore="${D.id}" aria-expanded="${open}">${open ? "Less \u2303" : "More \u2304"}</button></div>
       ${open ? `<div class="lsbody pfrest">
         <p class="lsclaim">${esc(D.claim || "")}</p>
         ${D.why ? `<p class="lslab">Why it works</p><p>${esc(D.why)}</p>` : ""}
-        ${L(D.examples).length ? `<p class="lslab">In real life</p><ul class="lsex">${L(D.examples).map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
-        ${L(D.steps).length ? `<p class="lslab">Make it stick</p><ol class="lssteps">${L(D.steps).map((x) => `<li>${esc(x)}</li>`).join("")}</ol>` : ""}
-        ${D.evidence ? evidenceLine(D.evidence, D.fine) : ""}
-        <button type="button" class="btn-quiet lssave${D.saved ? " on" : ""}" id="${where === "ev" ? "evSave" : "lsSave"}" aria-pressed="${!!D.saved}">${D.saved ? "\u2605 Saved" : "\u2606 Save"}</button></div>` : ""}`;
+        ${L(D.examples).length || L(D.steps).length ? `<p class="lslab">Put it to work</p>${L(D.examples).length ? `<ul class="lsex">${L(D.examples).map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}${L(D.steps).length ? `<ol class="lssteps">${L(D.steps).map((x) => `<li>${esc(x)}</li>`).join("")}</ol>` : ""}` : ""}
+        ${D.evidence ? evidenceLine(D.evidence, D.fine) : ""}</div>` : ""}`;
   }
   function lessonHTML(body) {
     const inl = (t) => esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
@@ -8809,11 +9040,12 @@ button.jtile { cursor:pointer; }
       return `<div class="sheetbg" id="lsBg"></div>
       <div class="stdsheet lssheet" role="dialog" aria-label="Lesson" style="--tc:${th}">
         ${R.busy ? `<p class="hint">Opening…</p>` : R.err ? `<div class="cfempty">${sparkSVG(64, "sleepy")}<p>${esc(R.err)}</p></div>`
+          : D.kind === "essay" ? `<div class="pf es">${essayView(D)}</div>`
           : D.hook ? `<div class="pf">${proofCard(D, "ls")}</div>`
           : `<p class="lsmeta"><span aria-hidden="true">${ti}</span> ${esc(tn)} · ${D.minutes || 1} min read</p><h3 class="lstitle">${esc(D.title)}</h3>
              ${lessonParts(D)}
              <p class="lssrc">by ${esc(D.author || "Dr. Nishtar")}</p>`}
-        <div class="stdbtns">${D && !D.hook ? `<button type="button" class="btn-quiet lssave${D.saved ? " on" : ""}" id="lsSave" aria-pressed="${!!D.saved}">${D.saved ? "★ Saved" : "☆ Save"}</button>` : ""}<button type="button" class="btn" id="lsDone">Done</button></div>
+        <div class="stdbtns">${D && !D.hook && D.kind !== "essay" ? `<button type="button" class="btn-quiet lssave${D.saved ? " on" : ""}" id="lsSave" aria-pressed="${!!D.saved}">${D.saved ? "★ Saved" : "☆ Save"}</button>` : ""}<button type="button" class="btn" id="lsDone">Done</button></div>
       </div>`; }
     if (A) { const T = C.today, arch = A === "past" || A === "saved";
       const xs = arch ? (C.library || []).filter((x) => A === "saved" ? x.saved : x.read && (!T || x.id !== T.id)) : (C.library || []).filter((x) => x.topic === A);
@@ -8850,18 +9082,38 @@ button.jtile { cursor:pointer; }
       const k = el.dataset.cfsec; state.cfOpen = Object.assign({}, state.cfOpen || {}); state.cfOpen[k] = !state.cfOpen[k]; render(); }));
     document.querySelectorAll("[data-pfmore]").forEach((el) => el.addEventListener("click", () => {
       state.pfMore = state.pfMore === el.dataset.pfmore ? null : el.dataset.pfmore; render(); }));
-    // V10.5. "I'll do it": today's action goes on your task list (Do, today) and the study is saved.
-    document.querySelectorAll("[data-pfdo]").forEach((el) => el.addEventListener("click", async () => {
-      const id = el.dataset.pfdo, D = [state.evToday, state.lesson].map((x) => x && x.data).find((x) => x && String(x.id) === id);
-      if (!D || !D.act) return; el.disabled = true;
-      const x = { id: uuid(), parent_id: null, quadrant: 1, title: D.act.slice(0, 200), done: false, position: 0,
-                  sched_date: todayISO(), sched_start: null, sched_min: null };
-      const r = await call("app_task_save", { p_code: state.code, p_person: state.meId, p_task: taskPayload(x) });
-      if (r.error) { el.disabled = false; toast(r.offline ? "No signal. Not added yet." : r.error, "bad"); return; }
-      const did = proofDid(); did[id] = todayISO(); try { localStorage.setItem("fhd.proof.did." + state.meId, JSON.stringify(did)); } catch {}
-      if (!D.saved) { D.saved = true; const y = ((state.camp && state.camp.library) || []).find((q) => String(q.id) === id); if (y) y.saved = true;
-        call("app_lesson_keep", { p_code: state.code, p_person: state.meId, p_id: Number(id), p_on: true }); }
-      toast("On today's list in Tasks. Saved in Proof.", "ok"); render(); }));
+    document.querySelectorAll("[data-evseg]").forEach((el) => el.addEventListener("click", () => { state.evSeg = el.dataset.evseg; render(); }));
+    // V10.6. Take anything off Saved.
+    document.querySelectorAll("[data-unsave]").forEach((el) => el.addEventListener("click", async (e) => { e.stopPropagation();
+      const id = el.dataset.unsave, x = ((state.camp && state.camp.library) || []).find((y) => String(y.id) === id); if (x) x.saved = false;
+      [state.evToday, state.lesson].forEach((E) => { if (E && E.data && String(E.data.id) === id) E.data.saved = false; });
+      render();
+      const r = await call("app_lesson_keep", { p_code: state.code, p_person: state.meId, p_id: Number(id), p_on: false });
+      if (r.error) { if (x) x.saved = true; toast(r.offline ? "No signal. Not removed yet." : r.error, "bad"); render(); } }));
+    on("esNew", "click", () => { state.essayNew = { topic: "", title: "", idea: "", body: "", cites: "", link: "" }; render(); window.scrollTo(0, 0); });
+    const EN = state.essayNew;
+    if (EN) {
+      const keepE = () => { const g = (id) => (document.getElementById(id) || {}).value; EN.title = g("esTitle") ?? EN.title; EN.idea = g("esIdea") ?? EN.idea;
+        EN.body = g("esBody") ?? EN.body; EN.cites = g("esCites") ?? EN.cites; EN.link = g("esLink") ?? EN.link; };
+      document.querySelectorAll("[data-estopic]").forEach((el) => el.addEventListener("click", () => { keepE(); EN.topic = el.dataset.estopic; EN.err = null; render(); }));
+      on("esX", "click", () => { state.essayNew = null; render(); });
+      on("esGo", "click", async () => { if (EN.busy) return; keepE();
+        if (!EN.topic) { EN.err = "Pick a topic."; render(); return; }
+        if (String(EN.link || "").trim() && !safeUrl(EN.link.trim())) { EN.err = "A link starts with https://"; render(); return; }
+        EN.busy = true; EN.err = null; render();
+        const r = await call("app_essay_save", { p_code: state.code, p_person: state.meId, p_essay: { id: EN.id || null, topic: EN.topic, title: EN.title, idea: EN.idea,
+          body: EN.body, link: (EN.link || "").trim(), cites: String(EN.cites || "").split("\n").map((x) => x.trim()).filter(Boolean) } });
+        if (r.error) { EN.busy = false; EN.err = r.offline ? "No signal. Not saved yet." : r.error; render(); return; }
+        state.essayNew = null; state.lesson = null; toast("Essay saved.", "ok"); await loadCampfire(true); render(); });
+    }
+    on("esEdit", "click", () => { const D = state.lesson && state.lesson.data; if (!D) return;
+      state.essayNew = { id: D.id, topic: D.topic, title: D.title, idea: D.idea || "", body: D.body, cites: (D.cites || []).join("\n"), link: D.link || "" };
+      state.lesson = null; state.evSeg = "essays"; render(); window.scrollTo(0, 0); });
+    on("esDel", "click", () => { const D = state.lesson && state.lesson.data; if (!D) return;
+      openModal({ title: "Delete this essay?", body: "It leaves everyone's Evidence and Saved.", buttons: [{ label: "Delete", kind: "bad", run: async () => {
+        const r = await call("app_essay_delete", { p_code: state.code, p_person: state.meId, p_id: Number(D.id) });
+        if (r.error) { toast(r.offline ? "No signal." : r.error, "bad"); return; }
+        state.lesson = null; await loadCampfire(true); render(); } }, { label: "Keep", kind: "quiet" }] }); });
     const shut = () => { state.lesson = null; state.campAll = null; render(); };
     on("lsDone", "click", shut); on("lsBg", "click", shut); on("caDone", "click", shut); on("caBg", "click", shut);
     on("evSave", "click", async () => {
@@ -9128,8 +9380,8 @@ button.jtile { cursor:pointer; }
     ["today", "Check in", ""],
     // V10.2. A scroll of short learning your tribe adds to, and the essays built on studies.
     // V10.5. Named Insights and Proof.
-    ["sparks", "Insights", `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5v4M12 17.5v4M2.5 12h4M17.5 12h4M5.3 5.3l2.8 2.8M15.9 15.9l2.8 2.8M5.3 18.7l2.8-2.8M15.9 8.1l2.8-2.8"/><circle cx="12" cy="12" r="2.2"/></svg>`],
-    ["evidence", "Proof", `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6.2L4.8 18.4A1.8 1.8 0 0 0 6.4 21h11.2a1.8 1.8 0 0 0 1.6-2.6L14 9.2V3"/><path d="M7.4 15h9.2"/></svg>`],
+    ["sparks", "Insights", `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/></svg>`],
+    ["evidence", "Evidence", `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.5C10.3 5 7.6 4.5 3.5 4.8v13.4c4.1-.3 6.8.2 8.5 1.8 1.7-1.6 4.4-2.1 8.5-1.8V4.8C16.4 4.5 13.7 5 12 6.5z"/><path d="M12 6.5V20"/></svg>`],
   ];
   function homeTab() {
     // V9.5. The app opens on Today, the centre: family faces and your dial.
@@ -10018,7 +10270,7 @@ button.jtile { cursor:pointer; }
     { at: ".hgrid", tab: "me", t: "Your habits",
       d: "A small dial for each habit you have on. Tap one to log it or see its history; + adds or removes habits." },
     { at: ".tabbar", tab: "today", t: "Five tabs",
-      d: "Check in (the middle) is where you log and share a win. Me is your habits and your progress. Tribe is the family's week and its story. Insights is quick learning your tribe adds to. Proof is a study a day, with one thing to do." },
+      d: "Check in (the middle) is where you log and share a win. Me is your habits and your progress. Tribe is the family's week and its story. Insights is quick learning, from great writers and from your family. Evidence is a study a day, and essays." },
     { at: ".lgline", tab: "tribe", t: "The League",
       d: "Your tribe's place among tribes, by members' average days at goal. Tap it for the list. Top 3 win points every week." },
   ];
@@ -16869,7 +17121,7 @@ button.jtile { cursor:pointer; }
       if (k === "evidence") loadCampfire();
       if (k === "sparks") loadQuotes();
       if (k === "me" || k === "tribe") loadJourney();
-      if (k === "tribe") { loadSpotlight(true); loadTribeDay(true); }
+      if (k === "tribe") { loadSpotlight(true); loadTribeDay(true); loadChallenge(true); }
     }));
     on("foldBoard", "click", () => {
       try { localStorage.setItem("fhd.board", boardOpen() ? "shut" : "open"); } catch {}
