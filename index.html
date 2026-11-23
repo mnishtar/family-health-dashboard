@@ -3378,6 +3378,67 @@ button.fendj b { color:var(--accent); }
 .cfnone { margin:0; padding:0 14px 14px; }
 .cfrd { font-style:normal; color:#2f9e6e; font-weight:700; }
 
+/* ---------- V10.7 ---------------------------------------------------- */
+/* Chat: WhatsApp feel */
+.chbody { background-color:var(--ground); background-image:radial-gradient(color-mix(in oklab, var(--ink) 6%, transparent) 1px, transparent 1.2px); background-size:18px 18px; }
+.chbody .chday { position:sticky; top:6px; z-index:3; width:max-content; margin:10px auto; padding:3px 10px; border-radius:8px; background:var(--surface); box-shadow:0 1px 2px rgba(0,0,0,.25); }
+.chbody .chmsg { margin-top:2px; border-radius:12px; -webkit-touch-callout:none; -webkit-user-select:none; user-select:none; touch-action:pan-y; }
+.chbody .chmsg.g1 { margin-top:10px; }
+.chbody .chmsg.g1:not(.me) { border-top-left-radius:3px; } .chbody .chmsg.g1.me { border-top-right-radius:3px; }
+.chbody .chmsg.g1::before { content:""; position:absolute; top:0; width:8px; height:10px; background:inherit; }
+.chbody .chmsg.g1:not(.me)::before { left:-6px; clip-path:polygon(100% 0, 0 0, 100% 100%); }
+.chbody .chmsg.g1.me::before { right:-6px; clip-path:polygon(0 0, 100% 0, 0 100%); }
+.chbody .chmsg.hasr { margin-bottom:14px; }
+.chdim { position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:4; }
+.chbody .chmsg.held { z-index:5; }
+.chrbar { position:absolute; bottom:calc(100% + 6px); left:0; display:flex; align-items:center; gap:2px; padding:5px 7px; border-radius:99px; background:var(--surface); box-shadow:0 4px 18px rgba(0,0,0,.35); z-index:6; white-space:nowrap; }
+.chmsg.me .chrbar { left:auto; right:0; }
+.chrbar .chemo { font-size:24px; padding:2px 4px; } .chrbar .chplus { width:32px; height:32px; border-radius:50%; background:color-mix(in oklab, var(--ink) 10%, transparent); font-size:18px; color:var(--ink-2); }
+.chemoin { width:52px; font-size:22px; text-align:center; border:1px solid var(--line-strong); border-radius:99px; background:var(--ground); color:var(--ink); padding:2px; }
+.chmenu { position:absolute; top:calc(100% + 6px); left:0; min-width:150px; display:flex; flex-direction:column; border-radius:12px; background:var(--surface); box-shadow:0 4px 18px rgba(0,0,0,.35); overflow:hidden; z-index:6; }
+.chmsg.me .chmenu { left:auto; right:0; }
+.chmenu button { border:none; background:none; text-align:left; padding:11px 14px; font:inherit; font-size:15px; color:var(--ink); cursor:pointer; border-top:1px solid var(--line); }
+.chmenu button:first-child { border-top:none; } .chmenu button.bad { color:var(--warn, #d4506a); }
+.chmsg.held.hasr { margin-bottom:14px; }
+/* Check in: faces */
+.faces .faceshare { display:flex; flex-direction:column; align-items:center; gap:4px; border:none; background:none; padding:0; cursor:pointer; color:var(--ink); font:inherit; min-width:64px; }
+.faces .faceshare span { width:58px; height:58px; border-radius:50%; display:grid; place-items:center; font-size:28px; font-weight:300; border:2px dashed var(--gold, #c9a45c); color:var(--gold, #c9a45c); }
+.faces .faceshare small { font-size:12px; color:var(--ink-2); }
+.faces .face { position:relative; }
+.faces .face .fav { box-shadow:0 0 0 2.5px var(--ground), 0 0 0 5px var(--ring, transparent); outline:none; }
+.faces .face.st-goal { --ring:#2f9e6e; } .faces .face.st-log { --ring:#e0b04a; }
+.faces .face.st-none .fav { box-shadow:0 0 0 2.5px var(--ground); outline:2px dashed color-mix(in oklab, var(--ink) 30%, transparent); outline-offset:3px; }
+.faces .face.haswin .fav:not(.pic) { color:#fff; }
+.faces .fgoal { position:absolute; top:40px; left:50%; margin-left:14px; width:20px; height:20px; border-radius:50%; background:#2f9e6e; color:#fff; font-style:normal; font-size:12px; font-weight:800; display:grid; place-items:center; box-shadow:0 0 0 2px var(--ground); }
+/* Comments on a day */
+.dcm { margin:14px 0 4px; padding-top:10px; border-top:1px solid var(--line); }
+.dcmh { margin:0 0 6px; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-weight:700; }
+.dcform { display:flex; gap:8px; margin-top:8px; } .dcform .chin { flex:1; min-width:0; }
+.smhint { text-align:center; margin:8px 0 0; } .smhint .linkbtn { font-size:14px; }
+/* Spotlight: the goal line */
+.splist .spgoal .spt { display:flex; flex-direction:column; gap:6px; }
+.sphits { display:flex; flex-wrap:wrap; gap:6px; }
+.sphit { display:inline-flex; align-items:center; gap:5px; border:1px solid var(--line); background:var(--ground); border-radius:99px; padding:3px 10px 3px 3px; font:inherit; font-size:13px; color:var(--ink); cursor:pointer; }
+.sphit.on { border-color:var(--gold, #c9a45c); } .sphit:disabled { cursor:default; opacity:.85; } .sphit i { font-style:normal; }
+.sphit .fav.fsm { width:22px; height:22px; font-size:10px; }
+.splist .hpick { display:flex; align-items:center; gap:6px; }
+/* Insights › Family: notes */
+.qnote { margin:0 0 12px; }
+.ntbox:not(.open) .ntrest { display:none; }
+.nttext { width:100%; box-sizing:border-box; resize:vertical; font:inherit; font-size:15.5px; margin:0 0 8px; }
+.nttags { display:flex; flex-wrap:wrap; gap:6px; margin:0 0 8px; }
+.nttags .qc, .qwho .qwp { border:1px solid var(--line); background:none; color:var(--ink-2); border-radius:99px; padding:5px 11px; font:inherit; font-size:12.5px; cursor:pointer; }
+.nttags .qc[aria-pressed="true"] { background:var(--ink); border-color:var(--ink); color:var(--ground); }
+.ntsrc { margin:0 0 8px; } .ntbar { display:flex; align-items:center; justify-content:space-between; gap:10px; } .ntbar > span { display:flex; align-items:center; gap:12px; }
+.ntgo { padding:8px 18px; }
+.qwho { display:flex; gap:6px; overflow-x:auto; margin:0 0 8px; padding-bottom:2px; }
+.qwho .qwp { display:inline-flex; align-items:center; gap:5px; padding:3px 10px 3px 3px; white-space:nowrap; } .qwho .qwp.on { border-color:var(--ink); color:var(--ink); }
+.qwho .fav.fsm { width:22px; height:22px; font-size:10px; }
+.qfam .qsrc { display:block; margin-top:4px; font-size:13px; color:var(--muted); }
+.hpen { width:34px; height:34px; border-radius:50%; border:none; background:none; color:var(--ink); display:grid; place-items:center; cursor:pointer; padding:0; }
+.hpen svg { width:21px; height:21px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linejoin:round; }
+/* Evidence */
+.pf .pffound { margin:0 0 12px; line-height:1.5; color:var(--ink); }
 /* ---------- V10.6 ---------------------------------------------------- */
 /* Insights › Family */
 .qmine { margin:0 0 12px; } .qmine .field { margin:0 0 8px; resize:vertical; }
@@ -3759,7 +3820,7 @@ button.jtile { cursor:pointer; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "10.6";
+  const APP_VERSION = "10.7";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -4274,13 +4335,27 @@ button.jtile { cursor:pointer; }
     const cs = w.comments || [];
     return `<div class="cmts">${cs.map((c) => `<p class="cmt"><b>${c.mine ? "You" : esc(firstName(c))}</b> ${esc(c.body)}${c.del
         ? ` <button type="button" class="cmx" data-cmdel="${c.id}|${id}|${day}" aria-label="Delete this comment">\u00d7</button>` : ""}</p>`).join("")}
-      <form class="cmform" data-cmform="${w.id}|${id}|${day}"><input class="cmin" maxlength="140" autocomplete="off" enterkeyhint="send" placeholder="Add a comment\u2026" aria-label="Add a comment">
-        <button type="submit" class="cmgo">Send</button></form></div>`;
+</div>`;
+  }
+  // V10.7. Comments on a day: one place, under the person's day.
+  async function loadDayComments(id, force) {
+    state.dcm = state.dcm || {}; const D = state.dcm[id]; if (!force && D && (D.busy || Date.now() - (D.at || 0) < 20000)) return;
+    state.dcm[id] = Object.assign({}, D || {}, { busy: true });
+    const r = await call("app_day_comments", { p_code: state.code, p_person: state.meId, p_of: id });
+    state.dcm[id] = { list: r && !r.error ? r.list || [] : (D && D.list) || [], at: Date.now() };
+    if (state.person === id) render();
+  }
+  function dayComments(id) {
+    const D = (state.dcm || {})[id]; if (!D) setTimeout(() => loadDayComments(id), 0);
+    const L = (D && D.list) || [], who = id === state.meId ? "your day" : `${esc(firstName(gpx(id) || {}))}'s day`;
+    return `<div class="dcm"><p class="dcmh">${L.length ? `Comments on ${who}` : `Say something about ${who}`}</p>
+      ${L.map((c) => `<p class="cmt"><b>${c.mine ? "You" : esc(firstName(c))}</b> ${esc(c.body)}${c.del ? ` <button type="button" class="cmx" data-dcdel="${c.id}|${id}" aria-label="Delete this comment">\u00d7</button>` : ""}</p>`).join("")}
+      <form class="dcform" data-dcform="${id}"><input class="chin" id="dcIn" maxlength="140" autocomplete="off" enterkeyhint="send" placeholder="Add a comment\u2026" aria-label="Add a comment"><button type="submit" class="chsend" aria-label="Send">\u2191</button></form></div>`;
   }
   function commentsBanner() {
     const N = state.cmNew || []; if (!N.length) return "";
     const names = N.length > 2 ? `${N.slice(0, 2).map((x) => firstName({ name: x })).join(", ")} and ${N.length - 2} more` : N.map((x) => firstName({ name: x })).join(" and ");
-    return `<div class="hcheer hcmt" role="status"><span class="hcheerh" aria-hidden="true">\u{1F4AC}</span><span><b>${esc(names)}</b> commented on your win</span>
+    return `<div class="hcheer hcmt" role="status"><span class="hcheerh" aria-hidden="true">\u{1F4AC}</span><span><b>${esc(names)}</b> commented on your day</span>
       <button type="button" class="hcheerok" id="cmSee">See</button></div>`;
   }
   async function seenComments() { if (!(state.cmNew || []).length) return; state.cmNew = [];
@@ -4499,10 +4574,10 @@ button.jtile { cursor:pointer; }
     const t = (state.chats || []).find((x) => x.thread === th); if (t) t.unread = 0;
     const lastNow = C.msgs.length ? C.msgs[C.msgs.length - 1].id : 0, sig = JSON.stringify(C.msgs.map((m) => [m.id, m.reacts]));
     if (older || lastNow !== prevLast || !C.drawn) { C.drawn = true; C.sig = sig; C.stick = !older; render(); }
-    else if (sig !== C.sig) { C.sig = sig; render(); }
+    else if (sig !== C.sig) { C.sig = sig; if (!C.menu) render(); }
   }
   let chatTick = null;
-  const CH_EMO = ["\u2764\ufe0f", "\u{1F525}", "\u{1F44F}", "\u{1F602}", "\u{1F64F}"];
+  const CH_EMO = ["\u2764\ufe0f", "\u{1F44D}", "\u{1F602}", "\u{1F62E}", "\u{1F622}", "\u{1F64F}"];
   function chatView() {
     const C = state.chat; if (!C) return "";
     // V10.5. A group of the people you pick.
@@ -4526,17 +4601,21 @@ button.jtile { cursor:pointer; }
     const t = (state.chats || []).find((x) => x.thread === C.thread) || { name: "Chat" }, grp = /^grp:/.test(C.thread), fam = C.thread === "family" || grp;
     const msgs = C.msgs || [];
     let lastDay = "";
-    const body = msgs.map((m0) => { const d = new Date(m0.at), day = d.toDateString(), sep = day !== lastDay ? `<p class="chday">${d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}</p>` : ""; lastDay = day;
-      const sel = C.sel === m0.id, R = m0.reply, X = m0.ctx;
-      // V10.6. Tap a message: react, reply, or (yours) delete.
-      return `${sep}<div class="chmsg${m0.mine ? " me" : ""}${sel ? " sel" : ""}${(m0.reacts || []).length ? " hasr" : ""}" data-chsel="${m0.id}">${fam && !m0.mine ? `<small class="chwho">${esc(firstName(m0))}</small>` : ""}
+    const body = msgs.map((m0, i) => { const d = new Date(m0.at), day = d.toDateString(), sep = day !== lastDay ? `<p class="chday">${d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}</p>` : ""; lastDay = day;
+      const R = m0.reply, X = m0.ctx, held = C.menu === m0.id;
+      // V10.7. Grouped like WhatsApp: a run from one person shows the name and a tail once.
+      const same = (y) => y && y.pid === m0.pid && new Date(y.at).toDateString() === day;
+      const first = !same(msgs[i - 1]), last = !same(msgs[i + 1]);
+      return `${sep}${held ? `<div class="chdim" id="chDim"></div>` : ""}<div class="chmsg${m0.mine ? " me" : ""}${first ? " g1" : ""}${last ? " gl" : ""}${held ? " held" : ""}${(m0.reacts || []).length ? " hasr" : ""}" data-chsel="${m0.id}">
+        ${held ? `<div class="chrbar" role="group" aria-label="React">${CH_EMO.map((e) => `<button type="button" class="chemo${(m0.reacts || []).some((r) => r.mine && r.e === e) ? " on" : ""}" data-chreact="${m0.id}|${e}" aria-label="React ${e}">${e}</button>`).join("")}
+          ${C.emoPick ? `<input class="chemoin" id="chEmoIn" maxlength="16" autocomplete="off" aria-label="Any emoji" placeholder="\u{1F600}">` : `<button type="button" class="chemo chplus" id="chEmoPlus" aria-label="More emoji">+</button>`}</div>` : ""}
+        ${fam && !m0.mine && first ? `<small class="chwho">${esc(firstName(m0))}</small>` : ""}
         ${X ? `<div class="chstory"><small>${m0.mine ? "You replied to their story" : "Replied to your story"}</small>${X.thumb ? `<img src="${esc(X.thumb)}" alt="">` : `<span class="wtext mini" style="--wb:${winBg(X.bg)}">${esc(X.caption || "")}</span>`}${X.thumb && X.caption ? `<i>${esc(X.caption)}</i>` : ""}</div>` : ""}
         ${R ? `<div class="chquote"><b>${R.mine ? "You" : esc(firstName(R))}</b><span>${esc(R.body || "")}</span></div>` : ""}
         ${m0.img ? `<img src="${esc(m0.img)}" alt="Photo from ${esc(m0.name)}">` : ""}${m0.body ? `<p>${esc(m0.body)}</p>` : ""}
         <small class="chat2">${d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}</small>
         ${(m0.reacts || []).length ? `<span class="chreacts">${m0.reacts.map((r) => `<i class="${r.mine ? "mine" : ""}">${r.e}${r.n > 1 ? r.n : ""}</i>`).join("")}</span>` : ""}
-        ${sel ? `<div class="chacts">${CH_EMO.map((e) => `<button type="button" class="chemo${(m0.reacts || []).some((r) => r.mine && r.e === e) ? " on" : ""}" data-chreact="${m0.id}|${e}" aria-label="React ${e}">${e}</button>`).join("")}
-          <button type="button" class="linkbtn" data-chreply="${m0.id}">Reply</button>${m0.mine ? `<button type="button" class="linkbtn gdel" data-chdel="${m0.id}">Delete</button>` : ""}</div>` : ""}</div>`; }).join("");
+        ${held ? `<div class="chmenu" role="menu"><button type="button" role="menuitem" data-chreply="${m0.id}">\u21a9\ufe0e Reply</button>${m0.body ? `<button type="button" role="menuitem" data-chcopy="${m0.id}">Copy</button>` : ""}${m0.mine ? `<button type="button" role="menuitem" class="bad" data-chdel="${m0.id}">Delete</button>` : ""}</div>` : ""}</div>`; }).join("");
     const opt = grp && C.opt ? `<div class="chopt"><div class="chren"><input class="field" id="chRename" maxlength="40" autocomplete="off" value="${esc(t.name)}" aria-label="Group name"><button type="button" class="btn-quiet" id="chRenGo">Rename</button></div>
         <p class="hint">${(t.members || []).map((q) => esc(q.id === state.meId ? "You" : q.name)).join(", ")}</p>
         <button type="button" class="linkbtn gdel" id="chLeave">Leave this group</button></div>` : "";
@@ -4548,7 +4627,30 @@ button.jtile { cursor:pointer; }
         <input class="chin" id="chIn" maxlength="1000" autocomplete="off" enterkeyhint="send" placeholder="Message" value="${esc(C.draft || "")}" aria-label="Message">
         <button type="submit" class="chsend" id="chSend" aria-label="Send">\u2191</button></form></div>`;
   }
+  // V10.7. Notes: the same box in the ✎ sheet and at the top of Family.
+  function wireNotes() {
+    on("noteOpen", "click", () => { state.chat = null; state.person = null; state.noteSheet = { t: "", tag: lastTag() }; render(); document.getElementById("nsText")?.focus(); });
+    const box = (px) => px === "ns" ? state.noteSheet : state.qMine;
+    const keep = (px) => { const D = box(px); if (!D) return; const t = document.getElementById(px + "Text"), s = document.getElementById(px + "Src"); if (t) D.t = t.value; if (s) D.src = s.value; };
+    ["ns", "qn"].forEach((px) => {
+      const t = document.getElementById(px + "Text"); if (!t) return;
+      t.addEventListener("input", () => { const D = box(px); if (D) D.t = t.value; if (px === "qn") document.getElementById("qnBox")?.classList.toggle("open", !!t.value.trim()); });
+    });
+    document.querySelectorAll("[data-ntag]").forEach((el) => el.addEventListener("click", () => { const [px, tag] = el.dataset.ntag.split("|"), D = box(px); if (!D) return; keep(px); D.tag = D.tag === tag ? "" : tag; render(); }));
+    document.querySelectorAll("[data-ntsrc]").forEach((el) => el.addEventListener("click", () => { const px = el.dataset.ntsrc, D = box(px); if (!D) return; keep(px); D.src = ""; render(); document.getElementById(px + "Src")?.focus(); }));
+    document.querySelectorAll("[data-ntx]").forEach((el) => el.addEventListener("click", () => { state.qMine = { t: "", tag: lastTag() }; render(); }));
+    on("nsX", "click", () => { state.noteSheet = null; render(); }); on("nsBg", "click", () => { state.noteSheet = null; render(); });
+    document.querySelectorAll("[data-ntgo]").forEach((el) => el.addEventListener("click", async () => { const px = el.dataset.ntgo, D = box(px); if (!D || D.busy) return; keep(px);
+      if (!String(D.t || "").trim()) { D.err = "Write what you learned."; render(); return; }
+      D.busy = true; D.err = null; render();
+      const r = await call("app_insight_add", { p_code: state.code, p_person: state.meId, p_text: D.t, p_topic: D.tag || null, p_source: D.src || null });
+      if (r.error) { D.busy = false; D.err = r.offline ? "No signal. Not shared yet." : r.error; render(); return; }
+      try { localStorage.setItem("fhd.ftag", D.tag || ""); } catch {}
+      if (px === "ns") state.noteSheet = null; else state.qMine = { t: "", tag: D.tag || "" };
+      toast("Shared in Insights \u203a Family.", "ok"); await loadQuotes(); render(); }));
+  }
   function wireChat() {
+    wireNotes();
     clearInterval(chatTick); chatTick = null;
     on("chatOpen", "click", () => { state.chat = { thread: null }; state.person = null; render(); loadChats().then(() => { if (state.chat && !state.chat.thread) render(); }); });
     if (!state.chat) return;
@@ -4602,21 +4704,38 @@ button.jtile { cursor:pointer; }
     on("chFile", "change", async (e) => { const f = e.target.files && e.target.files[0]; if (!f) return;
       try { const d = await shrinkPhoto(f); send(d); } catch (er) { toast((er && er.message) || "Couldn't read that photo.", "bad"); } });
     on("chMore", "click", () => loadThread(true));
-    document.querySelectorAll("[data-chsel]").forEach((el) => el.addEventListener("click", (e) => { if (e.target.closest("a, .chacts")) return; const id = Number(el.dataset.chsel); C.sel = C.sel === id ? null : id; render(); }));
-    document.querySelectorAll("[data-chreact]").forEach((el) => el.addEventListener("click", async (e) => { e.stopPropagation();
-      const [id0, emo] = el.dataset.chreact.split("|"), id = Number(id0), m = (C.msgs || []).find((x) => x.id === id); if (!m) return;
+    // V10.7. Hold a message (or right-click) for reactions and Reply / Copy / Delete.
+    document.querySelectorAll("[data-chsel]").forEach((el) => { let t = null, x0 = 0, y0 = 0;
+      const open = () => { t = null; const id = Number(el.dataset.chsel); if (C.menu === id) return; C.menu = id; C.emoPick = false; try { navigator.vibrate && navigator.vibrate(12); } catch {} render(); };
+      el.addEventListener("pointerdown", (e) => { if (C.menu || e.target.closest("a, .chrbar, .chmenu")) return; x0 = e.clientX; y0 = e.clientY; clearTimeout(t); t = setTimeout(open, 420); });
+      el.addEventListener("pointermove", (e) => { if (t && Math.hypot(e.clientX - x0, e.clientY - y0) > 8) { clearTimeout(t); t = null; } });
+      ["pointerup", "pointercancel", "pointerleave"].forEach((ev) => el.addEventListener(ev, () => { clearTimeout(t); t = null; }));
+      el.addEventListener("contextmenu", (e) => { e.preventDefault(); open(); }); });
+    const shutMenu = () => { C.menu = null; C.emoPick = false; render(); };
+    on("chDim", "click", shutMenu);
+    const react = async (id, emo) => { const m = (C.msgs || []).find((x) => x.id === id); if (!m) return;
       const had = (m.reacts || []).find((r) => r.mine), off = had && had.e === emo;
       m.reacts = (m.reacts || []).map((r) => r.mine ? Object.assign({}, r, { n: r.n - 1, mine: false }) : r).filter((r) => r.n > 0);
       if (!off) { const r = m.reacts.find((x) => x.e === emo); if (r) { r.n++; r.mine = true; } else m.reacts.push({ e: emo, n: 1, mine: true }); }
-      C.sel = null; render();
+      C.menu = null; C.emoPick = false; render();
       const r = await call("app_chat_react", { p_code: state.code, p_person: state.meId, p_id: id, p_emoji: off ? "" : emo });
-      if (r.error && !r.offline) toast(r.error, "bad"); }));
+      if (r.error && !r.offline) toast(r.error, "bad"); };
+    document.querySelectorAll("[data-chreact]").forEach((el) => el.addEventListener("click", (e) => { e.stopPropagation();
+      const [id0, emo] = el.dataset.chreact.split("|"); react(Number(id0), emo); }));
+    on("chEmoPlus", "click", (e) => { e.stopPropagation(); C.emoPick = true; render(); const f = document.getElementById("chEmoIn"); if (f) f.focus(); });
+    on("chEmoIn", "input", (e) => { const v = e.target.value.trim(); if (!v) return;
+      const g = typeof Intl !== "undefined" && Intl.Segmenter ? [...new Intl.Segmenter(undefined, { granularity: "grapheme" }).segment(v)].map((s) => s.segment)[0] : Array.from(v)[0];
+      if (/[\u0000-\u007f]/.test(g)) { e.target.value = ""; return; }
+      react(C.menu, g); });
+    document.querySelectorAll("[data-chcopy]").forEach((el) => el.addEventListener("click", async (e) => { e.stopPropagation();
+      const m = (C.msgs || []).find((x) => x.id === Number(el.dataset.chcopy)); C.menu = null; render();
+      try { await navigator.clipboard.writeText((m && m.body) || ""); toast("Copied.", "ok"); } catch { toast("Couldn't copy.", "bad"); } }));
     document.querySelectorAll("[data-chreply]").forEach((el) => el.addEventListener("click", (e) => { e.stopPropagation();
-      C.replyTo = Number(el.dataset.chreply); C.sel = null; C.typing = true; render(); }));
+      C.replyTo = Number(el.dataset.chreply); C.menu = null; C.typing = true; render(); }));
     on("chReplyX", "click", () => { C.replyTo = null; render(); });
     document.querySelectorAll("[data-chdel]").forEach((el) => el.addEventListener("click", async (e) => { e.stopPropagation();
       const r = await call("app_chat_delete", { p_code: state.code, p_person: state.meId, p_id: Number(el.dataset.chdel) });
-      if (r.error && !r.offline) toast(r.error, "bad"); C.sel = null; C.msgs = (C.msgs || []).filter((x) => x.id !== Number(el.dataset.chdel)); render(); }));
+      if (r.error && !r.offline) toast(r.error, "bad"); C.menu = null; C.msgs = (C.msgs || []).filter((x) => x.id !== Number(el.dataset.chdel)); render(); }));
     chatTick = setInterval(() => { if (!state.chat || !state.chat.thread || document.hidden) return; loadThread(); }, 4000);
   }
   document.addEventListener("paste", (e) => {
@@ -4629,10 +4748,8 @@ button.jtile { cursor:pointer; }
       <div class="stdsheet smsheet" role="dialog" aria-label="Share a win">
         <p class="eyebrow">Share a win${myWins() ? ` \u00b7 ${3 - myWins()} more today` : ""}</p>
         <div class="smrow"><button type="button" class="smbtn" id="smPhoto"><span aria-hidden="true">\u{1F4F7}</span><b>Photo</b></button>
-          <button type="button" class="smbtn" id="smPaste"><span aria-hidden="true">\u{1F4CB}</span><b>Paste</b></button>
-          <button type="button" class="smbtn" id="smText" style="--wb:${WIN_BG[0]}"><span aria-hidden="true">Aa</span><b>Write it</b></button>
-          <button type="button" class="smbtn" id="smWork"><span aria-hidden="true">\u{1F3C3}</span><b>Workout</b></button></div>
-        <p class="hint smhint">Copied a screenshot or photo? Tap Paste.</p>
+          <button type="button" class="smbtn" id="smText" style="--wb:${WIN_BG[0]}"><span aria-hidden="true">Aa</span><b>Write it</b></button></div>
+        <p class="smhint"><button type="button" class="linkbtn" id="smPaste">or paste a copied image</button></p>
         <div class="stdbtns"><button type="button" class="btn-quiet" id="smX">Cancel</button></div>
       </div>`;
   }
@@ -4656,6 +4773,7 @@ button.jtile { cursor:pointer; }
   function personSheet() {
     if (state.chat) return chatView();
     if (state.workDraft) return workSheet();
+    if (state.noteSheet) return noteSheet();
     if (state.snapDraft) return snapSheet();
     if (state.shareMenu) return shareMenu();
     const id = state.person; if (!id) return "";
@@ -4681,10 +4799,9 @@ button.jtile { cursor:pointer; }
       <div class="stbody">${!open
         ? `<div class="stlock"><span aria-hidden="true">\u{1F512}</span><p>Log today's steps to see ${esc(first)}'s day.</p>
            <button type="button" class="btn" data-go="steps">Log my steps</button></div>`
-        : `${storyPhotos(id, false)}${x.logged ? `<ul class="stnums">${storyNums(p)}</ul>` : nolog}${weekStrip(id)}`}</div>
+        : `${storyPhotos(id, false)}${x.logged ? `<ul class="stnums">${storyNums(p)}</ul>` : nolog}${weekStrip(id)}`}${dayComments(id)}</div>
       <footer class="stfoot">
-        ${open ? `<div class="stacts">${cheerBtn(x, "cheerbtn")}</div>${cheeredBy(S) ? `<p class="stfrom">${cheeredBy(S)}</p>` : ""}
-          <form class="streply" id="stReply" data-to="${id}"><input class="chin" id="stReplyIn" maxlength="1000" autocomplete="off" enterkeyhint="send" placeholder="Reply to ${esc(first)}\u2026" aria-label="Reply to ${esc(first)}"><button type="submit" class="chsend" aria-label="Send">\u2191</button></form>` : ""}
+        ${open ? `<div class="stacts">${cheerBtn(x, "cheerbtn")}</div>${cheeredBy(S) ? `<p class="stfrom">${cheeredBy(S)}</p>` : ""}` : ""}
         <button type="button" class="btn stnext" id="${last ? (open ? "stEnd" : "psDone2") : "stNext"}">${last ? (open ? "Finish ›" : "Done") : `Next: ${esc(firstName(L[i + 1]))} ›`}</button>
       </footer></div>`;
   }
@@ -4709,7 +4826,7 @@ button.jtile { cursor:pointer; }
       ${storyHead(x, "Your day", x.streak ? `<span class="stk">\u{1F525}${x.streak}</span>` : "")}
       <div class="stbody">${storyPhotos(state.meId, true)}
         ${n < 3 ? `<button type="button" class="btn stwin" id="photoAdd2">\u{1F4F7} Share a win${n ? ` · ${3 - n} more today` : ""}</button>` : ""}
-        <ul class="stnums">${storyNums(p)}</ul>${weekStrip(state.meId)}</div>
+        <ul class="stnums">${storyNums(p)}</ul>${weekStrip(state.meId)}${dayComments(state.meId)}</div>
       <footer class="stfoot"><p class="stfrom">${cheeredBy(M) || "No cheers yet today."}</p>
         <button type="button" class="btn stnext" id="psDone2">Done</button></footer></div>`;
   }
@@ -4775,15 +4892,14 @@ button.jtile { cursor:pointer; }
     // The story sits outside the page, so its buttons are wired here.
     document.querySelectorAll(".story [data-go]").forEach((el) => el.addEventListener("click", () => { state.person = null; state.storyQ = null; openExercise(el.dataset.go); }));
     document.querySelectorAll(".story [data-lesson]").forEach((el) => el.addEventListener("click", () => { state.person = null; state.storyQ = null; render(); openLesson(el.dataset.lesson); }));
-    // V10.6. Reply to a story: a private message, with a small copy of it.
-    on("stReply", "submit", async (e) => { e.preventDefault();
-      const f = e.currentTarget, to = f.dataset.to, inp = document.getElementById("stReplyIn"), body = (inp && inp.value || "").trim(); if (!body) return;
-      const day = storyDayOf(to), W = (state.winFull || {})[winKey(to, day)], w = W && W.list && W.list[0];
-      let ctx = null; try { ctx = w ? { caption: w.caption || "", bg: w.bg || 0, thumb: w.img ? await thumbOf(w.img) : null } : null; } catch { ctx = { caption: (w && w.caption) || "" }; }
-      const th = ((state.chats || []).find((t) => t.with_id === to) || {}).thread || "dm:" + [state.meId, to].sort().join(":");
-      inp.value = ""; const r = await call("app_chat_send", { p_code: state.code, p_person: state.meId, p_thread: th, p_body: body, p_img: null, p_ctx: ctx });
+    document.querySelectorAll("[data-dcform]").forEach((f) => f.addEventListener("submit", async (e) => { e.preventDefault();
+      const to = f.dataset.dcform, inp = f.querySelector("input"), body = (inp.value || "").trim(); if (!body) return;
+      inp.value = ""; const r = await call("app_day_comment", { p_code: state.code, p_person: state.meId, p_of: to, p_body: body });
       if (r.error) { inp.value = body; toast(r.offline ? "No signal. Not sent yet." : r.error, "bad"); return; }
-      toast(`Sent to ${firstName(gpx(to) || {})}. It's in your chat.`, "ok"); loadChats(); });
+      await loadDayComments(to, true); render(); }));
+    document.querySelectorAll("[data-dcdel]").forEach((el) => el.addEventListener("click", async () => { const [cid, id] = el.dataset.dcdel.split("|");
+      const r = await call("app_day_comment_delete", { p_code: state.code, p_person: state.meId, p_id: Number(cid) });
+      if (r.error && !r.offline) toast(r.error, "bad"); await loadDayComments(id, true); render(); }));
     // Share a win: the + on your circle, your own story, the end of the stories.
     const pick = () => { state.shareMenu = false; render(); const f = document.getElementById("photoFile"); if (f) f.click(); };
     const menu = () => { if (myWins() >= 3) { toast("Three wins a day. Delete one to share another.", "bad"); return; }
@@ -4987,15 +5103,26 @@ button.jtile { cursor:pointer; }
       default: return null;
     }
   }
+  const SPOT_W = { pbweek: 9, jump: 8, full: 8, streak: 7, week: 7, back: 6, "10k": 5, goal: 5, up: 4, wins: 3, cheered: 2 };
   function spotlight() {
-    const S = state.spot;
+    const S = state.spot, F = state.tday;
     if (!S || !S.items) { if (!(S && S.busy)) setTimeout(() => loadSpotlight(), 0); return ""; }
-    const rows = S.items.map((it) => [it, spotLine(it)]).filter(([, l]) => l).slice(0, 8); if (!rows.length) return "";
     const cheer = (it) => { const x = it.id && it.id !== state.meId ? gpx(it.id) : null; if (!x || !(x.logged || soc(x.id).photo)) return "";
-      return soc(x.id).mine ? `<span class="spc sent" aria-label="You cheered ${esc(x.name)}">❤</span>`
+      return soc(x.id).mine ? `<span class="spc sent" aria-label="You cheered ${esc(x.name)}">\u2764</span>`
         : `<button type="button" class="spc" data-cheer="${x.id}" aria-label="Cheer ${esc(x.name)}">\u{1F389}</button>`; };
+    const hits = (F && F.hits) || [], n = hits.length ? 2 : 3;
+    // The biggest moments; which of them show turns over each day.
+    const pool = S.items.map((it) => [it, spotLine(it)]).filter(([, l]) => l).sort((a, b) => (SPOT_W[b[0].kind] || 1) - (SPOT_W[a[0].kind] || 1)).slice(0, 6);
+    const rows = dayShuffle(pool).slice(0, n).sort((a, b) => (SPOT_W[b[0].kind] || 1) - (SPOT_W[a[0].kind] || 1));
+    const pick = state.hreact && hits.find((x) => x.id === state.hreact && x.id !== state.meId);
+    const goal = hits.length ? `<li class="spgoal"><span class="spic" aria-hidden="true">\u{1F3AF}</span><span class="spt">Hit their goal today
+        <span class="sphits">${hits.map((x) => { const mine = x.id === state.meId, sent = soc(x.id).mine;
+          return `<button type="button" class="sphit${pick && pick.id === x.id ? " on" : ""}" ${mine ? "disabled" : `data-hreact="${x.id}"`} aria-label="${mine ? "You" : `React to ${esc(x.name)}${sent ? `, you sent ${sent}` : ""}`}"><span class="fav fsm" style="--hc:hsl(${x.hue || 200} 62% 48%)">${esc(initials(x.name))}</span>${mine ? "You" : esc(firstName(x))}${sent && !mine ? ` <i>${sent}</i>` : ""}</button>`; }).join("")}</span></span></li>
+      ${pick ? `<li class="hpick" role="group" aria-label="React to ${esc(pick.name)}"><span>${esc(firstName(pick))}</span>${["\u{1F525}", "\u{1F44F}", "\u{1F4AA}", "\u{1F389}"].map((e) =>
+        `<button type="button" class="hpe${soc(pick.id).mine === e ? " on" : ""}" data-hre="${pick.id}|${e}" aria-label="Send ${e}">${e}</button>`).join("")}</li>` : ""}` : "";
+    if (!goal && !rows.length) return "";
     return `<section class="spot" aria-label="Spotlight"><p class="feedh"><span>Spotlight</span></p>
-      <ul class="splist">${rows.map(([it, [ic, t]]) => `<li><span class="spic" aria-hidden="true">${ic}</span><span class="spt">${t}</span>${cheer(it)}</li>`).join("")}</ul></section>`;
+      <ul class="splist">${goal}${rows.map(([it, [ic, t]]) => `<li><span class="spic" aria-hidden="true">${ic}</span><span class="spt">${t}</span>${cheer(it)}</li>`).join("")}</ul></section>`;
   }
   // V9.7. The week in one card, all day Sunday; gone at midnight.
   function recapWeek() { return new Date().getDay() === 0 ? mondayOf(todayISO()) : null; }
@@ -5021,15 +5148,16 @@ button.jtile { cursor:pointer; }
     if (!state.recap || state.recap.week !== wk) { if (!(state.recap && state.recap.busy)) setTimeout(() => loadRecap(wk), 0); return ""; }
     const R = state.recap; if (R.busy || R.err) return "";
     const S = recapStats(R); if (!S) return "";
+    const So = recapStats(R, true) || S;   // V10.7. Real names in the shared picture.
     const snaps = (R.wins || []).filter((w) => w.thumb).slice(0, 6), md = (iso) => shortDay(iso).replace(/^[A-Za-z]+, /, "");
     return `<section class="recap" aria-label="Your tribe's week">
       <header><b>Your tribe's week</b><span>${esc(md(R.week))} \u2013 ${esc(md(shiftISO(R.week, 6)))}</span></header>
       ${R.open ? (snaps.length ? `<div class="rcgrid">${snaps.map((x) => `<span class="rct"><img src="${esc(x.thumb)}" alt="${esc(firstName(x))}'s photo"></span>`).join("")}</div>` : "")
         : `<p class="hint">\u{1F512} Log today's steps to see the week's photos.</p>`}
       <ul class="rcstats">
-        <li><span>\u{1F45F} Most steps</span><b>${esc(S.steps[0])}</b><em>${num(Math.round(S.steps[1]))}</em></li>
-        <li><span>\u2705 Most consistent</span><b>${esc(S.cons[0])}</b><em>${S.cons[1]} of 7 days</em></li>
-        ${S.back ? `<li><span>\u{1F4C8} Best comeback</span><b>${esc(S.back[0])}</b><em>${S.back[1]} \u2192 ${S.back[2]} days</em></li>` : ""}
+        <li><span>\u{1F45F} Most steps</span><b data-out="${esc(So.steps[0])}">${esc(S.steps[0])}</b><em>${num(Math.round(S.steps[1]))}</em></li>
+        <li><span>\u2705 Most consistent</span><b data-out="${esc(So.cons[0])}">${esc(S.cons[0])}</b><em>${S.cons[1]} of 7 days</em></li>
+        ${S.back ? `<li><span>\u{1F4C8} Best comeback</span><b data-out="${esc(So.back ? So.back[0] : "")}">${esc(S.back[0])}</b><em>${S.back[1]} \u2192 ${S.back[2]} days</em></li>` : ""}
       </ul>
       <button type="button" class="btn rcshare" id="recapShare">Share the week</button></section>`;
   }
@@ -5058,12 +5186,35 @@ button.jtile { cursor:pointer; }
     if (S.back) lines.push(["Best comeback", `${S.back[0]} · ${S.back[1]} → ${S.back[2]} days`]);
     return collageImage(state.group.name, `Our week · ${md(R.week)} – ${md(shiftISO(R.week, 6))}`, (R.wins || []).map((w) => w.thumb).filter(Boolean), lines);
   }
+  // V10.7. A picture of an element exactly as it looks: its styles copied
+  // inline, drawn through an SVG. If the browser won't, the old collage.
+  async function nodeImage(el, hide) {
+    const hid = hide ? [...el.querySelectorAll(hide)] : []; hid.forEach((x) => { x.dataset.was = x.style.display; x.style.display = "none"; });
+    try {
+      const r = el.getBoundingClientRect(), pad = 24, W = Math.ceil(r.width) + pad * 2, H = Math.ceil(r.height) + pad * 2;
+      const clone = el.cloneNode(true);
+      const copy = (a, b) => { if (a.nodeType !== 1) return; const cs = getComputedStyle(a); let s = ""; for (const k of cs) s += `${k}:${cs.getPropertyValue(k)};`;
+        b.setAttribute("style", s); [...a.children].forEach((c, i) => copy(c, b.children[i])); };
+      copy(el, clone); clone.querySelectorAll("[data-was]").forEach((x) => x.remove());
+      clone.querySelectorAll("[data-out]").forEach((x) => { x.textContent = x.dataset.out; });
+      const bg = getComputedStyle(document.body).backgroundColor || "#14171a";
+      const xml = new XMLSerializer().serializeToString(clone);
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"><foreignObject x="0" y="0" width="${W}" height="${H}"><div xmlns="http://www.w3.org/1999/xhtml" style="padding:${pad}px;background:${bg};width:${W}px;height:${H}px;box-sizing:border-box">${xml}</div></foreignObject></svg>`;
+      const img = await new Promise((ok, bad) => { const im = new Image(); im.onload = () => ok(im); im.onerror = bad; im.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg); });
+      const k = 2, c = document.createElement("canvas"); c.width = W * k; c.height = H * k; const g = c.getContext("2d"); g.scale(k, k);
+      g.drawImage(img, 0, 0); await new Promise((ok) => setTimeout(ok, 60)); g.clearRect(0, 0, W, H); g.drawImage(img, 0, 0);
+      const blob = await new Promise((ok) => c.toBlob(ok, "image/png"));
+      return blob ? new File([blob], "tribes-week.png", { type: "image/png" }) : null;
+    } finally { hid.forEach((x) => { x.style.display = x.dataset.was || ""; delete x.dataset.was; }); }
+  }
   async function shareRecap() {
     const R = state.recap, S = R && !R.busy && !R.err && recapStats(R, true); if (!S) return;
     const pid = (state.league && state.league.pid) || state.group.pid;
     const link = `${location.origin}${location.pathname}${pid ? "?rival=" + encodeURIComponent(pid) : ""}`;
     const text = `Our week on Tribes (${state.group.name}): most steps ${S.steps[0]} (${num(Math.round(S.steps[1]))}), most consistent ${S.cons[0]} (${S.cons[1]} of 7 days)${S.back ? `, best comeback ${S.back[0]}` : ""}. Start your family's tribe \u{1F45F} ${link}`;
-    let file = null; try { file = await recapImage(R, S); } catch {}
+    let file = null; try { const el = document.querySelector(".recap"); file = el ? await nodeImage(el, ".rcshare") : null; } catch {}
+    if (!file) { try { file = await recapImage(R, S); } catch {} }
+    window.__lastShareFile = file;
     try {
       if (file && navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], text }); return; }
       if (navigator.share) { await navigator.share({ text }); return; }
@@ -5071,39 +5222,32 @@ button.jtile { cursor:pointer; }
     try { await navigator.clipboard.writeText(text); toast("Copied. Paste it in WhatsApp.", "ok"); }
     catch { window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank"); }
   }
+  // V10.7. Each circle says the day at a glance. Ring: green with a \u2713 =
+  // met their goal, gold = logged, grey dashed = not yet. Inside: today's
+  // win (the photo, or a written win's colour), otherwise initials. Share
+  // has its own button, so a tap on your circle always opens your day.
   function facesRow() {
     const G = state.garden; if (!G) return "";
     const peopleById = Object.fromEntries((state.people || []).map((p) => [p.id, p]));
-    // V8.3. You first, ringed, with your own flame (it left the top bar),
-    // then everyone who logged in the last 14 days, highest streak first.
     const mineX = (G.people || []).find((x) => x.id === state.meId);
     const list = (mineX ? [mineX] : []).concat((G.people || []).filter((x) => x.id !== state.meId && x.recent)
       .sort((a, b) => ((b.streak || 0) - (a.streak || 0)) || a.name.localeCompare(b.name)));
     if (!list.length) return "";
     const myS = (state.today && state.today.streak) || {};
+    const share = myWins() >= 3 ? "" : `<span class="facew"><button type="button" class="faceshare" id="faceAdd" aria-label="Share a win"><span aria-hidden="true">+</span><small>Share</small></button></span>`;
     return `<div class="faceswrap">
-      <div class="faces" role="list" aria-label="Your tribe today">${list.map((x) => {
+      <div class="faces" role="list" aria-label="Your tribe today">${share}${list.map((x) => {
       const p = peopleById[x.id] || {}, ini = (x.name || "?").trim().split(/\s+/).slice(0, 2).map((w) => (w[0] || "").toUpperCase()).join("");
       const mine = x.id === state.meId, sk = mine ? (myS.n || 0) : (x.streak || 0);
-      // V8.4. At their goal today: a 🎉 beside them; one tap sends your cheer.
-      // V9.1. A ring when there's a photo (locked until you log); a 📷 on
-      // yours once you've logged; 🎉 stays as the one-tap reaction on a goal.
-      const S = soc(x.id), myR = S.mine, has = x.logged || S.photo;
-      // V9.7. Your circle has a + to share a win; others show 🎉 once they've shared or logged.
-      const ch = mine ? ((S.wins || []).length < 3 ? `<button type="button" class="fcheer fadd" id="faceAdd" aria-label="Share a win">+</button>` : "")
-        : has ? (myR ? `<span class="fcheer sent" aria-label="You cheered ${esc(x.name)}">\u2764</span>`
+      const S = soc(x.id), myR = S.mine, has = x.logged || S.photo, goal = !!x.today;
+      const ch = mine ? "" : has ? (myR ? `<span class="fcheer sent" aria-label="You cheered ${esc(x.name)}">\u2764</span>`
         : `<button type="button" class="fcheer" data-cheer="${x.id}" aria-label="Cheer ${esc(x.name)}">\u{1F389}</button>`) : "";
-      // V9.7. The circle shows their latest photo today (once you've logged).
-      const th = (S.wins || []).filter((w) => w.thumb).slice(-1)[0];
-      // V9.5. Rings: coloured = logged, story not seen yet; faded = seen;
-      // grey = not logged (tap to nudge; your own grey face opens your steps).
-      const ring = !has ? " grey" : mine ? (x.logged ? " done" : "") : (isSeen(x.id) ? " seen" : " fresh") + (x.logged ? " done" : "");
-      const act = `data-pnudge="${x.id}"`;
-      const say = mine ? `You${x.logged ? "" : ", not logged yet"}. Your day and photos`
-        : `${esc(x.name)}${has ? (isSeen(x.id) ? ", seen" : ", something new") : ", not logged yet. Nudge"}${S.photo ? ", shared a photo" : ""}`;
-      return `<span class="facew" role="listitem"><button type="button" class="face${ring}${mine ? " me" : ""}" ${act}
-        style="--hc:hsl(${p.hue || 200} 62% 48%)" aria-label="${say}${sk ? `, logged steps ${sk} days in a row` : ""}">
-        <span class="fav${th ? " pic" : ""}"${th ? ` style="background-image:url('${esc(th.thumb)}')"` : ""}>${th ? "" : esc(ini)}${x.logged ? `<i class="fck" aria-hidden="true">\u2713</i>` : ""}${!th && S.photo ? `<i class="fcam" aria-hidden="true">\u{1F4F7}</i>` : ""}</span>
+      const ws = S.wins || [], th = ws.filter((w) => w.thumb).slice(-1)[0], tw = !th && ws.length ? ws[ws.length - 1] : null;
+      const st = goal ? " st-goal" : x.logged ? " st-log" : " st-none";
+      const say = `${mine ? "You" : esc(x.name)}: ${goal ? "met their goal" : x.logged ? "logged" : "not logged yet"}${ws.length ? ", shared a win" : ""}. ${mine ? "Your day" : "See their day and comment"}`;
+      return `<span class="facew" role="listitem"><button type="button" class="face${st}${mine ? " me" : ""}${ws.length ? " haswin" : ""}" data-pnudge="${x.id}"
+        style="--hc:hsl(${p.hue || 200} 62% 48%)" aria-label="${say}${sk ? `, ${sk}-day streak` : ""}">
+        <span class="fav${th ? " pic" : ""}"${th ? ` style="background-image:url('${esc(th.thumb)}')"` : tw ? ` style="background:${winBg(tw.bg)}"` : ""}>${th ? "" : esc(ini)}</span>${goal ? `<i class="fgoal" aria-hidden="true">\u2713</i>` : ""}
         <small>${mine ? "You" : esc(x.name.split(/\s+/)[0])}</small><em class="${mine && !myS.today ? "cold" : ""}">${sk ? `\u{1F525}${sk}` : " "}</em></button>${ch}</span>`; }).join("")}</div>
 </div>`;
   }
@@ -8290,6 +8434,7 @@ button.jtile { cursor:pointer; }
         <b>${state.group.crest ? `<span class="hcrest" aria-hidden="true">${esc(state.group.crest)}</span>` : ""}${esc(state.group.name)}</b>
         ${m ? `<input type="file" id="photoFile" accept="image/*" hidden>` : ""}
         <span class="hright">
+          ${m ? `<button type="button" class="hpen" id="noteOpen" aria-label="Quick note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></button>` : ""}
           ${m ? chatBtn() : ""}
           ${m ? `<button type="button" class="hinfo${tourSeen() && !ownerNews() ? "" : " new"}" id="tourBtn" aria-label="Help and feedback">i</button>` : ""}</span>
       </div>
@@ -8319,7 +8464,6 @@ button.jtile { cursor:pointer; }
         ${challengeBar()}
         ${spotlight()}
         ${weekChart()}
-        ${hitsRail()}
         ${recapCard()}`}
         ${state.trSeg === "progress" ? "" : state.people.length ? `<button type="button" class="allnums" id="allNums" aria-expanded="${!!state.allNums}">${state.allNums ? "Hide the numbers" : "All numbers \u203a"}</button>
           ${state.allNums ? `<div class="roster"><div class="tdayrow">${nav()}<button type="button" class="hshare" id="waShare" aria-label="Share ${state.boardDay ? esc(shortDay(famDayISO())) : "today"} on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11v9h12v-9"/></svg></button></div>
@@ -8690,7 +8834,7 @@ button.jtile { cursor:pointer; }
   // V10.4. Your tribe's newest first (the server sends them newest first), then the starter ones.
   const allQuotes = () => ((state.quotes || {}).list || []).filter((q) => !q.own).map((q) => ({ k: "q" + q.id, id: q.id, t: q.t, a: q.a, s: q.s, p: q.p, f: q.f, u: q.u, n: q.n, by: q.by, own: !!q.mine, mine: true, at: q.at })).concat(quotesMixed());
   // V10.6. Insights › Family: what your tribe learned, in their own words.
-  const familyInsights = () => ((state.quotes || {}).list || []).filter((q) => q.own).map((q) => ({ k: "q" + q.id, id: q.id, t: q.t, a: q.a, p: q.p, pid: q.pid, own: !!q.mine, at: q.at }));
+  const familyInsights = () => ((state.quotes || {}).list || []).filter((q) => q.own).map((q) => ({ k: "q" + q.id, id: q.id, t: q.t, a: q.a, s: q.s, p: q.p, pid: q.pid, own: !!q.mine, at: q.at }));
   // V10.5. The starters take turns by topic, so the feed mixes from the first card.
   const quotesMixed = () => { const by = Q_PILLARS.map((p) => QUOTES0.filter((q) => q.p === p)), out = [];
     for (let i = 0; by.some((g) => i < g.length); i++) by.forEach((g) => { if (g[i]) out.push(g[i]); }); return out; };
@@ -8701,11 +8845,48 @@ button.jtile { cursor:pointer; }
     const a = xs.slice(); for (let i = a.length - 1; i > 0; i--) { h = (h * 1103515245 + 12345) >>> 0; const j = h % (i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a;
   }
   function sparksView() {
+    if (state.qSeg === undefined) { try { state.qSeg = localStorage.getItem("fhd.qseg") || "quotes"; } catch { state.qSeg = "quotes"; } }
     return `<section class="htab hcamp hquotes" aria-label="Insights"><div class="htabh"><h2>Insights</h2>${state.qSeg === "family" ? "" : `<button type="button" class="qplus" id="qAdd" aria-label="Add a quote">+</button>`}</div><p class="qtag">Replace doomscrolling with micro-learning</p>
       <div class="cfseg" role="tablist" aria-label="Quotes or family">${[["quotes", "Quotes"], ["family", "Family"]].map(([v, t]) => `<button type="button" role="tab" class="${(state.qSeg || "quotes") === v ? "on" : ""}" data-qseg="${v}" aria-selected="${(state.qSeg || "quotes") === v}">${t}</button>`).join("")}</div>
       ${state.qSeg === "family" ? familyView() : quotesView()}</section>`;
   }
+  const FAM_TAGS = ["Fitness", "Faith", "Family", "Finance", "Focus", "Foresight"];
+  const lastTag = () => { try { return localStorage.getItem("fhd.ftag") || ""; } catch { return ""; } };
+  // The note box: type, optionally tag (it remembers your last) and add a source, send.
+  function noteFields(px, D) {
+    return `<div class="ntbox${px === "ns" || String(D.t || "").trim() ? " open" : ""}" id="${px}Box"><textarea class="field nttext" id="${px}Text" rows="${px === "ns" ? 3 : 2}" maxlength="280" placeholder="Jot what you learned…" aria-label="What you learned">${esc(D.t || "")}</textarea>
+      <div class="ntrest"><div class="nttags" role="radiogroup" aria-label="Tag (optional)">${FAM_TAGS.map((t) => `<button type="button" class="qc" data-ntag="${px}|${t}" role="radio" aria-checked="${D.tag === t}" aria-pressed="${D.tag === t}">${t}</button>`).join("")}</div>
+        ${D.src !== undefined ? `<input class="field ntsrc" id="${px}Src" maxlength="160" autocomplete="off" placeholder="Source (optional)" value="${esc(D.src)}" aria-label="Source">` : ""}
+        <div class="ntbar">${D.src === undefined ? `<button type="button" class="linkbtn" data-ntsrc="${px}">+ source</button>` : "<span></span>"}<span>${px === "qn" ? `<button type="button" class="linkbtn" data-ntx="${px}">Clear</button>` : ""}<button type="button" class="btn ntgo" data-ntgo="${px}" ${D.busy ? "disabled" : ""}>${D.busy ? "Sharing…" : "Share"}</button></span></div>
+        ${D.err ? `<p class="hint bad">${esc(D.err)}</p>` : ""}</div></div>`;
+  }
+  function noteSheet() {
+    const D = state.noteSheet;
+    return `<div class="sheetbg" id="nsBg"></div><div class="stdsheet nssheet" role="dialog" aria-label="Quick note"><p class="eyebrow">Quick note \u00b7 Insights \u203a Family</p>
+      ${noteFields("ns", D)}<div class="stdbtns"><button type="button" class="btn-quiet" id="nsX">Cancel</button></div></div>`;
+  }
   function familyView() {
+    const Q = state.quotes; if (!Q || (!Q.list && !Q.err)) { if (!(Q && Q.busy)) setTimeout(() => loadQuotes(), 0); }
+    const saved = new Set((Q && Q.saved) || []), f = state.qFilter && state.qFilter !== "all" && (FAM_TAGS.includes(state.qFilter) || state.qFilter === "saved") ? state.qFilter : "", who = state.qWho || "";
+    const D = state.qMine || (state.qMine = { t: "", tag: lastTag() });
+    const all = familyInsights();
+    let xs = f === "saved" ? all.filter((q) => saved.has(q.k)) : f ? all.filter((q) => q.p === f) : all;
+    if (who) xs = xs.filter((q) => q.pid === who);
+    const writers = [...new Map(all.filter((q) => q.pid).map((q) => [q.pid, q])).values()];
+    const chip = (v, label, on) => `<button type="button" class="qc" data-qf="${esc(v)}" aria-pressed="${on}">${esc(label)}</button>`;
+    const card = (q) => { const op = state.qOpen === q.k, sv = saved.has(q.k), x = (state.people || []).find((y) => y.id === q.pid) || {};
+      return `<article class="qcard sp qfam${op ? " open" : ""}"><button type="button" class="qbody" data-qopen="${q.k}" aria-expanded="${op}">
+          <span class="qa"><span class="fav fsm" style="--hc:hsl(${x.hue || 200} 62% 48%)">${esc(initials(q.a || "?"))}</span> ${esc(q.own ? "You" : firstName({ name: q.a }))} <small>${q.p ? `\u00b7 ${esc(q.p)} ` : ""}\u00b7 ${chatAgo(q.at)}</small>${sv ? ` <i class="qsv" aria-label="Saved">\u2605</i>` : ""}</span>
+          <span class="qt">${esc(q.t)}</span>${q.s ? `<span class="qsrc">\u2014 ${esc(q.s)}</span>` : ""}</button>
+        ${op ? `<div class="qfbar"><button type="button" class="qsave${sv ? " on" : ""}" data-qsave="${q.k}" aria-pressed="${sv}">${sv ? "\u2605 Saved" : "\u2606 Save"}</button>${q.own || (Q && Q.owner) ? `<button type="button" class="linkbtn gdel" data-qdel="${q.id}">Remove</button>` : ""}</div>` : ""}</article>`; };
+    return `<section class="qnote">${noteFields("qn", D)}</section>
+      ${writers.length > 1 ? `<div class="qwho" role="group" aria-label="Whose notes">${writers.map((q) => { const x = (state.people || []).find((y) => y.id === q.pid) || {};
+        return `<button type="button" class="qwp${who === q.pid ? " on" : ""}" data-qwho="${q.pid}" aria-pressed="${who === q.pid}"><span class="fav fsm" style="--hc:hsl(${x.hue || 200} 62% 48%)">${esc(initials(q.a || "?"))}</span>${q.pid === state.meId ? "You" : esc(firstName({ name: q.a }))}</button>`; }).join("")}</div>` : ""}
+      <div class="qchips qtop" role="group" aria-label="Tag">${FAM_TAGS.map((p) => chip(p, p, f === p)).join("")}${chip("saved", "\u2605 Saved", f === "saved")}</div>
+      <div class="qlist">${xs.map(card).join("")}</div>
+      ${xs.length ? `<div class="qend"><p>That's everything${f || who ? " here" : " your family has shared"}.</p></div>` : `<div class="cfempty"><p>${f === "saved" ? "Tap \u2606 Save on one to keep it here." : "Nothing yet. Jot the first thing you learned."}</p></div>`}`;
+  }
+  function familyViewOld() {
     const Q = state.quotes; if (!Q || (!Q.list && !Q.err)) { if (!(Q && Q.busy)) setTimeout(() => loadQuotes(), 0); }
     const saved = new Set((Q && Q.saved) || []), f = state.qFilter && state.qFilter !== "all" ? state.qFilter : "", D = state.qMine || (state.qMine = { t: "", p: "" });
     let xs = familyInsights(); xs = f === "saved" ? xs.filter((q) => saved.has(q.k)) : f ? xs.filter((q) => q.p === f) : xs;
@@ -8786,18 +8967,10 @@ button.jtile { cursor:pointer; }
   }
   function wireQuotes() {
     document.querySelectorAll("[data-qfmt]").forEach((el) => el.addEventListener("click", () => { state.qFmt = state.qFmt === el.dataset.qfmt ? "" : el.dataset.qfmt; state.qOpen = null; state.qN = 15; state.qRounds = 1; render(); }));
-    document.querySelectorAll("[data-qseg]").forEach((el) => el.addEventListener("click", () => { state.qSeg = el.dataset.qseg; state.qOpen = null; state.qN = 15; state.qRounds = 1; render(); }));
-    on("qmText", "input", (e) => { if (state.qMine) state.qMine.t = e.target.value; });
-    on("qmOpen", "click", () => { state.qMine = Object.assign(state.qMine || { t: "", p: "" }, { open: true }); render(); document.getElementById("qmText")?.focus(); });
-    on("qmX", "click", () => { state.qMine = { t: "", p: "" }; render(); });
-    document.querySelectorAll("[data-qmp]").forEach((el) => el.addEventListener("click", () => { const D = state.qMine; D.t = (document.getElementById("qmText") || {}).value ?? D.t; D.p = el.dataset.qmp; D.err = null; render(); }));
-    on("qmGo", "click", async () => { const D = state.qMine; if (!D || D.busy) return; D.t = (document.getElementById("qmText") || {}).value ?? D.t;
-      if (!D.t.trim()) { D.err = "Write what you learned."; render(); return; }
-      if (!D.p) { D.err = "Pick a topic."; render(); return; }
-      D.busy = true; D.err = null; render();
-      const r = await call("app_insight_add", { p_code: state.code, p_person: state.meId, p_text: D.t, p_topic: D.p });
-      if (r.error) { D.busy = false; D.err = r.offline ? "No signal. Not shared yet." : r.error; render(); return; }
-      state.qMine = { t: "", p: "" }; toast("Shared with your tribe.", "ok"); await loadQuotes(); render(); });
+    document.querySelectorAll("[data-qseg]").forEach((el) => el.addEventListener("click", () => { state.qSeg = el.dataset.qseg; try { localStorage.setItem("fhd.qseg", state.qSeg); } catch {}
+      state.qOpen = null; state.qN = 15; state.qRounds = 1; state.qFilter = ""; state.qWho = ""; render(); }));
+    document.querySelectorAll("[data-qwho]").forEach((el) => el.addEventListener("click", () => { state.qWho = state.qWho === el.dataset.qwho ? "" : el.dataset.qwho; state.qOpen = null; render(); }));
+
     on("qRound", "click", () => { state.qRounds = (state.qRounds || 1) + 1; state.qN = (state.qN || 15) + 15; render(); });
     on("qShuf", "click", () => { state.qShuffle = !state.qShuffle; state.qN = 15; render(); });
     document.querySelectorAll("[data-qf]").forEach((el) => el.addEventListener("click", () => { state.qFilter = state.qFilter === el.dataset.qf ? "" : el.dataset.qf; state.qOpen = null; state.qN = 15; state.qRounds = 1; render(); }));
@@ -8972,13 +9145,14 @@ button.jtile { cursor:pointer; }
       <h3 class="pfhook">${esc(D.hook)}</h3>
       <p class="pfwho">${esc(D.who || "")}${n !== null ? ` \u00b7 <span class="lsevs" aria-label="Evidence: ${n} of 3 stars">${"\u2605".repeat(n)}${"\u2606".repeat(3 - n)}</span>` : ""}</p>
       <blockquote class="lsquote pfq">\u201c${esc(D.proof)}\u201d<cite>${esc(D.cite || "")}${url ? ` <a href="${esc(url)}" target="_blank" rel="noopener noreferrer">\u2197</a>` : ""}</cite></blockquote>
+      ${D.explain ? `<p class="lslab">What they found</p><p class="pffound">${esc(D.explain)}</p>` : ""}
       <div class="pfdo"><small>TODAY</small><p>${esc(D.act || "")}</p></div>
       <div class="pfbar"><button type="button" class="btn-quiet lssave${D.saved ? " on" : ""}" id="${where === "ev" ? "evSave" : "lsSave"}" aria-pressed="${!!D.saved}">${D.saved ? "\u2605 Saved" : "\u2606 Save"}</button>
         <button type="button" class="linkbtn pfmore" data-pfmore="${D.id}" aria-expanded="${open}">${open ? "Less \u2303" : "More \u2304"}</button></div>
       ${open ? `<div class="lsbody pfrest">
         <p class="lsclaim">${esc(D.claim || "")}</p>
         ${D.why ? `<p class="lslab">Why it works</p><p>${esc(D.why)}</p>` : ""}
-        ${L(D.examples).length || L(D.steps).length ? `<p class="lslab">Put it to work</p>${L(D.examples).length ? `<ul class="lsex">${L(D.examples).map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}${L(D.steps).length ? `<ol class="lssteps">${L(D.steps).map((x) => `<li>${esc(x)}</li>`).join("")}</ol>` : ""}` : ""}
+        ${L(D.steps).length ? `<p class="lslab">Put it to work</p><ol class="lssteps">${L(D.steps).map((x) => `<li>${esc(x)}</li>`).join("")}</ol>` : ""}
         ${D.evidence ? evidenceLine(D.evidence, D.fine) : ""}</div>` : ""}`;
   }
   function lessonHTML(body) {
