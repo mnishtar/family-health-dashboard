@@ -3378,6 +3378,32 @@ button.fendj b { color:var(--accent); }
 .cfnone { margin:0; padding:0 14px 14px; }
 .cfrd { font-style:normal; color:#2f9e6e; font-weight:700; }
 
+/* ---------- V11.2 ---------------------------------------------------- */
+.hbar .hleft .hchat { margin-left:2px; }
+.clan { border:1px solid var(--line); border-radius:16px; padding:12px 14px; margin:0 0 14px; background:var(--surface); }
+.cllist { list-style:none; margin:8px 0 6px; padding:0; }
+.clrow { display:flex; align-items:center; gap:10px; padding:8px 0; border-top:1px solid var(--line); }
+.clrow:first-child { border-top:none; } .clrow.mine .clmid b { color:var(--gold, #c9a45c); }
+.clplace { flex:none; width:26px; text-align:center; font-size:20px; }
+.clmid { flex:1; min-width:0; display:flex; flex-direction:column; gap:4px; } .clmid b { font-size:15px; }
+.clfaces { display:flex; flex-wrap:wrap; gap:6px; }
+.clp { display:inline-flex; align-items:center; gap:4px; font-size:13px; color:var(--ink-2); }
+.clp .fav.fsm { width:20px; height:20px; font-size:9px; } .clp.not .fav { filter:grayscale(1); opacity:.5; }
+.clend { flex:none; display:flex; flex-direction:column; align-items:flex-end; } .clend b { font-family:var(--mono); font-size:18px; } .clend small { font-size:12px; }
+.clfoot, .cllast { margin:4px 0 0; font-size:12.5px; color:var(--muted); }
+.faces .fpart { position:absolute; top:-2px; left:50%; margin-left:-34px; font-style:normal; font-size:14px; line-height:1; }
+.clanline { display:flex; align-items:center; gap:10px; width:100%; margin:0 0 6px; padding:5px 12px; border:1px solid var(--line); border-radius:14px; background:var(--surface); font:inherit; color:var(--ink); text-align:left; cursor:pointer; }
+.clanline .clmid { flex-direction:row; flex-wrap:wrap; align-items:center; gap:6px; font-size:14px; }
+.hquotes .qchips .qicon { padding:5px 9px; min-width:34px; display:inline-grid; place-items:center; font-size:16px; line-height:1; }
+.hquotes .qchips .qicon svg { width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.hquotes .qchips .qshuf.on { background:var(--ink); color:var(--ground); border-color:var(--ink); }
+.hquotes .qchips .qplus2 { font-size:18px; font-weight:400; }
+.hquotes .qfmt { margin-bottom:8px; }
+.ptile + .pinfo, .pyrow .pinfo { top:3px; right:3px; bottom:auto; width:22px; height:22px; }
+.ptile + .pinfo::before, .pyrow .pinfo::before { display:none; }
+.ptile + .pinfo span, .pyrow .pinfo span, .pyrow:nth-child(4) .pinfo span { position:absolute; inset:3px; right:auto; bottom:auto; width:16px; height:16px; border-radius:50%;
+  display:grid; place-items:center; font-size:10px; font-style:italic; color:var(--muted); border:1px solid color-mix(in oklab, var(--ink) 25%, transparent); background:var(--surface); }
+.ptile.on + .pinfo span { color:var(--sleep); border-color:var(--sleep); }
 /* ---------- V11.1 ---------------------------------------------------- */
 .hbar .hleft { display:flex; align-items:center; gap:10px; min-width:0; }
 .htname { display:flex; align-items:center; gap:2px; border:none; background:none; padding:4px 2px; cursor:pointer; color:var(--ink-2); font:inherit; min-width:0; }
@@ -3855,7 +3881,7 @@ button.jtile { cursor:pointer; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "11.1";
+  const APP_VERSION = "11.2";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -3929,7 +3955,7 @@ button.jtile { cursor:pointer; }
     "app_cycle", "app_med", "app_year", "app_work_day", "app_family", "app_ex_progress", "app_custom", "app_board", "app_lift_detail",
     "app_template", "app_lift_open", "app_lift_home",
     // V10.1. Reads, so opening them never marks the page as changed.
-    "app_feed", "app_my_tribes", "app_quotes", "app_win_img", "app_wins", "app_person_week", "app_spotlight", "app_challenge", "app_social", "app_journey", "app_recap", "app_chats"]);
+    "app_feed", "app_my_tribes", "app_quotes", "app_win_img", "app_wins", "app_person_week", "app_spotlight", "app_challenge", "app_clans", "app_social", "app_journey", "app_recap", "app_chats"]);
   async function call(fn, args) {
     if (!READS.has(fn)) state.dirty = true;
     try {
@@ -4678,6 +4704,7 @@ button.jtile { cursor:pointer; }
         document.querySelectorAll(`[data-ntag^="${px}|"]`).forEach((b) => { const on = b.dataset.ntag === px + "|" + D.tag; b.setAttribute("aria-pressed", String(on)); b.setAttribute("aria-checked", String(on)); }); }); });
     document.querySelectorAll("[data-ntsrc]").forEach((el) => el.addEventListener("click", () => { const px = el.dataset.ntsrc, D = box(px); if (!D) return; keep(px); D.src = ""; render(); document.getElementById(px + "Src")?.focus(); }));
     document.querySelectorAll("[data-ntx]").forEach((el) => el.addEventListener("click", () => { if (el.dataset.ntx === "qe") state.qEdit = null; else state.qMine = { t: "", tag: lastTag() }; render(); }));
+    on("qnOpen", "click", () => { const D = state.qMine || (state.qMine = { t: "", tag: lastTag() }); D.open = !D.open; render(); if (D.open) document.getElementById("qnText")?.focus(); });
     on("nsX", "click", () => { state.noteSheet = null; render(); }); on("nsBg", "click", () => { state.noteSheet = null; render(); });
     document.querySelectorAll("[data-ntgo]").forEach((el) => el.addEventListener("click", async () => { const px = el.dataset.ntgo, D = box(px); if (!D || D.busy) return; keep(px);
       if (!String(D.t || "").trim()) { D.err = "Write what you learned."; render(); return; }
@@ -4687,11 +4714,15 @@ button.jtile { cursor:pointer; }
       if (r.error) { D.busy = false; D.err = r.offline ? "No signal. Not saved yet." : r.error; render(); return; }
       if (px !== "qe") try { localStorage.setItem("fhd.ftag", D.tag || ""); } catch {}
       if (px === "qe") { state.qEdit = null; toast("Saved.", "ok"); await loadQuotes(); render(); return; }
-      if (px === "ns") state.noteSheet = null; else state.qMine = { t: "", tag: D.tag || "" };
+      if (px === "ns") state.noteSheet = null; else state.qMine = { t: "", tag: D.tag || "", open: false };
       toast("Shared in Insights \u203a Family.", "ok"); await loadQuotes(); render(); }));
   }
   function wireChat() {
     wireNotes(); wireTribes();
+    document.querySelectorAll("[data-buyfreeze]").forEach((el) => el.addEventListener("click", () => openModal({ title: "Buy a streak freeze?", body: "50 points. It saves your streak on the next day you miss. You can hold two.",
+      buttons: [{ label: "Buy for 50", run: async () => { const r = await call("app_freeze_buy", { p_code: state.code, p_person: state.meId });
+        if (r.error) { toast(r.offline ? "No signal." : r.error, "bad"); return; }
+        toast(`\u2744 Freeze added. You hold ${r.freezes}.`, "ok"); await Promise.all([loadToday(), loadGarden()]); render(); } }, { label: "Not now", kind: "quiet" }] })));
     clearInterval(chatTick); chatTick = null;
     on("chatOpen", "click", () => { state.chat = { thread: null }; state.person = null; render(); loadChats().then(() => { if (state.chat && !state.chat.thread) render(); }); });
     if (!state.chat) return;
@@ -5157,6 +5188,42 @@ button.jtile { cursor:pointer; }
     state.chal = r && !r.error ? Object.assign(r, { at: Date.now() }) : Object.assign({}, H || {}, { busy: false, at: Date.now() });
     if (state.view === "board" && homeTab() === "tribe") render();
   }
+  // V11.2. Clans. Each Monday the tribe is drawn into pairs (a clan each).
+  // A day earns you 1 for logging and 1 for your own goal; a clan's score
+  // is its members' average, so a pair and a single or a trio are even.
+  // Sunday's winners get +20 each. People act for each other.
+  async function loadClans(force) {
+    const K = state.clans; if (!state.meId || (!force && K && (K.busy || Date.now() - (K.at || 0) < 45000))) return;
+    state.clans = Object.assign({}, K || {}, { busy: true });
+    const r = await call("app_clans", { p_code: state.code, p_person: state.meId });
+    state.clans = r && !r.error ? Object.assign(r, { at: Date.now() }) : Object.assign({}, K || {}, { busy: false, at: Date.now() });
+    if (state.view === "board" && (homeTab() === "tribe" || homeTab() === "today")) render();
+  }
+  const PLACE = ["", "\u{1F947}", "\u{1F948}", "\u{1F949}"];
+  const fmtScore = (s) => { const v = Number(s) || 0; return v % 1 ? v.toFixed(1) : String(v); };
+  function clanCard() {
+    const K = state.clans; if (!K || !K.teams) { if (!(K && K.busy)) setTimeout(() => loadClans(), 0); return ""; }
+    if (!K.teams.length) return `<section class="clan"><p class="chalh">Clans</p><p class="chalt">Clans start on Monday once two or more of you have logged in the last two weeks.</p></section>`;
+    const left = Number(K.days_left), when = left === 0 ? "last day" : left === 1 ? "1 day left" : `${left} days left`, B = K.badges || {};
+    const row = (t) => { const me0 = t.team === K.mine;
+      return `<li class="clrow${me0 ? " mine" : ""}"><span class="clplace" aria-label="Place ${t.place}">${PLACE[t.place] || t.place}</span>
+        <span class="clmid"><b>${esc(t.name)}</b><span class="clfaces">${(t.members || []).map((x) => `<span class="clp${x.today ? "" : " not"}"><span class="fav fsm" style="--hc:hsl(${x.hue || 200} 62% 48%)">${esc(initials(x.name))}</span>${x.id === state.meId ? "You" : esc(firstName(x))}</span>`).join("")}</span></span>
+        <span class="clend"><b>${fmtScore(t.score)}</b>${t.streak ? `<small>\u{1F525}${t.streak}</small>` : ""}</span></li>`; };
+    const badges = [1, 2, 3].filter((k) => Number(B[k])).map((k) => `${PLACE[k]}\u00d7${B[k]}`).join(" ");
+    return `<section class="clan" aria-label="This week's clans"><p class="chalh">This week's clans <small>${when}</small></p>
+      <ul class="cllist">${K.teams.map(row).join("")}</ul>
+      <p class="clfoot">Each day: 1 for logging, 1 for your goal. Winners +20 each on Sunday.${badges ? ` Your badges: ${badges}` : ""}</p>
+      ${K.last && K.last.name ? `<p class="cllast">Last week: <b>${esc(K.last.name)}</b> won${K.last.names ? ` (${esc(andList((K.last.names || []).map((x) => String(x).split(/\s+/)[0])))})` : ""}.</p>` : ""}</section>`;
+  }
+  // Check in: your clan in one line; your partner's face is grey until they log.
+  function clanLine() {
+    const K = state.clans; if (!K || !K.teams) { if (!(K && K.busy)) setTimeout(() => loadClans(), 0); return ""; }
+    const t = K.teams.find((x) => x.team === K.mine); if (!t) return "";
+    const others = (t.members || []).filter((x) => x.id !== state.meId);
+    return `<button type="button" class="clanline" data-gotab="tribe" aria-label="Your clan: ${esc(t.name)}, place ${t.place}">
+      <span class="clplace">${PLACE[t.place] || t.place}</span><span class="clmid"><b>${esc(t.name)}</b> ${others.length ? "with" : "\u00b7 solo this week"} ${others.map((x) => `<span class="clp${x.today ? "" : " not"}"><span class="fav fsm" style="--hc:hsl(${x.hue || 200} 62% 48%)">${esc(initials(x.name))}</span>${esc(firstName(x))}</span>`).join(" ")}</span>
+      <span class="clend"><b>${fmtScore(t.score)}</b>${t.streak ? `<small>\u{1F525}${t.streak}</small>` : ""}</span></button>`;
+  }
   function challengeBar() {
     const H = state.chal; if (!H || H.this === undefined) { if (!(H && H.busy)) setTimeout(() => loadChallenge(), 0); return ""; }
     const now = Number(H.this) || 0, last = Number(H.last) || 0, left = Number(H.days_left), f = (x) => Math.round(x).toLocaleString();
@@ -5319,8 +5386,11 @@ button.jtile { cursor:pointer; }
     const G = state.garden; if (!G) return "";
     const peopleById = Object.fromEntries((state.people || []).map((p) => [p.id, p]));
     const mineX = (G.people || []).find((x) => x.id === state.meId);
+    // V11.2. Your clan partner(s) sit right after you, with a \u{1F91D}.
+    const K = state.clans, myT = K && K.teams && K.teams.find((t) => t.team === K.mine), partners = new Set(((myT && myT.members) || []).map((x) => x.id).filter((id) => id !== state.meId));
+    if (!K) setTimeout(() => loadClans(), 0);
     const list = (mineX ? [mineX] : []).concat((G.people || []).filter((x) => x.id !== state.meId && x.recent)
-      .sort((a, b) => ((b.streak || 0) - (a.streak || 0)) || a.name.localeCompare(b.name)));
+      .sort((a, b) => (partners.has(b.id) - partners.has(a.id)) || ((b.streak || 0) - (a.streak || 0)) || a.name.localeCompare(b.name)));
     if (!list.length) return "";
     const myS = (state.today && state.today.streak) || {};
     const share = myWins() >= 3 ? "" : `<span class="facew"><button type="button" class="faceshare" id="faceAdd" aria-label="Share a win"><span aria-hidden="true">+</span><small>Share</small></button></span>`;
@@ -5333,10 +5403,10 @@ button.jtile { cursor:pointer; }
         : `<button type="button" class="fcheer" data-cheer="${x.id}" aria-label="Cheer ${esc(x.name)}">\u{1F389}</button>`) : "";
       const ws = S.wins || [], th = ws.filter((w) => w.thumb).slice(-1)[0], tw = !th && ws.length ? ws[ws.length - 1] : null;
       const st = goal ? " st-goal" : x.logged ? " st-log" : " st-none";
-      const say = `${mine ? "You" : esc(x.name)}: ${goal ? "met their goal" : x.logged ? "logged" : "not logged yet"}${ws.length ? ", shared a win" : ""}. ${mine ? "Your day" : "See their day and comment"}`;
+      const say = `${partners.has(x.id) ? "Your clan partner, " : ""}${mine ? "You" : esc(x.name)}: ${goal ? "met their goal" : x.logged ? "logged" : "not logged yet"}${ws.length ? ", shared a win" : ""}. ${mine ? "Your day" : "See their day and comment"}`;
       return `<span class="facew" role="listitem"><button type="button" class="face${st}${mine ? " me" : ""}${ws.length ? " haswin" : ""}" data-pnudge="${x.id}"
         style="--hc:hsl(${p.hue || 200} 62% 48%)" aria-label="${say}${sk ? `, ${sk}-day streak` : ""}">
-        <span class="fav${th ? " pic" : ""}"${th ? ` style="background-image:url('${esc(th.thumb)}')"` : tw ? ` style="background:${winBg(tw.bg)}"` : ""}>${th ? "" : esc(ini)}</span>${goal ? `<i class="fgoal" aria-hidden="true">\u2713</i>` : ""}
+        <span class="fav${th ? " pic" : ""}"${th ? ` style="background-image:url('${esc(th.thumb)}')"` : tw ? ` style="background:${winBg(tw.bg)}"` : ""}>${th ? "" : esc(ini)}</span>${goal ? `<i class="fgoal" aria-hidden="true">\u2713</i>` : ""}${partners.has(x.id) ? `<i class="fpart" title="Your clan partner this week" aria-hidden="true">\u{1F91D}</i>` : ""}
         <small>${mine ? "You" : esc(x.name.split(/\s+/)[0])}</small><em class="${mine && !myS.today ? "cold" : ""}">${sk ? `\u{1F525}${sk}` : " "}</em></button>${ch}</span>`; }).join("")}</div>
 </div>`;
   }
@@ -5722,7 +5792,7 @@ button.jtile { cursor:pointer; }
     // p_me + p_tz teach the server where this phone is, on every load. A
     // family member who only ever reads the board would otherwise keep the
     // group's zone for ever and see somebody else's day.
-    const side = state.meId ? Promise.all([loadHistory(), loadVotes(true), loadHabits(), loadGarden(), loadToday(), loadCampfire(true), loadSocial(), loadChats(), loadTribes()]) : Promise.resolve();
+    const side = state.meId ? Promise.all([loadHistory(), loadVotes(true), loadHabits(), loadGarden(), loadToday(), loadCampfire(true), loadSocial(), loadChats(), loadTribes(), loadClans(true)]) : Promise.resolve();
     if (state.meId && !state.league) loadLeague();   // V7.2. The League tab opens with its answer ready.
     const res = await callRetry("app_state", { p_code: state.code,
       p_me: state.meId || null, p_tz: deviceTZ() });
@@ -8527,13 +8597,12 @@ button.jtile { cursor:pointer; }
     const meRow = ordered.find((p) => p.id === state.meId);
     const head = `
       <div class="hbar">
-        <span class="hleft">${m ? `<button type="button" class="hinfo${tourSeen() && !ownerNews() ? "" : " new"}" id="tourBtn" aria-label="Help and feedback">i</button>` : ""}
-        ${m ? `<button type="button" class="htname" id="tribesOpen" aria-label="${esc(state.group.name)}: your tribes">${state.group.crest ? `<span class="hcrest" aria-hidden="true">${esc(state.group.crest)}</span>` : ""}<b>${esc(state.group.name)}</b><i aria-hidden="true">\u25be</i></button>`
-          : `<b>${state.group.crest ? `<span class="hcrest" aria-hidden="true">${esc(state.group.crest)}</span>` : ""}${esc(state.group.name)}</b>`}</span>
+        <span class="hleft">${m ? `<button type="button" class="htname" id="tribesOpen" aria-label="${esc(state.group.name)}: your tribes">${state.group.crest ? `<span class="hcrest" aria-hidden="true">${esc(state.group.crest)}</span>` : ""}<b>${esc(state.group.name)}</b><i aria-hidden="true">\u25be</i></button>`
+          : `<b>${state.group.crest ? `<span class="hcrest" aria-hidden="true">${esc(state.group.crest)}</span>` : ""}${esc(state.group.name)}</b>`}${m ? chatBtn() : ""}</span>
         ${m ? `<input type="file" id="photoFile" accept="image/*" hidden>` : ""}
         <span class="hright">
           ${m ? `<button type="button" class="hpen" id="noteOpen" aria-label="Quick note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></button>` : ""}
-          ${m ? chatBtn() : ""}</span>
+          ${m ? `<button type="button" class="hinfo${tourSeen() && !ownerNews() ? "" : " new"}" id="tourBtn" aria-label="Help and feedback">i</button>` : ""}</span>
       </div>
       ${m ? cheerBanner() + commentsBanner() : ""}
       ${m && homePast() && (tab === "today" || tab === "me") ? `<div class="hpast" role="status"><span>Showing <b>${esc(fullDate(state.boardDay))}</b></span><button type="button" class="hpastgo" id="hToday">Back to today</button></div>` : ""}`;
@@ -8560,7 +8629,7 @@ button.jtile { cursor:pointer; }
         <div class="htabh"><button type="button" class="htabt" id="tribeGoal" aria-label="Tribe name, crest, goal and people"><h2>Tribe</h2></button></div>
         ${segTabs("trSeg", state.trSeg)}
         ${state.trSeg === "progress" ? journeyTribeBody() : `
-        ${challengeBar()}
+        ${clanCard()}
         ${spotlight()}
         ${weekChart()}
         ${recapCard()}`}
@@ -8661,7 +8730,7 @@ ${famTable(ordered)}</div>` : ""}` : roster}
     const PTS = { 30: 100, 100: 300, 365: 1000 };
     return `<div class="youcard">
         <div class="stbig"><span aria-hidden="true">\u{1F525}</span><b>${n}</b><small>day${n === 1 ? "" : "s"} in a row logging steps${S.today ? "" : " \u00b7 log today to keep it"}</small></div>
-        <p class="stline">Best <b>${S.best || 0}</b> \u00b7 Freezes <b>${"\u2744".repeat(S.freezes || 0) || "0"}</b> \u00b7 a freeze saves a missed day</p>
+        <p class="stline">Best <b>${S.best || 0}</b> \u00b7 Freezes <b>${"\u2744".repeat(S.freezes || 0) || "0"}</b> \u00b7 a freeze saves a missed day${(S.freezes || 0) < 2 ? ` \u00b7 <button type="button" class="linkbtn" data-buyfreeze="1">Buy one \u00b7 50 pts</button>` : ""}</p>
         <p class="stwag">${next ? `<b>${next - n}</b> more day${next - n === 1 ? "" : "s"} to <b>+${num(PTS[next])}</b> points (${next}-day streak)` : "Every streak bonus earned. Legend."}</p>
       </div>`;
   }
@@ -8947,7 +9016,7 @@ ${famTable(ordered)}</div>` : ""}` : roster}
   }
   function sparksView() {
     if (state.qSeg === undefined) { try { state.qSeg = localStorage.getItem("fhd.qseg") || "quotes"; } catch { state.qSeg = "quotes"; } }
-    return `<section class="htab hcamp hquotes" aria-label="Insights"><div class="htabh"><h2>Insights</h2>${state.qSeg === "family" ? "" : `<button type="button" class="qplus" id="qAdd" aria-label="Add a quote">+</button>`}</div><p class="qtag">Replace doomscrolling with micro-learning</p>
+    return `<section class="htab hcamp hquotes" aria-label="Insights"><div class="htabh"><h2>Insights</h2></div><p class="qtag">Replace doomscrolling with micro-learning</p>
       <div class="cfseg" role="tablist" aria-label="Quotes or family">${[["quotes", "Quotes"], ["family", "Family"]].map(([v, t]) => `<button type="button" role="tab" class="${(state.qSeg || "quotes") === v ? "on" : ""}" data-qseg="${v}" aria-selected="${(state.qSeg || "quotes") === v}">${t}</button>`).join("")}</div>
       ${state.qSeg === "family" ? familyView() : quotesView()}</section>`;
   }
@@ -8956,10 +9025,10 @@ ${famTable(ordered)}</div>` : ""}` : roster}
   const lastTag = () => { try { return localStorage.getItem("fhd.ftag") || ""; } catch { return ""; } };
   // The note box: type, optionally tag (it remembers your last) and add a source, send.
   function noteFields(px, D) {
-    return `<div class="ntbox${px === "ns" || String(D.t || "").trim() ? " open" : ""}" id="${px}Box"><textarea class="field nttext" id="${px}Text" rows="${px === "ns" ? 3 : 2}" maxlength="280" placeholder="Jot what you learned…" aria-label="What you learned">${esc(D.t || "")}</textarea>
+    return `<div class="ntbox${px === "ns" || D.open || String(D.t || "").trim() ? " open" : ""}" id="${px}Box"><textarea class="field nttext" id="${px}Text" rows="${px === "ns" ? 3 : 2}" maxlength="280" placeholder="Jot what you learned…" aria-label="What you learned">${esc(D.t || "")}</textarea>
       <div class="ntrest"><div class="nttags" role="radiogroup" aria-label="Tag (optional)">${FAM_TAGS.map((t) => `<button type="button" class="qc" data-ntag="${px}|${t}" role="radio" aria-checked="${D.tag === t}" aria-pressed="${D.tag === t}">${t}</button>`).join("")}</div>
         <input class="field ntsrc" id="${px}Src" maxlength="160" autocomplete="off" placeholder="Source (optional)" value="${esc(D.src || "")}" aria-label="Source, optional">
-        <div class="ntbar"><span></span><span>${px === "qn" || px === "qe" ? `<button type="button" class="linkbtn" data-ntx="${px}">${px === "qe" ? "Cancel" : "Clear"}</button>` : ""}<button type="button" class="btn ntgo" data-ntgo="${px}" ${D.busy ? "disabled" : ""}>${D.busy ? "Saving\u2026" : px === "qe" ? "Save" : "Share"}</button></span></div>
+        <div class="ntbar"><span></span><span>${px === "qn" || px === "qe" ? `<button type="button" class="linkbtn" data-ntx="${px}">Cancel</button>` : ""}<button type="button" class="btn ntgo" data-ntgo="${px}" ${D.busy ? "disabled" : ""}>${D.busy ? "Saving\u2026" : px === "qe" ? "Save" : "Share"}</button></span></div>
         ${D.err ? `<p class="hint bad">${esc(D.err)}</p>` : ""}</div></div>`;
   }
   function noteSheet() {
@@ -8979,13 +9048,13 @@ ${famTable(ordered)}</div>` : ""}` : roster}
     const card = (q) => { const op = state.qOpen === q.k, sv = saved.has(q.k), x = (state.people || []).find((y) => y.id === q.pid) || {};
       return `<article class="qcard sp qfam${op ? " open" : ""}"><button type="button" class="qbody" data-qopen="${q.k}" aria-expanded="${op}">
           <span class="qa"><span class="fav fsm" style="--hc:hsl(${x.hue || 200} 62% 48%)">${esc(initials(q.a || "?"))}</span> ${esc(q.own ? "You" : firstName({ name: q.a }))} <small>${q.p ? `\u00b7 ${esc(q.p)} ` : ""}\u00b7 ${chatAgo(q.at)}</small>${sv ? ` <i class="qsv" aria-label="Saved">\u2605</i>` : ""}</span>
-          <span class="qt">${esc(q.t)}</span>${q.s ? `<span class="qsrc">\u2014 ${esc(q.s)}</span>` : ""}</button>
+          <span class="qt">${esc(q.t)}</span>${q.s && op ? `<span class="qsrc">\u2014 ${esc(q.s)}</span>` : ""}</button>
         ${op ? `<div class="qfbar"><button type="button" class="qsave${sv ? " on" : ""}" data-qsave="${q.k}" aria-pressed="${sv}">${sv ? "\u2605 Saved" : "\u2606 Save"}</button>${q.own ? `<button type="button" class="linkbtn" data-qedit="${q.id}">Edit</button>` : ""}${q.own || (Q && Q.owner) ? `<button type="button" class="linkbtn gdel" data-qdel="${q.id}">Remove</button>` : ""}</div>` : ""}</article>`; };
     const card2 = (q) => state.qEdit && state.qEdit.id === q.id ? `<article class="qcard sp qfam qedit"><div class="qnote">${noteFields("qe", state.qEdit)}</div></article>` : card(q);
-    return `<section class="qnote">${noteFields("qn", D)}</section>
-      ${writers.length > 1 ? `<div class="qwho" role="group" aria-label="Whose notes">${writers.map((q) => { const x = (state.people || []).find((y) => y.id === q.pid) || {};
+    return `${D.open || String(D.t || "").trim() ? `<section class="qnote">${noteFields("qn", D)}</section>` : ""}
+      ${writers.length ? `<div class="qwho" role="group" aria-label="Whose notes">${writers.map((q) => { const x = (state.people || []).find((y) => y.id === q.pid) || {};
         return `<button type="button" class="qwp${who === q.pid ? " on" : ""}" data-qwho="${q.pid}" aria-pressed="${who === q.pid}"><span class="fav fsm" style="--hc:hsl(${x.hue || 200} 62% 48%)">${esc(initials(q.a || "?"))}</span>${q.pid === state.meId ? "You" : esc(firstName({ name: q.a }))}</button>`; }).join("")}</div>` : ""}
-      <div class="qchips qtop" role="group" aria-label="Tag">${FAM_TAGS.map((p) => chip(p, p, f === p)).join("")}${chip("saved", "\u2605 Saved", f === "saved")}</div>
+      <div class="qchips qtop" role="group" aria-label="Tag">${FAM_TAGS.map((p) => chip(p, p, f === p)).join("")}${chip("saved", "\u2605 Saved", f === "saved")}<button type="button" class="qc qicon qplus2" id="qnOpen" aria-label="Add a note" aria-expanded="${!!D.open}">+</button></div>
       <div class="qlist">${xs.map(card2).join("")}</div>
       ${xs.length ? `<div class="qend"><p>That's everything${f || who ? " here" : " your family has shared"}.</p></div>` : `<div class="cfempty"><p>${f === "saved" ? "Tap \u2606 Save on one to keep it here." : "Nothing yet. Jot the first thing you learned."}</p></div>`}`;
   }
@@ -9019,9 +9088,11 @@ ${famTable(ordered)}</div>` : ""}` : roster}
     let all = xs.slice(); for (let r = 1; r < rounds; r++) all = all.concat(roundShuffle(xs, r));
     const n = Math.min(all.length, state.qN || 15), more = n < all.length, shown = all.slice(0, n);
     const chip = (attr, v, label, on) => `<button type="button" class="qc" ${attr}="${esc(v)}" aria-pressed="${on}">${esc(label)}</button>`;
-    const fchips = `<div class="qchips qfmt" role="group" aria-label="Format">${Q_FMT.map((x) => chip("data-qfmt", x, x, ff === x)).join("")}
-      <button type="button" class="qc qshuf${state.qShuffle ? " on" : ""}" id="qShuf" aria-pressed="${!!state.qShuffle}" aria-label="Shuffle">\u{1F500}</button></div>`;
-    const chips = `<div class="qchips qtop" role="group" aria-label="Topic">${Q_PILLARS.map((p) => chip("data-qf", p, p, f === p)).join("")}${chip("data-qf", "saved", `\u2605 Saved${saved.size ? " " + saved.size : ""}`, f === "saved")}</div>`;
+    const fchips = `<div class="qchips qfmt" role="group" aria-label="Format">${Q_FMT.map((x) => chip("data-qfmt", x, x, ff === x)).join("")}</div>`;
+    // V11.2. Formats first; then topics, Saved, shuffle and + together.
+    const chips = `<div class="qchips qtop" role="group" aria-label="Topic">${Q_PILLARS.map((p) => chip("data-qf", p, p, f === p)).join("")}${chip("data-qf", "saved", `\u2605 Saved${saved.size ? " " + saved.size : ""}`, f === "saved")}
+      <button type="button" class="qc qicon qshuf${state.qShuffle ? " on" : ""}" id="qShuf" aria-pressed="${!!state.qShuffle}" aria-label="Shuffle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h3.5c2 0 3.2 1 4.3 2.7l2.4 4.6C14.3 16 15.5 17 17.5 17H21M17.5 4.5 21 7l-3.5 2.5M3 17h3.5c1.4 0 2.4-.5 3.2-1.4M13.8 8.4C14.6 7.5 15.6 7 17.5 7H21M17.5 14.5 21 17l-3.5 2.5"/></svg></button>
+      <button type="button" class="qc qicon qplus2" id="qAdd" aria-label="Add a quote">+</button></div>`;
     const card = (q, i) => { const op = state.qOpen === q.k + ":" + i, sv = saved.has(q.k);
       return `<article class="qcard sp${op ? " open" : ""}${sv ? " saved" : ""}">
         <button type="button" class="qbody" data-qopen="${q.k}:${i}" aria-expanded="${op}"><span class="qa">${esc(q.a || "Unknown")}${sv ? ` <i class="qsv" aria-label="Saved">\u2605</i>` : ""}</span>
@@ -9036,7 +9107,7 @@ ${famTable(ordered)}</div>` : ""}` : roster}
       : f === "saved" ? `<div class="qend"><p>That's all you've saved.</p></div>`
       : `<div class="qend"><button type="button" class="qround" id="qRound"><b>One more round of insights</b><small>(tap to load)</small></button>
           <button type="button" class="linkbtn qadd3" id="qAdd2">+ Add an insight</button></div>`;
-    return `${chips}${fchips}${add}<div class="qlist">${shown.map(card).join("")}</div>${end}`;
+    return `${fchips}${chips}${add}<div class="qlist">${shown.map(card).join("")}</div>${end}`;
   }
   function roundShuffle(xs, r) {
     let h = 2166136261 ^ r; for (const c of todayISO()) h = Math.imul(h ^ c.charCodeAt(0), 16777619) >>> 0;
@@ -9548,7 +9619,7 @@ ${famTable(ordered)}</div>` : ""}` : roster}
           ${span === "w" ? `<span class="jwk">${WD.map((d) => `<small>${d}</small>`).join("")}</span>` : ""}<span class="jhd">${cells}</span></li>`; }).join("")}</ul>
         <p class="jkey"><span><i class="hit"></i>goal hit</span><span><i class="log"></i>logged, short</span><span><i></i>not logged</span></p>`;
     const next = [30, 100, 365].find((t) => (S.n || 0) < t), PTS = { 30: 100, 100: 300, 365: 1000 };
-    const how = state.jHow ? `<div class="jhow"><p>\u{1F525} Streak <b>${S.n || 0}</b> \u00b7 best <b>${S.best || 0}</b> \u00b7 Freezes <b>${"\u2744".repeat(S.freezes || 0) || "0"}</b> (a freeze saves a missed day).</p>
+    const how = state.jHow ? `<div class="jhow"><p>\u{1F525} Streak <b>${S.n || 0}</b> \u00b7 best <b>${S.best || 0}</b> \u00b7 Freezes <b>${"\u2744".repeat(S.freezes || 0) || "0"}</b> (a freeze saves a missed day; one free each Monday, hold two).${(S.freezes || 0) < 2 ? ` <button type="button" class="linkbtn" data-buyfreeze="1">Buy one \u00b7 50 pts</button>` : ""}</p>
         ${next ? `<p><b>${next - (S.n || 0)}</b> more day${next - (S.n || 0) === 1 ? "" : "s"} to <b>+${num(PTS[next])}</b> points (${next}-day streak).</p>` : ""}
         ${mine ? `<p>${badgeSVG(mine.level, 16)} ${esc(BD(mine.level)[0])}: ${esc(moveWords(mine))}</p>` : ""}</div>` : "";
     return `<section class="jcard jall" aria-label="All your habits">${tabs}<p class="jct">${label}</p>${list}</section>
@@ -17445,7 +17516,7 @@ ${famTable(ordered)}</div>` : ""}` : roster}
       if (k === "evidence") loadCampfire();
       if (k === "sparks") loadQuotes();
       if (k === "me" || k === "tribe") loadJourney();
-      if (k === "tribe") { loadSpotlight(true); loadTribeDay(true); loadChallenge(true); }
+      if (k === "tribe") { loadSpotlight(true); loadTribeDay(true); loadClans(true); }
     }));
     on("foldBoard", "click", () => {
       try { localStorage.setItem("fhd.board", boardOpen() ? "shut" : "open"); } catch {}
