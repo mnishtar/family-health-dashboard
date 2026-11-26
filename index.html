@@ -3881,7 +3881,7 @@ button.jtile { cursor:pointer; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "11.2";
+  const APP_VERSION = "11.3";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -5212,7 +5212,7 @@ button.jtile { cursor:pointer; }
     const badges = [1, 2, 3].filter((k) => Number(B[k])).map((k) => `${PLACE[k]}\u00d7${B[k]}`).join(" ");
     return `<section class="clan" aria-label="This week's clans"><p class="chalh">This week's clans <small>${when}</small></p>
       <ul class="cllist">${K.teams.map(row).join("")}</ul>
-      <p class="clfoot">Each day: 1 for logging, 1 for your goal. Winners +20 each on Sunday.${badges ? ` Your badges: ${badges}` : ""}</p>
+      <p class="clfoot">Each day: 1 for logging, 1 for your goal. Winners +10 each on Sunday.${badges ? ` Your badges: ${badges}` : ""}</p>
       ${K.last && K.last.name ? `<p class="cllast">Last week: <b>${esc(K.last.name)}</b> won${K.last.names ? ` (${esc(andList((K.last.names || []).map((x) => String(x).split(/\s+/)[0])))})` : ""}.</p>` : ""}</section>`;
   }
   // Check in: your clan in one line; your partner's face is grey until they log.
@@ -5268,7 +5268,8 @@ button.jtile { cursor:pointer; }
         : `<button type="button" class="spc" data-cheer="${x.id}" aria-label="Cheer ${esc(x.name)}">\u{1F389}</button>`; };
     const hits = (F && F.hits) || [], n = hits.length ? 2 : 3;
     // The biggest moments; which of them show turns over each day.
-    const pool = S.items.map((it) => [it, spotLine(it)]).filter(([, l]) => l).sort((a, b) => (SPOT_W[b[0].kind] || 1) - (SPOT_W[a[0].kind] || 1)).slice(0, 6);
+    // V11.3. Not "everyone logged", "N logged all 7 days" or "up from": the week chart shows those.
+    const pool = S.items.filter((it) => !["full", "week", "up"].includes(it.kind)).map((it) => [it, spotLine(it)]).filter(([, l]) => l).sort((a, b) => (SPOT_W[b[0].kind] || 1) - (SPOT_W[a[0].kind] || 1)).slice(0, 6);
     const rows = dayShuffle(pool).slice(0, n).sort((a, b) => (SPOT_W[b[0].kind] || 1) - (SPOT_W[a[0].kind] || 1));
     const pick = state.hreact && hits.find((x) => x.id === state.hreact && x.id !== state.meId);
     const goal = hits.length ? `<li class="spgoal"><span class="spic" aria-hidden="true">\u{1F3AF}</span><span class="spt">Hit their goal today
@@ -8646,7 +8647,7 @@ ${famTable(ordered)}</div>` : ""}` : roster}
     // live in Journey.)
     else if (tab === "me") body = `
       <section class="htab hme hmine" aria-label="You">
-        <div class="htabh"><h2>Me</h2><label class="hwho"><select id="who" aria-label="Who are you">${whoOptions}</select><i aria-hidden="true">&#9662;</i></label></div>
+        <div class="htabh"><h2>Me</h2></div>
         ${copyBanner()}
         ${segTabs("meSeg", state.meSeg)}
         ${state.meSeg === "progress" ? journeyMe() : meRow ? habitGrid(meRow) : ""}
