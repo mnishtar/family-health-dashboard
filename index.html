@@ -3378,6 +3378,26 @@ button.fendj b { color:var(--accent); }
 .cfnone { margin:0; padding:0 14px 14px; }
 .cfrd { font-style:normal; color:#2f9e6e; font-weight:700; }
 
+/* ---------- V11.4b: tribes drop down ---------- */
+.tdbg { position:fixed; inset:0; z-index:60; background:transparent; }
+.tdrop { position:fixed; z-index:61; top:52px; left:12px; width:min(300px, calc(100vw - 24px)); background:var(--surface); border:1px solid var(--line); border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,.4); padding:6px; }
+.tdrop .tsrow { border-bottom:none; border-radius:10px; padding:9px 8px; }
+.tdrop .tsrow.here { background:color-mix(in oklab, var(--gold, #c9a45c) 10%, transparent); }
+.tdrop .tsrow .tscrest { font-size:20px; }
+.tdacts { display:flex; justify-content:space-between; padding:8px 8px 4px; border-top:1px solid var(--line); margin-top:4px; }
+.tdrop .tsjoin { padding:8px 4px 4px; }
+/* ---------- V11.4 ---------------------------------------------------- */
+.wkchart .wkd i[data-wkday] { cursor:pointer; }
+.qtoday { border:1px solid color-mix(in oklab, var(--gold, #c9a45c) 45%, var(--line)); border-radius:16px; padding:14px 16px; margin:0 0 14px; background:color-mix(in oklab, var(--gold, #c9a45c) 7%, var(--surface)); }
+.qtodh { margin:0 0 6px; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--gold, #c9a45c); }
+.qtodt { margin:0 0 6px; font-family:var(--display); font-size:20px; line-height:1.35; color:var(--ink); }
+.qtoda { margin:0 0 10px; font-size:13.5px; color:var(--ink-2); } .qtoda a { color:inherit; }
+.qtoday .qsave { position:static; display:inline-block; width:auto; height:auto; padding:6px 14px; border:1px solid var(--line); border-radius:999px; font-size:14px; }
+.qtoday .qsave.on { border-color:#e0b04a; }
+.pftry { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:8px; }
+.pftbtn { border:1.5px solid var(--tc); background:none; color:var(--tc); border-radius:99px; padding:5px 14px; font:inherit; font-size:13.5px; font-weight:700; cursor:pointer; }
+.pftbtn.on { background:var(--tc); color:#fff; } .pftry small { color:var(--ink-2); font-size:12.5px; }
+.cfcard .cfhook { display:block; font-style:normal; font-size:12.5px; color:var(--ink-2); line-height:1.35; margin:2px 0; }
 /* ---------- V11.2 ---------------------------------------------------- */
 .hbar .hleft .hchat { margin-left:2px; }
 .clan { border:1px solid var(--line); border-radius:16px; padding:12px 14px; margin:0 0 14px; background:var(--surface); }
@@ -3881,7 +3901,7 @@ button.jtile { cursor:pointer; }
 
   // Bump this when the file changes, so you can tell at a glance which
   // version a phone is actually running after a deploy.
-  const APP_VERSION = "11.3";
+  const APP_VERSION = "11.4";
 
   /* ---------- tiny helpers ---------------------------------------- */
   const app = document.getElementById("app");
@@ -3955,7 +3975,7 @@ button.jtile { cursor:pointer; }
     "app_cycle", "app_med", "app_year", "app_work_day", "app_family", "app_ex_progress", "app_custom", "app_board", "app_lift_detail",
     "app_template", "app_lift_open", "app_lift_home",
     // V10.1. Reads, so opening them never marks the page as changed.
-    "app_feed", "app_my_tribes", "app_quotes", "app_win_img", "app_wins", "app_person_week", "app_spotlight", "app_challenge", "app_clans", "app_social", "app_journey", "app_recap", "app_chats"]);
+    "app_feed", "app_my_tribes", "app_quotes", "app_win_img", "app_wins", "app_person_week", "app_spotlight", "app_challenge", "app_clans", "app_week_steps", "app_social", "app_journey", "app_recap", "app_chats"]);
   async function call(fn, args) {
     if (!READS.has(fn)) state.dirty = true;
     try {
@@ -4835,24 +4855,25 @@ button.jtile { cursor:pointer; }
       <button type="button" class="btn-quiet" id="goMain">Go to ${esc(mainTribeName())}</button></div>`;
   }
   const goTribe = (t) => { try { localStorage.setItem("fhd.me." + t.code, t.me); } catch {} location.search = "?g=" + encodeURIComponent(t.code); };
+  // V11.4. Your tribes drop down from the tribe name: tap one to switch.
   function tribesSheet() {
     const T = state.tribes, J = state.tribeJoin || {};
-    return `<div class="sheetbg" id="tsBg"></div>
-      <div class="stdsheet tssheet" role="dialog" aria-label="Your tribes"><p class="eyebrow">Your tribes</p>
-        ${!T ? `<p class="hint">Loading\u2026</p>` : `<ul class="tslist">${(T.tribes || []).map((t) => `<li><button type="button" class="tsrow${t.here ? " here" : ""}" data-tgo="${esc(t.code)}">
-            <span class="tscrest" aria-hidden="true">${t.crest ? esc(t.crest) : "\u{1F3D5}\ufe0f"}</span><span class="tsmid"><b>${esc(t.name)}</b><small>${t.people} ${t.people === 1 ? "person" : "people"} \u00b7 ${t.main ? "your main tribe, you log here" : "linked: your numbers come from your main tribe"}</small></span>${t.here ? `<i aria-label="You are here">\u2713</i>` : ""}</button></li>`).join("")}</ul>`}
-        <div class="tsacts"><button type="button" class="btn" id="tsStart">+ Start a new tribe</button>
-          ${J.open ? `<form class="tsjoin" id="tsJoin"><input class="field" id="tsJoinIn" autocomplete="off" placeholder="Paste their link or code" aria-label="Their link or code" value="${esc(J.v || "")}"><button type="submit" class="btn-quiet">Open</button></form>${J.err ? `<p class="hint bad">${esc(J.err)}</p>` : ""}`
-            : `<button type="button" class="btn-quiet" id="tsJoinOpen">Join another tribe</button>`}</div>
-        <p class="hint">In another tribe you're a linked copy: your steps and habits show there automatically, and your photos stay in the tribe you post them in.</p>
-        <div class="stdbtns"><button type="button" class="btn-quiet" id="tsX">Close</button></div></div>`;
+    return `<div class="tdbg" id="tdBg"></div>
+      <div class="tdrop" role="menu" aria-label="Your tribes">
+        ${!T ? `<p class="hint">Loading\u2026</p>` : (T.tribes || []).map((t) => `<button type="button" role="menuitem" class="tsrow${t.here ? " here" : ""}" data-tgo="${esc(t.code)}">
+            <span class="tscrest" aria-hidden="true">${t.crest ? esc(t.crest) : "\u{1F3D5}\ufe0f"}</span><span class="tsmid"><b>${esc(t.name)}</b><small>${t.main ? "main \u00b7 you log here" : "linked"}</small></span>${t.here ? `<i aria-label="You are here">\u2713</i>` : ""}</button>`).join("")}
+        ${J.open ? `<form class="tsjoin" id="tsJoin"><input class="field" id="tsJoinIn" autocomplete="off" placeholder="Paste their link or code" aria-label="Their link or code" value="${esc(J.v || "")}"><button type="submit" class="btn-quiet">Open</button></form>${J.err ? `<p class="hint bad">${esc(J.err)}</p>` : ""}`
+          : `<div class="tdacts"><button type="button" class="linkbtn" id="tsStart">+ Start a tribe</button><button type="button" class="linkbtn" id="tsJoinOpen">Join one</button></div>`}
+      </div>`;
   }
   function wireTribes() {
     on("tribesOpen", "click", () => { state.chat = null; state.person = null; state.tribesOpen = true; state.tribeJoin = null; render(); loadTribes().then(render); });
     on("goMain", "click", () => { const t = ((state.tribes || {}).tribes || []).find((x) => x.main); if (t) goTribe(t); });
     if (!state.tribesOpen) return;
     const shut = () => { state.tribesOpen = false; render(); };
-    on("tsX", "click", shut); on("tsBg", "click", shut);
+    const nm = document.getElementById("tribesOpen"), dd = document.querySelector(".tdrop");
+    if (nm && dd) { const r = nm.getBoundingClientRect(); dd.style.top = Math.round(r.bottom + 6) + "px"; dd.style.left = Math.round(Math.max(12, r.left)) + "px"; }
+    on("tdBg", "click", shut);
     document.querySelectorAll("[data-tgo]").forEach((el) => el.addEventListener("click", () => {
       const t = ((state.tribes || {}).tribes || []).find((x) => x.code === el.dataset.tgo); if (!t) return; if (t.here) { shut(); return; } goTribe(t); }));
     on("tsStart", "click", () => { location.href = location.pathname + "?start=1"; });
@@ -5135,15 +5156,17 @@ button.jtile { cursor:pointer; }
       .sort((a, b) => (b.id === state.meId) - (a.id === state.meId) || (b.days || []).length - (a.days || []).length || (b.streak || 0) - (a.streak || 0) || a.name.localeCompare(b.name));
     const T = state.tday; if (!T || Date.now() - (T.at || 0) > 45000) setTimeout(() => loadTribeDay(), 0);
     const met = (T && T.met) || {};
+    const WS = (state.wsteps && state.wsteps.steps) || {};
+    if (!state.wsteps || Date.now() - (state.wsteps.at || 0) > 45000) setTimeout(() => loadWeekSteps(), 0);
     const row = (x) => { const mine = x.id === state.meId, ds = new Set(x.days || []), ms = new Set(met[x.id] || []);
-      // V10.2. ✓ = at their step goal, ● = logged, ○ = missed.
-      const cells = WD.map((d, i) => `<i class="${i + 1 > dow ? "fut" : ms.has(i + 1) ? "met" : ds.has(i + 1) ? "on" : "off"}${i + 1 === dow ? " now" : ""}">${ms.has(i + 1) && i + 1 <= dow ? "\u2713" : ""}</i>`).join("");
+      // V10.2. ✓ = at their step goal, ● = logged, ○ = missed. V11.4: tap one for that day's steps.
+      const cells = WD.map((d, i) => `<i class="${i + 1 > dow ? "fut" : ms.has(i + 1) ? "met" : ds.has(i + 1) ? "on" : "off"}${i + 1 === dow ? " now" : ""}"${i + 1 > dow ? "" : ` data-wkday="${x.id}|${i + 1}"`}>${ms.has(i + 1) && i + 1 <= dow ? "\u2713" : ""}</i>`).join("");
       // V10.1. Everyone's flame beside their row; grey until they log today.
       const fire = `<span class="wkfire${x.logged ? "" : " cold"}" aria-label="${x.streak || 0}-day streak">\u{1F525}${x.streak || 0}</span>`;
       const end = x.logged ? `<span class="wkend">${fire}</span>`
         : `<span class="wkend">${fire}${mine ? `<button type="button" class="wkact" data-go="steps">Log</button>`
         : `<button type="button" class="wkact${soc(x.id).nudged ? " done" : ""}" data-pnudge="${x.id}">${soc(x.id).nudged ? "Nudged" : "Nudge"}</button>`}</span>`;
-      return `<li><button type="button" class="wkn" data-pnudge="${x.id}" aria-label="${mine ? "You" : esc(x.name)}: ${ds.size} of ${dow} days logged this week">${mine ? "You" : esc(firstName(x))}</button><span class="wkd" aria-hidden="true">${cells}</span>${end}</li>`; };
+      return `<li><button type="button" class="wkn" data-pnudge="${x.id}" aria-label="${mine ? "You" : esc(x.name)}: ${ds.size} of ${dow} days logged this week">${mine ? "You" : esc(firstName(x))}</button><span class="wkd">${cells}</span>${end}</li>`; };
     const lg = (G.people || []).filter((x) => (x.id === state.meId || x.recent) && x.logged).length, all = (G.people || []).filter((x) => x.id === state.meId || x.recent).length;
     return `<section class="wkchart" aria-label="Steps this week: who logged and who hit their goal">
       <p class="feedh"><span>\u{1F45F} Steps this week</span><span class="wktoday">today <b>${lg}/${all}</b></span></p>
@@ -5164,6 +5187,13 @@ button.jtile { cursor:pointer; }
     const r = await call("app_tribe_day", { p_code: state.code, p_person: state.meId });
     state.tday = r && !r.error ? Object.assign(r, { at: Date.now() }) : Object.assign({}, T || {}, { busy: false, at: Date.now() });
     if (state.view === "board" && homeTab() === "tribe") render();
+  }
+  // V11.4. Each day's steps this week, for the week chart's dots.
+  async function loadWeekSteps() {
+    if (!state.meId || (state.wsteps && state.wsteps.busy)) return;
+    state.wsteps = Object.assign({}, state.wsteps || {}, { busy: true });
+    const r = await call("app_week_steps", { p_code: state.code, p_person: state.meId });
+    state.wsteps = r && !r.error ? { steps: r.steps || {}, at: Date.now() } : Object.assign({}, state.wsteps, { busy: false, at: Date.now() });
   }
   // Who reached their step goal today: the ones to celebrate, not just who logged.
   function hitsRail() {
@@ -5388,8 +5418,7 @@ button.jtile { cursor:pointer; }
     const peopleById = Object.fromEntries((state.people || []).map((p) => [p.id, p]));
     const mineX = (G.people || []).find((x) => x.id === state.meId);
     // V11.2. Your clan partner(s) sit right after you, with a \u{1F91D}.
-    const K = state.clans, myT = K && K.teams && K.teams.find((t) => t.team === K.mine), partners = new Set(((myT && myT.members) || []).map((x) => x.id).filter((id) => id !== state.meId));
-    if (!K) setTimeout(() => loadClans(), 0);
+    const partners = new Set();   // V11.4: clans (weekly pairs) are gone.
     const list = (mineX ? [mineX] : []).concat((G.people || []).filter((x) => x.id !== state.meId && x.recent)
       .sort((a, b) => (partners.has(b.id) - partners.has(a.id)) || ((b.streak || 0) - (a.streak || 0)) || a.name.localeCompare(b.name)));
     if (!list.length) return "";
@@ -5449,6 +5478,10 @@ button.jtile { cursor:pointer; }
       const h = ((state.tday || {}).hits || []).find((x) => x.id === id); if (h) h.cheered = true;
       loadSocial().then(render);
     }));
+    document.querySelectorAll("[data-wkday]").forEach((el) => el.addEventListener("click", () => {
+      const [id, d] = el.dataset.wkday.split("|"), v = (((state.wsteps || {}).steps || {})[id] || {})[d], x = gpx(id) || {};
+      const who = id === state.meId ? "You" : firstName(x), day = ["", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][Number(d)];
+      toast(`${who} \u00b7 ${day}: ${v === undefined || v === null ? "not logged" : num(Math.round(Number(v))) + " steps"}${el.classList.contains("met") ? " \u00b7 goal hit \u2713" : ""}`); }));
     document.querySelectorAll("[data-hreact]").forEach((el) => el.addEventListener("click", () => { state.hreact = state.hreact === el.dataset.hreact ? null : el.dataset.hreact; render(); }));
     document.querySelectorAll("[data-hre]").forEach((el) => el.addEventListener("click", async () => {
       const [id, e] = el.dataset.hre.split("|"), S = soc(id), was = S.mine;
@@ -5793,7 +5826,7 @@ button.jtile { cursor:pointer; }
     // p_me + p_tz teach the server where this phone is, on every load. A
     // family member who only ever reads the board would otherwise keep the
     // group's zone for ever and see somebody else's day.
-    const side = state.meId ? Promise.all([loadHistory(), loadVotes(true), loadHabits(), loadGarden(), loadToday(), loadCampfire(true), loadSocial(), loadChats(), loadTribes(), loadClans(true)]) : Promise.resolve();
+    const side = state.meId ? Promise.all([loadHistory(), loadVotes(true), loadHabits(), loadGarden(), loadToday(), loadCampfire(true), loadSocial(), loadChats(), loadTribes()]) : Promise.resolve();
     if (state.meId && !state.league) loadLeague();   // V7.2. The League tab opens with its answer ready.
     const res = await callRetry("app_state", { p_code: state.code,
       p_me: state.meId || null, p_tz: deviceTZ() });
@@ -8630,7 +8663,6 @@ button.jtile { cursor:pointer; }
         <div class="htabh"><button type="button" class="htabt" id="tribeGoal" aria-label="Tribe name, crest, goal and people"><h2>Tribe</h2></button></div>
         ${segTabs("trSeg", state.trSeg)}
         ${state.trSeg === "progress" ? journeyTribeBody() : `
-        ${clanCard()}
         ${spotlight()}
         ${weekChart()}
         ${recapCard()}`}
@@ -8647,7 +8679,7 @@ ${famTable(ordered)}</div>` : ""}` : roster}
     // live in Journey.)
     else if (tab === "me") body = `
       <section class="htab hme hmine" aria-label="You">
-        <div class="htabh"><h2>Me</h2></div>
+        <div class="htabh"><h2>Me</h2><label class="hwho"><select id="who" aria-label="Who are you">${whoOptions}</select><i aria-hidden="true">&#9662;</i></label></div>
         ${copyBanner()}
         ${segTabs("meSeg", state.meSeg)}
         ${state.meSeg === "progress" ? journeyMe() : meRow ? habitGrid(meRow) : ""}
@@ -8958,7 +8990,7 @@ ${famTable(ordered)}</div>` : ""}` : roster}
     // V8.5. Locked: the title shows, the card is dimmed, a lock instead of the time.
     // V10.5. Everything is open.
     return `<button type="button" class="cfcard" data-lesson="${x.id}" style="--tc:${hue}" aria-label="${esc(x.title)}">
-      <span class="cfic" aria-hidden="true">${icon}</span><b>${esc(x.title)}</b>
+      <span class="cfic" aria-hidden="true">${icon}</span><b>${esc(x.title)}</b>${x.hook ? `<em class="cfhook">${esc(x.hook)}</em>` : ""}
       <small>${x.read ? `<i class="cfrd">\u2713 Read</i>` : "1 min"}${x.new ? ` <i class="cfnew">New</i>` : ""}${x.saved ? ` <i class="cfsv" aria-label="Saved">\u2605</i>` : ""}</small></button>`;
   }
   // V10.1. Quotes: micro-learning instead of doomscrolling. A handful of
@@ -9108,8 +9140,15 @@ ${famTable(ordered)}</div>` : ""}` : roster}
       : f === "saved" ? `<div class="qend"><p>That's all you've saved.</p></div>`
       : `<div class="qend"><button type="button" class="qround" id="qRound"><b>One more round of insights</b><small>(tap to load)</small></button>
           <button type="button" class="linkbtn qadd3" id="qAdd2">+ Add an insight</button></div>`;
-    return `${fchips}${chips}${add}<div class="qlist">${shown.map(card).join("")}</div>${end}`;
+    // V11.4. Today's quote: one, picked fresh each day, pinned on top.
+    let top = "";
+    if (!f && !ff && pool.length) { const tq = pool[dayIndex(pool.length)], sv = saved.has(tq.k);
+      top = `<article class="qtoday"><p class="qtodh">Today's quote</p><p class="qtodt">${esc(tq.t.replace(/^[\u201c"]+|[\u201d"]+$/g, ""))}</p>
+        <p class="qtoda">\u2014 ${esc(tq.a || "")}${tq.s ? `, <span>${safeUrl(tq.u) ? `<a href="${esc(tq.u)}" target="_blank" rel="noopener noreferrer">${esc(tq.s)}</a>` : esc(tq.s)}</span>` : ""}</p>
+        <button type="button" class="qsave${sv ? " on" : ""}" data-qsave="${tq.k}" aria-pressed="${sv}">${sv ? "\u2605 Saved" : "\u2606 Save"}</button></article>`; }
+    return `${fchips}${chips}${add}${top}<div class="qlist">${shown.map(card).join("")}</div>${end}`;
   }
+  const dayIndex = (n) => { let h = 7; for (const c of todayISO()) h = (Math.imul(h, 31) + c.charCodeAt(0)) >>> 0; return h % n; };
   function roundShuffle(xs, r) {
     let h = 2166136261 ^ r; for (const c of todayISO()) h = Math.imul(h ^ c.charCodeAt(0), 16777619) >>> 0;
     const a = xs.slice(); for (let i = a.length - 1; i > 0; i--) { h = (Math.imul(h, 1103515245) + 12345) >>> 0; const j = h % (i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a;
@@ -9324,7 +9363,9 @@ ${famTable(ordered)}</div>` : ""}` : roster}
       <p class="pfwho">${esc(D.who || "")}${n !== null ? ` \u00b7 <span class="lsevs" aria-label="Evidence: ${n} of 3 stars">${"\u2605".repeat(n)}${"\u2606".repeat(3 - n)}</span>` : ""}</p>
       <blockquote class="lsquote pfq">\u201c${esc(D.proof)}\u201d<cite>${esc(D.cite || "")}${url ? ` <a href="${esc(url)}" target="_blank" rel="noopener noreferrer">\u2197</a>` : ""}</cite></blockquote>
       ${D.explain ? `<p class="lslab">What they found</p><p class="pffound">${esc(D.explain)}</p>` : ""}
-      <div class="pfdo"><small>TODAY</small><p>${esc(D.act || "")}</p></div>
+      <div class="pfdo"><small>TODAY</small><p>${esc(D.act || "")}</p>
+        <div class="pftry"><button type="button" class="pftbtn${D.tried ? " on" : ""}" data-ptry="${D.id}" aria-pressed="${!!D.tried}">${D.tried ? "\u2713 Tried it" : "Tried it?"}</button>
+          ${(D.tried_by || []).length ? `<small>${esc(andList((D.tried_by || []).map((x) => x === ((me() || {}).name) ? "You" : String(x).split(/\s+/)[0]).sort((a, b) => (b === "You") - (a === "You"))))} tried it today</small>` : ""}</div></div>
       <div class="pfbar"><button type="button" class="btn-quiet lssave${D.saved ? " on" : ""}" id="${where === "ev" ? "evSave" : "lsSave"}" aria-pressed="${!!D.saved}">${D.saved ? "\u2605 Saved" : "\u2606 Save"}</button>
         <button type="button" class="linkbtn pfmore" data-pfmore="${D.id}" aria-expanded="${open}">${open ? "Less \u2303" : "More \u2304"}</button></div>
       ${open ? `<div class="lsbody pfrest">
@@ -9432,6 +9473,13 @@ ${famTable(ordered)}</div>` : ""}` : roster}
     document.querySelectorAll("[data-cfseg]").forEach((el) => el.addEventListener("click", () => { state.campSeg = el.dataset.cfseg; render(); }));
     document.querySelectorAll("[data-cfsec]").forEach((el) => el.addEventListener("click", () => {
       const k = el.dataset.cfsec; state.cfOpen = Object.assign({}, state.cfOpen || {}); state.cfOpen[k] = !state.cfOpen[k]; render(); }));
+    document.querySelectorAll("[data-ptry]").forEach((el) => el.addEventListener("click", async () => {
+      const id = el.dataset.ptry, D = [state.evToday, state.lesson].map((x) => x && x.data).find((x) => x && String(x.id) === id); if (!D) return;
+      const on = !D.tried; D.tried = on; const nm = (me() || {}).name || "You";
+      D.tried_by = on ? (D.tried_by || []).concat(nm) : (D.tried_by || []).filter((x) => x !== nm); render();
+      const r = await call("app_lesson_try", { p_code: state.code, p_person: state.meId, p_id: Number(id), p_on: on });
+      if (r.error) { D.tried = !on; toast(r.offline ? "No signal." : r.error, "bad"); render(); return; }
+      D.tried_by = r.tried_by || D.tried_by; render(); }));
     document.querySelectorAll("[data-pfmore]").forEach((el) => el.addEventListener("click", () => {
       state.pfMore = state.pfMore === el.dataset.pfmore ? null : el.dataset.pfmore; render(); }));
     document.querySelectorAll("[data-evseg]").forEach((el) => el.addEventListener("click", () => { state.evSeg = el.dataset.evseg; render(); }));
@@ -17517,7 +17565,7 @@ ${famTable(ordered)}</div>` : ""}` : roster}
       if (k === "evidence") loadCampfire();
       if (k === "sparks") loadQuotes();
       if (k === "me" || k === "tribe") loadJourney();
-      if (k === "tribe") { loadSpotlight(true); loadTribeDay(true); loadClans(true); }
+      if (k === "tribe") { loadSpotlight(true); loadTribeDay(true); }
     }));
     on("foldBoard", "click", () => {
       try { localStorage.setItem("fhd.board", boardOpen() ? "shut" : "open"); } catch {}
